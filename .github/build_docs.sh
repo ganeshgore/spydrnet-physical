@@ -15,7 +15,8 @@ python3 -m pip install --upgrade --no-cache-dir \
         pybtex \
         sphinx-gallery==0.10.0 \
         matplotlib==3.4.3 \
-        networkx==2.5
+        networkx==2.5 \
+        sphinx_readable_theme==1.3.0
 
 if [ -f "docs/requirements.txt" ]; then
     pip install -r docs/requirements.txt
