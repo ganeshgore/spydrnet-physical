@@ -2,8 +2,8 @@ import os
 
 # Version information
 name = 'spydrnet_physical'
-version = "UNSPECIFIED"
-release = "UNSPECIFIED"
+version = "0.1"
+release = "alpha"
 date = "UNSPECIFIED"
 
 # Declare current release as a development release.

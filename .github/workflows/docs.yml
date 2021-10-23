@@ -1,0 +1,35 @@
+name: "Documentation building"
+on:
+  push:
+    branches:
+      - ganesh_dev
+      - main
+    paths:
+      - "docs/**"
+      - "examples/**"
+      - ".github/workflows/docs.yml"
+
+jobs:
+  build_docs:
+    runs-on: ubuntu-latest
+    container: ghcr.io/ganeshgore/gg_documentation_env:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build Documentation
+        shell: bash
+        run: |
+          bash .github/build_docs.sh
+          sed -i "/.*docs.*build.*/d" .gitignore
+          cat .gitignore
+          ls && ls docs/*
+      - name: Deploy documentation
+        if: ${{ success() }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: docs
+          publish_dir: docs/build/html
+          destination_dir: docs/
+          exclude_assets: "doctrees"

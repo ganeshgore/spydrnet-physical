@@ -63,7 +63,7 @@ if __name__ == "__main__":
         packages=setuptools.find_packages(),
         extras_require=extras_require,
         dependency_links = [
-            "git+git://https://github.com/ganeshgore/spydrnet",
+            "git+git://https://github.com/ganeshgore/spydrnet/main",
         ],
         python_requires='>=3.5',
         zip_safe=False,
