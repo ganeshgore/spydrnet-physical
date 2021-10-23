@@ -1,0 +1,42 @@
+# Documentation building enviroment
+FROM ubuntu:20.04
+LABEL mantainer="gg_documentation_env <ganesh.gore@utah.edu>"
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV APPDIR /app
+ENV LANG C.UTF-8
+
+# System dependencies
+RUN apt-get -y update && apt-get -y install \
+      software-properties-common
+
+RUN add-apt-repository ppa:git-core/ppa
+RUN apt-get -y update
+
+RUN apt-get -y install \
+      nano \
+      curl \
+      git \
+      texlive-latex-extra \
+      texlive-science \
+      texlive-pstricks \
+      make \
+      python-openssl \
+      graphviz-dev\
+      python3-venv \
+      libjpeg-dev \
+      python3-pip \
+      yosys
+
+# Install Node
+WORKDIR /tmp
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
+RUN apt-get install nodejs && npm install -g netlistsvg
+COPY .github/build_docs.sh .
+COPY docs/requirements.txt docs/requirements.txt
+RUN bash build_docs.sh
+
+RUN sed -i "s/import ensuredir.*/import ensuredir/" /tmp/buildenv/lib/python3.8/site-packages/sphinxcontrib_hdl_diagrams/__init__.py
+# Install Python tools/libs
+WORKDIR /home/docs
+CMD ["/bin/bash"]
