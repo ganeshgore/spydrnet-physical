@@ -21,11 +21,14 @@ jobs:
       - name: Build Documentation
         shell: bash
         run: |
-          bash .github/build_docs.sh
+          source /tmp/buildenv/bin/activate
+          if [ -f "docs/requirements.txt" ]; then
+            python3 -m pip install --upgrade \
+            --no-cache-dir -r docs/requirements.txt
+          fi
           cd docs && make html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore
-          ls && ls docs/*
       - name: Deploy documentation
         if: ${{ success() }}
         uses: peaceiris/actions-gh-pages@v3
