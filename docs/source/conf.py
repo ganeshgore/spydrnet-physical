@@ -12,15 +12,16 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
+
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import os
 import sys
+import pathlib
 sys.path.insert(0,os.path.abspath('../..'))
-import sphinx_readable_theme
-import spydrnet_physical as sdn
+import spydrnet as sdn
+import spydrnet_physical as sdnphy
 
 # -- Project information -----------------------------------------------------
 
@@ -29,9 +30,9 @@ copyright = '2021, University of Utah'
 author = 'The Laboratory for NanoIntegrated Systems (LNIS)'
 
 # The short X.Y version
-version = sdn.__version__
+version = sdnphy.__version__
 # The full version, including alpha/beta/rc tags
-release = sdn.__release__
+release = sdnphy.__release__
 
 numfig = True
 
@@ -56,11 +57,13 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    'sphinxcontrib_hdl_diagrams',
     # 'sphinx_gallery.gen_gallery',
 ]
 
+
 # generate autosummary pages
-autosummary_generate = True
+# autosummary_generate = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -90,9 +93,9 @@ exclude_patterns = []
 pygments_style = "sphinx"
 
 # A list of prefixs that are ignored when creating the module index. (new in Sphinx 0.6)
-# modindex_common_prefix = ["spydrnet."]
+# modindex_common_prefix = ["spydrnet_physical."]
 
-# doctest_global_setup = "import spydrnet as sdn"
+# doctest_global_setup = "import spydrnet_physical as sdnphy"
 
 # treat ``x, y : type`` as vars x and y instead of default ``y(x,) : type``
 napoleon_use_param = False
@@ -103,8 +106,8 @@ napoleon_use_param = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'readable'
-html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
+# html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
 # html_css_files = [
 #     'custom.css',
 # ]
@@ -135,7 +138,8 @@ html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'SpyDrNet'
+htmlhelp_basename = 'SpyDrNet-Physical'
+verilog_diagram_yosys = "system"
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -187,11 +191,11 @@ man_pages = [
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, 'SpyDrNet', 'SpyDrNet-Physical Documentation',
-    author, 'SpyDrNet-Physical', 'One line description of project.',
-     'Miscellaneous'),
-]
+# texinfo_documents = [
+#     (master_doc, 'SpyDrNet', 'SpyDrNet-Physical Documentation',
+#     author, 'SpyDrNet-Physical', 'One line description of project.',
+#      'Miscellaneous'),
+# ]
 
 
 # -- Options for Epub output -------------------------------------------------
@@ -215,13 +219,43 @@ rst_epilog = """
 .. |sdphy| replace:: SpyDrNet-Physical
 """
 
-# -- Options for Sphinx-Gallery ----------------------------------------------
+sphinx_gallery_conf = {
+     'examples_dirs': os.path.join('..', '..', 'examples'),   # path to your example scripts
+     'gallery_dirs': 'auto_examples',  # path to where to save gallery generated output
+     'remove_config_comments': True,
+}
 
-#TODO Add Example
-# sphinx_gallery_conf = {
-#      'examples_dirs': os.path.join('..', '..', 'examples'),   # path to your example scripts
-#      'gallery_dirs': 'auto_examples',  # path to where to save gallery generated output
-#      'remove_config_comments': True,
-# }
 
-# -- Extension configuration -------------------------------------------------
+def CollectRst():
+    verilog_dir=os.path.join('..', '..', 'spydrnet_physical', 'support_files', 'sample_verilog' )
+    out_dir = os.path.join("sample_verilog")
+    pathlib.Path(out_dir).mkdir(parents=True, exist_ok=True)
+    index_fp = open(os.path.join(out_dir, "index.rst"), "w")
+    index_fp.write("Sample Verilog Netlists\n=======================" +
+                "\n\n.. toctree::\n   :glob:\n   :maxdepth: 2\n\n   ./*")
+    for subdir, dirs, files in os.walk(verilog_dir):
+        for file in files:
+            if file.endswith(".v"):
+                basename = os.path.splitext(os.path.basename(file))[0]
+                filename = os.path.join(subdir, file)
+                print(f"subdir {subdir}")
+                print(f"file {file}")
+                print(f"basename {basename}")
+                print(f"out_dir {out_dir}")
+                print(f"filename {filename}")
+                print(os.path.join(out_dir, file+".rst"))
+                print()
+                with open(os.path.join(out_dir, basename+".rst"), "w") as fp:
+                    fp.write(
+                        f'{basename}\n' +
+                        f'=================\n\n' +
+                        f'.. hdl-diagram:: ../{filename}\n' +
+                        f'   :type: netlistsvg\n' +
+                        f'   :align: center\n' +
+                        f'\n\n' +
+                        f'.. literalinclude:: ../{filename}\n' +
+                        f'   :language: verilog\n'
+                    )
+    index_fp.close()
+
+CollectRst()

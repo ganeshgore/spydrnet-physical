@@ -2,11 +2,12 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
-SPHINXRELOAD  ?= sphinx-reload
-SOURCEDIR     = source
-BUILDDIR      = build
+SPHINXOPTS        =
+SPHINXRELOADOPTS  =
+SPHINXBUILD       = sphinx-build
+SPHINXRELOAD      ?= sphinx-reload
+SOURCEDIR         = source
+BUILDDIR          = build
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -20,7 +21,11 @@ install:
 	@pip3 install networkx
 
 reload:
-	@$(SPHINXRELOAD) . --build-dir ${BUILDDIR}
+	@$(SPHINXRELOAD) . --build-dir ${BUILDDIR} $(SPHINXRELOADOPTS)
+
+clean:
+	rm -rf source/auto_examples/ source/sample_verilog/
+
 
 .PHONY: help Makefile
 

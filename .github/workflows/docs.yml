@@ -7,12 +7,13 @@ on:
     paths:
       - "docs/**"
       - "examples/**"
+      - "spydrnet_physical/support_files/sample_verilog/**"
       - ".github/workflows/docs.yml"
 
 jobs:
   build_docs:
     runs-on: ubuntu-latest
-    container: ghcr.io/ganeshgore/gg_documentation_env:latest
+    container: ghcr.io/ganeshgore/sdpphy-docs-image:latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -21,6 +22,7 @@ jobs:
         shell: bash
         run: |
           bash .github/build_docs.sh
+          cd docs && make html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore
           ls && ls docs/*
