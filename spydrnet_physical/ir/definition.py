@@ -8,7 +8,6 @@ from itertools import combinations
 logger = logging.getLogger('spydrnet_logs')
 
 
-
 class Definition(DefinitionBase):
     """
     Extending the definitions representation
@@ -46,7 +45,9 @@ class Definition(DefinitionBase):
         '''
         Given the cable object it creates a feedthrough ports on this definition
 
-        - The new ports names as {cable_name}_{suffix}_in and {cable_name}_{suffix}_out - Direct assignment is created beetween newly added two ports
+        - The new ports names as {cable_name}_{suffix}_in and
+          {cable_name}_{suffix}_out - Direct assignment is created
+          beetween newly added two ports
 
         args:
             cable (Port): The cable for which feedthrough needs to be created
@@ -57,34 +58,27 @@ class Definition(DefinitionBase):
         '''
         inport_name = f"{cable.name}_{suffix}_in"
         outport_name = f"{cable.name}_{suffix}_out"
-        inport, outport = (
-            self.create_port(inport_name,
-                             pins=cable.size,
-                             is_scalar=cable.is_scalar,
-                             lower_index=cable.lower_index,
-                             direction=sdn.IN),
-            self.create_port(outport_name,
-                             pins=cable.size,
-                             is_scalar=cable.is_scalar,
-                             lower_index=cable.lower_index,
-                             direction=sdn.OUT))
+        inport, outport = (self.create_port(inport_name, pins=cable.size,
+                                            is_scalar=cable.is_scalar,
+                                            lower_index=cable.lower_index,
+                                            direction=sdn.IN),
+                           self.create_port(outport_name, pins=cable.size,
+                                            is_scalar=cable.is_scalar,
+                                            lower_index=cable.lower_index,
+                                            direction=sdn.OUT))
+        # Input port cable and output port cable
+        int_c = self.create_cable(inport_name, wires=cable.size)
+        out_c = self.create_cable(outport_name, wires=cable.size)
 
-        int_cable = self.create_cable(inport_name, wires=cable.size)
-        out_cable = self.create_cable(outport_name, wires=cable.size)
+        assign_lib = self._get_assignment_library()
+        assign_def = self._get_assignment_definition(assign_lib, cable.size)
+        instance = self.create_child(f"{inport_name}_{outport_name}_ft",
+                                     reference=assign_def)
 
-        assign_library = self._get_assignment_library()
-        definition = self._get_assignment_definition(
-            assign_library, cable.size)
-        instance = self.create_child(
-            f"{inport_name}_{outport_name}_ft",
-            reference=definition)
-
-        int_cable.connect_port(inport)
-        int_cable.connect_instance_port(
-            instance, next(definition.get_ports("i")))
-        out_cable.connect_port(outport)
-        out_cable.connect_instance_port(
-            instance, next(definition.get_ports("o")))
+        int_c.connect_port(inport)
+        int_c.connect_instance_port(instance, next(assign_def.get_ports("i")))
+        out_c.connect_port(outport)
+        out_c.connect_instance_port(instance, next(assign_def.get_ports("o")))
         return (inport, outport)
 
     def create_feedthrough(self, instances_list, cable):
