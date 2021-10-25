@@ -5,6 +5,12 @@ from spydrnet.ir.wire import Wire as WireBase
 class Wire(WireBase):
     ''' This class extends the default Wire class '''
 
+    def _bundle(self):
+        '''
+        Overrides the _bundle method from element class
+        '''
+        return self._cable
+
     def index(self):
         """
         if this wire is in a cable, returns the index number of the wire in the parent cable, respects down_to and lower_index parameters
