@@ -6,18 +6,20 @@ Cable
 
 Overview
 ========
-.. currentmodule:: spydrnet_physical.ir
+.. currentmodule:: spydrnet_physical.ir.cable
 .. autoclass:: Cable
+   :show-inheritance:
    :members:
 
 
-Methods
-=======
 
-.. autosummary::
-   :toctree: generated/
+.. Methods
+.. =======
 
-   Cable.get_merge_port
+.. .. autosummary::
+..    :toctree: generated/
+
+..    Cable.get_merge_port
 
 ..
    Cable.__init__

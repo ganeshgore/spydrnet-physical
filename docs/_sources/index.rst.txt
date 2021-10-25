@@ -1,22 +1,24 @@
 .. figure:: figures/spydrnet-physical-logo.svg
     :align: center
-    :width: 70%
+    :width: 50%
+    :class: main_image
 
+.. TODO: Add readme here and small snippets hoe to use
 .. .. include:: ../../README.rst
 
-.. only:: html
+.. .. only:: html
 
-    :Release: |version|
-    :Date: |today|
+..     :Release: |version|
+..     :Date: |today|
 
 .. toctree::
    :maxdepth: 1
 
    install
-   sample_verilog/index
    reference/index
+   auto_sample_verilog/index
+   auto_examples/index
 
-..    auto_examples/index
 
 Indices and tables
 ------------------

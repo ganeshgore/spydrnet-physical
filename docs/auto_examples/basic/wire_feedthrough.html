@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Definition" href="definition.html" /><link rel="prev" title="Bundle" href="bundle.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Display Netlist Information Functions" href="display_info.html" /><link rel="prev" title="Examples" href="../index.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Cable - SpyDrNet-Physical alpha documentation</title>
+        <title>Genrating feedthrough from single instance - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -139,7 +139,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -161,11 +161,11 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Install</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">API Summary</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="bundle.html">Bundle</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Cable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="definition.html">Definition</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/classes/index.html">API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/classes/bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/classes/cable.html">Cable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/classes/definition.html">Definition</a></li>
 </ul>
 </li>
 </ul>
@@ -175,9 +175,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/grid_example.html">grid_example</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/display_info.html">Display Netlist Information Functions</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="display_info.html">Display Netlist Information Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -200,73 +200,54 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="cable">
-<span id="id1"></span><h1>Cable<a class="headerlink" href="#cable" title="Permalink to this headline">¶</a></h1>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.ir.cable.</span></span><span class="sig-name descname"><span class="pre">Cable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_downto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_scalar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spydrnet.ir.cable.Cable</span></code></p>
-<p>This class extends the default Cable class</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.connect_instance_port">
-<span class="sig-name descname"><span class="pre">connect_instance_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.connect_instance_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.connect_instance_port" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connects cable to the port of the given instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>Instance</em>) – Instance to consider</p></li>
-<li><p><strong>port</strong> (<em>Port</em>) – Port to connect</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.connect_port">
-<span class="sig-name descname"><span class="pre">connect_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.connect_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.connect_port" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connects cable to the port of definition.</p>
-<p>This is internal connection to the InnerPins of the definition</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to connect</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.is_port_cable">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_port_cable</span></span><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.is_port_cable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if the wire is connected to any definition port (InnerConnection)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>true if wire belongs to definition port</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.size">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns number of wires in the cable</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Returns size of cable</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
-</section>
+          <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-basic-wire-feedthrough-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="genrating-feedthrough-from-single-instance">
+<span id="sphx-glr-auto-examples-basic-wire-feedthrough-py"></span><h1>Genrating feedthrough from single instance<a class="headerlink" href="#genrating-feedthrough-from-single-instance" title="Permalink to this headline">¶</a></h1>
+<p>This example demostrates how to generate a feedthrough wire connection for
+a given scalar or vector wires.</p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v" src="../../_images/wire_feedthrough-32-..-examples-basic-_output_wire.svg"/>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'basic_hierarchy'</span><span class="p">)</span>
+
+<span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
+<span class="n">cable0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"wire0"</span><span class="p">))</span>
+<span class="n">inst2</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_2_1"</span><span class="p">))</span>
+
+<span class="n">top</span><span class="o">.</span><span class="n">create_feedthrough</span><span class="p">(</span><span class="n">inst2</span><span class="p">,</span> <span class="n">cable0</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_output_wire.v'</span><span class="p">)</span>
+
+
+<span class="c1"># bus_in = next(top.get_cables("bus_in"))</span>
+<span class="c1"># inst1 = next(top.get_instances("inst_1_0"))</span>
+
+<span class="c1"># top.create_feedthrough(inst1, bus_in)</span>
+<span class="c1"># sdn.compose(netlist, '_output_bus.v')</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.010 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-basic-wire-feedthrough-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/3f96ffecead4a422308d92bf50862bd1/wire_feedthrough.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">wire_feedthrough.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/acff0fff9a48b325f6e7b391a1af2601/wire_feedthrough.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">wire_feedthrough.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 
         </article>
@@ -274,23 +255,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="definition.html">
+          <a class="next-page" href="display_info.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Definition</div>
+                <div class="title">Display Netlist Information Functions</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="bundle.html">
+          <a class="prev-page" href="../index.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Bundle</div>
+                <div class="title">Examples</div>
                 
               </div>
             </a>
@@ -302,7 +283,7 @@
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/reference/classes/cable.rst.txt"
+            <a class="muted-link" href="../../_sources/auto_examples/basic/wire_feedthrough.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -310,27 +291,8 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            Contents
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Cable</a><ul>
-<li><a class="reference internal" href="#overview">Overview</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

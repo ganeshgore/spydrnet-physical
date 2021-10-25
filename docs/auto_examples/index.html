@@ -3,13 +3,18 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Reference" href="../reference/index.html" /><link rel="prev" title="Install" href="../install.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Genrating feedthrough from single instance" href="basic/wire_feedthrough.html" /><link rel="prev" title="grid_example" href="../auto_sample_verilog/grid_example.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Sample Verilog Netlists - SpyDrNet-Physical alpha documentation</title>
+        <title>Examples - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     
     
 
@@ -134,7 +139,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -156,18 +161,23 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Sample Verilog Netlists</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/classes/index.html">API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/classes/cable.html">Cable</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../reference/classes/generated/spydrnet_physical.ir.Cable.get_merge_port.html">spydrnet_physical.ir.Cable.get_merge_port</a></li>
-</ul>
-</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/classes/index.html">API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/cable.html">Cable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/classes/definition.html">Definition</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/grid_example.html">grid_example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic/display_info.html">Display Netlist Information Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -190,16 +200,43 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="sample-verilog-netlists">
-<h1>Sample Verilog Netlists<a class="headerlink" href="#sample-verilog-netlists" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+          <section id="examples">
+<span id="sec-examples"></span><span id="sphx-glr-auto-examples"></span><h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>A collection of examples to introduce the functionality, features, and uses of SpyDrNet.</p>
+<div class="sphx-glr-clear"></div><section id="basic">
+<span id="sphx-glr-auto-examples-basic"></span><h2>Basic<a class="headerlink" href="#basic" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demostrates how to generate a feedthrough wire connection for a given scalar or ve..."><figure class="align-default" id="id1">
+<img alt="Genrating feedthrough from single instance" src="../_images/sphx_glr_wire_feedthrough_thumb.png"/>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text"><a class="reference internal" href="basic/wire_feedthrough.html#sphx-glr-auto-examples-basic-wire-feedthrough-py"><span class="std std-ref">Genrating feedthrough from single instance</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
 </div>
+<div class="sphx-glr-thumbcontainer" tooltip="Some example functions that can be run to display information in a netlist:     1) print the hi..."><figure class="align-default" id="id2">
+<img alt="Display Netlist Information Functions" src="../_images/sphx_glr_display_info_thumb.png"/>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text"><a class="reference internal" href="basic/display_info.html#sphx-glr-auto-examples-basic-display-info-py"><span class="std std-ref">Display Netlist Information Functions</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><div class="sphx-glr-footer class sphx-glr-footer-gallery docutils container">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/07fcc19ba03226cd3d83d4e40ec44385/auto_examples_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">auto_examples_python.zip</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/6f1e7a639e0699d6164445b55e6c116d/auto_examples_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">auto_examples_jupyter.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
 </section>
 
         </article>
@@ -207,23 +244,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../reference/index.html">
+          <a class="next-page" href="basic/wire_feedthrough.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Reference</div>
+                <div class="title">Genrating feedthrough from single instance</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../install.html">
+          <a class="prev-page" href="../auto_sample_verilog/grid_example.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Install</div>
+                <div class="title">grid_example</div>
                 
               </div>
             </a>
@@ -235,7 +272,7 @@
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/sample_verilog/index.rst.txt"
+            <a class="muted-link" href="../_sources/auto_examples/index.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -243,8 +280,29 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Examples</a><ul>
+<li><a class="reference internal" href="#basic">Basic</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

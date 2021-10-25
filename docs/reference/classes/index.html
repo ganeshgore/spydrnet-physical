@@ -3,13 +3,18 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Cable" href="cable.html" /><link rel="prev" title="Reference" href="../index.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Bundle" href="bundle.html" /><link rel="prev" title="Reference" href="../index.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>API Summary - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
 
@@ -156,18 +161,23 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Install</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">API Summary</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="cable.html">Cable</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="generated/spydrnet_physical.ir.Cable.get_merge_port.html">spydrnet_physical.ir.Cable.get_merge_port</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">API Summary</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cable.html">Cable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="definition.html">Definition</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/grid_example.html">grid_example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/display_info.html">Display Netlist Information Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -201,7 +211,7 @@
 <p>The SpyDrNet API can be used to create, analyze, and transform a netlist. Netlist are represented in memory in an Intermediate Representation. <a class="reference internal" href="#fig-exampleir"><span class="std std-numref">Fig. 1</span></a> show the representation of a simple circuit in the SpyDrNet Intermediate Representation.
 If you would like an example of using the SpyDrNet tool to create a netlist like this</p>
 <figure class="align-center" id="id2">
-<span id="fig-exampleir"></span><img alt="Example Netlist in a SpyDrNet Intermediate Representation" src="figures/ExampleCircuit.png"/>
+<span id="fig-exampleir"></span><img alt="Example Netlist in a SpyDrNet Intermediate Representation" src="../../_images/ExampleCircuit.png"/>
 <figcaption>
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">Example Netlist in the Intermediate Representaion</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </figcaption>
@@ -228,14 +238,16 @@ If you would like an example of using the SpyDrNet tool to create a netlist like
 <h2>Basic object types<a class="headerlink" href="#basic-object-types" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="bundle.html">Bundle</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bundle.html#overview">Overview</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cable.html">Cable</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cable.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cable.html#methods">Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="definition.html">Definition</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="definition.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="definition.html#methods">Methods</a></li>
 </ul>
 </li>
 </ul>
@@ -248,12 +260,12 @@ If you would like an example of using the SpyDrNet tool to create a netlist like
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="cable.html">
+          <a class="next-page" href="bundle.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Cable</div>
+                <div class="title">Bundle</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

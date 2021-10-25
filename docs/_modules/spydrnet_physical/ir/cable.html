@@ -8,7 +8,12 @@
         <title>spydrnet_physical.ir.cable - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
 
@@ -155,18 +160,23 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/classes/index.html">API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/classes/cable.html">Cable</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/classes/generated/spydrnet_physical.ir.Cable.get_merge_port.html">spydrnet_physical.ir.Cable.get_merge_port</a></li>
-</ul>
-</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/classes/index.html">API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/classes/bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/classes/cable.html">Cable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/classes/definition.html">Definition</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../auto_sample_verilog/grid_example.html">grid_example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../auto_examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../auto_examples/basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../auto_examples/basic/display_info.html">Display Netlist Information Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -197,16 +207,74 @@
         <article role="main">
           <h1>Source code for spydrnet_physical.ir.cable</h1><div class="highlight"><pre>
 <span></span><span class="sd">''' Example plugin to extend functionality '''</span>
-<span class="kn">from</span> <span class="nn">spydrnet.ir.cable</span> <span class="kn">import</span> <span class="n">CableBase</span>
+<span class="kn">from</span> <span class="nn">spydrnet.ir.cable</span> <span class="kn">import</span> <span class="n">Cable</span> <span class="k">as</span> <span class="n">CableBase</span>
+<span class="kn">from</span> <span class="nn">spydrnet.ir</span> <span class="kn">import</span> <span class="n">Port</span><span class="p">,</span> <span class="n">InnerPin</span><span class="p">,</span> <span class="n">OuterPin</span>
 
-<div class="viewcode-block" id="Cable"><a class="viewcode-back" href="../../../reference/classes/cable.html#spydrnet_physical.ir.Cable">[docs]</a><span class="k">class</span> <span class="nc">Cable</span><span class="p">(</span><span class="n">CableBase</span><span class="p">):</span>
-    <span class="sd">''' Extending definition class '''</span>
 
-<div class="viewcode-block" id="Cable.get_merge_port"><a class="viewcode-back" href="../../../reference/classes/generated/spydrnet_physical.ir.Cable.get_merge_port.html#spydrnet_physical.ir.Cable.get_merge_port">[docs]</a>    <span class="k">def</span> <span class="nf">get_merge_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"Merging from physical"</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="Cable"><a class="viewcode-back" href="../../../reference/classes/cable.html#spydrnet_physical.ir.cable.Cable">[docs]</a><span class="k">class</span> <span class="nc">Cable</span><span class="p">(</span><span class="n">CableBase</span><span class="p">):</span>
+    <span class="sd">''' This class extends the default Cable class '''</span>
 
-    <span class="c1"># def get_merge_port(self, port1, port2):</span>
-    <span class="c1">#     print("Merging ports %s and %s" % (port1, port2))</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Returns number of wires in the cable</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Returns size of cable</span>
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_port_cable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Checks if the wire is connected to any definition port (InnerConnection)</span>
+
+<span class="sd">        returns:</span>
+<span class="sd">            bool: true if wire belongs to definition port</span>
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">InnerPin</span><span class="p">)</span> <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wires</span> <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">wire</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Cable.connect_port"><a class="viewcode-back" href="../../../reference/classes/cable.html#spydrnet_physical.ir.cable.Cable.connect_port">[docs]</a>    <span class="k">def</span> <span class="nf">connect_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Connects cable to the port of definition.</span>
+
+<span class="sd">        This is internal connection to the InnerPins of the definition</span>
+
+<span class="sd">        args:</span>
+<span class="sd">            port (Port): Port to connect</span>
+<span class="sd">        '''</span>
+        <span class="k">assert</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">port</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">cables</span><span class="p">,</span> \
+            <span class="s2">"Cable and Port does not belong to same definition"</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">port</span><span class="p">,</span> <span class="n">Port</span><span class="p">),</span> <span class="s2">"Argument to connect_port should be port"</span>
+        <span class="k">assert</span> <span class="n">port</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s2">"Port has no pins"</span>
+
+        <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">wires</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">reverse</span><span class="p">:</span>
+                <span class="n">wire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">wire</span><span class="o">.</span><span class="n">index</span><span class="p">()])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">wire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">wire</span><span class="o">.</span><span class="n">index</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span></div>
+
+<div class="viewcode-block" id="Cable.connect_instance_port"><a class="viewcode-back" href="../../../reference/classes/cable.html#spydrnet_physical.ir.cable.Cable.connect_instance_port">[docs]</a>    <span class="k">def</span> <span class="nf">connect_instance_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Connects cable to the port of the given instance.</span>
+
+<span class="sd">        args:</span>
+<span class="sd">            instance (Instance): Instance to consider</span>
+<span class="sd">            port (Port): Port to connect</span>
+<span class="sd">        '''</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="n">Port</span><span class="p">),</span> \
+            <span class="s2">"Argument to connect_port should be port"</span>
+        <span class="k">assert</span> <span class="n">port</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s2">"Port has no pins"</span>
+        <span class="k">assert</span> <span class="n">port</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s2">"Port and cable size do not match"</span>
+        <span class="k">assert</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">,</span> \
+            <span class="s2">"Port </span><span class="si">%s</span><span class="s2"> in not part of instance definition </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">wires</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">port</span><span class="o">.</span><span class="n">is_downto</span><span class="p">:</span>
+                <span class="n">wire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">wire</span><span class="o">.</span><span class="n">index</span><span class="p">()]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">wire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">wire</span><span class="o">.</span><span class="n">index</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">)]])</span></div></div>
 </pre></div>
         </article>
       </div>
