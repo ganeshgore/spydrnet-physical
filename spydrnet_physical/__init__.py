@@ -8,3 +8,5 @@ __license__ = release.license
 __date__ = release.date
 __version__ = release.version
 __release__ = release.release
+
+from spydrnet_physical.utils.get_names import get_names
