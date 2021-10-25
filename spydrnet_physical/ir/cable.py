@@ -1,8 +1,11 @@
 ''' Example plugin to extend functionality '''
-from spydrnet.ir.cable import CableBase
+from spydrnet.ir.cable import Cable as CableBase
+from spydrnet.ir import Port, InnerPin, OuterPin
+
 
 class Cable(CableBase):
-    ''' Extending definition class '''
+    ''' This class extends the default Cable class '''
+
 
     def get_merge_port(self):
         print("Merging from physical")

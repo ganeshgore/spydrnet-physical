@@ -1,1 +1,1 @@
-from spydrnet_physical.ir.cable import Cable
+# Do not import ir in this Module

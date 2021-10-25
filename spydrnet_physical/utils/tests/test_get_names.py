@@ -1,7 +1,7 @@
 ''' Tst cases fro get_names method '''
 import unittest
 from spydrnet import ir
-import spydrnet_physical as sdnphy
+import spydrnet_physical.utils.get_names as get_names
 
 
 class TestPin(unittest.TestCase):
@@ -17,11 +17,11 @@ class TestPin(unittest.TestCase):
     def test_get_names(self):
         ''' Test correctness of retruned string '''
         # Single object
-        self.assertEqual(["Cable0", ], sdnphy.get_names(self.cable))
+        self.assertEqual(["Cable0", ], get_names(self.cable))
         # Iterarable objects
         self.assertEqual(["Cable0", "Port0", "Definition0", "Instance0"],
-                         sdnphy.get_names([self.cable, self.port,
+                         get_names([self.cable, self.port,
                                            self.definition, self.instance]))
         # Genrator object
         self.assertEqual(["Port0", ],
-                         sdnphy.get_names(self.definition.get_ports()))
+                         get_names(self.definition.get_ports()))

@@ -1,5 +1,8 @@
 # pylint: skip-file
 # Release data
+import os
+import glob
+from spydrnet.parsers import parse
 from spydrnet_physical import release
 
 __author__ = '%s <%s>' % (release.authors['gore'])
@@ -9,4 +12,4 @@ __date__ = release.date
 __version__ = release.version
 __release__ = release.release
 
-from spydrnet_physical.utils.get_names import get_names
+base_dir = os.path.dirname(os.path.abspath(__file__))
