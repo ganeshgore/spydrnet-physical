@@ -18,11 +18,11 @@ install:
 	@pip3 install -U -r requirements.txt
 
 reload:
-	@$(SPHINXRELOAD) "$(SOURCEDIR)" "${BUILDDIR}" --re-ignore "source\/.*" \
+	@$(SPHINXRELOAD) "$(SOURCEDIR)" "${BUILDDIR}" \
 	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
 
 clean:
-	rm -rf source/auto_* source/reference/classes/generated
+	rm -rf build source/auto_*
 
 
 .PHONY: help Makefile

@@ -4,7 +4,7 @@ from spydrnet import ir
 import spydrnet_physical.utils.get_names as get_names
 
 
-class TestPin(unittest.TestCase):
+class TestGetNames(unittest.TestCase):
     ''' Test case class '''
 
     def setUp(self):
