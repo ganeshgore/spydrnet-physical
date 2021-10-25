@@ -13,3 +13,13 @@ __version__ = release.version
 __release__ = release.release
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
+
+example_netlist_names = list()
+for filename in glob.glob(os.path.join(base_dir, 'support_files', 'sample_verilog', "*.v")):
+    basename = os.path.basename(filename)
+    example_netlist_names.append(basename[:basename.index('.')])
+example_netlist_names.sort()
+
+def load_netlist_by_name(name):
+    assert name in example_netlist_names, "Example netlist not found"
+    return parse(os.path.join(base_dir, 'support_files', 'sample_verilog', name + ".v"))
