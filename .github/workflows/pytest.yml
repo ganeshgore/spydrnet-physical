@@ -31,3 +31,6 @@ jobs:
         pip --version
         pip freeze
         ls && pwd
+    - name: Check Installation
+      run: |
+        python setup.py install --user
