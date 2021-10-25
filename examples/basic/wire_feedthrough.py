@@ -28,8 +28,8 @@ top.create_feedthrough(inst2, cable0)
 sdn.compose(netlist, '_output_wire.v')
 
 
-bus_in = next(top.get_cables("bus_in"))
-inst1 = next(top.get_instances("inst_1_0"))
+# bus_in = next(top.get_cables("bus_in"))
+# inst1 = next(top.get_instances("inst_1_0"))
 
-top.create_feedthrough(inst1, bus_in)
-sdn.compose(netlist, '_output_bus.v')
+# top.create_feedthrough(inst1, bus_in)
+# sdn.compose(netlist, '_output_bus.v')
