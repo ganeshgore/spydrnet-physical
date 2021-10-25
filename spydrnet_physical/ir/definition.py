@@ -41,7 +41,8 @@ class Definition(DefinitionBase):
             port.remove_pin(pin)
         self._ports.remove(port)
 
-    def create_feedthroughs_ports(self, cable, suffix="ft"):
+    def create_feedthroughs_ports(self, cable, suffix="ft",
+                                        get_names=lambda x: None):
         '''
         Given the cable object it creates a feedthrough ports on this definition
 
@@ -52,12 +53,14 @@ class Definition(DefinitionBase):
         args:
             cable (Port): The cable for which feedthrough needs to be created
             suffix (str): Sufffix used for the port naming
+            get_names(callable): function to return custom names
+                             get_names(sdn.IN or sdn.out)
 
         Returns:
             tuple: Feedthrough port (inport and outport)
         '''
-        inport_name = f"{cable.name}_{suffix}_in"
-        outport_name = f"{cable.name}_{suffix}_out"
+        inport_name = get_names(sdn.IN) or f"{cable.name}_{suffix}_in"
+        outport_name = get_names(sdn.OUT) or f"{cable.name}_{suffix}_out"
         inport, outport = (self.create_port(inport_name, pins=cable.size,
                                             is_scalar=cable.is_scalar,
                                             lower_index=cable.lower_index,
