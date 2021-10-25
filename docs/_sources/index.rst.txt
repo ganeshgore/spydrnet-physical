@@ -11,6 +11,9 @@
 ..     :Release: |version|
 ..     :Date: |today|
 
+SpyDrNet-Physical Documentation
+-------------------------------
+
 .. toctree::
    :maxdepth: 1
 
