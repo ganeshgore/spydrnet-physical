@@ -215,7 +215,19 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">''' Returns size of the bundle '''</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">())</span></div>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">())</span>
+
+<div class="viewcode-block" id="Bundle.get_index"><a class="viewcode-back" href="../../../reference/classes/bundle.html#spydrnet_physical.ir.bundle.Bundle.get_index">[docs]</a>    <span class="k">def</span> <span class="nf">get_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+        <span class="sd">''' Returns the python index of element '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">element</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Bundle.get_verilog_index"><a class="viewcode-back" href="../../../reference/classes/bundle.html#spydrnet_physical.ir.bundle.Bundle.get_verilog_index">[docs]</a>    <span class="k">def</span> <span class="nf">get_verilog_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+        <span class="sd">''' Returns the verilog index of element '''</span>
+        <span class="n">indx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_downto</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="n">indx</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_index</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">indx</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower_index</span></div></div>
 </pre></div>
         </article>
       </div>
