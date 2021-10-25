@@ -36,5 +36,6 @@ Basic object types
 .. toctree::
    :maxdepth: 2
 
+   bundle
    cable
    definition

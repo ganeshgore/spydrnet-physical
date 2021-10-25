@@ -6,18 +6,7 @@ Definition
 
 Overview
 ========
-.. currentmodule:: spydrnet_physical.ir
+.. currentmodule:: spydrnet_physical.ir.definition
 .. autoclass:: Definition
+   :show-inheritance:
    :members:
-
-
-Methods
-=======
-
-.. autosummary::
-   :toctree: generated/
-
-   Definition.__init__
-   Definition.remove_port
-   Definition.create_feedthroughs_ports
-   Definition.OptPins

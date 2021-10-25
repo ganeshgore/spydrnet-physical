@@ -5,26 +5,24 @@
 SPHINXOPTS        =
 SPHINXRELOADOPTS  =
 SPHINXBUILD       = sphinx-build
-SPHINXRELOAD      ?= sphinx-reload
+SPHINXRELOAD      ?= sphinx-autobuild
 SOURCEDIR         = source
 BUILDDIR          = build
+AUTO_BUILD_DIR    = "auto_.*\/.*"
 
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 install:
-	@pip3 install -U sphinx
-	@pip3 install sphinx-gallery
-	@pip3 install sphinx_rtd_theme
-	@pip3 install -U matplotlib
-	@pip3 install networkx
+	@pip3 install -U -r requirements.txt
 
 reload:
-	@$(SPHINXRELOAD) . --build-dir ${BUILDDIR} $(SPHINXRELOADOPTS)
+	@$(SPHINXRELOAD) "$(SOURCEDIR)" "${BUILDDIR}" --re-ignore "source\/.*" \
+	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
 
 clean:
-	rm -rf source/auto_examples/ source/sample_verilog/
+	rm -rf source/auto_* source/reference/classes/generated
 
 
 .PHONY: help Makefile

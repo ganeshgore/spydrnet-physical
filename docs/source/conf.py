@@ -58,7 +58,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
     'sphinxcontrib_hdl_diagrams',
-    # 'sphinx_gallery.gen_gallery',
+    'sphinx_gallery.gen_gallery',
 ]
 
 
@@ -108,10 +108,13 @@ napoleon_use_param = False
 #
 # html_theme = 'sphinx_rtd_theme'
 html_theme = 'furo'
-# html_css_files = [
-#     'custom.css',
-# ]
-# html_static_path = ['_static']
+
+
+# Adding custom CSS stylesheet
+html_css_files = [
+    'custom.css',
+]
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -122,7 +125,7 @@ html_theme = 'furo'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 #
-# html_static_path = ['_static']
+html_static_path = ['_static']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -223,12 +226,14 @@ sphinx_gallery_conf = {
      'examples_dirs': os.path.join('..', '..', 'examples'),   # path to your example scripts
      'gallery_dirs': 'auto_examples',  # path to where to save gallery generated output
      'remove_config_comments': True,
+     'filename_pattern': '/*.py',
+     'capture_repr': (),
 }
 
 
 def CollectRst():
     verilog_dir=os.path.join('..', '..', 'spydrnet_physical', 'support_files', 'sample_verilog' )
-    out_dir = os.path.join("sample_verilog")
+    out_dir = os.path.join("auto_sample_verilog")
     pathlib.Path(out_dir).mkdir(parents=True, exist_ok=True)
     index_fp = open(os.path.join(out_dir, "index.rst"), "w")
     index_fp.write("Sample Verilog Netlists\n=======================" +
