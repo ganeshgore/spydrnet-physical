@@ -36,6 +36,10 @@ Basic object types
 .. toctree::
    :maxdepth: 2
 
+   element
    bundle
+   pin
+   innerpin
+   outerpin
    cable
    definition
