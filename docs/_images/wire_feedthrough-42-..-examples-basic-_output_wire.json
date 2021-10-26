@@ -3,8 +3,7 @@
   "modules": {
     "module1": {
       "attributes": {
-        "blackbox": 1,
-        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:20.1-25.10"
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:57.1-72.10"
       },
       "ports": {
         "in0": {
@@ -27,29 +26,28 @@
           "hide_name": 0,
           "bits": [ 2 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:21.11-21.14"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:64.11-64.14"
           }
         },
         "in1": {
           "hide_name": 0,
           "bits": [ 3 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:22.11-22.14"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:65.11-65.14"
           }
         },
         "out": {
           "hide_name": 0,
           "bits": [ 4 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:23.12-23.15"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:66.12-66.15"
           }
         }
       }
     },
     "module2": {
       "attributes": {
-        "blackbox": 1,
-        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:27.1-32.10"
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:74.1-96.10"
       },
       "ports": {
         "in0": {
@@ -63,6 +61,14 @@
         "out": {
           "direction": "output",
           "bits": [ 6, 7 ]
+        },
+        "wire0_ft_in": {
+          "direction": "input",
+          "bits": [ 8 ]
+        },
+        "wire0_ft_out": {
+          "direction": "output",
+          "bits": [ 8 ]
         }
       },
       "cells": {
@@ -72,21 +78,35 @@
           "hide_name": 0,
           "bits": [ 2, 3 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:28.16-28.19"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:83.16-83.19"
           }
         },
         "in1": {
           "hide_name": 0,
           "bits": [ 4, 5 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:29.16-29.19"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:84.16-84.19"
           }
         },
         "out": {
           "hide_name": 0,
           "bits": [ 6, 7 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:30.17-30.20"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:85.17-85.20"
+          }
+        },
+        "wire0_ft_in": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:86.11-86.22"
+          }
+        },
+        "wire0_ft_out": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:87.12-87.24"
           }
         }
       }
@@ -94,7 +114,7 @@
     "top": {
       "attributes": {
         "top": 1,
-        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:2.1-18.10"
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:3.1-55.10"
       },
       "ports": {
         "in0": {
@@ -126,7 +146,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:12.13-12.57"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:27.13-32.6"
           },
           "port_directions": {
             "in0": "input",
@@ -146,7 +166,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:13.13-13.58"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:33.13-38.6"
           },
           "port_directions": {
             "in0": "input",
@@ -154,7 +174,7 @@
             "out": "output"
           },
           "connections": {
-            "in0": [ 9 ],
+            "in0": [ 10 ],
             "in1": [ 2 ],
             "out": [ 6 ]
           }
@@ -166,17 +186,21 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:15.13-15.70"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:39.13-46.6"
           },
           "port_directions": {
             "in0": "input",
             "in1": "input",
-            "out": "output"
+            "out": "output",
+            "wire0_ft_in": "input",
+            "wire0_ft_out": "output"
           },
           "connections": {
             "in0": [ 3, 2 ],
             "in1": [ 4, 5 ],
-            "out": [ 10, 11 ]
+            "out": [ 11, 12 ],
+            "wire0_ft_in": [ 9 ],
+            "wire0_ft_out": [ 10 ]
           }
         },
         "inst_2_1": {
@@ -186,17 +210,21 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:16.13-16.69"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:47.13-54.6"
           },
           "port_directions": {
             "in0": "input",
             "in1": "input",
-            "out": "output"
+            "out": "output",
+            "wire0_ft_in": "input",
+            "wire0_ft_out": "output"
           },
           "connections": {
-            "in0": [ 10, 11 ],
-            "in1": [ 10, 11 ],
-            "out": [ 7, 8 ]
+            "in0": [ 11, 12 ],
+            "in1": [ 11, 12 ],
+            "out": [ 7, 8 ],
+            "wire0_ft_in": [ ],
+            "wire0_ft_out": [ ]
           }
         }
       },
@@ -205,49 +233,56 @@
           "hide_name": 0,
           "bits": [ 4, 5 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:5.16-5.22"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:14.16-14.22"
           }
         },
         "bus_out": {
           "hide_name": 0,
           "bits": [ 7, 8 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:7.17-7.24"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:16.17-16.24"
           }
         },
         "in0": {
           "hide_name": 0,
           "bits": [ 2 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:3.11-3.14"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:12.11-12.14"
           }
         },
         "in1": {
           "hide_name": 0,
           "bits": [ 3 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:4.11-4.14"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:13.11-13.14"
           }
         },
         "out0": {
           "hide_name": 0,
           "bits": [ 6 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:6.12-6.16"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:15.12-15.16"
           }
         },
         "wire0": {
           "hide_name": 0,
           "bits": [ 9 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:9.10-9.15"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:23.10-23.15"
+          }
+        },
+        "wire0_ft_in_0": {
+          "hide_name": 0,
+          "bits": [ 10 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:25.10-25.23"
           }
         },
         "wire_bus": {
           "hide_name": 0,
-          "bits": [ 10, 11 ],
+          "bits": [ 11, 12 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:10.15-10.23"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v:24.15-24.23"
           }
         }
       }

@@ -219,7 +219,14 @@ to download the full example code</p>
 <span id="sphx-glr-auto-examples-basic-wire-feedthrough-py"></span><h1>Genrating feedthrough from single instance<a class="headerlink" href="#genrating-feedthrough-from-single-instance" title="Permalink to this headline">¶</a></h1>
 <p>This example demostrates how to generate a feedthrough wire connection for
 a given scalar or vector wires.</p>
-<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v" src="../../_images/wire_feedthrough-32-..-examples-basic-_output_wire.svg"/>
+<p><strong>Initial Design</strong></p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v" src="../../_images/wire_feedthrough-35-..-examples-basic-_initial_design.svg"/>
+</div>
+<p><strong>Output1</strong> <code class="docutils literal notranslate"><span class="pre">wire0</span></code> feedthough from <code class="docutils literal notranslate"><span class="pre">inst_2_1</span></code></p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v" src="../../_images/wire_feedthrough-42-..-examples-basic-_output_wire.svg"/>
+</div>
+<p><strong>Output2</strong> <code class="docutils literal notranslate"><span class="pre">bus_in</span></code> feedthrough from <code class="docutils literal notranslate"><span class="pre">inst_1_0</span></code></p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v" src="../../_images/wire_feedthrough-49-..-examples-basic-_output_bus.svg"/>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
@@ -229,20 +236,26 @@ a given scalar or vector wires.</p>
 
 <span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
 <span class="n">cable0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"wire0"</span><span class="p">))</span>
-<span class="n">inst2</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_2_1"</span><span class="p">))</span>
+<span class="n">inst2</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_2_0"</span><span class="p">))</span>
+
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_initial_design.v'</span><span class="p">)</span>
+
 
 <span class="n">top</span><span class="o">.</span><span class="n">create_feedthrough</span><span class="p">(</span><span class="n">inst2</span><span class="p">,</span> <span class="n">cable0</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_output_wire.v'</span><span class="p">)</span>
 
 
-<span class="c1"># bus_in = next(top.get_cables("bus_in"))</span>
-<span class="c1"># inst1 = next(top.get_instances("inst_1_0"))</span>
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'basic_hierarchy'</span><span class="p">)</span>
 
-<span class="c1"># top.create_feedthrough(inst1, bus_in)</span>
-<span class="c1"># sdn.compose(netlist, '_output_bus.v')</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
+<span class="n">bus_in</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"bus_in"</span><span class="p">))</span>
+<span class="n">inst1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_1_0"</span><span class="p">))</span>
+
+<span class="n">cables</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">create_feedthrough</span><span class="p">(</span><span class="n">inst1</span><span class="p">,</span> <span class="n">bus_in</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_output_bus.v'</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.011 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.013 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-basic-wire-feedthrough-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/3f96ffecead4a422308d92bf50862bd1/wire_feedthrough.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">wire_feedthrough.py</span></code></a></p>

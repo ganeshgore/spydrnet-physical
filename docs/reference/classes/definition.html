@@ -266,7 +266,7 @@ Helpful in creating Bus/Vector from scalar wires</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.create_feedthrough">
-<span class="sig-name descname"><span class="pre">create_feedthrough</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instances_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.create_feedthrough"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.create_feedthrough" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_feedthrough</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">instances_list</span></em>, <em class="sig-param"><span class="pre">cable</span></em>, <em class="sig-param"><span class="pre">get_port_names=&lt;function</span> <span class="pre">Definition.&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">get_cable_names=&lt;function</span> <span class="pre">Definition.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.create_feedthrough"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.create_feedthrough" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a feedthrough for a single cable passing through
 list of instances</p>
 <p>The driver cable name is unchanged and newly created feedthrough cable
@@ -274,11 +274,18 @@ name {cable_name}_ft_{indx}</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>instances_list (list[instance])</strong> (<em>List of instances to create</em>) – feedthrough from</p></li>
-<li><p><strong>cable (Cable)</strong> (<em>cable fro which feedthrough needs to be creared</em>)</p></li>
-<li><p><strong>Returns</strong></p></li>
-<li><p><strong>——–</strong> – list(Cable): List of newly created cables in order</p></li>
+<li><p><strong>instances_list</strong> (<em>list[instance]</em>) – List of instances to create
+feedthrough from</p></li>
+<li><p><strong>cable</strong> (<em>Cable</em>) – cable fro which feedthrough needs to be creared</p></li>
+<li><p><strong>get_port_names</strong> (<em>callable</em>) – –</p></li>
+<li><p><strong>get_cable_names</strong> (<em>callable</em>) – –</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of newly created cables in order</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(<a class="reference internal" href="cable.html#spydrnet_physical.ir.cable.Cable" title="spydrnet_physical.ir.cable.Cable">Cable</a>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -295,7 +302,7 @@ Expects the list of tuples in following format</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.create_feedthroughs_ports">
-<span class="sig-name descname"><span class="pre">create_feedthroughs_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cable</span></em>, <em class="sig-param"><span class="pre">suffix='ft'</span></em>, <em class="sig-param"><span class="pre">get_names=&lt;function</span> <span class="pre">Definition.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.create_feedthroughs_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.create_feedthroughs_ports" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_feedthroughs_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cable</span></em>, <em class="sig-param"><span class="pre">suffix='ft'</span></em>, <em class="sig-param"><span class="pre">get_port_names=&lt;function</span> <span class="pre">Definition.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.create_feedthroughs_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.create_feedthroughs_ports" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the cable object it creates a feedthrough ports on this definition</p>
 <ul class="simple">
 <li><p>The new ports names as {cable_name}_{suffix}_in and
@@ -307,8 +314,8 @@ beetween newly added two ports</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cable</strong> (<em>Port</em>) – The cable for which feedthrough needs to be created</p></li>
 <li><p><strong>suffix</strong> (<em>str</em>) – Sufffix used for the port naming</p></li>
-<li><p><strong>get_names</strong> (<em>callable</em>) – function to return custom names
-get_names(sdn.IN or sdn.out)</p></li>
+<li><p><strong>get_port_names</strong> (<em>callable</em>) – function to return custom names
+get_port_names(sdn.IN or sdn.out)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -318,6 +325,11 @@ get_names(sdn.IN or sdn.out)</p></li>
 <dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.create_ft_ports">
+<span class="sig-name descname"><span class="pre">create_ft_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.create_ft_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.create_ft_ports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias to create_feedthroughs_ports</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.duplicate_port">
