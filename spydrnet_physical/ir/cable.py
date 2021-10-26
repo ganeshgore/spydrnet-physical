@@ -63,7 +63,32 @@ class Cable(CableBase):
             "Port %s in not part of instance definition %s" % \
             (port.name, instance.reference.name)
         for wire in self.wires:
-            if port.is_downto:
-                wire.connect_pin(instance.pins[port.pins[wire.index()]])
-            else:
-                wire.connect_pin(instance.pins[port.pins[-(wire.index()+1)]])
+            wire.connect_pin(instance.pins[port.pins[wire.get_index]])
+
+    def assign_cable(self, cable: 'Cable', upper=None, lower=None):
+        ''' Create assignment beetween self and provided cable
+
+        assign self = cable[upper:lower]
+        '''
+        assert isinstance(
+            cable, Cable), "Cable can be assigned to another cable"
+        assert self.definition is cable.definition, \
+            "Cables belongs to two differnt definitions"
+        assert self.definition is cable.definition, \
+            "Cables belongs to differnt definitions"
+
+        upper = upper or (self.size if self.is_downto else 0)
+        lower = lower or (0 if self.is_downto else self.size)
+
+        assign_lib = self.definition._get_assignment_library()
+        assign_def = self.definition._get_assignment_definition(assign_lib, self.size)
+        instance = self.definition.create_child(f"{self.name}_{cable.name}_assign",
+                                     reference=assign_def)
+
+        self.connect_instance_port(instance, next(assign_def.get_ports("i")))
+
+        print(f"upper {upper}")
+        print(f"lower {lower}")
+        for indx, pin in enumerate(next(assign_def.get_ports("o")).pins):
+            cable.wires[range(lower,upper+1)[indx]].connect_pin(instance.pins[pin])
+        return instance

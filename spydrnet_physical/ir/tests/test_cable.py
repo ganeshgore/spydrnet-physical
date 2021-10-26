@@ -50,3 +50,26 @@ class TestCable(unittest.TestCase):
         port = self.definition.create_port(pins=4)
         self.cable.connect_port(port)
         self.assertTrue(self.cable.is_port_cable, "Port connection")
+
+    def test_assign_cable(self):
+        self.cable.create_wires(2)
+        cable = self.definition.create_cable(wires=4)
+
+        # Check straight connection
+        assig_inst = self.cable.assign_cable(cable)
+        self.assertIsInstance(assig_inst, sdn.Instance)
+        self.assertSetEqual(set(get_names(assig_inst.get_ports())), {"i", "o"})
+        get_pin = lambda pin: assig_inst.pins[pin].wire.get_index
+        i_indx = [get_pin(pin) for pin in next(assig_inst.get_ports("i")).pins]
+        o_indx = [get_pin(pin) for pin in next(assig_inst.get_ports("o")).pins]
+        self.assertEqual(i_indx, [0, 1])
+        self.assertEqual(o_indx, [0, 1])
+
+        # Check assignment concat
+        cable.name = "_0_"
+        assig_inst = self.cable.assign_cable(cable, upper=2, lower=1)
+        get_pin = lambda pin: assig_inst.pins[pin].wire.get_index
+        i_indx = [get_pin(pin) for pin in next(assig_inst.get_ports("i")).pins]
+        o_indx = [get_pin(pin) for pin in next(assig_inst.get_ports("o")).pins]
+        self.assertEqual(i_indx, [0, 1])
+        self.assertEqual(o_indx, [1, 2])
