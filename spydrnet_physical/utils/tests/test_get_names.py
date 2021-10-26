@@ -1,7 +1,9 @@
 ''' Tst cases fro get_names method '''
 import unittest
 from spydrnet import ir
-import spydrnet_physical.utils.get_names as get_names
+from  spydrnet_physical.utils import get_names
+from  spydrnet_physical.utils import get_attr
+
 
 
 class TestGetNames(unittest.TestCase):
@@ -21,7 +23,16 @@ class TestGetNames(unittest.TestCase):
         # Iterarable objects
         self.assertEqual(["Cable0", "Port0", "Definition0", "Instance0"],
                          get_names([self.cable, self.port,
-                                           self.definition, self.instance]))
+                                    self.definition, self.instance]))
         # Genrator object
         self.assertEqual(["Port0", ],
                          get_names(self.definition.get_ports()))
+
+    def test_get_attr(self):
+        ''' Test correctness of retruned string '''
+        # Single object
+        self.assertEqual(["Cable0", ], get_names(self.cable))
+        # Iterarable objects
+        self.assertEqual(["Cable0", "Port0", "Definition0", "Instance0"],
+                         get_attr([self.cable, self.port, self.definition,
+                                   self.instance], 'name'))

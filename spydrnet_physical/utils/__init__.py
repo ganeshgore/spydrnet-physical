@@ -1,1 +1,2 @@
 from spydrnet_physical.utils.get_names import get_names
+from spydrnet_physical.utils.get_names import get_attr

@@ -7,7 +7,7 @@ logger = logging.getLogger('spydrnet_logs')
 
 def get_names(objects):
     '''
-    Returns names of the object (it the object contains name property)
+    Returns name propperty of the object (it the object contains name property)
 
     args:
         object(list[Cable, Port, Definition, Instance]): pass list of objects
@@ -16,10 +16,22 @@ def get_names(objects):
     '''
     names = []
     if not isinstance(objects, (list, tuple, GeneratorType)):
-        objects = tuple([objects,])
+        objects = tuple([objects, ])
     for each in objects:
         if isinstance(each, (ir.Cable, ir.Port, ir.Definition, ir.Instance)):
             names.append(each.name)
         else:
             logger.warning("Skipping unsupport object %s", type(each))
     return names
+
+
+def get_attr(objects, attr):
+    '''
+    Returns specific attribute of the object
+
+    args:
+        object(list[Cable, Port, Definition, Instance]): pass list of objects
+    returns:
+        (list[str]) : list of
+    '''
+    return [getattr(each, attr, None) for each in objects]
