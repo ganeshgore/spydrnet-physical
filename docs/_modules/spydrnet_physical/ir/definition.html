@@ -220,7 +220,6 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 
 
-
 <div class="viewcode-block" id="Definition"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition">[docs]</a><span class="k">class</span> <span class="nc">Definition</span><span class="p">(</span><span class="n">DefinitionBase</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Extending the definitions representation</span>
@@ -254,49 +253,47 @@
             <span class="n">port</span><span class="o">.</span><span class="n">remove_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ports</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">port</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Definition.create_feedthroughs_ports"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.create_feedthroughs_ports">[docs]</a>    <span class="k">def</span> <span class="nf">create_feedthroughs_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cable</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">"ft"</span><span class="p">):</span>
+<div class="viewcode-block" id="Definition.create_feedthroughs_ports"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.create_feedthroughs_ports">[docs]</a>    <span class="k">def</span> <span class="nf">create_feedthroughs_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cable</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">"ft"</span><span class="p">,</span>
+                                        <span class="n">get_names</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Given the cable object it creates a feedthrough ports on this definition</span>
 
-<span class="sd">        - The new ports names as {cable_name}_{suffix}_in and {cable_name}_{suffix}_out - Direct assignment is created beetween newly added two ports</span>
+<span class="sd">        - The new ports names as {cable_name}_{suffix}_in and</span>
+<span class="sd">          {cable_name}_{suffix}_out - Direct assignment is created</span>
+<span class="sd">          beetween newly added two ports</span>
 
 <span class="sd">        args:</span>
 <span class="sd">            cable (Port): The cable for which feedthrough needs to be created</span>
 <span class="sd">            suffix (str): Sufffix used for the port naming</span>
+<span class="sd">            get_names(callable): function to return custom names</span>
+<span class="sd">                             get_names(sdn.IN or sdn.out)</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            tuple: Feedthrough port (inport and outport)</span>
 <span class="sd">        '''</span>
-        <span class="n">inport_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">_in"</span>
-        <span class="n">outport_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">_out"</span>
-        <span class="n">inport</span><span class="p">,</span> <span class="n">outport</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">inport_name</span><span class="p">,</span>
-                             <span class="n">pins</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-                             <span class="n">is_scalar</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">,</span>
-                             <span class="n">lower_index</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">lower_index</span><span class="p">,</span>
-                             <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">outport_name</span><span class="p">,</span>
-                             <span class="n">pins</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-                             <span class="n">is_scalar</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">,</span>
-                             <span class="n">lower_index</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">lower_index</span><span class="p">,</span>
-                             <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">))</span>
+        <span class="n">inport_name</span> <span class="o">=</span> <span class="n">get_names</span><span class="p">(</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">)</span> <span class="ow">or</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">_in"</span>
+        <span class="n">outport_name</span> <span class="o">=</span> <span class="n">get_names</span><span class="p">(</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span> <span class="ow">or</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">_out"</span>
+        <span class="n">inport</span><span class="p">,</span> <span class="n">outport</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">inport_name</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+                                            <span class="n">is_scalar</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">,</span>
+                                            <span class="n">lower_index</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">lower_index</span><span class="p">,</span>
+                                            <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">),</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">outport_name</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+                                            <span class="n">is_scalar</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">,</span>
+                                            <span class="n">lower_index</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">lower_index</span><span class="p">,</span>
+                                            <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">))</span>
+        <span class="c1"># Input port cable and output port cable</span>
+        <span class="n">int_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">inport_name</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">out_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">outport_name</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 
-        <span class="n">int_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">inport_name</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-        <span class="n">out_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">outport_name</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">assign_lib</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_assignment_library</span><span class="p">()</span>
+        <span class="n">assign_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_assignment_definition</span><span class="p">(</span><span class="n">assign_lib</span><span class="p">,</span> <span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">inport_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">outport_name</span><span class="si">}</span><span class="s2">_ft"</span><span class="p">,</span>
+                                     <span class="n">reference</span><span class="o">=</span><span class="n">assign_def</span><span class="p">)</span>
 
-        <span class="n">assign_library</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_assignment_library</span><span class="p">()</span>
-        <span class="n">definition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_assignment_definition</span><span class="p">(</span>
-            <span class="n">assign_library</span><span class="p">,</span> <span class="n">cable</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-        <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">inport_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">outport_name</span><span class="si">}</span><span class="s2">_ft"</span><span class="p">,</span>
-            <span class="n">reference</span><span class="o">=</span><span class="n">definition</span><span class="p">)</span>
-
-        <span class="n">int_cable</span><span class="o">.</span><span class="n">connect_port</span><span class="p">(</span><span class="n">inport</span><span class="p">)</span>
-        <span class="n">int_cable</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span>
-            <span class="n">instance</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span><span class="n">definition</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"i"</span><span class="p">)))</span>
-        <span class="n">out_cable</span><span class="o">.</span><span class="n">connect_port</span><span class="p">(</span><span class="n">outport</span><span class="p">)</span>
-        <span class="n">out_cable</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span>
-            <span class="n">instance</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span><span class="n">definition</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"o"</span><span class="p">)))</span>
+        <span class="n">int_c</span><span class="o">.</span><span class="n">connect_port</span><span class="p">(</span><span class="n">inport</span><span class="p">)</span>
+        <span class="n">int_c</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span><span class="n">assign_def</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"i"</span><span class="p">)))</span>
+        <span class="n">out_c</span><span class="o">.</span><span class="n">connect_port</span><span class="p">(</span><span class="n">outport</span><span class="p">)</span>
+        <span class="n">out_c</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span><span class="n">assign_def</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"o"</span><span class="p">)))</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">inport</span><span class="p">,</span> <span class="n">outport</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Definition.create_feedthrough"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.create_feedthrough">[docs]</a>    <span class="k">def</span> <span class="nf">create_feedthrough</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances_list</span><span class="p">,</span> <span class="n">cable</span><span class="p">):</span>

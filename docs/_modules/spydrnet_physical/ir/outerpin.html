@@ -221,7 +221,17 @@
         <span class="sd">'''Return the port that the inner pin is a part of.</span>
 <span class="sd">        This object cannot be modified directly by the end user.'''</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_pin</span><span class="o">.</span><span class="n">_port</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_pin</span><span class="o">.</span><span class="n">_port</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">get_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Returns python index of element</span>
+
+<span class="sd">        As outer pins do not have port associated with it</span>
+<span class="sd">        the index is copied from corrosponding innerpins</span>
+<span class="sd">        '''</span>
+        <span class="n">innerpin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_pin</span>
+        <span class="k">return</span> <span class="n">innerpin</span><span class="o">.</span><span class="n">_bundle</span><span class="p">()</span><span class="o">.</span><span class="n">get_index</span><span class="p">(</span><span class="n">innerpin</span><span class="p">)</span></div>
 </pre></div>
         </article>
       </div>

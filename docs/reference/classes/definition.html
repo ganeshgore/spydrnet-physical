@@ -295,16 +295,20 @@ Expects the list of tuples in following format</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.create_feedthroughs_ports">
-<span class="sig-name descname"><span class="pre">create_feedthroughs_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ft'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.create_feedthroughs_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.create_feedthroughs_ports" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_feedthroughs_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cable</span></em>, <em class="sig-param"><span class="pre">suffix='ft'</span></em>, <em class="sig-param"><span class="pre">get_names=&lt;function</span> <span class="pre">Definition.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.create_feedthroughs_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.create_feedthroughs_ports" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the cable object it creates a feedthrough ports on this definition</p>
 <ul class="simple">
-<li><p>The new ports names as {cable_name}_{suffix}_in and {cable_name}_{suffix}_out - Direct assignment is created beetween newly added two ports</p></li>
+<li><p>The new ports names as {cable_name}_{suffix}_in and
+{cable_name}_{suffix}_out - Direct assignment is created
+beetween newly added two ports</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cable</strong> (<em>Port</em>) – The cable for which feedthrough needs to be created</p></li>
 <li><p><strong>suffix</strong> (<em>str</em>) – Sufffix used for the port naming</p></li>
+<li><p><strong>get_names</strong> (<em>callable</em>) – function to return custom names
+get_names(sdn.IN or sdn.out)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

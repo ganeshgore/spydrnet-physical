@@ -6,3 +6,8 @@ img.main-image{
 body[data-theme=dark] img {
     filter: invert(1);
 }
+
+dl.field-list {
+    display: grid;
+    grid-template-columns: max-content auto;
+}
