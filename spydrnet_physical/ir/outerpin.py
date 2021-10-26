@@ -10,3 +10,13 @@ class OuterPin(OuterPinBase):
         This object cannot be modified directly by the end user.'''
 
         return self._inner_pin._port
+
+    @property
+    def get_index(self):
+        ''' Returns python index of element
+
+        As outer pins do not have port associated with it
+        the index is copied from corrosponding innerpins
+        '''
+        innerpin = self.inner_pin
+        return innerpin._bundle().get_index(innerpin)
