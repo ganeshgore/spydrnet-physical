@@ -1,13 +1,15 @@
 import unittest
 
 import spydrnet as sdn
-from spydrnet.ir import pin
+from spydrnet_physical.utils.get_names import get_names
 
 
 class TestCable(unittest.TestCase):
     def setUp(self) -> None:
-        self.definition = sdn.Definition()
-        self.module1 = sdn.Definition()
+        self.netlist = sdn.Netlist()
+        self.library = self.netlist.create_library()
+        self.definition = self.library.create_definition()
+        self.module1 = self.library.create_definition()
         self.cable = self.definition.create_cable()
 
     def test_connect_port(self):

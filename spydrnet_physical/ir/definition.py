@@ -4,6 +4,10 @@ import logging
 import spydrnet as sdn
 from spydrnet.ir import Definition as DefinitionBase
 from itertools import combinations
+from spydrnet.ir.innerpin import InnerPin
+from spydrnet.ir.outerpin import OuterPin
+
+from spydrnet.ir.port import Port
 
 logger = logging.getLogger('spydrnet_logs')
 
@@ -41,8 +45,12 @@ class Definition(DefinitionBase):
             port.remove_pin(pin)
         self._ports.remove(port)
 
+    def create_ft_ports(self, *args, **kwargs):
+        ''' Alias to create_feedthroughs_ports '''
+        return self.create_feedthroughs_ports(*args, **kwargs)
+
     def create_feedthroughs_ports(self, cable, suffix="ft",
-                                        get_names=lambda x: None):
+                                  get_port_names=lambda x: None):
         '''
         Given the cable object it creates a feedthrough ports on this definition
 
@@ -53,14 +61,14 @@ class Definition(DefinitionBase):
         args:
             cable (Port): The cable for which feedthrough needs to be created
             suffix (str): Sufffix used for the port naming
-            get_names(callable): function to return custom names
-                             get_names(sdn.IN or sdn.out)
+            get_port_names(callable): function to return custom names
+                             get_port_names(sdn.IN or sdn.out)
 
         Returns:
             tuple: Feedthrough port (inport and outport)
         '''
-        inport_name = get_names(sdn.IN) or f"{cable.name}_{suffix}_in"
-        outport_name = get_names(sdn.OUT) or f"{cable.name}_{suffix}_out"
+        inport_name = get_port_names(sdn.IN) or f"{cable.name}_{suffix}_in"
+        outport_name = get_port_names(sdn.OUT) or f"{cable.name}_{suffix}_out"
         inport, outport = (self.create_port(inport_name, pins=cable.size,
                                             is_scalar=cable.is_scalar,
                                             lower_index=cable.lower_index,
@@ -84,7 +92,10 @@ class Definition(DefinitionBase):
         out_c.connect_instance_port(instance, next(assign_def.get_ports("o")))
         return (inport, outport)
 
-    def create_feedthrough(self, instances_list, cable):
+    # TODO: Creates problem when cable is output port cable
+    def create_feedthrough(self, instances_list, cable,
+                           get_port_names=lambda port_dir: None,
+                           get_cable_names=lambda indx, inst: None):
         """
         Creates a feedthrough for a single cable passing through
         list of instances
@@ -92,41 +103,42 @@ class Definition(DefinitionBase):
         The driver cable name is unchanged and newly created feedthrough cable
         name {cable_name}_ft_{indx}
 
-        parameters
-        ----------
-
-        instances_list (list[instance]): List of instances to create
-                                        feedthrough from
-        cable (Cable): cable fro which feedthrough needs to be creared
+        args:
+            instances_list (list[instance]): List of instances to create
+                                            feedthrough from
+            cable (Cable): cable fro which feedthrough needs to be creared
+            get_port_names(callable): --
+            get_cable_names(callable): --
 
         Returns:
-        --------
             list(Cable): List of newly created cables in order
         """
         if isinstance(instances_list, sdn.Instance):
             instances_list = (instances_list,)
-        assert len(instances_list) > 0, \
-            "Missing instances to create feedthroughs"
-        assert isinstance(cable, sdn.Cable), \
-            "Cable object required"
+        assert isinstance(cable, sdn.Cable), "Cable object required"
         assert cable.definition == self, \
-            "Cable {cable.name} does not belog to thos definition"
+            "Cable {cable.name} does not belog to this definition"
+        assert all(inst in self._children for inst in instances_list), \
+            "Found inst which does not belong to this definition"
 
         cable_list = []
         for indx, instance in enumerate(instances_list):
-            inport, outport = instance.reference.create_feedthroughs_ports(
-                cable)
-            cable_name = cable.name
-            cable.name = f"{cable.name}_ft_in_{indx}"
-            new_cable = self.create_cable(cable_name)
-            new_cable.create_wires(cable.size)
-            new_cable.connect_instance_port(instance, inport)
+            inport, outport = instance.reference.create_ft_ports(
+                cable, get_port_names=get_port_names)
+
+            cable_name = get_cable_names(
+                indx, instance) or f"{cable.name}_ft_in_{indx}"
+            new_cable = self.create_cable(cable_name, wires=cable.size)
+            new_cable.connect_instance_port(instance, outport)
+
             for each_w in cable.wires:
-                for pin in each_w.pins:
-                    if pin.port.direction == sdn.OUT:
+                for pin in set(each_w.pins):
+                    # These are loads and
+                    if (isinstance(pin, OuterPin) and (pin.port.direction == sdn.IN)) or \
+                        (isinstance(pin, InnerPin) and (pin.port.direction == sdn.OUT)):
                         each_w.disconnect_pin(pin)
-                        new_cable.wires[pin.inner_pin.index()].connect_pin(pin)
-            cable.connect_instance_port(instance, outport)
+                        new_cable.wires[pin.get_index].connect_pin(pin)
+            cable.connect_instance_port(instance, inport)
             cable_list.append(new_cable)
         return cable_list
 

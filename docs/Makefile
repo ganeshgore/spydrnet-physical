@@ -19,6 +19,7 @@ install:
 
 reload:
 	@$(SPHINXRELOAD) "$(SOURCEDIR)" "${BUILDDIR}" \
+	--watch "../examples/**" \
 	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
 
 clean:
