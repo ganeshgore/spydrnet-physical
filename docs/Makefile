@@ -24,6 +24,7 @@ reload:
 
 clean:
 	rm -rf build source/auto_*
+	find . -type d -name "generated" -exec rm -rf "{}" \; || true
 
 
 .PHONY: help Makefile

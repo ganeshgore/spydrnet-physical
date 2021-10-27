@@ -22,6 +22,9 @@ import pathlib
 sys.path.insert(0,os.path.abspath('../..'))
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
+from sphinx_gallery.sorting import ExplicitOrder
+from sphinx_gallery.sorting import ExampleTitleSortKey
+
 
 # -- Project information -----------------------------------------------------
 
@@ -63,7 +66,7 @@ extensions = [
 
 
 # generate autosummary pages
-# autosummary_generate = True
+autosummary_generate = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -228,6 +231,9 @@ sphinx_gallery_conf = {
      'remove_config_comments': True,
      'filename_pattern': '/*.py',
      'capture_repr': (),
+     'within_subsection_order': ExampleTitleSortKey,
+     'subsection_order': ExplicitOrder(['../../examples/basic',
+                                       '../../examples/OpenFPGA']),
 }
 
 
