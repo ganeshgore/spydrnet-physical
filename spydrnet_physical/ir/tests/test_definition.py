@@ -1,7 +1,7 @@
 import unittest
 
 import spydrnet as sdn
-from spydrnet_physical.utils.get_names import get_names
+from spydrnet_physical.util.get_names import get_names
 
 
 class TestDefinition(unittest.TestCase):

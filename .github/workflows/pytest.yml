@@ -23,7 +23,7 @@ jobs:
         pip install --upgrade pip
         pip install -r requirements.txt --user
         export PYTHONPATH=${PWD}
-        pytest spydrnet_physical/utils
+        pytest spydrnet_physical
     - name: Log on failure
       if: ${{ failure() }}
       run: |

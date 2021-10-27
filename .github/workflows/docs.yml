@@ -8,7 +8,7 @@ on:
       - "docs/**"
       - "examples/**"
       - "spydrnet_physical/ir/**"
-      - "spydrnet_physical/utils/**"
+      - "spydrnet_physical/util/**"
       - "spydrnet_physical/support_files/sample_verilog/**"
       - ".github/workflows/docs.yml"
 
@@ -28,6 +28,7 @@ jobs:
             python3 -m pip install --upgrade \
             --no-cache-dir -r docs/requirements.txt
           fi
+          export PYTHONPATH=$PYTHONPATH:${PWD}
           cd docs && make html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore

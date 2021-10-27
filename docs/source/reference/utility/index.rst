@@ -7,7 +7,7 @@ Utility Functions
 
 Overview
 ========
-.. currentmodule:: spydrnet_physical.utils
+.. currentmodule:: spydrnet_physical.util
 
 
 .. autosummary::

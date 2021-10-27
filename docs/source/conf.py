@@ -13,17 +13,14 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
-from sphinx_gallery.sorting import ExampleTitleSortKey
-from sphinx_gallery.sorting import ExplicitOrder
-import spydrnet_physical as sdnphy
-import spydrnet as sdn
 import os
 import sys
 import pathlib
-sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0,os.path.abspath('../..'))
+import spydrnet as sdn
+import spydrnet_physical as sdnphy
+from sphinx_gallery.sorting import ExplicitOrder
+from sphinx_gallery.sorting import ExampleTitleSortKey
 
 
 # -- Project information -----------------------------------------------------
