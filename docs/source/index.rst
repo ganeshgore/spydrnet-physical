@@ -17,7 +17,7 @@ SpyDrNet-Physical Documentation
 .. toctree::
    :maxdepth: 1
 
-   install
+   introduction.rst
    reference/index
    auto_sample_verilog/index
    example.rst

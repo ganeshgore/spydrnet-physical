@@ -3,11 +3,6 @@
 Install
 =======
 
-*SpyDrNet-Physical* is a plugin for `SpyDrNet <https://github.com/byuccl/spydrnet>`_ project, which adds functionality to perform physical design-related netlist transformations.
-
-Installation
-------------
-
 Run one of the following commands to install the latest release of *SpyDrNet-Physical*.
 
 
