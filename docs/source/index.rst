@@ -20,7 +20,7 @@ SpyDrNet-Physical Documentation
    install
    reference/index
    auto_sample_verilog/index
-   auto_examples/index
+   example.rst
 
 
 Indices and tables

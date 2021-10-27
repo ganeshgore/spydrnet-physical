@@ -8,7 +8,7 @@ a given scalar or vector wires.
 
 **Initial Design**
 
-.. hdl-diagram:: ../../../../examples/basic/_initial_design.v
+.. hdl-diagram:: ../../../examples/basic/_initial_design.v
    :type: netlistsvg
    :align: center
    :module: top
@@ -16,14 +16,14 @@ a given scalar or vector wires.
 
 **Output1** ``wire0`` feedthough from ``inst_2_1``
 
-.. hdl-diagram:: ../../../../examples/basic/_output_wire.v
+.. hdl-diagram:: ../../../examples/basic/_output_wire.v
    :type: netlistsvg
    :align: center
    :module: top
 
 **Output2** ``bus_in`` feedthrough from ``inst_1_0``
 
-.. hdl-diagram:: ../../../../examples/basic/_output_bus.v
+.. hdl-diagram:: ../../../examples/basic/_output_bus.v
    :type: netlistsvg
    :align: center
    :module: top

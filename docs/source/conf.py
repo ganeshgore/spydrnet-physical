@@ -16,14 +16,14 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+from sphinx_gallery.sorting import ExampleTitleSortKey
+from sphinx_gallery.sorting import ExplicitOrder
+import spydrnet_physical as sdnphy
+import spydrnet as sdn
 import os
 import sys
 import pathlib
-sys.path.insert(0,os.path.abspath('../..'))
-import spydrnet as sdn
-import spydrnet_physical as sdnphy
-from sphinx_gallery.sorting import ExplicitOrder
-from sphinx_gallery.sorting import ExampleTitleSortKey
+sys.path.insert(0, os.path.abspath('../..'))
 
 
 # -- Project information -----------------------------------------------------
@@ -167,9 +167,9 @@ latex_elements = {
     #
     'figure_align': 'H',
 
-	# Oneside (remove blank pages)
-	#
-	'extraclassoptions': 'openany,oneside'
+    # Oneside (remove blank pages)
+    #
+    'extraclassoptions': 'openany,oneside'
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -226,24 +226,27 @@ rst_epilog = """
 """
 
 sphinx_gallery_conf = {
-     'examples_dirs': os.path.join('..', '..', 'examples'),   # path to your example scripts
-     'gallery_dirs': 'auto_examples',  # path to where to save gallery generated output
-     'remove_config_comments': True,
-     'filename_pattern': '/*.py',
-     'capture_repr': (),
-     'within_subsection_order': ExampleTitleSortKey,
-     'subsection_order': ExplicitOrder(['../../examples/basic',
+    # path to your example scripts
+    'examples_dirs': [os.path.join('..', '..', 'examples', 'basic'), os.path.join('..', '..', 'examples', 'OpenFPGA'), ],
+    # path to where to save gallery generated output
+    'gallery_dirs': ['auto_basic', "auto_openfpga"],
+    'remove_config_comments': True,
+    'filename_pattern': '/*.py',
+    'capture_repr': (),
+    'within_subsection_order': ExampleTitleSortKey,
+    'subsection_order': ExplicitOrder(['../../examples/basic',
                                        '../../examples/OpenFPGA']),
 }
 
 
 def CollectRst():
-    verilog_dir=os.path.join('..', '..', 'spydrnet_physical', 'support_files', 'sample_verilog' )
+    verilog_dir = os.path.join(
+        '..', '..', 'spydrnet_physical', 'support_files', 'sample_verilog')
     out_dir = os.path.join("auto_sample_verilog")
     pathlib.Path(out_dir).mkdir(parents=True, exist_ok=True)
     index_fp = open(os.path.join(out_dir, "index.rst"), "w")
     index_fp.write("Sample Verilog Netlists\n=======================" +
-                "\n\n.. toctree::\n   :glob:\n   :maxdepth: 2\n\n   ./*")
+                   "\n\n.. toctree::\n   :glob:\n   :maxdepth: 2\n\n   ./*")
     for subdir, dirs, files in os.walk(verilog_dir):
         for file in files:
             if file.endswith(".v"):
@@ -268,5 +271,6 @@ def CollectRst():
                         f'   :language: verilog\n'
                     )
     index_fp.close()
+
 
 CollectRst()
