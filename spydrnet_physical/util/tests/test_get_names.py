@@ -1,8 +1,8 @@
 ''' Tst cases fro get_names method '''
 import unittest
 from spydrnet import ir
-from  spydrnet_physical.utils import get_names
-from  spydrnet_physical.utils import get_attr
+from  spydrnet_physical.util import get_names
+from  spydrnet_physical.util import get_attr
 
 
 

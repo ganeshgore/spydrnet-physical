@@ -74,7 +74,7 @@ if __name__ == "__main__":
         zip_safe=False,
         entry_points={
             'console_scripts': [
-                'sdn = spydrnet.util.shell:launch_shell',
+                'sdnphy = spydrnet_physical.util.shell:launch_shell',
             ],
         },
     )
