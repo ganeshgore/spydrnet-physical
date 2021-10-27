@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Merging two instances in the design" href="merge_instance.html" /><link rel="prev" title="Genrating feedthrough from single instance" href="wire_feedthrough.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Creating FPGA Tiles from OpenFPGA verilog" href="tile_creation.html" /><link rel="prev" title="OpenFPGA Related Restructuring" href="index.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Merging group of instances - SpyDrNet-Physical alpha documentation</title>
+        <title>Connection Pattern Generation - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
@@ -192,19 +192,19 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Basic Restructuring Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="display_info.html">Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Merging group of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">Merging two instances in the design</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">Display Netlist Information Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_multiple_instances.html">Merging group of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">Merging two instances in the design</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -237,14 +237,18 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-basic-merge-multiple-instances-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-connection-patterns-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="merging-group-of-instances">
-<span id="sphx-glr-auto-basic-merge-multiple-instances-py"></span><h1>Merging group of instances<a class="headerlink" href="#merging-group-of-instances" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstrate how to merge group of instances in the design</p>
+<section class="sphx-glr-example-title" id="connection-pattern-generation">
+<span id="sphx-glr-auto-openfpga-connection-patterns-py"></span><h1>Connection Pattern Generation<a class="headerlink" href="#connection-pattern-generation" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrate how to genrate different connection pattern
+for routing global signals</p>
+<p><strong>Output2</strong> Fishbone routing pattern gerneation</p>
+<a class="reference internal image-reference" href="../_images/_fishbone_pattern.svg"><img alt="../_images/_fishbone_pattern.svg" src="../_images/_fishbone_pattern.svg" width="300px"/></a>
+<a class="reference internal image-reference" href="../_images/_fishbone_pattern_90.svg"><img alt="../_images/_fishbone_pattern_90.svg" src="../_images/_fishbone_pattern_90.svg" width="300px"/></a>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NotImplemented
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(3, 2) (3, 3) (3, 4) (3, 5)
 </pre></div>
 </div>
 <div class="line-block">
@@ -252,19 +256,22 @@ to download the full example code</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util.connection_pattern</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span>
 
-<span class="c1"># TODO</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"NotImplemented"</span><span class="p">)</span>
+<span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">fishbone_pattern</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">()</span>
+<span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">()</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern.svg"</span><span class="p">,</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">()</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_90.svg"</span><span class="p">,</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.001 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-basic-merge-multiple-instances-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.055 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-connection-patterns-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/d74ae2834e2934c8767ea426204a6447/merge_multiple_instances.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">merge_multiple_instances.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/b453c730e4fd8fe4ec88afa2f051dc7a/connection_patterns.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">connection_patterns.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/af84356ab6dec9d655aecfebe748ea1a/merge_multiple_instances.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">merge_multiple_instances.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/3c250f264c5db86066a042e90d22ccbe/connection_patterns.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">connection_patterns.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -275,23 +282,23 @@ to download the full example code</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="merge_instance.html">
+          <a class="next-page" href="tile_creation.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Merging two instances in the design</div>
+                <div class="title">Creating FPGA Tiles from OpenFPGA verilog</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="wire_feedthrough.html">
+          <a class="prev-page" href="index.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Genrating feedthrough from single instance</div>
+                <div class="title">OpenFPGA Related Restructuring</div>
                 
               </div>
             </a>
@@ -303,7 +310,7 @@ to download the full example code</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_basic/merge_multiple_instances.rst.txt"
+            <a class="muted-link" href="../_sources/auto_openfpga/connection_patterns.rst.txt"
                rel="nofollow">
               Show Source
             </a>

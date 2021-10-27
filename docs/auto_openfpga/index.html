@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Creating FPGA Tiles from OpenFPGA verilog" href="tile_creation.html" /><link rel="prev" title="Merging two instances in the design" href="../auto_basic/merge_instance.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Connection Pattern Generation" href="connection_patterns.html" /><link rel="prev" title="Merging two instances in the design" href="../auto_basic/merge_instance.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>OpenFPGA Related Restructuring - SpyDrNet-Physical alpha documentation</title>
@@ -200,6 +200,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
@@ -236,34 +237,42 @@
         <article role="main">
           <section id="openfpga-related-restructuring">
 <span id="sphx-glr-auto-openfpga"></span><h1>OpenFPGA Related Restructuring<a class="headerlink" href="#openfpga-related-restructuring" title="Permalink to this headline">¶</a></h1>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF..."><figure class="align-default" id="id1">
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to genrate different connection pattern for routing global signals"><figure class="align-default" id="id1">
+<img alt="Connection Pattern Generation" src="../_images/sphx_glr_connection_patterns_thumb.png"/>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text"><a class="reference internal" href="connection_patterns.html#sphx-glr-auto-openfpga-connection-patterns-py"><span class="std std-ref">Connection Pattern Generation</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF..."><figure class="align-default" id="id2">
 <img alt="Creating FPGA Tiles from OpenFPGA verilog" src="../_images/sphx_glr_tile_creation_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text"><a class="reference internal" href="tile_creation.html#sphx-glr-auto-openfpga-tile-creation-py"><span class="std std-ref">Creating FPGA Tiles from OpenFPGA verilog</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text"><a class="reference internal" href="tile_creation.html#sphx-glr-auto-openfpga-tile-creation-py"><span class="std std-ref">Creating FPGA Tiles from OpenFPGA verilog</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to extract configuration chain order from the restructured netlist"><figure class="align-default" id="id2">
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to extract configuration chain order from the restructured netlist"><figure class="align-default" id="id3">
 <img alt="Extracing configuration chain order from each module" src="../_images/sphx_glr_extract_configuration_order_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text"><a class="reference internal" href="extract_configuration_order.html#sphx-glr-auto-openfpga-extract-configuration-order-py"><span class="std std-ref">Extracing configuration chain order from each module</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text"><a class="reference internal" href="extract_configuration_order.html#sphx-glr-auto-openfpga-extract-configuration-order-py"><span class="std std-ref">Extracing configuration chain order from each module</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to insert H-Tree in tileable FPGA grid"><figure class="align-default" id="id3">
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to insert H-Tree in tileable FPGA grid"><figure class="align-default" id="id4">
 <img alt="H-Tree insertion in FPGA Tilable grid" src="../_images/sphx_glr_clock_tree_insertion_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text"><a class="reference internal" href="clock_tree_insertion.html#sphx-glr-auto-openfpga-clock-tree-insertion-py"><span class="std std-ref">H-Tree insertion in FPGA Tilable grid</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text"><a class="reference internal" href="clock_tree_insertion.html#sphx-glr-auto-openfpga-clock-tree-insertion-py"><span class="std std-ref">H-Tree insertion in FPGA Tilable grid</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Demonstrates how to rename FPGA modules"><figure class="align-default" id="id4">
+<div class="sphx-glr-thumbcontainer" tooltip="Demonstrates how to rename FPGA modules"><figure class="align-default" id="id5">
 <img alt="Renaming Homogeneous FPGA Modules" src="../_images/sphx_glr_rename_modules_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text"><a class="reference internal" href="rename_modules.html#sphx-glr-auto-openfpga-rename-modules-py"><span class="std std-ref">Renaming Homogeneous FPGA Modules</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text"><a class="reference internal" href="rename_modules.html#sphx-glr-auto-openfpga-rename-modules-py"><span class="std std-ref">Renaming Homogeneous FPGA Modules</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
@@ -284,12 +293,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="tile_creation.html">
+          <a class="next-page" href="connection_patterns.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Creating FPGA Tiles from OpenFPGA verilog</div>
+                <div class="title">Connection Pattern Generation</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
