@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="prev" title="Genrating feedthrough from single instance" href="wire_feedthrough.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Genrating feedthrough from single instance" href="wire_feedthrough.html" /><link rel="prev" title="Examples" href="../index.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Display Netlist Information Functions - SpyDrNet-Physical alpha documentation</title>
@@ -162,7 +162,7 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Install</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/classes/index.html">API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/classes/element.html">Element</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/classes/bundle.html">Bundle</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/classes/pin.html">Pin</a></li>
@@ -180,8 +180,14 @@
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Display Netlist Information Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge_multiple_instances.html">Merging group of instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="merge_instance.html">Merging two instances in the design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../OpenFPGA/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../OpenFPGA/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../OpenFPGA/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../OpenFPGA/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -395,7 +401,7 @@ Number of times each primitive is instanced:
 <span class="n">instance_count</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.023 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.028 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-basic-display-info-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/68145059ef7fc1b9cbabf4650af59644/display_info.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">display_info.py</span></code></a></p>
@@ -412,15 +418,23 @@ Number of times each primitive is instanced:
       <footer>
         
         <div class="related-pages">
-          
-          <a class="prev-page" href="wire_feedthrough.html">
+          <a class="next-page" href="wire_feedthrough.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Genrating feedthrough from single instance</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Genrating feedthrough from single instance</div>
+                <div class="title">Examples</div>
                 
               </div>
             </a>

@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Element" href="element.html" /><link rel="prev" title="Reference" href="../index.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>API Summary - SpyDrNet-Physical alpha documentation</title>
+        <title>SpyDrNet-Physical API Summary - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -162,7 +162,7 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Install</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">API Summary</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">SpyDrNet-Physical API Summary</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="element.html">Element</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bundle.html">Bundle</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pin.html">Pin</a></li>
@@ -180,8 +180,14 @@
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/display_info.html">Display Netlist Information Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/merge_multiple_instances.html">Merging group of instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/basic/merge_instance.html">Merging two instances in the design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/OpenFPGA/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/OpenFPGA/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/OpenFPGA/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_examples/OpenFPGA/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 </ul>
@@ -210,14 +216,14 @@
           </label>
         </div>
         <article role="main">
-          <section id="api-summary">
-<span id="id1"></span><h1>API Summary<a class="headerlink" href="#api-summary" title="Permalink to this headline">¶</a></h1>
+          <section id="spydrnet-physical-api-summary">
+<span id="api-summary"></span><h1>SpyDrNet-Physical API Summary<a class="headerlink" href="#spydrnet-physical-api-summary" title="Permalink to this headline">¶</a></h1>
 <p>The SpyDrNet API can be used to create, analyze, and transform a netlist. Netlist are represented in memory in an Intermediate Representation. <a class="reference internal" href="#fig-exampleir"><span class="std std-numref">Fig. 1</span></a> show the representation of a simple circuit in the SpyDrNet Intermediate Representation.
 If you would like an example of using the SpyDrNet tool to create a netlist like this</p>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id1">
 <span id="fig-exampleir"></span><img alt="Example Netlist in a SpyDrNet Intermediate Representation" src="../../_images/ExampleCircuit.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Example Netlist in the Intermediate Representaion</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Example Netlist in the Intermediate Representaion</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 <p>The API calls documented here can be used in Python as follows:</p>
@@ -328,7 +334,7 @@ If you would like an example of using the SpyDrNet tool to create a netlist like
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">API Summary</a><ul>
+<li><a class="reference internal" href="#">SpyDrNet-Physical API Summary</a><ul>
 <li><a class="reference internal" href="#basic-object-types">Basic object types</a></li>
 </ul>
 </li>
