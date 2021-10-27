@@ -93,7 +93,7 @@ exclude_patterns = []
 pygments_style = "sphinx"
 
 # A list of prefixs that are ignored when creating the module index. (new in Sphinx 0.6)
-# modindex_common_prefix = ["spydrnet_physical."]
+modindex_common_prefix = ["spydrnet_physical."]
 
 # doctest_global_setup = "import spydrnet_physical as sdnphy"
 
