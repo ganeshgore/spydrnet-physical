@@ -1,15 +1,14 @@
 .. _reference:
 
-Reference
-*********
-
-   :Release: |release|
-   :Date: |today|
+API Reference
+*************
 
 .. toctree::
    :maxdepth: 1
 
-   classes/index.rst
+   classes/index
+   utility/index
+   openfpga/index
 
 
 
