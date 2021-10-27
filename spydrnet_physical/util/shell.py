@@ -4,6 +4,23 @@ from IPython.terminal.prompts import Prompts, Token
 from IPython.terminal.embed import InteractiveShellEmbed
 from IPython.core.interactiveshell import InteractiveShell
 from IPython.core import ultratb
+import argparse
+import code
+
+
+def simple_func(*args, **kwargs):
+    print(args)
+
+
+def launch_shell_simple(*args, **kwargs):
+    if not "sdn" in locals():
+        import spydrnet as sdn
+    if not "sdnphy" in locals():
+        import spydrnet_physical as sdnphy
+    code.interact(banner="Welcome to SpyDrNet-Physical",
+                  exitmsg="Thank you for using SpyDrNet-Physical",
+                  readfunc=simple_func(),
+                  local=locals())
 
 
 class _sdnphy_prompt(Prompts):
@@ -33,6 +50,10 @@ def custom_transformation(lines):
 def launch_shell(**kwargs):
     config = load_default_config()
     config.InteractiveShellEmbed = config.TerminalInteractiveShell
+    config.InteractiveShellApp.exec_lines = [
+        'import numpy',
+        'import scipy'
+    ]
     kwargs['colors'] = "neutral"
     kwargs['config'] = config
     using = kwargs.get('using', 'sync')
@@ -43,14 +64,17 @@ def launch_shell(**kwargs):
                                 'autoawait': using != 'sync'}})
 
     kwargs['config'].update(
-        {'InteractiveShell': {'prompts_class': _sdnphy_prompt}})
+        {'InteractiveShellApp': {'exec_lines': 'import spydrnet as sdn'},
+            'InteractiveShell': {'prompts_class': _sdnphy_prompt}})
     kwargs['banner1'] = "Launching interactive mode"
 
-    # check if shell instance already exists and clear it
+    # Backup current instance
     saved_shell_instance = InteractiveShell._instance
     if saved_shell_instance is not None:
         cls = type(saved_shell_instance)
         cls.clear_instance()
+
+    # Load Interactive console with current frame
     frame = sys._getframe(1)
     shell = InteractiveShellEmbed.instance(_init_location_id='%s:%s' % (
         frame.f_code.co_filename, frame.f_lineno), **kwargs)
