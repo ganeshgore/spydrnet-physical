@@ -52,6 +52,10 @@ class ConnectPoint:
             self.to_connection,
             angle=angle, sizex=sizex, sizey=sizey)
 
+    def translate_connection(self, x, y):
+        self.from_x, self.from_y = self.from_x + x, self.from_y+y
+        self.to_x, self.to_y = self.to_x + x, self.to_y+y
+
     @staticmethod
     def _rotate_point(point, angle, sizex=None, sizey=None):
         x, y = point
@@ -113,6 +117,14 @@ class ConnectPointList:
 
     def flip(self):
         pass
+
+    def merge(self, connectlist):
+        self._points.extend(connectlist._points)
+        pass
+
+    def translate(self, x, y):
+        for point in self._points:
+            point.translate_connection(x, y)
 
     def rotate(self, angle=0):
         angles = (0, 90, 180, 270, -90, -180, -270, 'CW', 'ACW')
@@ -226,13 +238,28 @@ class ConnectionPattern:
         self._connect = ConnectPointList(sizex=self.sizex,
                                          sizey=self.sizey)
 
-    def get_htree(self):
+    def get_htree(self, x_margin=(0, 0), y_margin=(0, 0)):
         '''
         Returns HTree pattern fo the given grid size
         '''
-        points = ConnectPointList()
-        points.add_connection(1, 1, 1, 2)
-        points.add_connection(10, 9, 10, 10)
+        assert self.sizex == self.sizey, "Not a square grid "
+        assert self.sizex%2 == 0, "Not a even Grid"
+        points = self._connect
+        x_center = ((self.sizex+1)*0.5)
+        x_pt = math.ceil(x_center) if self.xbias else math.floor(x_center)
+        y_pt = (1+y_margin[0])
+        points.add_connection(x_pt, 0, x_pt, y_pt)
+        points.cursor = (x_pt, y_pt)
+        for indx in range(self.sizey-y_margin[1]):
+            if not indx == 0:
+                points.move_y()
+            center = points.cursor
+            while points.get_x < (self.sizex-x_margin[1]):
+                points.move_x()
+            points.cursor = center
+            while points.get_x > (1 + x_margin[0]):
+                points.move_x(-1)
+            points.cursor = center
         return points
 
     def get_fishbone(self, x_margin=(0, 0), y_margin=(0, 0)):
