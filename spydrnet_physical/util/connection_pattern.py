@@ -105,17 +105,17 @@ class ConnectPointList:
 
     @property
     def get_x(self):
-        return self._points[-1].to_connection[0]
+        return self._cursor[0]
 
     @property
     def get_y(self):
-        return self._points[-1].to_connection[1]
+        return self._cursor[1]
 
     def flip(self):
         pass
 
     def rotate(self, angle=0):
-        angles = (0, 90, 180, 270,-90,-180,-270,'CW', 'ACW')
+        angles = (0, 90, 180, 270, -90, -180, -270, 'CW', 'ACW')
         assert angle in angles, "Supports only %s degree ratations" % angles
         for point in self._points:
             point.rotate_connection(angle, sizex=self.sizex, sizey=self.sizey)
@@ -156,6 +156,8 @@ class ConnectPointList:
 
     def add_connect_point(self, point):
         self._points.append(point)
+        self._update_cursor()
+        return point
 
     def add_connection(self, from_x, from_y, to_x, to_y):
         point = ConnectPoint(from_x, from_y, to_x, to_y)
@@ -229,23 +231,30 @@ class ConnectionPattern:
         points.add_connection(10, 9, 10, 10)
         return points
 
-    def get_fishbone(self):
+    def get_fishbone(self, x_margin=(0, 0), y_margin=(0, 0)):
         '''
         Returns fishbone pattern for the given grid size
+
+        Spine is created at the center of the grid, to change bias when grid
+        is symetric change ``xbias`` and ``ybias`` parameter
+
+        x_margin(tuple(int, int)): Skips the repective grid connectivity
+        y_margin(tuple(int, int)): Skips the repective grid connectivity
         '''
         points = self._connect
         x_center = ((self.sizex+1)*0.5)
         x_pt = math.ceil(x_center) if self.xbias else math.floor(x_center)
-        y_pt = 1
+        y_pt = (1+y_margin[0])
+        points.add_connection(x_pt, 0, x_pt, y_pt)
         points.cursor = (x_pt, y_pt)
-        for _ in range(self.sizey-1):
-            points.move_y()
+        for indx in range(self.sizey-y_margin[1]):
+            if not indx == 0:
+                points.move_y()
             center = points.cursor
-            print(points.cursor, end=" ")
-            while points.get_x < self.sizex:
+            while points.get_x < (self.sizex-x_margin[1]):
                 points.move_x()
             points.cursor = center
-            while points.get_x > 1:
+            while points.get_x > (1 + x_margin[0]):
                 points.move_x(-1)
             points.cursor = center
         return points
@@ -299,6 +308,5 @@ if __name__ == "__main__":
     fpga = ConnectionPattern(5, 5)
     conn_list = fpga.connections
     conn_list = fpga.get_fishbone()
-    # conn_list.add_connection(1, 2, 2, 2)
-    conn_list.rotate(180)
+    conn_list.rotate(0)
     fpga.render_pattern().save(pretty=True, indent=4)
