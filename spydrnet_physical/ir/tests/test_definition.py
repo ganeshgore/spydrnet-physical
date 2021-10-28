@@ -35,3 +35,46 @@ class TestDefinition(unittest.TestCase):
         self.assertIsInstance(port2, sdn.Port)
         self.assertSetEqual(set(get_names(self.definition.get_ports())),
                             {"inport", "outport"})
+
+    def test_create_feedthrough(self):
+        ''' This checks bus feedthrough from single instance '''
+
+        module1 = self.library.create_definition("module1")
+        module2 = self.library.create_definition("module2")
+        driver_port = module1.create_port("driver", direction=sdn.OUT, pins=4)
+        load_port = module1.create_port("load", direction=sdn.IN, pins=4)
+
+        # Create instances
+        inst0 = self.definition.create_child("inst0", reference=module1)
+        inst1 = self.definition.create_child("inst1", reference=module1)
+        ft_inst = self.definition.create_child("ft_inst", reference=module2)
+
+        # Create cable
+        cable = self.definition.create_cable("cable", wires=4)
+        cable.connect_instance_port(inst0, driver_port)
+        cable.connect_instance_port(inst1, load_port)
+
+        # Create Feedthrough
+        new_cables = self.definition.create_feedthrough(ft_inst, cable)
+
+        # Check correctness of connections
+        for new_cable in new_cables:
+            self.assertTrue(isinstance(new_cable, sdn.Cable), \
+                    "Return value should be cable")
+        new_cables = new_cables[0]
+        self.assertEqual(new_cables.size, 4, \
+                "New cable should have same dimensions")
+        self.assertSetEqual(set(map(lambda p: p.name, module2.ports)),
+                        {"cable_ft_out", "cable_ft_in"})
+        self.assertSetEqual(set(map(lambda p: p.name, self.definition.get_cables())),
+                        {"cable", "cable_ft_in_0"})
+        self.assertSetEqual(set(('cable_ft_in_0', 'cable')),
+            set(get_names(ft_inst.get_cables(selection="OUTSIDE"))),
+            "Checks if both the cable are connected to feedthoguh instance")
+        self.assertSetEqual(set(('cable',)),
+            set(get_names(inst0.get_cables(selection="OUTSIDE"))),
+            "Checks if original wire name is still same ")
+        self.assertSetEqual(set(('cable_ft_in_0',)),
+            set(get_names(inst1.get_cables(selection="OUTSIDE"))),
+            "Checks if feethrough wire name is as expected ")
+
