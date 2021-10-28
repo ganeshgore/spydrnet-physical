@@ -56,6 +56,12 @@ class ConnectPoint:
         self.from_x, self.from_y = self.from_x + x, self.from_y+y
         self.to_x, self.to_y = self.to_x + x, self.to_y+y
 
+    def scale_connection(self, scale, anchor=(0, 0)):
+        self.translate_connection(-1*anchor[0], -1*anchor[1])
+        self.from_x, self.from_y = self.from_x * scale, self.from_y * scale
+        self.to_x, self.to_y = self.to_x * scale, self.to_y * scale
+        self.translate_connection(anchor[0], anchor[1])
+
     @staticmethod
     def _rotate_point(point, angle, sizex=None, sizey=None):
         x, y = point
@@ -118,9 +124,27 @@ class ConnectPointList:
     def flip(self):
         pass
 
+    def crop_edges(self):
+        for point in self._points:
+            for eachp in ('from_x', 'to_x'):
+                pt = getattr(point, eachp)
+                if pt < 0:
+                    setattr(point, eachp, 0)
+                if pt > self.sizex:
+                    setattr(point, eachp, 0)
+            for eachp in ('from_y', 'to_y'):
+                pt = getattr(point, eachp)
+                if pt < 0:
+                    setattr(point, eachp, 0)
+                if pt > self.sizey:
+                    setattr(point, eachp, 0)
+
     def merge(self, connectlist):
         self._points.extend(connectlist._points)
-        pass
+
+    def scale(self, scale, anchor=(0, 0)):
+        for point in self._points:
+            point.scale_connection(scale, anchor)
 
     def translate(self, x, y):
         for point in self._points:
@@ -243,7 +267,7 @@ class ConnectionPattern:
         Returns HTree pattern fo the given grid size
         '''
         assert self.sizex == self.sizey, "Not a square grid "
-        assert self.sizex%2 == 0, "Not a even Grid"
+        assert self.sizex % 2 == 0, "Not a even Grid"
         points = self._connect
         x_center = ((self.sizex+1)*0.5)
         x_pt = math.ceil(x_center) if self.xbias else math.floor(x_center)
@@ -337,7 +361,12 @@ if __name__ == "__main__":
     # fpga.render_pattern().save(pretty=True, indent=4)
 
     fpga = ConnectionPattern(5, 5)
+    left_tree = fpga.connections
+    left_tree = fpga.get_fishbone(x_margin=(0, 0))
+    left_tree.scale(2, anchor=(1,1))
+
+    fpga = ConnectionPattern(10, 10)
     conn_list = fpga.connections
-    conn_list = fpga.get_fishbone()
-    conn_list.rotate(0)
+    conn_list.merge(left_tree)
+    conn_list.crop_edges()
     fpga.render_pattern().save(pretty=True, indent=4)
