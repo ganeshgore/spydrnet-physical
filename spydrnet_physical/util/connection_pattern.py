@@ -222,6 +222,10 @@ class ConnectionPattern:
         self._connect = value
         return self._connect
 
+    def reset(self):
+        self._connect = ConnectPointList(sizex=self.sizex,
+                                         sizey=self.sizey)
+
     def get_htree(self):
         '''
         Returns HTree pattern fo the given grid size
@@ -259,7 +263,7 @@ class ConnectionPattern:
             points.cursor = center
         return points
 
-    def render_pattern(self, scale=20):
+    def render_pattern(self, scale=20, title=None):
         dwg = self._connect.render_pattern(scale)
 
         dwgMain = [e for e in dwg.elements if e.get_id() == "main"][0]
@@ -278,8 +282,8 @@ class ConnectionPattern:
                                        end=((self.sizex+0.5) *
                                             scale, (i+0.5)*scale),
                                        class_="marker"))
-
-        dwgText.add(dwg.text(f" %d x %d FPGA " % (self.sizex, self.sizey),
+        title = title or f" %d x %d FPGA " % (self.sizex, self.sizey)
+        dwgText.add(dwg.text(title,
                              insert=((self.sizex+1)*scale*0.5, -1*-0.5*scale),
                              transform="scale(1,-1)",
                              class_="moduleLabel",
