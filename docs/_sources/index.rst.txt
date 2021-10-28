@@ -21,6 +21,7 @@ SpyDrNet-Physical Documentation
    reference/index
    auto_sample_verilog/index
    example.rst
+   tests/index
 
 
 Indices and tables

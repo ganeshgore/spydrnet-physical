@@ -209,6 +209,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Unit Tests</a></li>
 </ul>
 
 </div>
@@ -245,27 +246,62 @@ to download the full example code</p>
 <p>This example demonstrate how to genrate different connection pattern
 for routing global signals</p>
 <p><strong>Output2</strong> Fishbone routing pattern gerneation</p>
-<a class="reference internal image-reference" href="../_images/_fishbone_pattern.svg"><img alt="../_images/_fishbone_pattern.svg" src="../_images/_fishbone_pattern.svg" width="300px"/></a>
-<a class="reference internal image-reference" href="../_images/_fishbone_pattern_90.svg"><img alt="../_images/_fishbone_pattern_90.svg" src="../_images/_fishbone_pattern_90.svg" width="300px"/></a>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(3, 2) (3, 3) (3, 4) (3, 5)
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util.connection_pattern</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span>
+<a class="reference internal image-reference" href="../_images/_fishbone_pattern.svg"><img alt="../_images/_fishbone_pattern.svg" src="../_images/_fishbone_pattern.svg" width="200px"/></a>
+<a class="reference internal image-reference" href="../_images/_fishbone_pattern_90.svg"><img alt="../_images/_fishbone_pattern_90.svg" src="../_images/_fishbone_pattern_90.svg" width="200px"/></a>
+<a class="reference internal image-reference" href="../_images/_fishbone_pattern_margin.svg"><img alt="../_images/_fishbone_pattern_margin.svg" src="../_images/_fishbone_pattern_margin.svg" width="200px"/></a>
+<a class="reference internal image-reference" href="../_images/_fishbone_pattern_merging.svg"><img alt="../_images/_fishbone_pattern_merging.svg" src="../_images/_fishbone_pattern_merging.svg" width="200px"/></a>
+<a class="reference internal image-reference" href="../_images/_fishbone_pattern_scaling1.svg"><img alt="../_images/_fishbone_pattern_scaling1.svg" src="../_images/_fishbone_pattern_scaling1.svg" width="200px"/></a>
+<a class="reference internal image-reference" href="../_images/_fishbone_pattern_scaling2.svg"><img alt="../_images/_fishbone_pattern_scaling2.svg" src="../_images/_fishbone_pattern_scaling2.svg" width="200px"/></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spydrnet_physical.util.connection_pattern</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span>
 
 <span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">fishbone_pattern</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">()</span>
-<span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">()</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern.svg"</span><span class="p">,</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Fishbone Pattern"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
 <span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
-<span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">()</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_90.svg"</span><span class="p">,</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Rotation"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_90.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">p_manager</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">fishbone_pattern</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Margin option"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_margin.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+
+<span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">left_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
+<span class="n">left_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">left_tree</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">right_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
+<span class="n">right_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">right_tree</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">right_tree</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left_tree</span><span class="p">)</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Merging option"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_merging.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># ===============================</span>
+<span class="c1">#        Scaling Example</span>
+<span class="c1"># ===============================</span>
+
+<span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">left_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
+<span class="n">left_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">()</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Original"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_scaling1.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">left_tree</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">right_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
+<span class="n">right_tree</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left_tree</span><span class="p">)</span>
+<span class="n">right_tree</span><span class="o">.</span><span class="n">crop_edges</span><span class="p">()</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Scale and Merge"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_scaling2.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.055 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.071 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-connection-patterns-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b453c730e4fd8fe4ec88afa2f051dc7a/connection_patterns.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">connection_patterns.py</span></code></a></p>
