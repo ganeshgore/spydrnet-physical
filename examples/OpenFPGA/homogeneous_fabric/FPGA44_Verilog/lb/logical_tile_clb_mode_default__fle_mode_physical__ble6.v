@@ -10,7 +10,7 @@
 
 // ----- BEGIN Physical programmable logic block Verilog module: ble6 -----
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for logical_tile_clb_mode_default__fle_mode_physical__ble6 -----
 module logical_tile_clb_mode_default__fle_mode_physical__ble6(cfg_done,
@@ -123,7 +123,7 @@ endmodule
 // ----- END Verilog module for logical_tile_clb_mode_default__fle_mode_physical__ble6 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

@@ -10,7 +10,7 @@
 
 // ----- BEGIN Grid Verilog module: grid_clb -----
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for grid_clb -----
 module grid_clb(cfg_done,
@@ -214,7 +214,7 @@ endmodule
 // ----- END Verilog module for grid_clb -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

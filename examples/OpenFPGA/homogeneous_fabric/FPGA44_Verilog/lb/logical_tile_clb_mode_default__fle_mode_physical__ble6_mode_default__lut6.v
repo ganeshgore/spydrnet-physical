@@ -9,7 +9,7 @@
 `timescale 1ns / 1ps
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for logical_tile_clb_mode_default__fle_mode_physical__ble6_mode_default__lut6 -----
 module logical_tile_clb_mode_default__fle_mode_physical__ble6_mode_default__lut6(cfg_done,
@@ -64,7 +64,7 @@ endmodule
 // ----- END Verilog module for logical_tile_clb_mode_default__fle_mode_physical__ble6_mode_default__lut6 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

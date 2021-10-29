@@ -9,7 +9,7 @@
 `timescale 1ns / 1ps
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for sb_1__0_ -----
 module sb_1__0_(cfg_done,
@@ -737,7 +737,7 @@ endmodule
 // ----- END Verilog module for sb_1__0_ -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

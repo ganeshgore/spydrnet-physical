@@ -3,7 +3,7 @@
 //	Description: Local Decoders for Multiplexers
 //	Author: Xifan TANG
 //	Organization: University of Utah
-//	Date: Thu Oct 28 13:20:02 2021
+//	Date: Thu Oct 28 18:40:07 2021
 //-------------------------------------------
 //----- Time scale -----
 `timescale 1ns / 1ps

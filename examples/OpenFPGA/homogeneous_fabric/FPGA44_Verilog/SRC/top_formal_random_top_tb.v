@@ -3,13 +3,13 @@
 //	Description: FPGA Verilog Testbench for Formal Top-level netlist of Design: top
 //	Author: Xifan TANG
 //	Organization: University of Utah
-//	Date: Thu Oct 28 13:20:03 2021
+//	Date: Thu Oct 28 18:40:07 2021
 //-------------------------------------------
 //----- Time scale -----
 `timescale 1ns / 1ps
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 module top_top_formal_verification_random_tb;
 // ----- Default clock port is added here since benchmark does not contain one -------
@@ -120,5 +120,5 @@ endmodule
 // ----- END Verilog module for top_top_formal_verification_random_tb -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 

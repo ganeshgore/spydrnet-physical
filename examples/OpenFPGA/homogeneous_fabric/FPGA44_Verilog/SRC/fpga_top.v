@@ -3,13 +3,13 @@
 //	Description: Top-level Verilog module for FPGA
 //	Author: Xifan TANG
 //	Organization: University of Utah
-//	Date: Thu Oct 28 13:20:03 2021
+//	Date: Thu Oct 28 18:40:07 2021
 //-------------------------------------------
 //----- Time scale -----
 `timescale 1ns / 1ps
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for fpga_top -----
 module fpga_top(cfg_done,
@@ -3674,7 +3674,7 @@ endmodule
 // ----- END Verilog module for fpga_top -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

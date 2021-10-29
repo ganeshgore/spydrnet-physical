@@ -9,7 +9,7 @@
 `timescale 1ns / 1ps
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for cby_4__1_ -----
 module cby_4__1_(cfg_done,
@@ -574,7 +574,7 @@ endmodule
 // ----- END Verilog module for cby_4__1_ -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

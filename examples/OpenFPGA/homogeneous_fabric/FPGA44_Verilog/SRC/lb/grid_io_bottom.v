@@ -3,14 +3,14 @@
 //	Description: Verilog modules for physical tile: io]
 //	Author: Xifan TANG
 //	Organization: University of Utah
-//	Date: Thu Oct 28 13:20:03 2021
+//	Date: Thu Oct 28 18:40:07 2021
 //-------------------------------------------
 //----- Time scale -----
 `timescale 1ns / 1ps
 
 // ----- BEGIN Grid Verilog module: grid_io_bottom -----
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for grid_io_bottom -----
 module grid_io_bottom(cfg_done,
@@ -174,7 +174,7 @@ endmodule
 // ----- END Verilog module for grid_io_bottom -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

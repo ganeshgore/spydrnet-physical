@@ -3,13 +3,13 @@
 //	Description: Multiplexers
 //	Author: Xifan TANG
 //	Organization: University of Utah
-//	Date: Thu Oct 28 13:20:02 2021
+//	Date: Thu Oct 28 18:40:07 2021
 //-------------------------------------------
 //----- Time scale -----
 `timescale 1ns / 1ps
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size8 -----
 module mux2_size8(in,
@@ -94,13 +94,13 @@ endmodule
 // ----- END Verilog module for mux2_size8 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size2 -----
 module mux2_size2(in,
@@ -149,13 +149,13 @@ endmodule
 // ----- END Verilog module for mux2_size2 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size9 -----
 module mux2_size9(in,
@@ -246,13 +246,13 @@ endmodule
 // ----- END Verilog module for mux2_size9 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size12 -----
 module mux2_size12(in,
@@ -361,13 +361,13 @@ endmodule
 // ----- END Verilog module for mux2_size12 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size3 -----
 module mux2_size3(in,
@@ -422,13 +422,13 @@ endmodule
 // ----- END Verilog module for mux2_size3 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size4 -----
 module mux2_size4(in,
@@ -489,13 +489,13 @@ endmodule
 // ----- END Verilog module for mux2_size4 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size10 -----
 module mux2_size10(in,
@@ -592,13 +592,13 @@ endmodule
 // ----- END Verilog module for mux2_size10 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size5 -----
 module mux2_size5(in,
@@ -665,13 +665,13 @@ endmodule
 // ----- END Verilog module for mux2_size5 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for mux2_size50 -----
 module mux2_size50(in,
@@ -1008,13 +1008,13 @@ endmodule
 // ----- END Verilog module for mux2_size50 -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for lut6_mux -----
 module lut6_mux(in,
@@ -1422,7 +1422,7 @@ endmodule
 // ----- END Verilog module for lut6_mux -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

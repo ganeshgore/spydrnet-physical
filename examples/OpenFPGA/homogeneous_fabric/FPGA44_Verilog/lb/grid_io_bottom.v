@@ -10,7 +10,7 @@
 
 // ----- BEGIN Grid Verilog module: grid_io_bottom -----
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for grid_io_bottom -----
 module grid_io_bottom(cfg_done,
@@ -174,7 +174,7 @@ endmodule
 // ----- END Verilog module for grid_io_bottom -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

@@ -9,7 +9,7 @@
 `timescale 1ns / 1ps
 
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for logical_tile_io_mode_physical__iopad -----
 module logical_tile_io_mode_physical__iopad(cfg_done,
@@ -66,7 +66,7 @@ endmodule
 // ----- END Verilog module for logical_tile_io_mode_physical__iopad -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 
