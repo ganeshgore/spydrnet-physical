@@ -4,6 +4,14 @@ from spydrnet.ir.port import Port as PortBase
 class Port(PortBase):
     ''' This class extends the default Port class '''
 
+    def __init__(self, name=None, properties=None, is_downto=None,
+                 is_scalar=None, lower_index=None, direction=None):
+        super().__init__(name=name, properties=properties, is_downto=is_downto,
+                         is_scalar=is_scalar, lower_index=lower_index, direction=direction)
+        properties = properties or dict()
+        self.properties["SIDE"] = properties.get("SIDE", "")
+        self.properties["OFFSET"] = properties.get("OFFSET", 0)
+
     @property
     def is_input(self):
         return self.direction == self.Direction.IN

@@ -17,6 +17,12 @@ class Definition(DefinitionBase):
     Extending the definitions representation
     """
 
+    def __init__(self, name=None, properties=None):
+        super().__init__(name=name, properties=properties)
+        properties = properties or dict()
+        self.properties["WIDTH"] = properties.get("WIDTH", 50)
+        self.properties["HEIGHT"] = properties.get("WIDTH", 50)
+
     def _disconnect_port(self, port):
         '''
         This method disconnects the definition port from its cable

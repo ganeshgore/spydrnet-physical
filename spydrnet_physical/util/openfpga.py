@@ -27,6 +27,7 @@ class OpenFPGA_Tile01(object):
         self._work = next(netlist.get_libraries(library))
         self._task_directory = netlist
         self._top_module = next(self._work.get_definitions(top_module))
+        self._tile_name_patter = "tile_%d_%d_"
         netlist.top_instance = self._top_module
 
     @property
@@ -36,6 +37,12 @@ class OpenFPGA_Tile01(object):
     @property
     def top_module(self):
         return self._top_module
+
+    def add_placement(self):
+        pass
+
+    def create_connection(self):
+        pass
 
     def create_tiles(self):
         '''
