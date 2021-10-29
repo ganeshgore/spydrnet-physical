@@ -135,12 +135,16 @@ class Definition(DefinitionBase):
                 for pin in set(each_w.pins):
                     # These are loads and
                     if (isinstance(pin, OuterPin) and (pin.port.direction == sdn.IN)) or \
-                        (isinstance(pin, InnerPin) and (pin.port.direction == sdn.OUT)):
+                            (isinstance(pin, InnerPin) and (pin.port.direction == sdn.OUT)):
                         each_w.disconnect_pin(pin)
                         new_cable.wires[pin.get_index].connect_pin(pin)
             cable.connect_instance_port(instance, inport)
             cable_list.append(new_cable)
         return cable_list
+
+    def create_ft_multiple(self, *args, **kwargs):
+        ''' Alias to create_feedthrough_multiple '''
+        return self.create_feedthrough_multiple(*args, **kwargs)
 
     def create_feedthrough_multiple(self, instances_list):
         """

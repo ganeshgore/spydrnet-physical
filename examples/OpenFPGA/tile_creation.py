@@ -8,10 +8,12 @@ Verilog netlist obtained from OpenFPGA
 
 """
 
-from os import path
-import tempfile
 import glob
+import tempfile
+from itertools import chain
+from os import path
 from pprint import pprint
+
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from spydrnet_physical.util import OpenFPGA_Tile01
@@ -39,6 +41,24 @@ def main():
     fpga.create_grid_io_bus()
     fpga.create_sb_bus()
     fpga.create_cb_bus()
+
+    # Remove undriven nets
+    for cable in fpga.top_module.get_cables("*undriven*"):
+        fpga.top_module.remove_cable(cable)
+
+    # Top level nets to bus
+    for i in chain(fpga.top_module.get_instances("grid_clb*"),
+                   fpga.top_module.get_instances("grid_io*"),
+                   fpga.top_module.get_instances("sb_*")):
+        for p in filter(lambda x: True, i.reference.ports):
+            if p.size > 1 and (i.check_all_scalar_connections(p)):
+                cable_list = []
+                for pin in p.pins[::-1]:
+                    cable_list.append(i.pins[pin].wire.cable)
+                fpga.top_module.combine_cables(
+                    f"{i.name}_{p.name}", cable_list)
+
+    fpga.create_grid_clb_feedthroughs()
 
     # Save netlist
     base_dir = (".", "homogeneous_fabric", "_output")

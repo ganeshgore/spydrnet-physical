@@ -6,6 +6,7 @@ from collections import OrderedDict
 from fnmatch import fnmatch
 from os import path
 from pathlib import Path
+import re
 
 import spydrnet as sdn
 
@@ -223,6 +224,57 @@ class OpenFPGA_Tile01(object):
                 if ports:
                     ports = sorted(ports, key=lambda x: x.name)
                     cby.combine_ports(f"cb_{s1}_outpad", ports)
+
+    def create_grid_clb_feedthroughs(self):
+        '''
+        Create feedthroughs for ``grid_clb``
+
+        '''
+        # TODO: Need more detal documentation
+        left_ft0, left_ft1, bottom_ft0, bottom_ft1 = [], [], [], []
+        clb = next(self._work.get_definitions("grid_clb"))
+
+        for each in clb.references:
+            cable = each.get_port_cables("clb_left_out")[0]
+            x, y = map(int, re.match(
+                r"grid_clb_(\w+)__(\w+)_", each.name).groups())
+            through_inst = next(
+                self._top_module.get_instances(f"cby_{x-1}__{y}_"))
+            print(each.name, cable.name, through_inst.name)
+            if through_inst.reference.name == "cby_0__1_":
+                left_ft0.append((cable, (through_inst,)))
+            elif through_inst.reference.name == "cby_1__1_":
+                left_ft1.append((cable, (through_inst,)))
+            else:
+                print("Unexpected instance to merge")
+
+            cable = each.get_port_cables("clb_bottom_out")[0]
+            through_inst = next(
+                self._top_module.get_instances(f"cbx_{x}__{y-1}_"))
+            print(each.name, cable.name, through_inst.name)
+            if through_inst.reference.name == "cbx_1__0_":
+                bottom_ft0.append((cable, (through_inst,)))
+            elif through_inst.reference.name == "cbx_1__1_":
+                bottom_ft1.append((cable, (through_inst,)))
+            else:
+                print("Unexpected instance to merge")
+            print("===================")
+
+        _, new_ports = self._top_module.create_ft_multiple(left_ft0)
+        new_ports[0][0].change_name("cb_right_grid_in")
+        new_ports[0][1].change_name("cb_bottom_r_out")
+        _, new_ports = self._top_module.create_ft_multiple(left_ft1)
+        new_ports[0][0].change_name("cb_right_grid_in")
+        new_ports[0][1].change_name("cb_bottom_r_out")
+        _, new_ports = self._top_module.create_ft_multiple(bottom_ft0)
+        new_ports[0][0].change_name("cb_top_grid_in")
+        new_ports[0][1].change_name("cb_left_r_out")
+        _, new_ports = self._top_module.create_ft_multiple(bottom_ft1)
+        new_ports[0][0].change_name("cb_top_grid_in")
+        new_ports[0][1].change_name("cb_left_r_out")
+
+        next(clb.get_ports("clb_top_out")).change_name("clb_left_t_out")
+        next(clb.get_ports("clb_right_out")).change_name("clb_bottom_r_out")
 
     def _main_tile(self, work, top_module):
         '''Create main Tiles
