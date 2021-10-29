@@ -1,12 +1,20 @@
 """
-This class created OpenFPGA related netlist transformations
+This class is created for OpenFPGA related netlist transformations
 """
+import logging
+from collections import OrderedDict
 from fnmatch import fnmatch
+from os import path
+from pathlib import Path
+
+import spydrnet as sdn
+
+logger = logging.getLogger('spydrnet_logs')
 
 
-class OpenFPGA_Tile01:
+class OpenFPGA_Tile01(object):
 
-    def __init__(self, grid, netlist):
+    def __init__(self, grid, netlist, library="work", top_module="fpga_top"):
         '''
         Init class
 
@@ -15,13 +23,211 @@ class OpenFPGA_Tile01:
         '''
         self.fpga_size = grid
         self._netlist = netlist
+        self._work = next(netlist.get_libraries(library))
         self._task_directory = netlist
+        self._top_module = next(self._work.get_definitions(top_module))
+        netlist.top_instance = self._top_module
 
-    def run_task(self):
-        pass
+    @property
+    def work(self):
+        return self._work
+
+    @property
+    def top_module(self):
+        return self._top_module
+
+    def create_tiles(self):
+        '''
+        Creates tiles
+        '''
+        work = next(self._netlist.get_libraries("work"))
+        top_module = next(work.get_definitions("fpga_core"))
+
+        # ##############  Main Tiles  ##############
+        self._main_tile(work, top_module)
+
+        # ##############  Side Tiles  ##############
+        self._left_tile(work, top_module)
+        self._right_tile(work, top_module)
+        self._top_tile(work, top_module)
+        self._bottom_tile(work, top_module)
+
+        # ############## Corner Tiles ##############
+        self._top_left_tile(work, top_module)
+        self._top_right_tile(work, top_module)
+        self._bottom_left_tile(work, top_module)
+        self._bottom_right_tile(work, top_module)
+
+    def design_top_stat(self):
+        '''
+        Get statistics of the top module
+        '''
+        design = self._top_module
+        print("= = "*10)
+        print("= = "*3 + " DESIGN STATS " + "= "*7)
+        print("= = "*10)
+        print(f"    top_module : {design.name}")
+        print(f"    instances  : {len(design.children)}")
+        print("= = "*10)
+        inst_cnt = {}
+        for inst in design.children:
+            inst_cnt[inst.reference.name] = 1 + \
+                inst_cnt.get(inst.reference.name, 0)
+        inst_cnt = OrderedDict(sorted(inst_cnt.items(),
+                                      reverse=True,
+                                      key=lambda t: t[1]))
+        print("{: >20} {: >8}".format('References', 'count'))
+        print("- - "*10)
+        for def_, count in inst_cnt.items():
+            print("{: >20} {: >8}".format(
+                def_ if len(def_) < 20 else f"...{def_[-17:]}", count))
+        return inst_cnt
+
+    def save_netlist(self, patten="*",  location="."):
+        '''
+        Save verilog files
+        '''
+        for definition in self._work.get_definitions(patten):
+            logger.info("Writing %s", definition.name)
+            Path(location).mkdir(parents=True, exist_ok=True)
+            sdn.compose(self._netlist,
+                        filename=path.join(location, f"{definition.name}.v"),
+                        definition_list=[definition.name],
+                        write_blackbox=True)
+
+    def create_grid_io_bus(self):
+        sides = [("left", "top", "bottom"),
+                 ("top", "left", "right"),
+                 ("right", "top", "bottom"),
+                 ("bottom", "left", "right")]
+
+        #  =========  grid_io  =========
+        for grid_io in self._work.get_definitions("grid_io*"):
+            for s1, s2_1, s2_2 in sides:
+                # Plan upper pins
+                ports = list(grid_io.get_ports(
+                    filter=lambda x: fnmatch(
+                        x.name, f"{s1}*_pin_inpad_*upper")
+                ))
+                if ports:
+                    ports = sorted(ports, key=lambda x: x.name)
+                    grid_io.combine_ports(f"io_{s2_1}_{s1[0]}_in", ports)
+
+                # Plan lower pins
+                ports = list(grid_io.get_ports(
+                    filter=lambda x: fnmatch(
+                        x.name, f"{s1}*_pin_inpad_*lower")
+                ))
+                if ports:
+                    ports = sorted(ports, key=lambda x: x.name)
+                    grid_io.combine_ports(f"io_{s2_2}_{s1[0]}_in", ports)
+
+                # Plan lower pins (Remaining in case of non duplicatded pins appear)
+                ports = list(grid_io.get_ports(
+                    filter=lambda x: fnmatch(x.name, f"{s1}*_pin_inpad_*")))
+                if ports:
+                    ports = sorted(ports, key=lambda x: x.name)
+                    grid_io.combine_ports(f"io_{s1}_in", ports)
+
+                # Plan input pins
+                ports = list(grid_io.get_ports(
+                    filter=lambda x: fnmatch(x.name, f"{s1}*_pin_outpad_*")))
+                if ports:
+                    ports = sorted(ports, key=lambda x: x.name)
+                    grid_io.combine_ports(f"io_{s1}_out", ports)
+
+    def create_grid_clb_bus(self):
+        '''
+        Convert CLB wires to Bus
+        '''
+        sides = [("left", "left_1", "left_2"),
+                 ("top", "left", "right"),
+                 ("right", "top", "bottom"),
+                 ("bottom", "bottom_2", "bottom_1")]
+        grid_clb = next(self._work.get_definitions("grid_clb*"))
+
+        for port in grid_clb.get_ports("*pin_clk*"):
+            grid_clb.remove_port(port)
+        #  =========  grid_clb  =========
+        for s1, s2_1, s2_2 in sides:
+            # Plan upper pins
+            ports = list(grid_clb.get_ports(
+                filter=lambda x: fnmatch(x.name, f"{s1}*_pin_O_*upper")))
+            if ports:
+                ports = sorted(ports, key=lambda x: x.name)
+                grid_clb.combine_ports(f"clb_{s2_1}_{s1[0]}_out", ports)
+
+            # Plan lower pins
+            ports = list(grid_clb.get_ports(
+                filter=lambda x: fnmatch(x.name, f"{s1}*_pin_O_*lower")))
+            if ports:
+                ports = sorted(ports, key=lambda x: x.name)
+                grid_clb.combine_ports(f"clb_{s2_2}_{s1[0]}_out", ports)
+
+            # Plan lower pins (Remaining in case of non duplicatded pins appear)
+            ports = list(grid_clb.get_ports(
+                filter=lambda x: fnmatch(x.name, f"{s1}*_pin_O_*_")))
+            if ports:
+                ports = sorted(ports, key=lambda x: x.name)
+                grid_clb.combine_ports(f"clb_{s1}_out", ports)
+
+            # Plan input pins
+            ports = list(grid_clb.get_ports(
+                filter=lambda x: fnmatch(x.name, f"{s1}*_pin_I*")))
+            if ports:
+                ports = sorted(ports, key=lambda x: x.name)
+                grid_clb.combine_ports(f"clb_{s1}_in", ports)
+
+    def create_sb_bus(self):
+        sides = ["top", "right", "bottom", "left"]
+        for sb in self._work.get_definitions("sb_*"):
+            for s1 in sides:
+                for s2 in sides:
+                    ports = list(sb.get_ports(
+                        filter=lambda x: fnmatch(x.name, f"*{s1}_{s2}_grid_*_pin_O_*")))
+                    if ports:
+                        ports = sorted(ports, key=lambda x: x.name)
+                        sb.combine_ports(f"sb_{s1}_{s2[0]}_in", ports)
+                    ports = list(sb.get_ports(
+                        filter=lambda x: fnmatch(x.name, f"*{s1}_{s2}_grid_*__pin_inpad_*")))
+                    if ports:
+                        ports = sorted(ports, key=lambda x: x.name)
+                        sb.combine_ports(f"sb_{s1}_{s2[0]}_inpad", ports)
+
+    def create_cb_bus(self):
+        sides = ["top", "right", "bottom", "left"]
+        for cbx in self._work.get_definitions("cbx_*"):
+            for indx, s1 in enumerate(sides):
+                ports = list(cbx.get_ports(
+                    filter=lambda x: fnmatch(x.name, f"*{s1}_grid_*__pin_I_*")))
+                if ports:
+                    ports = sorted(ports, key=lambda x: x.name)
+                    cbx.combine_ports(f"cb_{s1}_in", ports)
+
+                ports = list(cbx.get_ports(
+                    filter=lambda x: fnmatch(x.name, f"*{s1}_grid_*__pin_outpad_*")))
+                if ports:
+                    ports = sorted(ports, key=lambda x: x.name)
+                    cbx.combine_ports(f"cb_{s1}_outpad", ports)
+
+        for cby in self._work.get_definitions("cby_*"):
+            for indx, s1 in enumerate(sides):
+                ports = list(cby.get_ports(
+                    filter=lambda x: fnmatch(x.name, f"*{s1}_grid_*__pin_I_*")))
+                if ports:
+                    ports = sorted(ports, key=lambda x: x.name)
+                    cby.combine_ports(f"cb_{s1}_in", ports)
+
+                ports = list(cby.get_ports(
+                    filter=lambda x: fnmatch(x.name, f"*{s1}_grid_*__pin_outpad_*")))
+                if ports:
+                    ports = sorted(ports, key=lambda x: x.name)
+                    cby.combine_ports(f"cb_{s1}_outpad", ports)
 
     def _main_tile(self, work, top_module):
         '''Create main Tiles
+        ::
+
                               +-----+
                               |     |
                 +-------+ +----     ---+
@@ -35,6 +241,7 @@ class OpenFPGA_Tile01:
             |               | +-----+
             |               |
             +---------------+
+
       '''
         merge_module_list = []
         for x in range(2, self.fpga_size[0]):
@@ -52,7 +259,7 @@ class OpenFPGA_Tile01:
 
     def _left_tile(self, work, top_module):
         '''        Create Left Tiles
-
+        ::
             +-----+                  +-----+
             |     |                  |     |
             |     +--+ +-------+ +---+     +--+
@@ -68,7 +275,7 @@ class OpenFPGA_Tile01:
                     +--------------+
         '''
         instance_list = []
-        for i in range(2, self.self.fpga_size[0]):
+        for i in range(2, self.fpga_size[0]):
             clb = next(work.get_instances(f"grid_clb_1__{i}_"))
             cby0 = next(work.get_instances(f"cby_0__{i}_"))
             cby1 = next(work.get_instances(f"cby_1__{i}_"))
@@ -85,6 +292,7 @@ class OpenFPGA_Tile01:
 
     def _right_tile(self, work, top_module):
         '''    Create Right Tiles
+        ::
                              +-----+
                              |     |
                 +-------+ +--+     |
@@ -117,6 +325,7 @@ class OpenFPGA_Tile01:
 
     def _top_tile(self, work, top_module):
         '''     Create Top Tiles
+        ::
                +-------+ +------------+
                |  CBY  | |     SB     |
                +-------+ +---+     +--+
@@ -147,6 +356,7 @@ class OpenFPGA_Tile01:
 
     def _bottom_tile(self, work, top_module):
         '''   Create Bottom Tiles
+        ::
                              +-----+
                              |     |
                +-------+ +---+     +--+
@@ -165,7 +375,7 @@ class OpenFPGA_Tile01:
                +-------+ +------------+
         '''
         instance_list = []
-        for i in range(2, self.self.fpga_size[1]):
+        for i in range(2, self.fpga_size[1]):
             clb = next(work.get_instances(f"grid_clb_{i}__1_"))
             cbx0 = next(work.get_instances(f"cbx_{i}__0_"))
             cbx1 = next(work.get_instances(f"cbx_{i}__1_"))
@@ -182,6 +392,7 @@ class OpenFPGA_Tile01:
 
     def _top_left_tile(self, work, top_module):
         '''       Create top left tile
+        ::
             +--------+ +-------+ +------------+
             |  SB    | |  CBY  | |     SB     |
             |     +--+ +-------+ +---+     +--+
@@ -213,6 +424,7 @@ class OpenFPGA_Tile01:
 
     def _top_right_tile(self, work, top_module):
         '''          Create top right tile
+        ::
             +------------+ +-------+ +---------+
             |     SB     | |  CBY  | |     SB  |
             +---+     +--+ +-------+ +---+     |
@@ -246,6 +458,7 @@ class OpenFPGA_Tile01:
 
     def _bottom_left_tile(self, work, top_module):
         '''      Create bottom left tile
+        ::
             +-----+                  +-----+
             |     |                  |     |
             |     +--+ +-------+ +---+     +--+
@@ -265,19 +478,20 @@ class OpenFPGA_Tile01:
 
         '''
         merge_module_list = []
-        clb = next(work.get_instances(f"grid_clb_1__1_"))
-        cbx0 = next(work.get_instances(f"cbx_1__0_"))
-        cbx1 = next(work.get_instances(f"cbx_1__1_"))
-        cby0 = next(work.get_instances(f"cby_0__1_"))
-        cby1 = next(work.get_instances(f"cby_1__1_"))
-        sb0 = next(work.get_instances(f"sb_0__0_"))
-        sb1 = next(work.get_instances(f"sb_0__1_"))
-        sb2 = next(work.get_instances(f"sb_1__0_"))
-        sb3 = next(work.get_instances(f"sb_1__1_"))
-        grid_io_0 = next(work.get_instances(f"grid_io_left_0__1_"))
-        grid_io_1 = next(work.get_instances(f"grid_io_bottom_1__0_"))
-        merge_module_list.append(((clb, cbx0, cbx1, cby0, cby1, sb0, sb1, sb2, sb3, grid_io_0, grid_io_1),
-                                  f"tile_1__1_"))
+        clb = next(work.get_instances("grid_clb_1__1_"))
+        cbx0 = next(work.get_instances("cbx_1__0_"))
+        cbx1 = next(work.get_instances("cbx_1__1_"))
+        cby0 = next(work.get_instances("cby_0__1_"))
+        cby1 = next(work.get_instances("cby_1__1_"))
+        sb0 = next(work.get_instances("sb_0__0_"))
+        sb1 = next(work.get_instances("sb_0__1_"))
+        sb2 = next(work.get_instances("sb_1__0_"))
+        sb3 = next(work.get_instances("sb_1__1_"))
+        grid_io_0 = next(work.get_instances("grid_io_left_0__1_"))
+        grid_io_1 = next(work.get_instances("grid_io_bottom_1__0_"))
+        merge_module_list.append(((clb, cbx0, cbx1, cby0, cby1, sb0, sb1,
+                                   sb2, sb3, grid_io_0, grid_io_1),
+                                  "tile_1__1_"))
         top_module.merge_multiple_instance(merge_module_list,
                                            new_definition_name=f"bottom_left_tile")
 
@@ -285,6 +499,7 @@ class OpenFPGA_Tile01:
 
     def _bottom_right_tile(self, work, top_module):
         ''' Create bottom right tile
+        ::
                               +-----+
                               |     |
                 +-------+ +---+     |
@@ -318,167 +533,3 @@ class OpenFPGA_Tile01:
         top_module.merge_multiple_instance(merge_module_list,
                                            new_definition_name="bottom_right_tile")
         next(work.get_definitions("bottom_right_tile")).OptPins()
-
-    def create_grid_io_bus(self, work):
-        sides = [("left", "top", "bottom"),
-                ("top", "left", "right"),
-                ("right", "top", "bottom"),
-                ("bottom", "left", "right")]
-
-        #  =========  grid_io  =========
-        for grid_io in work.get_definitions("grid_io*"):
-            for s1, s2_1, s2_2 in sides:
-                # Plan upper pins
-                ports = list(grid_io.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"{s1}*_pin_inpad_*upper")
-                                            ))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    grid_io.combine_ports(f"io_{s2_1}_{s1[0]}_in", ports)
-
-                # Plan lower pins
-                ports = list(grid_io.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"{s1}*_pin_inpad_*lower")
-                                            ))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    grid_io.combine_ports(f"io_{s2_2}_{s1[0]}_in", ports)
-
-                # Plan lower pins (Remaining in case of non duplicatded pins appear)
-                ports = list(grid_io.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"{s1}*_pin_inpad_*")
-                                            ))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    grid_io.combine_ports(f"io_{s1}_in", ports)
-
-                # Plan input pins
-                ports = list(grid_io.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"{s1}*_pin_outpad_*")
-                                            ))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    grid_io.combine_ports(f"io_{s1}_out", ports)
-
-
-    def create_grid_clb_bus(self, work):
-        sides = [("left", "left_1", "left_2"),
-                ("top", "left", "right"),
-                ("right", "top", "bottom"),
-                ("bottom", "bottom_2", "bottom_1")]
-        grid_clb = next(work.get_definitions("grid_clb*"))
-
-        for port in grid_clb.get_ports("*pin_clk*"):
-            grid_clb.remove_port(port)
-        #  =========  grid_clb  =========
-        for s1, s2_1, s2_2 in sides:
-            # Plan upper pins
-            ports = list(grid_clb.get_ports(filter=lambda x:
-                                            fnmatch(x.name, f"{s1}*_pin_O_*upper")
-                                            ))
-            if ports:
-                ports = sorted(ports, key=lambda x: x.name)
-                grid_clb.combine_ports(f"clb_{s2_1}_{s1[0]}_out", ports)
-
-            # Plan lower pins
-            ports = list(grid_clb.get_ports(filter=lambda x:
-                                            fnmatch(x.name, f"{s1}*_pin_O_*lower")
-                                            ))
-            if ports:
-                ports = sorted(ports, key=lambda x: x.name)
-                grid_clb.combine_ports(f"clb_{s2_2}_{s1[0]}_out", ports)
-
-            # Plan lower pins (Remaining in case of non duplicatded pins appear)
-            ports = list(grid_clb.get_ports(filter=lambda x:
-                                            fnmatch(x.name, f"{s1}*_pin_O_*_")
-                                            ))
-            if ports:
-                ports = sorted(ports, key=lambda x: x.name)
-                grid_clb.combine_ports(f"clb_{s1}_out", ports)
-
-            # Plan input pins
-            ports = list(grid_clb.get_ports(filter=lambda x:
-                                            fnmatch(x.name, f"{s1}*_pin_I*")
-                                            ))
-            if ports:
-                ports = sorted(ports, key=lambda x: x.name)
-                grid_clb.combine_ports(f"clb_{s1}_in", ports)
-
-
-    def create_sb_bus(self, work):
-        sides = ["top", "right", "bottom", "left"]
-        for sb in work.get_definitions("sb_*"):
-            for s1 in sides:
-                for s2 in sides:
-                    ports = list(sb.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"*{s1}_{s2}_grid_*_pin_O_*")
-                                            ))
-                    if ports:
-                        ports = sorted(ports, key=lambda x: x.name)
-                        sb.combine_ports(f"sb_{s1}_{s2[0]}_in", ports)
-
-                    ports = list(sb.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"*{s1}_{s2}_grid_*__pin_inpad_*")
-                                            ))
-                    if ports:
-                        ports = sorted(ports, key=lambda x: x.name)
-                        sb.combine_ports(f"sb_{s1}_{s2[0]}_inpad", ports)
-
-
-    def create_cb_bus(self, work):
-        sides = ["top", "right", "bottom", "left"]
-        for cbx in work.get_definitions("cbx_*"):
-            for indx, s1 in enumerate(sides):
-                ports = list(cbx.get_ports(filter=lambda x:
-                                        fnmatch(x.name, f"*{s1}_grid_*__pin_I_*")))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    cbx.combine_ports(f"cb_{s1}_in", ports)
-
-                ports = list(cbx.get_ports(filter=lambda x:
-                                        fnmatch(x.name, f"*{s1}_grid_*__pin_outpad_*")))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    cbx.combine_ports(f"cb_{s1}_outpad", ports)
-
-        for cby in work.get_definitions("cby_*"):
-            for indx, s1 in enumerate(sides):
-                ports = list(cby.get_ports(filter=lambda x:
-                                        fnmatch(x.name, f"*{s1}_grid_*__pin_I_*")))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    cby.combine_ports(f"cb_{s1}_in", ports)
-
-                ports = list(cby.get_ports(filter=lambda x:
-                                        fnmatch(x.name, f"*{s1}_grid_*__pin_outpad_*")))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    cby.combine_ports(f"cb_{s1}_outpad", ports)
-
-    def create_tiles(self):
-        '''
-        Creates tiles
-        '''
-        work = next(self._netlist.get_libraries("work"))
-        top_module = next(work.get_definitions("fpga_core"))
-
-        # ##############  Main Tiles  ##############
-        self._main_tile(work, top_module)
-
-        # ##############  Side Tiles  ##############
-        self._left_tile(work, top_module)
-        self._right_tile(work, top_module)
-        self._top_tile(work, top_module)
-        self._bottom_tile(work, top_module)
-
-        # ############## Corner Tiles ##############
-        self._top_left_tile(work, top_module)
-        self._top_right_tile(work, top_module)
-        self._bottom_left_tile(work, top_module)
-        self._bottom_right_tile(work, top_module)

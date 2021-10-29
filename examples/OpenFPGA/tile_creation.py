@@ -14,10 +14,10 @@ import glob
 from pprint import pprint
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
+from spydrnet_physical.util import OpenFPGA_Tile01
 
 
 def main():
-    dir_path = path.dirname(path.realpath(__file__))
     source_files = glob.glob('homogeneous_fabric/*_Verilog/lb/*.v')
     source_files += glob.glob('homogeneous_fabric/*_Verilog/routinlg/*.v')
     source_files += glob.glob('homogeneous_fabric/*_Verilog/sub_module/*.v')
@@ -31,14 +31,22 @@ def main():
         fp.seek(0)
         netlist = sdn.parse(fp.name)
 
-    work = next(netlist.get_libraries("work"))
-    topModule = next(work.get_definitions("fpga_top"))
+    fpga = OpenFPGA_Tile01(grid=(4, 4), netlist=netlist)
+    fpga.design_top_stat()
 
-    # work.design_stat()
-    # create_grid_clb_bus(work)
-    # create_grid_io_bus(work)
-    # create_sb_bus(work)
-    # create_cb_bus(work)
+    # Convert wires to bus structure
+    fpga.create_grid_clb_bus()
+    fpga.create_grid_io_bus()
+    fpga.create_sb_bus()
+    fpga.create_cb_bus()
+
+    # Save netlist
+    base_dir = (".", "homogeneous_fabric", "_output")
+    fpga.save_netlist("tile_*", path.join(*base_dir, "tiles"))
+    fpga.save_netlist("grid*", path.join(*base_dir, "lb"))
+    fpga.save_netlist("*b_*", path.join(*base_dir, "routing"))
+    fpga.save_netlist("fpga_top", path.join(*base_dir))
+
 
 if __name__ == "__main__":
     main()
