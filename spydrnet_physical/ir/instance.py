@@ -1,5 +1,14 @@
-from spydrnet.ir.instance import Instance as InstanceBase
+
+import typing
 from collections.abc import Iterable
+from spydrnet.ir.instance import Instance as InstanceBase
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.instance import Instance as InstanceSDN
+    from spydrnet_physical.ir.first_class_element import FirstClassElement as FirstClassElementPhy
+    InstanceBase = type(
+        "InstanceBase", (InstanceSDN, FirstClassElementPhy), {})
 
 
 class Instance(InstanceBase):

@@ -1,4 +1,11 @@
+import typing
 from spydrnet.ir.port import Port as PortBase
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.port import Port as PortSDN
+    from spydrnet_physical.ir.bundle import Bundle as BundlePhy
+    PortBase = type("PortBase", (PortSDN, BundlePhy), {})
 
 
 class Port(PortBase):

@@ -1,4 +1,13 @@
+import typing
+
 from spydrnet.ir import Bundle as BundleBase
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir import Bundle as BundleSDN
+    from spydrnet_physical.ir.first_class_element import \
+        FirstClassElement as FirstClassElementPhy
+    BundleBase = type(
+        "BundleBase", (BundleSDN, FirstClassElementPhy), {})
 
 
 class Bundle(BundleBase):

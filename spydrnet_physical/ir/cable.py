@@ -1,6 +1,13 @@
 ''' Example plugin to extend functionality '''
+import typing
 from spydrnet.ir.cable import Cable as CableBase
 from spydrnet.ir import Port, InnerPin, OuterPin
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.cable import Cable as CableSDN
+    from spydrnet_physical.ir.bundle import Bundle as BundlePhy
+    CableBase = type("BundleBase", (CableSDN, BundlePhy), {})
 
 
 class Cable(CableBase):
@@ -81,14 +88,16 @@ class Cable(CableBase):
         lower = lower or (0 if self.is_downto else self.size)
 
         assign_lib = self.definition._get_assignment_library()
-        assign_def = self.definition._get_assignment_definition(assign_lib, self.size)
+        assign_def = self.definition._get_assignment_definition(
+            assign_lib, self.size)
         instance = self.definition.create_child(f"{self.name}_{cable.name}_assign",
-                                     reference=assign_def)
+                                                reference=assign_def)
 
         self.connect_instance_port(instance, next(assign_def.get_ports("i")))
 
         print(f"upper {upper}")
         print(f"lower {lower}")
         for indx, pin in enumerate(next(assign_def.get_ports("o")).pins):
-            cable.wires[range(lower,upper+1)[indx]].connect_pin(instance.pins[pin])
+            cable.wires[range(lower, upper+1)[indx]
+                        ].connect_pin(instance.pins[pin])
         return instance

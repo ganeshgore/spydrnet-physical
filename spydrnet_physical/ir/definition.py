@@ -1,15 +1,23 @@
 
 import logging
+import typing
+from itertools import combinations
 
 import spydrnet as sdn
 from spydrnet.ir import Definition as DefinitionBase
-from itertools import combinations
 from spydrnet.ir.innerpin import InnerPin
 from spydrnet.ir.outerpin import OuterPin
-
 from spydrnet.ir.port import Port
 
 logger = logging.getLogger('spydrnet_logs')
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir import Definition as DefinitionSDN
+    from spydrnet_physical.ir.first_class_element import \
+        FirstClassElement as FirstClassElementPhy
+    DefinitionBase = type(
+        "DefinitionBase", (DefinitionSDN, FirstClassElementPhy), {})
 
 
 class Definition(DefinitionBase):

@@ -1,5 +1,11 @@
 ''' Example plugin to extend functionality '''
+import typing
 from spydrnet.ir.pin import Pin as PinBase
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.pin import Pin as PinSDN
+    from spydrnet_physical.ir.element import ElementPhy
+    PinBase = type("PinBase", (PinSDN, ElementPhy), {})
 
 
 class Pin(PinBase):

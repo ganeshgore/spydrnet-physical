@@ -1,5 +1,12 @@
 ''' Example plugin to extend functionality '''
+import typing
 from spydrnet.ir.wire import Wire as WireBase
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.wire import Wire as WireSDN
+    from spydrnet_physical.ir.element import Element as ElementPhy
+    WireBase = type("WireBase", (WireSDN, ElementPhy), {})
 
 
 class Wire(WireBase):

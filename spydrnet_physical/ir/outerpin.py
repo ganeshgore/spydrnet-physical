@@ -1,4 +1,11 @@
+import typing
 from spydrnet.ir.outerpin import OuterPin as OuterPinBase
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.outerpin import OuterPin as OuterPinSDN
+    from spydrnet_physical.ir.pin import Pin as PinPhy
+    OuterPinBase = type("OuterPinBase", (OuterPinSDN, PinPhy), {})
 
 
 class OuterPin(OuterPinBase):
