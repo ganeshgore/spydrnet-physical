@@ -525,41 +525,54 @@ class Definition(DefinitionBase):
             self.remove_cable(c)
         return newCable
 
-    # def combine_ports(self, newPortName, ports):
-    #     """ This can combine multiple input or output ports togther
-    #         to create a bus structure.
-    #     """
-    #     direction = ports[0].direction
-    #     for p in ports[1:]:
-    #         assert isinstance(p, Port), \
-    #             f"combine_ports can combine Ports found {type(p)}"
-    #         assert direction == p.direction, \
-    #             f"combine_ports combines only input or output ports, \
-    #             found {type(p.direction)}"
-    #         assert self == p.definition, \
-    #             f"all ports to combine should belong to same definition"
+    def combine_ports(self, port_name, ports):
+        """
+        This method can combine multiple input or output ports togther
+        to create a bus structure.
 
-    #     newPort = self.create_port(newPortName, direction=direction)
-    #     newCable = self.create_cable(newPortName, is_scalar=newPort.is_scalar)
-    #     for p in ports:
-    #         newPin = newPort.create_pin()
-    #         pp = p.pins[0]
-    #         ppWire = pp.wire
-    #         # Switch Instances connection
-    #         for instance in self.references:
-    #             if instance.pins[pp].is_connected:
-    #                 instance.pins[pp].wire.connect_pin(instance.pins[newPin])
-    #         if ppWire:
-    #             # Switch Internal Wire
-    #             ppWire.connect_pin(newPin)
-    #             self.remove_cable(ppWire.cable)
-    #             ppWire.cable.remove_wire(ppWire)
-    #             newCable.add_wire(ppWire)
-    #         logger.debug(f"Removing port {p.name}")
-    #         self.remove_port(p)
-    #     logger.debug(f"Combined with {newPort.name} " +
-    #                  f"created cable {newCable.name}")
-    #     return newPort, newCable
+        It does create a cable for internal wires, but does not
+        change anything about the external wire connection
+        ports[0] will be newport[0]
+        default properties will be used for creating a new port
+
+        args:
+            port_name (str) : Name of the new port
+            ports (list[Ports]) : List of ports to combine
+
+        return:
+            (new_port, new_cable) : return new port and internal cable
+        """
+        direction = ports[0].direction
+        for p in ports[1:]:
+            assert isinstance(p, Port), \
+                f"combine_ports can combine Ports found {type(p)}"
+            assert direction == p.direction, \
+                f"combine_ports combines only input or output ports, \
+                found {type(p.direction)}"
+            assert self == p.definition, \
+                f"all ports to combine should belong to same definition"
+
+        new_port = self.create_port(port_name, direction=direction)
+        new_cable = self.create_cable(port_name, is_scalar=new_port.is_scalar)
+        for p in ports:
+            newPin = new_port.create_pin()
+            pp = p.pins[0]
+            ppWire = pp.wire
+            # Switch Instances connection
+            for instance in self.references:
+                if instance.pins[pp].is_connected:
+                    instance.pins[pp].wire.connect_pin(instance.pins[newPin])
+            if ppWire:
+                # Switch Internal Wire
+                ppWire.connect_pin(newPin)
+                self.remove_cable(ppWire.cable)
+                ppWire.cable.remove_wire(ppWire)
+                new_cable.add_wire(ppWire)
+            logger.debug(f"Removing port {p.name}")
+            self.remove_port(p)
+        logger.debug(f"Combined with {new_port.name} " +
+                     f"created cable {new_cable.name}")
+        return new_port, new_cable
 
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())

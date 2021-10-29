@@ -59,22 +59,51 @@ class TestDefinition(unittest.TestCase):
 
         # Check correctness of connections
         for new_cable in new_cables:
-            self.assertTrue(isinstance(new_cable, sdn.Cable), \
-                    "Return value should be cable")
+            self.assertTrue(isinstance(new_cable, sdn.Cable),
+                            "Return value should be cable")
         new_cables = new_cables[0]
-        self.assertEqual(new_cables.size, 4, \
-                "New cable should have same dimensions")
+        self.assertEqual(new_cables.size, 4,
+                         "New cable should have same dimensions")
         self.assertSetEqual(set(map(lambda p: p.name, module2.ports)),
-                        {"cable_ft_out", "cable_ft_in"})
+                            {"cable_ft_out", "cable_ft_in"})
         self.assertSetEqual(set(map(lambda p: p.name, self.definition.get_cables())),
-                        {"cable", "cable_ft_in_0"})
+                            {"cable", "cable_ft_in_0"})
         self.assertSetEqual(set(('cable_ft_in_0', 'cable')),
-            set(get_names(ft_inst.get_cables(selection="OUTSIDE"))),
-            "Checks if both the cable are connected to feedthoguh instance")
+                            set(get_names(ft_inst.get_cables(selection="OUTSIDE"))),
+                            "Checks if both the cable are connected to feedthoguh instance")
         self.assertSetEqual(set(('cable',)),
-            set(get_names(inst0.get_cables(selection="OUTSIDE"))),
-            "Checks if original wire name is still same ")
+                            set(get_names(inst0.get_cables(selection="OUTSIDE"))),
+                            "Checks if original wire name is still same ")
         self.assertSetEqual(set(('cable_ft_in_0',)),
-            set(get_names(inst1.get_cables(selection="OUTSIDE"))),
-            "Checks if feethrough wire name is as expected ")
+                            set(get_names(inst1.get_cables(selection="OUTSIDE"))),
+                            "Checks if feethrough wire name is as expected ")
 
+    def test_combine_ports(self):
+        ''' Creates 3 port on the given definition and combines them '''
+        port1 = self.definition.create_port(pins=1)
+        port2 = self.definition.create_port(pins=1)
+        port3 = self.definition.create_port(pins=1)
+
+        cable1 = self.definition.create_cable(wires=1)
+        cable1.connect_port(port1)
+        wire1 = cable1.wires[0]
+
+        cable2 = self.definition.create_cable(wires=1)
+        cable2.connect_port(port2)
+        wire2 = cable2.wires[0]
+
+        cable3 = self.definition.create_cable(wires=1)
+        cable3.connect_port(port3)
+        wire3 = cable3.wires[0]
+
+        new_port, new_cable = self.definition.combine_ports(
+            "merged_port", [port1, port2, port3])
+
+        self.assertIsInstance(new_port, sdn.Port)
+        self.assertEqual(new_port.size, 3)
+        self.assertIsInstance(new_cable, sdn.Cable)
+        self.assertEqual(new_cable.size, 3)
+        self.assertEqual(len(self.definition.ports), 1)
+        self.assertEqual(new_port.pins[0].wire, wire1)
+        self.assertEqual(new_port.pins[1].wire, wire2)
+        self.assertEqual(new_port.pins[2].wire, wire3)
