@@ -7,3 +7,8 @@ OpenFPGA Functions
 
 Overview
 ========
+
+.. toctree::
+   :maxdepth: 2
+
+   base

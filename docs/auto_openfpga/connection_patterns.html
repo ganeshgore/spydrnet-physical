@@ -183,23 +183,26 @@
 <li class="toctree-l3"><a class="reference internal" href="../reference/utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Functions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Functions</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/base.html">OpenFPGA Base</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/grid_example.html">grid_example</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">Display Netlist Information Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_multiple_instances.html">Merging group of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">Merging two instances in the design</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
@@ -244,8 +247,10 @@ to download the full example code</p>
 <section class="sphx-glr-example-title" id="connection-pattern-generation">
 <span id="sphx-glr-auto-openfpga-connection-patterns-py"></span><h1>Connection Pattern Generation<a class="headerlink" href="#connection-pattern-generation" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrate how to genrate different connection pattern
-for routing global signals</p>
-<p><strong>Output2</strong> Fishbone routing pattern gerneation</p>
+for routing global signals. By default this library support basic fishbone
+and HTree patterns, which can be extended to create desired connectivity
+usng transformations like <code class="docutils literal notranslate"><span class="pre">rotate</span></code>, <code class="docutils literal notranslate"><span class="pre">transalate</span></code>, <code class="docutils literal notranslate"><span class="pre">margin</span></code>, <code class="docutils literal notranslate"><span class="pre">merge</span></code>, and <code class="docutils literal notranslate"><span class="pre">scale</span></code></p>
+<p><strong>Output</strong></p>
 <a class="reference internal image-reference" href="../_images/_fishbone_pattern.svg"><img alt="../_images/_fishbone_pattern.svg" src="../_images/_fishbone_pattern.svg" width="200px"/></a>
 <a class="reference internal image-reference" href="../_images/_fishbone_pattern_90.svg"><img alt="../_images/_fishbone_pattern_90.svg" src="../_images/_fishbone_pattern_90.svg" width="200px"/></a>
 <a class="reference internal image-reference" href="../_images/_fishbone_pattern_margin.svg"><img alt="../_images/_fishbone_pattern_margin.svg" src="../_images/_fishbone_pattern_margin.svg" width="200px"/></a>
@@ -259,16 +264,24 @@ for routing global signals</p>
 <span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Fishbone Pattern"</span><span class="p">)</span>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
+<span class="c1"># ===============================</span>
+<span class="c1">#        Rotate Example</span>
+<span class="c1"># ===============================</span>
 <span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
 <span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Rotation"</span><span class="p">)</span>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_90.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
+<span class="c1"># ===============================</span>
+<span class="c1">#        Margin Example</span>
+<span class="c1"># ===============================</span>
 <span class="n">p_manager</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
 <span class="n">fishbone_pattern</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Margin option"</span><span class="p">)</span>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_margin.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
-
+<span class="c1"># ===============================</span>
+<span class="c1">#  Transalate and Merge Example</span>
+<span class="c1"># ===============================</span>
 <span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">left_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
 <span class="n">left_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -285,7 +298,6 @@ for routing global signals</p>
 <span class="c1"># ===============================</span>
 <span class="c1">#        Scaling Example</span>
 <span class="c1"># ===============================</span>
-
 <span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">left_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
 <span class="n">left_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">()</span>
@@ -301,7 +313,7 @@ for routing global signals</p>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_scaling2.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.071 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.056 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-connection-patterns-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b453c730e4fd8fe4ec88afa2f051dc7a/connection_patterns.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">connection_patterns.py</span></code></a></p>

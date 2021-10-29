@@ -182,23 +182,26 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/openfpga/index.html">OpenFPGA Functions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/openfpga/index.html">OpenFPGA Functions</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/openfpga/base.html">OpenFPGA Base</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../auto_sample_verilog/grid_example.html">grid_example</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/display_info.html">Display Netlist Information Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/merge_multiple_instances.html">Merging group of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/merge_instance.html">Merging two instances in the design</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
@@ -373,12 +376,16 @@
                 <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">each_w</span><span class="o">.</span><span class="n">pins</span><span class="p">):</span>
                     <span class="c1"># These are loads and</span>
                     <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">OuterPin</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">))</span> <span class="ow">or</span> \
-                        <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">InnerPin</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">)):</span>
+                            <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">InnerPin</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">)):</span>
                         <span class="n">each_w</span><span class="o">.</span><span class="n">disconnect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
                         <span class="n">new_cable</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="n">pin</span><span class="o">.</span><span class="n">get_index</span><span class="p">]</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
             <span class="n">cable</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">inport</span><span class="p">)</span>
             <span class="n">cable_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_cable</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cable_list</span></div>
+
+<div class="viewcode-block" id="Definition.create_ft_multiple"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.create_ft_multiple">[docs]</a>    <span class="k">def</span> <span class="nf">create_ft_multiple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">''' Alias to create_feedthrough_multiple '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_feedthrough_multiple</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Definition.create_feedthrough_multiple"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.create_feedthrough_multiple">[docs]</a>    <span class="k">def</span> <span class="nf">create_feedthrough_multiple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances_list</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -761,43 +768,56 @@
                 <span class="n">c</span><span class="o">.</span><span class="n">remove_wire</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
                 <span class="n">newCable</span><span class="o">.</span><span class="n">add_wire</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">newCable</span></div></div>
+        <span class="k">return</span> <span class="n">newCable</span></div>
 
-    <span class="c1"># def combine_ports(self, newPortName, ports):</span>
-    <span class="c1">#     """ This can combine multiple input or output ports togther</span>
-    <span class="c1">#         to create a bus structure.</span>
-    <span class="c1">#     """</span>
-    <span class="c1">#     direction = ports[0].direction</span>
-    <span class="c1">#     for p in ports[1:]:</span>
-    <span class="c1">#         assert isinstance(p, Port), \</span>
-    <span class="c1">#             f"combine_ports can combine Ports found {type(p)}"</span>
-    <span class="c1">#         assert direction == p.direction, \</span>
-    <span class="c1">#             f"combine_ports combines only input or output ports, \</span>
-    <span class="c1">#             found {type(p.direction)}"</span>
-    <span class="c1">#         assert self == p.definition, \</span>
-    <span class="c1">#             f"all ports to combine should belong to same definition"</span>
+<div class="viewcode-block" id="Definition.combine_ports"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.combine_ports">[docs]</a>    <span class="k">def</span> <span class="nf">combine_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port_name</span><span class="p">,</span> <span class="n">ports</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        This method can combine multiple input or output ports togther</span>
+<span class="sd">        to create a bus structure.</span>
 
-    <span class="c1">#     newPort = self.create_port(newPortName, direction=direction)</span>
-    <span class="c1">#     newCable = self.create_cable(newPortName, is_scalar=newPort.is_scalar)</span>
-    <span class="c1">#     for p in ports:</span>
-    <span class="c1">#         newPin = newPort.create_pin()</span>
-    <span class="c1">#         pp = p.pins[0]</span>
-    <span class="c1">#         ppWire = pp.wire</span>
-    <span class="c1">#         # Switch Instances connection</span>
-    <span class="c1">#         for instance in self.references:</span>
-    <span class="c1">#             if instance.pins[pp].is_connected:</span>
-    <span class="c1">#                 instance.pins[pp].wire.connect_pin(instance.pins[newPin])</span>
-    <span class="c1">#         if ppWire:</span>
-    <span class="c1">#             # Switch Internal Wire</span>
-    <span class="c1">#             ppWire.connect_pin(newPin)</span>
-    <span class="c1">#             self.remove_cable(ppWire.cable)</span>
-    <span class="c1">#             ppWire.cable.remove_wire(ppWire)</span>
-    <span class="c1">#             newCable.add_wire(ppWire)</span>
-    <span class="c1">#         logger.debug(f"Removing port {p.name}")</span>
-    <span class="c1">#         self.remove_port(p)</span>
-    <span class="c1">#     logger.debug(f"Combined with {newPort.name} " +</span>
-    <span class="c1">#                  f"created cable {newCable.name}")</span>
-    <span class="c1">#     return newPort, newCable</span>
+<span class="sd">        It does create a cable for internal wires, but does not</span>
+<span class="sd">        change anything about the external wire connection</span>
+<span class="sd">        ports[0] will be newport[0]</span>
+<span class="sd">        default properties will be used for creating a new port</span>
+
+<span class="sd">        args:</span>
+<span class="sd">            port_name (str) : Name of the new port</span>
+<span class="sd">            ports (list[Ports]) : List of ports to combine</span>
+
+<span class="sd">        return:</span>
+<span class="sd">            (new_port, new_cable) : return new port and internal cable</span>
+<span class="sd">        """</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="n">ports</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">direction</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Port</span><span class="p">),</span> \
+                <span class="sa">f</span><span class="s2">"combine_ports can combine Ports found </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">assert</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">direction</span><span class="p">,</span> \
+                <span class="sa">f</span><span class="s2">"combine_ports combines only input or output ports, </span><span class="se">\</span>
+<span class="s2">                found </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">direction</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="k">assert</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">definition</span><span class="p">,</span> \
+                <span class="sa">f</span><span class="s2">"all ports to combine should belong to same definition"</span>
+
+        <span class="n">new_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">)</span>
+        <span class="n">new_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">is_scalar</span><span class="o">=</span><span class="n">new_port</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">:</span>
+            <span class="n">newPin</span> <span class="o">=</span> <span class="n">new_port</span><span class="o">.</span><span class="n">create_pin</span><span class="p">()</span>
+            <span class="n">pp</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ppWire</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">wire</span>
+            <span class="c1"># Switch Instances connection</span>
+            <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pp</span><span class="p">]</span><span class="o">.</span><span class="n">is_connected</span><span class="p">:</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pp</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">newPin</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">ppWire</span><span class="p">:</span>
+                <span class="c1"># Switch Internal Wire</span>
+                <span class="n">ppWire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">newPin</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">ppWire</span><span class="o">.</span><span class="n">cable</span><span class="p">)</span>
+                <span class="n">ppWire</span><span class="o">.</span><span class="n">cable</span><span class="o">.</span><span class="n">remove_wire</span><span class="p">(</span><span class="n">ppWire</span><span class="p">)</span>
+                <span class="n">new_cable</span><span class="o">.</span><span class="n">add_wire</span><span class="p">(</span><span class="n">ppWire</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Removing port </span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Combined with </span><span class="si">{</span><span class="n">new_port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> "</span> <span class="o">+</span>
+                     <span class="sa">f</span><span class="s2">"created cable </span><span class="si">{</span><span class="n">new_cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_port</span><span class="p">,</span> <span class="n">new_cable</span></div></div>
 
     <span class="c1"># def sanity_check_cables(self):</span>
     <span class="c1">#     allWires = list(self.get_wires())</span>

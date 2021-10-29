@@ -183,23 +183,26 @@
 <li class="toctree-l3"><a class="reference internal" href="../reference/utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Functions</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Functions</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/base.html">OpenFPGA Base</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/grid_example.html">grid_example</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">Display Netlist Information Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_multiple_instances.html">Merging group of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">Merging two instances in the design</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
@@ -246,21 +249,152 @@ to download the full example code</p>
 <p>This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA</p>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NotImplemented
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>= = = = = = = = = = = = = = = = = = = =
+= = = = = =  DESIGN STATS = = = = = = =
+= = = = = = = = = = = = = = = = = = = =
+    top_module : fpga_top
+    instances  : 97
+= = = = = = = = = = = = = = = = = = = =
+          References    count
+- - - - - - - - - - - - - - - - - - - -
+            grid_clb       16
+           cbx_1__1_       12
+           cby_1__1_       12
+            sb_1__1_        9
+         grid_io_top        4
+       grid_io_right        4
+      grid_io_bottom        4
+        grid_io_left        4
+           cbx_1__0_        4
+           cbx_1__4_        4
+           cby_0__1_        4
+           cby_4__1_        4
+            sb_0__1_        3
+            sb_1__0_        3
+            sb_1__4_        3
+            sb_4__1_        3
+            sb_0__0_        1
+            sb_0__4_        1
+            sb_4__0_        1
+            sb_4__4_        1
+grid_clb_3__4_ grid_clb_3__4__clb_left_out cby_2__4_
+grid_clb_3__4_ grid_clb_3__4__clb_bottom_out cbx_3__3_
+===================
+grid_clb_2__4_ grid_clb_2__4__clb_left_out cby_1__4_
+grid_clb_2__4_ grid_clb_2__4__clb_bottom_out cbx_2__3_
+===================
+grid_clb_1__3_ grid_clb_1__3__clb_left_out cby_0__3_
+grid_clb_1__3_ grid_clb_1__3__clb_bottom_out cbx_1__2_
+===================
+grid_clb_4__3_ grid_clb_4__3__clb_left_out cby_3__3_
+grid_clb_4__3_ grid_clb_4__3__clb_bottom_out cbx_4__2_
+===================
+grid_clb_2__1_ grid_clb_2__1__clb_left_out cby_1__1_
+grid_clb_2__1_ grid_clb_2__1__clb_bottom_out cbx_2__0_
+===================
+grid_clb_4__2_ grid_clb_4__2__clb_left_out cby_3__2_
+grid_clb_4__2_ grid_clb_4__2__clb_bottom_out cbx_4__1_
+===================
+grid_clb_2__2_ grid_clb_2__2__clb_left_out cby_1__2_
+grid_clb_2__2_ grid_clb_2__2__clb_bottom_out cbx_2__1_
+===================
+grid_clb_2__3_ grid_clb_2__3__clb_left_out cby_1__3_
+grid_clb_2__3_ grid_clb_2__3__clb_bottom_out cbx_2__2_
+===================
+grid_clb_1__1_ grid_clb_1__1__clb_left_out cby_0__1_
+grid_clb_1__1_ grid_clb_1__1__clb_bottom_out cbx_1__0_
+===================
+grid_clb_1__2_ grid_clb_1__2__clb_left_out cby_0__2_
+grid_clb_1__2_ grid_clb_1__2__clb_bottom_out cbx_1__1_
+===================
+grid_clb_3__3_ grid_clb_3__3__clb_left_out cby_2__3_
+grid_clb_3__3_ grid_clb_3__3__clb_bottom_out cbx_3__2_
+===================
+grid_clb_4__1_ grid_clb_4__1__clb_left_out cby_3__1_
+grid_clb_4__1_ grid_clb_4__1__clb_bottom_out cbx_4__0_
+===================
+grid_clb_3__2_ grid_clb_3__2__clb_left_out cby_2__2_
+grid_clb_3__2_ grid_clb_3__2__clb_bottom_out cbx_3__1_
+===================
+grid_clb_3__1_ grid_clb_3__1__clb_left_out cby_2__1_
+grid_clb_3__1_ grid_clb_3__1__clb_bottom_out cbx_3__0_
+===================
+grid_clb_1__4_ grid_clb_1__4__clb_left_out cby_0__4_
+grid_clb_1__4_ grid_clb_1__4__clb_bottom_out cbx_1__3_
+===================
+grid_clb_4__4_ grid_clb_4__4__clb_left_out cby_3__4_
+grid_clb_4__4_ grid_clb_4__4__clb_bottom_out cbx_4__3_
+===================
 </pre></div>
 </div>
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA_Tile01</span>
 
-<span class="c1"># TODO</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"NotImplemented"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">'homogeneous_fabric/*_Verilog/lb/*.v'</span><span class="p">)</span>
+    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">'homogeneous_fabric/*_Verilog/routinlg/*.v'</span><span class="p">)</span>
+    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">'homogeneous_fabric/*_Verilog/sub_module/*.v'</span><span class="p">)</span>
+    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">'homogeneous_fabric/*_Verilog/fpga_top.v'</span><span class="p">)</span>
+
+    <span class="c1"># Temporary fix to read multiple verilog files</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">".v"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">eachV</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">eachV</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fpv</span><span class="p">:</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpv</span><span class="o">.</span><span class="n">readlines</span><span class="p">())))</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA_Tile01</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
+
+    <span class="c1"># Convert wires to bus structure</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_io_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_sb_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_cb_bus</span><span class="p">()</span>
+
+    <span class="c1"># Remove undriven nets</span>
+    <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"*undriven*"</span><span class="p">):</span>
+        <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span>
+
+    <span class="c1"># Top level nets to bus</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_clb*"</span><span class="p">),</span>
+                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_io*"</span><span class="p">),</span>
+                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"sb_*"</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">check_all_scalar_connections</span><span class="p">(</span><span class="n">p</span><span class="p">)):</span>
+                <span class="n">cable_list</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">pins</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">cable_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">cable</span><span class="p">)</span>
+                <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">combine_cables</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">cable_list</span><span class="p">)</span>
+
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_feedthroughs</span><span class="p">()</span>
+
+    <span class="c1"># Save netlist</span>
+    <span class="n">base_dir</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">"homogeneous_fabric"</span><span class="p">,</span> <span class="s2">"_output"</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"tile_*"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"tiles"</span><span class="p">))</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"grid*"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"lb"</span><span class="p">))</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"*b_*"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"routing"</span><span class="p">))</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"fpga_top"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">))</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.001 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.228 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-tile-creation-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/e4f112369bf318eb3deb4af8af0f385a/tile_creation.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tile_creation.py</span></code></a></p>
