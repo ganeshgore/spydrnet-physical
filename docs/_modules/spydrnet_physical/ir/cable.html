@@ -204,6 +204,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
@@ -240,8 +241,15 @@
         <article role="main">
           <h1>Source code for spydrnet_physical.ir.cable</h1><div class="highlight"><pre>
 <span></span><span class="sd">''' Example plugin to extend functionality '''</span>
+<span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir.cable</span> <span class="kn">import</span> <span class="n">Cable</span> <span class="k">as</span> <span class="n">CableBase</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir</span> <span class="kn">import</span> <span class="n">Port</span><span class="p">,</span> <span class="n">InnerPin</span><span class="p">,</span> <span class="n">OuterPin</span>
+
+
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">spydrnet.ir.cable</span> <span class="kn">import</span> <span class="n">Cable</span> <span class="k">as</span> <span class="n">CableSDN</span>
+    <span class="kn">from</span> <span class="nn">spydrnet_physical.ir.bundle</span> <span class="kn">import</span> <span class="n">Bundle</span> <span class="k">as</span> <span class="n">BundlePhy</span>
+    <span class="n">CableBase</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s2">"BundleBase"</span><span class="p">,</span> <span class="p">(</span><span class="n">CableSDN</span><span class="p">,</span> <span class="n">BundlePhy</span><span class="p">),</span> <span class="p">{})</span>
 
 
 <div class="viewcode-block" id="Cable"><a class="viewcode-back" href="../../../reference/classes/cable.html#spydrnet_physical.ir.cable.Cable">[docs]</a><span class="k">class</span> <span class="nc">Cable</span><span class="p">(</span><span class="n">CableBase</span><span class="p">):</span>
@@ -322,16 +330,18 @@
         <span class="n">lower</span> <span class="o">=</span> <span class="n">lower</span> <span class="ow">or</span> <span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_downto</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
 
         <span class="n">assign_lib</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">_get_assignment_library</span><span class="p">()</span>
-        <span class="n">assign_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">_get_assignment_definition</span><span class="p">(</span><span class="n">assign_lib</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">assign_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">_get_assignment_definition</span><span class="p">(</span>
+            <span class="n">assign_lib</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
         <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_assign"</span><span class="p">,</span>
-                                     <span class="n">reference</span><span class="o">=</span><span class="n">assign_def</span><span class="p">)</span>
+                                                <span class="n">reference</span><span class="o">=</span><span class="n">assign_def</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span><span class="n">assign_def</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"i"</span><span class="p">)))</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"upper </span><span class="si">{</span><span class="n">upper</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"lower </span><span class="si">{</span><span class="n">lower</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">assign_def</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"o"</span><span class="p">))</span><span class="o">.</span><span class="n">pins</span><span class="p">):</span>
-            <span class="n">cable</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span><span class="n">upper</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="n">indx</span><span class="p">]]</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">])</span>
+            <span class="n">cable</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="n">indx</span><span class="p">]</span>
+                        <span class="p">]</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">instance</span></div></div>
 </pre></div>
         </article>

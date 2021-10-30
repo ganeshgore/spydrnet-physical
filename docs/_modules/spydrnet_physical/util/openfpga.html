@@ -204,6 +204,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
@@ -268,6 +269,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_work</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_libraries</span><span class="p">(</span><span class="n">library</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_task_directory</span> <span class="o">=</span> <span class="n">netlist</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_work</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">top_module</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tile_name_patter</span> <span class="o">=</span> <span class="s2">"tile_</span><span class="si">%d</span><span class="s2">_</span><span class="si">%d</span><span class="s2">_"</span>
         <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span>
 
     <span class="nd">@property</span>
@@ -277,6 +279,12 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">top_module</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span>
+
+    <span class="k">def</span> <span class="nf">add_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">create_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
 
 <div class="viewcode-block" id="OpenFPGA_Tile01.create_tiles"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA_Tile01.create_tiles">[docs]</a>    <span class="k">def</span> <span class="nf">create_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
