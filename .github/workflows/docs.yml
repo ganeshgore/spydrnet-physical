@@ -36,6 +36,14 @@ jobs:
           cd docs && make html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore
+      - name: Upload regression results
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{matrix.name}}_results
+          retention-days: 2
+          path: |
+            docs/**/*
       - name: Deploy documentation
         if: ${{ success() }}
         uses: peaceiris/actions-gh-pages@v3
@@ -43,5 +51,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: docs
           publish_dir: docs/build/html
-          destination_dir: docs/
+          destination_dir: docs/${GITHUB_REF##*/}
           exclude_assets: "doctrees"
