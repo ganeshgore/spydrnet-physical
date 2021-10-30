@@ -13,13 +13,15 @@ LOC_X and LOC_Y = Location of the component with respect to its parrent
 
 **On Ports**:
 _SIDE      : On whihc side the port is placed [left/right/bottom/top]
-_OFFSET    : Offset from the origin of that side
-            Considering clockwise direction first point on respective side is
-            considered as origin
+_OFFSET    : Offset from the origin of that side, Considering clockwise direction
+first point on respective side is considered as origin
 
 
 Download final annotated verilog netlist:
 :download:`_annotate_netlist.v <../../../examples/OpenFPGA/_annotate_netlist.v>`
+
+.. image:: ../../../examples/OpenFPGA/_basic_hierarchy_floorplan.svg
+    :width: 500px
 
 """
 
@@ -100,4 +102,4 @@ fp.compose()
 dwg = fp.get_svg()
 dwg.saveas("_basic_hierarchy_floorplan.svg", pretty=True, indent=4)
 
-sdn.compose(netlist, '_annotate_netlist.v')
+sdn.compose(netlist, '_annotate_netlist.v', write_constrains=True)
