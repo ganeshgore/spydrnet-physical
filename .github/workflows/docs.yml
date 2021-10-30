@@ -22,6 +22,7 @@ jobs:
 
       - name: Build Documentation
         shell: bash
+        id: build
         run: |
           source /tmp/buildenv/bin/activate
           if [ -f "requirements.txt" ]; then
@@ -45,11 +46,11 @@ jobs:
           path: |
             docs/**/*
       - name: Deploy documentation
-        if: ${{ success() }}
+        if: ${{ (steps.build.outcome == 'success') }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: docs
           publish_dir: docs/build/html
-          destination_dir: docs/${GITHUB_REF##*/}
+          destination_dir: docs
           exclude_assets: "doctrees"
