@@ -95,9 +95,13 @@ class Cable(CableBase):
 
         self.connect_instance_port(instance, next(assign_def.get_ports("i")))
 
-        print(f"upper {upper}")
-        print(f"lower {lower}")
         for indx, pin in enumerate(next(assign_def.get_ports("o")).pins):
             cable.wires[range(lower, upper+1)[indx]
                         ].connect_pin(instance.pins[pin])
         return instance
+
+    def split_cable(self):
+        for indx, wire in enumerate(self._wires[::-1]):
+            new_cable = self.definition.create_cable(f"{self.name}_{indx}")
+            self.remove_wire(wire)
+            new_cable.add_wire(wire)

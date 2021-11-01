@@ -484,12 +484,19 @@ class Definition(DefinitionBase):
         assert self.library, "Library is not defined for the definition"
         assert self.library.netlist, "netlist is not defined for the library definition"
 
-        new_port = port.clone()
-        new_port.name = port_name if port_name else f"{port.name}_dup"
+        new_port_name = port_name if port_name else f"{port.name}_dup"
+        new_port = self.create_port(new_port_name,
+                                    direction=port.direction,
+                                    is_scalar=port.is_scalar,
+                                    lower_index=port.lower_index,
+                                    is_downto=port.is_downto)
+        new_port.create_pins(port.size)
+        new_cable = self.create_cable(new_port_name,
+                                      is_scalar=port.is_scalar,
+                                      lower_index=port.lower_index,
+                                      is_downto=port.is_downto,
+                                      wires=port.size)
         port_cable = port.pins[0].wire.cable
-        new_cable = port_cable.clone()
-        new_cable.name = new_port.name
-        new_cable.connect_port(new_port)
 
         assign_library = self._get_assignment_library()
         definition = self._get_assignment_definition(
@@ -591,6 +598,33 @@ class Definition(DefinitionBase):
         logger.debug(f"Combined with {new_port.name} " +
                      f"created cable {new_cable.name}")
         return new_port, new_cable
+
+    def create_unconn_wires(self):
+        unconn_cable = self.create_cable("unconn")
+        for instance in self.children:
+            for pin in instance.get_port_pins(instance.reference.ports):
+                if not pin.wire:
+                    # print(
+                    #     f"{instance.name} {pin.port.name} {pin.get_index}")
+                    w = unconn_cable.create_wire()
+                    w.connect_pin(pin)
+
+    def split_port(self, port):
+        if isinstance(port, str):
+            port = next(self.get_ports(port))
+
+        cable = next(self.get_cables(port.name))
+        for indx, pin in enumerate(port.pins[::-1]):
+            new_port = self.create_port(
+                f"{port.name}_{indx}", direction=port.direction)
+            new_cable = self.create_cable(f"{port.name}_{indx}")
+            cable.remove_wire(pin.wire)
+            new_cable.add_wire(pin.wire)
+            port.remove_pin(pin)
+            new_port.add_pin(pin)
+
+        self.remove_port(port)
+        self.remove_cable(cable)
 
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())

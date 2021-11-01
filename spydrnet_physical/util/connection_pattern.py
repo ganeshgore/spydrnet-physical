@@ -28,11 +28,19 @@ class ConnectPoint:
         self.from_y = from_y
         self.to_x = to_x
         self.to_y = to_y
+        self.from_dir = ""
+        self.to_dir = ""
+        self._update_direction()
 
     @property
     def connection(self):
         ''' return all four connection points '''
         return (self.from_x, self.from_y, self.to_x, self.to_y)
+
+    @property
+    def full_connection(self):
+        ''' return all four connection points '''
+        return (self.from_x, self.from_y, self.to_x, self.to_y, self.from_dir, self.to_dir)
 
     @property
     def from_connection(self):
@@ -55,12 +63,37 @@ class ConnectPoint:
     def translate_connection(self, x, y):
         self.from_x, self.from_y = self.from_x + x, self.from_y+y
         self.to_x, self.to_y = self.to_x + x, self.to_y+y
+        self._update_direction()
 
     def scale_connection(self, scale, anchor=(0, 0)):
         self.translate_connection(-1*anchor[0], -1*anchor[1])
         self.from_x, self.from_y = self.from_x * scale, self.from_y * scale
         self.to_x, self.to_y = self.to_x * scale, self.to_y * scale
         self.translate_connection(anchor[0], anchor[1])
+        self._update_direction()
+
+    def _update_direction(self):
+        self.to_dir = self.direction()
+        self.from_dir = self.direction(reverse=True)
+
+    def direction(self, reverse=False):
+        dx, dy = tuple(x-y for x, y in
+                       zip(self.to_connection, self.from_connection))
+        if dx == 0 and dy > 0:
+            direction = "top"
+        elif dx == 0 and dy < 0:
+            direction = "bottom"
+        elif dx > 0 and dy == 0:
+            direction = "right"
+        elif dx < 0 and dy == 0:
+            direction = "left"
+        else:
+            direction = None
+        if reverse:
+            return direction
+        else:
+            return {"left": "right", "right": "left",
+                    "top": "bottom", "bottom": "top"}[direction]
 
     @staticmethod
     def _rotate_point(point, angle, sizex=None, sizey=None):
@@ -233,6 +266,9 @@ class ConnectPointList:
                                  class_="connection"))
         return dwg
 
+    def __iter__(self):
+        yield from self._points
+
 
 class ConnectionPattern:
     def __init__(self, sizex, sizey):
@@ -317,6 +353,35 @@ class ConnectionPattern:
             points.cursor = center
         return points
 
+    def get_reference(self, x, y):
+        '''
+        Return reference for the given tile location
+        '''
+        return "PlaceholderModule"
+
+    def show_stats(self):
+        '''
+        '''
+        print('='*15+'===========' + '='*15)
+        print('='*15+'== Stats ==' + '='*15)
+        print('='*15+'===========' + '='*15)
+        module_stat = {}
+        for point in self._connect:
+            from_conn = self.get_reference(*point.from_connection)
+            to_conn = self.get_reference(*point.to_connection)
+
+            module_stat[from_conn] = module_stat.get(from_conn, {})
+            module_stat[from_conn]["in"] = module_stat[from_conn].get(
+                "in", {"left": 0, "right": 0, "top": 0, "bottom": 0})
+            module_stat[from_conn]["in"][point.direction()] += 1
+
+            module_stat[to_conn] = module_stat.get(to_conn, {})
+            module_stat[to_conn]["out"] = module_stat[to_conn].get(
+                "out", {"left": 0, "right": 0, "top": 0, "bottom": 0})
+            module_stat[to_conn]["out"][point.direction(reverse=True)] += 1
+
+        return module_stat
+
     def render_pattern(self, scale=20, title=None):
         dwg = self._connect.render_pattern(scale)
 
@@ -366,7 +431,7 @@ if __name__ == "__main__":
     fpga = ConnectionPattern(5, 5)
     left_tree = fpga.connections
     left_tree = fpga.get_fishbone(x_margin=(0, 0))
-    left_tree.scale(2, anchor=(1,1))
+    left_tree.scale(2, anchor=(1, 1))
 
     fpga = ConnectionPattern(10, 10)
     conn_list = fpga.connections

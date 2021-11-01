@@ -95,8 +95,6 @@ next(module2.get_ports("in1")).properties["OFFSET"] = "30"
 next(module2.get_ports("out")).properties["SIDE"] = "right"
 next(module2.get_ports("out")).properties["OFFSET"] = "20"
 
-top.get_ports()
-
 fp = FloorPlanViz(top)
 fp.compose()
 dwg = fp.get_svg()

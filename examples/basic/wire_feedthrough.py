@@ -44,6 +44,7 @@ sdn.compose(netlist, '_initial_design.v')
 
 
 top.create_feedthrough(inst2, cable0)
+top.create_unconn_wires()
 sdn.compose(netlist, '_output_wire.v')
 
 
@@ -54,4 +55,5 @@ bus_in = next(top.get_cables("bus_in"))
 inst1 = next(top.get_instances("inst_1_0"))
 
 cables = top.create_feedthrough(inst1, bus_in)
+top.create_unconn_wires()
 sdn.compose(netlist, '_output_bus.v')

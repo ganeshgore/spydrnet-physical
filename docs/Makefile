@@ -20,6 +20,7 @@ install:
 reload:
 	@$(SPHINXRELOAD) "$(SOURCEDIR)" "${BUILDDIR}" \
 	--watch "../examples/**" \
+	--watch "../spydrnet_physical/support_files/**" \
 	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
 
 clean:
