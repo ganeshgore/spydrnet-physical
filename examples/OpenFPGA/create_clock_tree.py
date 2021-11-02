@@ -57,52 +57,13 @@ def get_reference(x, y):
     return next(netlist.get_instances(f"inst_1_{x}{y}")).reference.name
 
 
-signal = "clk"
-p_manager.get_reference = get_reference
-stat = p_manager.show_stats()
-print(yaml.dump(stat))
+fishbone_pattern.get_reference = get_reference
 
+clk_cable = top_definition.create_cable("clk", wires=1)
 
-# Count required feedthoguhs for the modules and create ports
-for module_name, values in stat.items():
-    if module_name == "top":
-        continue
-    module: Definition = next(netlist.get_definitions(module_name))
-    pp = next(module.get_ports(signal))
-    for inp in [k for k, v in values["in"].items() if v > 0]:
-        module.create_port(f"{signal}_{inp}_in",
-                           pins=pp.size, direction=sdn.IN)
-        module.create_cable(f"{signal}_{inp}_in", wires=pp.size)
-    for outp in [k for k, v in values["out"].items() if v > 0]:
-        module.create_port(f"{signal}_{outp}_out",
-                           pins=pp.size, direction=sdn.OUT)
-        module.create_cable(f"{signal}_{outp}_out", wires=pp.size)
-
-
-module1 = next(netlist.get_definitions("module1"))
-module1.remove_port(next(module1.get_ports("clk")))
-
-# Create connetions
-cable = top_definition.create_cable(signal+"_ft")
-signal_port = top_definition.create_port("clk", direction=sdn.IN, pins=1)
-signal_cable = top_definition.create_cable("clk", wires=1)
-
-for point in p_manager._connect._points:
-    w = cable.create_wire()
-    if 0 in point.from_connection:
-        signal_cable.assign_cable(cable, upper=w.get_index, lower=w.get_index)
-    else:
-        inst_name = "inst_1_%d%d" % point.from_connection
-        inst = next(netlist.get_instances(inst_name))
-        port_name = f"{signal}_{point.from_dir}_out"
-        w.connect_pin(next(inst.get_port_pins(port_name)))
-
-    if 0 in point.to_connection:
-        w.connect_pin(signal_port.pins[0])
-    else:
-        inst = next(netlist.get_instances("inst_1_%d%d" % point.to_connection))
-        w.connect_pin(next(inst.get_port_pins(
-            f"{signal}_{point.to_dir}_in")))
+fishbone_pattern.create_ft_ports(netlist, clk_cable)
+print()
+fishbone_pattern.create_ft_connection(top_definition, clk_cable)
 
 
 top_definition.split_port("in")
