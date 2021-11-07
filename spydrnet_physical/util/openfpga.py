@@ -48,23 +48,20 @@ class OpenFPGA_Tile01(object):
         '''
         Creates tiles
         '''
-        work = next(self._netlist.get_libraries("work"))
-        top_module = next(work.get_definitions("fpga_core"))
-
         # ##############  Main Tiles  ##############
-        self._main_tile(work, top_module)
+        self._main_tile()
 
         # ##############  Side Tiles  ##############
-        self._left_tile(work, top_module)
-        self._right_tile(work, top_module)
-        self._top_tile(work, top_module)
-        self._bottom_tile(work, top_module)
+        self._left_tile()
+        self._right_tile()
+        self._top_tile()
+        self._bottom_tile()
 
         # ############## Corner Tiles ##############
-        self._top_left_tile(work, top_module)
-        self._top_right_tile(work, top_module)
-        self._bottom_left_tile(work, top_module)
-        self._bottom_right_tile(work, top_module)
+        self._top_left_tile()
+        self._top_right_tile()
+        self._bottom_left_tile()
+        self._bottom_right_tile()
 
     def design_top_stat(self):
         '''
@@ -283,7 +280,7 @@ class OpenFPGA_Tile01(object):
         next(clb.get_ports("clb_top_out")).change_name("clb_left_t_out")
         next(clb.get_ports("clb_right_out")).change_name("clb_bottom_r_out")
 
-    def _main_tile(self, work, top_module):
+    def _main_tile(self):
         '''Create main Tiles
         ::
 
@@ -305,18 +302,18 @@ class OpenFPGA_Tile01(object):
         merge_module_list = []
         for x in range(2, self.fpga_size[0]):
             for y in range(2, self.fpga_size[1]):
-                clb = next(work.get_instances(f"grid_clb_{x}__{y}_"))
-                cbx = next(work.get_instances(f"cbx_{x}__{y}_"))
-                cby = next(work.get_instances(f"cby_{x}__{y}_"))
-                sb = next(work.get_instances(f"sb_{x}__{y}_"))
+                clb = next(self._work.get_instances(f"grid_clb_{x}__{y}_"))
+                cbx = next(self._work.get_instances(f"cbx_{x}__{y}_"))
+                cby = next(self._work.get_instances(f"cby_{x}__{y}_"))
+                sb = next(self._work.get_instances(f"sb_{x}__{y}_"))
                 merge_module_list.append(((clb, cbx, cby, sb),
                                           f"tile_{x}__{y}_"))
 
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name="tile")
-        next(work.get_definitions("tile")).OptPins()
+        self._top_module.merge_multiple_instance(merge_module_list,
+                                                 new_definition_name="tile")
+        next(self._work.get_definitions("tile")).OptPins()
 
-    def _left_tile(self, work, top_module):
+    def _left_tile(self):
         '''        Create Left Tiles
         ::
             +-----+                  +-----+
@@ -335,21 +332,21 @@ class OpenFPGA_Tile01(object):
         '''
         instance_list = []
         for i in range(2, self.fpga_size[0]):
-            clb = next(work.get_instances(f"grid_clb_1__{i}_"))
-            cby0 = next(work.get_instances(f"cby_0__{i}_"))
-            cby1 = next(work.get_instances(f"cby_1__{i}_"))
-            cbx1 = next(work.get_instances(f"cbx_1__{i}_"))
-            sb0 = next(work.get_instances(f"sb_0__{i}_"))
-            sb1 = next(work.get_instances(f"sb_1__{i}_"))
-            grid_io = next(work.get_instances(f"grid_io_left_0__{i}_"))
+            clb = next(self._work.get_instances(f"grid_clb_1__{i}_"))
+            cby0 = next(self._work.get_instances(f"cby_0__{i}_"))
+            cby1 = next(self._work.get_instances(f"cby_1__{i}_"))
+            cbx1 = next(self._work.get_instances(f"cbx_1__{i}_"))
+            sb0 = next(self._work.get_instances(f"sb_0__{i}_"))
+            sb1 = next(self._work.get_instances(f"sb_1__{i}_"))
+            grid_io = next(self._work.get_instances(f"grid_io_left_0__{i}_"))
             instance_list.append(((clb, cby0, cby1, cbx1, sb0, sb1, grid_io),
                                   f"tile_1__{i}_"))
 
-        top_module.merge_multiple_instance(instance_list,
-                                           new_definition_name="left_tile")
-        next(work.get_definitions("left_tile")).OptPins()
+        self._top_module.merge_multiple_instance(instance_list,
+                                                 new_definition_name="left_tile")
+        next(self._work.get_definitions("left_tile")).OptPins()
 
-    def _right_tile(self, work, top_module):
+    def _right_tile(self):
         '''    Create Right Tiles
         ::
                              +-----+
@@ -368,21 +365,24 @@ class OpenFPGA_Tile01(object):
         '''
         instance_list = []
         for i in range(2, self.fpga_size[0]):
-            clb = next(work.get_instances(
+            clb = next(self._work.get_instances(
                 f"grid_clb_{self.fpga_size[0]}__{i}_"))
-            cbx1 = next(work.get_instances(f"cbx_{self.fpga_size[0]}__{i}_"))
-            cby0 = next(work.get_instances(f"cby_{self.fpga_size[0]}__{i}_"))
-            sb0 = next(work.get_instances(f"sb_{self.fpga_size[0]}__{i}_"))
-            grid_io = next(work.get_instances(
+            cbx1 = next(self._work.get_instances(
+                f"cbx_{self.fpga_size[0]}__{i}_"))
+            cby0 = next(self._work.get_instances(
+                f"cby_{self.fpga_size[0]}__{i}_"))
+            sb0 = next(self._work.get_instances(
+                f"sb_{self.fpga_size[0]}__{i}_"))
+            grid_io = next(self._work.get_instances(
                 f"grid_io_right_{self.fpga_size[0]+1}__{i}_"))
             instance_list.append(((clb, cbx1, cby0, sb0, grid_io),
                                   f"tile_{self.fpga_size[0]}__{i}_"))
 
-        top_module.merge_multiple_instance(instance_list,
-                                           new_definition_name=f"right_tile")
-        next(work.get_definitions("right_tile")).OptPins()
+        self._top_module.merge_multiple_instance(instance_list,
+                                                 new_definition_name=f"right_tile")
+        next(self._work.get_definitions("right_tile")).OptPins()
 
-    def _top_tile(self, work, top_module):
+    def _top_tile(self):
         '''     Create Top Tiles
         ::
                +-------+ +------------+
@@ -399,21 +399,24 @@ class OpenFPGA_Tile01(object):
         '''
         merge_module_list = []
         for i in range(2, self.fpga_size[1]):
-            clb = next(work.get_instances(
+            clb = next(self._work.get_instances(
                 f"grid_clb_{i}__{self.fpga_size[1]}_"))
-            cbx = next(work.get_instances(f"cbx_{i}__{self.fpga_size[1]}_"))
-            cby = next(work.get_instances(f"cby_{i}__{self.fpga_size[1]}_"))
-            sb = next(work.get_instances(f"sb_{i}__{self.fpga_size[1]}_"))
-            grid_io = next(work.get_instances(
+            cbx = next(self._work.get_instances(
+                f"cbx_{i}__{self.fpga_size[1]}_"))
+            cby = next(self._work.get_instances(
+                f"cby_{i}__{self.fpga_size[1]}_"))
+            sb = next(self._work.get_instances(
+                f"sb_{i}__{self.fpga_size[1]}_"))
+            grid_io = next(self._work.get_instances(
                 f"grid_io_top_{i}__{self.fpga_size[1]+1}_"))
             merge_module_list.append(((clb, cbx, cby, sb, grid_io),
                                       f"tile_{i}__{self.fpga_size[1]}_"))
 
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name="top_tile")
-        next(work.get_definitions("top_tile")).OptPins()
+        self.top_module.merge_multiple_instance(merge_module_list,
+                                                new_definition_name="top_tile")
+        next(self._work.get_definitions("top_tile")).OptPins()
 
-    def _bottom_tile(self, work, top_module):
+    def _bottom_tile(self):
         '''   Create Bottom Tiles
         ::
                              +-----+
@@ -435,21 +438,21 @@ class OpenFPGA_Tile01(object):
         '''
         instance_list = []
         for i in range(2, self.fpga_size[1]):
-            clb = next(work.get_instances(f"grid_clb_{i}__1_"))
-            cbx0 = next(work.get_instances(f"cbx_{i}__0_"))
-            cbx1 = next(work.get_instances(f"cbx_{i}__1_"))
-            cby1 = next(work.get_instances(f"cby_{i}__1_"))
-            sb0 = next(work.get_instances(f"sb_{i}__0_"))
-            sb1 = next(work.get_instances(f"sb_{i}__1_"))
-            grid_io = next(work.get_instances(f"grid_io_bottom_{i}__0_"))
+            clb = next(self._work.get_instances(f"grid_clb_{i}__1_"))
+            cbx0 = next(self._work.get_instances(f"cbx_{i}__0_"))
+            cbx1 = next(self._work.get_instances(f"cbx_{i}__1_"))
+            cby1 = next(self._work.get_instances(f"cby_{i}__1_"))
+            sb0 = next(self._work.get_instances(f"sb_{i}__0_"))
+            sb1 = next(self._work.get_instances(f"sb_{i}__1_"))
+            grid_io = next(self._work.get_instances(f"grid_io_bottom_{i}__0_"))
             instance_list.append(((clb, cbx0, cbx1, cby1, sb0, sb1, grid_io),
                                   f"tile_{i}__1_"))
 
-        top_module.merge_multiple_instance(instance_list,
-                                           new_definition_name=f"bottom_tile")
-        next(work.get_definitions("bottom_tile")).OptPins()
+        self._top_module.merge_multiple_instance(instance_list,
+                                                 new_definition_name=f"bottom_tile")
+        next(self._work.get_definitions("bottom_tile")).OptPins()
 
-    def _top_left_tile(self, work, top_module):
+    def _top_left_tile(self):
         '''       Create top left tile
         ::
             +--------+ +-------+ +------------+
@@ -465,23 +468,24 @@ class OpenFPGA_Tile01(object):
                     +--------------+
         '''
         merge_module_list = []
-        clb = next(work.get_instances(f"grid_clb_1__{self.fpga_size[1]}_"))
-        cbx0 = next(work.get_instances(f"cbx_1__{self.fpga_size[1]}_"))
-        cby0 = next(work.get_instances(f"cby_0__{self.fpga_size[1]}_"))
-        cby1 = next(work.get_instances(f"cby_1__{self.fpga_size[1]}_"))
-        sb0 = next(work.get_instances(f"sb_0__{self.fpga_size[1]}_"))
-        sb1 = next(work.get_instances(f"sb_1__{self.fpga_size[1]}_"))
-        grid_io_0 = next(work.get_instances(
+        clb = next(self.work.get_instances(
+            f"grid_clb_1__{self.fpga_size[1]}_"))
+        cbx0 = next(self.work.get_instances(f"cbx_1__{self.fpga_size[1]}_"))
+        cby0 = next(self.work.get_instances(f"cby_0__{self.fpga_size[1]}_"))
+        cby1 = next(self.work.get_instances(f"cby_1__{self.fpga_size[1]}_"))
+        sb0 = next(self.work.get_instances(f"sb_0__{self.fpga_size[1]}_"))
+        sb1 = next(self.work.get_instances(f"sb_1__{self.fpga_size[1]}_"))
+        grid_io_0 = next(self.work.get_instances(
             f"grid_io_top_1__{self.fpga_size[1]+1}_"))
-        grid_io_1 = next(work.get_instances(
+        grid_io_1 = next(self.work.get_instances(
             f"grid_io_left_0__{self.fpga_size[1]}_"))
         merge_module_list.append(((clb, cbx0, cby0, cby1, sb0, sb1, grid_io_0, grid_io_1),
                                   f"tile_1__{self.fpga_size[1]}_"))
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name=f"top_left_tile")
-        next(work.get_definitions("top_left_tile")).OptPins()
+        self.top_module.merge_multiple_instance(merge_module_list,
+                                                new_definition_name=f"top_left_tile")
+        next(self.work.get_definitions("top_left_tile")).OptPins()
 
-    def _top_right_tile(self, work, top_module):
+    def _top_right_tile(self):
         '''          Create top right tile
         ::
             +------------+ +-------+ +---------+
@@ -497,25 +501,25 @@ class OpenFPGA_Tile01(object):
                         +--------------+
         '''
         merge_module_list = []
-        clb = next(work.get_instances(
+        clb = next(self._work.get_instances(
             f"grid_clb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        cbx0 = next(work.get_instances(
+        cbx0 = next(self._work.get_instances(
             f"cbx_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        cby0 = next(work.get_instances(
+        cby0 = next(self._work.get_instances(
             f"cby_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        sb0 = next(work.get_instances(
+        sb0 = next(self._work.get_instances(
             f"sb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        grid_io_0 = next(work.get_instances(
+        grid_io_0 = next(self._work.get_instances(
             f"grid_io_right_{self.fpga_size[0]+1}__{self.fpga_size[1]}_"))
-        grid_io_1 = next(work.get_instances(
+        grid_io_1 = next(self._work.get_instances(
             f"grid_io_top_{self.fpga_size[0]}__{self.fpga_size[1]+1}_"))
         merge_module_list.append(((clb, cbx0, cby0, sb0, grid_io_0, grid_io_1),
                                   f"tile_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name=f"top_right_tile")
-        next(work.get_definitions("top_right_tile")).OptPins()
+        self._top_module.merge_multiple_instance(merge_module_list,
+                                                 new_definition_name=f"top_right_tile")
+        next(self._work.get_definitions("top_right_tile")).OptPins()
 
-    def _bottom_left_tile(self, work, top_module):
+    def _bottom_left_tile(self):
         '''      Create bottom left tile
         ::
             +-----+                  +-----+
@@ -537,26 +541,26 @@ class OpenFPGA_Tile01(object):
 
         '''
         merge_module_list = []
-        clb = next(work.get_instances("grid_clb_1__1_"))
-        cbx0 = next(work.get_instances("cbx_1__0_"))
-        cbx1 = next(work.get_instances("cbx_1__1_"))
-        cby0 = next(work.get_instances("cby_0__1_"))
-        cby1 = next(work.get_instances("cby_1__1_"))
-        sb0 = next(work.get_instances("sb_0__0_"))
-        sb1 = next(work.get_instances("sb_0__1_"))
-        sb2 = next(work.get_instances("sb_1__0_"))
-        sb3 = next(work.get_instances("sb_1__1_"))
-        grid_io_0 = next(work.get_instances("grid_io_left_0__1_"))
-        grid_io_1 = next(work.get_instances("grid_io_bottom_1__0_"))
+        clb = next(self._work.get_instances("grid_clb_1__1_"))
+        cbx0 = next(self._work.get_instances("cbx_1__0_"))
+        cbx1 = next(self._work.get_instances("cbx_1__1_"))
+        cby0 = next(self._work.get_instances("cby_0__1_"))
+        cby1 = next(self._work.get_instances("cby_1__1_"))
+        sb0 = next(self._work.get_instances("sb_0__0_"))
+        sb1 = next(self._work.get_instances("sb_0__1_"))
+        sb2 = next(self._work.get_instances("sb_1__0_"))
+        sb3 = next(self._work.get_instances("sb_1__1_"))
+        grid_io_0 = next(self._work.get_instances("grid_io_left_0__1_"))
+        grid_io_1 = next(self._work.get_instances("grid_io_bottom_1__0_"))
         merge_module_list.append(((clb, cbx0, cbx1, cby0, cby1, sb0, sb1,
                                    sb2, sb3, grid_io_0, grid_io_1),
                                   "tile_1__1_"))
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name=f"bottom_left_tile")
+        self._top_module.merge_multiple_instance(merge_module_list,
+                                                 new_definition_name=f"bottom_left_tile")
 
-        next(work.get_definitions("bottom_left_tile")).OptPins()
+        next(self._work.get_definitions("bottom_left_tile")).OptPins()
 
-    def _bottom_right_tile(self, work, top_module):
+    def _bottom_right_tile(self):
         ''' Create bottom right tile
         ::
                               +-----+
@@ -577,18 +581,19 @@ class OpenFPGA_Tile01(object):
                 +-------+ +---------+
         '''
         merge_module_list = []
-        clb = next(work.get_instances(f"grid_clb_{self.fpga_size[0]}__1_"))
-        cbx0 = next(work.get_instances(f"cbx_{self.fpga_size[0]}__0_"))
-        cbx1 = next(work.get_instances(f"cbx_{self.fpga_size[0]}__1_"))
-        cby0 = next(work.get_instances(f"cby_{self.fpga_size[0]}__1_"))
-        sb0 = next(work.get_instances(f"sb_{self.fpga_size[0]}__0_"))
-        sb1 = next(work.get_instances(f"sb_{self.fpga_size[0]}__1_"))
-        grid_io_0 = next(work.get_instances(
+        clb = next(self._work.get_instances(
+            f"grid_clb_{self.fpga_size[0]}__1_"))
+        cbx0 = next(self._work.get_instances(f"cbx_{self.fpga_size[0]}__0_"))
+        cbx1 = next(self._work.get_instances(f"cbx_{self.fpga_size[0]}__1_"))
+        cby0 = next(self._work.get_instances(f"cby_{self.fpga_size[0]}__1_"))
+        sb0 = next(self._work.get_instances(f"sb_{self.fpga_size[0]}__0_"))
+        sb1 = next(self._work.get_instances(f"sb_{self.fpga_size[0]}__1_"))
+        grid_io_0 = next(self._work.get_instances(
             f"grid_io_bottom_{self.fpga_size[0]}__0_"))
-        grid_io_1 = next(work.get_instances(
+        grid_io_1 = next(self._work.get_instances(
             f"grid_io_right_{self.fpga_size[0]+1}__1_"))
         merge_module_list.append(((clb, cbx0, cbx1, cby0, sb0, sb1, grid_io_0, grid_io_1),
                                   f"tile_{self.fpga_size[0]}__1_"))
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name="bottom_right_tile")
-        next(work.get_definitions("bottom_right_tile")).OptPins()
+        self._top_module.merge_multiple_instance(merge_module_list,
+                                                 new_definition_name="bottom_right_tile")
+        next(self._work.get_definitions("bottom_right_tile")).OptPins()
