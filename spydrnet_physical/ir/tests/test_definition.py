@@ -1,4 +1,5 @@
 import unittest
+from unittest.case import expectedFailure
 
 import spydrnet as sdn
 from spydrnet_physical.util.get_names import get_names
@@ -107,3 +108,23 @@ class TestDefinition(unittest.TestCase):
         self.assertEqual(new_port.pins[0].wire, wire1)
         self.assertEqual(new_port.pins[1].wire, wire2)
         self.assertEqual(new_port.pins[2].wire, wire3)
+
+    def test_merge_instance(self):
+        def2 = self.library.create_definition("def2")
+        def3 = self.library.create_definition("def3")
+        inst2 = self.definition.create_child("inst2", reference=def2)
+        inst3 = self.definition.create_child("inst3", reference=def3)
+        new_m, inst, pin_map = self.definition.merge_instance([inst2, inst3])
+
+        self.assertTrue(new_m.name, "def2_def3_merged")
+        self.assertTrue(inst.name, "def2_def3_merged_1")
+        self.assertTrue(inst.reference, new_m)
+        self.assertEqual(set(get_names(self.definition.get_instances())),
+                         {"def2_def3_merged_1", })
+        self.assertEqual(set(get_names(new_m.get_instances())),
+                         {"inst2", "inst3"})
+
+    @expectedFailure
+    def test_merge_multiple_instance(self):
+        # TODO: Wrte test for checking merge multiple instances
+        self.definition.merge_multiple_instance()

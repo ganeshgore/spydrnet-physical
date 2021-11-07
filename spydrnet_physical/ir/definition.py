@@ -212,114 +212,126 @@ class Definition(DefinitionBase):
                 cable.connect_instance_port(inst, port_map[indx][0])
         return new_cables, port_map
 
-    # def merge_multiple_instance(self, instances_list_tuple, new_definition_name=None, pin_map=None):
-    #     """
-    #     This method can merge multiple group of instances having same reference.
-    #     First pair of the instances_list_tuple is used to create new definition
-    #     and this def is reuse while grouping remaining group of instances
-    #     instances_list_tuple = [(inst_1, inst_2, ...., inst_n), <instance_name>]
-    #     new_definition_name = Name for the new definition
-    #     pin_map             = Function of dictionary to rename pins
-    #     """
-    #     mainDef = None
-    #     instance_list = []
-    #     for instances_list, instance_name in instances_list_tuple:
-    #         newDef, newInst, _ = self.merge_instance(instances_list,
-    #                                                  new_definition_name=f"{new_definition_name}_{instance_name}",
-    #                                                  new_instance_name=instance_name,
-    #                                                  pin_map=pin_map)
-    #         instance_list.append(newInst)
-    #         if not mainDef:
-    #             mainDef = newDef
-    #             mainDef.name = new_definition_name
-    #         else:
-    #             newInst.reference = mainDef
-    #             self.library.remove_definition(newDef)
-    #     return mainDef, instance_list
+    def merge_multiple_instance(self, instances_list_tuple, new_definition_name=None, pin_map=None):
+        """
+        This method can merge multiple group of instances
+        having same order of reference definition.
 
-    # def merge_instance(self, instances_list, new_definition_name=None, new_instance_name=None, pin_map=None):
-    #     """
-    #     instances_list      : List of instances to be merged
-    #     new_definition_name : Name of the new definition created
-    #     new_instance_name   : Name of the new instance created
-    #     pin_map : function or a dictionary mapping pin of each module
-    #               function call arguments:
-    #               get_pin_name(<definition_name:<str>, <pin_name:<str>,
-    #                             <instance_name:<str>)
-    #     """
-    #     RenameMap = {}  # Stores the final rename map
+        First pair of the instances_list_tuple is used to create new definition
+        and that is reused while grouping remaining group of instances
 
-    #     # ====== Input Sanity checks
-    #     for eachModule in instances_list:
-    #         assert isinstance(
-    #             eachModule, Instance), "Modulelist contains none non-intance object"
+        args:
+            instances_list_tuple = [(inst_1, inst_2, ...., inst_n), <instance_name>]
+            new_definition_name (str) = Name for the new definition
+            pin_map (Callable)          = Function of dictionary to rename pins
+        """
+        mainDef = None
+        instance_list = []
+        for instances_list, instance_name in instances_list_tuple:
+            newDef, newInst, _ = self.merge_instance(instances_list,
+                                                     new_definition_name=f"{new_definition_name}_{instance_name}",
+                                                     new_instance_name=instance_name,
+                                                     pin_map=pin_map)
+            instance_list.append(newInst)
+            if not mainDef:
+                mainDef = newDef
+                mainDef.name = new_definition_name
+            else:
+                newInst.reference = mainDef
+                self.library.remove_definition(newDef)
+        return mainDef, instance_list
 
-    #     if pin_map:
-    #         if isinstance(pin_map, dict):
-    #             pin_map_copy = pin_map
-    #             def pin_map(x, y, _): return pin_map_copy.get(x, {}).get(y, {})
-    #         if not callable(pin_map):
-    #             print(
-    #                 "pin_map argument should be dictionary or function, received {type(pin_map)}")
+    # TODO: Try to break this method
+    def merge_instance(self, instances_list,
+                       new_definition_name="",
+                       new_instance_name="", pin_map=None):
+        """
+        Merges the list of instances to unique definition
 
-    #     # ====== Create a new definition
-    #     if not new_definition_name:
-    #         new_def_name = "_".join(
-    #             [each.reference.name for each in instances_list]) + "_merged"
-    #         print(f"Inferred definition name {new_def_name} ")
-    #     else:
-    #         new_def_name = new_definition_name
-    #     newMod = self.library.create_definition(name=new_def_name)
+        args:
+            instances_list (List(Instance)): List of instances to be merged
+            new_definition_name : Name of the new definition created
+            new_instance_name   : Name of the new instance created
+            pin_map (Callable, Dict) : External function to map new pin name
+                    based in definition and instance name
+                    get_pin_name(<definition_name:<str>, <pin_name:<str>,
+                    <instance_name:<str>)
 
-    #     # ===== Create instance of the definition
-    #     if not new_instance_name:
-    #         new_instance_name = f"{new_def_name}_1"
-    #     MergedModule = self.create_child(name=new_instance_name,
-    #                                      reference=newMod)
+        returns:
+            (Definition, Instance, Dict)
+        """
+        RenameMap = {}  # Stores the final rename map
 
-    #     # ===== Interate over each module and create new module
-    #     for index, eachM in enumerate(instances_list):
+        # ====== Input Sanity checks
+        for eachModule in instances_list:
+            assert isinstance(
+                eachModule, sdn.Instance), "Modulelist contains none non-intance object"
 
-    #         RenameMap[eachM.reference.name] = {}
-    #         RenameMap[eachM.reference.name][index] = {}
-    #         currMap = RenameMap[eachM.reference.name][index]
-    #         IntInst = newMod.create_child(name=eachM.name,
-    #                                       reference=eachM.reference)
-    #         # Iterate over each port of current instance
-    #         for p in eachM.get_ports():
-    #             pClone = p.clone()  # It copied all pins, wires and cables
+        if pin_map:
+            if isinstance(pin_map, dict):
+                pin_map_copy = pin_map
+                def pin_map(x, y, _): return pin_map_copy.get(x, {}).get(y, {})
+            if not callable(pin_map):
+                print(
+                    "pin_map argument should be dictionary or function, received {type(pin_map)}")
 
-    #             for eachSuffix in [""]+[f"_{i}" for i in range(10)]:
-    #                 newName = pClone.name + eachSuffix
-    #                 if not len(list(newMod.get_ports(newName))):
-    #                     break
-    #             newCable = newMod.create_cable(
-    #                 name=newName,
-    #                 is_downto=pClone.is_downto,
-    #                 is_scalar=pClone.is_scalar,
-    #                 lower_index=pClone.lower_index,
-    #             )
+        # ====== Create a new definition
+        if not new_definition_name:
+            new_def_name = "_".join(
+                [each.reference.name for each in instances_list]) + "_merged"
+            print(f"Inferred definition name {new_def_name} ")
+        else:
+            new_def_name = new_definition_name
+        newMod = self.library.create_definition(name=new_def_name)
 
-    #             # Create connection inside new definition
-    #             for eachPClone, eachP in zip(pClone.pins, p.pins):
-    #                 w = newCable.create_wire()
-    #                 w.connect_pin(eachPClone)
-    #                 w.connect_pin(IntInst.pins[eachP])
-    #             pClone.change_name(newName)
-    #             newMod.add_port(pClone)
+        # ===== Create instance of the definition
+        if not new_instance_name:
+            new_instance_name = f"{new_def_name}_1"
+        MergedModule = self.create_child(name=new_instance_name,
+                                         reference=newMod)
 
-    #             currMap[p.name] = newName
+        # ===== Interate over each module and create new module
+        for index, eachM in enumerate(instances_list):
 
-    #             for eachPin in p.pins:
-    #                 instOutPin = eachM.pins[eachPin]
-    #                 conWire = instOutPin.wire
-    #                 instPin = MergedModule.pins[pClone.pins[eachPin.index()]]
-    #                 conWire.connect_pin(instPin)
-    #                 instOutPin.wire.disconnect_pin(instOutPin)
-    #                 newCable.wires[eachPin.index()].connect_pin(instOutPin)
+            RenameMap[eachM.reference.name] = {}
+            RenameMap[eachM.reference.name][index] = {}
+            currMap = RenameMap[eachM.reference.name][index]
+            IntInst = newMod.create_child(name=eachM.name,
+                                          reference=eachM.reference)
+            # Iterate over each port of current instance
+            for p in eachM.get_ports():
+                pClone = p.clone()  # It copied all pins, wires and cables
+                for eachSuffix in [""]+[f"_{i}" for i in range(10)]:
+                    newName = pClone.name + eachSuffix
+                    if not len(list(newMod.get_ports(newName))):
+                        break
+                newCable = newMod.create_cable(
+                    name=newName,
+                    is_downto=pClone.is_downto,
+                    is_scalar=pClone.is_scalar,
+                    lower_index=pClone.lower_index,
+                )
 
-    #         self.remove_child(eachM)
-    #     return newMod, MergedModule, RenameMap
+                # Create connection inside new definition
+                for eachPClone, eachP in zip(pClone.pins, p.pins):
+                    w = newCable.create_wire()
+                    w.connect_pin(eachPClone)
+                    w.connect_pin(IntInst.pins[eachP])
+                pClone.change_name(newName)
+                newMod.add_port(pClone)
+
+                currMap[p.name] = newName
+
+                for eachPin in p.pins:
+                    instOutPin = eachM.pins[eachPin]
+                    conWire = instOutPin.wire
+                    instPin = MergedModule.pins[pClone.pins[eachPin.index()]]
+                    conWire.connect_pin(instPin)
+                    instOutPin.wire.disconnect_pin(instOutPin)
+                    newCable.wires[eachPin.index()].connect_pin(instOutPin)
+
+            self.remove_child(eachM)
+        return newMod, MergedModule, RenameMap
 
     def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True):
         """
