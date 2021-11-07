@@ -17,7 +17,6 @@ from copy import deepcopy
 from typing import List
 
 import spydrnet as sdn
-import spydrnet_physical as sdnphy
 import svgwrite
 from svgwrite.container import Group
 
@@ -257,7 +256,9 @@ class ConnectPointList:
         dwgMain = dwg.add(Group(id="main", transform="scale(1,-1)"))
         dwg.defs.add(dwg.style("""
                 text{font-family: Verdana;}
-                line{stroke: black;}
+                line{stroke: black; stroke-linecap:round}
+                span{text-anchor: "middle"; alignment_baseline: "middle"}
+                .gridLabels{fill: grey;font-style: italic;font-weight: 900}
                 #core_boundary{stroke:grey; stroke_width:0.5;}
                 .marker{stroke:red; stroke_width:0.5;}
                 """))
@@ -274,8 +275,15 @@ class ConnectPointList:
         '''
         return "PlaceholderModule"
 
+    def get_top_instance(self, x, y):
+        '''
+        Return reference for the given tile location
+        '''
+        return "PlaceholderModule"
+
     def show_stats(self):
         '''
+        Extracts the connectivity statistics for port and connection creation
         '''
         module_stat = {}
         for point in self._points:
@@ -283,31 +291,31 @@ class ConnectPointList:
             to_conn = self.get_reference(*point.to_connection)
 
             module_stat[from_conn] = module_stat.get(from_conn, {})
-            module_stat[from_conn]["in"] = module_stat[from_conn].get(
-                "in", {"left": 0, "right": 0, "top": 0, "bottom": 0})
-            module_stat[from_conn]["in"][point.direction()] += 1
+            module_stat[from_conn]["out"] = module_stat[from_conn].get(
+                "out", {"left": 0, "right": 0, "top": 0, "bottom": 0})
+            module_stat[from_conn]["out"][point.direction(reverse=True)] += 1
 
             module_stat[to_conn] = module_stat.get(to_conn, {})
-            module_stat[to_conn]["out"] = module_stat[to_conn].get(
-                "out", {"left": 0, "right": 0, "top": 0, "bottom": 0})
-            module_stat[to_conn]["out"][point.direction(reverse=True)] += 1
+            module_stat[to_conn]["in"] = module_stat[to_conn].get(
+                "in", {"left": 0, "right": 0, "top": 0, "bottom": 0})
+            module_stat[to_conn]["in"][point.direction(reverse=False)] += 1
 
         return module_stat
 
-    def create_ft_ports(self, netlist, cable: sdnphy.Cable):
+    def create_ft_ports(self, netlist, cable: sdn.Cable):
         ''' create
         '''
         for module_name, values in self.show_stats().items():
             if module_name == "top":
                 continue
-            module: sdnphy.Definition = next(
+            module: sdn.Definition = next(
                 netlist.get_definitions(module_name))
-            for inp in [k for k, v in values["in"].items() if v > 0]:
+            for inp in [k for k, v in values.get("in", {}).items() if v > 0]:
                 module.create_port(f"{cable.name}_{inp}_in",
                                    pins=cable.size, direction=sdn.IN)
                 module.create_cable(f"{cable.name}_{inp}_in",
                                     wires=cable.size)
-            for outp in [k for k, v in values["out"].items() if v > 0]:
+            for outp in [k for k, v in values.get("out", {}).items() if v > 0]:
                 module.create_port(f"{cable.name}_{outp}_out",
                                    pins=cable.size, direction=sdn.OUT)
                 module.create_cable(f"{cable.name}_{outp}_out",
@@ -324,8 +332,7 @@ class ConnectPointList:
                 signal_cable.assign_cable(
                     cable, upper=w.get_index, lower=w.get_index)
             else:
-                inst_name = "inst_1_%d%d" % point.from_connection
-                inst = next(top_definition.get_instances(inst_name))
+                inst = self.get_top_instance(*point.from_connection)
                 port_name = f"{signal}_{point.from_dir}_out"
                 w.connect_pin(next(inst.get_port_pins(port_name)))
 
@@ -333,8 +340,7 @@ class ConnectPointList:
                 signal_cable.assign_cable(
                     cable, upper=w.get_index, lower=w.get_index)
             else:
-                inst = next(top_definition.get_instances(
-                    "inst_1_%d%d" % point.to_connection))
+                inst = self.get_top_instance(*point.to_connection)
                 w.connect_pin(next(inst.get_port_pins(
                     f"{signal}_{point.to_dir}_in")))
 
@@ -425,7 +431,7 @@ class ConnectionPattern:
             points.cursor = center
         return points
 
-    def render_pattern(self, scale=20, title=None):
+    def render_pattern(self, scale=20, title=None, add_module_labels=False):
         dwg = self._connect.render_pattern(scale)
 
         dwgMain = [e for e in dwg.elements if e.get_id() == "main"][0]
@@ -444,6 +450,27 @@ class ConnectionPattern:
                                        end=((self.sizex+0.5) *
                                             scale, (i+0.5)*scale),
                                        class_="marker"))
+
+        # Add labels to the grid
+        if add_module_labels:
+            for x in range(1, 1+self.sizex):
+                for y in range(1, 1+self.sizey):
+                    txt = self._connect.get_top_instance(x, y).name
+                    label = dwg.text("",
+                                     font_size=self.sizey*scale*0.03,
+                                     alignment_baseline="middle",
+                                     class_="gridLabels",
+                                     text_anchor="middle",
+                                     transform="scale(1,-1)",
+                                     insert=(x*scale, (-1*y*scale) + 0.25*scale))
+                    label.add(dwg.tspan(txt, x=[x*scale]))
+                    label.add(dwg.tspan(
+                        "["+self._connect.get_reference(x, y)+"]",
+                        font_size=self.sizey*scale*0.02,
+                        x=[x*scale], dy=["2%", ]))
+                    dwgText.add(label)
+
+        # Add title to generated SVG image
         title = title or f" %d x %d FPGA " % (self.sizex, self.sizey)
         dwgText.add(dwg.text(title,
                              insert=((self.sizex+1)*scale*0.5, -1*-0.5*scale),
