@@ -44,6 +44,13 @@ class OpenFPGA_Tile01(object):
     def create_connection(self):
         pass
 
+    def remove_undriven_nets(self):
+        removed_cables = []
+        for cable in self._top_module.get_cables("*undriven*"):
+            removed_cables.append(cable.name)
+            self._top_module.remove_cable(cable)
+        return removed_cables
+
     def create_tiles(self):
         '''
         Creates tiles
@@ -97,6 +104,7 @@ class OpenFPGA_Tile01(object):
             Path(location).mkdir(parents=True, exist_ok=True)
             sdn.compose(self._netlist,
                         filename=path.join(location, f"{definition.name}.v"),
+                        skip_constrains=True,
                         definition_list=[definition.name],
                         write_blackbox=True)
 
