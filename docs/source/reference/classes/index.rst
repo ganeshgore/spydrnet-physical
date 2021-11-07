@@ -20,6 +20,7 @@ Basic object types
    outerpin
    cable
    definition
+   library
 
 Example Netlist in the Intermediate Representation
 
