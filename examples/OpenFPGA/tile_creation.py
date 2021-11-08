@@ -72,7 +72,7 @@ def main():
     fpga.save_netlist("sb*", path.join(*base_dir, "routing"))
     fpga.save_netlist("cb*", path.join(*base_dir, "routing"))
     fpga.save_netlist("grid*", path.join(*base_dir, "lb"))
-    fpga.save_netlist("tile*", path.join(*base_dir, "tiles"))
+    fpga.save_netlist("*tile*", path.join(*base_dir, "tiles"))
     fpga.save_netlist("fpga_top", path.join(*base_dir))
 
 
