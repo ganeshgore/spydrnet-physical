@@ -448,6 +448,9 @@ class OpenFPGA:
     def design_top_stat(self):
         '''
         Get statistics of the top module
+
+        Reference       Count
+        ========================
         '''
         design = self._top_module
         print("= = "*10)
@@ -597,7 +600,7 @@ class OpenFPGA:
             for indx, s1 in enumerate(sides):
                 # Input pins
                 self._convert_to_bus(cbx, f"*{s1}_grid_*__pin_I_*",
-                                     f"grid_{s1}_in")
+                                     f"grid_{s1}_out")
                 self._convert_to_bus(cbx, f"*{s1}_grid_*__pin_outpad_*",
                                      f"grid_{s1}_outpad")
 
@@ -630,13 +633,13 @@ class OpenFPGA:
                 "top": ('left', 'right', 'bottom'),
                 "bottom": ('left', 'right', 'top'),
             }[side]
-            new_ports[0][0].change_name(f"grid_{oppo_side[0]}_in")
+            new_ports[0][0].change_name(f"grid_{oppo_side}_in")
             new_ports[0][1].change_name(f"grid_{side1}_{side[0]}_out")
             for cable in cables:
                 cable.name = cable.name.replace("_out_", f"_{side1}_out_")
 
             cables, new_ports = self._top_module.create_ft_multiple(inst_map)
-            new_ports[0][0].change_name(f"grid_{oppo_side[0]}_in2")
+            new_ports[0][0].change_name(f"grid_{oppo_side}_in2")
             new_ports[0][1].change_name(f"grid_{side2}_{side[0]}_out")
             for cable in cables:
                 cable.name = cable.name.replace("_out_", f"_{side2}_out_")
