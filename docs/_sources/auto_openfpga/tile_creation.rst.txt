@@ -25,7 +25,7 @@ Creating FPGA Tiles from OpenFPGA verilog
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-78
+.. GENERATED FROM PYTHON SOURCE LINES 10-81
 
 
 
@@ -64,54 +64,14 @@ Verilog netlist obtained from OpenFPGA
                 sb_0__4_        1
                 sb_4__0_        1
                 sb_4__4_        1
-    grid_clb_2__1_ grid_clb_2__1__clb_left_out cby_1__1_
-    grid_clb_2__1_ grid_clb_2__1__clb_bottom_out cbx_2__0_
-    ===================
-    grid_clb_3__2_ grid_clb_3__2__clb_left_out cby_2__2_
-    grid_clb_3__2_ grid_clb_3__2__clb_bottom_out cbx_3__1_
-    ===================
-    grid_clb_4__1_ grid_clb_4__1__clb_left_out cby_3__1_
-    grid_clb_4__1_ grid_clb_4__1__clb_bottom_out cbx_4__0_
-    ===================
-    grid_clb_4__4_ grid_clb_4__4__clb_left_out cby_3__4_
-    grid_clb_4__4_ grid_clb_4__4__clb_bottom_out cbx_4__3_
-    ===================
-    grid_clb_3__1_ grid_clb_3__1__clb_left_out cby_2__1_
-    grid_clb_3__1_ grid_clb_3__1__clb_bottom_out cbx_3__0_
-    ===================
-    grid_clb_1__4_ grid_clb_1__4__clb_left_out cby_0__4_
-    grid_clb_1__4_ grid_clb_1__4__clb_bottom_out cbx_1__3_
-    ===================
-    grid_clb_3__4_ grid_clb_3__4__clb_left_out cby_2__4_
-    grid_clb_3__4_ grid_clb_3__4__clb_bottom_out cbx_3__3_
-    ===================
-    grid_clb_4__3_ grid_clb_4__3__clb_left_out cby_3__3_
-    grid_clb_4__3_ grid_clb_4__3__clb_bottom_out cbx_4__2_
-    ===================
-    grid_clb_2__4_ grid_clb_2__4__clb_left_out cby_1__4_
-    grid_clb_2__4_ grid_clb_2__4__clb_bottom_out cbx_2__3_
-    ===================
-    grid_clb_1__3_ grid_clb_1__3__clb_left_out cby_0__3_
-    grid_clb_1__3_ grid_clb_1__3__clb_bottom_out cbx_1__2_
-    ===================
-    grid_clb_2__3_ grid_clb_2__3__clb_left_out cby_1__3_
-    grid_clb_2__3_ grid_clb_2__3__clb_bottom_out cbx_2__2_
-    ===================
-    grid_clb_1__1_ grid_clb_1__1__clb_left_out cby_0__1_
-    grid_clb_1__1_ grid_clb_1__1__clb_bottom_out cbx_1__0_
-    ===================
-    grid_clb_1__2_ grid_clb_1__2__clb_left_out cby_0__2_
-    grid_clb_1__2_ grid_clb_1__2__clb_bottom_out cbx_1__1_
-    ===================
-    grid_clb_4__2_ grid_clb_4__2__clb_left_out cby_3__2_
-    grid_clb_4__2_ grid_clb_4__2__clb_bottom_out cbx_4__1_
-    ===================
-    grid_clb_2__2_ grid_clb_2__2__clb_left_out cby_1__2_
-    grid_clb_2__2_ grid_clb_2__2__clb_bottom_out cbx_2__1_
-    ===================
-    grid_clb_3__3_ grid_clb_3__3__clb_left_out cby_2__3_
-    grid_clb_3__3_ grid_clb_3__3__clb_bottom_out cbx_3__2_
-    ===================
+    grid_clb_1__3__grid_left_out_ft_0_in_grid_clb_1__3__grid_left_out_ft_0_out_ft_1
+    grid_clb_2__2__grid_left_out_ft_0_in_grid_clb_2__2__grid_left_out_ft_0_out_ft_1
+    grid_clb_1__3__grid_right_out_ft_0_in_grid_clb_1__3__grid_right_out_ft_0_out_ft_1
+    grid_clb_4__1__grid_right_out_ft_0_in_grid_clb_4__1__grid_right_out_ft_0_out_ft_1
+    grid_clb_1__3__grid_top_out_ft_0_in_grid_clb_1__3__grid_top_out_ft_0_out_ft_1
+    grid_clb_4__4__grid_top_out_ft_0_in_grid_clb_4__4__grid_top_out_ft_0_out_ft_1
+    grid_clb_1__3__grid_bottom_out_ft_0_in_grid_clb_1__3__grid_bottom_out_ft_0_out_ft_1
+    grid_clb_1__1__grid_bottom_out_ft_0_in_grid_clb_1__1__grid_bottom_out_ft_0_out_ft_1
     = = = = = = = = = = = = = = = = = = = = 
     = = = = = =  DESIGN STATS = = = = = = = 
     = = = = = = = = = = = = = = = = = = = = 
@@ -174,12 +134,13 @@ Verilog netlist obtained from OpenFPGA
     from os import path
 
     import spydrnet as sdn
-    from spydrnet_physical.util import OpenFPGA_Tile01
+    from spydrnet_physical.util import OpenFPGA, Tile01
+    from spydrnet_physical.util import get_names
 
 
     def main():
         source_files = glob.glob('homogeneous_fabric/*_Verilog/lb/*.v')
-        source_files += glob.glob('homogeneous_fabric/*_Verilog/routinlg/*.v')
+        source_files += glob.glob('homogeneous_fabric/*_Verilog/routing/*.v')
         source_files += glob.glob('homogeneous_fabric/*_Verilog/sub_module/*.v')
         source_files += glob.glob('homogeneous_fabric/*_Verilog/fpga_top.v')
 
@@ -191,7 +152,7 @@ Verilog netlist obtained from OpenFPGA
             fp.seek(0)
             netlist = sdn.parse(fp.name)
 
-        fpga = OpenFPGA_Tile01(grid=(4, 4), netlist=netlist)
+        fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
         fpga.design_top_stat()
 
         # Convert wires to bus structure
@@ -220,6 +181,7 @@ Verilog netlist obtained from OpenFPGA
         # Before Creating Tiles
         fpga.design_top_stat()
 
+        fpga.register_tile_generator(Tile01)
         fpga.create_tiles()
 
         # After Tile creation
@@ -227,9 +189,10 @@ Verilog netlist obtained from OpenFPGA
 
         # Save netlist
         base_dir = (".", "homogeneous_fabric", "_output")
-        fpga.save_netlist("tile_*", path.join(*base_dir, "tiles"))
+        fpga.save_netlist("sb*", path.join(*base_dir, "routing"))
+        fpga.save_netlist("cb*", path.join(*base_dir, "routing"))
         fpga.save_netlist("grid*", path.join(*base_dir, "lb"))
-        fpga.save_netlist("*b_*", path.join(*base_dir, "routing"))
+        fpga.save_netlist("*tile*", path.join(*base_dir, "tiles"))
         fpga.save_netlist("fpga_top", path.join(*base_dir))
 
 
@@ -239,7 +202,7 @@ Verilog netlist obtained from OpenFPGA
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.707 seconds)
+   **Total running time of the script:** ( 0 minutes  4.473 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_tile_creation.py:
