@@ -100,4 +100,4 @@ fp.compose()
 dwg = fp.get_svg()
 dwg.saveas("_basic_hierarchy_floorplan.svg", pretty=True, indent=4)
 
-sdn.compose(netlist, '_annotate_netlist.v', write_constrains=True)
+sdn.compose(netlist, '_annotate_netlist.v')

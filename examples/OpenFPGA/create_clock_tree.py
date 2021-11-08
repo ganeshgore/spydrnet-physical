@@ -57,7 +57,14 @@ def get_reference(x, y):
     return next(netlist.get_instances(f"inst_1_{x}{y}")).reference.name
 
 
+def get_top_instance(x, y):
+    if 0 in (x, y):
+        return "top"
+    return next(netlist.get_instances(f"inst_1_{x}{y}"))
+
+
 fishbone_pattern.get_reference = get_reference
+fishbone_pattern.get_top_instance = get_top_instance
 
 clk_cable = top_definition.create_cable("clk", wires=1)
 
