@@ -97,8 +97,14 @@ class Definition(DefinitionBase):
 
         assign_lib = self._get_assignment_library()
         assign_def = self._get_assignment_definition(assign_lib, cable.size)
-        instance = self.create_child(f"{inport_name}_{outport_name}_ft",
-                                     reference=assign_def)
+        inst_name = f"{inport_name}_{outport_name}_ft"
+        i = 1
+        while next(self.get_instances(inst_name), None):
+            inst_name = f"{inport_name}_{outport_name}_ft" + f"_{i}"
+            i += 1
+            print(inst_name)
+
+        instance = self.create_child(inst_name, reference=assign_def)
 
         int_c.connect_port(inport)
         int_c.connect_instance_port(instance, next(assign_def.get_ports("i")))
