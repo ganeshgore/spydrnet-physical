@@ -1,8 +1,11 @@
 .. _openfpga_base:
 
-=============
-OpenFPGA Base
-=============
+.. _openfpga_tile01:
+================
+OpenFPGA Tile01
+================
+
+
 
 Overview
 ========

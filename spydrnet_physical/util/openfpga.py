@@ -17,9 +17,10 @@ class OpenFPGA_Tile01(object):
 
     def __init__(self, grid, netlist, library="work", top_module="fpga_top"):
         '''
-        Init class
+        Init class with OpenFPGA netlist
 
         args:
+            grid (int, int): Size of the FPGA grid
             netlist (sdn.netlist): Pass OpenFPGA core netlist
         '''
         self.fpga_size = grid
@@ -28,6 +29,7 @@ class OpenFPGA_Tile01(object):
         self._task_directory = netlist
         self._top_module = next(self._work.get_definitions(top_module))
         self._tile_name_patter = "tile_%d_%d_"
+        self.written_modules = []
         netlist.top_instance = self._top_module
 
     @property
@@ -44,7 +46,16 @@ class OpenFPGA_Tile01(object):
     def create_connection(self):
         pass
 
+    def clear_written_modules(self):
+        while self.written_modules:
+            self.written_modules.pop()
+
     def remove_undriven_nets(self):
+        '''
+        Removes undriven/floating nets from the top level
+
+        the net name with undriven keyword in the name is considered as floating nets
+        '''
         removed_cables = []
         for cable in self._top_module.get_cables("*undriven*"):
             removed_cables.append(cable.name)
@@ -100,6 +111,8 @@ class OpenFPGA_Tile01(object):
         Save verilog files
         '''
         for definition in self._work.get_definitions(patten):
+            if definition.name in self.written_modules:
+                continue
             logger.info("Writing %s", definition.name)
             Path(location).mkdir(parents=True, exist_ok=True)
             sdn.compose(self._netlist,
@@ -107,6 +120,8 @@ class OpenFPGA_Tile01(object):
                         skip_constraints=True,
                         definition_list=[definition.name],
                         write_blackbox=True)
+            self.written_modules.append(definition.name)
+        return self.written_modules
 
     def create_grid_io_bus(self):
         sides = [("left", "top", "bottom"),
