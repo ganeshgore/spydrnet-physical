@@ -104,7 +104,7 @@ class OpenFPGA_Tile01(object):
             Path(location).mkdir(parents=True, exist_ok=True)
             sdn.compose(self._netlist,
                         filename=path.join(location, f"{definition.name}.v"),
-                        skip_constrains=True,
+                        skip_constraints=True,
                         definition_list=[definition.name],
                         write_blackbox=True)
 

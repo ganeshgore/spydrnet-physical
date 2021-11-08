@@ -39,7 +39,7 @@ top_definition = netlist.top_instance.reference
 top_definition.split_port("in")
 top_definition.split_port("out")
 top_definition.create_unconn_wires()
-sdn.compose(netlist, '_square_grid_design.v')
+sdn.compose(netlist, '_square_grid_design.v', skip_constraints=True)
 
 netlist = sdnphy.load_netlist_by_name('square_grid')
 top_definition = netlist.top_instance.reference
@@ -76,7 +76,8 @@ fishbone_pattern.create_ft_connection(top_definition, clk_cable)
 top_definition.split_port("in")
 top_definition.split_port("out")
 top_definition.create_unconn_wires()
-sdn.compose(netlist, '_feedthrough_design.v', write_blackbox=True)
+sdn.compose(netlist, '_feedthrough_design.v',
+            skip_constraints=True, write_blackbox=True)
 
 # following section is just dummy it needs to simplify more
 top_definition.properties["WIDTH"] = "700"
