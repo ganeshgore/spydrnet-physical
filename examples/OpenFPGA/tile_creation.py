@@ -14,7 +14,7 @@ from itertools import chain
 from os import path
 
 import spydrnet as sdn
-from spydrnet_physical.util import OpenFPGA
+from spydrnet_physical.util import OpenFPGA, Tile01
 from spydrnet_physical.util import get_names
 
 
@@ -61,6 +61,7 @@ def main():
     # Before Creating Tiles
     fpga.design_top_stat()
 
+    fpga.register_tile_generator(Tile01)
     fpga.create_tiles()
 
     # After Tile creation
