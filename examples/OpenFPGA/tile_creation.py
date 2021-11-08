@@ -12,10 +12,8 @@ import glob
 import tempfile
 from itertools import chain
 from os import path
-from pprint import pprint
 
 import spydrnet as sdn
-import spydrnet_physical as sdnphy
 from spydrnet_physical.util import OpenFPGA_Tile01
 
 
@@ -43,8 +41,7 @@ def main():
     fpga.create_cb_bus()
 
     # Remove undriven nets
-    for cable in fpga.top_module.get_cables("*undriven*"):
-        fpga.top_module.remove_cable(cable)
+    fpga.remove_undriven_nets()
 
     # Top level nets to bus
     for i in chain(fpga.top_module.get_instances("grid_clb*"),
@@ -59,6 +56,14 @@ def main():
                     f"{i.name}_{p.name}", cable_list)
 
     fpga.create_grid_clb_feedthroughs()
+
+    # Before Creating Tiles
+    fpga.design_top_stat()
+
+    fpga.create_tiles()
+
+    # After Tile creation
+    fpga.design_top_stat()
 
     # Save netlist
     base_dir = (".", "homogeneous_fabric", "_output")
