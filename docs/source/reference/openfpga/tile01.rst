@@ -30,3 +30,12 @@ Detail of each Tile
    Tile01/top-right-tile
    Tile01/bottom-left-tile
    Tile01/bottom-right-tile
+
+
+Methods
+=======
+.. currentmodule:: spydrnet_physical.util
+.. autoclass:: Tile01
+   :private-members:
+   :members:
+   :member-order: bysource

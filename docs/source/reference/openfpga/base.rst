@@ -1,16 +1,13 @@
 .. _openfpga_base:
 
-.. _openfpga_tile01:
-================
-OpenFPGA Tile01
-================
-
-
+=============
+OpenFPGA Base
+=============
 
 Overview
 ========
 .. currentmodule:: spydrnet_physical.util
-.. autoclass:: OpenFPGA_Tile01
-   :private-members:
+
+.. autoclass:: OpenFPGA
    :members:
    :member-order: bysource
