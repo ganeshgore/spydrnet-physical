@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-800,800,800" width="100%">
+    <defs>
+        <style type="text/css"><![CDATA[
+            text{font-family: LATO; font-weight: 800; font-size: 5px;}
+            .module_boundary{fill:#f4f0e6}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        ]]></style>
+        <symbol id="top">
+            <rect class="module_boundary" fill="white" height="699" stroke="grey" stroke-width="2" width="699" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in_0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="498.0"/>
+            <text class="pin left_pin" x="0.0" y="-498.0">in_0</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in_1');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="398.0"/>
+            <text class="pin left_pin" x="0.0" y="-398.0">in_1</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in_2');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="298.0"/>
+            <text class="pin left_pin" x="0.0" y="-298.0">in_2</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in_3');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="198.0"/>
+            <text class="pin left_pin" x="0.0" y="-198.0">in_3</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out_0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="697.0" y="548.0"/>
+            <text class="pin right_pin" x="697.0" y="-548.0">out_0</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out_1');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="697.0" y="498.0"/>
+            <text class="pin right_pin" x="697.0" y="-498.0">out_1</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out_2');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="697.0" y="448.0"/>
+            <text class="pin right_pin" x="697.0" y="-448.0">out_2</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out_3');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="697.0" y="398.0"/>
+            <text class="pin right_pin" x="697.0" y="-398.0">out_3</text>
+        </symbol>
+        <symbol id="module1">
+            <rect class="module_boundary" fill="white" height="99" stroke="grey" stroke-width="2" width="99" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="8.0"/>
+            <text class="pin left_pin" x="0.0" y="-8.0">in0</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="97.0" y="58.0"/>
+            <text class="pin right_pin" x="97.0" y="-58.0">out0</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="48.0" y="48.0"/>
+            <text class="pin center_pin" x="48.0" y="-48.0">clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'clk_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="18.0"/>
+            <text class="pin left_pin" x="0.0" y="-18.0">clk_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'clk_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="97.0" y="68.0"/>
+            <text class="pin right_pin" x="97.0" y="-68.0">clk_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'clk_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="64.0" y="0.0"/>
+            <text class="pin bottom_pin" x="64.0" y="0.0">clk_bottom_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'clk_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="28.0"/>
+            <text class="pin left_pin" x="0.0" y="-28.0">clk_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'clk_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="97.0" y="78.0"/>
+            <text class="pin right_pin" x="97.0" y="-78.0">clk_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'clk_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="64.0" y="93.0"/>
+            <text class="pin top_pin" x="64.0" y="93.0">clk_top_out</text>
+        </symbol>
+        <symbol id="SDN_VERILOG_ASSIGNMENT_1">
+            <rect class="module_boundary" fill="white" height="49" stroke="grey" stroke-width="2" width="49" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'i');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="23.0" y="23.0"/>
+            <text class="pin center_pin" x="23.0" y="-23.0">i</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'o');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="23.0" y="23.0"/>
+            <text class="pin center_pin" x="23.0" y="-23.0">o</text>
+        </symbol>
+    </defs>
+    <g id="bg">
+        <rect fill="#FFF" height="750" id="background" stroke-width="0" width="750" x="-25" y="-25"/>
+    </g>
+    <g id="mainframe">
+        <g id="mainShapes" transform="scale(1,-1)">
+            <use class="topModule" x="0" xlink:href="#top" y="0"/>
+            <use class="inst_1_11" x="125" xlink:href="#module1" y="125"/>
+            <use class="inst_1_21" x="250" xlink:href="#module1" y="125"/>
+            <use class="inst_1_31" x="375" xlink:href="#module1" y="125"/>
+            <use class="inst_1_41" x="500" xlink:href="#module1" y="125"/>
+            <use class="inst_1_12" x="125" xlink:href="#module1" y="250"/>
+            <use class="inst_1_22" x="250" xlink:href="#module1" y="250"/>
+            <use class="inst_1_32" x="375" xlink:href="#module1" y="250"/>
+            <use class="inst_1_42" x="500" xlink:href="#module1" y="250"/>
+            <use class="inst_1_13" x="125" xlink:href="#module1" y="375"/>
+            <use class="inst_1_23" x="250" xlink:href="#module1" y="375"/>
+            <use class="inst_1_33" x="375" xlink:href="#module1" y="375"/>
+            <use class="inst_1_43" x="500" xlink:href="#module1" y="375"/>
+            <use class="inst_1_14" x="125" xlink:href="#module1" y="500"/>
+            <use class="inst_1_24" x="250" xlink:href="#module1" y="500"/>
+            <use class="inst_1_34" x="375" xlink:href="#module1" y="500"/>
+            <use class="inst_1_44" x="500" xlink:href="#module1" y="500"/>
+            <use class="clk_clk_ft_assign" x="0" xlink:href="#SDN_VERILOG_ASSIGNMENT_1" y="0"/>
+        </g>
+        <g id="mainText" transform="scale(1,-1)">
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="350.0" y="-70.0">top</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-145">inst_1_11</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-145">inst_1_21</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-145">inst_1_31</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-145">inst_1_41</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-270">inst_1_12</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-270">inst_1_22</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-270">inst_1_32</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-270">inst_1_42</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-395">inst_1_13</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-395">inst_1_23</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-395">inst_1_33</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-395">inst_1_43</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-520">inst_1_14</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-520">inst_1_24</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-520">inst_1_34</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-520">inst_1_44</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="25.0" y="-20">clk_clk_ft_assign</text>
+        </g>
+        <g id="edges" transform="scale(1,-1)">
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk');" onmouseout="hideTooltip();" points="25,25" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'in_0');" onmouseout="hideTooltip();" points="2,500 127,510" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'in_1');" onmouseout="hideTooltip();" points="2,400 127,385" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'in_2');" onmouseout="hideTooltip();" points="2,300 127,260" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'in_3');" onmouseout="hideTooltip();" points="2,200 127,135" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'out_0');" onmouseout="hideTooltip();" points="699,550 599,560" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'out_1');" onmouseout="hideTooltip();" points="699,500 599,435" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'out_2');" onmouseout="hideTooltip();" points="699,450 599,310" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'out_3');" onmouseout="hideTooltip();" points="699,400 599,185" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'unconn');" onmouseout="hideTooltip();" points="175,175" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row1_1');" onmouseout="hideTooltip();" points="474,185 502,135" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row1_2');" onmouseout="hideTooltip();" points="349,185 377,135" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row1_3');" onmouseout="hideTooltip();" points="224,185 252,135" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row2_1');" onmouseout="hideTooltip();" points="474,310 502,260" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row2_2');" onmouseout="hideTooltip();" points="349,310 377,260" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row2_3');" onmouseout="hideTooltip();" points="224,310 252,260" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row3_1');" onmouseout="hideTooltip();" points="474,435 502,385" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row3_2');" onmouseout="hideTooltip();" points="349,435 377,385" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row3_3');" onmouseout="hideTooltip();" points="224,435 252,385" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row4_1');" onmouseout="hideTooltip();" points="474,560 502,510" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row4_2');" onmouseout="hideTooltip();" points="349,560 377,510" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'row4_3');" onmouseout="hideTooltip();" points="224,560 252,510" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_0');" onmouseout="hideTooltip();" points="252,530 224,570" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_1');" onmouseout="hideTooltip();" points="474,580 502,520" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_2');" onmouseout="hideTooltip();" points="349,580 377,520" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_3');" onmouseout="hideTooltip();" points="316,470 316,502" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_4');" onmouseout="hideTooltip();" points="252,405 224,445" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_5');" onmouseout="hideTooltip();" points="474,455 502,395" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_6');" onmouseout="hideTooltip();" points="349,455 377,395" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_7');" onmouseout="hideTooltip();" points="316,345 316,377" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_8');" onmouseout="hideTooltip();" points="252,280 224,320" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_9');" onmouseout="hideTooltip();" points="474,330 502,270" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_10');" onmouseout="hideTooltip();" points="349,330 377,270" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_11');" onmouseout="hideTooltip();" points="316,220 316,252" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_12');" onmouseout="hideTooltip();" points="252,155 224,195" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_13');" onmouseout="hideTooltip();" points="474,205 502,145" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_14');" onmouseout="hideTooltip();" points="349,205 377,145" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_15');" onmouseout="hideTooltip();" points="25,25 316,127" stroke="black" stroke-width="1"/>
+        </g>
+    </g>
+</svg>

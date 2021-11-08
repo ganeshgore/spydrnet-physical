@@ -176,6 +176,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../classes/outerpin.html">OuterPin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../classes/cable.html">Cable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../classes/definition.html">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/library.html">Library</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -192,6 +193,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/grid_example.html">grid_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -204,6 +206,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/create_clock_tree.html">Create Clock Tree Embedding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
@@ -274,7 +277,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._main_tile">
-<span class="sig-name descname"><span class="pre">_main_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._main_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._main_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_main_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._main_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._main_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create main Tiles</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                  <span class="o">+-----+</span>
                   <span class="o">|</span>     <span class="o">|</span>
@@ -294,7 +297,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._left_tile">
-<span class="sig-name descname"><span class="pre">_left_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._left_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._left_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_left_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._left_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._left_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create Left Tiles</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----+</span>                  <span class="o">+-----+</span>
 <span class="o">|</span>     <span class="o">|</span>                  <span class="o">|</span>     <span class="o">|</span>
@@ -314,7 +317,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._right_tile">
-<span class="sig-name descname"><span class="pre">_right_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._right_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._right_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_right_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._right_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._right_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create Right Tiles</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                 <span class="o">+-----+</span>
                  <span class="o">|</span>     <span class="o">|</span>
@@ -334,7 +337,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._top_tile">
-<span class="sig-name descname"><span class="pre">_top_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._top_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._top_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_top_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._top_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._top_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create Top Tiles</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="o">+-------+</span> <span class="o">+------------+</span>
    <span class="o">|</span>  <span class="n">CBY</span>  <span class="o">|</span> <span class="o">|</span>     <span class="n">SB</span>     <span class="o">|</span>
@@ -352,7 +355,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._bottom_tile">
-<span class="sig-name descname"><span class="pre">_bottom_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._bottom_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._bottom_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_bottom_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._bottom_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._bottom_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create Bottom Tiles</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                 <span class="o">+-----+</span>
                  <span class="o">|</span>     <span class="o">|</span>
@@ -375,7 +378,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._top_left_tile">
-<span class="sig-name descname"><span class="pre">_top_left_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._top_left_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._top_left_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_top_left_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._top_left_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._top_left_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create top left tile</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+--------+</span> <span class="o">+-------+</span> <span class="o">+------------+</span>
 <span class="o">|</span>  <span class="n">SB</span>    <span class="o">|</span> <span class="o">|</span>  <span class="n">CBY</span>  <span class="o">|</span> <span class="o">|</span>     <span class="n">SB</span>     <span class="o">|</span>
@@ -393,7 +396,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._top_right_tile">
-<span class="sig-name descname"><span class="pre">_top_right_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._top_right_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._top_right_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_top_right_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._top_right_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._top_right_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create top right tile</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+------------+</span> <span class="o">+-------+</span> <span class="o">+---------+</span>
 <span class="o">|</span>     <span class="n">SB</span>     <span class="o">|</span> <span class="o">|</span>  <span class="n">CBY</span>  <span class="o">|</span> <span class="o">|</span>     <span class="n">SB</span>  <span class="o">|</span>
@@ -411,7 +414,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._bottom_left_tile">
-<span class="sig-name descname"><span class="pre">_bottom_left_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._bottom_left_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._bottom_left_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_bottom_left_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._bottom_left_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._bottom_left_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create bottom left tile</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----+</span>                  <span class="o">+-----+</span>
 <span class="o">|</span>     <span class="o">|</span>                  <span class="o">|</span>     <span class="o">|</span>
@@ -434,7 +437,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA_Tile01._bottom_right_tile">
-<span class="sig-name descname"><span class="pre">_bottom_right_tile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">work</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._bottom_right_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._bottom_right_tile" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">_bottom_right_tile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA_Tile01._bottom_right_tile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA_Tile01._bottom_right_tile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create bottom right tile</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                 <span class="o">+-----+</span>
                  <span class="o">|</span>     <span class="o">|</span>

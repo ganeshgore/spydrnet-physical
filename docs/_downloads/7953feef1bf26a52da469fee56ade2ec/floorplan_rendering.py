@@ -95,11 +95,9 @@ next(module2.get_ports("in1")).properties["OFFSET"] = "30"
 next(module2.get_ports("out")).properties["SIDE"] = "right"
 next(module2.get_ports("out")).properties["OFFSET"] = "20"
 
-top.get_ports()
-
 fp = FloorPlanViz(top)
 fp.compose()
 dwg = fp.get_svg()
 dwg.saveas("_basic_hierarchy_floorplan.svg", pretty=True, indent=4)
 
-sdn.compose(netlist, '_annotate_netlist.v', write_constrains=True)
+sdn.compose(netlist, '_annotate_netlist.v')

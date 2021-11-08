@@ -42,7 +42,7 @@ Download final annotated verilog netlist:
 .. image:: ../../../examples/OpenFPGA/_basic_hierarchy_floorplan.svg
     :width: 500px
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-106
+.. GENERATED FROM PYTHON SOURCE LINES 27-104
 
 
 
@@ -123,19 +123,17 @@ Download final annotated verilog netlist:
     next(module2.get_ports("out")).properties["SIDE"] = "right"
     next(module2.get_ports("out")).properties["OFFSET"] = "20"
 
-    top.get_ports()
-
     fp = FloorPlanViz(top)
     fp.compose()
     dwg = fp.get_svg()
     dwg.saveas("_basic_hierarchy_floorplan.svg", pretty=True, indent=4)
 
-    sdn.compose(netlist, '_annotate_netlist.v', write_constrains=True)
+    sdn.compose(netlist, '_annotate_netlist.v')
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.014 seconds)
+   **Total running time of the script:** ( 0 minutes  0.016 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_floorplan_rendering.py:

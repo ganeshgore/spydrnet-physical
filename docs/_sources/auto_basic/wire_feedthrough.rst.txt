@@ -47,7 +47,7 @@ a given scalar or vector wires.
    :align: center
    :module: top
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-58
+.. GENERATED FROM PYTHON SOURCE LINES 32-60
 
 
 
@@ -68,11 +68,12 @@ a given scalar or vector wires.
     cable0 = next(top.get_cables("wire0"))
     inst2 = next(top.get_instances("inst_2_0"))
 
-    sdn.compose(netlist, '_initial_design.v')
+    sdn.compose(netlist, '_initial_design.v', skip_constraints=True)
 
 
     top.create_feedthrough(inst2, cable0)
-    sdn.compose(netlist, '_output_wire.v')
+    top.create_unconn_wires()
+    sdn.compose(netlist, '_output_wire.v', skip_constraints=True)
 
 
     netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
@@ -82,12 +83,13 @@ a given scalar or vector wires.
     inst1 = next(top.get_instances("inst_1_0"))
 
     cables = top.create_feedthrough(inst1, bus_in)
-    sdn.compose(netlist, '_output_bus.v')
+    top.create_unconn_wires()
+    sdn.compose(netlist, '_output_bus.v', skip_constraints=True)
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.013 seconds)
+   **Total running time of the script:** ( 0 minutes  0.018 seconds)
 
 
 .. _sphx_glr_download_auto_basic_wire_feedthrough.py:

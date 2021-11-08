@@ -40,11 +40,12 @@ top = netlist.top_instance.reference
 cable0 = next(top.get_cables("wire0"))
 inst2 = next(top.get_instances("inst_2_0"))
 
-sdn.compose(netlist, '_initial_design.v')
+sdn.compose(netlist, '_initial_design.v', skip_constraints=True)
 
 
 top.create_feedthrough(inst2, cable0)
-sdn.compose(netlist, '_output_wire.v')
+top.create_unconn_wires()
+sdn.compose(netlist, '_output_wire.v', skip_constraints=True)
 
 
 netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
@@ -54,4 +55,5 @@ bus_in = next(top.get_cables("bus_in"))
 inst1 = next(top.get_instances("inst_1_0"))
 
 cables = top.create_feedthrough(inst1, bus_in)
-sdn.compose(netlist, '_output_bus.v')
+top.create_unconn_wires()
+sdn.compose(netlist, '_output_bus.v', skip_constraints=True)

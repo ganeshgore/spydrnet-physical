@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Utility Functions" href="../utility/index.html" /><link rel="prev" title="Cable" href="cable.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Library" href="library.html" /><link rel="prev" title="Cable" href="cable.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Definition - SpyDrNet-Physical alpha documentation</title>
@@ -176,6 +176,7 @@
 <li class="toctree-l3"><a class="reference internal" href="outerpin.html">OuterPin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cable.html">Cable</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library.html">Library</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -192,6 +193,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/grid_example.html">grid_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -204,6 +206,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/create_clock_tree.html">Create Clock Tree Embedding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
@@ -407,6 +410,44 @@ else <code class="docutils literal notranslate"><span class="pre">assign</span> 
 </dl>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.merge_instance">
+<span class="sig-name descname"><span class="pre">merge_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instances_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_definition_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_instance_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.merge_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.merge_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges the list of instances to unique definition</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instances_list</strong> (<em>List(Instance)</em>) – List of instances to be merged</p></li>
+<li><p><strong>new_definition_name</strong> – Name of the new definition created</p></li>
+<li><p><strong>new_instance_name</strong> – Name of the new instance created</p></li>
+<li><p><strong>pin_map</strong> (<em>Callable, Dict</em>) – External function to map new pin name
+based in definition and instance name
+get_pin_name(&lt;definition_name:&lt;str&gt;, &lt;pin_name:&lt;str&gt;,
+&lt;instance_name:&lt;str&gt;)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Definition, Instance, Dict)</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.merge_multiple_instance">
+<span class="sig-name descname"><span class="pre">merge_multiple_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instances_list_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_definition_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pin_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.merge_multiple_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.merge_multiple_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method can merge multiple group of instances
+having same order of reference definition.</p>
+<p>First pair of the instances_list_tuple is used to create new definition
+and that is reused while grouping remaining group of instances</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instances_list_tuple = [</strong> (<em>inst_1, inst_2, …., inst_n</em>)</p></li>
+<li><p><strong>new_definition_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>pin_map</strong> (<em>Callable</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.remove_port">
 <span class="sig-name descname"><span class="pre">remove_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.remove_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.remove_port" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove port from the definition. (Overrides the base method)</p>
@@ -425,12 +466,12 @@ else <code class="docutils literal notranslate"><span class="pre">assign</span> 
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../utility/index.html">
+          <a class="next-page" href="library.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Utility Functions</div>
+                <div class="title">Library</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
