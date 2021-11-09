@@ -69,10 +69,9 @@ class OpenFPGA_Config_Generator:
         self._tail = value
 
     def _connect_instances(self, module, inst_list):
-        cable = next(module.get_cables(self.cable_name), None)
-        if not cable:
-            cable = module.create_cable(self.cable_name)
         for from_inst, to_inst in zip(inst_list[:-1], inst_list[1:]):
+            cable = self._top_module.create_cable(
+                f"{from_inst.name}__{to_inst.name}_ccff_tail")
             wire = cable.create_wire()
             wire.connect_pin(next(from_inst.get_port_pins(self.tail)))
             wire.connect_pin(next(to_inst.get_port_pins(self.head)))
