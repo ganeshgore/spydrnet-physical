@@ -442,8 +442,6 @@ class initial_placement(OpenFPGA_Placement_Generator):
 
         llx = min([i[0] for i in initShape])
         lly = min([i[1] for i in initShape])
-        if Stype == 1:
-            print(initShape)
         self.PlacementDBKey[block_name] = {"name": block_name,
                                            "short_name": short_block_name,
                                            "bbox": [llx, lly, llx+f+a+c, lly+b+d+e],
