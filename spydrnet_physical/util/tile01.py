@@ -2,17 +2,161 @@
 This class is created for OpenFPGA related netlist transformations
 """
 import logging
-from spydrnet_physical.util import OpenFPGA_Tile_Generator
-from spydrnet_physical.util import OpenFPGA_Config_Generator
+
+import spydrnet as sdn
+from spydrnet_physical.util import (OpenFPGA_Config_Generator,
+                                    OpenFPGA_Tile_Generator, get_names)
+from spydrnet_physical.util.shell import launch_shell
 
 logger = logging.getLogger('spydrnet_logs')
 
 
-class scan_chain_tile01(OpenFPGA_Config_Generator):
+class config_chain_simple(OpenFPGA_Config_Generator):
+    """
+    This shows how the configuration chain can be built
+    # Todo : validation of this sequence is still pending
+    """
+
+    def __init__(self, grid, netlist, library, top_module):
+        super().__init__(grid, netlist, library, top_module)
+        self.chain1 = []
+        self.chain2 = []
+        self.chain = [self.chain1, self.chain2]
+        self.order = ['grid_io_right', 'grid_io_top', 'grid_io_left',
+                      'grid_io_bottom', 'cbx_1__4_', 'cbx_1__1_', 'cbx_1__0_',
+                      'cby_0__1_', 'cby_1__1_', 'cby_4__1_', 'sb_0__0_',
+                      'sb_0__1_', 'sb_0__4_', 'sb_1__0_', 'sb_1__1_',
+                      'sb_1__4_', 'sb_4__0_', 'sb_4__1_', 'sb_4__4_',
+                      'grid_clb']
+
+    def write_fabric_key():
+        pass
 
     def add_configuration_scheme(self):
         ''' Creates configuration chain '''
+        logger.info("Running configuration")
+        self.add_top_row()
+        self.add_middle_rows()
+        self.add_last_row()
+
+    def add_top_row(self):
+        y = self.fpga_size[1]
+        for x in range(self.fpga_size[0], 0, -1):
+            self.chain1.append(f"SB*{x}__{y}*")
+            self.chain1.append(f"CBY*{x}__{y}*")
+            self.chain1.append(f"grid_clb*{x}__{y}*")
+            self.chain1.append(f"CBY*{x}__{y}*")
+        self.chain1.append(f"sb*0__{y}*")
+        self.chain1.append(f"cby*0__{y}*")
+        print(self.chain1)
+
+    def add_middle_rows(self):
+        for y in range(self.fpga_size[1]-1, 1, -1):
+            if (y+1) % 2:
+                for x in range(self.fpga_size[0], 0, -1):
+                    if x is 1:
+                        self.chain1.append(f"SB*{x}__{y}*")
+                        self.chain1.append(f"CBY*{x}__{y}*")
+                    self.chain1.append(f"grid_clb*{x}__{y}*")
+                    self.chain1.append(f"CBX*{x}__{y}*")
+                    self.chain1.append(f"SB*{x}__{y}*")
+                    self.chain1.append(f"CBY*{x}__{y}*")
+            else:
+                for x in range(self.fpga_size[0], 0, -1):
+                    if x is 1:
+                        self.chain1.append(f"SB*{x}__{y}*")
+                        self.chain1.append(f"CBY*{x}__{y}*")
+                    self.chain1.append(f"grid_clb*{x}__{y}*")
+                    self.chain1.append(f"CBX*{x}__{y}*")
+                    self.chain1.append(f"SB*{x}__{y}*")
+                    self.chain1.append(f"CBY*{x}__{y}*")
+
+    def add_last_row(self):
+        y = 0
+        self.chain1.append(f"sb*0__0*")
+        self.chain1.append(f"cby*0__0*")
+        for x in range(1, self.fpga_size[0]+1):
+            self.chain1.append(f"SB*{x}__{y}*")
+            self.chain1.append(f"CBY*{x}__{y}*")
+            self.chain1.append(f"grid_clb*{x}__{y}*")
+            self.chain1.append(f"CBY*{x}__{y}*")
+        print(self.chain1)
+
+
+class config_chain_01(OpenFPGA_Config_Generator):
+    """
+    This example demonstrate how configuration chain can be restructured after
+    the tile tranformation. This method is better suited while creating
+    a configuration after the physical tranformation. However mapping the
+    sequence back to the original sequence could require complex scripting.
+    # TODO : Need better explanation
+    """
+
+    def __init__(self, grid, netlist, library, top_module):
+        super().__init__(grid, netlist, library, top_module)
+        self.order = ['grid_io_right', 'grid_io_top',
+                      'grid_io_left', 'grid_io_bottom',
+                      'cbx_1__4_', 'cbx_1__1_', 'cbx_1__0_',
+                      'cby_0__1_', 'cby_1__1_', 'cby_4__1_',
+                      'sb_0__0_', 'sb_0__1_', 'sb_0__4_',
+                      'sb_1__0_', 'sb_1__1_', 'sb_1__4_',
+                      'sb_4__0_', 'sb_4__1_', 'sb_4__4_',
+                      'grid_clb']
+
+    def write_fabric_key():
         pass
+
+    def add_configuration_scheme(self):
+        ''' Creates configuration chain '''
+        logger.info("Running configuration")
+        self._create_intra_tiles()
+        self._create_inter_tiles()
+
+    def _create_inter_tiles(self):
+        inst_list = []
+        for y in range(self.fpga_size[1], 0, -1):
+            for x in sorted(range(self.fpga_size[0], 0, -1), reverse=(y+1) % 2):
+                print(f"*{x}_{y}*")
+                inst = next(self._top_module.get_instances(f"*{x}__{y}*"))
+                inst_list.append(inst)
+        self._connect_instances(self._top_module, inst_list)
+        head_cable = next(self._top_module.get_cables(self.head))
+        first_head = next(inst_list[0].get_port_pins(self.head))
+        head_cable.wires[0].connect_pin(first_head)
+        tail_cable = next(self._top_module.get_cables(self.tail))
+        last_tail = next(inst_list[-1].get_port_pins(self.tail))
+        tail_cable.wires[0].connect_pin(last_tail)
+
+    def _create_intra_tiles(self):
+        for each in ["top_right_tile", "top_tile", "top_left_tile",
+                     "left_tile", "tile", "right_tile",
+                     "bottom_right_tile", "bottom_left_tile"]:
+            tile = next(self._library.get_definitions(each))
+
+            # Remove ccff related cables and port from tile
+            for cable in list(tile.get_cables("ccff*")):
+                for pin in list(cable.wires[0].pins):
+                    pin.wire.disconnect_pin(pin)
+                tile.remove_cable(cable)
+            for port in list(tile.get_ports("ccff*")):
+                tile.remove_port(port)
+
+            # Create chain
+            inst_list = sorted([inst for inst in tile.get_instances()],
+                               key=(lambda x: self.order.index(x.reference.name)))
+            self._connect_instances(tile, inst_list)
+
+            # Create ccff_head port
+            tile.create_port(self._head, direction=sdn.IN, pins=1)
+            ccff_head_wire = tile.create_cable(self._head, wires=1).wires[0]
+            ccff_head_wire.connect_pin(
+                next(inst_list[0].get_port_pins(self.head)))
+
+            # Create ccff_tail port
+            tile.create_port(self._tail, direction=sdn.OUT, pins=1)
+            ccff_tail_wire = tile.create_cable(self._tail, wires=1).wires[0]
+            ccff_tail_wire.connect_pin(
+                next(inst_list[-1].get_port_pins(self.tail)))
 
 
 class Tile01(OpenFPGA_Tile_Generator):

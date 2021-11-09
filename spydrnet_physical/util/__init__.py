@@ -1,5 +1,6 @@
-from spydrnet_physical.util.get_names import get_names
-from spydrnet_physical.util.get_names import get_attr
-from spydrnet_physical.util.openfpga import OpenFPGA
-from spydrnet_physical.util.openfpga import OpenFPGA_Tile_Generator, OpenFPGA_Config_Generator
-from spydrnet_physical.util.tile01 import Tile01, scan_chain_tile01
+from spydrnet_physical.util.get_names import get_attr, get_names
+from spydrnet_physical.util.openfpga import (OpenFPGA,
+                                             OpenFPGA_Config_Generator,
+                                             OpenFPGA_Tile_Generator)
+from spydrnet_physical.util.tile01 import (Tile01, config_chain_01,
+                                           config_chain_simple)
