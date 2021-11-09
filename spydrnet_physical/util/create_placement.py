@@ -1,6 +1,8 @@
 
 import logging
 import math
+import os
+import pandas as pd
 from pprint import pformat, pprint
 from spydrnet_physical.util.shell import launch_shell
 
@@ -104,11 +106,11 @@ class initial_placement(OpenFPGA_Placement_Generator):
         self.CBY_CHAN_T, self.CBY_CHAN_B = 0, 0
         self.CBY_CHAN_L, self.CBY_CHAN_R = 0, 0
 
-        self.gridIO_MT, self.gridIO_MB = 0, 0
-        self.gridIO_ML, self.gridIO_MR = 0, 0
+        self.gridIO_MT, self.gridIO_MB = 1, 1
+        self.gridIO_ML, self.gridIO_MR = 2, 2
 
-        self.gridIO_HT, self.gridIO_HB = 0, 0
-        self.gridIO_WL, self.gridIO_WR = 0, 0
+        self.gridIO_HT, self.gridIO_HB = 10, 10
+        self.gridIO_WL, self.gridIO_WR = 10, 10
 
         self.GRID_IOV_H_RATIO = 1
         self.GRID_IOH_W_RATIO = 1
@@ -151,8 +153,6 @@ class initial_placement(OpenFPGA_Placement_Generator):
                 BlockArea[module] = list(map(float, list(dims.split())))
             self.CLB_DIM = BlockArea["grid_clb_1__1_"]
             self.CB_DIM = BlockArea["cbx_1__1_"]
-            # self.CLB_DIM = math.floor(BlockArea["grid_clb_1__1_"][1]*0.5)*2
-            # self.CB_DIM = [self.CLB_DIM*0.6, 0, 0]
         else:
             self.CLB_DIM = [2500, 24*8, 24]
             self.CB_DIM = [2500*0.6, 0, 0]
@@ -472,12 +472,12 @@ class initial_placement(OpenFPGA_Placement_Generator):
             H1 = self.gridIO_HB-self.gridIO_MB
 
         if side == "bottom":
-            moduleName = "grid_io_bottom_bottom"
-            block_name = f"grid_io_{side}_{side}_{xi+1}__{yi}_"
+            moduleName = f"grid_io_{side}"
+            block_name = f"grid_io_{side}_{xi+1}__{yi}_"
             short_block_name = f"io{side}_{xi+1}_{yi}"
         else:
-            moduleName = "grid_io_top_top"
-            block_name = f"grid_io_{side}_{side}_{xi+1}__{yi+1}_"
+            moduleName = f"grid_io_{side}"
+            block_name = f"grid_io_{side}_{xi+1}__{yi+1}_"
             short_block_name = f"io{side}_{xi+1}_{yi+1}"
         points = [0, 0, 0, W1, H1, W1, H1, 0]
         self.PlacementDB.append(block_name)
@@ -509,13 +509,13 @@ class initial_placement(OpenFPGA_Placement_Generator):
             H1 = self.GRID_IOV_H-self.CBY_CHAN_T-self.CBY_CHAN_B
 
         if side == "left":
-            block_name = f"grid_io_{side}_{side}_{xi}__{yi+1}_"
+            moduleName = f"grid_io_{side}"
+            block_name = f"grid_io_{side}_{xi}__{yi+1}_"
             short_block_name = f"io{side}_{xi}_{yi+1}"
-            moduleName = "grid_io_left_left"
         else:
-            block_name = f"grid_io_{side}_{side}_{xi+1}__{yi+1}_"
+            moduleName = f"grid_io_{side}"
+            block_name = f"grid_io_{side}_{xi+1}__{yi+1}_"
             short_block_name = f"io{side}_{xi+1}_{yi+1}"
-            moduleName = "grid_io_right_right"
         points = [0, 0, 0, W1, H1, W1, H1, 0]
         self.PlacementDB.append(block_name)
 
