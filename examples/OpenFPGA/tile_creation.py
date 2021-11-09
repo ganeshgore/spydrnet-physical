@@ -9,13 +9,17 @@ Verilog netlist obtained from OpenFPGA
 """
 
 import glob
+import logging
 import tempfile
 from itertools import chain
 from os import path
+from pprint import pformat, pprint
 
 import spydrnet as sdn
-from spydrnet_physical.util import OpenFPGA, Tile01
-from spydrnet_physical.util import get_names
+from spydrnet_physical.util import OpenFPGA, Tile01, get_names
+
+logger = logging.getLogger('spydrnet_logs')
+sdn.enable_file_logging(LOG_LEVEL='DEBUG')
 
 
 def main():
@@ -43,6 +47,7 @@ def main():
 
     # Remove undriven nets
     fpga.remove_undriven_nets()
+    fpga.remove_config_chain()
 
     # Top level nets to bus
     for i in chain(fpga.top_module.get_instances("grid_clb*"),

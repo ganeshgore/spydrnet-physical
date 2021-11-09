@@ -332,8 +332,9 @@ class Definition(DefinitionBase):
                     instOutPin = eachM.pins[eachPin]
                     conWire = instOutPin.wire
                     instPin = MergedModule.pins[pClone.pins[eachPin.index()]]
-                    conWire.connect_pin(instPin)
-                    instOutPin.wire.disconnect_pin(instOutPin)
+                    if conWire:
+                        conWire.connect_pin(instPin)
+                        conWire.disconnect_pin(instOutPin)
                     newCable.wires[eachPin.index()].connect_pin(instOutPin)
 
             self.remove_child(eachM)
@@ -360,18 +361,24 @@ class Definition(DefinitionBase):
         for fromPort, toPort in combinations(defPort, 2):
             if len(fromPort.pins) == len(toPort.pins):
                 # Compare only when port has same width
-                sameNet = True
+                sameNet = True  # Flag to detect boh ports are connected to same cable
                 singleWire = True
                 for eachPin1, eachPin2 in zip(fromPort.pins, toPort.pins):
                     for eachInst in self.references:
                         eachPin1 = eachInst.pins[eachPin1]
                         eachPin2 = eachInst.pins[eachPin2]
-                        if not eachPin1.wire == eachPin2.wire:
+                        if (eachPin1.wire is None) or (eachPin2.wire is None):
+                            sameNet = False
+                            break
+                        elif not (eachPin1.wire == eachPin2.wire):
                             sameNet = False
                             break
                         elif singleWire:
-                            singleWire = set(eachPin1.wire.pins) == set(
-                                (eachPin1, eachPin2))
+                            if eachPin1.wire:
+                                singleWire = set(eachPin1.wire.pins) == \
+                                    set((eachPin1, eachPin2))
+                            else:
+                                singleWire = False
 
                 if sameNet:
                     # Check if frompin exist in the previous pairs

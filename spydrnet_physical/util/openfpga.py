@@ -27,6 +27,21 @@ class OpenFPGA_Tile_Generator:
         return NotImplementedError
 
 
+class OpenFPGA_Config_Generator:
+
+    def __init__(self, grid, netlist, library, top_module):
+        self.fpga_size = grid
+        self._netlist = netlist
+        self._library = library
+        self._top_module = top_module
+
+    def add_configuration_scheme(self):
+        '''
+        This will be extendned in the class
+        '''
+        return NotImplementedError
+
+
 class OpenFPGA:
 
     def __init__(self, grid, netlist, library="work", top_module="fpga_top"):
@@ -83,6 +98,14 @@ class OpenFPGA:
             logger.error("tile_creator not registered")
         return self.tile_creator.create_tiles()
 
+    def add_configuration_scheme(self):
+        """
+        proxy function to create_tiles method of tile_creator class
+        """
+        if not self.config_creator:
+            logger.error("config_creator not registered")
+        return self.config_creator.add_configuration_scheme()
+
     def create_placement(self):
         """
         This adds placement and shaping information to each instance
@@ -122,6 +145,16 @@ class OpenFPGA:
             print("{: >20} {: >8}".format(
                 def_ if len(def_) < 20 else f"...{def_[-17:]}", count))
         return inst_cnt
+
+    def remove_config_chain(self):
+        """ Remove configuration chain from design """
+        cable_list = []
+        for cable in list(self.top_module.get_cables("*_ccff_*")):
+            cable_list.append(cable.name)
+            for pin in list(cable.wires[0].pins):
+                pin.wire.disconnect_pin(pin)
+            self.top_module.remove_cable(cable)
+        return cable_list
 
     def remove_undriven_nets(self):
         '''

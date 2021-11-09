@@ -3,8 +3,16 @@ This class is created for OpenFPGA related netlist transformations
 """
 import logging
 from spydrnet_physical.util import OpenFPGA_Tile_Generator
+from spydrnet_physical.util import OpenFPGA_Config_Generator
 
 logger = logging.getLogger('spydrnet_logs')
+
+
+class scan_chain_tile01(OpenFPGA_Config_Generator):
+
+    def add_configuration_scheme(self):
+        ''' Creates configuration chain '''
+        pass
 
 
 class Tile01(OpenFPGA_Tile_Generator):
