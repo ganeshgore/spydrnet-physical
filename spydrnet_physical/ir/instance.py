@@ -41,7 +41,7 @@ class Instance(InstanceBase):
         Returns all the outerpins of this port on this instance
 
         args:
-            port (Port): Port of the instance
+            port (Port, str): Port of the instance
         '''
         if isinstance(ports, str):
             ports = self.reference.get_ports(ports)

@@ -201,12 +201,13 @@ class Definition(DefinitionBase):
         for indx2, instances_list in enumerate(instances_list):
             for indx, inst in enumerate(instances_list[1][::-1]):
                 cable = instances_list[0]
-                logger.info(f"Iterating {cable.name} for inst {inst.name}")
+                logger.debug(f"Iterating {cable.name} for inst {inst.name}")
 
                 new_cable = self.create_cable(f"{cable.name}_ft_{indx}")
                 new_cable.create_wires(cable.size)
 
-                logger.info(f"Created new cable {cable.name} {new_cable.name}")
+                logger.debug(
+                    f"Created new cable {cable.name} {new_cable.name}")
                 new_cables.append(new_cable)
                 new_cable.connect_instance_port(inst, port_map[indx][1])
                 for each_w in cable.wires:
