@@ -13,10 +13,9 @@ import logging
 import tempfile
 from itertools import chain
 from os import path
-from pprint import pformat, pprint
 
 import spydrnet as sdn
-from spydrnet_physical.util import OpenFPGA, Tile01, get_names
+from spydrnet_physical.util import (OpenFPGA, Tile01)
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
