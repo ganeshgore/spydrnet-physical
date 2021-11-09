@@ -6,75 +6,12 @@ from collections import OrderedDict
 from fnmatch import fnmatch
 from pathlib import Path
 from typing import Callable
+from spydrnet.ir.definition import Definition
+from spydrnet_physical.util import initial_placement
 
 import spydrnet as sdn
 
 logger = logging.getLogger('spydrnet_logs')
-
-
-class OpenFPGA_Tile_Generator:
-
-    def __init__(self, grid, netlist, library, top_module):
-        self.fpga_size = grid
-        self._netlist = netlist
-        self._library = library
-        self._top_module = top_module
-
-    def create_tiles(self):
-        '''
-        This will be extendned in the class
-        '''
-        return NotImplementedError
-
-
-class OpenFPGA_Config_Generator:
-
-    def __init__(self, grid, netlist, library, top_module):
-        self.fpga_size = grid
-        self._netlist = netlist
-        self._library = library
-        self._top_module = top_module
-        self._head = "ccff_head"
-        self._tail = "ccff_tail"
-        self.cable_name = "ccff_wire"
-
-    def add_configuration_scheme(self):
-        '''
-        This will be extendned in the class
-        '''
-        return NotImplementedError
-
-    def write_fabric_key(self):
-        '''
-        This will be extendned in the class
-        '''
-        return NotImplementedError
-
-    @property
-    def head(self):
-        return self._head
-
-    @property
-    def tail(self):
-        return self._tail
-
-    @head.setter
-    def head(self, value):
-        self._head = value
-
-    @tail.setter
-    def tail(self, value):
-        self._tail = value
-
-    def _connect_instances(self, module, inst_list):
-        cable = next(module.get_cables(self.cable_name), None)
-        if not cable:
-            cable = module.create_cable(self.cable_name)
-        for from_inst, to_inst in zip(inst_list[:-1], inst_list[1:]):
-            wire = cable.create_wire()
-            wire.connect_pin(next(from_inst.get_port_pins(self.tail)))
-            wire.connect_pin(next(to_inst.get_port_pins(self.head)))
-        return cable
 
 
 class OpenFPGA:
@@ -97,6 +34,7 @@ class OpenFPGA:
         self.written_modules = []  # Stores written definitions names
         self.tile_creator = None
         self.config_creator = None
+        self.register_placement_creator(initial_placement)
 
     @property
     def library(self):
@@ -106,29 +44,36 @@ class OpenFPGA:
         return self._library
 
     @property
-    def top_module(self):
+    def top_module(self) -> Definition:
         """
         Returns top_module
         """
         return self._top_module
 
-    def register_tile_generator(self, cls):
+    def register_tile_generator(self, cls, *args, **kwargs):
         """
         This registers the tile generator class to OpenFPGA base class
         """
         self.tile_creator = cls(
-            self.fpga_size, self._netlist, self.library, self._top_module)
+            self.fpga_size, self._netlist, self.library, self._top_module, *args, **kwargs)
 
-    def register_config_generator(self, cls):
+    def register_config_generator(self, cls, *args, **kwargs):
         """
         This registers the tile generator class to OpenFPGA base class
         """
         self.config_creator = cls(
-            self.fpga_size, self._netlist, self.library, self._top_module)
+            self.fpga_size, self._netlist, self.library, self._top_module, *args, **kwargs)
+
+    def register_placement_creator(self, cls, *args, **kwargs):
+        """
+        This registers the tile generator class to OpenFPGA base class
+        """
+        self.placement_creator = cls(
+            self.fpga_size, self._netlist, self.library, self._top_module, *args, **kwargs)
 
     def create_tiles(self):
         """
-        proxy function to create_tiles method of tile_creator class
+        proxy function to create_tiles method of  tile_creator class
         """
         if not self.tile_creator:
             logger.error("tile_creator not registered")
@@ -144,15 +89,36 @@ class OpenFPGA:
 
     def create_placement(self):
         """
-        This adds placement and shaping information to each instance
+        Proxy fucntion to add placement and shaping information to each instance
         """
-        NotImplementedError
+        if not self.placement_creator:
+            logger.error("placement_creator not registered")
+        return self.placement_creator.create_placement()
 
     def place_pins(self):
         """
         This adds pin placment nforamtion to tile instances
         """
         NotImplementedError
+
+    def render_floorplan(self):
+        """ This method runs the fpga render class to assign
+        shape and location to each module instance"""
+        pass
+
+    def show_placement_data(self, pattern="*"):
+        print("%20s %20s %5s %5s %5s %5s" % ("MODULE", "INSTANCE", "LOC_X", "LOC_Y",
+                                             "WIDTH", "HEIGHT"))
+        print(" = ="*20)
+        for instance in self.top_module.get_instances(pattern):
+            print("%20s %20s %5d %5d %5d %5d" % (
+                instance.name,
+                instance.reference.name,
+                instance.properties.get("LOC_X", 0),
+                instance.properties.get("LOC_Y", 0),
+                instance.reference.properties.get("WIDTH", 0),
+                instance.reference.properties.get("HEIGHT", 0),
+            ))
 
     def design_top_stat(self):
         '''
@@ -406,19 +372,19 @@ class OpenFPGA:
         while self.written_modules:
             self.written_modules.pop()
 
-    def save_netlist(self, patten="*",  location="."):
+    def save_netlist(self, patten="*",  location=".", skip_constraints=True):
         '''
         Save verilog files
         '''
         for definition in self._library.get_definitions(patten):
             if definition.name in self.written_modules:
                 continue
-            logger.info("Writing %s", definition.name)
+            logger.debug("Writing %s", definition.name)
             Path(location).mkdir(parents=True, exist_ok=True)
             sdn.compose(self._netlist,
                         filename=os.path.join(
                             location, f"{definition.name}.v"),
-                        skip_constraints=True,
+                        skip_constraints=skip_constraints,
                         definition_list=[definition.name],
                         write_blackbox=True)
             self.written_modules.append(definition.name)

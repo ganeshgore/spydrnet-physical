@@ -65,19 +65,21 @@ class FloorPlanViz:
 
         self.add_stylehseet()
 
-    def compose(self):
+    def compose(self, skip_connections=False, skip_pins=False):
         '''
         Entry point to generate SVG
         '''
         # Create symbol for top-module and add in svg
-        self.add_symbol(self.module)
+        self.add_symbol(self.module, skip_pins=skip_pins)
         self.add_top_block(self.module)
 
         # Iterate over all the instaces and place
         for child in self.module.children:
-            self.add_symbol(child.reference)
+            self.add_symbol(child.reference, skip_pins=skip_pins)
             self.add_block(child)
 
+        if skip_connections:
+            return
         # create connections
         for cable in self.module.get_cables():
             if cable.size:
@@ -146,7 +148,9 @@ class FloorPlanViz:
         self.view_w = self.view_w if self.view_w > x else x
         self.view_h = self.view_h if self.view_h > y else y
 
-    def add_symbol(self, module):
+    def add_symbol(self, module, skip_pins=False):
+        if "ASSIG" in module.name:
+            return
         if self.def_list.get(module.name, None):
             return self.def_list[module.name]
         width = int(module.data[PROPERTY].get("WIDTH", 10))
@@ -164,7 +168,9 @@ class FloorPlanViz:
                                   stroke="grey",
                                   fill="white",
                                   stroke_width=2))
-
+        if skip_pins:
+            self.dwg.defs.add(new_def)
+            return new_def
         for port in module.ports:
             p = port.name
             SIDE = port.data[PROPERTY].get(f"SIDE", [])
@@ -240,11 +246,12 @@ class FloorPlanViz:
         loc_x += defDict["width"]*0.5
         loc_y += 20
         loc_y *= -1
-        # loc_y += defDict["height"]*0.5
         return (loc_x, loc_y)
 
     def add_block(self, instance):
         name = instance.reference.name
+        if "ASSIG" in name:
+            return
         defDict = self.def_list[name]
 
         loc_x = int(instance.data[PROPERTY].get("LOC_X", 0))
