@@ -25,7 +25,7 @@ Creating FPGA Tiles from OpenFPGA verilog
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-81
+.. GENERATED FROM PYTHON SOURCE LINES 10-86
 
 
 
@@ -64,14 +64,6 @@ Verilog netlist obtained from OpenFPGA
                 sb_0__4_        1
                 sb_4__0_        1
                 sb_4__4_        1
-    grid_clb_1__3__grid_left_out_ft_0_in_grid_clb_1__3__grid_left_out_ft_0_out_ft_1
-    grid_clb_2__2__grid_left_out_ft_0_in_grid_clb_2__2__grid_left_out_ft_0_out_ft_1
-    grid_clb_1__3__grid_right_out_ft_0_in_grid_clb_1__3__grid_right_out_ft_0_out_ft_1
-    grid_clb_4__1__grid_right_out_ft_0_in_grid_clb_4__1__grid_right_out_ft_0_out_ft_1
-    grid_clb_1__3__grid_top_out_ft_0_in_grid_clb_1__3__grid_top_out_ft_0_out_ft_1
-    grid_clb_4__4__grid_top_out_ft_0_in_grid_clb_4__4__grid_top_out_ft_0_out_ft_1
-    grid_clb_1__3__grid_bottom_out_ft_0_in_grid_clb_1__3__grid_bottom_out_ft_0_out_ft_1
-    grid_clb_1__1__grid_bottom_out_ft_0_in_grid_clb_1__1__grid_bottom_out_ft_0_out_ft_1
     = = = = = = = = = = = = = = = = = = = = 
     = = = = = =  DESIGN STATS = = = = = = = 
     = = = = = = = = = = = = = = = = = = = = 
@@ -129,13 +121,17 @@ Verilog netlist obtained from OpenFPGA
 
 
     import glob
+    import logging
     import tempfile
     from itertools import chain
     from os import path
+    from pprint import pformat, pprint
 
     import spydrnet as sdn
-    from spydrnet_physical.util import OpenFPGA, Tile01
-    from spydrnet_physical.util import get_names
+    from spydrnet_physical.util import OpenFPGA, Tile01, get_names
+
+    logger = logging.getLogger('spydrnet_logs')
+    sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
     def main():
@@ -163,6 +159,7 @@ Verilog netlist obtained from OpenFPGA
 
         # Remove undriven nets
         fpga.remove_undriven_nets()
+        fpga.remove_config_chain()
 
         # Top level nets to bus
         for i in chain(fpga.top_module.get_instances("grid_clb*"),
@@ -202,7 +199,7 @@ Verilog netlist obtained from OpenFPGA
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.473 seconds)
+   **Total running time of the script:** ( 0 minutes  4.195 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_tile_creation.py:

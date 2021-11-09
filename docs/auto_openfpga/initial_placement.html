@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Creating FPGA Tiles from OpenFPGA verilog" href="initial_placement.html" /><link rel="prev" title="Create Clock Tree Embedding" href="create_clock_tree.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Demonstrate how to render basic floorplan" href="floorplan_rendering.html" /><link rel="prev" title="Creating FPGA Tiles from OpenFPGA verilog" href="tile_creation.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Creating FPGA Tiles from OpenFPGA verilog - SpyDrNet-Physical alpha documentation</title>
@@ -219,8 +219,8 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
@@ -258,42 +258,30 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-tile-creation-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-initial-placement-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="creating-fpga-tiles-from-openfpga-verilog">
-<span id="sphx-glr-auto-openfpga-tile-creation-py"></span><h1>Creating FPGA Tiles from OpenFPGA verilog<a class="headerlink" href="#creating-fpga-tiles-from-openfpga-verilog" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-openfpga-initial-placement-py"></span><h1>Creating FPGA Tiles from OpenFPGA verilog<a class="headerlink" href="#creating-fpga-tiles-from-openfpga-verilog" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA</p>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>= = = = = = = = = = = = = = = = = = = =
-= = = = = =  DESIGN STATS = = = = = = =
-= = = = = = = = = = = = = = = = = = = =
-    top_module : fpga_top
-    instances  : 97
-= = = = = = = = = = = = = = = = = = = =
-          References    count
-- - - - - - - - - - - - - - - - - - - -
-            grid_clb       16
-           cbx_1__1_       12
-           cby_1__1_       12
-            sb_1__1_        9
-         grid_io_top        4
-       grid_io_right        4
-      grid_io_bottom        4
-        grid_io_left        4
-           cbx_1__0_        4
-           cbx_1__4_        4
-           cby_0__1_        4
-           cby_4__1_        4
-            sb_0__1_        3
-            sb_1__0_        3
-            sb_1__4_        3
-            sb_4__1_        3
-            sb_0__0_        1
-            sb_0__4_        1
-            sb_4__0_        1
-            sb_4__4_        1
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[(24.0, 24.0, 50, 50.0), (24.0, 24.0, 50.0, 50)]
+              MODULE             INSTANCE LOC_X LOC_Y WIDTH HEIGHT
+ = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+  grid_io_left_0__1_         grid_io_left     0     0    50    50
+  grid_io_left_0__2_         grid_io_left     0     0    50    50
+  grid_io_left_0__3_         grid_io_left     0     0    50    50
+  grid_io_left_0__4_         grid_io_left     0     0    50    50
+            sb_0__0_             sb_0__0_    96    96   200   200
+            sb_0__1_             sb_0__1_    96   496   200   200
+            sb_0__2_             sb_0__1_    96   896   200   200
+            sb_0__3_             sb_0__1_    96  1296   200   200
+            sb_0__4_             sb_0__4_    96  1696   200   200
+           cby_0__1_            cby_0__1_    96   296   200   200
+           cby_0__2_            cby_0__1_    96   696   200   200
+           cby_0__3_            cby_0__1_    96  1096   200   200
+           cby_0__4_            cby_0__1_    96  1496   200   200
 = = = = = = = = = = = = = = = = = = = =
 = = = = = =  DESIGN STATS = = = = = = =
 = = = = = = = = = = = = = = = = = = = =
@@ -322,37 +310,21 @@ Verilog netlist obtained from OpenFPGA</p>
             sb_0__4_        1
             sb_4__0_        1
             sb_4__4_        1
-= = = = = = = = = = = = = = = = = = = =
-= = = = = =  DESIGN STATS = = = = = = =
-= = = = = = = = = = = = = = = = = = = =
-    top_module : fpga_top
-    instances  : 16
-= = = = = = = = = = = = = = = = = = = =
-          References    count
-- - - - - - - - - - - - - - - - - - - -
-                tile        4
-           left_tile        2
-          right_tile        2
-            top_tile        2
-         bottom_tile        2
-       top_left_tile        1
-      top_right_tile        1
-    bottom_left_tile        1
-   bottom_right_tile        1
 </pre></div>
 </div>
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span><span class="p">,</span> <span class="n">pprint</span>
+
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">Tile01</span><span class="p">,</span> <span class="n">get_names</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util.get_floorplan</span> <span class="kn">import</span> <span class="n">FloorPlanViz</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util.shell</span> <span class="kn">import</span> <span class="n">launch_shell</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
@@ -373,7 +345,10 @@ Verilog netlist obtained from OpenFPGA</p>
         <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
     <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
+    <span class="c1"># fpga.design_top_stat()</span>
+
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_placement</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="s2">"*_0__*"</span><span class="p">)</span>
 
     <span class="c1"># Convert wires to bus structure</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_bus</span><span class="p">()</span>
@@ -381,53 +356,37 @@ Verilog netlist obtained from OpenFPGA</p>
     <span class="n">fpga</span><span class="o">.</span><span class="n">create_sb_bus</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">create_cb_bus</span><span class="p">()</span>
 
-    <span class="c1"># Remove undriven nets</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">remove_undriven_nets</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">remove_config_chain</span><span class="p">()</span>
-
-    <span class="c1"># Top level nets to bus</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_clb*"</span><span class="p">),</span>
-                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_io*"</span><span class="p">),</span>
-                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"sb_*"</span><span class="p">)):</span>
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">check_all_scalar_connections</span><span class="p">(</span><span class="n">p</span><span class="p">)):</span>
-                <span class="n">cable_list</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">pins</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-                    <span class="n">cable_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">cable</span><span class="p">)</span>
-                <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">combine_cables</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">cable_list</span><span class="p">)</span>
-
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_feedthroughs</span><span class="p">()</span>
-
-    <span class="c1"># Before Creating Tiles</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
-
-    <span class="n">fpga</span><span class="o">.</span><span class="n">register_tile_generator</span><span class="p">(</span><span class="n">Tile01</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_tiles</span><span class="p">()</span>
-
-    <span class="c1"># After Tile creation</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="p">)</span>
+    <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fpga_initial_placement.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
     <span class="c1"># Save netlist</span>
-    <span class="n">base_dir</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">"homogeneous_fabric"</span><span class="p">,</span> <span class="s2">"_output"</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"sb*"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"routing"</span><span class="p">))</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"cb*"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"routing"</span><span class="p">))</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"grid*"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"lb"</span><span class="p">))</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"*tile*"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"tiles"</span><span class="p">))</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"fpga_top"</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">))</span>
+    <span class="n">base_dir</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">"homogeneous_fabric"</span><span class="p">,</span> <span class="s2">"_output_2"</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"sb*"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"routing"</span><span class="p">),</span>
+                      <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"cb*"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"routing"</span><span class="p">),</span>
+                      <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"grid*"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"lb"</span><span class="p">),</span>
+                      <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"*tile*"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">,</span> <span class="s2">"tiles"</span><span class="p">),</span>
+                      <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"fpga_top"</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">base_dir</span><span class="p">),</span>
+                      <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.195 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-tile-creation-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.075 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-initial-placement-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/e4f112369bf318eb3deb4af8af0f385a/tile_creation.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tile_creation.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/4ee0718daf0957410531bc2c46e3ea86/initial_placement.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">initial_placement.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/54248ccc477faa584d96a47d9c6c8bf5/tile_creation.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">tile_creation.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/d20bfe37d5d12b898c5fc0a0ed0f5d13/initial_placement.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">initial_placement.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -438,23 +397,23 @@ Verilog netlist obtained from OpenFPGA</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="initial_placement.html">
+          <a class="next-page" href="floorplan_rendering.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Creating FPGA Tiles from OpenFPGA verilog</div>
+                <div class="title">Demonstrate how to render basic floorplan</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="create_clock_tree.html">
+          <a class="prev-page" href="tile_creation.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Create Clock Tree Embedding</div>
+                <div class="title">Creating FPGA Tiles from OpenFPGA verilog</div>
                 
               </div>
             </a>
@@ -466,7 +425,7 @@ Verilog netlist obtained from OpenFPGA</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_openfpga/tile_creation.rst.txt"
+            <a class="muted-link" href="../_sources/auto_openfpga/initial_placement.rst.txt"
                rel="nofollow">
               Show Source
             </a>

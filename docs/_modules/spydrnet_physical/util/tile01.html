@@ -219,6 +219,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/create_clock_tree.html">Create Clock Tree Embedding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
@@ -259,31 +260,161 @@
 <span class="sd">This class is created for OpenFPGA related netlist transformations</span>
 <span class="sd">"""</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">from</span> <span class="nn">fnmatch</span> <span class="kn">import</span> <span class="n">fnmatch</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">OpenFPGA_Config_Generator</span><span class="p">,</span>
+                                    <span class="n">OpenFPGA_Tile_Generator</span><span class="p">,</span> <span class="n">get_names</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util.shell</span> <span class="kn">import</span> <span class="n">launch_shell</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">OpenFPGA_Tile_Generator</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">config_chain_simple</span><span class="p">(</span><span class="n">OpenFPGA_Config_Generator</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    This shows how the configuration chain can be built</span>
+<span class="sd">    # Todo : validation of this sequence is still pending</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">top_module</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span> <span class="o">=</span> <span class="n">grid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span> <span class="o">=</span> <span class="n">netlist</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_library</span> <span class="o">=</span> <span class="n">library</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span> <span class="o">=</span> <span class="n">top_module</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">top_module</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain2</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'grid_io_right'</span><span class="p">,</span> <span class="s1">'grid_io_top'</span><span class="p">,</span> <span class="s1">'grid_io_left'</span><span class="p">,</span>
+                      <span class="s1">'grid_io_bottom'</span><span class="p">,</span> <span class="s1">'cbx_1__4_'</span><span class="p">,</span> <span class="s1">'cbx_1__1_'</span><span class="p">,</span> <span class="s1">'cbx_1__0_'</span><span class="p">,</span>
+                      <span class="s1">'cby_0__1_'</span><span class="p">,</span> <span class="s1">'cby_1__1_'</span><span class="p">,</span> <span class="s1">'cby_4__1_'</span><span class="p">,</span> <span class="s1">'sb_0__0_'</span><span class="p">,</span>
+                      <span class="s1">'sb_0__1_'</span><span class="p">,</span> <span class="s1">'sb_0__4_'</span><span class="p">,</span> <span class="s1">'sb_1__0_'</span><span class="p">,</span> <span class="s1">'sb_1__1_'</span><span class="p">,</span>
+                      <span class="s1">'sb_1__4_'</span><span class="p">,</span> <span class="s1">'sb_4__0_'</span><span class="p">,</span> <span class="s1">'sb_4__1_'</span><span class="p">,</span> <span class="s1">'sb_4__4_'</span><span class="p">,</span>
+                      <span class="s1">'grid_clb'</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">create_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
-<span class="sd">        This will be extendned in the class</span>
-<span class="sd">        '''</span>
-        <span class="k">return</span> <span class="ne">NotImplementedError</span>
+    <span class="k">def</span> <span class="nf">write_fabric_key</span><span class="p">():</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">add_configuration_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Creates configuration chain '''</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Running configuration"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_top_row</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_middle_rows</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_last_row</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">add_top_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SB*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBY*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_clb*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBY*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sb*0__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cby*0__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_middle_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SB*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBY*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_clb*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBX*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SB*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBY*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SB*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBY*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_clb*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBX*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SB*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBY*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_last_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sb*0__0*"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cby*0__0*"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SB*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBY*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_clb*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"CBY*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain1</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">config_chain_01</span><span class="p">(</span><span class="n">OpenFPGA_Config_Generator</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    This example demonstrate how configuration chain can be restructured after</span>
+<span class="sd">    the tile tranformation. This method is better suited while creating</span>
+<span class="sd">    a configuration after the physical tranformation. However mapping the</span>
+<span class="sd">    sequence back to the original sequence could require complex scripting.</span>
+<span class="sd">    # TODO : Need better explanation</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">top_module</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">top_module</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'grid_io_right'</span><span class="p">,</span> <span class="s1">'grid_io_top'</span><span class="p">,</span>
+                      <span class="s1">'grid_io_left'</span><span class="p">,</span> <span class="s1">'grid_io_bottom'</span><span class="p">,</span>
+                      <span class="s1">'cbx_1__4_'</span><span class="p">,</span> <span class="s1">'cbx_1__1_'</span><span class="p">,</span> <span class="s1">'cbx_1__0_'</span><span class="p">,</span>
+                      <span class="s1">'cby_0__1_'</span><span class="p">,</span> <span class="s1">'cby_1__1_'</span><span class="p">,</span> <span class="s1">'cby_4__1_'</span><span class="p">,</span>
+                      <span class="s1">'sb_0__0_'</span><span class="p">,</span> <span class="s1">'sb_0__1_'</span><span class="p">,</span> <span class="s1">'sb_0__4_'</span><span class="p">,</span>
+                      <span class="s1">'sb_1__0_'</span><span class="p">,</span> <span class="s1">'sb_1__1_'</span><span class="p">,</span> <span class="s1">'sb_1__4_'</span><span class="p">,</span>
+                      <span class="s1">'sb_4__0_'</span><span class="p">,</span> <span class="s1">'sb_4__1_'</span><span class="p">,</span> <span class="s1">'sb_4__4_'</span><span class="p">,</span>
+                      <span class="s1">'grid_clb'</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">write_fabric_key</span><span class="p">():</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">add_configuration_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Creates configuration chain '''</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Running configuration"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_intra_tiles</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_create_inter_tiles</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_create_inter_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">inst_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">)</span>
+                <span class="n">inst</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"*</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">*"</span><span class="p">))</span>
+                <span class="n">inst_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_instances</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="p">,</span> <span class="n">inst_list</span><span class="p">)</span>
+        <span class="n">head_cable</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">))</span>
+        <span class="n">first_head</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">inst_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">))</span>
+        <span class="n">head_cable</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">first_head</span><span class="p">)</span>
+        <span class="n">tail_cable</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tail</span><span class="p">))</span>
+        <span class="n">last_tail</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">inst_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tail</span><span class="p">))</span>
+        <span class="n">tail_cable</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">last_tail</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_intra_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"top_right_tile"</span><span class="p">,</span> <span class="s2">"top_tile"</span><span class="p">,</span> <span class="s2">"top_left_tile"</span><span class="p">,</span>
+                     <span class="s2">"left_tile"</span><span class="p">,</span> <span class="s2">"tile"</span><span class="p">,</span> <span class="s2">"right_tile"</span><span class="p">,</span>
+                     <span class="s2">"bottom_right_tile"</span><span class="p">,</span> <span class="s2">"bottom_left_tile"</span><span class="p">]:</span>
+            <span class="n">tile</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">each</span><span class="p">))</span>
+
+            <span class="c1"># Remove ccff related cables and port from tile</span>
+            <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"ccff*"</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">cable</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pins</span><span class="p">):</span>
+                    <span class="n">pin</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">disconnect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+                <span class="n">tile</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"ccff*"</span><span class="p">)):</span>
+                <span class="n">tile</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+
+            <span class="c1"># Create chain</span>
+            <span class="n">inst_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">inst</span> <span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">tile</span><span class="o">.</span><span class="n">get_instances</span><span class="p">()],</span>
+                               <span class="n">key</span><span class="o">=</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connect_instances</span><span class="p">(</span><span class="n">tile</span><span class="p">,</span> <span class="n">inst_list</span><span class="p">)</span>
+
+            <span class="c1"># Create ccff_head port</span>
+            <span class="n">tile</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">ccff_head_wire</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ccff_head_wire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span>
+                <span class="nb">next</span><span class="p">(</span><span class="n">inst_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">head</span><span class="p">)))</span>
+
+            <span class="c1"># Create ccff_tail port</span>
+            <span class="n">tile</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">ccff_tail_wire</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tail</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ccff_tail_wire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span>
+                <span class="nb">next</span><span class="p">(</span><span class="n">inst_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tail</span><span class="p">)))</span>
 
 
 <div class="viewcode-block" id="Tile01"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01">[docs]</a><span class="k">class</span> <span class="nc">Tile01</span><span class="p">(</span><span class="n">OpenFPGA_Tile_Generator</span><span class="p">):</span>
@@ -632,334 +763,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">(</span><span class="n">merge_module_list</span><span class="p">,</span>
                                                  <span class="n">new_definition_name</span><span class="o">=</span><span class="s2">"bottom_right_tile"</span><span class="p">)</span>
         <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"bottom_right_tile"</span><span class="p">))</span><span class="o">.</span><span class="n">OptPins</span><span class="p">()</span></div></div>
-
-
-<div class="viewcode-block" id="OpenFPGA"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA</span><span class="p">:</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="s2">"work"</span><span class="p">,</span> <span class="n">top_module</span><span class="o">=</span><span class="s2">"fpga_top"</span><span class="p">):</span>
-        <span class="sd">'''</span>
-<span class="sd">        Init class with OpenFPGA netlist</span>
-
-<span class="sd">        args:</span>
-<span class="sd">            grid (int, int): Size of the FPGA grid</span>
-<span class="sd">            netlist (sdn.netlist): Pass OpenFPGA core netlist</span>
-<span class="sd">            library (str): library name</span>
-<span class="sd">            top_module (str): top_module name</span>
-<span class="sd">        '''</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span> <span class="o">=</span> <span class="n">grid</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span> <span class="o">=</span> <span class="n">netlist</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_library</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_libraries</span><span class="p">(</span><span class="n">library</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">top_module</span><span class="p">))</span>
-        <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Stores written definitions names</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tile_creator</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config_creator</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">library</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Returns library</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">top_module</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Returns top_module</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span>
-
-<div class="viewcode-block" id="OpenFPGA.register_tile_generator"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.register_tile_generator">[docs]</a>    <span class="k">def</span> <span class="nf">register_tile_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        This registers the tile generator class to OpenFPGA base class</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tile_creator</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.register_config_generator"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.register_config_generator">[docs]</a>    <span class="k">def</span> <span class="nf">register_config_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        This registers the tile generator class to OpenFPGA base class</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config_creator</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.create_tiles"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_tiles">[docs]</a>    <span class="k">def</span> <span class="nf">create_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        proxy function to create_tiles method of tile_creator class</span>
-<span class="sd">        """</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tile_creator</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"tile_creator not registered"</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tile_creator</span><span class="o">.</span><span class="n">create_tiles</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.create_placement"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_placement">[docs]</a>    <span class="k">def</span> <span class="nf">create_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        This adds placement and shaping information to each instance</span>
-<span class="sd">        """</span>
-        <span class="ne">NotImplementedError</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.place_pins"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.place_pins">[docs]</a>    <span class="k">def</span> <span class="nf">place_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        This adds pin placment nforamtion to tile instances</span>
-<span class="sd">        """</span>
-        <span class="ne">NotImplementedError</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.design_top_stat"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.design_top_stat">[docs]</a>    <span class="k">def</span> <span class="nf">design_top_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
-<span class="sd">        Get statistics of the top module</span>
-
-<span class="sd">        Reference       Count</span>
-<span class="sd">        ========================</span>
-<span class="sd">        '''</span>
-        <span class="n">design</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"= = "</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"= = "</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="s2">" DESIGN STATS "</span> <span class="o">+</span> <span class="s2">"= "</span><span class="o">*</span><span class="mi">7</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"= = "</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    top_module : </span><span class="si">{</span><span class="n">design</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    instances  : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">children</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"= = "</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
-        <span class="n">inst_cnt</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-            <span class="n">inst_cnt</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
-                <span class="n">inst_cnt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">inst_cnt</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">inst_cnt</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>
-                                      <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                      <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">{: &gt;20}</span><span class="s2"> </span><span class="si">{: &gt;8}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">'References'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"- - "</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">def_</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">inst_cnt</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">{: &gt;20}</span><span class="s2"> </span><span class="si">{: &gt;8}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">def_</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">def_</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"...</span><span class="si">{</span><span class="n">def_</span><span class="p">[</span><span class="o">-</span><span class="mi">17</span><span class="p">:]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">inst_cnt</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.remove_undriven_nets"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.remove_undriven_nets">[docs]</a>    <span class="k">def</span> <span class="nf">remove_undriven_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
-<span class="sd">        Removes undriven/floating nets from the top level</span>
-
-<span class="sd">        the net name with undriven keyword in the name is considered as floating nets</span>
-<span class="sd">        '''</span>
-        <span class="n">removed_cables</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"*undriven*"</span><span class="p">):</span>
-            <span class="n">removed_cables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">removed_cables</span></div>
-
-    <span class="k">def</span> <span class="nf">_convert_to_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">,</span> <span class="n">in_patt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                        <span class="n">out_patt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sort_pins</span><span class="p">:</span> <span class="p">(</span><span class="n">Callable</span><span class="p">)</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Convertes matching `in_patt` pins to bus with `out_patt` name</span>
-<span class="sd">        """</span>
-        <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">in_patt</span><span class="p">)</span>
-        <span class="n">ports</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">get_pins</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">ports</span><span class="p">:</span>
-            <span class="n">ports</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ports</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sort_pins</span> <span class="ow">or</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-            <span class="n">module</span><span class="o">.</span><span class="n">combine_ports</span><span class="p">(</span><span class="n">out_patt</span><span class="p">,</span> <span class="n">ports</span><span class="p">)</span>
-
-<div class="viewcode-block" id="OpenFPGA.create_grid_io_bus"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_grid_io_bus">[docs]</a>    <span class="k">def</span> <span class="nf">create_grid_io_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Convert `grid_io` Input/Output pins to bus structure</span>
-<span class="sd">        ::</span>
-<span class="sd">          # Input Pins</span>
-<span class="sd">          right_width_0_height_0_subtile_*__pin_inpad_0_    -&gt; io_right_in</span>
-<span class="sd">          left_width_0_height_0_subtile_*__pin_inpad_0_     -&gt; io_left_in</span>
-<span class="sd">          top_width_0_height_0_subtile_*__pin_inpad_0_      -&gt; io_top_in</span>
-<span class="sd">          bottom_width_0_height_0_subtile_*__pin_inpad_0_   -&gt; io_bottom_in</span>
-
-<span class="sd">          # Output Pins</span>
-<span class="sd">          right_width_0_height_0_subtile_*__pin_outpad_0_   -&gt; io_right_out</span>
-<span class="sd">          left_width_0_height_0_subtile_*__pin_outpad_0_    -&gt; io_left_out</span>
-<span class="sd">          top_width_0_height_0_subtile_*__pin_outpad_0_     -&gt; io_top_out</span>
-<span class="sd">          bottom_width_0_height_0_subtile_*__pin_outpad_0_  -&gt; io_bottom_out</span>
-<span class="sd">        """</span>
-        <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">)</span>
-
-        <span class="c1">#  =========  grid_io renaming =========</span>
-        <span class="k">for</span> <span class="n">grid_io</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"grid_io*"</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span>
-                <span class="c1">#  Input pins</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_bus</span><span class="p">(</span><span class="n">grid_io</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">*_pin_outpad_*"</span><span class="p">,</span>
-                                     <span class="sa">f</span><span class="s2">"io_</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">_in"</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_bus</span><span class="p">(</span><span class="n">grid_io</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">*_pin_outpad_*"</span><span class="p">,</span>
-                                     <span class="sa">f</span><span class="s2">"io_</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">_out"</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.create_grid_clb_bus"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_grid_clb_bus">[docs]</a>    <span class="k">def</span> <span class="nf">create_grid_clb_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
-<span class="sd">        Convert `grid_clb` Input/Output pins to bus structure</span>
-<span class="sd">        ::</span>
-<span class="sd">          # Input Pins</span>
-<span class="sd">          right_width_0_height_0_subtile_*__pin_I_0_    -&gt; grid_right_in</span>
-<span class="sd">          left_width_0_height_0_subtile_*__pin_I_0_     -&gt; grid_left_in</span>
-<span class="sd">          top_width_0_height_0_subtile_*__pin_I_0_      -&gt; grid_top_in</span>
-<span class="sd">          bottom_width_0_height_0_subtile_*__pin_I_0_   -&gt; grid_bottom_in</span>
-
-<span class="sd">          # Output Pins</span>
-<span class="sd">          right_width_0_height_0_subtile_*__pin_O_0_    -&gt; grid_right_out</span>
-<span class="sd">          left_width_0_height_0_subtile_*__pin_O_0_     -&gt; grid_left_out</span>
-<span class="sd">          top_width_0_height_0_subtile_*__pin_O_0_      -&gt; grid_top_out</span>
-<span class="sd">          bottom_width_0_height_0_subtile_*__pin_O_0_   -&gt; grid_bottom_out</span>
-<span class="sd">        '''</span>
-
-        <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">)</span>
-        <span class="n">grid_clb</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"grid_clb*"</span><span class="p">))</span>
-
-        <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">grid_clb</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"*pin_clk*"</span><span class="p">):</span>
-            <span class="n">grid_clb</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
-
-        <span class="c1">#  =========  grid_clb renaming =========</span>
-        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span>
-            <span class="c1">#  Input pins</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_bus</span><span class="p">(</span><span class="n">grid_clb</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">*_pin_I_*"</span><span class="p">,</span>
-                                 <span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">_in"</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_bus</span><span class="p">(</span><span class="n">grid_clb</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">*_pin_O_*"</span><span class="p">,</span>
-                                 <span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">_out"</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.create_sb_bus"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_sb_bus">[docs]</a>    <span class="k">def</span> <span class="nf">create_sb_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Convert `sb` Input pins to bus structure</span>
-<span class="sd">        ::</span>
-<span class="sd">          # Input Pins</span>
-<span class="sd">          top_left_grid_right_width_0_height_0_subtile_*__pin_O_*_      -&gt; sb_top_l_in</span>
-<span class="sd">          top_right_grid_left_width_0_height_0_subtile_*__pin_O_*_      -&gt; sb_top_r_in</span>
-<span class="sd">          bottom_left_grid_right_width_0_height_0_subtile_*__pin_O_*_   -&gt; sb_bottom_l_in</span>
-<span class="sd">          bottom_right_grid_left_width_0_height_0_subtile_*__pin_O_*_   -&gt; sb_bottom_r_in</span>
-
-<span class="sd">          left_top_grid_bottom_width_0_height_0_subtile_*__pin_O_*_     -&gt; sb_left_t_in</span>
-<span class="sd">          left_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_     -&gt; sb_left_b_in</span>
-<span class="sd">          right_top_grid_bottom_width_0_height_0_subtile_*__pin_O_*_    -&gt; sb_right_t_in</span>
-<span class="sd">          right_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_    -&gt; sb_right_b_in</span>
-<span class="sd">        """</span>
-
-        <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">,</span> <span class="s2">"left"</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">sb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"sb_*"</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">s1</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">s2</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span>
-                    <span class="c1"># input pins from each corner</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_bus</span><span class="p">(</span><span class="n">sb</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">s1</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">s2</span><span class="si">}</span><span class="s2">_grid_*_pin_O_*"</span><span class="p">,</span>
-                                         <span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">s1</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">s2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">_in"</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_bus</span><span class="p">(</span><span class="n">sb</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"*</span><span class="si">{</span><span class="n">s1</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">s2</span><span class="si">}</span><span class="s2">_grid_*__pin_inpad_*"</span><span class="p">,</span>
-                                         <span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">s1</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">s2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">_inpad"</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="OpenFPGA.create_cb_bus"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_cb_bus">[docs]</a>    <span class="k">def</span> <span class="nf">create_cb_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Convert `cb` Input pins to bus structure</span>
-<span class="sd">        ::</span>
-
-<span class="sd">          right_grid_left_width_0_height_0_subtile_*__pin_I_*_      -&gt; grid_right_in</span>
-<span class="sd">          left_grid_right_width_0_height_0_subtile_*__pin_I_*_      -&gt; grid_left_in</span>
-<span class="sd">          top_grid_bottom_width_0_height_0_subtile_*__pin_I_*_      -&gt; grid_top_in</span>
-<span class="sd">          bottom_grid_top_width_0_height_0_subtile_*__pin_I_*_      -&gt; grid_bottom_in</span>
-
-<span class="sd">          right_grid_left_width_0_height_0_subtile_*__pin_outpad_*_ -&gt; grid_right_in</span>
-<span class="sd">          left_grid_right_width_0_height_0_subtile_*__pin_outpad_*_ -&gt; grid_left_in</span>
-<span class="sd">          top_grid_bottom_width_0_height_0_subtile_*__pin_outpad_*_ -&gt; grid_top_in</span>
-<span class="sd">          bottom_grid_top_width_0_height_0_subtile_*__pin_outpad_*_ -&gt; grid_bottom_in</span>
-<span class="sd">        """</span>
-        <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">,</span> <span class="s2">"left"</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">cbx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"cb?_*"</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">s1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sides</span><span class="p">):</span>
-                <span class="c1"># Input pins</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_bus</span><span class="p">(</span><span class="n">cbx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"*</span><span class="si">{</span><span class="n">s1</span><span class="si">}</span><span class="s2">_grid_*__pin_I_*"</span><span class="p">,</span>
-                                     <span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">s1</span><span class="si">}</span><span class="s2">_out"</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_bus</span><span class="p">(</span><span class="n">cbx</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"*</span><span class="si">{</span><span class="n">s1</span><span class="si">}</span><span class="s2">_grid_*__pin_outpad_*"</span><span class="p">,</span>
-                                     <span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">s1</span><span class="si">}</span><span class="s2">_outpad"</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">_get_cordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">".*_(\w+)__(\w+)_"</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">())</span>
-        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
-
-    <span class="k">def</span> <span class="nf">_create_grid_out_feedthrough</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clb</span><span class="p">,</span> <span class="n">side</span><span class="p">):</span>
-        <span class="n">ft_map</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">clb</span><span class="o">.</span><span class="n">references</span><span class="p">:</span>
-            <span class="n">cable</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_port_cables</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">_out"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_cordinates</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">through_inst_name</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">"left"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"cby_</span><span class="si">{</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="o">+</span><span class="mi">0</span><span class="si">}</span><span class="s2">_"</span><span class="p">,</span>
-                <span class="s2">"right"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"cby_</span><span class="si">{</span><span class="n">x</span><span class="o">-</span><span class="mi">0</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="o">+</span><span class="mi">0</span><span class="si">}</span><span class="s2">_"</span><span class="p">,</span>
-                <span class="s2">"top"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"cbx_</span><span class="si">{</span><span class="n">x</span><span class="o">+</span><span class="mi">0</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="o">+</span><span class="mi">0</span><span class="si">}</span><span class="s2">_"</span><span class="p">,</span>
-                <span class="s2">"bottom"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"cbx_</span><span class="si">{</span><span class="n">x</span><span class="o">+</span><span class="mi">0</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2">_"</span><span class="p">,</span>
-            <span class="p">}[</span><span class="n">side</span><span class="p">]</span>
-            <span class="n">through_inst</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">through_inst_name</span><span class="p">))</span>
-            <span class="n">ref_name</span> <span class="o">=</span> <span class="n">through_inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span>
-            <span class="n">ft_map</span><span class="p">[</span><span class="n">ref_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ft_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ref_name</span><span class="p">,</span> <span class="p">[])</span>
-            <span class="n">ft_map</span><span class="p">[</span><span class="n">ref_name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cable</span><span class="p">,</span> <span class="p">(</span><span class="n">through_inst</span><span class="p">,)))</span>
-
-        <span class="k">for</span> <span class="n">ref_name</span><span class="p">,</span> <span class="n">inst_map</span> <span class="ow">in</span> <span class="n">ft_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">cables</span><span class="p">,</span> <span class="n">new_ports</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">create_ft_multiple</span><span class="p">(</span><span class="n">inst_map</span><span class="p">)</span>
-            <span class="n">side1</span><span class="p">,</span> <span class="n">side2</span><span class="p">,</span> <span class="n">oppo_side</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">"left"</span><span class="p">:</span> <span class="p">(</span><span class="s1">'top'</span><span class="p">,</span> <span class="s1">'bottom'</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">),</span>
-                <span class="s2">"right"</span><span class="p">:</span> <span class="p">(</span><span class="s1">'top'</span><span class="p">,</span> <span class="s1">'bottom'</span><span class="p">,</span> <span class="s1">'left'</span><span class="p">),</span>
-                <span class="s2">"top"</span><span class="p">:</span> <span class="p">(</span><span class="s1">'left'</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">,</span> <span class="s1">'bottom'</span><span class="p">),</span>
-                <span class="s2">"bottom"</span><span class="p">:</span> <span class="p">(</span><span class="s1">'left'</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">,</span> <span class="s1">'top'</span><span class="p">),</span>
-            <span class="p">}[</span><span class="n">side</span><span class="p">]</span>
-            <span class="n">new_ports</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">change_name</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">oppo_side</span><span class="si">}</span><span class="s2">_in"</span><span class="p">)</span>
-            <span class="n">new_ports</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">change_name</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">side1</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">side</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">_out"</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="n">cables</span><span class="p">:</span>
-                <span class="n">cable</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_out_"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">side1</span><span class="si">}</span><span class="s2">_out_"</span><span class="p">)</span>
-
-            <span class="n">cables</span><span class="p">,</span> <span class="n">new_ports</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">create_ft_multiple</span><span class="p">(</span><span class="n">inst_map</span><span class="p">)</span>
-            <span class="n">new_ports</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">change_name</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">oppo_side</span><span class="si">}</span><span class="s2">_in2"</span><span class="p">)</span>
-            <span class="n">new_ports</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">change_name</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_</span><span class="si">{</span><span class="n">side2</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">side</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">_out"</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="n">cables</span><span class="p">:</span>
-                <span class="n">cable</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_out_"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">side2</span><span class="si">}</span><span class="s2">_out_"</span><span class="p">)</span>
-            <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">ref_name</span><span class="p">))</span><span class="o">.</span><span class="n">OptPins</span><span class="p">()</span>
-
-<div class="viewcode-block" id="OpenFPGA.create_grid_clb_feedthroughs"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_grid_clb_feedthroughs">[docs]</a>    <span class="k">def</span> <span class="nf">create_grid_clb_feedthroughs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
-<span class="sd">        Creates feedthrough for ``grid_clb`` outputs, to convert digonal</span>
-<span class="sd">        connections to horizontal and vertical</span>
-
-<span class="sd">        `grid_clb` output on each side is feedthrough from connection box as</span>
-<span class="sd">        shown in the following example (onle left side feedthroughs are shown)</span>
-<span class="sd">        ::</span>
-<span class="sd">          +-----+                       +-----+</span>
-<span class="sd">          |     |                       |     |</span>
-<span class="sd">          |     +--+                    |     +--+</span>
-<span class="sd">          | SB     |                    | SB     |</span>
-<span class="sd">          |     +-++                    |     +--+</span>
-<span class="sd">          |     | |                     |     |</span>
-<span class="sd">          +-----+ |                     +--+--+</span>
-<span class="sd">                  |  +------               |       +------</span>
-<span class="sd">          +-----+ |  |                  +-----+    |</span>
-<span class="sd">          |     | |  |                  |  |  |    |</span>
-<span class="sd">          |     | +--+ CLB              |  +-------+ CLB</span>
-<span class="sd">          | CBX | |  |                  |  |  |    |</span>
-<span class="sd">          +-----+ |  |                  +-----+    |</span>
-<span class="sd">                  |  |                     |       |</span>
-<span class="sd">          +-----+ |  +------            +--+--+    +------</span>
-<span class="sd">          |     | |                     |     |</span>
-<span class="sd">          |     +-++                    |     +--+</span>
-<span class="sd">          | SB     |                    | SB     |</span>
-<span class="sd">          |     +--+                    |     +--+</span>
-<span class="sd">          |     |                       |     |</span>
-<span class="sd">          +-----+                       +-----+</span>
-<span class="sd">          Before                After feedthrough creations</span>
-<span class="sd">        '''</span>
-        <span class="n">clb</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"grid_clb"</span><span class="p">))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_create_grid_out_feedthrough</span><span class="p">(</span><span class="n">clb</span><span class="p">,</span> <span class="s1">'left'</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_create_grid_out_feedthrough</span><span class="p">(</span><span class="n">clb</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_create_grid_out_feedthrough</span><span class="p">(</span><span class="n">clb</span><span class="p">,</span> <span class="s1">'top'</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_create_grid_out_feedthrough</span><span class="p">(</span><span class="n">clb</span><span class="p">,</span> <span class="s1">'bottom'</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">clear_written_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-
-<div class="viewcode-block" id="OpenFPGA.save_netlist"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.save_netlist">[docs]</a>    <span class="k">def</span> <span class="nf">save_netlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patten</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span>  <span class="n">location</span><span class="o">=</span><span class="s2">"."</span><span class="p">):</span>
-        <span class="sd">'''</span>
-<span class="sd">        Save verilog files</span>
-<span class="sd">        '''</span>
-        <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">patten</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">definition</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Writing </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">Path</span><span class="p">(</span><span class="n">location</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span><span class="p">,</span>
-                        <span class="n">filename</span><span class="o">=</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.v"</span><span class="p">),</span>
-                        <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                        <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
-                        <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span></div></div>
 </pre></div>
         </article>
       </div>
