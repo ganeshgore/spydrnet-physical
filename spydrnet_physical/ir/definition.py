@@ -102,7 +102,6 @@ class Definition(DefinitionBase):
         while next(self.get_instances(inst_name), None):
             inst_name = f"{inport_name}_{outport_name}_ft" + f"_{i}"
             i += 1
-            print(inst_name)
 
         instance = self.create_child(inst_name, reference=assign_def)
 
