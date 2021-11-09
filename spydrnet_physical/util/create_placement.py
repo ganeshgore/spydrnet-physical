@@ -54,8 +54,6 @@ class initial_placement(OpenFPGA_Placement_Generator):
         """
         Overrides the base method to create placement information
         """
-        print("Running initial placement")
-        self.SC_RATIO = (SC_HEIGHT/CPP)
         self.ComputeGrid(skipChannels=False)
         self.CreateDatabase()
         visited = []
@@ -299,7 +297,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
                                            "yi": yi}
 
     def add_cby(self, xi, yi, lbl=None):
-        x, y = (xi+1)*self.CLB_GRID_X, (yi+1)*self.CLB_GRID_Y
+        x, y = (xi+1)*self.CLB_GRID_X, (yi+1)*self.CLB_GRID_Y - 1
         llx = x-self.snapDims((self.CLB_W*0.5)+self.CBY_W)
         lly = y-self.snapDims(self.CBY_H)*0.5
         W1 = self.CBY_W
@@ -371,10 +369,10 @@ class initial_placement(OpenFPGA_Placement_Generator):
                  |    | f
                  +----+
         '''
-        x = xi*self.CLB_GRID_X
-        y = yi*self.CLB_GRID_Y
+        x = xi*self.CLB_GRID_X - 1
+        y = yi*self.CLB_GRID_Y - 1
 
-        llxB1 = x+(0.5*self.CLB_W)
+        llxB1 = x+(self.CLB_W*0.5)
         llyB1 = y+(self.CBY_H*0.5)
         WidthB1 = self.SIDE_X
         HeightB1 = self.SB_H
@@ -385,7 +383,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
         HeightB2 = self.SIDE_Y
 
         a = self.SIDE_Y
-        b = e = (WidthB2-self.SIDE_X) * 0.5
+        b = e = (WidthB2-self.SIDE_X)*0.5
         c = f = (HeightB1-self.SIDE_Y)*0.5
         d = self.SIDE_X
 
