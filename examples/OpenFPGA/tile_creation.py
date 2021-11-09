@@ -19,7 +19,7 @@ import spydrnet as sdn
 from spydrnet_physical.util import OpenFPGA, Tile01, get_names
 
 logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='DEBUG')
+sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
