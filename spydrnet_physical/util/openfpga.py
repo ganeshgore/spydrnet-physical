@@ -151,11 +151,13 @@ class OpenFPGA:
     def remove_config_chain(self):
         """ Remove configuration chain from design """
         cable_list = []
-        for cable in list(self.top_module.get_cables("*_ccff_*")):
+        for cable in list(self.top_module.get_cables("*ccff_*")):
             cable_list.append(cable.name)
             for pin in list(cable.wires[0].pins):
-                pin.wire.disconnect_pin(pin)
-            self.top_module.remove_cable(cable)
+                if isinstance(pin, sdn.OuterPin):
+                    pin.wire.disconnect_pin(pin)
+            if not cable.is_port_cable:
+                self.top_module.remove_cable(cable)
         return cable_list
 
     def remove_undriven_nets(self):

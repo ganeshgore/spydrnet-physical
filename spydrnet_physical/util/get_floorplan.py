@@ -65,7 +65,9 @@ class FloorPlanViz:
 
         self.add_stylehseet()
 
-    def compose(self, skip_connections=False, skip_pins=False):
+    def compose(self, skip_connections=False,
+                skip_pins=False,
+                filter_cables=(lambda x: True)):
         '''
         Entry point to generate SVG
         '''
@@ -82,6 +84,8 @@ class FloorPlanViz:
             return
         # create connections
         for cable in self.module.get_cables():
+            if not filter_cables(cable):
+                continue
             if cable.size:
                 points = []
                 # Extract all connection points
