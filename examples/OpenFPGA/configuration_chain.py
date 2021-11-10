@@ -69,6 +69,7 @@ def main():
 
     fpga.register_config_generator(config_chain_simple)
     fpga.add_configuration_scheme()
+    fpga.config_creator.write_fabric_key("_fabric_key.xml")
 
     # ===============================
     # Florrplan

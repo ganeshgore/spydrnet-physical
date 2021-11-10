@@ -2,11 +2,12 @@
 This class is created for OpenFPGA related netlist transformations
 """
 import logging
-from pprint import pprint
+import xml.etree.ElementTree as ET
+
 
 import spydrnet as sdn
 from spydrnet_physical.util import (OpenFPGA_Config_Generator,
-                                    OpenFPGA_Tile_Generator, get_names)
+                                    OpenFPGA_Tile_Generator)
 from spydrnet_physical.util.shell import launch_shell
 
 logger = logging.getLogger('spydrnet_logs')
@@ -21,7 +22,7 @@ class config_chain_simple(OpenFPGA_Config_Generator):
         super().__init__(grid, netlist, library, top_module)
         self.chain1 = []
         self.chain2 = []
-        self.chain = [self.chain1, self.chain2]
+        self.chains = [self.chain1, self.chain2]
         self.order = ['grid_io_right', 'grid_io_top', 'grid_io_left',
                       'grid_io_bottom', 'cbx_1__4_', 'cbx_1__1_', 'cbx_1__0_',
                       'cby_0__1_', 'cby_1__1_', 'cby_4__1_', 'sb_0__0_',
@@ -29,8 +30,17 @@ class config_chain_simple(OpenFPGA_Config_Generator):
                       'sb_1__4_', 'sb_4__0_', 'sb_4__1_', 'sb_4__4_',
                       'grid_clb']
 
-    def write_fabric_key():
-        pass
+    def write_fabric_key(self, filename):
+        # Create XML File
+        seq = 0
+        top = ET.Element('fabric_key')
+        for indx, chain in enumerate(self.chains):
+            region = ET.SubElement(top, "region", {'id': str(indx)})
+            for indx, inst in enumerate(chain):
+                ET.SubElement(region, 'key',
+                              {'id': str(seq+indx), 'alias': inst.name})
+            seq = seq + indx
+        ET.ElementTree(top).write(filename)
 
     def add_configuration_scheme(self):
         ''' Creates configuration chain '''
@@ -38,12 +48,10 @@ class config_chain_simple(OpenFPGA_Config_Generator):
         self.add_top_row()
         self.add_middle_rows()
         self.add_last_row()
-        chain1 = []
-        for inst in self.chain1:
-            chain1.append(next(self._top_module.get_instances(inst)))
-        self.chain1 = chain1
+        for index, inst in enumerate(self.chain1):
+            self.chain1[index] = next(self._top_module.get_instances(inst))
 
-        self._connect_instances(self._top_module, chain1)
+        self._connect_instances(self._top_module, self.chain1)
         self._connect_top_module()
 
     def _connect_top_module(self):
