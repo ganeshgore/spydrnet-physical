@@ -20,15 +20,19 @@ class config_chain_simple(OpenFPGA_Config_Generator):
 
     def __init__(self, grid, netlist, library, top_module):
         super().__init__(grid, netlist, library, top_module)
-        self.chain1 = []
-        self.chain2 = []
-        self.chains = [self.chain1, self.chain2]
+
+        self.chains = []
         self.order = ['grid_io_right', 'grid_io_top', 'grid_io_left',
                       'grid_io_bottom', 'cbx_1__4_', 'cbx_1__1_', 'cbx_1__0_',
                       'cby_0__1_', 'cby_1__1_', 'cby_4__1_', 'sb_0__0_',
                       'sb_0__1_', 'sb_0__4_', 'sb_1__0_', 'sb_1__1_',
                       'sb_1__4_', 'sb_4__0_', 'sb_4__1_', 'sb_4__4_',
                       'grid_clb']
+
+    def create_chain(self):
+        chain = []
+        self.chains.append(chain)
+        return chain
 
     def write_fabric_key(self, filename):
         # Create XML File
@@ -45,78 +49,79 @@ class config_chain_simple(OpenFPGA_Config_Generator):
     def add_configuration_scheme(self):
         ''' Creates configuration chain '''
         logger.info("Running configuration")
-        self.add_top_row()
-        self.add_middle_rows()
-        self.add_last_row()
-        for index, inst in enumerate(self.chain1):
-            self.chain1[index] = next(self._top_module.get_instances(inst))
+        chain = self.create_chain()
+        self.add_top_row(chain)
+        self.add_middle_rows(chain)
+        self.add_last_row(chain)
+        for index, inst in enumerate(chain):
+            chain[index] = next(self._top_module.get_instances(inst))
 
-        self._connect_instances(self._top_module, self.chain1)
-        self._connect_top_module()
+        self._connect_instances(self._top_module, chain)
+        self._connect_top_module(chain)
 
-    def _connect_top_module(self):
+    def _connect_top_module(self, chain):
         head_cable = next(self._top_module.get_cables(self.head), None)
-        first_head = next(self.chain1[0].get_port_pins(self.head))
+        first_head = next(chain[0].get_port_pins(self.head))
         head_cable.wires[0].connect_pin(first_head)
 
         tail_cable = next(self._top_module.get_cables(self.tail), None)
-        last_tail = next(self.chain1[-1].get_port_pins(self.tail))
+        last_tail = next(chain[-1].get_port_pins(self.tail))
         tail_cable.wires[0].connect_pin(last_tail)
 
-    def add_top_row(self):
+    def add_top_row(self, chain):
         x = self.fpga_size[0]
         y = self.fpga_size[1]
-        self.chain1.append(f"grid_io*{x+1}__{y}*")
+        chain.append(f"grid_io*{x+1}__{y}*")
         for x in range(self.fpga_size[0], 0, -1):
-            self.chain1.append(f"sb*{x}__{y}*")
-            self.chain1.append(f"cby*{x}__{y}*")
-            self.chain1.append(f"grid_clb*{x}__{y}*")
-            self.chain1.append(f"cbx*{x}__{y}*")
-            self.chain1.append(f"grid_io*{x}__{y+1}*")
-        self.chain1.append(f"sb*0__{y}*")
-        self.chain1.append(f"cby*0__{y}*")
-        self.chain1.append(f"grid_io*_0__{y}*")
+            chain.append(f"sb*{x}__{y}*")
+            chain.append(f"cby*{x}__{y}*")
+            chain.append(f"grid_clb*{x}__{y}*")
+            chain.append(f"cbx*{x}__{y}*")
+            chain.append(f"grid_io*{x}__{y+1}*")
+        chain.append(f"sb*0__{y}*")
+        chain.append(f"cby*0__{y}*")
+        chain.append(f"grid_io*_0__{y}*")
 
-    def add_middle_rows(self):
+    def add_middle_rows(self, chain):
         for y in range(self.fpga_size[1]-1, 1, -1):
             if (y+1) % 2:
                 for x in range(self.fpga_size[0], 0, -1):
                     if x == self.fpga_size[0]:
-                        self.chain1.append(f"sb*_{x}__{y}*")
-                        self.chain1.append(f"grid_io*_{x+1}__{y}*")
-                        self.chain1.append(f"cby*_{x}__{y}*")
-                    self.chain1.append(f"grid_clb*{x}__{y}*")
-                    self.chain1.append(f"cbx*{x}__{y}*")
-                    self.chain1.append(f"sb*{x-1}__{y}*")
-                    self.chain1.append(f"cby*{x-1}__{y}*")
-                self.chain1.append(f"grid_io*_0__{y}*")
+                        chain.append(f"sb*_{x}__{y}*")
+                        chain.append(f"grid_io*_{x+1}__{y}*")
+                        chain.append(f"cby*_{x}__{y}*")
+                    chain.append(f"grid_clb*{x}__{y}*")
+                    chain.append(f"cbx*{x}__{y}*")
+                    chain.append(f"sb*{x-1}__{y}*")
+                    chain.append(f"cby*{x-1}__{y}*")
+                chain.append(f"grid_io*_0__{y}*")
             else:
                 for x in range(1, self.fpga_size[0]+1):
                     if x == 1:
-                        self.chain1.append(f"sb*_0__{y}*")
-                        self.chain1.append(f"grid_io*_0__{y}*")
-                        self.chain1.append(f"cby*_0__{y}*")
-                    self.chain1.append(f"grid_clb*{x}__{y}*")
-                    self.chain1.append(f"cbx*{x}__{y}*")
-                    self.chain1.append(f"sb*{x}__{y}*")
-                    self.chain1.append(f"cby*{x}__{y}*")
-                self.chain1.append(f"grid_io*_{x+1}__{y}*")
+                        chain.append(f"sb*_0__{y}*")
+                        chain.append(f"grid_io*_0__{y}*")
+                        chain.append(f"cby*_0__{y}*")
+                    chain.append(f"grid_clb*{x}__{y}*")
+                    chain.append(f"cbx*{x}__{y}*")
+                    chain.append(f"sb*{x}__{y}*")
+                    chain.append(f"cby*{x}__{y}*")
+                chain.append(f"grid_io*_{x+1}__{y}*")
 
-    def add_last_row(self):
+    def add_last_row(self, chain):
         y = 1
-        self.chain1.append(f"sb*_0__1*")
-        self.chain1.append(f"cby*_0__1*")
-        self.chain1.append(f"grid_io*_0__1*")
-        self.chain1.append(f"sb*_0__0*")
+        chain.append(f"sb*_0__1*")
+        chain.append(f"cby*_0__1*")
+        chain.append(f"grid_io*_0__1*")
+        chain.append(f"sb*_0__0*")
         for x in range(1, self.fpga_size[0]+1):
-            self.chain1.append(f"grid_io_*{x}__{y-1}*")
-            self.chain1.append(f"cbx*{x}__{y-1}*")
-            self.chain1.append(f"grid_clb*{x}__{y}*")
-            self.chain1.append(f"cbx*{x}__{y}*")
-            self.chain1.append(f"sb*{x}__{y}*")
-            self.chain1.append(f"cby*{x}__{y}*")
-            self.chain1.append(f"sb*{x}__{y-1}*")
-        self.chain1.append(f"grid_io_*{x+1}__{y}*")
+            chain.append(f"grid_io_*{x}__{y-1}*")
+            chain.append(f"cbx*{x}__{y-1}*")
+            chain.append(f"grid_clb*{x}__{y}*")
+            chain.append(f"cbx*{x}__{y}*")
+            chain.append(f"sb*{x}__{y}*")
+            chain.append(f"cby*{x}__{y}*")
+            chain.append(f"sb*{x}__{y-1}*")
+        chain.append(f"grid_io_*{x+1}__{y}*")
 
 
 class config_chain_01(OpenFPGA_Config_Generator):
