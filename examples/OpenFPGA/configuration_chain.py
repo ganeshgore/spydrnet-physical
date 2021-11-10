@@ -1,10 +1,14 @@
 """
 =========================================
-Creating FPGA Tiles from OpenFPGA verilog
+Adding configuration chain to the fabric
 =========================================
 
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
+
+.. image:: ../../../examples/OpenFPGA/_fpga_configuration_chain.svg
+    :width: 500px
+    :align: center
 
 """
 
@@ -25,6 +29,7 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
+    # Read verilog sources
     source_files = glob.glob('homogeneous_fabric/*_Verilog/lb/*.v')
     source_files += glob.glob('homogeneous_fabric/*_Verilog/routing/*.v')
     source_files += glob.glob('homogeneous_fabric/*_Verilog/sub_module/*.v')
@@ -39,12 +44,13 @@ def main():
         netlist = sdn.parse(fp.name)
 
     fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
-    # fpga.design_top_stat()
     fpga.placement_creator.gridIO = True
     fpga.create_placement()
-    fpga.show_placement_data("*_0__*")
 
-    # Convert wires to bus structure
+    # =========================
+    # General netlist cleanup
+    # =========================
+
     fpga.create_grid_clb_bus()
     fpga.create_grid_io_bus()
     fpga.create_sb_bus()
@@ -53,7 +59,6 @@ def main():
     fpga.remove_config_chain()
     fpga.remove_undriven_nets()
 
-    # Top level nets to bus
     for i in chain(fpga.top_module.get_instances("grid_clb*"),
                    fpga.top_module.get_instances("grid_io*"),
                    fpga.top_module.get_instances("sb_*")):
@@ -67,12 +72,15 @@ def main():
 
     fpga.create_grid_clb_feedthroughs()
 
+    # ===============================
+    # Add configuration chain
+    # ===============================
     fpga.register_config_generator(config_chain_simple)
     fpga.add_configuration_scheme()
     fpga.config_creator.write_fabric_key("_fabric_key.xml")
 
     # ===============================
-    # Florrplan
+    # Simple Florrplan
     # ===============================
     next(fpga.top_module.get_ports("ccff_head")).properties["SIDE"] = "right"
     next(fpga.top_module.get_ports("ccff_head")).properties["OFFSET"] = 50
@@ -90,8 +98,8 @@ def main():
     dwg = fp.get_svg()
     dwg.saveas("_fpga_configuration_chain.svg", pretty=True, indent=4)
 
-    # Save netlist
-    base_dir = (".", "homogeneous_fabric", "_output_2")
+    # Save verilog netlist
+    base_dir = (".", "homogeneous_fabric", "_output_3")
     fpga.save_netlist("sb*", os.path.join(*base_dir, "routing"),
                       skip_constraints=False)
     fpga.save_netlist("cb*", os.path.join(*base_dir, "routing"),
