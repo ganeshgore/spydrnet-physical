@@ -136,6 +136,8 @@ class OpenFPGA:
         print("= = "*10)
         inst_cnt = {}
         for inst in design.children:
+            if "ASSIG" in inst.reference.library.name:
+                continue
             inst_cnt[inst.reference.name] = 1 + \
                 inst_cnt.get(inst.reference.name, 0)
         inst_cnt = OrderedDict(sorted(inst_cnt.items(),
