@@ -302,24 +302,46 @@ class ConnectPointList:
 
         return module_stat
 
-    def create_ft_ports(self, netlist, cable: sdn.Cable):
-        ''' create
+    def create_ft_ports(self, netlist, port_name: str):
         '''
-        for module_name, values in self.show_stats().items():
-            if module_name == "top":
+        Create feedthrough port on the given module
+
+        args:
+            netlist (Netlist): netlist
+            port (str): port name on each module
+        '''
+
+        for m_name, values in self.show_stats().items():
+            if m_name == "top":
                 continue
-            module: sdn.Definition = next(
-                netlist.get_definitions(module_name))
+            module: sdn.Definition = next(netlist.get_definitions(m_name))
+            port: sdn.Port = next(module.get_ports(port_name))
+
+            prev_cable = None
             for inp in [k for k, v in values.get("in", {}).items() if v > 0]:
-                module.create_port(f"{cable.name}_{inp}_in",
-                                   pins=cable.size, direction=sdn.IN)
-                module.create_cable(f"{cable.name}_{inp}_in",
-                                    wires=cable.size)
+                module.create_port(f"{port.name}_{inp}_in",
+                                   pins=port.size, direction=sdn.IN)
+                cable = module.create_cable(f"{port.name}_{inp}_in",
+                                    wires=port.size)
+                if prev_cable:
+                    prev_cable.assign_cable(cable)
+                prev_cable = cable
+            if prev_cable:
+                prev_cable.assign_cable(next(port.get_cables()))
+
+            prev_cable = None
             for outp in [k for k, v in values.get("out", {}).items() if v > 0]:
-                module.create_port(f"{cable.name}_{outp}_out",
-                                   pins=cable.size, direction=sdn.OUT)
-                module.create_cable(f"{cable.name}_{outp}_out",
-                                    wires=cable.size)
+                module.create_port(f"{port.name}_{outp}_out",
+                                   pins=port.size, direction=sdn.OUT)
+                cable = module.create_cable(f"{port.name}_{outp}_out",
+                                    wires=port.size)
+                if prev_cable:
+                    prev_cable.assign_cable(cable)
+                prev_cable = cable
+            if prev_cable:
+                next(port.get_cables()).assign_cable(prev_cable)
+            module.remove_port(port)
+
 
     def create_ft_connection(self, top_definition, signal_cable):
         ''' Create connections

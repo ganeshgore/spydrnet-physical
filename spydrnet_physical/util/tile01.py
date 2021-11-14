@@ -225,12 +225,14 @@ class Tile01(OpenFPGA_Tile_Generator):
         x_min, y_min = float("inf"), float("inf")
         x_max, y_max = 0, 0
         for instance in instance_list[0][0]:
-            x_min = min(x_min, instance.properties["LOC_X"])
-            y_min = min(y_min, instance.properties["LOC_Y"])
-            x_max = max(
-                x_max, instance.properties["LOC_X"]+instance.reference.properties["WIDTH"])
-            y_max = max(
-                y_max, instance.properties["LOC_Y"]+instance.reference.properties["HEIGHT"])
+            properties = instance.properties
+            ref_properties = instance.reference.properties
+            LOC_X = properties.get("LOC_X", 0)
+            LOC_Y = properties.get("LOC_Y", 0)
+            x_min = min(x_min, LOC_X)
+            y_min = min(y_min, LOC_Y)
+            x_max = max(x_max, LOC_X+ref_properties["WIDTH"])
+            y_max = max(y_max, LOC_Y+ref_properties["HEIGHT"])
         return ((x_max-x_min), (y_max-y_min))
 
     def _update_placement(self, instance_list):
@@ -246,10 +248,10 @@ class Tile01(OpenFPGA_Tile_Generator):
 
         for instances, new_name in instance_list:
             new_inst = next(self._top_module.get_instances(new_name))
-            new_inst.properties["LOC_X"] = \
-                instances[index_x].properties.get("LOC_X", 0)
-            new_inst.properties["LOC_Y"] = \
-                instances[index_y].properties.get("LOC_Y", 0)
+            new_inst.properties["LOC_X"] = instances[index_x].properties.get(
+                "LOC_X", 0)
+            new_inst.properties["LOC_Y"] = instances[index_y].properties.get(
+                "LOC_Y", 0)
             logger.debug(f"{new_name} assigned %d %d" %
                          (new_inst.properties["LOC_X"], new_inst.properties["LOC_Y"]))
 

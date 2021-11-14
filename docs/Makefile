@@ -2,6 +2,7 @@
 #
 
 # You can set these variables from the command line.
+SHELL             = bash
 SPHINXOPTS        =
 SPHINXRELOADOPTS  =
 SPHINXBUILD       = sphinx-build
@@ -9,6 +10,7 @@ SPHINXRELOAD      ?= sphinx-autobuild
 SOURCEDIR         = source
 BUILDDIR          = build
 AUTO_BUILD_DIR    = "auto_.*\/.*"
+PYTHON_EXEC       ?= "python3.8"
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -22,6 +24,12 @@ reload:
 	--watch "../examples/**" \
 	--watch "../spydrnet_physical/support_files/**" \
 	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
+
+run_examples:
+	find ../examples -type f -name "*.py" \
+	-execdir echo "Running : " "{}" \; \
+	-execdir ${PYTHON_EXEC} "{}" \; \
+	-execdir echo $? \; || true
 
 clean:
 	rm -rf build source/auto_*

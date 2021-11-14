@@ -68,7 +68,7 @@ fishbone_pattern.get_top_instance = get_top_instance
 
 clk_cable = top_definition.create_cable("clk", wires=1)
 
-fishbone_pattern.create_ft_ports(netlist, clk_cable)
+fishbone_pattern.create_ft_ports(netlist, "clk")
 print()
 fishbone_pattern.create_ft_connection(top_definition, clk_cable)
 

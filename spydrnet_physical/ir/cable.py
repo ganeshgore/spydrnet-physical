@@ -105,3 +105,26 @@ class Cable(CableBase):
             new_cable = self.definition.create_cable(f"{self.name}_{indx}")
             self.remove_wire(wire)
             new_cable.add_wire(wire)
+
+    def check_concat(self):
+        """ This fucntion check if the cable is concatenated while connecting to other ports
+        """
+        assert self.size, "Cable does not contain any wires"
+
+        connectedPorts = len(self._wires[0].pins)
+        for wire in self._wires:
+            if not connectedPorts == len(wire.pins):
+                return False
+            for pin in wire.pins:
+                if isinstance(pin, InnerPin):
+                    if not pin.port.size == self.size:
+                        return False
+                    if not pin.index() == wire.index():
+                        return False
+                else:
+                    if not pin.inner_pin.port.size == self.size:
+                        return False
+                    if not pin.inner_pin.index() == wire.index():
+                        return False
+
+        return True
