@@ -41,6 +41,17 @@ class Port(PortBase):
         '''
         return super().size
 
+    def split(self, get_name=None):
+        get_name = get_name or (lambda x: f"{self.name}_{x}")
+        self._pins[0].wire.cable.split(get_name)
+        for indx, pin in enumerate(self._pins[::-1]):
+            new_port = self.definition.create_port(get_name(indx),
+                                                   direction=self.direction)
+            self.remove_pin(pin)
+            new_port.add_pin(pin)
+
+        self.definition.remove_port(self)
+
     def change_name(self, name):
         '''
         Change name of the port and corrosponding cable

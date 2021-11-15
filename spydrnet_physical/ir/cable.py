@@ -100,11 +100,13 @@ class Cable(CableBase):
                         ].connect_pin(instance.pins[pin])
         return instance
 
-    def split_cable(self):
+    def split(self, get_name=None):
+        get_name = get_name or (lambda x: f"{self.name}_{x}")
         for indx, wire in enumerate(self._wires[::-1]):
-            new_cable = self.definition.create_cable(f"{self.name}_{indx}")
+            new_cable = self.definition.create_cable(get_name(indx))
             self.remove_wire(wire)
             new_cable.add_wire(wire)
+        self.definition.remove_cable(self)
 
     def check_concat(self):
         """ This fucntion check if the cable is concatenated while connecting to other ports

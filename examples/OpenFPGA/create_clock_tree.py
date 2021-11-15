@@ -83,12 +83,12 @@ sdn.compose(netlist, '_feedthrough_design.v',
 top_definition.properties["WIDTH"] = "700"
 top_definition.properties["HEIGHT"] = "700"
 
-next(top_definition.get_cables("row1")).split_cable()
-next(top_definition.get_cables("row2")).split_cable()
-next(top_definition.get_cables("row3")).split_cable()
-next(top_definition.get_cables("row4")).split_cable()
+next(top_definition.get_cables("row1")).split()
+next(top_definition.get_cables("row2")).split()
+next(top_definition.get_cables("row3")).split()
+next(top_definition.get_cables("row4")).split()
 
-next(top_definition.get_cables("clk_ft")).split_cable()
+next(top_definition.get_cables("clk_ft")).split()
 
 
 next(top_definition.get_ports("in_3")).properties["SIDE"] = "left"
