@@ -4,7 +4,7 @@ from unittest.case import expectedFailure
 import spydrnet as sdn
 from collections import OrderedDict
 from spydrnet.util.hierarchical_reference import HRef
-from spydrnet.composers.html.composer import HTMLComposer
+from spydrnet_physical.composers.html.composer import HTMLComposer
 
 
 class TestHTMLComposer(unittest.TestCase):
