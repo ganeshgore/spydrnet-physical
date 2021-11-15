@@ -36,54 +36,76 @@ class RoutingRender:
         Extracts insformation from provided general switch box file
         """
         root = self.root
-        self.chanx_l = len(root.findall("CHANX[@side='left']"))
-        self.chanx_r = len(root.findall("CHANX[@side='right']"))
+        self.chanx_l = root.findall("CHANX[@side='left']")
+        self.chanx_l_len = len(self.chanx_l)
+        self.chanx_r = root.findall("CHANX[@side='right']")
+        self.chanx_r_len = len(self.chanx_r)
         self.chanx = self.chanx_l + self.chanx_r
-        self.chany_t = len(root.findall("CHANY[@side='top']"))
-        self.chany_b = len(root.findall("CHANY[@side='bottom']"))
+        self.chanx_len = self.chanx_l_len + self.chanx_r_len
+
+        self.chany_t = root.findall("CHANY[@side='top']")
+        self.chany_t_len = len(self.chany_t)
+        self.chany_b = root.findall("CHANY[@side='bottom']")
+        self.chany_b_len = len(self.chany_b)
         self.chany = self.chany_t + self.chany_b
-        self.ipin_l = len(root.findall("IPIN[@side='left']"))
-        self.ipin_r = len(root.findall("IPIN[@side='right']"))
-        self.ipin_t = len(root.findall("IPIN[@side='top']"))
-        self.ipin_b = len(root.findall("IPIN[@side='bottom']"))
+        self.chany_len = self.chany_t_len + self.chany_b_len
+
+        self.ipin_l = root.findall("IPIN[@side='left']")
+        self.ipin_l_len = len(self.ipin_l)
+        self.ipin_r = root.findall("IPIN[@side='right']")
+        self.ipin_r_len = len(self.ipin_r)
+        self.ipin_t = root.findall("IPIN[@side='top']")
+        self.ipin_t_len = len(self.ipin_t)
+        self.ipin_b = root.findall("IPIN[@side='bottom']")
+        self.ipin_b_len = len(self.ipin_b)
+
         # Left side OPins
         self.opin_l = root.findall(
             "*/driver_node[@type='OPIN'][@side='left']")
+        self.opin_l_len = max([int(i.attrib["index"])
+                               for i in self.opin_l] + [-1])+1
         self.opin_l_t = [
             e for e in self.opin_l if e.attrib["grid_side"] == "top"]
+        self.opin_l_t_len = len(self.opin_l_t)
         self.opin_l_b = [
             e for e in self.opin_l if e.attrib["grid_side"] == "bottom"]
-        self.opin_l = max([int(i.attrib["index"])
-                           for i in self.opin_l] + [-1])+1
+        self.opin_l_b_len = len(self.opin_l_b)
 
         # Right side OPins
         self.opin_r = root.findall(
             "*/driver_node[@type='OPIN'][@side='right']")
+        self.opin_r_len = max([int(i.attrib["index"])
+                               for i in self.opin_r] + [-1])+1
         self.opin_r_t = [
             e for e in self.opin_r if e.attrib["grid_side"] == "top"]
+        self.opin_r_t_len = len(self.opin_r_t)
         self.opin_r_b = [
             e for e in self.opin_r if e.attrib["grid_side"] == "bottom"]
-        self.opin_r = max([int(i.attrib["index"])
-                           for i in self.opin_r] + [-1])+1
+        self.opin_r_b_len = len(self.opin_r_b)
 
         # Top side OPins
         self.opin_t = root.findall("*/driver_node[@type='OPIN'][@side='top']")
+        self.opin_t_len = max([int(i.attrib["index"])
+                               for i in self.opin_t] + [-1])+1
+
         self.opin_t_l = [
             e for e in self.opin_t if e.attrib["grid_side"] == "left"]
+        self.opin_t_l_len = len(self.opin_t_l)
         self.opin_t_r = [
             e for e in self.opin_t if e.attrib["grid_side"] == "right"]
-        self.opin_t = max([int(i.attrib["index"])
-                           for i in self.opin_t] + [-1])+1
+        self.opin_t_r_len = len(self.opin_t_r)
 
         # bottom side OPins
         self.opin_b = root.findall(
             "*/driver_node[@type='OPIN'][@side='bottom']")
+        self.opin_b_len = max([int(i.attrib["index"])
+                               for i in self.opin_b] + [-1])+1
         self.opin_b_l = [
             e for e in self.opin_b if e.attrib["grid_side"] == "left"]
+        self.opin_b_l_len = len(self.opin_b_l)
         self.opin_b_r = [
             e for e in self.opin_b if e.attrib["grid_side"] == "right"]
-        self.opin_b = max([int(i.attrib["index"])
-                           for i in self.opin_b] + [-1])+1
+        self.opin_b_r_len = len(self.opin_b_r)
 
     @staticmethod
     def print_stat_header():
@@ -111,12 +133,14 @@ class RoutingRender:
             self.print_stat_header()
         msg = ("%15s %8s %8s %8s %8s %8s %8s %8s %8s %15s %15s %15s %15s" %
                (self.name,
-                self.chanx_l, self.chanx_r, self.chany_t, self.chany_b,
-                self.ipin_t, self.ipin_b, self.ipin_r, self.ipin_l,
-                f"{self.opin_t} [{len(self.opin_t_l):3},{len(self.opin_t_r):3}]",
-                f"{self.opin_b} [{len(self.opin_b_l):3},{len(self.opin_b_r):3}]",
-                f"{self.opin_r} [{len(self.opin_r_t):3},{len(self.opin_r_b):3}]",
-                f"{self.opin_l} [{len(self.opin_l_t):3},{len(self.opin_l_b):3}]"))
+                self.chanx_l_len, self.chanx_r_len,
+                self.chany_t_len, self.chany_b_len,
+                self.ipin_t_len, self.ipin_b_len,
+                self.ipin_r_len, self.ipin_l_len,
+                f"{self.opin_t_len:3} [{self.opin_t_l_len:3},{self.opin_t_r_len:3}]",
+                f"{self.opin_b_len:3} [{self.opin_b_l_len:3},{self.opin_b_r_len:3}]",
+                f"{self.opin_r_len:3} [{self.opin_r_t_len:3},{self.opin_r_b_len:3}]",
+                f"{self.opin_l_len:3} [{self.opin_l_t_len:3},{self.opin_l_b_len:3}]"))
         if not noprint:
             print(msg)
         return msg
@@ -128,36 +152,36 @@ class RoutingRender:
         marker_red = self._create_arrowhead('red')
         marker_green = self._create_arrowhead('green')
 
-        x_min, x_max = 0, (self.chanx+1)*self.scale
-        y_min, y_max = 0, (self.chany+1)*self.scale
+        x_min, x_max = 0, (self.chanx_len+1)*self.scale
+        y_min, y_max = 0, (self.chany_len+1)*self.scale
         if self.ipin_t+self.ipin_b:
             x_min -= 2*self.spacing
             x_min -= (self.ipin_t+self.ipin_b)*self.scale
         if self.ipin_l+self.ipin_r:
             y_max += 2*self.spacing
-            y_max += (self.ipin_l+self.ipin_r)*self.scale
-        if len(self.opin_t_l+self.opin_t_r):
+            y_max += (self.ipin_l_len+self.ipin_r_len)*self.scale
+        if self.opin_t_l_len+self.opin_t_r_len:
             y_max += 2*self.spacing
-            y_max += len(self.opin_t_l+self.opin_t_r)*self.scale
+            y_max += self.opin_t_l_len+self.opin_t_r_len*self.scale
 
         logger.debug("%4d %4d %4d %4d ", x_min, x_max, y_min, y_max)
-        for chan in range(1, 1+self.chanx):
+        for chan in range(1, 1+self.chanx_len):
             self.dwgShapes.add(shapes.Line(start=(x_min, chan*self.scale),
                                            end=(x_max, chan*self.scale), class_="channel"))
-        for chan in range(1, 1+self.chany):
+        for chan in range(1, 1+self.chany_len):
             self.dwgShapes.add(shapes.Line(start=(chan*self.scale, y_min),
                                            end=(chan*self.scale, y_max), class_="channel"))
-        offset_y = (1+self.chany)*self.scale
+        offset_y = (1+self.chany_len)*self.scale
         if self.ipin_l:
             offset_y += self.spacing
-            for pins in range(self.ipin_l):
+            for pins in range(self.ipin_l_len):
                 self.dwgShapes.add(shapes.Line(
                     start=(x_max-self.scale, offset_y+(pins*self.scale)),
                     end=(x_min, offset_y+(pins*self.scale)),
                     marker_end=marker_red.get_funciri(),
                     class_="inpin"))
-            offset_y += (self.ipin_l*self.scale)
-        if len(self.opin_t_l):
+            offset_y += (self.ipin_l_len*self.scale)
+        if self.opin_t_l_len:
             offset_y += self.spacing
             for pins, _ in enumerate(self.opin_t_l):
                 self.dwgShapes.add(shapes.Line(
@@ -165,8 +189,8 @@ class RoutingRender:
                     start=(x_min, offset_y+(pins*self.scale)),
                     marker_start=marker_green.get_funciri(),
                     class_="outpin"))
-            offset_y += (len(self.opin_t_l)*self.scale)
-        if len(self.opin_t_r):
+            offset_y += (self.opin_t_l_len*self.scale)
+        if self.opin_t_r_len:
             offset_y += self.spacing
             for pins, _ in enumerate(self.opin_t_r):
                 self.dwgShapes.add(shapes.Line(
@@ -174,10 +198,10 @@ class RoutingRender:
                     end=(x_min+self.scale, offset_y+(pins*self.scale)),
                     marker_start=marker_green.get_funciri(),
                     class_="outpin"))
-            offset_y += (len(self.opin_t_r)*self.scale)
+            offset_y += (self.opin_t_r_len*self.scale)
         if self.ipin_r:
             offset_y += self.spacing
-            for pins in range(self.ipin_l):
+            for pins in range(self.ipin_l_len):
                 self.dwgShapes.add(shapes.Line(
                     start=(x_min+self.scale, offset_y+(pins*self.scale)),
                     end=(x_max, offset_y+(pins*self.scale)),
@@ -206,8 +230,8 @@ class RoutingRender:
         """ Save SVG file"""
         self.add_stylehseet()
         filename = filename or "_"+self.name+".svg"
-        width, height = self.chanx*self.scale, self.chany*self.scale
-        viewbox = -0.5*width, -3*height, 2*width, 4*height
+        width, height = self.chanx_len*self.scale, self.chany_len*self.scale
+        viewbox = -0.5*width, -4.5*height, 2*width, 5*height
         self.dwg.viewbox(*viewbox)
         logger.debug(f"Saving svg {filename}")
         self.dwg.saveas(filename, pretty=True)
