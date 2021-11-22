@@ -33,13 +33,18 @@ SPACING = 150
 
 
 def main():
-    for indx, sb in enumerate(glob.glob('homogeneous_fabric/*_Verilog/routing/sb_0__0_.v')):
+    for indx, sb in enumerate(glob.glob('homogeneous_fabric/*_Verilog/routing/sb_1__1_.v')):
         module = path.splitext(path.basename(sb))[0]
         sb_render = RoutingRender(
             module,
             f"homogeneous_fabric/FPGA44_gsb/{module}.xml")
         sb_render.get_stats(print_header=bool(indx == 0))
         sb_render.render_switch_pattern()
+        # sb_render.report_channel_connection("right")
+        # sb_render.report_ipins("left")
+        # sb_render.report_ipins("right")
+        # sb_render.report_ipins("top")
+        # sb_render.report_ipins("bottom")
         sb_render.save()
 
 
