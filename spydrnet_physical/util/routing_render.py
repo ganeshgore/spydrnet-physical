@@ -130,6 +130,10 @@ class RoutingRender:
         self.chanx = sorted(root.findall("CHANX"),
                             key=lambda x: int(x.attrib['index']))
         self.chanx_len = self.chanx_l_len + self.chanx_r_len
+        self.chanx_drivers_l = root.findall(
+            './/driver_node[@type="CHANX"][@side="left"]')
+        self.chanx_drivers_r = root.findall(
+            './/driver_node[@type="CHANX"][@side="right"]')
         self.chanx_drivers = root.findall('.//driver_node[@type="CHANX"]')
 
         self.chany_t = root.findall("CHANY[@side='top']")
@@ -138,6 +142,11 @@ class RoutingRender:
         self.chany_b_len = len(self.chany_b)
         self.chany = sorted(root.findall("CHANY"),
                             key=lambda x: int(x.attrib['index']))
+
+        self.chany_drivers_t = root.findall(
+            './/driver_node[@type="CHANY"][@side="top"]')
+        self.chany_drivers_b = root.findall(
+            './/driver_node[@type="CHANY"][@side="bottom"]')
         self.chany_drivers = root.findall('.//driver_node[@type="CHANY"]')
         self.chany_len = self.chany_t_len + self.chany_b_len
 
@@ -525,20 +534,28 @@ class RoutingRender:
         min_terminating = min(self.ft_left_len, self.ft_right_len,
                               self.ft_top_len, self.ft_bottom_len)
 
+        # width, height calculation
         width = self.chanx_len*self.scale + 2*self.spacing
+        height = self.chany_len*self.scale + 2*self.spacing
+
+        # width1 height1 calculation
         width1 = width + 2*(self.chanx_l_len-min_terminating)*self.scale \
             + 2*self.spacing
-        width2 = width1 + 2*(self.chanx_l_len-min_terminating)*self.scale \
-            + 2*self.spacing
-        width3 = width2 + 2*(self.chanx_l_len-min_terminating)*self.scale
-        width4 = width3 + (self.ipin_l_len+self.ipin_r_len)*self.scale
-
-        height = self.chany_len*self.scale + 2*self.spacing
         height1 = height + 2*(self.chany_t_len-min_terminating)*self.scale \
+            + 2*self.spacing
+
+        # width1 height1 calculation
+        width2 = width1 + 2*(self.chanx_l_len-min_terminating)*self.scale \
             + 2*self.spacing
         height2 = height1 + 2*(self.chany_t_len-min_terminating)*self.scale \
             + 2*self.spacing
+
+        # width1 height1 calculation
+        width3 = width2 + 2*(self.chanx_l_len-min_terminating)*self.scale
         height3 = height2 + 2*(self.chany_t_len-min_terminating)*self.scale
+
+        # width1 height1 calculation
+        width4 = width3 + (self.ipin_l_len+self.ipin_r_len)*self.scale
         height4 = height3 + (self.ipin_t_len+self.ipin_b_len)*self.scale
 
         insert_pt = -0.5*(width4-width), -0.5*(height4-height)
@@ -580,16 +597,6 @@ class RoutingRender:
         self.region.add(shapes.Rect(insert=(0, 0),
                                     size=(width, height),
                                     class_="region1"))
-        self.width = width
-        self.width1 = width1
-        self.width2 = width2
-        self.width3 = width3
-        self.width4 = width4
-        self.height = height
-        self.height1 = height1
-        self.height2 = height2
-        self.height3 = height3
-        self.height4 = height4
 
     def _add_switches(self):
         for chan, ele in enumerate(self.chanx):
