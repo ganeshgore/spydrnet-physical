@@ -535,6 +535,39 @@ class RoutingRender:
                                       insert=(end[0], -1*end[-1])))
             visited_pins.append(curr_pin)
 
+    def add_opins(self):
+
+        for ele in self.opin_l + self.opin_r + self.opin_t + self.opin_b:
+            index = int(ele.attrib["index"])
+            side = ele.attrib["side"]
+            grid_side = ele.attrib["grid_side"]
+            print("%s_%s_%d" % (side, grid_side, index))
+
+            offset = self.spacing + (index)*self.scale
+
+            if side in ["left", "right"]:
+                start = (self.x_min_2-offset if side == "left" else self.x_max_2+offset,
+                         self.y_min_4 if grid_side == "top" else self.y_min_1)
+                end = (self.x_min_2-offset if side == "left" else self.x_max_2+offset,
+                       self.y_max_1 if grid_side == "top" else self.y_max_4)
+                if grid_side == "bottom":
+                    start, end = end, start
+                marker = self.marker_red
+            elif side in ["top", "bottom"]:
+                start = (self.x_max_4 if grid_side == "left" else self.x_min_4,
+                         self.y_min_2-offset if side == "bottom" else self.y_max_2+offset)
+                end = (self.x_min_2 if grid_side == "left" else self.x_max_2,
+                       self.y_min_2-offset if side == "bottom" else self.y_max_2+offset)
+                marker = self.marker_red
+            self.dwgShapes.add(shapes.Line(start=start, end=end,
+                                           marker_start=marker.get_funciri(),
+                                           marker_end=marker.get_funciri(),
+                                           class_="channel"))
+            self.dwgText.add(Text(index,
+                                  transform="scale(1,-1)",
+                                  class_=f"OPIN",
+                                  insert=(start[0], -1*start[-1])))
+
     def _add_switch_at(self, x, y):
         self.switches.add(shapes.Circle(center=(x, y), r=10, class_="switch"))
 
@@ -563,7 +596,9 @@ class RoutingRender:
 
         # width1 height1 calculation
         width3 = width2 + 2*(self.chanx_l_len-min_terminating)*self.scale
+        width3 += 2*self.spacing
         height3 = height2 + 2*(self.chany_t_len-min_terminating)*self.scale
+        height3 += 2*self.spacing
 
         # width1 height1 calculation
         width4 = width3 + (self.ipin_l_len+self.ipin_r_len)*self.scale
@@ -620,7 +655,6 @@ class RoutingRender:
                     pass
                 elif sw_type == "CHANY":
                     pass
-        pass
         # for chan_indx, chan in enumerate(self.ipin_t):
         #     for switch in chan.getchildren():
         #         sw_type = switch.attrib["type"]
@@ -640,6 +674,7 @@ class RoutingRender:
         self._add_partitions()
         self._add_origin_marker()
         self.add_channels()
+        self.add_opins()
         # ====================================
         #         Create channels
         # ====================================
@@ -711,6 +746,7 @@ class RoutingRender:
                 .region3{fill: #C4E7EB;}
                 .region4{fill: #F5F3C9;}
                 .boundry{stroke: red;stroke-width: 10;fill: none;opacity: 10%;}
+                .OPIN{fill: green;}
                 .left_pin{
                     fill:blue;
                     text-anchor: start;
