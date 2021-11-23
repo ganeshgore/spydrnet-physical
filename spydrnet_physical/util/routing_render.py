@@ -130,11 +130,15 @@ class RoutingRender:
         self.chanx = sorted(root.findall("CHANX"),
                             key=lambda x: int(x.attrib['index']))
         self.chanx_len = self.chanx_l_len + self.chanx_r_len
-        self.chanx_drivers_l = root.findall(
-            './/driver_node[@type="CHANX"][@side="left"]')
-        self.chanx_drivers_r = root.findall(
-            './/driver_node[@type="CHANX"][@side="right"]')
-        self.chanx_drivers = root.findall('.//driver_node[@type="CHANX"]')
+        self.chanx_drivers_l = \
+            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]') + \
+            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]')
+        self.chanx_drivers_r = \
+            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="right"]') + \
+            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="right"]')
+        self.chanx_drivers = \
+            root.findall('.//CHANX/driver_node[@type="CHANX"]') + \
+            root.findall('.//CHANY/driver_node[@type="CHANX"]')
 
         self.chany_t = root.findall("CHANY[@side='top']")
         self.chany_t_len = len(self.chany_t)
@@ -143,11 +147,15 @@ class RoutingRender:
         self.chany = sorted(root.findall("CHANY"),
                             key=lambda x: int(x.attrib['index']))
 
-        self.chany_drivers_t = root.findall(
-            './/driver_node[@type="CHANY"][@side="top"]')
-        self.chany_drivers_b = root.findall(
-            './/driver_node[@type="CHANY"][@side="bottom"]')
-        self.chany_drivers = root.findall('.//driver_node[@type="CHANY"]')
+        self.chany_drivers_t = \
+            root.findall('.//CHANY/driver_node[@type="CHANY"][@side="top"]') + \
+            root.findall('.//CHANX/driver_node[@type="CHANY"][@side="top"]')
+        self.chany_drivers_b = \
+            root.findall('.//CHANY/driver_node[@type="CHANY"][@side="bottom"]') + \
+            root.findall('.//CHANX/driver_node[@type="CHANY"][@side="bottom"]')
+        self.chany_drivers = \
+            root.findall('.//CHANY/driver_node[@type="CHANY"]') + \
+            root.findall('.//CHANX/driver_node[@type="CHANY"]')
         self.chany_len = self.chany_t_len + self.chany_b_len
 
         self.ipin_l = root.findall("IPIN[@side='left']")
@@ -469,7 +477,7 @@ class RoutingRender:
         """
         pass_through = {"%s%d" % (ele[0].attrib["side"], int(ele[0].attrib["index"])): int(ele.attrib["index"])
                         for ele in self.ft_left+self.ft_right+self.ft_top+self.ft_bottom}
-
+        visited_pins = list()
         for ele in (self.chanx_drivers+self.chany_drivers):
             index = int(ele.attrib["index"])
             side = ele.attrib["side"]
@@ -479,6 +487,8 @@ class RoutingRender:
                 self.scale + index*self.scale
 
             curr_pin = "%s%d" % (side, index)
+            if curr_pin in visited_pins:
+                continue
             # Create side specific parameters
             if side == "left":
                 marker = self.marker_blue
@@ -523,6 +533,7 @@ class RoutingRender:
                                       transform="scale(1,-1)",
                                       class_=f"out_pin {class_name}_text",
                                       insert=(end[0], -1*end[-1])))
+            visited_pins.append(curr_pin)
 
     def _add_switch_at(self, x, y):
         self.switches.add(shapes.Circle(center=(x, y), r=10, class_="switch"))
