@@ -130,6 +130,7 @@ class RoutingRender:
         self.chanx = sorted(root.findall("CHANX"),
                             key=lambda x: int(x.attrib['index']))
         self.chanx_len = self.chanx_l_len + self.chanx_r_len
+        self.chanx_drivers = root.findall('.//driver_node[@type="CHANX"]')
 
         self.chany_t = root.findall("CHANY[@side='top']")
         self.chany_t_len = len(self.chany_t)
@@ -137,6 +138,7 @@ class RoutingRender:
         self.chany_b_len = len(self.chany_b)
         self.chany = sorted(root.findall("CHANY"),
                             key=lambda x: int(x.attrib['index']))
+        self.chany_drivers = root.findall('.//driver_node[@type="CHANY"]')
         self.chany_len = self.chany_t_len + self.chany_b_len
 
         self.ipin_l = root.findall("IPIN[@side='left']")
@@ -272,308 +274,246 @@ class RoutingRender:
         """
         Creates horizontal channels
         """
-        # Channels
         term_indx = 0
-        offset = self.y_min_0+self.spacing+self.scale
-        for chan, ele in enumerate(self.chanx):
-            if chan in [int(e.attrib["index"]) for e in self.chanx_l]:
-                # Right to left channels
-                if chan in [int(e.attrib["index"]) for e in self.ft_left]:
-                    # Passthrough cables
-                    self.dwgShapes.add(shapes.Line(start=(self.x_max_4, offset),
-                                                   end=(self.x_min_4, offset),
-                                                   marker_start=self.marker_red.get_funciri(),
-                                                   marker_end=self.marker_red.get_funciri(),
-                                                   class_="channel rl_chan"))
-                    self.dwgText.add(Text(ele.getchildren()[0].attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="rl_text",
-                                          insert=(self.x_max_3, -1*offset)))
-                    self.dwgText.add(Text(ele.attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="rl_text",
-                                          insert=(self.x_min_3, -1*offset)))
-                else:
-                    # Terminating cable
-                    self.dwgShapes.add(shapes.Line(start=(self.x_max_4, offset),
-                                                   end=(self.x_min_2, offset),
-                                                   marker_start=self.marker_red.get_funciri(),
-                                                   marker_end=self.marker_red.get_funciri(),
-                                                   class_="channel rl_chan"))
+        offset_0 = self.y_min_0+self.spacing+self.scale
+        for ele in self.chanx_l:
+            chan = int(ele.attrib["index"])
+            offset = offset_0 + int(ele.attrib["index"])*self.scale
+            # Right to left channels
+            if not chan in [int(e.attrib["index"]) for e in self.ft_left]:
+                # Add connecting Vertical line
+                x_line = self.x_min_1 - term_indx*self.scale - self.spacing
+                y_line = self.y_min_0 - term_indx*self.scale - self.spacing
+                self.dwgShapes.add(shapes.Line(start=(x_line, self.y_max_0),
+                                               end=(x_line, y_line),
+                                               marker_start=self.marker_red.get_funciri(),
+                                               marker_end=self.marker_terminate.get_funciri(),
+                                               class_="channel rl_chan"))
+                # Add connecting horizontal line
+                self.dwgShapes.add(shapes.Line(start=(self.x_max_0, y_line),
+                                               end=(self.x_min_4, y_line),
+                                               marker_start=self.marker_red.get_funciri(),
+                                               marker_end=self.marker_red.get_funciri(),
+                                               class_="channel rl_chan"))
+                self._add_short_at(x_line, y_line)
 
-                    # Add connecting Vertical line
-                    x_line = self.x_min_1 - term_indx*self.scale - self.spacing
-                    y_line = self.y_min_0 - term_indx*self.scale - self.spacing
-                    self.dwgShapes.add(shapes.Line(start=(x_line, self.y_max_0),
-                                                   end=(x_line, y_line),
-                                                   marker_start=self.marker_red.get_funciri(),
-                                                   marker_end=self.marker_terminate.get_funciri(),
-                                                   class_="channel rl_chan"))
-                    # Add connecting horizontal line
-                    self.dwgShapes.add(shapes.Line(start=(self.x_max_0, y_line),
-                                                   end=(self.x_min_4, y_line),
-                                                   marker_start=self.marker_red.get_funciri(),
-                                                   marker_end=self.marker_red.get_funciri(),
-                                                   class_="channel rl_chan"))
-                    self._add_short_at(x_line, y_line)
-                    # Add Text
-                    self.dwgText.add(Text(self.term_right[term_indx].attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="rl_text",
-                                          insert=(self.x_max_3, -1*offset)))
-                    self.dwgText.add(Text(ele.attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="rl_text",
-                                          insert=(self.x_min_3, -1*y_line)))
+                # Add Text
+                self.dwgText.add(Text(ele.attrib["index"],
+                                      transform="scale(1,-1)",
+                                      class_="rl_text",
+                                      insert=(self.x_min_3, -1*y_line)))
 
-                    # Add Switches
-                    print(f"---> {ele.attrib['index']}")
-                    for switch in ele.getchildren():
-                        sw_type = switch.attrib["type"]
-                        side = switch.attrib["side"]
-                        index = int(switch.attrib["index"])
-                        grid_side = switch.attrib.get("grid_side", "")
-                        if sw_type == "CHANX":
-                            self._add_switch_at(
-                                x_line,
-                                ((index+1)*self.scale) + 2*self.spacing)
-                        elif sw_type == "CHANY":
-                            self._add_switch_at(
-                                ((index+1)*self.scale) + 2*self.spacing,
-                                y_line)
-
-                    term_indx += 1
-
-            offset += self.scale
+                # Add Switches
+                for switch in ele.getchildren():
+                    sw_type = switch.attrib["type"]
+                    side = switch.attrib["side"]
+                    index = int(switch.attrib["index"])
+                    grid_side = switch.attrib.get("grid_side", "")
+                    if sw_type == "CHANX":
+                        self._add_switch_at(
+                            x_line, ((index+1)*self.scale) + self.spacing)
+                    elif sw_type == "CHANY":
+                        self._add_switch_at(
+                            ((index+1)*self.scale) + self.spacing, y_line)
+                term_indx += 1
 
     def add_right_channels(self):
         """
         Creates horizontal channels
         """
-        # Channels
         term_indx = 0
-        offset = self.y_min_0+self.spacing+self.scale
-        for chan, ele in enumerate(self.chanx):
-            if chan in [int(e.attrib["index"]) for e in self.chanx_r]:
-                # Right to left channels
-                if chan in [int(e.attrib["index"]) for e in self.ft_right]:
-                    # Passthrough cables
-                    self.dwgShapes.add(shapes.Line(start=(self.x_min_4, offset),
-                                                   end=(self.x_max_4, offset),
-                                                   marker_start=self.marker_blue.get_funciri(),
-                                                   marker_end=self.marker_blue.get_funciri(),
-                                                   class_="channel lr_chan"))
-                    self.dwgText.add(Text(ele.getchildren()[0].attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="lr_text",
-                                          insert=(self.x_max_3, -1*offset)))
-                    self.dwgText.add(Text(ele.attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="lr_text",
-                                          insert=(self.x_min_3, -1*offset)))
-                else:
-                    # Terminating cable
-                    self.dwgShapes.add(shapes.Line(start=(self.x_min_4, offset),
-                                                   end=(self.x_max_2, offset),
-                                                   marker_start=self.marker_blue.get_funciri(),
-                                                   marker_end=self.marker_blue.get_funciri(),
-                                                   class_="channel lr_chan"))
+        offset_0 = self.y_max_0-self.spacing-self.scale
+        for ele in self.chanx_r:
+            chan = int(ele.attrib["index"])
+            offset = offset_0 + int(ele.attrib["index"])*self.scale
+            # left to right channels
+            if not chan in [int(e.attrib["index"]) for e in self.ft_right]:
+                # Add connecting Vertical line
+                x_line = self.x_max_1 + term_indx*self.scale + self.spacing
+                y_line = self.y_max_0 + term_indx*self.scale + self.spacing
+                self.dwgShapes.add(shapes.Line(start=(x_line, self.y_min_0),
+                                               end=(x_line, y_line),
+                                               marker_start=self.marker_blue.get_funciri(),
+                                               marker_end=self.marker_terminate.get_funciri(),
+                                               class_="channel lr_chan"))
+                # Add connecting horizontal line
+                self.dwgShapes.add(shapes.Line(start=(self.x_min_0, y_line),
+                                               end=(self.x_max_4, y_line),
+                                               marker_start=self.marker_terminate.get_funciri(),
+                                               marker_end=self.marker_blue.get_funciri(),
+                                               class_="channel lr_chan"))
+                self._add_short_at(x_line, y_line)
 
-                    # Add connecting Vertical line
-                    x_line = self.x_max_1 + term_indx*self.scale + self.spacing
-                    y_line = self.y_max_0 + term_indx*self.scale + self.spacing
-                    self.dwgShapes.add(shapes.Line(start=(x_line, self.y_min_1),
-                                                   end=(x_line, y_line),
-                                                   marker_start=self.marker_blue.get_funciri(),
-                                                   marker_end=self.marker_terminate.get_funciri(),
-                                                   class_="channel lr_chan"))
-                    # Add connecting horizontal line
-                    self.dwgShapes.add(shapes.Line(start=(self.x_min_0, y_line),
-                                                   end=(self.x_max_4, y_line),
-                                                   marker_start=self.marker_blue.get_funciri(),
-                                                   marker_end=self.marker_blue.get_funciri(),
-                                                   class_="channel lr_chan"))
-                    self._add_short_at(x_line, y_line)
+                # Add Text
+                self.dwgText.add(Text(ele.attrib["index"],
+                                      transform="scale(1,-1)",
+                                      class_="lr_text",
+                                      insert=(self.x_max_3, -1*y_line)))
 
-                    # Add Text
-                    self.dwgText.add(Text(self.term_left[term_indx].attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="lr_text",
-                                          insert=(self.x_min_3, -1*offset)))
-                    self.dwgText.add(Text(ele.attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="lr_text",
-                                          insert=(self.x_max_3, -1*y_line)))
+                # Add Switches
+                for switch in ele.getchildren():
+                    sw_type = switch.attrib["type"]
+                    side = switch.attrib["side"]
+                    index = int(switch.attrib["index"])
+                    grid_side = switch.attrib.get("grid_side", "")
+                    if sw_type == "CHANX":
+                        self._add_switch_at(
+                            x_line, ((index)*self.scale) + self.spacing)
+                    elif sw_type == "CHANY":
+                        self._add_switch_at(
+                            ((index)*self.scale) + self.spacing, y_line)
+                term_indx += 1
 
-                    # Add Switches
-                    print(f"---> {ele.attrib['index']}")
-                    for switch in ele.getchildren():
-                        sw_type = switch.attrib["type"]
-                        side = switch.attrib["side"]
-                        index = int(switch.attrib["index"])
-                        grid_side = switch.attrib.get("grid_side", "")
-                        if sw_type == "CHANX":
-                            self._add_switch_at(
-                                x_line,
-                                ((index+1)*self.scale) + 2*self.spacing)
-                        elif sw_type == "CHANY":
-                            self._add_switch_at(
-                                ((index+1)*self.scale) + 2*self.spacing,
-                                y_line)
-                    term_indx += 1
-
-            offset += self.scale
-
-    def add_top_channel(self):
-        # Channels
+    def add_top_channels(self):
+        """
+        Creates horizontal channels
+        """
         term_indx = 0
-        offset = self.x_min_0+self.spacing+self.scale
-        for chan, ele in enumerate(self.chany):
-            # Botttom to top channels
-            if chan in [int(e.attrib["index"]) for e in self.chany_t]:
-                if chan in [int(e.attrib["index"]) for e in self.ft_top]:
-                    # Passthrough cables
-                    self.dwgShapes.add(shapes.Line(start=(offset, self.y_min_4),
-                                                   end=(offset, self.y_max_4),
-                                                   marker_start=self.marker_red.get_funciri(),
-                                                   marker_end=self.marker_red.get_funciri(),
-                                                   class_="channel rl_chan"))
-                    self.dwgText.add(Text(ele.getchildren()[0].attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_='bt_text',
-                                          insert=(offset, -1*self.y_min_3)))
-                    self.dwgText.add(Text(ele.attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_='bt_text',
-                                          insert=(offset, -1*self.y_max_3)))
-                else:
-                    # Terminating cable
-                    self.dwgShapes.add(shapes.Line(start=(offset, self.y_min_4),
-                                                   end=(offset, self.y_max_1),
-                                                   marker_start=self.marker_red.get_funciri(),
-                                                   marker_end=self.marker_red.get_funciri(),
-                                                   class_="channel rl_chan"))
-                    self.dwgText.add(Text(self.term_bottom[term_indx].attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_='bt_text',
-                                          insert=(offset, -1*self.y_min_3)))
+        for ele in self.chany_t:
+            chan = int(ele.attrib["index"])
+            # left to right channels
+            if not chan in [int(e.attrib["index"]) for e in self.ft_top]:
+                # Add connecting Vertical line
+                x_line = self.x_min_0 - term_indx*self.scale - self.spacing
+                y_line = self.y_max_1 + term_indx*self.scale + self.spacing
+                self.dwgShapes.add(shapes.Line(start=(x_line, self.y_min_0),
+                                               end=(x_line, self.y_max_4),
+                                               marker_start=self.marker_terminate.get_funciri(),
+                                               marker_end=self.marker_blue.get_funciri(),
+                                               class_="channel lr_chan"))
+                # Add connecting horizontal line
+                self.dwgShapes.add(shapes.Line(start=(x_line, y_line),
+                                               end=(self.x_max_0, y_line),
+                                               marker_start=self.marker_terminate.get_funciri(),
+                                               marker_end=self.marker_terminate.get_funciri(),
+                                               class_="channel lr_chan"))
+                self._add_short_at(x_line, y_line)
 
-                    # Add connecting horizontal line
-                    x_line = self.x_min_0 - term_indx*self.scale - self.spacing
-                    y_line = self.y_max_1 + term_indx*self.scale + self.spacing
-                    self.dwgShapes.add(shapes.Line(start=(x_line, y_line),
-                                                   end=(self.x_max_2, y_line),
-                                                   marker_start=self.marker_terminate.get_funciri(),
-                                                   marker_end=self.marker_terminate.get_funciri(),
-                                                   class_="channel bt_chan"))
-                    # Add connecting vertical line
-                    self.dwgShapes.add(shapes.Line(start=(x_line, self.y_min_1),
-                                                   end=(x_line, self.y_max_4),
-                                                   marker_start=self.marker_terminate.get_funciri(),
-                                                   marker_end=self.marker_red.get_funciri(),
-                                                   class_="channel bt_chan"))
+                # Add Text
+                self.dwgText.add(Text(ele.attrib["index"],
+                                      transform="scale(1,-1)",
+                                      class_="lr_text",
+                                      insert=(x_line, -1*self.y_max_4)))
 
-                    self._add_short_at(x_line, y_line)
+                # Add Switches
+                for switch in ele.getchildren():
+                    sw_type = switch.attrib["type"]
+                    side = switch.attrib["side"]
+                    index = int(switch.attrib["index"])
+                    grid_side = switch.attrib.get("grid_side", "")
+                    if sw_type == "CHANX":
+                        self._add_switch_at(
+                            x_line, ((index+1)*self.scale) + self.spacing)
+                    elif sw_type == "CHANY":
+                        self._add_switch_at(
+                            ((index+1)*self.scale) + self.spacing, y_line)
+                term_indx += 1
 
-                    # Add Text
-                    self.dwgText.add(Text(ele.attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="bt_text",
-                                          insert=(x_line, -1*self.y_max_3)))
-
-                    # Add Switches
-                    print(f"---> {ele.attrib['index']}")
-                    for switch in ele.getchildren():
-                        sw_type = switch.attrib["type"]
-                        side = switch.attrib["side"]
-                        index = int(switch.attrib["index"])
-                        grid_side = switch.attrib.get("grid_side", "")
-                        if sw_type == "CHANX":
-                            self._add_switch_at(
-                                x_line,
-                                ((index+1)*self.scale) + 2*self.spacing)
-                        elif sw_type == "CHANY":
-                            self._add_switch_at(
-                                ((index+1)*self.scale) + 2*self.spacing,
-                                y_line)
-                    term_indx += 1
-
-            offset += self.scale
-
-    def add_bottom_channel(self):
-        # Channels
+    def add_bottom_channels(self):
+        """
+        Creates horizontal channels
+        """
         term_indx = 0
-        offset = self.x_min_0+self.spacing+self.scale
-        for chan, ele in enumerate(self.chany):
-            # Botttom to top channels
-            if chan in [int(e.attrib["index"]) for e in self.chany_b]:
-                if chan in [int(e.attrib["index"]) for e in self.ft_bottom]:
-                    # Passthrough cables
-                    self.dwgShapes.add(shapes.Line(start=(offset, self.y_max_4),
-                                                   end=(offset, self.y_min_4),
-                                                   marker_start=self.marker_blue.get_funciri(),
-                                                   marker_end=self.marker_blue.get_funciri(),
-                                                   class_="channel tb_chan"))
-                    self.dwgText.add(Text(ele.getchildren()[0].attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_='tb_text',
-                                          insert=(offset, -1*self.y_max_3)))
-                    self.dwgText.add(Text(ele.attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_='tb_text',
-                                          insert=(offset, -1*self.y_min_3)))
-                else:
-                    # Terminating cable
-                    self.dwgShapes.add(shapes.Line(start=(offset, self.y_max_4),
-                                                   end=(offset, self.y_min_1),
-                                                   marker_start=self.marker_blue.get_funciri(),
-                                                   marker_end=self.marker_blue.get_funciri(),
-                                                   class_="channel tb_chan"))
-                    self.dwgText.add(Text(self.term_top[term_indx].attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_='tb_text',
-                                          insert=(offset, -1*self.y_max_3)))
+        for ele in self.chany_b:
+            chan = int(ele.attrib["index"])
+            # left to right channels
+            if not chan in [int(e.attrib["index"]) for e in self.ft_bottom]:
+                # Add connecting Vertical line
+                x_line = self.x_max_0 + term_indx*self.scale + self.spacing
+                y_line = self.y_min_1 - term_indx*self.scale - self.spacing
+                self.dwgShapes.add(shapes.Line(start=(x_line, self.y_max_0),
+                                               end=(x_line, self.y_min_4),
+                                               marker_start=self.marker_terminate.get_funciri(),
+                                               marker_end=self.marker_blue.get_funciri(),
+                                               class_="channel lr_chan"))
+                # Add connecting horizontal line
+                self.dwgShapes.add(shapes.Line(start=(x_line, y_line),
+                                               end=(self.x_min_0, y_line),
+                                               marker_start=self.marker_terminate.get_funciri(),
+                                               marker_end=self.marker_terminate.get_funciri(),
+                                               class_="channel lr_chan"))
+                self._add_short_at(x_line, y_line)
 
-                    # Add connecting horizontal line
-                    x_line = self.x_max_1 - term_indx*self.scale - self.spacing
-                    y_line = self.y_min_1 - term_indx*self.scale - self.spacing
-                    self.dwgShapes.add(shapes.Line(start=(x_line, y_line),
-                                                   end=(self.x_min_0, y_line),
-                                                   marker_start=self.marker_terminate.get_funciri(),
-                                                   marker_end=self.marker_terminate.get_funciri(),
-                                                   class_="channel tb_chan"))
-                    # Add connecting vertical line
-                    self.dwgShapes.add(shapes.Line(start=(x_line, self.y_max_1),
-                                                   end=(x_line, self.y_min_4),
-                                                   marker_start=self.marker_terminate.get_funciri(),
-                                                   marker_end=self.marker_blue.get_funciri(),
-                                                   class_="channel tb_chan"))
-                    self._add_short_at(x_line, y_line)
+                # Add Text
+                self.dwgText.add(Text(ele.attrib["index"],
+                                      transform="scale(1,-1)",
+                                      class_="lr_text",
+                                      insert=(x_line, -1*self.y_min_4)))
 
-                    # Add Text
-                    self.dwgText.add(Text(ele.attrib["index"],
-                                          transform="scale(1,-1)",
-                                          class_="tb_text",
-                                          insert=(x_line, -1*self.y_min_3)))
+                # Add Switches
+                for switch in ele.getchildren():
+                    sw_type = switch.attrib["type"]
+                    side = switch.attrib["side"]
+                    index = int(switch.attrib["index"])
+                    grid_side = switch.attrib.get("grid_side", "")
+                    if sw_type == "CHANX":
+                        self._add_switch_at(
+                            x_line, ((index+1)*self.scale) + self.spacing)
+                    elif sw_type == "CHANY":
+                        self._add_switch_at(
+                            ((index+1)*self.scale) + self.spacing, y_line)
+                term_indx += 1
 
-                    # Add Switches
-                    print(f"---> {ele.attrib['index']}")
-                    for switch in ele.getchildren():
-                        sw_type = switch.attrib["type"]
-                        side = switch.attrib["side"]
-                        index = int(switch.attrib["index"])
-                        grid_side = switch.attrib.get("grid_side", "")
-                        if sw_type == "CHANX":
-                            self._add_switch_at(
-                                x_line,
-                                ((index+1)*self.scale) + 2*self.spacing)
-                        elif sw_type == "CHANY":
-                            self._add_switch_at(
-                                ((index+1)*self.scale) + 2*self.spacing,
-                                y_line)
-                    term_indx += 1
+    def add_channels(self):
+        """
+        Adds horizontal driver lines 
+        """
+        pass_through = {"%s%d" % (ele[0].attrib["side"], int(ele[0].attrib["index"])): int(ele.attrib["index"])
+                        for ele in self.ft_left+self.ft_right+self.ft_top+self.ft_bottom}
 
-            offset += self.scale
+        for ele in (self.chanx_drivers+self.chany_drivers):
+            index = int(ele.attrib["index"])
+            side = ele.attrib["side"]
+            offset_x = self.x_min_0+self.spacing + \
+                self.scale + index*self.scale
+            offset_y = self.y_min_0+self.spacing + \
+                self.scale + index*self.scale
+
+            curr_pin = "%s%d" % (side, index)
+            # Create side specific parameters
+            if side == "left":
+                marker = self.marker_blue
+                class_name = "lr"
+                offset = offset_x
+                start = (self.x_min_4, offset)
+                end = (self.x_max_4 if pass_through.get(curr_pin, None) else self.x_max_2,
+                       offset)
+            elif side == "right":
+                marker = self.marker_red
+                class_name = "rl"
+                offset = offset_x
+                start = (self.x_max_4, offset)
+                end = (self.x_min_4 if pass_through.get(curr_pin, None) else self.x_min_2,
+                       offset)
+            elif side == "top":
+                marker = self.marker_blue
+                class_name = "tb"
+                offset = offset_y
+                start = (offset, self.y_max_4)
+                end = (offset,
+                       self.y_min_4 if pass_through.get(curr_pin, None) else self.y_min_2)
+            elif side == "bottom":
+                marker = self.marker_red
+                class_name = "bt"
+                offset = offset_y
+                start = (offset, self.y_min_4)
+                end = (offset,
+                       self.y_max_4 if pass_through.get(curr_pin, None) else self.y_max_2)
+
+            self.dwgShapes.add(shapes.Line(start=start, end=end,
+                                           marker_start=marker.get_funciri(),
+                                           marker_end=marker.get_funciri(),
+                                           class_=f"channel {class_name}_chan"))
+            self.dwgText.add(Text(index,
+                                  transform="scale(1,-1)",
+                                  class_=f"in_pin {class_name}_text",
+                                  insert=(start[0], -1*start[-1])))
+
+            if pass_through.get(curr_pin, None):
+                self.dwgText.add(Text(pass_through[curr_pin],
+                                      transform="scale(1,-1)",
+                                      class_=f"out_pin {class_name}_text",
+                                      insert=(end[0], -1*end[-1])))
 
     def _add_switch_at(self, x, y):
         self.switches.add(shapes.Circle(center=(x, y), r=10, class_="switch"))
@@ -681,15 +621,14 @@ class RoutingRender:
         # Create groups in SVG image
         self._add_partitions()
         self._add_origin_marker()
+        self.add_channels()
         # ====================================
         #         Create channels
         # ====================================
         self.add_left_channels()
-        # self.add_right_channels()
-        self.add_top_channel()
-        # self.add_bottom_channel()
-
-        # add_channels(dwgShapes, root)
+        self.add_right_channels()
+        self.add_top_channels()
+        self.add_bottom_channels()
 
     def _add_origin_marker(self):
         self.dwgbg.add(shapes.Line(start=(0, 1*self.scale),
@@ -774,6 +713,6 @@ class RoutingRender:
                     transform-origin: bottom left;
                     text-anchor: start;
                     transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
-                .in_pin{fill: red;}
-                .out_pin{fill: blue;}
+                .in_pin{fill: blue !important;}
+                .out_pin{fill: red !important;}
             """))
