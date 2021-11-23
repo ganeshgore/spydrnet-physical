@@ -551,13 +551,42 @@ class RoutingRender:
                                       insert=(end[0], -1*end[-1])))
             visited_pins.append(curr_pin)
 
+    def add_ipins(self):
+        for ele in self.ipin_t + self.ipin_b + self.ipin_r + self.ipin_l:
+            index = int(ele.attrib["index"])
+            side = ele.attrib["side"]
+            marker = self.marker_red
+            offset = self.spacing + (index)*self.scale
+            print("%s%d" % (side, index))
+
+            if side in "top":
+                start = (self.x_min_3 - offset, self.y_min_2)
+                end = (self.x_min_3 - offset, self.y_max_3)
+            elif side in "bottom":
+                start = (self.x_min_4 + offset, self.y_max_2)
+                end = (self.x_min_4 + offset, self.y_min_3)
+            elif side in "left":
+                start = (self.x_max_2, self.y_max_3 + offset)
+                end = (self.x_min_3, self.y_max_3 + offset)
+            elif side in "right":
+                start = (self.x_min_2, self.y_max_4 - offset)
+                end = (self.x_max_3, self.y_max_4 - offset)
+
+            self.dwgShapes.add(shapes.Line(start=start, end=end,
+                                           marker_start=marker.get_funciri(),
+                                           marker_end=marker.get_funciri(),
+                                           class_="channel"))
+            self.dwgText.add(Text(index,
+                                  transform="scale(1,-1)",
+                                  class_=f"OPIN",
+                                  insert=(start[0], -1*start[-1])))
+
     def add_opins(self):
 
         for ele in self.opin_l + self.opin_r + self.opin_t + self.opin_b:
             index = int(ele.attrib["index"])
             side = ele.attrib["side"]
             grid_side = ele.attrib["grid_side"]
-            print("%s_%s_%d" % (side, grid_side, index))
 
             offset = self.spacing + (index)*self.scale
 
@@ -617,8 +646,10 @@ class RoutingRender:
         height3 += 2*self.spacing
 
         # width1 height1 calculation
-        width4 = width3 + (self.ipin_l_len+self.ipin_r_len)*self.scale
-        height4 = height3 + (self.ipin_t_len+self.ipin_b_len)*self.scale
+        width4 = width3 + 2*(self.ipin_l_len+self.ipin_r_len)*self.scale
+        width4 += 4*self.spacing
+        height4 = height3 + 2*(self.ipin_t_len+self.ipin_b_len)*self.scale
+        height4 += 4*self.spacing
 
         insert_pt = -0.5*(width4-width), -0.5*(height4-height)
         self.x_min_4, self.y_min_4 = insert_pt
@@ -698,6 +729,10 @@ class RoutingRender:
         self.add_right_channels()
         self.add_top_channels()
         self.add_bottom_channels()
+        # ====================================
+        #         Added Input Pins
+        # ====================================
+        self.add_ipins()
 
     def _add_origin_marker(self):
         self.dwgbg.add(shapes.Line(start=(0, 1*self.scale),
