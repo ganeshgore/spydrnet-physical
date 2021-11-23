@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 
 from svgwrite import Drawing, shapes
 from svgwrite.container import Group
+from svgwrite.mixins import XLink
 from svgwrite.text import Text
 
 logger = logging.getLogger('spydrnet_logs')
@@ -125,11 +126,15 @@ class RoutingRender:
         root = self.root
         self.chanx_l = root.findall("CHANX[@side='left']")
         self.chanx_l_len = len(self.chanx_l)
+
         self.chanx_r = root.findall("CHANX[@side='right']")
         self.chanx_r_len = len(self.chanx_r)
+
         self.chanx = sorted(root.findall("CHANX"),
                             key=lambda x: int(x.attrib['index']))
         self.chanx_len = self.chanx_l_len + self.chanx_r_len
+        self.chanx_l_out_map = [0]*self.chanx_len
+        self.chanx_r_out_map = [0]*self.chanx_len
         self.chanx_drivers_l = \
             root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]') + \
             root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]')
@@ -146,7 +151,9 @@ class RoutingRender:
         self.chany_b_len = len(self.chany_b)
         self.chany = sorted(root.findall("CHANY"),
                             key=lambda x: int(x.attrib['index']))
-
+        self.chany_len = self.chany_t_len + self.chany_b_len
+        self.chany_t_out_map = [0]*self.chany_len
+        self.chany_b_out_map = [0]*self.chany_len
         self.chany_drivers_t = \
             root.findall('.//CHANY/driver_node[@type="CHANY"][@side="top"]') + \
             root.findall('.//CHANX/driver_node[@type="CHANY"][@side="top"]')
@@ -156,7 +163,6 @@ class RoutingRender:
         self.chany_drivers = \
             root.findall('.//CHANY/driver_node[@type="CHANY"]') + \
             root.findall('.//CHANX/driver_node[@type="CHANY"]')
-        self.chany_len = self.chany_t_len + self.chany_b_len
 
         self.ipin_l = root.findall("IPIN[@side='left']")
         self.ipin_l_len = self._get_max_index(self.ipin_l)
@@ -318,6 +324,7 @@ class RoutingRender:
                                       class_="rl_text",
                                       insert=(self.x_min_4, -1*y_line)))
 
+                self.chanx_l_out_map[int(ele.attrib["index"])] = y_line
                 # Add Switches
                 for switch in ele.getchildren():
                     sw_type = switch.attrib["type"]
@@ -369,7 +376,7 @@ class RoutingRender:
                                       transform="scale(1,-1)",
                                       class_="lr_text",
                                       insert=(self.x_max_4, -1*y_line)))
-
+                self.chanx_r_out_map[int(ele.attrib["index"])] = x_line
                 # Add Switches
                 for switch in ele.getchildren():
                     sw_type = switch.attrib["type"]
@@ -513,6 +520,9 @@ class RoutingRender:
                 start = (self.x_min_4, offset)
                 end = (self.x_max_4 if pass_through.get(curr_pin, None) else self.x_max_2,
                        offset)
+                if pass_through.get(curr_pin, None):
+                    self.chanx_r_out_map[pass_through[curr_pin]] = offset
+                self.chanx_l_out_map[index] = offset
             elif side == "right":
                 marker = self.marker_red
                 class_name = "rl"
@@ -520,6 +530,9 @@ class RoutingRender:
                 start = (self.x_max_4, offset)
                 end = (self.x_min_4 if pass_through.get(curr_pin, None) else self.x_min_2,
                        offset)
+                if pass_through.get(curr_pin, None):
+                    self.chanx_l_out_map[pass_through[curr_pin]] = offset
+                self.chanx_r_out_map[index] = offset
             elif side == "top":
                 marker = self.marker_blue
                 class_name = "tb"
@@ -527,6 +540,9 @@ class RoutingRender:
                 start = (offset, self.y_max_4)
                 end = (offset,
                        self.y_min_4 if pass_through.get(curr_pin, None) else self.y_min_2)
+                if pass_through.get(curr_pin, None):
+                    self.chany_b_out_map[pass_through[curr_pin]] = offset
+                self.chany_t_out_map[index] = offset
             elif side == "bottom":
                 marker = self.marker_red
                 class_name = "bt"
@@ -534,6 +550,9 @@ class RoutingRender:
                 start = (offset, self.y_min_4)
                 end = (offset,
                        self.y_max_4 if pass_through.get(curr_pin, None) else self.y_max_2)
+                if pass_through.get(curr_pin, None):
+                    self.chany_t_out_map[pass_through[curr_pin]] = offset
+                self.chany_b_out_map[index] = offset
 
             self.dwgShapes.add(shapes.Line(start=start, end=end,
                                            marker_start=marker.get_funciri(),
@@ -557,7 +576,6 @@ class RoutingRender:
             side = ele.attrib["side"]
             marker = self.marker_red
             offset = self.spacing + (index)*self.scale
-            print("%s%d" % (side, index))
 
             if side in "top":
                 start = (self.x_min_3 - offset, self.y_min_2)
@@ -579,7 +597,18 @@ class RoutingRender:
             self.dwgText.add(Text(index,
                                   transform="scale(1,-1)",
                                   class_=f"OPIN",
-                                  insert=(start[0], -1*start[-1])))
+                                  insert=(end[0], -1*end[-1])))
+
+            # Add Switches
+            for switch in ele.getchildren():
+                index = int(switch.attrib["index"])
+                offset = self.chanx_l_out_map[index]
+                if side in ["top", "bottom"]:
+                    self._add_switch_at(
+                        start[0], offset)
+                elif side in ["left", "right"]:
+                    self._add_switch_at(
+                        offset, start[1])
 
     def add_opins(self):
 
