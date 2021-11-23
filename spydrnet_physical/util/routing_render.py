@@ -310,7 +310,7 @@ class RoutingRender:
                 self.dwgText.add(Text(ele.attrib["index"],
                                       transform="scale(1,-1)",
                                       class_="rl_text",
-                                      insert=(self.x_min_3, -1*y_line)))
+                                      insert=(self.x_min_4, -1*y_line)))
 
                 # Add Switches
                 for switch in ele.getchildren():
@@ -357,7 +357,7 @@ class RoutingRender:
                 self.dwgText.add(Text(ele.attrib["index"],
                                       transform="scale(1,-1)",
                                       class_="lr_text",
-                                      insert=(self.x_max_3, -1*y_line)))
+                                      insert=(self.x_max_4, -1*y_line)))
 
                 # Add Switches
                 for switch in ele.getchildren():
@@ -539,10 +539,10 @@ class RoutingRender:
         height = self.chany_len*self.scale + 2*self.spacing
 
         # width1 height1 calculation
-        width1 = width + 2*(self.chanx_l_len-min_terminating)*self.scale \
-            + 2*self.spacing
-        height1 = height + 2*(self.chany_t_len-min_terminating)*self.scale \
-            + 2*self.spacing
+        width1 = width + 2*(self.chanx_l_len-min_terminating)*self.scale
+        width1 += 2*self.spacing
+        height1 = height + 2*(self.chany_t_len-min_terminating)*self.scale
+        height1 += 2*self.spacing
 
         # width1 height1 calculation
         width2 = width1 + 2*(self.chanx_l_len-min_terminating)*self.scale \
