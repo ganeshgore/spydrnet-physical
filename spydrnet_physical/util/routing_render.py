@@ -292,10 +292,8 @@ class RoutingRender:
         Creates horizontal channels
         """
         term_indx = 0
-        offset_0 = self.y_min_0+self.spacing+self.scale
         for ele in self.chanx_l:
             chan = int(ele.attrib["index"])
-            offset = offset_0 + int(ele.attrib["index"])*self.scale
             # Right to left channels
             if not chan in [int(e.attrib["index"]) for e in self.ft_left]:
                 # Add connecting Vertical line
@@ -326,12 +324,17 @@ class RoutingRender:
                     side = switch.attrib["side"]
                     index = int(switch.attrib["index"])
                     grid_side = switch.attrib.get("grid_side", "")
+                    offset = index*self.scale
                     if sw_type == "CHANX":
                         self._add_switch_at(
-                            x_line, ((index+1)*self.scale) + self.spacing)
+                            x_line, self.x_min_0 + offset + self.spacing)
                     elif sw_type == "CHANY":
                         self._add_switch_at(
-                            ((index+1)*self.scale) + self.spacing, y_line)
+                            self.y_min_0 + offset + self.spacing, y_line)
+                    elif sw_type == "OPIN":
+                        self._add_switch_at(
+                            self.x_min_2 - offset - self.spacing,
+                            y_line)
                 term_indx += 1
 
     def add_right_channels(self):
@@ -373,12 +376,17 @@ class RoutingRender:
                     side = switch.attrib["side"]
                     index = int(switch.attrib["index"])
                     grid_side = switch.attrib.get("grid_side", "")
+                    offset = index*self.scale
                     if sw_type == "CHANX":
                         self._add_switch_at(
-                            x_line, ((index)*self.scale) + self.spacing)
+                            x_line, self.x_min_0 + offset + self.spacing)
                     elif sw_type == "CHANY":
                         self._add_switch_at(
-                            ((index)*self.scale) + self.spacing, y_line)
+                            self.y_min_0 + offset + self.spacing, y_line)
+                    elif sw_type == "OPIN":
+                        self._add_switch_at(
+                            self.x_max_2 + offset + self.spacing,
+                            y_line)
                 term_indx += 1
 
     def add_top_channels(self):
@@ -418,12 +426,17 @@ class RoutingRender:
                     side = switch.attrib["side"]
                     index = int(switch.attrib["index"])
                     grid_side = switch.attrib.get("grid_side", "")
+                    offset = index*self.scale
                     if sw_type == "CHANX":
                         self._add_switch_at(
-                            x_line, ((index+1)*self.scale) + self.spacing)
+                            x_line, self.x_min_0 + offset + self.spacing)
                     elif sw_type == "CHANY":
                         self._add_switch_at(
-                            ((index+1)*self.scale) + self.spacing, y_line)
+                            self.y_min_0 + offset + self.spacing, y_line)
+                    elif sw_type == "OPIN":
+                        self._add_switch_at(
+                            x_line,
+                            self.y_max_2 + offset + self.spacing)
                 term_indx += 1
 
     def add_bottom_channels(self):
@@ -463,12 +476,17 @@ class RoutingRender:
                     side = switch.attrib["side"]
                     index = int(switch.attrib["index"])
                     grid_side = switch.attrib.get("grid_side", "")
+                    offset = index*self.scale
                     if sw_type == "CHANX":
                         self._add_switch_at(
-                            x_line, ((index+1)*self.scale) + self.spacing)
+                            x_line, self.x_min_0 + offset + self.spacing)
                     elif sw_type == "CHANY":
                         self._add_switch_at(
-                            ((index+1)*self.scale) + self.spacing, y_line)
+                            self.y_min_0 + offset + self.spacing, y_line)
+                    elif sw_type == "OPIN":
+                        self._add_switch_at(
+                            x_line,
+                            self.y_min_2 - offset - self.spacing)
                 term_indx += 1
 
     def add_channels(self):
@@ -481,10 +499,8 @@ class RoutingRender:
         for ele in (self.chanx_drivers+self.chany_drivers):
             index = int(ele.attrib["index"])
             side = ele.attrib["side"]
-            offset_x = self.x_min_0+self.spacing + \
-                self.scale + index*self.scale
-            offset_y = self.y_min_0+self.spacing + \
-                self.scale + index*self.scale
+            offset_x = self.x_min_0+self.spacing + index*self.scale
+            offset_y = self.y_min_0+self.spacing + index*self.scale
 
             curr_pin = "%s%d" % (side, index)
             if curr_pin in visited_pins:
