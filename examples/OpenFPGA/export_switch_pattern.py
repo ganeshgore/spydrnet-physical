@@ -6,10 +6,9 @@ Render FPGA Basic Elements
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
 
-.. hdl-diagram:: ../../../examples/OpenFPGA/_includes.v
-   :type: netlistsvg
-   :align: center
-   :module: cbx_1__1_
+.. image:: ../../../examples/OpenFPGA/_sb_1__1_.svg
+    :width: 500px
+    :align: center
 
 """
 
@@ -41,10 +40,10 @@ def main():
         sb_render.get_stats(print_header=bool(indx == 0))
         sb_render.render_switch_pattern()
         # sb_render.report_channel_connection("right")
-        # sb_render.report_ipins("left")
-        # sb_render.report_ipins("right")
-        # sb_render.report_ipins("top")
-        # sb_render.report_ipins("bottom")
+        sb_render.report_ipins("left")
+        sb_render.report_ipins("right")
+        sb_render.report_ipins("top")
+        sb_render.report_ipins("bottom")
         sb_render.save()
 
 

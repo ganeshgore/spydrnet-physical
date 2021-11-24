@@ -57,10 +57,11 @@ class RoutingRender:
         x[int(indx)] = 't' if int(indx) % 2 else "b"
 
     def report_ipins(self, side):
-        format_str = "{:^6s} {:^6s} {:^45s} {:^45s} "
-        print("= = "*25)
-        print(format_str.format("index", "Mux", "ChanX", "Chany"))
-        print("= = "*25)
+        format_str = "{:^6s} {:^6s} {:^45s} "
+        print("= "*(self.chanx_l_len+10))
+        print(format_str.format(side, "MUX",
+                                "ChanX" if side in ['top', 'bottom'] else "Chany"))
+        print("= "*(self.chanx_l_len+10))
         items = {"left": self.ipin_l,
                  "right": self.ipin_r,
                  "top": self.ipin_t,
@@ -75,8 +76,7 @@ class RoutingRender:
             print(format_str.format(
                 chan.attrib["index"],
                 chan.attrib["mux_size"],
-                ''.join(ChanX),
-                ''.join(ChanY)))
+                ''.join(ChanX if side in ['top', 'bottom'] else ChanY)))
 
     def report_channel_connection(self, side):
         """
@@ -775,8 +775,10 @@ class RoutingRender:
         """ Save SVG file"""
         self.add_stylehseet()
         filename = filename or "_"+self.name+".svg"
-        width, height = self.chanx_len*self.scale, self.chany_len*self.scale
-        viewbox = -0.5*width, -3*height, 3*width, 6*height
+        margin = 200
+        width, height = self.x_max_4-self.x_min_4, self.y_max_4-self.y_min_4
+        viewbox = (self.x_min_4-margin, -1*(self.y_max_4+margin),
+                   width+2*margin, height+2*margin)
         self.dwg.viewbox(*viewbox)
         logger.debug(f"Saving svg {filename}")
         self.dwg.saveas(filename, pretty=True)
