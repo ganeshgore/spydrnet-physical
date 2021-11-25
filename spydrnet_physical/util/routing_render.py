@@ -5,6 +5,7 @@ from svgwrite import Drawing, shapes
 from svgwrite.container import Group
 from svgwrite.mixins import XLink
 from svgwrite.text import Text
+import numpy as np
 
 logger = logging.getLogger('spydrnet_logs')
 
@@ -66,6 +67,8 @@ class RoutingRender:
                  "right": self.ipin_r,
                  "top": self.ipin_t,
                  "bottom": self.ipin_b}[side]
+        arr = np.empty(shape=[0, self.chanx_len if side in [
+                       'top', 'bottom'] else self.chany_len], dtype=np.str)
         for chan in items:
             ChanX = ['_']*self.chanx_len
             _ = [self.set_vbit(ChanX, e.attrib['index'])
@@ -73,10 +76,13 @@ class RoutingRender:
             ChanY = ['_']*self.chany_len
             _ = [self.set_hbit(ChanY, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANY"]')]
+            flags = ChanX if side in ['top', 'bottom'] else ChanY
             print(format_str.format(
                 chan.attrib["index"],
                 chan.attrib["mux_size"],
-                ''.join(ChanX if side in ['top', 'bottom'] else ChanY)))
+                ''.join(flags)))
+            arr = np.vstack([arr, flags])
+        return arr
 
     def report_channel_connection(self, side):
         """
