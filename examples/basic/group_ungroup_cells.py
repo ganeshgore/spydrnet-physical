@@ -12,9 +12,9 @@ a given scalar or vector wires.
    :module: top
 
 
-**Output1** ``wire0`` feedthough from ``inst_2_1``
+**Output1** ungrouped module
 
-.. hdl-diagram:: ../../../examples/basic/_merged_design.v
+.. hdl-diagram:: ../../../examples/basic/_ungrouped_design.v
    :type: netlistsvg
    :align: center
    :module: top
@@ -39,4 +39,4 @@ top.flatten_instance(inst)
 inst = next(top.get_instances("inst_1_1"))
 top.flatten_instance(inst)
 top.create_unconn_wires()
-sdn.compose(netlist, '_merged_design.v', skip_constraints=True)
+sdn.compose(netlist, '_ungrouped_design.v', skip_constraints=True)
