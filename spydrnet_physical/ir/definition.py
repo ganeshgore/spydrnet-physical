@@ -626,11 +626,11 @@ class Definition(DefinitionBase):
 
     def create_unconn_wires(self):
         unconn_cable = self.create_cable("unconn")
+        w = unconn_cable.create_wire()  # dummy wire
         for instance in self.children:
+            print(instance)
             for pin in instance.get_port_pins(instance.reference.ports):
                 if not pin.wire:
-                    # print(
-                    #     f"{instance.name} {pin.port.name} {pin.get_index}")
                     w = unconn_cable.create_wire()
                     w.connect_pin(pin)
 
@@ -650,6 +650,44 @@ class Definition(DefinitionBase):
 
         self.remove_port(port)
         self.remove_cable(cable)
+
+    def flatten_instance(self, instance):
+        """ Flatterns single instance in the given definition """
+        assert instance in self.children, "Instance is not part of current definition"
+        cable_map = {}
+        # recreating internal cables on top level
+        for cable in instance.reference.get_cables():
+            if not cable.is_port_cable:
+                new_cable = cable.clone()
+                new_cable.name = instance.name + "_" + new_cable.name
+                self.add_cable(new_cable)
+                cable_map[cable] = new_cable
+        # recreating sub instance on the top level and create connections
+        for sub_instance in instance.reference.children:
+            new_instance = sub_instance.clone()
+            new_instance.name = instance.name + "_" + new_instance.name
+            self.add_child(new_instance)
+            # create connection, iteratre over each port of sub-instance
+            for port in sub_instance.reference.ports:
+                for pin in sub_instance.get_port_pins(port.name):
+                    if not pin.wire:
+                        # skip if sub-instance pin is not connected
+                        continue
+                    if pin.wire.cable.is_port_cable:
+                        # if the pin wire is connected to instance port
+                        pin_top = next(filter(
+                            lambda x: isinstance(x, sdn.InnerPin),
+                            pin.wire.pins))
+                        pin_top = instance.pins[pin_top]
+                        if not pin_top.wire:
+                            # skip if instance pin is not connected
+                            continue
+                        wire = pin_top.wire
+                    else:
+                        # internal wire
+                        wire = cable_map[pin.wire.cable].wires[pin.wire.index()]
+                    wire.connect_pin(new_instance.pins[pin])
+        self.remove_child(instance)
 
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())
