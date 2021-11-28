@@ -10,6 +10,10 @@ from spydrnet.ir.outerpin import OuterPin
 from spydrnet.ir.port import Port
 
 logger = logging.getLogger('spydrnet_logs')
+try:
+    import networkx as nx
+except ImportError:
+    logger.debug("Networks module not loaded")
 
 
 if typing.TYPE_CHECKING:
