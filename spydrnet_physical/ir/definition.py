@@ -653,6 +653,7 @@ class Definition(DefinitionBase):
 
     def flatten_instance(self, instance):
         """ Flatterns single instance in the given definition """
+        assert isinstance(instance, sdn.Instance), "Argument not a Instance"
         assert instance in self.children, "Instance is not part of current definition"
         cable_map = {}
         # recreating internal cables on top level
@@ -688,6 +689,55 @@ class Definition(DefinitionBase):
                         wire = cable_map[pin.wire.cable].wires[pin.wire.index()]
                     wire.connect_pin(new_instance.pins[pin])
         self.remove_child(instance)
+
+    def get_connectivity_network(self):
+
+        assert "nx" not in dir(), "Netowrkx library not installed"
+
+        def get_node_name(pin):
+            if isinstance(pin, sdn.OuterPin):
+                return pin.instance.name
+            else:
+                return f"port_{pin.port.name}"
+
+        # Variables
+        graph = nx.Graph()
+        instance_node_map = []
+        edges = []
+
+        # Create Nodes
+        for indx, port in enumerate(self.ports):
+            graph.add_node(indx, label=f"port_{port.name}", shape='rect')
+            instance_node_map.append(f"port_{port.name}")
+
+        for instance in self.children:
+            graph.add_node(len(instance_node_map), label=instance.name)
+            instance_node_map.append(instance.name)
+
+        # Create edges
+        for cable in list(self.get_cables()):
+            for wire in cable.wires:
+                if not wire.get_driver():
+                    logger.warn(f"No driver for {cable.name}[{wire.index()}]")
+                    for pin in wire.pins:
+                        logger.warn(
+                            f"{pin.port.name} {pin.port.direction} {pin.port.definition.name}")
+                    continue
+                driver_inst = get_node_name(wire.get_driver()[0])
+                if not driver_inst:
+                    continue
+                for p in wire.pins:
+                    node = get_node_name(p)
+                    if node == driver_inst:
+                        continue
+                    edges.append(tuple(sorted([
+                        instance_node_map.index(driver_inst),
+                        instance_node_map.index(node)])))
+
+        for edge in set(edges):
+            weight = edges.count(edge)
+            graph.add_edge(*edge, label=f"[{weight}]")
+        return graph
 
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())
