@@ -739,6 +739,15 @@ class Definition(DefinitionBase):
             graph.add_edge(*edge, label=f"[{weight}]")
         return graph
 
+    def _remove_child(self, child):
+        """
+        Internal function for dissociating a child instance from the definition.
+        """
+        super()._remove_child(child=child)
+        for pin in list(child.get_port_pins(child.get_ports())):
+            if pin.wire:
+                pin.wire.disconnect_pin(pin)
+
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())
     #     for eachCables in self.get_cables():
