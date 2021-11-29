@@ -9,4 +9,5 @@ from spydrnet_physical.util.tile01 import (Tile01, config_chain_01,
                                            config_chain_simple)
 from spydrnet_physical.util.routing_render import RoutingRender
 from spydrnet_physical.util.connectivity_graph import (prepare_graph_from_nx,
+                                                       run_metis,
                                                        write_metis_graph)

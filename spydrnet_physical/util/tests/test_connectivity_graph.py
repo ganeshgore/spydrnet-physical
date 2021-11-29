@@ -28,12 +28,19 @@ class TestConnectivityGraph(unittest.TestCase):
     def test_write_metis_graph(self):
         ''' Test metis CSR foramt output '''
         lines = write_metis_graph(nx.to_numpy_array(self.graph))
-        self.assertEqual(lines[0], "3 2")
-        self.assertEqual(lines[1], "1 2")
-        self.assertEqual(lines[2], "0")
-        self.assertEqual(lines[3], "0")
-        lines = write_metis_graph(nx.to_numpy_array(self.graph), weight=True)
-        self.assertEqual(lines[0], "3 2")
-        self.assertEqual(lines[1], "1 10 2 5")
-        self.assertEqual(lines[2], "0 10")
-        self.assertEqual(lines[3], "0 5")
+        self.assertEqual(lines[0], "3 2 000")
+        self.assertEqual(lines[1], "2 3")
+        self.assertEqual(lines[2], "1")
+        self.assertEqual(lines[3], "1")
+        lines = write_metis_graph(nx.to_numpy_array(self.graph), eweight=True)
+        self.assertEqual(lines[0], "3 2 001")
+        self.assertEqual(lines[1], "2 10 3 5")
+        self.assertEqual(lines[2], "1 10")
+        self.assertEqual(lines[3], "1 5")
+        lines = write_metis_graph(
+            nx.to_numpy_array(self.graph), eweight=True,
+            vweight=nx.get_node_attributes(self.graph, "weight"))
+        self.assertEqual(lines[0], "3 2 011")
+        self.assertEqual(lines[1], "2 2 10 3 5")
+        self.assertEqual(lines[2], "1 1 10")
+        self.assertEqual(lines[3], "1 1 5")
