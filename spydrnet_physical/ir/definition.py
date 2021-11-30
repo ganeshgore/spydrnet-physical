@@ -715,7 +715,10 @@ class Definition(DefinitionBase):
             instance_node_map.append(f"port_{port.name}")
 
         for instance in self.children:
-            graph.add_node(len(instance_node_map), label=instance.name)
+            name = instance.name
+            weight = 2 if "_in_" in name else 5 if "_BUF_" in name else 0
+            graph.add_node(len(instance_node_map),
+                           label=instance.name, weight=weight)
             instance_node_map.append(instance.name)
 
         # Create edges
@@ -740,7 +743,7 @@ class Definition(DefinitionBase):
 
         for edge in set(edges):
             weight = edges.count(edge)
-            graph.add_edge(*edge, label=f"[{weight}]")
+            graph.add_edge(*edge, label=f"[{weight}]", weight=float(weight))
         return graph
 
     def _remove_child(self, child):
