@@ -57,12 +57,21 @@ class RoutingRender:
     def set_hbit(x, indx):
         x[int(indx)] = 't' if int(indx) % 2 else "b"
 
-    def report_ipins(self, side):
+    @staticmethod
+    def render_ipin(sw):
+        size = sw.shape
+        format_str = "{:<6} {:<6} {:^%d} " % size[1]
+        print("=" * (size[1]+16))
+        print(format_str.format('INDX', 'MUX', 'CONNECTIONS'))
+        print("=" * (size[1]+16))
+        print(format_str.format('', '', ''.join(
+            ['{:<4}|'.format(i) for i in range(0, size[1], 5)])))
+        for indx, row in enumerate(sw):
+            count = row.size - list(row).count("_")
+            print(format_str.format(indx, count, "".join(row)))
+
+    def report_ipins(self, side, show=True):
         format_str = "{:^6s} {:^6s} {:^45s} "
-        print("= "*(self.chanx_l_len+10))
-        print(format_str.format(side, "MUX",
-                                "ChanX" if side in ['top', 'bottom'] else "Chany"))
-        print("= "*(self.chanx_l_len+10))
         items = {"left": self.ipin_l,
                  "right": self.ipin_r,
                  "top": self.ipin_t,
@@ -71,22 +80,63 @@ class RoutingRender:
                        'top', 'bottom'] else self.chany_len], dtype=np.str)
         for chan in items:
             ChanX = ['_']*self.chanx_len
+            _ = [self.set_bit(ChanX, e.attrib['index'])
+                 for e in chan.findall('./driver_node[@type="CHANX"]')]
+            ChanY = ['_']*self.chany_len
+            _ = [self.set_bit(ChanY, e.attrib['index'])
+                 for e in chan.findall('./driver_node[@type="CHANY"]')]
+            flags = ChanX if side in ['top', 'bottom'] else ChanY
+            arr = np.vstack([arr, flags])
+        if show:
+            self.render_ipin(arr)
+        return arr
+
+    def report_incoming_connection(self, side):
+        """
+        This prints the channel information of given switch box 
+        for a given direction channels
+        """
+        format_str = "{:^6s} {:^6s} {:^45s} {:^45s} {:^10s} {:^10s} {:^10s} {:^10s}"
+        print("= = "*40)
+        print(format_str.format("index", "Mux", "ChanX", "Chany",
+                                "OPIN_L", "OPIN_R", "OPIN_T", "OPIN_B"))
+        print("= = "*40)
+
+        items = {"left": self.chanx_l, "right": self.chanx_r,
+                 "top": self.chany_t, "bottom": self.chany_b}[side]
+        for chan in items:
+            ChanX = ['_']*self.chanx_len
             _ = [self.set_vbit(ChanX, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANX"]')]
             ChanY = ['_']*self.chany_len
             _ = [self.set_hbit(ChanY, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANY"]')]
-            flags = ChanX if side in ['top', 'bottom'] else ChanY
+            OPIN_L = ['_']*self.opin_l_len
+            _ = [self.set_bit(OPIN_L, e.attrib['index'])
+                 for e in chan.findall('./driver_node[@type="OPIN"][@side="left"]')]
+            OPIN_R = ['_']*self.opin_l_len
+            _ = [self.set_bit(OPIN_R, e.attrib['index'])
+                 for e in chan.findall('./driver_node[@type="OPIN"][@side="right"]')]
+            OPIN_T = ['_']*self.opin_l_len
+            _ = [self.set_bit(OPIN_T, e.attrib['index'])
+                 for e in chan.findall('./driver_node[@type="OPIN"][@side="top"]')]
+            OPIN_B = ['_']*self.opin_l_len
+            _ = [self.set_bit(OPIN_B, e.attrib['index'])
+                 for e in chan.findall('./driver_node[@type="OPIN"][@side="bottom"]')]
             print(format_str.format(
                 chan.attrib["index"],
                 chan.attrib["mux_size"],
-                ''.join(flags)))
-            arr = np.vstack([arr, flags])
-        return arr
+                ''.join(ChanX),
+                ''.join(ChanY),
+                ''.join(OPIN_L),
+                ''.join(OPIN_R),
+                ''.join(OPIN_T),
+                ''.join(OPIN_B)))
 
     def report_channel_connection(self, side):
         """
-        This print the channel information of given SB in speific direction
+        This prints the channel information of given switch box 
+        for a given direction channels
         """
         format_str = "{:^6s} {:^6s} {:^45s} {:^45s} {:^10s} {:^10s} {:^10s} {:^10s}"
         print("= = "*40)
@@ -752,7 +802,9 @@ class RoutingRender:
         #             ))
 
     def render_switch_pattern(self):
-        # Create groups in SVG image
+        """
+        Create SVG object rendering all the switchs from switch box
+        """
         self._add_partitions()
         self._add_origin_marker()
         self.add_channels()
