@@ -34,6 +34,7 @@ run_examples:
 clean:
 	rm -rf build source/auto_*
 	find . -type d -name "generated" -exec rm -rf "{}" \; || true
+	find ../examples -type f -name "_*.*" -exec rm -rf "{}" \; || true
 
 
 .PHONY: help Makefile
