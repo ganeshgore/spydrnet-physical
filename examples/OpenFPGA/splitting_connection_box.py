@@ -28,6 +28,7 @@ import tempfile
 from itertools import chain
 from pprint import pprint
 import networkx as nx
+from fnmatch import fnmatch
 
 import pymetis
 import pydot
@@ -37,9 +38,10 @@ from networkx.drawing.nx_pydot import to_pydot
 from spydrnet_physical.util import OpenFPGA, config_chain_simple, get_names
 from spydrnet_physical.util.get_floorplan import FloorPlanViz
 from spydrnet_physical.util.shell import launch_shell
+from spydrnet_physical.util import write_metis_graph, run_metis
 
 logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='DEBUG')
+sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
@@ -84,22 +86,62 @@ def main():
         if port.pins[0].wire:
             port.pins[0].wire.disconnect_pin(port.pins[0])
 
+    for instance in ["*CCDFF*", ]:
+        cb_module.remove_children_from(cb_module.get_instances(instance))
+
+    # Split Chanx_ports
+    next(cb_module.get_ports("chanx_left_in")).split()
+    next(cb_module.get_ports("chanx_right_in")).split()
+
+    cb_module.combine_ports("top_pin_I",
+                            list(cb_module.get_ports("*top_grid_*_pin_I*")))
+    cb_module.combine_ports("bottom_pin_I",
+                            list(cb_module.get_ports("*bottom_grid_*_pin_I*")))
+
     # Get connectivity graph
     G = cb_module.get_connectivity_network()
-    graph = to_pydot(G)
 
-    n_cuts, membership = pymetis.part_graph(2, adjacency=nx.to_numpy_array(G))
-    print(f"n_cuts {n_cuts}")
+    nodes = list(nx.get_node_attributes(G, 'label').values())
+    target = nodes.index("port_top_pin_I")
+    source = nodes.index("port_bottom_pin_I")
+    G.nodes[target]["weight"] = 100
+    G.nodes[source]["weight"] = 100
+
+    for p1, p2 in nx.edges(G, [target, source]):
+        print(G[p1][p2])
+        G[p1][p2]["weight"] = 10
+        G[p1][p2]["label"] = "[10]"
+
+    for indx, node_name in enumerate(nodes):
+        G.nodes[indx]["label"] = f"{node_name}_[{G.nodes[indx].get('weight', 0)}]"
+
+    nodes = list(nx.get_node_attributes(G, 'label').values())
+    vweights = nx.get_node_attributes(G, "weight")
+
+    # n_cuts, membership = pymetis.part_graph(2, adjacency=nx.to_numpy_array(G),
+    #                                         vweights=vweights)
+    # print(f"n_cuts {n_cuts}")
+
+    # Run using external metis
+    write_metis_graph(nx.to_numpy_array(G),
+                      eweights=True, vweights=vweights,
+                      filename="_partition_experiments.csr")
+    membership = run_metis(filename="_partition_experiments.csr", cuts=2,
+                           options="-objtype cut -minconn -niter 100 -ncuts 3 ")
+
     subgraph = pydot.Cluster('part1', label='', bgcolor="#c6ecba"), \
         pydot.Cluster('part2', label='', bgcolor="#f3cfcf")
     partitions = [[], []]
 
+    graph = to_pydot(G)
     for each in subgraph:
         graph.add_subgraph(each)
 
     for index, color in enumerate(membership):
         node = graph.get_node(str(index))[0]
         node.set_color("red" if color else "green")
+        # node.set_shape("rect" if node.get_label(
+        # ).startswith("port_") else "circle")
         subgraph[color].add_node(node)
         partitions[color].append(node.get_label())
 
@@ -112,9 +154,13 @@ def main():
             logger.debug(graph.get_node(str(index))[0])
 
     print("============= Parition stats =============")
-    f_str = '{:>15s} {:^4} {:^4}'
+    f_str = '{:<15s} {:<15} {:<15}'
     print(f_str.format('', 'P1', 'P2'))
     print("==========================================")
+    print(f_str.format('chanx_left', len([p for p in partitions[0] if "chanx_left" in p]),
+                       len([p for p in partitions[1] if "chanx_left" in p])))
+    print(f_str.format('chanx_right', len([p for p in partitions[0] if "chanx_right" in p]),
+                       len([p for p in partitions[1] if "chanx_right" in p])))
     print(f_str.format('pin_I', len([p for p in partitions[0] if "pin_I" in p]),
                        len([p for p in partitions[1] if "pin_I" in p])))
     print(f_str.format('CCDFF', len([p for p in partitions[0] if "CCDFF" in p]),
@@ -126,11 +172,23 @@ def main():
 
     for side in ["top", "bottom"]:
         for pin in range(10):
+            p1, p2 = [], []
             tag = f"{side}_ipin_{pin}"
-            print(f_str.format(tag, len([p for p in partitions[0] if tag in p]),
-                               len([p for p in partitions[1] if tag in p])))
+            for i in range(1, 5):
+                p1.append(str(len([p for p in partitions[0] if
+                                   fnmatch(p, f"*{tag}*l{i}*")])))
+                p2.append(str(len([p for p in partitions[1] if
+                                   fnmatch(p, f"*{tag}*l{i}*")])))
+            print(f_str.format(tag,
+                               "-".join(p1) + f" [{sum(map(int,p1))}]",
+                               "-".join(p2) + f" [{sum(map(int,p2))}]"))
+    with open("_graph.part.0", "w") as fp:
+        fp.write("\n".join(partitions[0]))
+    with open("_graph.part.1", "w") as fp:
+        fp.write("\n".join(partitions[1]))
 
     graph.set_rankdir("LR")
+    graph.write_dot('_graph.dot')
     graph.write_png('_graph.png')
     graph.write_svg('_graph.svg')
     sdn.compose(netlist, '_cbx_1__1_extended.v',
