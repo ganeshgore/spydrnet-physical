@@ -22,25 +22,24 @@ def prepare_graph_from_nx(graph):
     return xadj, adjncy, eweights
 
 
-def write_metis_graph(graph, eweight=False, vweight=False, filename=None):
+def write_metis_graph(graph, eweights=False, vweights=False, filename=None):
     """
     This definition write the given netowrkx graph in CSR format for metis
     """
     lines = []
     lines += [f"{len(graph)} {np.count_nonzero(graph)//2}" + " 0" +
-              ('1' if vweight else '0') + ('1' if eweight else '0')]
+              ('1' if vweights else '0') + ('1' if eweights else '0')]
     nodes = list(range(1, 1+len(graph)))
     for indx, row in enumerate(graph):
         line = map(lambda x: (x[0] if bool(x[1])
                               else 0, int(x[1])), zip(nodes, row))
         line = list(filter(lambda x: bool(x[0]), line))
-        print(line)
-        if eweight:
+        if eweights:
             lines.append(" ".join([str(e[0])+" "+str(e[1]) for e in line]))
         else:
             lines.append(" ".join([str(e[0]) for e in line]))
-        if vweight:
-            lines[-1] = f"{vweight.get(indx, 1)} " + lines[-1]
+        if vweights:
+            lines[-1] = f"{vweights.get(indx, 1)} " + lines[-1]
     if filename:
         with open(filename, 'w')as fp:
             fp.write("% Auto-generated\n")

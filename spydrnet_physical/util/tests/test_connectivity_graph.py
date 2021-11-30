@@ -11,9 +11,9 @@ class TestConnectivityGraph(unittest.TestCase):
     def setUp(self):
         ''' Basic element setup '''
         self.graph = nx.Graph()
-        self.graph.add_node(0)
-        self.graph.add_node(1)
-        self.graph.add_node(2)
+        self.graph.add_node(0, weight=2)
+        self.graph.add_node(1, weight=1)
+        self.graph.add_node(2, weight=1)
         self.graph.add_edge(0, 1, weight=10)
         self.graph.add_edge(0, 2, weight=5)
 
@@ -32,14 +32,14 @@ class TestConnectivityGraph(unittest.TestCase):
         self.assertEqual(lines[1], "2 3")
         self.assertEqual(lines[2], "1")
         self.assertEqual(lines[3], "1")
-        lines = write_metis_graph(nx.to_numpy_array(self.graph), eweight=True)
+        lines = write_metis_graph(nx.to_numpy_array(self.graph), eweights=True)
         self.assertEqual(lines[0], "3 2 001")
         self.assertEqual(lines[1], "2 10 3 5")
         self.assertEqual(lines[2], "1 10")
         self.assertEqual(lines[3], "1 5")
         lines = write_metis_graph(
-            nx.to_numpy_array(self.graph), eweight=True,
-            vweight=nx.get_node_attributes(self.graph, "weight"))
+            nx.to_numpy_array(self.graph), eweights=True,
+            vweights=nx.get_node_attributes(self.graph, "weight"))
         self.assertEqual(lines[0], "3 2 011")
         self.assertEqual(lines[1], "2 2 10 3 5")
         self.assertEqual(lines[2], "1 1 10")
