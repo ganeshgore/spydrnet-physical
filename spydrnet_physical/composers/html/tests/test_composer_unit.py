@@ -232,6 +232,7 @@ class TestHTMLComposer(unittest.TestCase):
         self.assertTrue(self.match_output(ELKJsonObj, currNode),
                         "Wrong default value for port")
 
+    @expectedFailure
     def test_add_edges_2(self):
         inport = "in_port"
         outport = "out_port"

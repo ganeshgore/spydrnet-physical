@@ -22,7 +22,7 @@ class TestConnectivityGraph(unittest.TestCase):
         xadj, adjncy, eweights = \
             prepare_graph_from_nx(nx.to_numpy_array(self.graph))
         self.assertEqual(xadj, [0, 2, 3, 4])
-        self.assertEqual(adjncy, [2, 3, 1, 1])
+        self.assertEqual(adjncy, [1, 2, 0, 0])
         self.assertEqual(eweights, [10.0, 5.0, 10.0, 5.0])
 
     def test_write_metis_graph(self):
