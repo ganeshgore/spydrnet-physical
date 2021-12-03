@@ -42,22 +42,6 @@ class RoutingRender:
         self.spacing = int(spacing) or self.spacing
 
     @staticmethod
-    def _get_max_index(ele):
-        return max([int(i.attrib["index"])for i in ele] + [-1])+1
-
-    @staticmethod
-    def set_bit(x, indx):
-        x[int(indx)] = 'x'
-
-    @staticmethod
-    def set_vbit(x, indx):
-        x[int(indx)] = 'l' if int(indx) % 2 else "r"
-
-    @staticmethod
-    def set_hbit(x, indx):
-        x[int(indx)] = 't' if int(indx) % 2 else "b"
-
-    @staticmethod
     def render_ipin(sw):
         size = sw.shape
         format_str = "{:<6} {:<6} {:^%d} " % size[1]
@@ -70,6 +54,40 @@ class RoutingRender:
             count = row.size - list(row).count("_")
             print(format_str.format(indx, count, "".join(row)))
 
+    @staticmethod
+    def _get_max_index(ele):
+        return max([int(i.attrib["index"])for i in ele] + [-1])+1
+
+    @staticmethod
+    def _set_bit(x, indx):
+        x[int(indx)] = 'x'
+
+    @staticmethod
+    def _set_vbit(x, indx):
+        x[int(indx)] = 'l' if int(indx) % 2 else "r"
+
+    @staticmethod
+    def _set_hbit(x, indx):
+        x[int(indx)] = 't' if int(indx) % 2 else "b"
+
+    @ staticmethod
+    def _print_stat_header():
+        """
+        Prints header for statistics information
+
+        module
+        chanx_l  chanx_r  chany_t  chany_b
+        ipin_t   ipin_b   ipin_r   ipin_l
+        opin_l   opin_r   opin_t   opin_b
+        """
+        print("=="*80)
+        print("%15s %8s %8s %8s %8s %8s %8s %8s %8s %15s %15s %15s %15s" %
+              ('module',
+               'chanx_l', 'chanx_r', 'chany_t', 'chany_b',
+               'ipin_t', 'ipin_b', 'ipin_r', 'ipin_l',
+               'opin_l', 'opin_r', 'opin_t', 'opin_b'))
+        print("=="*80)
+
     def report_ipins(self, side, show=True):
         format_str = "{:^6s} {:^6s} {:^45s} "
         items = {"left": self.ipin_l,
@@ -80,10 +98,10 @@ class RoutingRender:
                        'top', 'bottom'] else self.chany_len], dtype=np.str)
         for chan in items:
             ChanX = ['_']*self.chanx_len
-            _ = [self.set_bit(ChanX, e.attrib['index'])
+            _ = [self._set_bit(ChanX, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANX"]')]
             ChanY = ['_']*self.chany_len
-            _ = [self.set_bit(ChanY, e.attrib['index'])
+            _ = [self._set_bit(ChanY, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANY"]')]
             flags = ChanX if side in ['top', 'bottom'] else ChanY
             arr = np.vstack([arr, flags])
@@ -91,10 +109,11 @@ class RoutingRender:
             self.render_ipin(arr)
         return arr
 
-    def report_incoming_connection(self, side):
+    def report_incoming_channels(self, side):
         """
-        This prints the channel information of given switch box 
-        for a given direction channels
+        This prints incoming channels in the given switch box 
+        from the given direction
+        ``index, Mux, ChanX, Chany, OPIN_L, OPIN_R, OPIN_T, OPIN_B``
         """
         format_str = "{:^6s} {:^6s} {:^45s} {:^45s} {:^10s} {:^10s} {:^10s} {:^10s}"
         print("= = "*40)
@@ -106,22 +125,22 @@ class RoutingRender:
                  "top": self.chany_t, "bottom": self.chany_b}[side]
         for chan in items:
             ChanX = ['_']*self.chanx_len
-            _ = [self.set_vbit(ChanX, e.attrib['index'])
+            _ = [self._set_vbit(ChanX, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANX"]')]
             ChanY = ['_']*self.chany_len
-            _ = [self.set_hbit(ChanY, e.attrib['index'])
+            _ = [self._set_hbit(ChanY, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANY"]')]
             OPIN_L = ['_']*self.opin_l_len
-            _ = [self.set_bit(OPIN_L, e.attrib['index'])
+            _ = [self._set_bit(OPIN_L, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="OPIN"][@side="left"]')]
             OPIN_R = ['_']*self.opin_l_len
-            _ = [self.set_bit(OPIN_R, e.attrib['index'])
+            _ = [self._set_bit(OPIN_R, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="OPIN"][@side="right"]')]
             OPIN_T = ['_']*self.opin_l_len
-            _ = [self.set_bit(OPIN_T, e.attrib['index'])
+            _ = [self._set_bit(OPIN_T, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="OPIN"][@side="top"]')]
             OPIN_B = ['_']*self.opin_l_len
-            _ = [self.set_bit(OPIN_B, e.attrib['index'])
+            _ = [self._set_bit(OPIN_B, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="OPIN"][@side="bottom"]')]
             print(format_str.format(
                 chan.attrib["index"],
@@ -133,7 +152,7 @@ class RoutingRender:
                 ''.join(OPIN_T),
                 ''.join(OPIN_B)))
 
-    def report_channel_connection(self, side):
+    def report_outgoing_channels(self, side):
         """
         This prints the channel information of given switch box 
         for a given direction channels
@@ -148,22 +167,22 @@ class RoutingRender:
                  "top": self.chany_t, "bottom": self.chany_b}[side]
         for chan in items:
             ChanX = ['_']*self.chanx_len
-            _ = [self.set_vbit(ChanX, e.attrib['index'])
+            _ = [self._set_vbit(ChanX, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANX"]')]
             ChanY = ['_']*self.chany_len
-            _ = [self.set_hbit(ChanY, e.attrib['index'])
+            _ = [self._set_hbit(ChanY, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANY"]')]
             OPIN_L = ['_']*self.opin_l_len
-            _ = [self.set_bit(OPIN_L, e.attrib['index'])
+            _ = [self._set_bit(OPIN_L, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="OPIN"][@side="left"]')]
             OPIN_R = ['_']*self.opin_l_len
-            _ = [self.set_bit(OPIN_R, e.attrib['index'])
+            _ = [self._set_bit(OPIN_R, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="OPIN"][@side="right"]')]
             OPIN_T = ['_']*self.opin_l_len
-            _ = [self.set_bit(OPIN_T, e.attrib['index'])
+            _ = [self._set_bit(OPIN_T, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="OPIN"][@side="top"]')]
             OPIN_B = ['_']*self.opin_l_len
-            _ = [self.set_bit(OPIN_B, e.attrib['index'])
+            _ = [self._set_bit(OPIN_B, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="OPIN"][@side="bottom"]')]
             print(format_str.format(
                 chan.attrib["index"],
@@ -194,6 +213,7 @@ class RoutingRender:
         self.chanx_drivers_l = \
             root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]') + \
             root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]')
+
         self.chanx_drivers_r = \
             root.findall('.//CHANX/driver_node[@type="CHANX"][@side="right"]') + \
             root.findall('.//CHANX/driver_node[@type="CHANX"][@side="right"]')
@@ -311,30 +331,12 @@ class RoutingRender:
             e for e in self.opin_b if e.attrib["grid_side"] == "right"]
         self.opin_b_r_len = self._get_max_index(self.opin_b_r)
 
-    @ staticmethod
-    def print_stat_header():
-        """
-        Prints header for statistics information
-
-        module
-        chanx_l  chanx_r  chany_t  chany_b
-        ipin_t   ipin_b   ipin_r   ipin_l
-        opin_l   opin_r   opin_t   opin_b
-        """
-        print("=="*80)
-        print("%15s %8s %8s %8s %8s %8s %8s %8s %8s %15s %15s %15s %15s" %
-              ('module',
-               'chanx_l', 'chanx_r', 'chany_t', 'chany_b',
-               'ipin_t', 'ipin_b', 'ipin_r', 'ipin_l',
-               'opin_l', 'opin_r', 'opin_t', 'opin_b'))
-        print("=="*80)
-
     def get_stats(self, print_header=False, noprint=False):
         """
         Prints switch box statistics
         """
         if print_header:
-            self.print_stat_header()
+            self._print_stat_header()
         msg = ("%15s %8s %8s %8s %8s %8s %8s %8s %8s %15s %15s %15s %15s" %
                (self.name,
                 self.chanx_l_len, self.chanx_r_len,
@@ -349,7 +351,39 @@ class RoutingRender:
             print(msg)
         return msg
 
-    def add_left_channels(self):
+    def save(self, filename=None):
+        """ Save SVG file"""
+        self._add_stylehseet()
+        filename = filename or "_"+self.name+".svg"
+        margin = 200
+        width, height = self.x_max_4-self.x_min_4, self.y_max_4-self.y_min_4
+        viewbox = (self.x_min_4-margin, -1*(self.y_max_4+margin),
+                   width+2*margin, height+2*margin)
+        self.dwg.viewbox(*viewbox)
+        logger.debug(f"Saving svg {filename}")
+        self.dwg.saveas(filename, pretty=True)
+
+    def render_switch_pattern(self):
+        """
+        Create SVG object rendering all the switchs from switch box
+        """
+        self._add_partitions()
+        self._add_origin_marker()
+        self._add_channels()
+        self._add_opins()
+        # ====================================
+        #         Create channels
+        # ====================================
+        self._add_left_channels()
+        self._add_right_channels()
+        self._add_top_channels()
+        self._add_bottom_channels()
+        # ====================================
+        #         Added Input Pins
+        # ====================================
+        self._add_ipins()
+
+    def _add_left_channels(self):
         """
         Creates horizontal channels
         """
@@ -400,7 +434,7 @@ class RoutingRender:
                             y_line)
                 term_indx += 1
 
-    def add_right_channels(self):
+    def _add_right_channels(self):
         """
         Creates horizontal channels
         """
@@ -452,7 +486,7 @@ class RoutingRender:
                             y_line)
                 term_indx += 1
 
-    def add_top_channels(self):
+    def _add_top_channels(self):
         """
         Creates horizontal channels
         """
@@ -502,7 +536,7 @@ class RoutingRender:
                             self.y_max_2 + offset + self.spacing)
                 term_indx += 1
 
-    def add_bottom_channels(self):
+    def _add_bottom_channels(self):
         """
         Creates horizontal channels
         """
@@ -552,7 +586,7 @@ class RoutingRender:
                             self.y_min_2 - offset - self.spacing)
                 term_indx += 1
 
-    def add_channels(self):
+    def _add_channels(self):
         """
         Adds horizontal driver lines 
         """
@@ -626,7 +660,7 @@ class RoutingRender:
                                       insert=(end[0], -1*end[-1])))
             visited_pins.append(curr_pin)
 
-    def add_ipins(self):
+    def _add_ipins(self):
         for ele in self.ipin_t + self.ipin_b + self.ipin_r + self.ipin_l:
             index = int(ele.attrib["index"])
             side = ele.attrib["side"]
@@ -666,7 +700,7 @@ class RoutingRender:
                     self._add_switch_at(
                         offset, start[1])
 
-    def add_opins(self):
+    def _add_opins(self):
 
         for ele in self.opin_l + self.opin_r + self.opin_t + self.opin_b:
             index = int(ele.attrib["index"])
@@ -801,26 +835,6 @@ class RoutingRender:
         #                 center=(cx, cy), r=10, class_="switch"
         #             ))
 
-    def render_switch_pattern(self):
-        """
-        Create SVG object rendering all the switchs from switch box
-        """
-        self._add_partitions()
-        self._add_origin_marker()
-        self.add_channels()
-        self.add_opins()
-        # ====================================
-        #         Create channels
-        # ====================================
-        self.add_left_channels()
-        self.add_right_channels()
-        self.add_top_channels()
-        self.add_bottom_channels()
-        # ====================================
-        #         Added Input Pins
-        # ====================================
-        self.add_ipins()
-
     def _add_origin_marker(self):
         self.dwgbg.add(shapes.Line(start=(0, 1*self.scale),
                                    end=(0, -1*self.scale),
@@ -828,18 +842,6 @@ class RoutingRender:
         self.dwgbg.add(shapes.Line(start=(1*self.scale, 0),
                                    end=(-1*self.scale, 0),
                                    class_="origin"))
-
-    def save(self, filename=None):
-        """ Save SVG file"""
-        self.add_stylehseet()
-        filename = filename or "_"+self.name+".svg"
-        margin = 200
-        width, height = self.x_max_4-self.x_min_4, self.y_max_4-self.y_min_4
-        viewbox = (self.x_min_4-margin, -1*(self.y_max_4+margin),
-                   width+2*margin, height+2*margin)
-        self.dwg.viewbox(*viewbox)
-        logger.debug(f"Saving svg {filename}")
-        self.dwg.saveas(filename, pretty=True)
 
     def _create_arrowhead(self, hex_color):
         DRMarker = self.dwg.marker(refX="30", refY="30",
@@ -860,7 +862,7 @@ class RoutingRender:
         self.dwg.defs.add(DRMarker)
         return DRMarker
 
-    def add_stylehseet(self):
+    def _add_stylehseet(self):
         '''
         Adds custom stylesheet to the SVG image
         '''
