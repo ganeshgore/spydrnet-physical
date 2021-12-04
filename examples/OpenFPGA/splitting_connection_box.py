@@ -29,6 +29,7 @@ from itertools import chain
 from pprint import pprint
 import networkx as nx
 from fnmatch import fnmatch
+import numpy as np
 
 import pymetis
 import pydot
@@ -39,6 +40,7 @@ from spydrnet_physical.util import OpenFPGA, config_chain_simple, get_names
 from spydrnet_physical.util.get_floorplan import FloorPlanViz
 from spydrnet_physical.util.shell import launch_shell
 from spydrnet_physical.util import write_metis_graph, run_metis
+from spydrnet_physical.util import RoutingRender
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
@@ -186,6 +188,19 @@ def main():
         fp.write("\n".join(partitions[0]))
     with open("_graph.part.1", "w") as fp:
         fp.write("\n".join(partitions[1]))
+
+    sb11_gsb = "homogeneous_fabric/FPGA44_gsb/sb_1__1_.xml"
+    sb_render = RoutingRender("sb_1__1_", sb11_gsb)
+    sw_top = sb_render.report_ipins("top", show=False)
+    sw_top[sw_top == 'x'] = "t"
+    sw_bottom = sb_render.report_ipins("bottom", show=False)
+    sw_bottom[sw_bottom == 'x'] = "b"
+    sw = np.vstack([sw_top, sw_bottom])
+    sb_render.render_ipin(sw)
+    top = [int(e.split("_")[-2]) for e in partitions[0] if "chanx" in e]
+    bottom = [int(e.split("_")[-2])+20 for e in partitions[1] if "chanx" in e]
+    sb_render.render_ipin(sw[:, top])
+    sb_render.render_ipin(sw[:, bottom])
 
     graph.set_rankdir("LR")
     graph.write_dot('_graph.dot')
