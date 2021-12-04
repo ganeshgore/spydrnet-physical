@@ -18,21 +18,6 @@ class RoutingRender:
         self.gsb_xml = gsb_xml
         self.root = ET.parse(self.gsb_xml).getroot()
         self.extract_info()
-        # Variables for SVG rendering
-        self.dwg = Drawing()
-        self.dwgbg = self.dwg.add(Group(id="bg"))
-        self.region = self.dwg.add(Group(id="region", transform="scale(1,-1)"))
-        self.core = self.dwg.add(Group(id="mainframe"))
-        self.dwgShapes = self.core.add(Group(id="mainShapes",
-                                             transform="scale(1,-1)"))
-        self.switches = self.core.add(Group(id="switches",
-                                            transform="scale(1,-1)"))
-        self.dwgText = self.core.add(Group(id="mainText",
-                                           transform="scale(1,-1)"))
-        self.marker_red = self._create_arrowhead('red')
-        self.marker_green = self._create_arrowhead('green')
-        self.marker_blue = self._create_arrowhead('blue')
-        self.marker_terminate = self._create_termination('blue')
 
     def update_dimensions(self, scale, spacing):
         """
@@ -363,10 +348,31 @@ class RoutingRender:
         logger.debug(f"Saving svg {filename}")
         self.dwg.saveas(filename, pretty=True)
 
+    def render_connection_box(self, side):
+        """
+        Render connections box in SVG format
+        """
+        self._add_partitions()
+        self._add_origin_marker()
+        self._add_channels()
+        self._add_opins()
+        # ====================================
+        #         Create channels
+        # ====================================
+        self._add_left_channels()
+        self._add_right_channels()
+        self._add_top_channels()
+        self._add_bottom_channels()
+        # ====================================
+        #         Added Input Pins
+        # ====================================
+        self._add_ipins()
+
     def render_switch_pattern(self):
         """
         Create SVG object rendering all the switchs from switch box
         """
+        self._setup_svg()
         self._add_partitions()
         self._add_origin_marker()
         self._add_channels()
@@ -912,3 +918,20 @@ class RoutingRender:
                 .in_pin{fill: blue !important;}
                 .out_pin{fill: red !important;}
             """))
+
+    def _setup_svg(self):
+        # Variables for SVG rendering
+        self.dwg = Drawing()
+        self.dwgbg = self.dwg.add(Group(id="bg"))
+        self.region = self.dwg.add(Group(id="region", transform="scale(1,-1)"))
+        self.core = self.dwg.add(Group(id="mainframe"))
+        self.dwgShapes = self.core.add(Group(id="mainShapes",
+                                             transform="scale(1,-1)"))
+        self.switches = self.core.add(Group(id="switches",
+                                            transform="scale(1,-1)"))
+        self.dwgText = self.core.add(Group(id="mainText",
+                                           transform="scale(1,-1)"))
+        self.marker_red = self._create_arrowhead('red')
+        self.marker_green = self._create_arrowhead('green')
+        self.marker_blue = self._create_arrowhead('blue')
+        self.marker_terminate = self._create_termination('blue')
