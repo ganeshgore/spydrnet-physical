@@ -1,7 +1,7 @@
 
 """
-Example to show OpenFPGA architecture Parsing
-==============================================
+OpenFPGA architecture Parsing
+=============================
 
 """
 import os

@@ -16,7 +16,7 @@
 import os
 import sys
 import pathlib
-sys.path.insert(0,os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../..'))  # nopep8
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from sphinx_gallery.sorting import ExplicitOrder

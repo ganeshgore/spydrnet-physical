@@ -1,20 +1,17 @@
 """
-=====================
-Rendering Switch Box
-=====================
+============================
+Partitioning Connection Box  
+============================
 
-This example demostrate how a switchbox adn connection box  
-can be rendered in a SVG format. 
+This example demonstrate how pre tech mapped netlist of connection box 
+can be partition based on switch patterns. 
 
-It also shows a simple switch partitionong scheme which splits 
-the connection box switches in to two partition with mnimum 
-connectivity.
+1. Calculate difference beetween top and bottom switches on each channels 
+2. Sort each channel based on difference 
+3. Partition where difference crosses 0 
+4. In case thee are multiple point with 0 difference split them equally in both 
+partition
 
-.. image:: ../../../examples/OpenFPGA/_sb_1__1_.svg
-    :width: 500px
-    :align: center
-
-TODO: Extend it to all the switch boxes 
 """
 
 import glob
