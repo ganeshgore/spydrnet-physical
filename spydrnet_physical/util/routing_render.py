@@ -348,11 +348,11 @@ class RoutingRender:
         logger.debug(f"Saving svg {filename}")
         self.dwg.saveas(filename, pretty=True)
 
-    def _add_left_connection_box(self):
+    def _add_left_connection_box(self, pinmap=None):
         self.chanx_l_out_map = []
         left_drivers = [e.attrib["index"] for e in self.chanx_l]
         for index in range(self.chanx_len):
-            offset = self.x_min_0+self.spacing + index*self.scale
+            offset = self.x_min_0+self.spacing + pinmap(index)*self.scale
             self.chanx_l_out_map.append(offset)
             marker = self.marker_blue
             start = (self.y_min_4, offset)
@@ -375,11 +375,11 @@ class RoutingRender:
                                   insert=(end[0], -1*end[-1])))
         self._add_ipins(side="left")
 
-    def _add_top_connection_box(self):
+    def _add_top_connection_box(self, pinmap=None):
         self.chany_t_out_map = []
         left_drivers = [e.attrib["index"] for e in self.chany_t]
         for index in range(self.chany_len):
-            offset = self.y_min_0+self.spacing + index*self.scale
+            offset = self.y_min_0+self.spacing + pinmap(index)*self.scale
             self.chany_t_out_map.append(offset)
             marker = self.marker_blue
             start = (offset, self.x_max_4)
@@ -402,16 +402,17 @@ class RoutingRender:
                                   insert=(end[0], -1*end[-1])))
         self._add_ipins(side="top")
 
-    def render_connection_box(self, side, filename=None):
+    def render_connection_box(self, side, pinmap=None, filename=None):
         """
         Render connections box in SVG format
         """
         self._setup_svg()
         self._add_origin_marker()
+        pinmap = pinmap or (lambda x: x)
         if side == "top":
-            self._add_top_connection_box()
+            self._add_top_connection_box(pinmap=pinmap)
         else:
-            self._add_left_connection_box()
+            self._add_left_connection_box(pinmap=pinmap)
         if filename:
             margin = 200
             width = (
@@ -759,7 +760,8 @@ class RoutingRender:
             # Add Switches
             for switch in ele.getchildren():
                 index = int(switch.attrib["index"])
-                offset = self.chanx_l_out_map[index]
+                offset = self.chanx_l_out_map[index] if side in ['top', 'bottom'] \
+                    else self.chany_t_out_map[index]
                 if side in ["top", "bottom"]:
                     self._add_switch_at(
                         start[0], offset)
