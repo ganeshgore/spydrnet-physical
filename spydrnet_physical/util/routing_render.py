@@ -96,7 +96,7 @@ class RoutingRender:
 
     def report_incoming_channels(self, side):
         """
-        This prints incoming channels in the given switch box 
+        This prints incoming channels in the given switch box
         from the given direction
         ``index, Mux, ChanX, Chany, OPIN_L, OPIN_R, OPIN_T, OPIN_B``
         """
@@ -139,7 +139,7 @@ class RoutingRender:
 
     def report_outgoing_channels(self, side):
         """
-        This prints the channel information of given switch box 
+        This prints the channel information of given switch box
         for a given direction channels
         """
         format_str = "{:^6s} {:^6s} {:^45s} {:^45s} {:^10s} {:^10s} {:^10s} {:^10s}"
@@ -336,37 +336,93 @@ class RoutingRender:
             print(msg)
         return msg
 
-    def save(self, filename=None):
+    def save(self, filename=None, viewbox=None):
         """ Save SVG file"""
         self._add_stylehseet()
         filename = filename or "_"+self.name+".svg"
         margin = 200
         width, height = self.x_max_4-self.x_min_4, self.y_max_4-self.y_min_4
-        viewbox = (self.x_min_4-margin, -1*(self.y_max_4+margin),
-                   width+2*margin, height+2*margin)
+        viewbox = viewbox or (self.x_min_4-margin, -1*(self.y_max_4+margin),
+                              width+2*margin, height+2*margin)
         self.dwg.viewbox(*viewbox)
         logger.debug(f"Saving svg {filename}")
         self.dwg.saveas(filename, pretty=True)
 
-    def render_connection_box(self, side):
+    def _add_left_connection_box(self):
+        self.chanx_l_out_map = []
+        left_drivers = [e.attrib["index"] for e in self.chanx_l]
+        for index in range(self.chanx_len):
+            offset = self.x_min_0+self.spacing + index*self.scale
+            self.chanx_l_out_map.append(offset)
+            marker = self.marker_blue
+            start = (self.y_min_4, offset)
+            end = (self.y_min_3, offset)
+            class_ = "lr"
+            if str(index) in left_drivers:
+                marker = self.marker_red
+                start, end = end, start
+                class_ = "rl"
+            self.dwgShapes.add(shapes.Line(start=start, end=end,
+                                           marker_end=marker.get_funciri(),
+                                           class_=f"channel {class_}_chan"))
+            self.dwgText.add(Text(index,
+                                  transform="scale(1,-1)",
+                                  class_=f"{class_}_text",
+                                  insert=(start[0], -1*start[-1])))
+            self.dwgText.add(Text(index,
+                                  transform="scale(1,-1)",
+                                  class_=f"{class_}_text",
+                                  insert=(end[0], -1*end[-1])))
+        self._add_ipins(side="left")
+
+    def _add_top_connection_box(self):
+        self.chany_t_out_map = []
+        left_drivers = [e.attrib["index"] for e in self.chany_t]
+        for index in range(self.chany_len):
+            offset = self.y_min_0+self.spacing + index*self.scale
+            self.chany_t_out_map.append(offset)
+            marker = self.marker_blue
+            start = (offset, self.x_max_4)
+            end = (offset, self.x_max_3)
+            class_ = "lr"
+            if str(index) in left_drivers:
+                marker = self.marker_red
+                start, end = end, start
+                class_ = "rl"
+            self.dwgShapes.add(shapes.Line(start=start, end=end,
+                                           marker_end=marker.get_funciri(),
+                                           class_=f"channel {class_}_chan"))
+            self.dwgText.add(Text(index,
+                                  transform="scale(1,-1)",
+                                  class_=f"{class_}_text",
+                                  insert=(start[0], -1*start[-1])))
+            self.dwgText.add(Text(index,
+                                  transform="scale(1,-1)",
+                                  class_=f"{class_}_text",
+                                  insert=(end[0], -1*end[-1])))
+        self._add_ipins(side="top")
+
+    def render_connection_box(self, side, filename=None):
         """
         Render connections box in SVG format
         """
-        self._add_partitions()
+        self._setup_svg()
         self._add_origin_marker()
-        self._add_channels()
-        self._add_opins()
-        # ====================================
-        #         Create channels
-        # ====================================
-        self._add_left_channels()
-        self._add_right_channels()
-        self._add_top_channels()
-        self._add_bottom_channels()
-        # ====================================
-        #         Added Input Pins
-        # ====================================
-        self._add_ipins()
+        if side == "top":
+            self._add_top_connection_box()
+        else:
+            self._add_left_connection_box()
+        if filename:
+            margin = 200
+            width = (
+                self.x_max_4-self.x_min_4) if side == 'top' else (self.x_max_4-self.x_max_3)
+            height = (
+                self.y_max_4-self.y_min_4) if side == 'left' else (self.y_max_4-self.y_max_3)
+            llx = self.x_min_4-margin
+            lly = self.y_max_4+margin
+            viewbox = (llx, -1*lly,
+                       width+(2*margin), height+(2*margin))
+            self.save(filename, viewbox=viewbox)
 
     def render_switch_pattern(self):
         """
@@ -387,7 +443,8 @@ class RoutingRender:
         # ====================================
         #         Added Input Pins
         # ====================================
-        self._add_ipins()
+        self._add_ipins(side='left')
+        self._add_ipins(side='top')
 
     def _add_left_channels(self):
         """
@@ -594,7 +651,7 @@ class RoutingRender:
 
     def _add_channels(self):
         """
-        Adds horizontal driver lines 
+        Adds horizontal driver lines
         """
         pass_through = {"%s%d" % (ele[0].attrib["side"], int(ele[0].attrib["index"])): int(ele.attrib["index"])
                         for ele in self.ft_left+self.ft_right+self.ft_top+self.ft_bottom}
@@ -666,8 +723,12 @@ class RoutingRender:
                                       insert=(end[0], -1*end[-1])))
             visited_pins.append(curr_pin)
 
-    def _add_ipins(self):
-        for ele in self.ipin_t + self.ipin_b + self.ipin_r + self.ipin_l:
+    def _add_ipins(self, side="left"):
+        if side is "left":
+            ipins = self.ipin_t + self.ipin_b
+        else:
+            ipins = self.ipin_r + self.ipin_l
+        for ele in ipins:
             index = int(ele.attrib["index"])
             side = ele.attrib["side"]
             marker = self.marker_red
@@ -874,6 +935,7 @@ class RoutingRender:
         '''
         self.dwg.defs.add(self.dwg.style("""
                 text{font-family: LATO; font-weight: 800; font-size: 25px;}
+                svg{outline: 1px solid grey; outline-offset: -2px;}
                 .module_boundary{fill:#f4f0e6}
                 .origin{stroke: red; stroke-width: 1;}
                 .channel{stroke: grey; stroke-width: 4;}

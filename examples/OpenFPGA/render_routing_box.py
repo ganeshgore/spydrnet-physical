@@ -10,7 +10,21 @@ It also shows a simple switch partitionong scheme which splits
 the connection box switches in to two partition with mnimum 
 connectivity.
 
+**Full Switch Box**
+
 .. image:: ../../../examples/OpenFPGA/_sb_1__1_.svg
+    :width: 500px
+    :align: center
+
+**Left Connection Box**
+
+.. image:: ../../../examples/OpenFPGA/_cbx_1__1_.svg
+    :width: 100px
+    :align: center
+
+**Top Connection Box** 
+
+.. image:: ../../../examples/OpenFPGA/_cbx_1__2_.svg
     :width: 500px
     :align: center
 
@@ -46,6 +60,8 @@ def main():
         # Render full switch-box and save as SVG
         sb_render.render_switch_pattern()
         sb_render.save(filename="_sb_1__1_.svg")
+        sb_render.render_connection_box('left', filename="_cbx_1__1_.svg")
+        sb_render.render_connection_box('top', filename="_cbx_1__2_.svg")
 
         # Report incoming channel information
         print("\n left incoming channels")
