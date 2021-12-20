@@ -68,7 +68,7 @@ fishbone_pattern.get_top_instance = get_top_instance
 
 clk_cable = top_definition.create_cable("clk", wires=1)
 
-fishbone_pattern.create_ft_ports(netlist, clk_cable)
+fishbone_pattern.create_ft_ports(netlist, "clk")
 print()
 fishbone_pattern.create_ft_connection(top_definition, clk_cable)
 
@@ -83,12 +83,12 @@ sdn.compose(netlist, '_feedthrough_design.v',
 top_definition.properties["WIDTH"] = "700"
 top_definition.properties["HEIGHT"] = "700"
 
-next(top_definition.get_cables("row1")).split_cable()
-next(top_definition.get_cables("row2")).split_cable()
-next(top_definition.get_cables("row3")).split_cable()
-next(top_definition.get_cables("row4")).split_cable()
+next(top_definition.get_cables("row1")).split()
+next(top_definition.get_cables("row2")).split()
+next(top_definition.get_cables("row3")).split()
+next(top_definition.get_cables("row4")).split()
 
-next(top_definition.get_cables("clk_ft")).split_cable()
+next(top_definition.get_cables("clk_ft")).split()
 
 
 next(top_definition.get_ports("in_3")).properties["SIDE"] = "left"

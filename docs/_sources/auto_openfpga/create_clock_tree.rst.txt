@@ -41,8 +41,53 @@ Create Clock Tree Embedding
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    <class 'spydrnet.ir.Instance'; name 'inst_1_11'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_21'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_31'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_41'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_12'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_22'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_32'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_42'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_13'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_23'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_33'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_43'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_14'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_24'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_34'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_44'; parent definition.name 'top'; reference definition.name 'module1'>
+
+    <class 'spydrnet.ir.Instance'; name 'inst_1_11'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_21'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_31'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_41'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_12'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_22'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_32'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_42'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_13'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_23'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_33'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_43'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_14'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_24'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_34'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'inst_1_44'; parent definition.name 'top'; reference definition.name 'module1'>
+    <class 'spydrnet.ir.Instance'; name 'clk_clk_ft_assign'; parent definition.name 'top'; reference definition.name 'SDN_VERILOG_ASSIGNMENT_1'>
 
 
+
+
+
+
+|
 
 .. code-block:: default
 
@@ -96,7 +141,7 @@ Create Clock Tree Embedding
 
     clk_cable = top_definition.create_cable("clk", wires=1)
 
-    fishbone_pattern.create_ft_ports(netlist, clk_cable)
+    fishbone_pattern.create_ft_ports(netlist, "clk")
     print()
     fishbone_pattern.create_ft_connection(top_definition, clk_cable)
 
@@ -111,12 +156,12 @@ Create Clock Tree Embedding
     top_definition.properties["WIDTH"] = "700"
     top_definition.properties["HEIGHT"] = "700"
 
-    next(top_definition.get_cables("row1")).split_cable()
-    next(top_definition.get_cables("row2")).split_cable()
-    next(top_definition.get_cables("row3")).split_cable()
-    next(top_definition.get_cables("row4")).split_cable()
+    next(top_definition.get_cables("row1")).split()
+    next(top_definition.get_cables("row2")).split()
+    next(top_definition.get_cables("row3")).split()
+    next(top_definition.get_cables("row4")).split()
 
-    next(top_definition.get_cables("clk_ft")).split_cable()
+    next(top_definition.get_cables("clk_ft")).split()
 
 
     next(top_definition.get_ports("in_3")).properties["SIDE"] = "left"
@@ -176,7 +221,7 @@ Create Clock Tree Embedding
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.056 seconds)
+   **Total running time of the script:** ( 0 minutes  0.054 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_create_clock_tree.py:

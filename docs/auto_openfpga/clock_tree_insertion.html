@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Renaming Homogeneous FPGA Modules" href="rename_modules.html" /><link rel="prev" title="Extracing configuration chain order from each module" href="extract_configuration_order.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="OpenFPGA architecture Parsing" href="fpga_arch_parse.html" /><link rel="prev" title="Extract configuration chain order" href="extract_configuration_order.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>H-Tree insertion in FPGA Tilable grid - SpyDrNet-Physical alpha documentation</title>
@@ -186,6 +186,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/base.html">OpenFPGA Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/routing_render.html">Routing Render</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../reference/openfpga/tile01.html">Tile-01</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/tile.html">Tile</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/left-tile.html">Left-Tile</a></li>
@@ -205,6 +206,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/grid_example.html">grid_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/nested_hierarchy.html">nested_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
@@ -212,19 +214,27 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">Display Netlist Information Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/group_ungroup_cells.html">Grouping ungrouping cells</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_multiple_instances.html">Merging group of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/partitioning_experiments.html">Partitions Experimentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_hierarchical_netlist.html">Visualise Hierarchical Netlist</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="configuration_chain.html">Adding configuration chain to the fabric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">Extracing configuration chain order from each module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">Extract configuration chain order</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="switch_partition_01.html">Partitioning Connection Box</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="render_routing_box.html">Rendering Switch Box</a></li>
 </ul>
 </li>
 </ul>
@@ -296,12 +306,12 @@ to download the full example code</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="rename_modules.html">
+          <a class="next-page" href="fpga_arch_parse.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Renaming Homogeneous FPGA Modules</div>
+                <div class="title">OpenFPGA architecture Parsing</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -312,7 +322,7 @@ to download the full example code</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Extracing configuration chain order from each module</div>
+                <div class="title">Extract configuration chain order</div>
                 
               </div>
             </a>

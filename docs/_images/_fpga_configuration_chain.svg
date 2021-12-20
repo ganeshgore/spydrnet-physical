@@ -1,0 +1,1027 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-2100,2100,2100" width="100%">
+    <defs>
+        <style type="text/css"><![CDATA[
+            text{font-family: LATO; font-weight: 800; font-size: 5px;}
+            .module_boundary{fill:#f4f0e6}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        ]]></style>
+        <symbol id="fpga_top">
+            <rect class="module_boundary" fill="white" height="1999" stroke="grey" stroke-width="2" width="1999" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="998.0" y="998.0"/>
+            <text class="pin center_pin" x="998.0" y="-998.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="998.0" y="998.0"/>
+            <text class="pin center_pin" x="998.0" y="-998.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="998.0" y="998.0"/>
+            <text class="pin center_pin" x="998.0" y="-998.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="998.0" y="998.0"/>
+            <text class="pin center_pin" x="998.0" y="-998.0">reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="998.0" y="998.0"/>
+            <text class="pin center_pin" x="998.0" y="-998.0">clk</text>
+            <rect class="module_pin inout_pin" height="4" onmousemove="showTooltip(evt, 'gfpga_pad_GPIO_PAD');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="998.0" y="998.0"/>
+            <text class="pin center_pin" x="998.0" y="-998.0">gfpga_pad_GPIO_PAD</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="1997.0" y="1948.0"/>
+            <text class="pin right_pin" x="1997.0" y="-1948.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="1997.0" y="248.0"/>
+            <text class="pin right_pin" x="1997.0" y="-248.0">ccff_tail</text>
+        </symbol>
+        <symbol id="grid_clb">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_out</text>
+        </symbol>
+        <symbol id="grid_io_top">
+            <rect class="module_boundary" fill="white" height="35" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">prog_clk</text>
+            <rect class="module_pin inout_pin" height="4" onmousemove="showTooltip(evt, 'gfpga_pad_GPIO_PAD');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">gfpga_pad_GPIO_PAD</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bottom_width_0_height_0_subtile_0__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">bottom_width_0_height_0_subtile_0__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bottom_width_0_height_0_subtile_1__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">bottom_width_0_height_0_subtile_1__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bottom_width_0_height_0_subtile_2__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">bottom_width_0_height_0_subtile_2__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bottom_width_0_height_0_subtile_3__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">bottom_width_0_height_0_subtile_3__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bottom_width_0_height_0_subtile_4__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">bottom_width_0_height_0_subtile_4__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bottom_width_0_height_0_subtile_5__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">bottom_width_0_height_0_subtile_5__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bottom_width_0_height_0_subtile_6__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">bottom_width_0_height_0_subtile_6__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bottom_width_0_height_0_subtile_7__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">bottom_width_0_height_0_subtile_7__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'io_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">io_bottom_in</text>
+        </symbol>
+        <symbol id="grid_io_right">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="31" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin inout_pin" height="4" onmousemove="showTooltip(evt, 'gfpga_pad_GPIO_PAD');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">gfpga_pad_GPIO_PAD</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'left_width_0_height_0_subtile_0__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">left_width_0_height_0_subtile_0__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'left_width_0_height_0_subtile_1__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">left_width_0_height_0_subtile_1__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'left_width_0_height_0_subtile_2__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">left_width_0_height_0_subtile_2__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'left_width_0_height_0_subtile_3__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">left_width_0_height_0_subtile_3__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'left_width_0_height_0_subtile_4__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">left_width_0_height_0_subtile_4__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'left_width_0_height_0_subtile_5__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">left_width_0_height_0_subtile_5__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'left_width_0_height_0_subtile_6__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">left_width_0_height_0_subtile_6__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'left_width_0_height_0_subtile_7__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">left_width_0_height_0_subtile_7__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'io_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">io_left_in</text>
+        </symbol>
+        <symbol id="grid_io_bottom">
+            <rect class="module_boundary" fill="white" height="35" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">prog_clk</text>
+            <rect class="module_pin inout_pin" height="4" onmousemove="showTooltip(evt, 'gfpga_pad_GPIO_PAD');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">gfpga_pad_GPIO_PAD</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'top_width_0_height_0_subtile_0__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">top_width_0_height_0_subtile_0__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'top_width_0_height_0_subtile_1__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">top_width_0_height_0_subtile_1__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'top_width_0_height_0_subtile_2__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">top_width_0_height_0_subtile_2__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'top_width_0_height_0_subtile_3__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">top_width_0_height_0_subtile_3__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'top_width_0_height_0_subtile_4__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">top_width_0_height_0_subtile_4__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'top_width_0_height_0_subtile_5__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">top_width_0_height_0_subtile_5__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'top_width_0_height_0_subtile_6__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">top_width_0_height_0_subtile_6__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'top_width_0_height_0_subtile_7__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">top_width_0_height_0_subtile_7__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'io_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="16.0"/>
+            <text class="pin center_pin" x="98.0" y="-16.0">io_top_in</text>
+        </symbol>
+        <symbol id="grid_io_left">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="31" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin inout_pin" height="4" onmousemove="showTooltip(evt, 'gfpga_pad_GPIO_PAD');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">gfpga_pad_GPIO_PAD</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'right_width_0_height_0_subtile_0__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">right_width_0_height_0_subtile_0__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'right_width_0_height_0_subtile_1__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">right_width_0_height_0_subtile_1__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'right_width_0_height_0_subtile_2__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">right_width_0_height_0_subtile_2__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'right_width_0_height_0_subtile_3__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">right_width_0_height_0_subtile_3__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'right_width_0_height_0_subtile_4__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">right_width_0_height_0_subtile_4__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'right_width_0_height_0_subtile_5__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">right_width_0_height_0_subtile_5__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'right_width_0_height_0_subtile_6__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">right_width_0_height_0_subtile_6__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'right_width_0_height_0_subtile_7__pin_inpad_0_');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">right_width_0_height_0_subtile_7__pin_inpad_0_</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'io_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="14.0" y="98.0"/>
+            <text class="pin center_pin" x="14.0" y="-98.0">io_right_in</text>
+        </symbol>
+        <symbol id="sb_0__0_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_r_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_r_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_l_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_l_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_t_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_t_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_b_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_b_inpad</text>
+        </symbol>
+        <symbol id="sb_0__1_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_r_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_r_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_l_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_l_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_t_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_t_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_b_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_b_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_r_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_r_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_l_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_l_inpad</text>
+        </symbol>
+        <symbol id="sb_0__4_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_t_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_t_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_b_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_b_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_r_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_r_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_l_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_l_inpad</text>
+        </symbol>
+        <symbol id="sb_1__0_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_r_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_r_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_l_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_l_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_t_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_t_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_b_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_b_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_t_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_t_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_b_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_b_inpad</text>
+        </symbol>
+        <symbol id="sb_1__1_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_r_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_r_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_l_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_l_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_t_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_t_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_b_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_b_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_r_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_r_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_l_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_l_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_t_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_t_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_b_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_b_in</text>
+        </symbol>
+        <symbol id="sb_1__4_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_t_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_t_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_b_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_b_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_r_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_r_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_l_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_l_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_t_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_t_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_b_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_b_in</text>
+        </symbol>
+        <symbol id="sb_4__0_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_r_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_r_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_l_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_l_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_t_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_t_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_b_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_b_inpad</text>
+        </symbol>
+        <symbol id="sb_4__1_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_r_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_r_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_l_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_l_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_r_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_r_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_l_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_l_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_t_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_t_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_b_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_b_in</text>
+        </symbol>
+        <symbol id="sb_4__4_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_r_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_r_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_l_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_l_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_t_inpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_t_inpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_b_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_b_in</text>
+        </symbol>
+        <symbol id="cbx_1__0_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_outpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_outpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_b_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_b_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_b_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_b_out</text>
+        </symbol>
+        <symbol id="cbx_1__1_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_t_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_t_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_t_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_t_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_b_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_b_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_b_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_b_out</text>
+        </symbol>
+        <symbol id="cbx_1__4_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_left_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chanx_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chanx_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_outpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_outpad</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_t_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_t_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_t_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_t_out</text>
+        </symbol>
+        <symbol id="cby_0__1_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_outpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_outpad</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_l_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_l_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_l_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_l_out</text>
+        </symbol>
+        <symbol id="cby_1__1_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_l_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_l_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_l_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_l_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_r_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_r_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_r_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_r_out</text>
+        </symbol>
+        <symbol id="cby_4__1_">
+            <rect class="module_boundary" fill="white" height="199" stroke="grey" stroke-width="2" width="199" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'cfg_done');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">cfg_done</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_reset');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_reset</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'prog_clk');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">prog_clk</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_in</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_head</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_bottom_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_bottom_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'chany_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">chany_top_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">ccff_tail</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_right_outpad');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_right_outpad</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_out</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'grid_left_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_left_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_top_r_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_top_r_out</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'grid_bottom_r_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="98.0" y="98.0"/>
+            <text class="pin center_pin" x="98.0" y="-98.0">grid_bottom_r_out</text>
+        </symbol>
+    </defs>
+    <g id="bg">
+        <rect fill="#FFF" height="2050" id="background" stroke-width="0" width="2050" x="-25" y="-25"/>
+    </g>
+    <g id="mainframe">
+        <g id="mainShapes" transform="scale(1,-1)">
+            <use class="topModule" x="0" xlink:href="#fpga_top" y="0"/>
+            <use class="grid_clb_1__1_" x="296" xlink:href="#grid_clb" y="296"/>
+            <use class="grid_clb_1__2_" x="296" xlink:href="#grid_clb" y="696"/>
+            <use class="grid_clb_1__3_" x="296" xlink:href="#grid_clb" y="1096"/>
+            <use class="grid_clb_1__4_" x="296" xlink:href="#grid_clb" y="1496"/>
+            <use class="grid_clb_2__1_" x="696" xlink:href="#grid_clb" y="296"/>
+            <use class="grid_clb_2__2_" x="696" xlink:href="#grid_clb" y="696"/>
+            <use class="grid_clb_2__3_" x="696" xlink:href="#grid_clb" y="1096"/>
+            <use class="grid_clb_2__4_" x="696" xlink:href="#grid_clb" y="1496"/>
+            <use class="grid_clb_3__1_" x="1096" xlink:href="#grid_clb" y="296"/>
+            <use class="grid_clb_3__2_" x="1096" xlink:href="#grid_clb" y="696"/>
+            <use class="grid_clb_3__3_" x="1096" xlink:href="#grid_clb" y="1096"/>
+            <use class="grid_clb_3__4_" x="1096" xlink:href="#grid_clb" y="1496"/>
+            <use class="grid_clb_4__1_" x="1496" xlink:href="#grid_clb" y="296"/>
+            <use class="grid_clb_4__2_" x="1496" xlink:href="#grid_clb" y="696"/>
+            <use class="grid_clb_4__3_" x="1496" xlink:href="#grid_clb" y="1096"/>
+            <use class="grid_clb_4__4_" x="1496" xlink:href="#grid_clb" y="1496"/>
+            <use class="grid_io_top_1__5_" x="296" xlink:href="#grid_io_top" y="1900"/>
+            <use class="grid_io_top_2__5_" x="696" xlink:href="#grid_io_top" y="1900"/>
+            <use class="grid_io_top_3__5_" x="1096" xlink:href="#grid_io_top" y="1900"/>
+            <use class="grid_io_top_4__5_" x="1496" xlink:href="#grid_io_top" y="1900"/>
+            <use class="grid_io_right_5__4_" x="1904" xlink:href="#grid_io_right" y="1500"/>
+            <use class="grid_io_right_5__3_" x="1904" xlink:href="#grid_io_right" y="1100"/>
+            <use class="grid_io_right_5__2_" x="1904" xlink:href="#grid_io_right" y="700"/>
+            <use class="grid_io_right_5__1_" x="1904" xlink:href="#grid_io_right" y="300"/>
+            <use class="grid_io_bottom_4__0_" x="1496" xlink:href="#grid_io_bottom" y="56"/>
+            <use class="grid_io_bottom_3__0_" x="1096" xlink:href="#grid_io_bottom" y="56"/>
+            <use class="grid_io_bottom_2__0_" x="696" xlink:href="#grid_io_bottom" y="56"/>
+            <use class="grid_io_bottom_1__0_" x="296" xlink:href="#grid_io_bottom" y="56"/>
+            <use class="grid_io_left_0__1_" x="48" xlink:href="#grid_io_left" y="300"/>
+            <use class="grid_io_left_0__2_" x="48" xlink:href="#grid_io_left" y="700"/>
+            <use class="grid_io_left_0__3_" x="48" xlink:href="#grid_io_left" y="1100"/>
+            <use class="grid_io_left_0__4_" x="48" xlink:href="#grid_io_left" y="1500"/>
+            <use class="sb_0__0_" x="96" xlink:href="#sb_0__0_" y="96"/>
+            <use class="sb_0__1_" x="96" xlink:href="#sb_0__1_" y="496"/>
+            <use class="sb_0__2_" x="96" xlink:href="#sb_0__1_" y="896"/>
+            <use class="sb_0__3_" x="96" xlink:href="#sb_0__1_" y="1296"/>
+            <use class="sb_0__4_" x="96" xlink:href="#sb_0__4_" y="1696"/>
+            <use class="sb_1__0_" x="496" xlink:href="#sb_1__0_" y="96"/>
+            <use class="sb_2__0_" x="896" xlink:href="#sb_1__0_" y="96"/>
+            <use class="sb_3__0_" x="1296" xlink:href="#sb_1__0_" y="96"/>
+            <use class="sb_1__1_" x="496" xlink:href="#sb_1__1_" y="496"/>
+            <use class="sb_1__2_" x="496" xlink:href="#sb_1__1_" y="896"/>
+            <use class="sb_1__3_" x="496" xlink:href="#sb_1__1_" y="1296"/>
+            <use class="sb_2__1_" x="896" xlink:href="#sb_1__1_" y="496"/>
+            <use class="sb_2__2_" x="896" xlink:href="#sb_1__1_" y="896"/>
+            <use class="sb_2__3_" x="896" xlink:href="#sb_1__1_" y="1296"/>
+            <use class="sb_3__1_" x="1296" xlink:href="#sb_1__1_" y="496"/>
+            <use class="sb_3__2_" x="1296" xlink:href="#sb_1__1_" y="896"/>
+            <use class="sb_3__3_" x="1296" xlink:href="#sb_1__1_" y="1296"/>
+            <use class="sb_1__4_" x="496" xlink:href="#sb_1__4_" y="1696"/>
+            <use class="sb_2__4_" x="896" xlink:href="#sb_1__4_" y="1696"/>
+            <use class="sb_3__4_" x="1296" xlink:href="#sb_1__4_" y="1696"/>
+            <use class="sb_4__0_" x="1696" xlink:href="#sb_4__0_" y="96"/>
+            <use class="sb_4__1_" x="1696" xlink:href="#sb_4__1_" y="496"/>
+            <use class="sb_4__2_" x="1696" xlink:href="#sb_4__1_" y="896"/>
+            <use class="sb_4__3_" x="1696" xlink:href="#sb_4__1_" y="1296"/>
+            <use class="sb_4__4_" x="1696" xlink:href="#sb_4__4_" y="1696"/>
+            <use class="cbx_1__0_" x="296" xlink:href="#cbx_1__0_" y="96"/>
+            <use class="cbx_2__0_" x="696" xlink:href="#cbx_1__0_" y="96"/>
+            <use class="cbx_3__0_" x="1096" xlink:href="#cbx_1__0_" y="96"/>
+            <use class="cbx_4__0_" x="1496" xlink:href="#cbx_1__0_" y="96"/>
+            <use class="cbx_1__1_" x="296" xlink:href="#cbx_1__1_" y="496"/>
+            <use class="cbx_1__2_" x="296" xlink:href="#cbx_1__1_" y="896"/>
+            <use class="cbx_1__3_" x="296" xlink:href="#cbx_1__1_" y="1296"/>
+            <use class="cbx_2__1_" x="696" xlink:href="#cbx_1__1_" y="496"/>
+            <use class="cbx_2__2_" x="696" xlink:href="#cbx_1__1_" y="896"/>
+            <use class="cbx_2__3_" x="696" xlink:href="#cbx_1__1_" y="1296"/>
+            <use class="cbx_3__1_" x="1096" xlink:href="#cbx_1__1_" y="496"/>
+            <use class="cbx_3__2_" x="1096" xlink:href="#cbx_1__1_" y="896"/>
+            <use class="cbx_3__3_" x="1096" xlink:href="#cbx_1__1_" y="1296"/>
+            <use class="cbx_4__1_" x="1496" xlink:href="#cbx_1__1_" y="496"/>
+            <use class="cbx_4__2_" x="1496" xlink:href="#cbx_1__1_" y="896"/>
+            <use class="cbx_4__3_" x="1496" xlink:href="#cbx_1__1_" y="1296"/>
+            <use class="cbx_1__4_" x="296" xlink:href="#cbx_1__4_" y="1696"/>
+            <use class="cbx_2__4_" x="696" xlink:href="#cbx_1__4_" y="1696"/>
+            <use class="cbx_3__4_" x="1096" xlink:href="#cbx_1__4_" y="1696"/>
+            <use class="cbx_4__4_" x="1496" xlink:href="#cbx_1__4_" y="1696"/>
+            <use class="cby_0__1_" x="96" xlink:href="#cby_0__1_" y="296"/>
+            <use class="cby_0__2_" x="96" xlink:href="#cby_0__1_" y="696"/>
+            <use class="cby_0__3_" x="96" xlink:href="#cby_0__1_" y="1096"/>
+            <use class="cby_0__4_" x="96" xlink:href="#cby_0__1_" y="1496"/>
+            <use class="cby_1__1_" x="496" xlink:href="#cby_1__1_" y="296"/>
+            <use class="cby_1__2_" x="496" xlink:href="#cby_1__1_" y="696"/>
+            <use class="cby_1__3_" x="496" xlink:href="#cby_1__1_" y="1096"/>
+            <use class="cby_1__4_" x="496" xlink:href="#cby_1__1_" y="1496"/>
+            <use class="cby_2__1_" x="896" xlink:href="#cby_1__1_" y="296"/>
+            <use class="cby_2__2_" x="896" xlink:href="#cby_1__1_" y="696"/>
+            <use class="cby_2__3_" x="896" xlink:href="#cby_1__1_" y="1096"/>
+            <use class="cby_2__4_" x="896" xlink:href="#cby_1__1_" y="1496"/>
+            <use class="cby_3__1_" x="1296" xlink:href="#cby_1__1_" y="296"/>
+            <use class="cby_3__2_" x="1296" xlink:href="#cby_1__1_" y="696"/>
+            <use class="cby_3__3_" x="1296" xlink:href="#cby_1__1_" y="1096"/>
+            <use class="cby_3__4_" x="1296" xlink:href="#cby_1__1_" y="1496"/>
+            <use class="cby_4__1_" x="1696" xlink:href="#cby_4__1_" y="296"/>
+            <use class="cby_4__2_" x="1696" xlink:href="#cby_4__1_" y="696"/>
+            <use class="cby_4__3_" x="1696" xlink:href="#cby_4__1_" y="1096"/>
+            <use class="cby_4__4_" x="1696" xlink:href="#cby_4__1_" y="1496"/>
+        </g>
+        <g id="mainText" transform="scale(1,-1)">
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1000.0" y="-200.0">fpga_top</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-316">grid_clb_1__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-716">grid_clb_1__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-1116">grid_clb_1__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-1516">grid_clb_1__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-316">grid_clb_2__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-716">grid_clb_2__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-1116">grid_clb_2__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-1516">grid_clb_2__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-316">grid_clb_3__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-716">grid_clb_3__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-1116">grid_clb_3__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-1516">grid_clb_3__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-316">grid_clb_4__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-716">grid_clb_4__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-1116">grid_clb_4__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-1516">grid_clb_4__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-1920">grid_io_top_1__5_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-1920">grid_io_top_2__5_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-1920">grid_io_top_3__5_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-1920">grid_io_top_4__5_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1920.0" y="-1520">grid_io_right_5__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1920.0" y="-1120">grid_io_right_5__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1920.0" y="-720">grid_io_right_5__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1920.0" y="-320">grid_io_right_5__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-76">grid_io_bottom_4__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-76">grid_io_bottom_3__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-76">grid_io_bottom_2__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-76">grid_io_bottom_1__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="64.0" y="-320">grid_io_left_0__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="64.0" y="-720">grid_io_left_0__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="64.0" y="-1120">grid_io_left_0__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="64.0" y="-1520">grid_io_left_0__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-116">sb_0__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-516">sb_0__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-916">sb_0__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-1316">sb_0__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-1716">sb_0__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-116">sb_1__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-116">sb_2__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-116">sb_3__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-516">sb_1__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-916">sb_1__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-1316">sb_1__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-516">sb_2__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-916">sb_2__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-1316">sb_2__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-516">sb_3__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-916">sb_3__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-1316">sb_3__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-1716">sb_1__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-1716">sb_2__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-1716">sb_3__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-116">sb_4__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-516">sb_4__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-916">sb_4__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-1316">sb_4__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-1716">sb_4__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-116">cbx_1__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-116">cbx_2__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-116">cbx_3__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-116">cbx_4__0_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-516">cbx_1__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-916">cbx_1__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-1316">cbx_1__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-516">cbx_2__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-916">cbx_2__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-1316">cbx_2__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-516">cbx_3__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-916">cbx_3__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-1316">cbx_3__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-516">cbx_4__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-916">cbx_4__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-1316">cbx_4__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="396.0" y="-1716">cbx_1__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="796.0" y="-1716">cbx_2__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1196.0" y="-1716">cbx_3__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1596.0" y="-1716">cbx_4__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-316">cby_0__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-716">cby_0__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-1116">cby_0__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="196.0" y="-1516">cby_0__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-316">cby_1__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-716">cby_1__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-1116">cby_1__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="596.0" y="-1516">cby_1__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-316">cby_2__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-716">cby_2__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-1116">cby_2__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="996.0" y="-1516">cby_2__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-316">cby_3__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-716">cby_3__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-1116">cby_3__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1396.0" y="-1516">cby_3__4_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-316">cby_4__1_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-716">cby_4__2_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-1116">cby_4__3_</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1796.0" y="-1516">cby_4__4_</text>
+        </g>
+        <g id="edges" transform="scale(1,-1)">
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'ccff_head');" onmouseout="hideTooltip();" points="1999,1950 1920,1600" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'ccff_tail');" onmouseout="hideTooltip();" points="1999,250 1920,400" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_right_5__4___sb_4__4__ccff_tail');" onmouseout="hideTooltip();" points="1920,1600 1796,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_4__4___cby_4__4__ccff_tail');" onmouseout="hideTooltip();" points="1796,1796 1796,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_4__4___grid_clb_4__4__ccff_tail');" onmouseout="hideTooltip();" points="1796,1596 1596,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_4__4___cbx_4__4__ccff_tail');" onmouseout="hideTooltip();" points="1596,1596 1596,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_4__4___grid_io_top_4__5__ccff_tail');" onmouseout="hideTooltip();" points="1596,1796 1596,1918" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_top_4__5___sb_3__4__ccff_tail');" onmouseout="hideTooltip();" points="1596,1918 1396,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_3__4___cby_3__4__ccff_tail');" onmouseout="hideTooltip();" points="1396,1796 1396,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_3__4___grid_clb_3__4__ccff_tail');" onmouseout="hideTooltip();" points="1396,1596 1196,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_3__4___cbx_3__4__ccff_tail');" onmouseout="hideTooltip();" points="1196,1596 1196,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_3__4___grid_io_top_3__5__ccff_tail');" onmouseout="hideTooltip();" points="1196,1796 1196,1918" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_top_3__5___sb_2__4__ccff_tail');" onmouseout="hideTooltip();" points="1196,1918 996,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_2__4___cby_2__4__ccff_tail');" onmouseout="hideTooltip();" points="996,1796 996,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_2__4___grid_clb_2__4__ccff_tail');" onmouseout="hideTooltip();" points="996,1596 796,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_2__4___cbx_2__4__ccff_tail');" onmouseout="hideTooltip();" points="796,1596 796,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_2__4___grid_io_top_2__5__ccff_tail');" onmouseout="hideTooltip();" points="796,1796 796,1918" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_top_2__5___sb_1__4__ccff_tail');" onmouseout="hideTooltip();" points="796,1918 596,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_1__4___cby_1__4__ccff_tail');" onmouseout="hideTooltip();" points="596,1796 596,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_1__4___grid_clb_1__4__ccff_tail');" onmouseout="hideTooltip();" points="596,1596 396,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_1__4___cbx_1__4__ccff_tail');" onmouseout="hideTooltip();" points="396,1596 396,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_1__4___grid_io_top_1__5__ccff_tail');" onmouseout="hideTooltip();" points="396,1796 396,1918" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_top_1__5___sb_0__4__ccff_tail');" onmouseout="hideTooltip();" points="396,1918 196,1796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_0__4___cby_0__4__ccff_tail');" onmouseout="hideTooltip();" points="196,1796 196,1596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_0__4___grid_io_left_0__4__ccff_tail');" onmouseout="hideTooltip();" points="196,1596 64,1600" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_left_0__4___sb_0__3__ccff_tail');" onmouseout="hideTooltip();" points="64,1600 196,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_0__3___grid_io_left_0__3__ccff_tail');" onmouseout="hideTooltip();" points="196,1396 64,1200" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_left_0__3___cby_0__3__ccff_tail');" onmouseout="hideTooltip();" points="64,1200 196,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_0__3___grid_clb_1__3__ccff_tail');" onmouseout="hideTooltip();" points="196,1196 396,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_1__3___cbx_1__3__ccff_tail');" onmouseout="hideTooltip();" points="396,1196 396,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_1__3___sb_1__3__ccff_tail');" onmouseout="hideTooltip();" points="396,1396 596,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_1__3___cby_1__3__ccff_tail');" onmouseout="hideTooltip();" points="596,1396 596,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_1__3___grid_clb_2__3__ccff_tail');" onmouseout="hideTooltip();" points="596,1196 796,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_2__3___cbx_2__3__ccff_tail');" onmouseout="hideTooltip();" points="796,1196 796,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_2__3___sb_2__3__ccff_tail');" onmouseout="hideTooltip();" points="796,1396 996,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_2__3___cby_2__3__ccff_tail');" onmouseout="hideTooltip();" points="996,1396 996,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_2__3___grid_clb_3__3__ccff_tail');" onmouseout="hideTooltip();" points="996,1196 1196,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_3__3___cbx_3__3__ccff_tail');" onmouseout="hideTooltip();" points="1196,1196 1196,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_3__3___sb_3__3__ccff_tail');" onmouseout="hideTooltip();" points="1196,1396 1396,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_3__3___cby_3__3__ccff_tail');" onmouseout="hideTooltip();" points="1396,1396 1396,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_3__3___grid_clb_4__3__ccff_tail');" onmouseout="hideTooltip();" points="1396,1196 1596,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_4__3___cbx_4__3__ccff_tail');" onmouseout="hideTooltip();" points="1596,1196 1596,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_4__3___sb_4__3__ccff_tail');" onmouseout="hideTooltip();" points="1596,1396 1796,1396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_4__3___cby_4__3__ccff_tail');" onmouseout="hideTooltip();" points="1796,1396 1796,1196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_4__3___grid_io_right_5__3__ccff_tail');" onmouseout="hideTooltip();" points="1796,1196 1920,1200" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_right_5__3___sb_4__2__ccff_tail');" onmouseout="hideTooltip();" points="1920,1200 1796,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_4__2___grid_io_right_5__2__ccff_tail');" onmouseout="hideTooltip();" points="1796,996 1920,800" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_right_5__2___cby_4__2__ccff_tail');" onmouseout="hideTooltip();" points="1920,800 1796,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_4__2___grid_clb_4__2__ccff_tail');" onmouseout="hideTooltip();" points="1796,796 1596,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_4__2___cbx_4__2__ccff_tail');" onmouseout="hideTooltip();" points="1596,796 1596,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_4__2___sb_3__2__ccff_tail');" onmouseout="hideTooltip();" points="1596,996 1396,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_3__2___cby_3__2__ccff_tail');" onmouseout="hideTooltip();" points="1396,996 1396,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_3__2___grid_clb_3__2__ccff_tail');" onmouseout="hideTooltip();" points="1396,796 1196,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_3__2___cbx_3__2__ccff_tail');" onmouseout="hideTooltip();" points="1196,796 1196,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_3__2___sb_2__2__ccff_tail');" onmouseout="hideTooltip();" points="1196,996 996,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_2__2___cby_2__2__ccff_tail');" onmouseout="hideTooltip();" points="996,996 996,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_2__2___grid_clb_2__2__ccff_tail');" onmouseout="hideTooltip();" points="996,796 796,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_2__2___cbx_2__2__ccff_tail');" onmouseout="hideTooltip();" points="796,796 796,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_2__2___sb_1__2__ccff_tail');" onmouseout="hideTooltip();" points="796,996 596,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_1__2___cby_1__2__ccff_tail');" onmouseout="hideTooltip();" points="596,996 596,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_1__2___grid_clb_1__2__ccff_tail');" onmouseout="hideTooltip();" points="596,796 396,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_1__2___cbx_1__2__ccff_tail');" onmouseout="hideTooltip();" points="396,796 396,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_1__2___sb_0__2__ccff_tail');" onmouseout="hideTooltip();" points="396,996 196,996" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_0__2___cby_0__2__ccff_tail');" onmouseout="hideTooltip();" points="196,996 196,796" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_0__2___grid_io_left_0__2__ccff_tail');" onmouseout="hideTooltip();" points="196,796 64,800" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_left_0__2___sb_0__1__ccff_tail');" onmouseout="hideTooltip();" points="64,800 196,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_0__1___cby_0__1__ccff_tail');" onmouseout="hideTooltip();" points="196,596 196,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_0__1___grid_io_left_0__1__ccff_tail');" onmouseout="hideTooltip();" points="196,396 64,400" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_left_0__1___sb_0__0__ccff_tail');" onmouseout="hideTooltip();" points="64,400 196,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_0__0___grid_io_bottom_1__0__ccff_tail');" onmouseout="hideTooltip();" points="196,196 396,74" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_bottom_1__0___cbx_1__0__ccff_tail');" onmouseout="hideTooltip();" points="396,74 396,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_1__0___grid_clb_1__1__ccff_tail');" onmouseout="hideTooltip();" points="396,196 396,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_1__1___cbx_1__1__ccff_tail');" onmouseout="hideTooltip();" points="396,396 396,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_1__1___sb_1__1__ccff_tail');" onmouseout="hideTooltip();" points="396,596 596,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_1__1___cby_1__1__ccff_tail');" onmouseout="hideTooltip();" points="596,596 596,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_1__1___sb_1__0__ccff_tail');" onmouseout="hideTooltip();" points="596,396 596,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_1__0___grid_io_bottom_2__0__ccff_tail');" onmouseout="hideTooltip();" points="596,196 796,74" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_bottom_2__0___cbx_2__0__ccff_tail');" onmouseout="hideTooltip();" points="796,74 796,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_2__0___grid_clb_2__1__ccff_tail');" onmouseout="hideTooltip();" points="796,196 796,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_2__1___cbx_2__1__ccff_tail');" onmouseout="hideTooltip();" points="796,396 796,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_2__1___sb_2__1__ccff_tail');" onmouseout="hideTooltip();" points="796,596 996,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_2__1___cby_2__1__ccff_tail');" onmouseout="hideTooltip();" points="996,596 996,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_2__1___sb_2__0__ccff_tail');" onmouseout="hideTooltip();" points="996,396 996,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_2__0___grid_io_bottom_3__0__ccff_tail');" onmouseout="hideTooltip();" points="996,196 1196,74" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_bottom_3__0___cbx_3__0__ccff_tail');" onmouseout="hideTooltip();" points="1196,74 1196,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_3__0___grid_clb_3__1__ccff_tail');" onmouseout="hideTooltip();" points="1196,196 1196,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_3__1___cbx_3__1__ccff_tail');" onmouseout="hideTooltip();" points="1196,396 1196,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_3__1___sb_3__1__ccff_tail');" onmouseout="hideTooltip();" points="1196,596 1396,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_3__1___cby_3__1__ccff_tail');" onmouseout="hideTooltip();" points="1396,596 1396,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_3__1___sb_3__0__ccff_tail');" onmouseout="hideTooltip();" points="1396,396 1396,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_3__0___grid_io_bottom_4__0__ccff_tail');" onmouseout="hideTooltip();" points="1396,196 1596,74" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_io_bottom_4__0___cbx_4__0__ccff_tail');" onmouseout="hideTooltip();" points="1596,74 1596,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_4__0___grid_clb_4__1__ccff_tail');" onmouseout="hideTooltip();" points="1596,196 1596,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'grid_clb_4__1___cbx_4__1__ccff_tail');" onmouseout="hideTooltip();" points="1596,396 1596,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cbx_4__1___sb_4__1__ccff_tail');" onmouseout="hideTooltip();" points="1596,596 1796,596" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_4__1___cby_4__1__ccff_tail');" onmouseout="hideTooltip();" points="1796,596 1796,396" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'cby_4__1___sb_4__0__ccff_tail');" onmouseout="hideTooltip();" points="1796,396 1796,196" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'sb_4__0___grid_io_right_5__1__ccff_tail');" onmouseout="hideTooltip();" points="1796,196 1920,400" stroke="black" stroke-width="1"/>
+        </g>
+    </g>
+</svg>

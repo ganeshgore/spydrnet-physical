@@ -1,7 +1,7 @@
 """
-====================================================
-Extracing configuration chain order from each module
-====================================================
+=================================
+Extract configuration chain order 
+=================================
 
 This example demonstrate how to extract configuration chain order from
 the restructured netlist

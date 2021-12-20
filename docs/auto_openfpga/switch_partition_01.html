@@ -1,0 +1,584 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Renaming Homogeneous FPGA Modules" href="rename_modules.html" /><link rel="prev" title="OpenFPGA architecture Parsing" href="fpga_arch_parse.html" />
+
+    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+        <title>Partitioning Connection Box - SpyDrNet-Physical alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">SpyDrNet-Physical alpha documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">SpyDrNet-Physical alpha documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../introduction.html">Introduction</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/install.html">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/shell_interface.html">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/visualisation.html">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/element.html">Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/pin.html">Pin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/innerpin.html">InnerPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/outerpin.html">OuterPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/cable.html">Cable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/definition.html">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/library.html">Library</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility/generated/spydrnet_physical.util.get_names.html">spydrnet_physical.util.get_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/base.html">OpenFPGA Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/routing_render.html">Routing Render</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/openfpga/tile01.html">Tile-01</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/tile.html">Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/left-tile.html">Left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/right-tile.html">Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-tile.html">Top-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-tile.html">Bottom-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-left-tile.html">Top-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-right-tile.html">Top-Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-left-tile.html">Bottom-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-right-tile.html">Bottom-Right-Tile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/grid_example.html">grid_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/nested_hierarchy.html">nested_hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/square_grid.html">square_grid</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">Display Netlist Information Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/group_ungroup_cells.html">Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_multiple_instances.html">Merging group of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/partitioning_experiments.html">Partitions Experimentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_hierarchical_netlist.html">Visualise Hierarchical Netlist</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="configuration_chain.html">Adding configuration chain to the fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">Extract configuration chain order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Partitioning Connection Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="render_routing_box.html">Rendering Switch Box</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tests/index.html">Unit Tests</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-switch-partition-01-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="partitioning-connection-box">
+<span id="sphx-glr-auto-openfpga-switch-partition-01-py"></span><h1>Partitioning Connection Box<a class="headerlink" href="#partitioning-connection-box" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrate how pre tech mapped netlist of connection box
+can be partition based on switch patterns.</p>
+<ol class="arabic simple">
+<li><p>Calculate difference beetween top and bottom switches on each channels</p></li>
+<li><p>Sort each channel based on difference</p></li>
+<li><p>Partition where difference crosses 0</p></li>
+</ol>
+<p>4. In case thee are multiple point with 0 difference split them equally in both
+partition</p>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span> =========== CBY ===========
+left_chan [4, 5, 6, 7, 8, 9, 10, 11, 16, 17, 18, 19, 20, 21, 22, 23, 32, 33, 34, 35]
+right_chan [0, 1, 2, 3, 12, 13, 14, 15, 24, 25, 26, 27, 28, 29, 30, 31, 36, 37, 38, 39]
+========================================================
+INDX   MUX                  CONNECTIONS
+========================================================
+              0   |5   |10  |15  |20  |25  |30  |35  |
+0      8      ____ll__________ll__ll__________ll______
+1      8      ______ll__________ll__ll__________ll____
+2      8      ________ll__________ll__ll__________ll__
+3      8      __________ll__________ll__ll__________ll
+4      8      ll__________ll__________ll__ll__________
+5      8      __ll__________ll__________ll__ll________
+6      8      ____ll__________ll__________ll__ll______
+7      8      ______ll__________ll__________ll__ll____
+8      8      ________ll__________ll__________ll__ll__
+9      8      __________ll__________ll__________ll__ll
+10     8      rr__________rr__________rr__________rr__
+11     8      __rr__________rr__________rr__________rr
+12     8      rr__rr__________rr__________rr__________
+13     8      __rr__rr__________rr__________rr________
+14     8      ____rr__rr__________rr__________rr______
+15     8      ______rr__rr__________rr__________rr____
+16     8      ________rr__rr__________rr__________rr__
+17     8      __________rr__rr__________rr__________rr
+18     8      rr__________rr__rr__________rr__________
+19     8      __rr__________rr__rr__________rr________
+====================================
+INDX   MUX        CONNECTIONS
+====================================
+              0   |5   |10  |15  |
+0      8      ll__ll__ll______ll__
+1      8      __ll__ll__ll______ll
+2      4      ll__________ll______
+3      4      __ll__________ll____
+4      0      ____________________
+5      0      ____________________
+6      6      ____ll__ll______ll__
+7      6      ______ll__ll______ll
+8      6      ll__ll______ll______
+9      6      __ll__ll______ll____
+10     0      ____________________
+11     0      ____________________
+12     4      ________rr______rr__
+13     4      __________rr______rr
+14     8      rr__rr__rr__rr______
+15     8      __rr__rr__rr__rr____
+16     2      ____________rr______
+17     2      ______________rr____
+18     2      ________________rr__
+19     2      __________________rr
+====================================
+INDX   MUX        CONNECTIONS
+====================================
+              0   |5   |10  |15  |
+0      0      ____________________
+1      0      ____________________
+2      4      ll______ll__________
+3      4      __ll______ll________
+4      8      ll__ll______ll__ll__
+5      8      __ll__ll______ll__ll
+6      2      ____ll______________
+7      2      ______ll____________
+8      2      ________ll__________
+9      2      __________ll________
+10     8      rr______rr__rr__rr__
+11     8      __rr______rr__rr__rr
+12     4      ____rr______rr______
+13     4      ______rr______rr____
+14     0      ____________________
+15     0      ____________________
+16     6      rr______rr______rr__
+17     6      __rr______rr______rr
+18     6      ____rr______rr__rr__
+19     6      ______rr______rr__rr
+ =========== CBX ===========
+top_chan [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+bottom_chan [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39]
+========================================================
+INDX   MUX                  CONNECTIONS
+========================================================
+              0   |5   |10  |15  |20  |25  |30  |35  |
+0      8      tt__________tt__________tt__________tt__
+1      8      __tt__________tt__________tt__________tt
+2      8      tt__tt__________tt__________tt__________
+3      8      __tt__tt__________tt__________tt________
+4      8      ____tt__tt__________tt__________tt______
+5      8      ______tt__tt__________tt__________tt____
+6      8      ________tt__tt__________tt__________tt__
+7      8      __________tt__tt__________tt__________tt
+8      8      tt__________tt__tt__________tt__________
+9      8      __tt__________tt__tt__________tt________
+10     8      ____bb__________bb__bb__________bb______
+11     8      ______bb__________bb__bb__________bb____
+12     8      ________bb__________bb__bb__________bb__
+13     8      __________bb__________bb__bb__________bb
+14     8      bb__________bb__________bb__bb__________
+15     8      __bb__________bb__________bb__bb________
+16     8      ____bb__________bb__________bb__bb______
+17     8      ______bb__________bb__________bb__bb____
+18     8      ________bb__________bb__________bb__bb__
+19     8      __________bb__________bb__________bb__bb
+====================================
+INDX   MUX        CONNECTIONS
+====================================
+              0   |5   |10  |15  |
+0      4      tt__tt______________
+1      4      __tt__tt____________
+2      6      tt______tt______tt__
+3      6      __tt______tt______tt
+4      4      ________tt__tt______
+5      4      __________tt__tt____
+6      4      ____tt______tt______
+7      4      ______tt______tt____
+8      6      tt__tt__________tt__
+9      6      __tt__tt__________tt
+10     4      ________bb______bb__
+11     4      __________bb______bb
+12     2      ____________bb______
+13     2      ______________bb____
+14     4      bb__bb______________
+15     4      __bb__bb____________
+16     4      ________bb______bb__
+17     4      __________bb______bb
+18     2      ____________bb______
+19     2      ______________bb____
+====================================
+INDX   MUX        CONNECTIONS
+====================================
+              0   |5   |10  |15  |
+0      4      tt______tt__________
+1      4      __tt______tt________
+2      2      ____tt______________
+3      2      ______tt____________
+4      4      ____________tt__tt__
+5      4      ______________tt__tt
+6      4      tt______tt__________
+7      4      __tt______tt________
+8      2      ____tt______________
+9      2      ______tt____________
+10     4      ____________bb__bb__
+11     4      ______________bb__bb
+12     6      bb______bb__bb______
+13     6      __bb______bb__bb____
+14     4      bb__bb______________
+15     4      __bb__bb____________
+16     4      ____bb__________bb__
+17     4      ______bb__________bb
+18     6      ________bb__bb__bb__
+19     6      __________bb__bb__bb
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">RoutingRender</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'DEBUG'</span><span class="p">)</span>
+
+<span class="n">scale</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">SPACING</span> <span class="o">=</span> <span class="mi">150</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">sort_input_channels</span><span class="p">(</span><span class="n">switch_mat</span><span class="p">,</span> <span class="n">get_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">seq</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Add Channel number, diffference and boolean flag to np array</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">switch_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">switch_mat</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"b"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="n">switch_mat</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"r"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> \
+            <span class="p">(</span><span class="n">switch_mat</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"t"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> \
+            <span class="p">(</span><span class="n">switch_mat</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"l"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">diff</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">seq</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Find cut locattion</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cur</span> <span class="o">-=</span> <span class="nb">int</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># Extract channels</span>
+    <span class="n">seq</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">get_bias</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">seq</span><span class="p">[:</span><span class="n">cur</span><span class="p">],</span> <span class="n">seq</span><span class="p">[</span><span class="n">cur</span><span class="p">:],</span> <span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">seq</span><span class="p">[:</span><span class="n">cur</span><span class="p">],</span> <span class="n">seq</span><span class="p">[</span><span class="n">cur</span><span class="p">:])</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="s1">'homogeneous_fabric'</span>
+    <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">sb</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/routing/sb_1__1_.v'</span><span class="p">)):</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">sb</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># This creates switch-box rendering class</span>
+        <span class="n">sb_render</span> <span class="o">=</span> <span class="n">RoutingRender</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/FPGA44_gsb/</span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">.xml"</span><span class="p">)</span>
+
+        <span class="c1"># Print vertical connection box (CBY) information and split</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">" =========== CBY =========== "</span><span class="p">)</span>
+        <span class="n">sw_left</span> <span class="o">=</span> <span class="n">sb_render</span><span class="o">.</span><span class="n">report_ipins</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">sw_left</span><span class="p">[</span><span class="n">sw_left</span> <span class="o">==</span> <span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"l"</span>
+        <span class="n">sw_right</span> <span class="o">=</span> <span class="n">sb_render</span><span class="o">.</span><span class="n">report_ipins</span><span class="p">(</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">sw_right</span><span class="p">[</span><span class="n">sw_right</span> <span class="o">==</span> <span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"r"</span>
+        <span class="n">sw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">sw_left</span><span class="p">,</span> <span class="n">sw_right</span><span class="p">])</span>
+        <span class="n">left_chan</span><span class="p">,</span> <span class="n">right_chan</span> <span class="o">=</span> <span class="n">sort_input_channels</span><span class="p">(</span><span class="n">sw</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"left_chan </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">left_chan</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"right_chan </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">right_chan</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">sb_render</span><span class="o">.</span><span class="n">render_ipin</span><span class="p">(</span><span class="n">sw</span><span class="p">)</span>
+        <span class="n">sb_render</span><span class="o">.</span><span class="n">render_ipin</span><span class="p">(</span><span class="n">sw</span><span class="p">[:,</span> <span class="n">left_chan</span><span class="p">])</span>
+        <span class="n">sb_render</span><span class="o">.</span><span class="n">render_ipin</span><span class="p">(</span><span class="n">sw</span><span class="p">[:,</span> <span class="n">right_chan</span><span class="p">])</span>
+
+        <span class="c1"># Print vertical connection box (CBX) information and split</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">" =========== CBX =========== "</span><span class="p">)</span>
+        <span class="n">sw_top</span> <span class="o">=</span> <span class="n">sb_render</span><span class="o">.</span><span class="n">report_ipins</span><span class="p">(</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">sw_top</span><span class="p">[</span><span class="n">sw_top</span> <span class="o">==</span> <span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"t"</span>
+        <span class="n">sw_bottom</span> <span class="o">=</span> <span class="n">sb_render</span><span class="o">.</span><span class="n">report_ipins</span><span class="p">(</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">sw_bottom</span><span class="p">[</span><span class="n">sw_bottom</span> <span class="o">==</span> <span class="s1">'x'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"b"</span>
+        <span class="n">sw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">sw_top</span><span class="p">,</span> <span class="n">sw_bottom</span><span class="p">])</span>
+        <span class="n">top_chan</span><span class="p">,</span> <span class="n">bottom_chan</span> <span class="o">=</span> <span class="n">sort_input_channels</span><span class="p">(</span><span class="n">sw</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"top_chan </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">top_chan</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"bottom_chan </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">bottom_chan</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">sb_render</span><span class="o">.</span><span class="n">render_ipin</span><span class="p">(</span><span class="n">sw</span><span class="p">)</span>
+        <span class="n">sb_render</span><span class="o">.</span><span class="n">render_ipin</span><span class="p">(</span><span class="n">sw</span><span class="p">[:,</span> <span class="n">top_chan</span><span class="p">])</span>
+        <span class="n">sb_render</span><span class="o">.</span><span class="n">render_ipin</span><span class="p">(</span><span class="n">sw</span><span class="p">[:,</span> <span class="n">bottom_chan</span><span class="p">])</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.017 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-switch-partition-01-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/36908fc3d8b58dfbc2c2dc795144782e/switch_partition_01.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">switch_partition_01.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/259d0cdabb1f39fa7d95c605a7b6128c/switch_partition_01.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">switch_partition_01.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="rename_modules.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Renaming Homogeneous FPGA Modules</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="fpga_arch_parse.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">OpenFPGA architecture Parsing</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, University of Utah |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
+            <a class="muted-link" href="../_sources/auto_openfpga/switch_partition_01.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/main.js"></script>
+    </body>
+</html>

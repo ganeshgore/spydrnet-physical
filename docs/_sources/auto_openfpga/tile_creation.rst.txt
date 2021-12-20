@@ -25,7 +25,7 @@ Creating FPGA Tiles from OpenFPGA verilog
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-86
+.. GENERATED FROM PYTHON SOURCE LINES 10-85
 
 
 
@@ -125,10 +125,9 @@ Verilog netlist obtained from OpenFPGA
     import tempfile
     from itertools import chain
     from os import path
-    from pprint import pformat, pprint
 
     import spydrnet as sdn
-    from spydrnet_physical.util import OpenFPGA, Tile01, get_names
+    from spydrnet_physical.util import (OpenFPGA, Tile01)
 
     logger = logging.getLogger('spydrnet_logs')
     sdn.enable_file_logging(LOG_LEVEL='INFO')
@@ -199,7 +198,7 @@ Verilog netlist obtained from OpenFPGA
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.195 seconds)
+   **Total running time of the script:** ( 0 minutes  4.284 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_tile_creation.py:
