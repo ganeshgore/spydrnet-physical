@@ -348,7 +348,7 @@ class RoutingRender:
         logger.debug(f"Saving svg {filename}")
         self.dwg.saveas(filename, pretty=True)
 
-    def _add_left_connection_box(self, pinmap=None):
+    def _add_left_connection_box(self, pinmap=None, channel_map=None):
         self.chanx_l_out_map = []
         left_drivers = [e.attrib["index"] for e in self.chanx_l]
         for index in range(self.chanx_len):
@@ -373,9 +373,9 @@ class RoutingRender:
                                   transform="scale(1,-1)",
                                   class_=f"{class_}_text",
                                   insert=(end[0], -1*end[-1])))
-        self._add_ipins(side="left")
+        self._add_ipins(side="left", channel_map=channel_map)
 
-    def _add_top_connection_box(self, pinmap=None):
+    def _add_top_connection_box(self, pinmap=None, channel_map=None):
         self.chany_t_out_map = []
         left_drivers = [e.attrib["index"] for e in self.chany_t]
         for index in range(self.chany_len):
@@ -400,9 +400,10 @@ class RoutingRender:
                                   transform="scale(1,-1)",
                                   class_=f"{class_}_text",
                                   insert=(end[0], -1*end[-1])))
-        self._add_ipins(side="top")
+        self._add_ipins(side="top", channel_map=channel_map)
 
-    def render_connection_box(self, side, pinmap=None, filename=None):
+    def render_connection_box(self, side, pinmap=None,
+                              channel_map=None, filename=None):
         """
         Render connections box in SVG format
         """
@@ -410,9 +411,11 @@ class RoutingRender:
         self._add_origin_marker()
         pinmap = pinmap or (lambda x: x)
         if side == "top":
-            self._add_top_connection_box(pinmap=pinmap)
+            self._add_top_connection_box(pinmap=pinmap,
+                                         channel_map=channel_map)
         else:
-            self._add_left_connection_box(pinmap=pinmap)
+            self._add_left_connection_box(pinmap=pinmap,
+                                          channel_map=channel_map)
         if filename:
             margin = 200
             width = (
@@ -724,7 +727,8 @@ class RoutingRender:
                                       insert=(end[0], -1*end[-1])))
             visited_pins.append(curr_pin)
 
-    def _add_ipins(self, side="left"):
+    def _add_ipins(self, side="left", channel_map=None):
+        channel_map = channel_map or (lambda side, x: x)
         if side is "left":
             ipins = self.ipin_t + self.ipin_b
         else:
@@ -733,7 +737,7 @@ class RoutingRender:
             index = int(ele.attrib["index"])
             side = ele.attrib["side"]
             marker = self.marker_red
-            offset = self.spacing + (index)*self.scale
+            offset = self.spacing + channel_map(side, index)*self.scale
 
             if side in "top":
                 start = (self.x_min_3 - offset, self.y_min_2)
