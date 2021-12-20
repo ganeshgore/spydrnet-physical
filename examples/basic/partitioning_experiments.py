@@ -98,9 +98,9 @@ graph_dot.write_svg('_pymetis_run.svg')
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 write_metis_graph(nx.to_numpy_array(graph),
                   eweights=True, vweights=vweights,
-                  filename="_partition_experiments.csr")
+                  filename="_partition_experiments_01.csr")
 membership = run_metis(
-    filename="_partition_experiments.csr", cuts=2,
+    filename="_partition_experiments_01.csr", cuts=2,
     options="-objtype cut -minconn -niter 100 -ncuts 3 ")
 
 graph_dot2 = to_pydot(graph)

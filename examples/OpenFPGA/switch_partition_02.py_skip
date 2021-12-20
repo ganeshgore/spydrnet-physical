@@ -127,8 +127,8 @@ def main():
     # Run using external metis
     write_metis_graph(nx.to_numpy_array(G),
                       eweights=True, vweights=vweights,
-                      filename="_partition_experiments.csr")
-    membership = run_metis(filename="_partition_experiments.csr", cuts=2,
+                      filename="_partition_experiments_02.csr")
+    membership = run_metis(filename="_partition_experiments_02.csr", cuts=2,
                            options="-objtype cut -minconn -niter 100 -ncuts 3 ")
 
     subgraph = pydot.Cluster('part1', label='', bgcolor="#c6ecba"), \

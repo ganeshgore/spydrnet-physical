@@ -81,11 +81,11 @@ def main():
         fp.write(
             '`include "./homogeneous_fabric/FPGA44_Task/CustomModules/standard_cell_primitives.v"\n')
         fp.write(
-            '`include "./homogeneous_fabric/FPGA44_Verilog/sub_module/muxes.v"\n')
+            '`include "./homogeneous_fabric/FPGA44_Verilog/SRC/sub_module/muxes.v"\n')
         fp.write(
-            '`include "./homogeneous_fabric/FPGA44_Verilog/sub_module/memories.v"')
+            '`include "./homogeneous_fabric/FPGA44_Verilog/SRC/sub_module/memories.v"\n')
         fp.write(
-            '`include "./homogeneous_fabric/FPGA44_Verilog/sub_module/inv_buf_passgate.v"')
+            '`include "./homogeneous_fabric/FPGA44_Verilog/SRC/sub_module/inv_buf_passgate.v"\n')
 
 
 if __name__ == "__main__":

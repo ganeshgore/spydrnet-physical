@@ -25,10 +25,7 @@ jobs:
         id: build
         run: |
           source /tmp/buildenv/bin/activate
-          if [ -f "requirements.txt" ]; then
-            python3 -m pip install --upgrade \
-            --no-cache-dir -r requirements.txt
-          fi
+          bash ./.github/build_env.sh
           if [ -f "docs/requirements.txt" ]; then
             python3 -m pip install --upgrade \
             --no-cache-dir -r docs/requirements.txt
@@ -45,6 +42,7 @@ jobs:
           retention-days: 2
           path: |
             docs/**/*
+            examples/**/*
       - name: Deploy documentation
         if: ${{ (steps.build.outcome == 'success') }}
         uses: peaceiris/actions-gh-pages@v3
