@@ -12,25 +12,25 @@ connectivity.
 
 **Full Switch Box**
 
-.. image:: ../../../examples/OpenFPGA/_sb_1__1_.svg
+.. image:: ../../../../examples/OpenFPGA/rendering/_sb_1__1_.svg
     :width: 500px
     :align: center
 
 **Left Connection Box**
 
-.. image:: ../../../examples/OpenFPGA/_cbx_1__1_.svg
+.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_.svg
     :width: 150px
     :align: center
 
 **Top Connection Box**
 
-.. image:: ../../../examples/OpenFPGA/_cbx_1__2_.svg
+.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__2_.svg
     :width: 800px
     :align: center
 
 **Splitting Channels in Left Connection Box**
 
-.. image:: ../../../examples/OpenFPGA/_cbx_1__1_split.svg
+.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_split.svg
     :width: 800px
     :align: center
 
@@ -55,7 +55,7 @@ np.set_printoptions(linewidth=200)
 
 
 def main():
-    proj = 'homogeneous_fabric'
+    proj = '../homogeneous_fabric'
     for indx, sb in enumerate(glob.glob(f'{proj}/*_Verilog/routing/sb_1__1_.v')):
         module = path.splitext(path.basename(sb))[0]
 

@@ -1,7 +1,7 @@
 """
-============================
-Partitioning Connection Box  
-============================
+=====================
+Partition Conn Box 01
+=====================
 
 This example demonstrate how pre tech mapped netlist of connection box 
 can be partition based on switch patterns. 
@@ -52,7 +52,7 @@ def sort_input_channels(switch_mat, get_bias=False):
 
 
 def main():
-    proj = 'homogeneous_fabric'
+    proj = '../homogeneous_fabric'
     for indx, sb in enumerate(glob.glob(f'{proj}/*_Verilog/routing/sb_1__1_.v')):
         module = path.splitext(path.basename(sb))[0]
 

@@ -18,9 +18,9 @@ first point on respective side is considered as origin
 
 
 Download final annotated verilog netlist:
-:download:`_annotate_netlist.v <../../../examples/OpenFPGA/_annotate_netlist.v>`
+:download:`_annotate_netlist.v <../../../../examples/OpenFPGA/rendering/_annotate_netlist.v>`
 
-.. image:: ../../../examples/OpenFPGA/_basic_hierarchy_floorplan.svg
+.. image:: ../../../../examples/OpenFPGA/rendering/_basic_hierarchy_floorplan.svg
     :width: 500px
 
 """

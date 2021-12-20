@@ -1,7 +1,7 @@
 """
-=========================================
-Creating FPGA Tiles from OpenFPGA verilog
-=========================================
+================================
+FPGA Tiles from OpenFPGA Verilog
+================================
 
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
@@ -22,10 +22,11 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
-    source_files = glob.glob('homogeneous_fabric/*_Verilog/lb/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/routing/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/sub_module/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/fpga_top.v')
+    proj = '../homogeneous_fabric'
+    source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
 
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -72,7 +73,7 @@ def main():
     fpga.design_top_stat()
 
     # Save netlist
-    base_dir = (".", "homogeneous_fabric", "_output")
+    base_dir = (proj, "_output")
     fpga.save_netlist("sb*", path.join(*base_dir, "routing"))
     fpga.save_netlist("cb*", path.join(*base_dir, "routing"))
     fpga.save_netlist("grid*", path.join(*base_dir, "lb"))

@@ -224,15 +224,21 @@ rst_epilog = """
 
 sphinx_gallery_conf = {
     # path to your example scripts
-    'examples_dirs': [os.path.join('..', '..', 'examples', 'basic'), os.path.join('..', '..', 'examples', 'OpenFPGA'), ],
+    'examples_dirs': [
+        os.path.join('..', '..', 'examples', 'basic'),
+        os.path.join('..', '..', 'examples', 'OpenFPGA'),
+        os.path.join('..', '..', 'examples', 'OpenFPGA', 'partition'),
+    ],
     # path to where to save gallery generated output
-    'gallery_dirs': ['auto_basic', "auto_openfpga"],
+    'gallery_dirs': ['auto_basic', "auto_openfpga", "auto_partition"],
     'remove_config_comments': True,
     'filename_pattern': '/*.py',
     'capture_repr': (),
     'within_subsection_order': ExampleTitleSortKey,
     'subsection_order': ExplicitOrder(['../../examples/basic',
-                                       '../../examples/OpenFPGA']),
+                                       '../../examples/OpenFPGA',
+                                       '../../examples/OpenFPGA/rendering',
+                                       '../../examples/OpenFPGA/partition']),
 }
 
 
