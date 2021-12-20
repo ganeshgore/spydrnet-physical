@@ -21,8 +21,7 @@ jobs:
       - name: Run pytest
         run: |
           pip install --upgrade pip
-          pip install --upgrade Cython
-          pip install -r requirements.txt --user
+          pip install --upgrade -r requirements.txt --user
           export PYTHONPATH=${PWD}
           pytest spydrnet_physical
       - name: Log on failure
