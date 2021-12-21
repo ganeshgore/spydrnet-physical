@@ -12,19 +12,19 @@ can be rendered in a SVG format.
     :width: 500px
     :align: center
 
-**Vertical Connection Box**
+**Horizontal Connection Box**
 
 .. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_.svg
     :width: 150px
     :align: center
 
-**Horizontal Connection Box**
+**Vertical Connection Box**
 
 .. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__2_.svg
     :width: 800px
     :align: center
 
-**Arbitrary Arrangement of Connection Box channels**
+**Arbitrary arrangement of vertical connection box channels and pins**
 
 .. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_arrangement.svg
     :width: 800px
@@ -50,7 +50,7 @@ np.set_printoptions(linewidth=200)
 
 
 def main():
-    proj = 'homogeneous_fabric'
+    proj = '../homogeneous_fabric'
     for indx, sb in enumerate(glob.glob(f'{proj}/*_Verilog/routing/sb_1__1_.v')):
         module = path.splitext(path.basename(sb))[0]
 

@@ -44,8 +44,8 @@ class RoutingRender:
         return max([int(i.attrib["index"])for i in ele] + [-1])+1
 
     @staticmethod
-    def _set_bit(x, indx):
-        x[int(indx)] = 'x'
+    def _set_bit(x, indx, symbol='x'):
+        x[int(indx)] = symbol
 
     @staticmethod
     def _set_vbit(x, indx):
