@@ -189,17 +189,17 @@ class OpenFPGA:
         """
         Convert `grid_io` Input/Output pins to bus structure
         ::
-          # Input Pins
-          right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
-          left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
-          top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
-          bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
+        # Input Pins
+        right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
+        left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
+        top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
+        bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
 
-          # Output Pins
-          right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
-          left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
-          top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
-          bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
+        # Output Pins
+        right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
+        left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
+        top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
+        bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
         """
         sides = ("left", "top", "right", "bottom")
 
