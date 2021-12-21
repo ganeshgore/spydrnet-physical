@@ -3,38 +3,33 @@
 Rendering Switch Box
 =====================
 
-This example demostrate how a switchbox adn connection box
+This example demostrate how a switch box (SB) and connection box (CB)
 can be rendered in a SVG format.
 
-It also shows a simple switch partitionong scheme which splits
-the connection box switches in to two partition with mnimum
-connectivity.
-
-**Full Switch Box**
+**Full Switch Box [ SB_1__1_ ]**
 
 .. image:: ../../../../examples/OpenFPGA/rendering/_sb_1__1_.svg
     :width: 500px
     :align: center
 
-**Left Connection Box**
+**Vertical Connection Box**
 
 .. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_.svg
     :width: 150px
     :align: center
 
-**Top Connection Box**
+**Horizontal Connection Box**
 
 .. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__2_.svg
     :width: 800px
     :align: center
 
-**Splitting Channels in Left Connection Box**
+**Arbitrary Arrangement of Connection Box channels**
 
-.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_split.svg
+.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_arrangement.svg
     :width: 800px
     :align: center
 
-TODO: Extend it to all the switch boxes
 """
 
 import glob
@@ -55,7 +50,7 @@ np.set_printoptions(linewidth=200)
 
 
 def main():
-    proj = '../homogeneous_fabric'
+    proj = 'homogeneous_fabric'
     for indx, sb in enumerate(glob.glob(f'{proj}/*_Verilog/routing/sb_1__1_.v')):
         module = path.splitext(path.basename(sb))[0]
 
@@ -89,6 +84,7 @@ def main():
         print("\nbottom outgoing channels")
         sb_render.report_outgoing_channels("bottom")
 
+        # Arbitrary Arrangement of Connection Box
         def channel_map(side, x):
             lbl = side[0].upper() + str(x)
             chan_map = ["R0", "R1", "R2", "R3",
@@ -115,7 +111,7 @@ def main():
                               21, 23, 25, 27, 29,
                               31, 33, 35, 37, 39].index(x),
             channel_map=channel_map,
-            filename="_cbx_1__1_split.svg")
+            filename="_cbx_1__1_arrangement.svg")
 
 
 if __name__ == "__main__":
