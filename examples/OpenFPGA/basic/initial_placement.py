@@ -24,10 +24,11 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
-    source_files = glob.glob('homogeneous_fabric/*_Verilog/lb/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/routing/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/sub_module/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/fpga_top.v')
+    proj = "../homogeneous_fabric"
+    source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
 
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -56,7 +57,7 @@ def main():
     dwg.saveas("_fpga_initial_placement.svg", pretty=True, indent=4)
 
     # Save netlist
-    base_dir = (".", "homogeneous_fabric", "_output_2")
+    base_dir = ("..", "homogeneous_fabric", "_output_2")
     fpga.save_netlist("sb*", os.path.join(*base_dir, "routing"),
                       skip_constraints=False)
     fpga.save_netlist("cb*", os.path.join(*base_dir, "routing"),

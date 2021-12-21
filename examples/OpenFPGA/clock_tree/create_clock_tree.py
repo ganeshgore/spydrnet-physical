@@ -4,21 +4,21 @@ Create Clock Tree Embedding
 ============================
 
 
-.. hdl-diagram:: ../../../examples/OpenFPGA/_square_grid_design.v
+.. hdl-diagram:: ../../../../examples/OpenFPGA/_square_grid_design.v
    :type: netlistsvg
    :align: center
    :module: top
 
-.. image:: ../../../examples/OpenFPGA/_fishbone_pattern_0.svg
+.. image:: ../../../../examples/OpenFPGA/_fishbone_pattern_0.svg
     :width: 300px
     :align: center
 
-.. image:: ../../../examples/OpenFPGA/_clock_tree_floorplan.svg
+.. image:: ../../../../examples/OpenFPGA/_clock_tree_floorplan.svg
     :width: 500px
     :align: center
 
 '''
-# .. hdl-diagram:: ../../../examples/OpenFPGA/_feedthrough_design.v
+# .. hdl-diagram:: ../../../../examples/OpenFPGA/_feedthrough_design.v
 #    :type: netlistsvg
 #    :align: center
 #    :module: top

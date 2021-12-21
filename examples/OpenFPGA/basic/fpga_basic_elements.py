@@ -6,7 +6,7 @@ Render FPGA Basic Elements
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
 
-.. hdl-diagram:: ../../../examples/OpenFPGA/_includes.v
+.. hdl-diagram:: ../../../../examples/OpenFPGA/basic/_includes.v
    :type: netlistsvg
    :align: center
    :module: cbx_1__1_
@@ -28,12 +28,13 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
-    source_files = glob.glob('homogeneous_fabric/*_Verilog/lb/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/routing/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/sub_module/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/fpga_top.v')
+    proj = "../homogeneous_fabric"
+    source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
     source_files += glob.glob(
-        'homogeneous_fabric/*_Task/CustomModules/standard_cell_wrapper.v')
+        f'{proj}/*_Task/CustomModules/standard_cell_wrapper.v')
 
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -79,13 +80,13 @@ def main():
     with open("_includes.v", "w") as fp:
         fp.write('`include "./_tmp/cbx_1__1_.v"\n')
         fp.write(
-            '`include "./homogeneous_fabric/FPGA44_Task/CustomModules/standard_cell_primitives.v"\n')
+            f'`include "{proj}/FPGA44_Task/CustomModules/standard_cell_primitives.v"\n')
         fp.write(
-            '`include "./homogeneous_fabric/FPGA44_Verilog/SRC/sub_module/muxes.v"\n')
+            f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/muxes.v"\n')
         fp.write(
-            '`include "./homogeneous_fabric/FPGA44_Verilog/SRC/sub_module/memories.v"\n')
+            f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/memories.v"\n')
         fp.write(
-            '`include "./homogeneous_fabric/FPGA44_Verilog/SRC/sub_module/inv_buf_passgate.v"\n')
+            f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/inv_buf_passgate.v"\n')
 
 
 if __name__ == "__main__":

@@ -48,12 +48,13 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 def main():
     # Read verilog sources
+    proj = "../homogeneous_fabric"
     source_files = []
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/routing/*.v')
-    source_files += glob.glob('homogeneous_fabric/*_Verilog/sub_module/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
+    source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
     source_files += glob.glob(
-        'homogeneous_fabric/FPGA44_Task/CustomModules/standard_cell_p*.v')
-    source_files += glob.glob('homogeneous_fabric/FPGA44_Task/CustomModules/ccff.v')
+        f'{proj}/FPGA44_Task/CustomModules/standard_cell_p*.v')
+    source_files += glob.glob(f'{proj}/FPGA44_Task/CustomModules/ccff.v')
 
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -189,7 +190,7 @@ def main():
     with open("_graph.part.1", "w") as fp:
         fp.write("\n".join(partitions[1]))
 
-    sb11_gsb = "homogeneous_fabric/FPGA44_gsb/sb_1__1_.xml"
+    sb11_gsb = f"{proj}/FPGA44_gsb/sb_1__1_.xml"
     sb_render = RoutingRender("sb_1__1_", sb11_gsb)
     sw_top = sb_render.report_ipins("top", show=False)
     sw_top[sw_top == 'x'] = "t"
