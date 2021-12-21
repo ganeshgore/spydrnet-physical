@@ -12,6 +12,22 @@ can be partition based on switch patterns.
 4. In case thee are multiple point with 0 difference split them equally in both 
 partition
 
+**Horizontal Connection Box**
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_0.svg
+    :width: 150px 
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_1.svg
+    :width: 150px
+
+**Vertical Connection Box**
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__2_0.svg
+    :width: 800px
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__2_1.svg
+    :width: 800px
+
 """
 
 import glob
@@ -72,6 +88,13 @@ def main():
         sb_render.render_ipin(sw)
         sb_render.render_ipin(sw[:, left_chan])
         sb_render.render_ipin(sw[:, right_chan])
+        sb_render.render_switch_pattern()
+        sb_render.render_connection_box('left', filename="_cbx_1__1_0.svg")
+        sb_render.render_connection_box('top', filename="_cbx_1__2_0.svg")
+
+        def left_pinmap(x): return (left_chan +
+                                    [None, None, None, None] +
+                                    right_chan).index(x)
 
         # Print vertical connection box (CBX) information and split
         print(" =========== CBX =========== ")
@@ -86,6 +109,15 @@ def main():
         sb_render.render_ipin(sw)
         sb_render.render_ipin(sw[:, top_chan])
         sb_render.render_ipin(sw[:, bottom_chan])
+
+        def top_pinmap(x): return (bottom_chan +
+                                   [None, None, None, None] +
+                                    top_chan).index(x)
+
+        sb_render.render_connection_box('left', pinmap=left_pinmap,
+                                        filename="_cbx_1__1_1.svg")
+        sb_render.render_connection_box('top', pinmap=top_pinmap,
+                                        filename="_cbx_1__2_1.svg")
 
 
 if __name__ == "__main__":

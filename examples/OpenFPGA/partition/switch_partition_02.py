@@ -3,17 +3,30 @@
 Partition Conn Box 02
 =====================
 
-This example demonstrate, how connection box can be split into two parts 
+This example demonstrate, how connection box can be split into two parts
 to be merged with the respective logic blocks.
 
-It first converts the pre tech-mapped connection box netlist to a 
-networkX graph. The graph is converted to a two dimentional array and 
+It first converts the pre tech-mapped connection box netlist to a
+networkX graph. The graph is converted to a two dimentional array and
 passed to metis library which performs the partitioning.
-The partitioned graph is rendered in the following SVG. 
+The partitioned graph is rendered in the following SVG.
 
-To simplify the partitioning, all the global signals are stripped down 
-before converting netlist to a graph (including connections beetween 
+To simplify the partitioning, all the global signals are stripped down
+before converting netlist to a graph (including connections beetween
 shift registers chain).
+
+**Horizontal Connection Box**
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_2.svg
+    :width: 150px
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_3.svg
+    :width: 150px
+
+**Vertical Connection Box**
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__2_2.svg
+    :width: 800px
 
 """
 
@@ -194,8 +207,14 @@ def main():
     sw_bottom[sw_bottom == 'x'] = "b"
     sw = np.vstack([sw_top, sw_bottom])
     sb_render.render_ipin(sw)
-    top = [int(e.split("_")[-2]) for e in partitions[0] if "chanx" in e]
-    bottom = [int(e.split("_")[-2])+20 for e in partitions[1] if "chanx" in e]
+
+    def pin_name_to_number(e):
+        return (int(e.split("_")[-2])*2 if "left" in e else (1+int(e.split("_")[-2])*2))
+
+    top = sorted([pin_name_to_number(e)
+                  for e in partitions[0] if "chanx" in e])
+    bottom = sorted([pin_name_to_number(e)
+                     for e in partitions[1] if "chanx" in e])
     sb_render.render_ipin(sw[:, top])
     sb_render.render_ipin(sw[:, bottom])
 
@@ -205,6 +224,17 @@ def main():
     graph.write_svg('_graph.svg')
     sdn.compose(netlist, '_cbx_1__1_extended.v',
                 definition_list=["cbx_1__1_"], skip_constraints=True)
+
+    sb_render.render_switch_pattern()
+    sb_render.render_connection_box('left', filename="_cbx_1__1_2.svg")
+    sb_render.render_connection_box('top', filename="_cbx_1__2_2.svg")
+
+    def left_pinmap(x): return (top +
+                                [None, None, None, None] +
+                                bottom).index(x)
+
+    sb_render.render_connection_box('left', pinmap=left_pinmap,
+                                    filename="_cbx_1__1_3.svg")
 
 
 if __name__ == "__main__":
