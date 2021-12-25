@@ -275,7 +275,7 @@ class Definition(DefinitionBase):
         # ====== Input Sanity checks
         for eachModule in instances_list:
             assert isinstance(
-                eachModule, sdn.Instance), "Modulelist contains none non-intance object"
+                eachModule, sdn.Instance), "Modulelist contains none non-intance object [%s]" % type(eachModule)
 
         if pin_map:
             if isinstance(pin_map, dict):
@@ -311,7 +311,7 @@ class Definition(DefinitionBase):
             # Iterate over each port of current instance
             for p in eachM.get_ports():
                 pClone = p.clone()  # It copied all pins, wires and cables
-                for eachSuffix in [""]+[f"_{i}" for i in range(10)]:
+                for eachSuffix in [""]+[f"_{i}" for i in range(1000)]:
                     newName = pClone.name + eachSuffix
                     if not len(list(newMod.get_ports(newName))):
                         break
@@ -711,13 +711,16 @@ class Definition(DefinitionBase):
 
         # Create Nodes
         for indx, port in enumerate(self.ports):
-            graph.add_node(indx, label=f"port_{port.name}", shape='rect')
+            graph.add_node(indx, label=f"port_{port.name}",
+                           name=port.name,
+                           shape='rect', port=True)
             instance_node_map.append(f"port_{port.name}")
 
         for instance in self.children:
             name = instance.name
             weight = 2 if "_in_" in name else 5 if "_BUF_" in name else 0
-            graph.add_node(len(instance_node_map),
+            graph.add_node(len(instance_node_map), port=False,
+                           name=instance.name,
                            label=instance.name, weight=weight)
             instance_node_map.append(instance.name)
 
@@ -725,10 +728,10 @@ class Definition(DefinitionBase):
         for cable in list(self.get_cables()):
             for wire in cable.wires:
                 if not wire.get_driver():
-                    logger.warn(f"No driver for {cable.name}[{wire.index()}]")
-                    for pin in wire.pins:
-                        logger.warn(
-                            f"{pin.port.name} {pin.port.direction} {pin.port.definition.name}")
+                    # logger.warn(f"No driver for {cable.name}[{wire.index()}]")
+                    # for pin in wire.pins:
+                    #     logger.warn(
+                    #         f"{pin.port.name} {pin.port.direction} {pin.port.definition.name}")
                     continue
                 driver_inst = get_node_name(wire.get_driver()[0])
                 if not driver_inst:
