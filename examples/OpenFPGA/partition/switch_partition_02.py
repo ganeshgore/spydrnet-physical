@@ -17,16 +17,17 @@ shift registers chain).
 
 **Horizontal Connection Box**
 
-.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_2.svg
-    :width: 150px
+.. 
+    .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_2.svg
+        :width: 150px
 
-.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_3.svg
-    :width: 150px
+    .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_3.svg
+        :width: 150px
 
-**Vertical Connection Box**
+    **Vertical Connection Box**
 
-.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__2_2.svg
-    :width: 800px
+    .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__2_2.svg
+        :width: 800px
 
 """
 
@@ -56,6 +57,7 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
+    return
     # Read verilog sources
     proj = '../homogeneous_fabric'
     source_files = []

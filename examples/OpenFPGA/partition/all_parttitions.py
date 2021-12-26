@@ -21,8 +21,7 @@ import matplotlib.pyplot as plt
 import pydot
 import spydrnet as sdn
 from networkx.drawing.nx_pydot import to_pydot
-from spydrnet_physical.util import (OpenFPGA, Tile02, run_metis,
-                                    write_metis_graph)
+from spydrnet_physical.util import (OpenFPGA, run_metis, write_metis_graph)
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
