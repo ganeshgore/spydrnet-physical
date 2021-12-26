@@ -694,59 +694,76 @@ class Definition(DefinitionBase):
                     wire.connect_pin(new_instance.pins[pin])
         self.remove_child(instance)
 
-    def get_connectivity_network(self):
+    def get_connectivity_network(self, get_weights=None, split_ports=False):
+        """
+        This method converts current module into networkx graph
+        each cell is represented as as node and nets are represented as edges
 
+        - Netowrkx should be installed
+        - Higher fanout nets are represented with independent edge from driver 
+        to each load
+        """
         assert "nx" not in dir(), "Netowrkx library not installed"
+
+        get_weights = get_weights or (lambda x: 1)
 
         def get_node_name(pin):
             if isinstance(pin, sdn.OuterPin):
                 return pin.instance.name
             else:
-                return f"port_{pin.port.name}"
+                if split_ports:
+                    return f"{pin.port.name}_{pin.get_verilog_index}"
+                else:
+                    return pin.port.name
 
         # Variables
-        graph = nx.Graph()
-        instance_node_map = []
+        graph = nx.DiGraph()
+        node_map = {}
         edges = []
 
-        # Create Nodes
-        for indx, port in enumerate(self.ports):
-            graph.add_node(indx, label=f"port_{port.name}",
-                           name=port.name,
-                           shape='rect', port=True)
-            instance_node_map.append(f"port_{port.name}")
+        # Create Port Nodes first
+        node_indx = 0
+        for port in self.ports:
+            for pin in port.pins:
+                name = get_node_name(pin)
+                graph.add_node(node_indx,
+                               label=name, weight=get_weights(pin),
+                               shape="rect", port=True, node_name=port.name)
+                node_map[name] = node_indx
+                node_indx += 1
+                if not split_ports:
+                    break
 
+        # Create Instances Nodes
         for instance in self.children:
             name = instance.name
-            weight = 2 if "_in_" in name else 5 if "_BUF_" in name else 0
-            graph.add_node(len(instance_node_map), port=False,
-                           name=instance.name,
-                           label=instance.name, weight=weight)
-            instance_node_map.append(instance.name)
+            graph.add_node(node_indx, port=False,
+                           weight=get_weights(instance),
+                           node_name=instance.name, label=instance.name, )
+            node_map[instance.name] = node_indx
+            node_indx += 1
 
         # Create edges
         for cable in list(self.get_cables()):
             for wire in cable.wires:
+                # Skip adding edge if there is no driver
                 if not wire.get_driver():
-                    # logger.warn(f"No driver for {cable.name}[{wire.index()}]")
-                    # for pin in wire.pins:
-                    #     logger.warn(
-                    #         f"{pin.port.name} {pin.port.direction} {pin.port.definition.name}")
                     continue
+                # Get driver [source node]
+                # TODO: Consider multiple dirvers here
                 driver_inst = get_node_name(wire.get_driver()[0])
-                if not driver_inst:
-                    continue
+
+                # Make connection from drivers to each load
                 for p in wire.pins:
                     node = get_node_name(p)
                     if node == driver_inst:
                         continue
-                    edges.append(tuple(sorted([
-                        instance_node_map.index(driver_inst),
-                        instance_node_map.index(node)])))
+                    edges.append((node_map[driver_inst], node_map[node]))
 
         for edge in set(edges):
             weight = edges.count(edge)
-            graph.add_edge(*edge, label=f"[{weight}]", weight=float(weight))
+            graph.add_edge(*edge, label=f"[{weight}]",
+                           name="", weight=float(weight))
         return graph
 
     def _remove_child(self, child):
