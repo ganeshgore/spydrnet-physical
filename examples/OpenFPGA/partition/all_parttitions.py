@@ -6,6 +6,21 @@ FPGA Tiles from OpenFPGA Verilog version 02
 This example demonstrates how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
 
+**cbx_1__1_ Split**
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1__nx_graph.svg
+    :align: center
+    :width: 50% 
+
+**cby_1__1_ Split**
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cby_1__1__nx_graph.svg
+    :align: center
+    :width: 50% 
+
+.. program-output:: python --help
+   :ellipsis: 2 
+
 """
 
 import glob
@@ -47,21 +62,18 @@ def main():
         fp.seek(0)
         netlist = sdn.parse(fp.name)
 
-    # for modules in ["cbx_1__0_", "cbx_1__1_", "cbx_1__4_",
-    #                 "cby_0__1_", "cby_1__1_", "cby_4__1_"]:
-    for modules in ['cbx_1__1_', ]:
+    for modules in ['cbx_1__1_', 'cby_1__1_']:
         cb_module = next(netlist.get_definitions(modules))
-        clean_netlist(cb_module)
+        prepare_netlist(cb_module)
+        sdn.compose(netlist, f"_{modules}_temp.v",
+                    skip_constraints=True, definition_list=[modules])
         graph = cb_module.get_connectivity_network(split_ports=True)
-        graph = clean_and_cb_graph(graph)
+        graph = clean_cb_graph(graph)
 
-        # save_graph(f"_{modules}_nx_graph", graph=graph)
+        save_graph(f"_{modules}_nx_graph_pre", graph=graph)
+
         # show_graph_stats(graph)
-
-        # annotate_graph(graph)
-        graph.remove_nodes_from(list(nx.isolates(graph)))
-        graph.remove_edges_from(list(nx.selfloop_edges(graph)))
-        graph = convert_node_labels_to_integers(graph)
+        annotate_graph(graph)
 
         nodes = list(nx.get_node_attributes(graph, 'label').values())
         cb_vweights = nx.get_node_attributes(graph, "weight")
@@ -88,90 +100,36 @@ def main():
         graph_dot = to_pydot(graph)
         graph_dot.set_rankdir("LR")
 
-        inputs = pydot.Cluster('inputs', label='')
-        outputs = pydot.Cluster('outputs', label='')
-        part1 = pydot.Cluster('part1', label='')
-        part2 = pydot.Cluster('part2', label='')
+        inputs = (pydot.Cluster('inputs1', label='', rank="source"),
+                  pydot.Cluster('inputs2', label='', rank="source"))
+        outputs = (pydot.Cluster('outputs1', label='', rank="sink"),
+                   pydot.Cluster('outputs2', label='', rank="sink"))
+        part1 = pydot.Cluster('part1', label='',
+                              style='filled', color='red')
+        part2 = pydot.Cluster('part2', label='',
+                              style='filled', color='green')
 
         for indx, node in enumerate(nodes):
             if fn.fnmatch(node, "chan*"):
-                inputs.add_node(graph_dot.get_node(str(indx))[0])
+                inputs[cbx_membership[indx]].add_node(
+                    graph_dot.get_node(str(indx))[0])
             elif fn.fnmatch(node, "*pin_I*"):
-                outputs.add_node(graph_dot.get_node(str(indx))[0])
+                outputs[cbx_membership[indx]].add_node(
+                    graph_dot.get_node(str(indx))[0])
             elif cbx_membership[indx] == 1:
                 part1.add_node(graph_dot.get_node(str(indx))[0])
             elif cbx_membership[indx] == 0:
                 part2.add_node(graph_dot.get_node(str(indx))[0])
 
-        graph_dot.add_subgraph(inputs)
-        graph_dot.add_subgraph(outputs)
         graph_dot.add_subgraph(part1)
         graph_dot.add_subgraph(part2)
+        part2.add_subgraph(inputs[0])
+        part1.add_subgraph(inputs[1])
+        part2.add_subgraph(outputs[0])
+        part1.add_subgraph(outputs[1])
 
         graph_dot.write_dot(f'_{modules}_nx_graph.dot')
         graph_dot.write_svg(f'_{modules}_nx_graph.svg')
-
-    # for modules in ["sb_1__1_", ]:
-    #     sb_module = next(netlist.get_definitions(modules))
-    #     clean_netlist(sb_module)
-    #     sb_graph = sb_module.get_connectivity_network()
-    #     sb_graph = convert_node_labels_to_integers(sb_graph)
-    #     # clean_and_annotate_sb_graph(sb_graph)
-    #     # print(sb_graph.nodes)
-    #     pass
-
-    # Read Fabric Again
-    source_files = glob.glob(f'{proj}/lb/*.v')
-    source_files += glob.glob(f'{proj}/routing/*.v')
-    source_files += glob.glob(f'{proj}/sub_module/*.v')
-    source_files += glob.glob(f'{proj}/fpga_top.v')
-    source_files += glob.glob(f'{task}/CustomModules/standard_cell_wrapper.v')
-
-    # Temporary fix to read multiple verilog files
-    with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-        for eachV in source_files:
-            with open(eachV, "r") as fpv:
-                fp.write(str.encode(" ".join(fpv.readlines())))
-        fp.seek(0)
-        netlist = sdn.parse(fp.name)
-
-    fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
-    fpga.design_top_stat()
-
-    # for modules in ["cbx_1__1_", ]:
-    # for modules in ["cbx_1__0_", "cbx_1__1_", "cbx_1__4_",
-    #                 "cby_0__1_", "cby_1__1_", "cby_4__1_"]:
-    for modules in ['cbx_1__1_', ]:
-        cb_module = next(netlist.get_definitions(modules))
-        # Flattern the module
-        for instance in list(cb_module.get_instances('*ipin*')):
-            cb_module.flatten_instance(instance)
-
-        # Read Part 1
-        data = json.load(open(f"_{modules}_0.json", "r"))
-        cb_module.merge_instance([next(cb_module.get_instances(inst['label']))
-                                  for inst in data if inst['port'] is False],
-                                 new_definition_name=f"{modules}_0")
-        tile = next(cb_module._library.get_definitions(f"{modules}_0"))
-        tile.OptPins()
-
-        # Read Part 2
-        data = json.load(open(f"_{modules}_1.json", "r"))
-        cb_module.merge_instance([next(cb_module.get_instances(inst['label']))
-                                  for inst in data if inst['port'] is False],
-                                 new_definition_name=f"{modules}_1")
-        tile = next(cb_module._library.get_definitions(f"{modules}_1"))
-        tile.OptPins()
-
-    base_dir = (".", "_output")
-
-    # Save netlist
-    base_dir = (".", "_output")
-    fpga.save_netlist("sb*", path.join(*base_dir, "routing"))
-    fpga.save_netlist("cb*", path.join(*base_dir, "routing"))
-    fpga.save_netlist("grid*", path.join(*base_dir, "lb"))
-    # fpga.save_netlist("*tile*", path.join(*base_dir, "tiles"))
-    fpga.save_netlist("fpga_top", path.join(*base_dir))
 
 
 def save_graph(fllename, graph=None, graph_dot=None):
@@ -224,17 +182,26 @@ def print_partition_info(partitions):
     pass
 
 
-def clean_and_annotate_sb_graph(graph):
-    mapping = {i: graph.nodes[i]["label"] for i in graph.nodes}
-    for signal in ["prog_reset", "cfg_done", "prog_clk", "chan*_out", "*ASSIGNMENT*"]:
-        print(mapping.index(signal))
+def clean_cb_graph(graph):
+    nodes = list(nx.get_node_attributes(graph, 'label').values())
+    node_indx = len(nodes)
+    # Merge Output Nodes
+    for dir in ["top", "left", "right", "bottom"]:
+        if fn.filter(nodes, f"{dir}_grid*_pin_I*"):
+            graph.add_node(node_indx, label=f"{dir}_pin_I")
+            for node in fn.filter(nodes, f"{dir}_grid*_pin_I*"):
+                graph = nx.contracted_nodes(graph,
+                                            node_indx, nodes.index(node))
+            node_indx += 1
 
-
-def clean_and_cb_graph(graph):
     mapping = {graph.nodes[i]["label"]: i for i in graph.nodes}
     for signal in ["prog_reset", "cfg_done", "prog_clk", "chan*_out*", "*ASSIGNMENT*"]:
         for name in fn.filter(mapping, signal):
             graph.remove_node(mapping[name])
+
+    graph.remove_nodes_from(list(nx.isolates(graph)))
+    graph.remove_edges_from(list(nx.selfloop_edges(graph)))
+    graph = convert_node_labels_to_integers(graph)
     return graph
 
 
@@ -245,50 +212,24 @@ def annotate_graph(graph):
     for pin in [indx for indx, node in enumerate(nodes) if "pin_I" in node]:
         graph.nodes[pin]["weight"] = 999
 
+    for dir in ["top", "left", "right", "bottom"]:
+        if f"{dir}_pin_I" in nodes:
+            for edge in graph.in_edges(nodes.index(f"{dir}_pin_I"), data=True):
+                graph[edge[0]][edge[1]]["weight"] = 999
+
     # Annotate weight in labels
     for indx, node_name in enumerate(nodes):
         graph.nodes[indx]["label"] = f"{node_name}_[{graph.nodes[indx].get('weight', 0)}]"
 
 
-def clean_netlist(module):
+def prepare_netlist(module):
     # Flattern all the instances (Muxes + Configuration Mem)
     for instance in list(module.get_instances('*_ipin_*')):
-        logger.debug(f"Flattening {instance.name}")
-        print(instance.name)
         module.flatten_instance(instance)
-#
-    # Remove global ports and signals
-    # for signal in ["prog_reset", "cfg_done", "prog_clk", "chan*_out"]:
-    #     for port in list(module.get_ports(signal)):
-    #         module.remove_port(port)
-    #     for cable in list(module.get_cables(signal)):
-    #         module.remove_cable(cable)
 
-    # Get unwanted instances
-    for instance in ["*ASSIG*", ]:
-        module.remove_children_from(module.get_instances(instance))
-
-    # # # Disconnect scan_chain
-    # # for dff in module.get_instances("*_CCDFF_*"):
-    # #     port = next(dff.get_ports("*Q*"))
-    # #     if port.pins[0].wire:
-    # #         port.pins[0].wire.disconnect_pin(port.pins[0])
-
-    # # for instance in ["*CCDFF*", ]:
-    # #     module.remove_children_from(module.get_instances(instance))
-
-    # # module.remove_cables_from(list(module.get_cables("*CCDFF*")))
-    # # module.remove_cables_from(list(module.get_cables("*ccff_tail*")))
-    # Split Chanx_ports
+    # Split input channel ports
     for chan_in_port in list(module.get_ports("chan*_in")):
         chan_in_port.split()
-
-    for dir in ["top", "left", "right", "bottom"]:
-        try:
-            module.combine_ports(f"{dir}_pin_I",
-                                 list(module.get_ports(f"*{dir}_grid_*_pin_I*")))
-        except:
-            pass
 
 
 if __name__ == "__main__":

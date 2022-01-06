@@ -48,7 +48,7 @@ def write_metis_graph(graph, eweights=False, vweights=False, filename=None):
 
 
 def run_metis(filename, cuts, options=""):
-    cmd = f"gpmetis {options} {filename} {cuts}"
+    cmd = f"gpmetis {options} {filename} {cuts} > _{filename}.log"
     print(f"Running [{cmd}]")
     os.system(cmd)
     with open(f"{filename}.part.{cuts}", 'r') as fp:

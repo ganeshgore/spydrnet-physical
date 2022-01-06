@@ -711,7 +711,7 @@ class Definition(DefinitionBase):
             if isinstance(pin, sdn.OuterPin):
                 return pin.instance.name
             else:
-                if split_ports:
+                if split_ports and (pin.port.size >1) :
                     return f"{pin.port.name}_{pin.get_verilog_index}"
                 else:
                     return pin.port.name

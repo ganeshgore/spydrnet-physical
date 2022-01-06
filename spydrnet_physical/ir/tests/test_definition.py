@@ -160,7 +160,11 @@ class TestDefinition(unittest.TestCase):
         self.definition.flatten_instance(inst1)
         self.assertEqual(len(self.definition.children), 1)
         self.assertEqual(self.definition.children[0].name,
-                            "inst1_submodule_inst")
+                         "inst1_submodule_inst")
+
+    @expectedFailure
+    def test_get_connectivity_network():
+        assert 1 == 2
 
     @expectedFailure
     def test_merge_multiple_instance(self):
