@@ -88,9 +88,9 @@ def main():
         # Run using external metis
         write_metis_graph(nx.to_numpy_array(graph.to_undirected()),
                           eweights=True, vweights=vweights,
-                          filename=f"_partition_experiments_{module.name}.csr")
+                          filename=f"_module_experiments_{module.name}.csr")
         cbx_membership = run_metis(
-            filename=f"_partition_experiments_{module.name}.csr", cuts=2,
+            filename=f"_module_experiments_{module.name}.csr", cuts=2,
             options="-objtype cut -minconn -niter 100 -ncuts 3 ")
         instance_list = [[], []]
         for index, color in enumerate(cbx_membership):

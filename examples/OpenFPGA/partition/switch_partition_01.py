@@ -29,6 +29,7 @@ partition
 .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__2_1.svg
     :width: 800px
 
+
 """
 
 import glob
