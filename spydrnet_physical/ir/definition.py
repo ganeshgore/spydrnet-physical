@@ -711,7 +711,7 @@ class Definition(DefinitionBase):
             if isinstance(pin, sdn.OuterPin):
                 return pin.instance.name
             else:
-                if split_ports and (pin.port.size >1) :
+                if split_ports and (pin.port.size > 1):
                     return f"{pin.port.name}_{pin.get_verilog_index}"
                 else:
                     return pin.port.name
@@ -720,6 +720,7 @@ class Definition(DefinitionBase):
         graph = nx.DiGraph()
         node_map = {}
         edges = []
+        elabel = []
 
         # Create Port Nodes first
         node_indx = 0
@@ -748,6 +749,7 @@ class Definition(DefinitionBase):
             for wire in cable.wires:
                 # Skip adding edge if there is no driver
                 if not wire.get_driver():
+                    logger.debug(f"No driver found for {cable.name}")
                     continue
                 # Get driver [source node]
                 # TODO: Consider multiple dirvers here
@@ -759,11 +761,13 @@ class Definition(DefinitionBase):
                     if node == driver_inst:
                         continue
                     edges.append((node_map[driver_inst], node_map[node]))
+                    elabel.append(f"{cable.name}_{wire.get_verilog_index}")
 
         for edge in set(edges):
             weight = edges.count(edge)
+            edge_name = elabel[edges.index(edge)]
             graph.add_edge(*edge, label=f"[{weight}]",
-                           name="", weight=float(weight))
+                           edge_name=edge_name, weight=float(weight))
         return graph
 
     def _remove_child(self, child):

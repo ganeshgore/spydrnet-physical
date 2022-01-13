@@ -1,15 +1,16 @@
 
 
 `celldefine
-module CCDFF (
-  input RESET_B,
-  input CFGE,
-  input D,
-  output Q,
-  output CFGQN,
-  output CFGQ,
-  input CLK
+module CCDFF (RESET_B, CFGE, D, Q, CFGQN, CFGQ, CLK);
+  input RESET_B;
+  input CFGE;
+  input D;
+  output Q;
+  output CFGQN;
+  output CFGQ;
+  input CLK;
 );
+
 endmodule
 `endcelldefine
 
