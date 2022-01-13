@@ -37,7 +37,7 @@ release = sdnphy.__release__
 numfig = True
 
 
-# -- General configuration ---------------------------------------------------
+# -- General configuration --
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #
@@ -47,6 +47,7 @@ numfig = True
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinxcontrib.programoutput',
     'sphinx.ext.autosummary',
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',

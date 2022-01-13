@@ -9,7 +9,6 @@ module CCDFF (RESET_B, CFGE, D, Q, CFGQN, CFGQ, CLK);
   output CFGQN;
   output CFGQ;
   input CLK;
-);
 
 endmodule
 `endcelldefine

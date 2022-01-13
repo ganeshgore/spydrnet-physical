@@ -702,6 +702,7 @@ class Definition(DefinitionBase):
         - Netowrkx should be installed
         - Higher fanout nets are represented with independent edge from driver 
         to each load
+
         """
         assert "nx" not in dir(), "Netowrkx library not installed"
 

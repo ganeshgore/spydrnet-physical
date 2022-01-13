@@ -12,6 +12,7 @@ can be partition based on switch patterns.
 4. In case thee are multiple point with 0 difference split them equally in both 
 partition
 
+
 **Horizontal Connection Box**
 
 .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_0.svg
@@ -112,7 +113,7 @@ def main():
 
         def top_pinmap(x): return (bottom_chan +
                                    [None, None, None, None] +
-                                    top_chan).index(x)
+                                   top_chan).index(x)
 
         sb_render.render_connection_box('left', pinmap=left_pinmap,
                                         filename="_cbx_1__1_1.svg")

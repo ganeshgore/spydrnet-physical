@@ -1,6 +1,6 @@
 """
 ===========================================
-FPGA Tiles from OpenFPGA Verilog version 02
+FPGA Tiles from OpenFPGA Verilog version 03
 ===========================================
 
 This example demonstrates how to create a tile strcuture from
@@ -18,7 +18,7 @@ Verilog netlist obtained from OpenFPGA
     :align: center
     :width: 50% 
 
-.. program-output:: python --help
+.. program-output:: ls
    :ellipsis: 2 
 
 """
