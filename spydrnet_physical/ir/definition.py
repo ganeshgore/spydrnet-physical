@@ -725,6 +725,7 @@ class Definition(DefinitionBase):
 
         # Create Port Nodes first
         node_indx = 0
+        logger.debug(f"Found {len(self.ports)} ports")
         for port in self.ports:
             for pin in port.pins:
                 name = get_node_name(pin)
@@ -737,6 +738,7 @@ class Definition(DefinitionBase):
                     break
 
         # Create Instances Nodes
+        logger.debug(f"Found {len(self.children)} instances")
         for instance in self.children:
             name = instance.name
             graph.add_node(node_indx, port=False,
@@ -746,6 +748,7 @@ class Definition(DefinitionBase):
             node_indx += 1
 
         # Create edges
+        logger.debug(f"Found {len(list(self.get_cables()))} nets")
         for cable in list(self.get_cables()):
             for wire in cable.wires:
                 # Skip adding edge if there is no driver
@@ -764,6 +767,7 @@ class Definition(DefinitionBase):
                     edges.append((node_map[driver_inst], node_map[node]))
                     elabel.append(f"{cable.name}_{wire.get_verilog_index}")
 
+        logger.debug(f"Adding {len(set(edges))} edges")
         for edge in set(edges):
             weight = edges.count(edge)
             edge_name = elabel[edges.index(edge)]

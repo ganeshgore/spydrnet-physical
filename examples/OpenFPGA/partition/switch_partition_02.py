@@ -167,7 +167,7 @@ def main():
         if not color:
             logger.debug(graph.get_node(str(index))[0])
 
-    print("============= Parition stats =============")
+    print("============ Partition stats =============")
     f_str = '{:<15s} {:<15} {:<15}'
     print(f_str.format('', 'P1', 'P2'))
     print("==========================================")

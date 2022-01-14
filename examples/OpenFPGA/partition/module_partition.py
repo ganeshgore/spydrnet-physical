@@ -18,6 +18,7 @@ import tempfile
 import json
 import fnmatch as fn
 from os import path
+from pathlib import Path
 from pprint import pprint, pformat
 from networkx.classes.function import nodes
 from networkx.readwrite import json_graph
@@ -33,7 +34,7 @@ from networkx.drawing.nx_pydot import to_pydot
 from spydrnet_physical.util import (OpenFPGA, run_metis, write_metis_graph)
 
 logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='INFO')
+sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename=Path(__file__).stem)
 
 
 def main():
@@ -43,7 +44,6 @@ def main():
     source_files = glob.glob(f'{proj}/lb/*.v')
     source_files += glob.glob(f'{proj}/routing/*.v')
     source_files += glob.glob(f'{proj}/sub_module/*.v')
-    # source_files += glob.glob(f'{task}/CustomModules/ccff.v')
     source_files += glob.glob(f'{task}/CustomModules/standard_cell_primitives.v')
     source_files += glob.glob(f'{proj}/fpga_top.v')
 
@@ -139,7 +139,7 @@ def show_graph_stats(graph):
 
 
 def print_partition_info(partitions):
-    print("============= Parition stats =============")
+    print("============ Partition stats =============")
     f_str = '{:<15s} {:<15} {:<15}'
     print(f_str.format('', 'P1', 'P2'))
     print("==========================================")
