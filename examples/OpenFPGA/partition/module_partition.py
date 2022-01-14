@@ -18,7 +18,6 @@ import tempfile
 import json
 import fnmatch as fn
 from os import path
-from pathlib import Path
 from pprint import pprint, pformat
 from networkx.classes.function import nodes
 from networkx.readwrite import json_graph
@@ -34,7 +33,7 @@ from networkx.drawing.nx_pydot import to_pydot
 from spydrnet_physical.util import (OpenFPGA, run_metis, write_metis_graph)
 
 logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename=Path(__file__).stem)
+sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="module_partition")
 
 
 def main():
