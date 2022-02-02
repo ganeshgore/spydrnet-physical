@@ -1,3 +1,6 @@
+"""
+This is OpenFPGA generated Verilog Netlist Parser Class
+"""
 
 import logging
 import os
@@ -200,6 +203,7 @@ class OpenFPGA:
         left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
         top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
         bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
+
         """
         sides = ("left", "top", "right", "bottom")
 
@@ -227,6 +231,7 @@ class OpenFPGA:
           left_width_0_height_0_subtile_*__pin_O_0_     -> grid_left_out
           top_width_0_height_0_subtile_*__pin_O_0_      -> grid_top_out
           bottom_width_0_height_0_subtile_*__pin_O_0_   -> grid_bottom_out
+
         '''
 
         sides = ("left", "top", "right", "bottom")
@@ -257,6 +262,7 @@ class OpenFPGA:
           left_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_     -> sb_left_b_in
           right_top_grid_bottom_width_0_height_0_subtile_*__pin_O_*_    -> sb_right_t_in
           right_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_    -> sb_right_b_in
+
         """
 
         sides = ("top", "right", "bottom", "left")
@@ -283,6 +289,7 @@ class OpenFPGA:
           left_grid_right_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_left_in
           top_grid_bottom_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_top_in
           bottom_grid_top_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_bottom_in
+
         """
         sides = ("top", "right", "bottom", "left")
         for cbx in self._library.get_definitions("cb?_*"):

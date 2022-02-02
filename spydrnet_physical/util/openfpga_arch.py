@@ -1,7 +1,6 @@
 """
 This file contains OpenFPGA Architecture parser class
-It is desigend to provide a API interface to probe arctecture related
-data
+It is desigend to provide a API interface to probe architecrure related data
 """
 
 import xml.etree.ElementTree as ET
