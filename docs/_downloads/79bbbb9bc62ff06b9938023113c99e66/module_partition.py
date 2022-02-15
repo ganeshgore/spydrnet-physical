@@ -17,7 +17,7 @@ import logging
 import tempfile
 import json
 import fnmatch as fn
-from os import path
+from os import path, makedirs
 from pprint import pprint, pformat
 from networkx.classes.function import nodes
 from networkx.readwrite import json_graph
@@ -83,8 +83,9 @@ def main():
         save_graph(f"_{module.name}_graph_pre", graph=graph)
 
         vweights = nx.get_node_attributes(graph, "weight")
+        print(f"********************")
         print(f"nodes {len(graph)}")
-        return
+
         # Run using external metis
         write_metis_graph(nx.to_numpy_array(graph.to_undirected()),
                           eweights=True, vweights=vweights,
@@ -113,6 +114,7 @@ def main():
                               new_definition_name=f'{module.name}_1',
                               new_instance_name=f'{module.name}_1_1')
 
+        makedirs("_output/routing")
         sdn.compose(netlist, f"_output/routing/{module.name}.v",
                     definition_list=[module.name], skip_constraints=True)
         sdn.compose(netlist, f"_output/routing/{module.name}_0.v",

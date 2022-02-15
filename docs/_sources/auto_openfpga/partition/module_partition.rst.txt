@@ -29,7 +29,7 @@ are grouped.
 Partitions are provided thoguh variable `h_chan` and `v_chan`
 And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-234
+.. GENERATED FROM PYTHON SOURCE LINES 14-236
 
 
 
@@ -40,7 +40,15 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
 
  .. code-block:: none
 
+    ********************
     nodes 42
+    Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _module_experiments_cbx_1__1_.csr 2 > __module_experiments_cbx_1__1_.csr.log]
+    ============ Partition stats =============
+                    P1              P2             
+    ==========================================
+    mux             0               0              
+    CCDFF           0               0              
+    ASSIGN          20              20             
 
 
 
@@ -57,7 +65,7 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
     import tempfile
     import json
     import fnmatch as fn
-    from os import path
+    from os import path, makedirs
     from pprint import pprint, pformat
     from networkx.classes.function import nodes
     from networkx.readwrite import json_graph
@@ -123,8 +131,9 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
             save_graph(f"_{module.name}_graph_pre", graph=graph)
 
             vweights = nx.get_node_attributes(graph, "weight")
+            print(f"********************")
             print(f"nodes {len(graph)}")
-            return
+
             # Run using external metis
             write_metis_graph(nx.to_numpy_array(graph.to_undirected()),
                               eweights=True, vweights=vweights,
@@ -153,6 +162,7 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
                                   new_definition_name=f'{module.name}_1',
                                   new_instance_name=f'{module.name}_1_1')
 
+            makedirs("_output/routing")
             sdn.compose(netlist, f"_output/routing/{module.name}.v",
                         definition_list=[module.name], skip_constraints=True)
             sdn.compose(netlist, f"_output/routing/{module.name}_0.v",
@@ -275,7 +285,7 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.824 seconds)
+   **Total running time of the script:** ( 0 minutes  2.434 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_partition_module_partition.py:
