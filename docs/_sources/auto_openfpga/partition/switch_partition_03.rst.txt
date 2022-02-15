@@ -40,13 +40,50 @@ Verilog netlist obtained from OpenFPGA
 .. program-output:: ls
    :ellipsis: 2 
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-241
+.. GENERATED FROM PYTHON SOURCE LINES 25-238
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    nodes 244
+    Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_cbx_1__1_.csr 2 > __partition_experiments_cbx_1__1_.csr.log]
+    ============ Partition stats =============
+                    P1              P2             
+    ==========================================
+    chanx_left      15              5              
+    chanx_right     10              10             
+    chany_top       0               0              
+    chany_bottom    0               0              
+    pin_I           1               1              
+    CCDFF           0               1              
+    top_grid        0               0              
+    bottom_grid     0               0              
+    nodes 244
+    Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_cby_1__1_.csr 2 > __partition_experiments_cby_1__1_.csr.log]
+    ============ Partition stats =============
+                    P1              P2             
+    ==========================================
+    chanx_left      0               0              
+    chanx_right     0               0              
+    chany_top       10              10             
+    chany_bottom    15              5              
+    pin_I           1               1              
+    CCDFF           0               1              
+    top_grid        0               0              
+    bottom_grid     0               0              
 
 
 
 
 
 
+|
 
 .. code-block:: default
 
@@ -82,8 +119,6 @@ Verilog netlist obtained from OpenFPGA
         source_files += glob.glob(f'{proj}/fpga_top.v')
         source_files += glob.glob(f'{task}/CustomModules/standard_cell_wrapper.v')
 
-        logger.info(source_files)
-
         # Temporary fix to read multiple verilog files
         with tempfile.NamedTemporaryFile(suffix=".v") as fp:
             for eachV in source_files:
@@ -100,7 +135,6 @@ Verilog netlist obtained from OpenFPGA
             graph = cb_module.get_connectivity_network(split_ports=True)
             graph = clean_cb_graph(graph)
             logger.info(f"graph {len(graph)}")
-            continue
             save_graph(f"_{modules}_nx_graph_pre", graph=graph)
 
             print(f"nodes {len(graph)}")
@@ -270,7 +304,7 @@ Verilog netlist obtained from OpenFPGA
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.323 seconds)
+   **Total running time of the script:** ( 0 minutes  5.285 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_partition_switch_partition_03.py:

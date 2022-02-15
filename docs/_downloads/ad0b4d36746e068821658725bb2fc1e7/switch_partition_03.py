@@ -54,8 +54,6 @@ def main():
     source_files += glob.glob(f'{proj}/fpga_top.v')
     source_files += glob.glob(f'{task}/CustomModules/standard_cell_wrapper.v')
 
-    logger.info(source_files)
-
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
         for eachV in source_files:
@@ -72,7 +70,6 @@ def main():
         graph = cb_module.get_connectivity_network(split_ports=True)
         graph = clean_cb_graph(graph)
         logger.info(f"graph {len(graph)}")
-        continue
         save_graph(f"_{modules}_nx_graph_pre", graph=graph)
 
         print(f"nodes {len(graph)}")

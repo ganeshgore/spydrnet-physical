@@ -278,13 +278,45 @@ to download the full example code</p>
 <p>This example demonstrates how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA</p>
 <p><strong>cbx_1__1_ Split</strong></p>
-<a class="reference internal image-reference" href="../../examples/OpenFPGA/partition/_cbx_1__1__nx_graph.svg"><img alt="../../examples/OpenFPGA/partition/_cbx_1__1__nx_graph.svg" class="align-center" src="../../examples/OpenFPGA/partition/_cbx_1__1__nx_graph.svg" width="50%"/></a>
+<a class="reference internal image-reference" href="../../_images/_cbx_1__1__nx_graph.svg"><img alt="../../_images/_cbx_1__1__nx_graph.svg" class="align-center" src="../../_images/_cbx_1__1__nx_graph.svg" width="50%"/></a>
 <p><strong>cby_1__1_ Split</strong></p>
-<a class="reference internal image-reference" href="../../examples/OpenFPGA/partition/_cby_1__1__nx_graph.svg"><img alt="../../examples/OpenFPGA/partition/_cby_1__1__nx_graph.svg" class="align-center" src="../../examples/OpenFPGA/partition/_cby_1__1__nx_graph.svg" width="50%"/></a>
+<a class="reference internal image-reference" href="../../_images/_cby_1__1__nx_graph.svg"><img alt="../../_images/_cby_1__1__nx_graph.svg" class="align-center" src="../../_images/_cby_1__1__nx_graph.svg" width="50%"/></a>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>_static
 auto_basic
 ...
 </pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>nodes 244
+Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_cbx_1__1_.csr 2 &gt; __partition_experiments_cbx_1__1_.csr.log]
+============ Partition stats =============
+                P1              P2
+==========================================
+chanx_left      15              5
+chanx_right     10              10
+chany_top       0               0
+chany_bottom    0               0
+pin_I           1               1
+CCDFF           0               1
+top_grid        0               0
+bottom_grid     0               0
+nodes 244
+Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_cby_1__1_.csr 2 &gt; __partition_experiments_cby_1__1_.csr.log]
+============ Partition stats =============
+                P1              P2
+==========================================
+chanx_left      0               0
+chanx_right     0               0
+chany_top       10              10
+chany_bottom    15              5
+pin_I           1               1
+CCDFF           0               1
+top_grid        0               0
+bottom_grid     0               0
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -317,8 +349,6 @@ auto_basic
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/fpga_top.v'</span><span class="p">)</span>
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1">/CustomModules/standard_cell_wrapper.v'</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">source_files</span><span class="p">)</span>
-
     <span class="c1"># Temporary fix to read multiple verilog files</span>
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">".v"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">eachV</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
@@ -335,7 +365,6 @@ auto_basic
         <span class="n">graph</span> <span class="o">=</span> <span class="n">cb_module</span><span class="o">.</span><span class="n">get_connectivity_network</span><span class="p">(</span><span class="n">split_ports</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">graph</span> <span class="o">=</span> <span class="n">clean_cb_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"graph </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="k">continue</span>
         <span class="n">save_graph</span><span class="p">(</span><span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">modules</span><span class="si">}</span><span class="s2">_nx_graph_pre"</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"nodes </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -503,7 +532,7 @@ auto_basic
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.323 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.285 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-switch-partition-03-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ad0b4d36746e068821658725bb2fc1e7/switch_partition_03.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">switch_partition_03.py</span></code></a></p>
