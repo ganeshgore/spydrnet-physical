@@ -34,8 +34,20 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    nodes 42
 
 
+
+
+
+
+|
 
 .. code-block:: default
 
@@ -65,7 +77,6 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
 
 
     def main():
-        return
         # Read FPGA Netlist
         proj = '../homogeneous_fabric/*_Verilog'
         task = '../homogeneous_fabric/*_Task'
@@ -112,7 +123,8 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
             save_graph(f"_{module.name}_graph_pre", graph=graph)
 
             vweights = nx.get_node_attributes(graph, "weight")
-
+            print(f"nodes {len(graph)}")
+            return
             # Run using external metis
             write_metis_graph(nx.to_numpy_array(graph.to_undirected()),
                               eweights=True, vweights=vweights,
@@ -263,7 +275,7 @@ And partition modules are placed in `cbx_1__1__0.v` and `cbx_1__1__1.v`
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.007 seconds)
+   **Total running time of the script:** ( 0 minutes  2.824 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_partition_module_partition.py:

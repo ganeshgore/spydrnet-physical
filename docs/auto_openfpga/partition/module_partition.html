@@ -280,6 +280,13 @@ This script expects external input of how vertical and horizontal channels
 are grouped.</p>
 <p>Partitions are provided thoguh variable <cite>h_chan</cite> and <cite>v_chan</cite>
 And partition modules are placed in <cite>cbx_1__1__0.v</cite> and <cite>cbx_1__1__1.v</cite></p>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>nodes 42
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
@@ -305,7 +312,6 @@ And partition modules are placed in <cite>cbx_1__1__0.v</cite> and <cite>cbx_1__
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">return</span>
     <span class="c1"># Read FPGA Netlist</span>
     <span class="n">proj</span> <span class="o">=</span> <span class="s1">'../homogeneous_fabric/*_Verilog'</span>
     <span class="n">task</span> <span class="o">=</span> <span class="s1">'../homogeneous_fabric/*_Task'</span>
@@ -352,7 +358,8 @@ And partition modules are placed in <cite>cbx_1__1__0.v</cite> and <cite>cbx_1__
         <span class="n">save_graph</span><span class="p">(</span><span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_graph_pre"</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
 
         <span class="n">vweights</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">)</span>
-
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"nodes </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span>
         <span class="c1"># Run using external metis</span>
         <span class="n">write_metis_graph</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">()),</span>
                           <span class="n">eweights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vweights</span><span class="o">=</span><span class="n">vweights</span><span class="p">,</span>
@@ -501,7 +508,7 @@ And partition modules are placed in <cite>cbx_1__1__0.v</cite> and <cite>cbx_1__
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.007 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.824 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-module-partition-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/79bbbb9bc62ff06b9938023113c99e66/module_partition.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">module_partition.py</span></code></a></p>

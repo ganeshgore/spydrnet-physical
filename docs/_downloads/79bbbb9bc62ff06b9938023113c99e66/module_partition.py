@@ -37,7 +37,6 @@ sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="module_partition")
 
 
 def main():
-    return
     # Read FPGA Netlist
     proj = '../homogeneous_fabric/*_Verilog'
     task = '../homogeneous_fabric/*_Task'
@@ -84,7 +83,8 @@ def main():
         save_graph(f"_{module.name}_graph_pre", graph=graph)
 
         vweights = nx.get_node_attributes(graph, "weight")
-
+        print(f"nodes {len(graph)}")
+        return
         # Run using external metis
         write_metis_graph(nx.to_numpy_array(graph.to_undirected()),
                           eweights=True, vweights=vweights,
