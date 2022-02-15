@@ -40,7 +40,7 @@ Verilog netlist obtained from OpenFPGA
 .. program-output:: ls
    :ellipsis: 2 
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-239
+.. GENERATED FROM PYTHON SOURCE LINES 25-241
 
 
 
@@ -81,6 +81,8 @@ Verilog netlist obtained from OpenFPGA
         source_files += glob.glob(f'{proj}/sub_module/*.v')
         source_files += glob.glob(f'{proj}/fpga_top.v')
         source_files += glob.glob(f'{task}/CustomModules/standard_cell_wrapper.v')
+
+        logger.info(source_files)
 
         # Temporary fix to read multiple verilog files
         with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -268,7 +270,7 @@ Verilog netlist obtained from OpenFPGA
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.515 seconds)
+   **Total running time of the script:** ( 0 minutes  2.272 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_partition_switch_partition_03.py:

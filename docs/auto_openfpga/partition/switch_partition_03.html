@@ -317,6 +317,8 @@ auto_basic
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/fpga_top.v'</span><span class="p">)</span>
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1">/CustomModules/standard_cell_wrapper.v'</span><span class="p">)</span>
 
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">source_files</span><span class="p">)</span>
+
     <span class="c1"># Temporary fix to read multiple verilog files</span>
     <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">".v"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">eachV</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
@@ -501,7 +503,7 @@ auto_basic
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.515 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.272 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-switch-partition-03-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ad0b4d36746e068821658725bb2fc1e7/switch_partition_03.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">switch_partition_03.py</span></code></a></p>
