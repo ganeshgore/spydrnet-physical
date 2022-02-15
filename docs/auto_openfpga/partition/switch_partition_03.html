@@ -332,6 +332,7 @@ auto_basic
                     <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="n">modules</span><span class="p">])</span>
         <span class="n">graph</span> <span class="o">=</span> <span class="n">cb_module</span><span class="o">.</span><span class="n">get_connectivity_network</span><span class="p">(</span><span class="n">split_ports</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">graph</span> <span class="o">=</span> <span class="n">clean_cb_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"graph </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">continue</span>
         <span class="n">save_graph</span><span class="p">(</span><span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">modules</span><span class="si">}</span><span class="s2">_nx_graph_pre"</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
 
@@ -500,7 +501,7 @@ auto_basic
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.420 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.515 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-switch-partition-03-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ad0b4d36746e068821658725bb2fc1e7/switch_partition_03.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">switch_partition_03.py</span></code></a></p>

@@ -69,6 +69,7 @@ def main():
                     skip_constraints=True, definition_list=[modules])
         graph = cb_module.get_connectivity_network(split_ports=True)
         graph = clean_cb_graph(graph)
+        logger.info(f"graph {len(graph)}")
         continue
         save_graph(f"_{modules}_nx_graph_pre", graph=graph)
 
