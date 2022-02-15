@@ -221,19 +221,21 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/configuration_chain.html">Adding configuration chain to the fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/extract_configuration_order.html">Extract configuration chain order</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/switch_partition_01.html">Partitioning Connection Box</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/tile_creation.html">FPGA Tiles from OpenFPGA Verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/switch_partition_03.html">FPGA Tiles from OpenFPGA Verilog version 03</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/netlist_to_graph.html">Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/switch_partition_01.html">Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/switch_partition_02.html">Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/module_partition.html">Split all the CBs and SBs</a></li>
 </ul>
 </li>
 </ul>
@@ -266,7 +268,10 @@
         </div>
         <article role="main">
           <h1>Source code for spydrnet_physical.util.openfpga</h1><div class="highlight"><pre>
-<span></span>
+<span></span><span class="sd">"""</span>
+<span class="sd">This is OpenFPGA generated Verilog Netlist Parser Class</span>
+<span class="sd">"""</span>
+
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -457,17 +462,18 @@
         <span class="sd">"""</span>
 <span class="sd">        Convert `grid_io` Input/Output pins to bus structure</span>
 <span class="sd">        ::</span>
-<span class="sd">          # Input Pins</span>
-<span class="sd">          right_width_0_height_0_subtile_*__pin_inpad_0_    -&gt; io_right_in</span>
-<span class="sd">          left_width_0_height_0_subtile_*__pin_inpad_0_     -&gt; io_left_in</span>
-<span class="sd">          top_width_0_height_0_subtile_*__pin_inpad_0_      -&gt; io_top_in</span>
-<span class="sd">          bottom_width_0_height_0_subtile_*__pin_inpad_0_   -&gt; io_bottom_in</span>
+<span class="sd">        # Input Pins</span>
+<span class="sd">        right_width_0_height_0_subtile_*__pin_inpad_0_    -&gt; io_right_in</span>
+<span class="sd">        left_width_0_height_0_subtile_*__pin_inpad_0_     -&gt; io_left_in</span>
+<span class="sd">        top_width_0_height_0_subtile_*__pin_inpad_0_      -&gt; io_top_in</span>
+<span class="sd">        bottom_width_0_height_0_subtile_*__pin_inpad_0_   -&gt; io_bottom_in</span>
 
-<span class="sd">          # Output Pins</span>
-<span class="sd">          right_width_0_height_0_subtile_*__pin_outpad_0_   -&gt; io_right_out</span>
-<span class="sd">          left_width_0_height_0_subtile_*__pin_outpad_0_    -&gt; io_left_out</span>
-<span class="sd">          top_width_0_height_0_subtile_*__pin_outpad_0_     -&gt; io_top_out</span>
-<span class="sd">          bottom_width_0_height_0_subtile_*__pin_outpad_0_  -&gt; io_bottom_out</span>
+<span class="sd">        # Output Pins</span>
+<span class="sd">        right_width_0_height_0_subtile_*__pin_outpad_0_   -&gt; io_right_out</span>
+<span class="sd">        left_width_0_height_0_subtile_*__pin_outpad_0_    -&gt; io_left_out</span>
+<span class="sd">        top_width_0_height_0_subtile_*__pin_outpad_0_     -&gt; io_top_out</span>
+<span class="sd">        bottom_width_0_height_0_subtile_*__pin_outpad_0_  -&gt; io_bottom_out</span>
+
 <span class="sd">        """</span>
         <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">)</span>
 
@@ -495,6 +501,7 @@
 <span class="sd">          left_width_0_height_0_subtile_*__pin_O_0_     -&gt; grid_left_out</span>
 <span class="sd">          top_width_0_height_0_subtile_*__pin_O_0_      -&gt; grid_top_out</span>
 <span class="sd">          bottom_width_0_height_0_subtile_*__pin_O_0_   -&gt; grid_bottom_out</span>
+
 <span class="sd">        '''</span>
 
         <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">)</span>
@@ -525,6 +532,7 @@
 <span class="sd">          left_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_     -&gt; sb_left_b_in</span>
 <span class="sd">          right_top_grid_bottom_width_0_height_0_subtile_*__pin_O_*_    -&gt; sb_right_t_in</span>
 <span class="sd">          right_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_    -&gt; sb_right_b_in</span>
+
 <span class="sd">        """</span>
 
         <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">,</span> <span class="s2">"left"</span><span class="p">)</span>
@@ -551,6 +559,7 @@
 <span class="sd">          left_grid_right_width_0_height_0_subtile_*__pin_outpad_*_ -&gt; grid_left_in</span>
 <span class="sd">          top_grid_bottom_width_0_height_0_subtile_*__pin_outpad_*_ -&gt; grid_top_in</span>
 <span class="sd">          bottom_grid_top_width_0_height_0_subtile_*__pin_outpad_*_ -&gt; grid_bottom_in</span>
+
 <span class="sd">        """</span>
         <span class="n">sides</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"top"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">,</span> <span class="s2">"left"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">cbx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"cb?_*"</span><span class="p">):</span>

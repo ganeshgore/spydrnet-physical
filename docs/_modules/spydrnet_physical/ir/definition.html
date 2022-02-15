@@ -221,19 +221,21 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/configuration_chain.html">Adding configuration chain to the fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/extract_configuration_order.html">Extract configuration chain order</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/switch_partition_01.html">Partitioning Connection Box</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/tile_creation.html">FPGA Tiles from OpenFPGA Verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/switch_partition_03.html">FPGA Tiles from OpenFPGA Verilog version 03</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/netlist_to_graph.html">Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/switch_partition_01.html">Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/switch_partition_02.html">Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/partition/module_partition.html">Split all the CBs and SBs</a></li>
 </ul>
 </li>
 </ul>
@@ -543,7 +545,7 @@
         <span class="c1"># ====== Input Sanity checks</span>
         <span class="k">for</span> <span class="n">eachModule</span> <span class="ow">in</span> <span class="n">instances_list</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
-                <span class="n">eachModule</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">),</span> <span class="s2">"Modulelist contains none non-intance object"</span>
+                <span class="n">eachModule</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">),</span> <span class="s2">"Modulelist contains none non-intance object [</span><span class="si">%s</span><span class="s2">]"</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">eachModule</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">pin_map</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin_map</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -579,7 +581,7 @@
             <span class="c1"># Iterate over each port of current instance</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">eachM</span><span class="o">.</span><span class="n">get_ports</span><span class="p">():</span>
                 <span class="n">pClone</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>  <span class="c1"># It copied all pins, wires and cables</span>
-                <span class="k">for</span> <span class="n">eachSuffix</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">""</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]:</span>
+                <span class="k">for</span> <span class="n">eachSuffix</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">""</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]:</span>
                     <span class="n">newName</span> <span class="o">=</span> <span class="n">pClone</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="n">eachSuffix</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">newMod</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="n">newName</span><span class="p">))):</span>
                         <span class="k">break</span>
@@ -962,57 +964,86 @@
                     <span class="n">wire</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">new_instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">remove_child</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_connectivity_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Definition.get_connectivity_network"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.get_connectivity_network">[docs]</a>    <span class="k">def</span> <span class="nf">get_connectivity_network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">split_ports</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        This method converts current module into networkx graph</span>
+<span class="sd">        each cell is represented as as node and nets are represented as edges</span>
 
+<span class="sd">        - Netowrkx should be installed</span>
+<span class="sd">        - Higher fanout nets are represented with independent edge from driver </span>
+<span class="sd">        to each load</span>
+
+<span class="sd">        """</span>
         <span class="k">assert</span> <span class="s2">"nx"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(),</span> <span class="s2">"Netowrkx library not installed"</span>
+
+        <span class="n">get_weights</span> <span class="o">=</span> <span class="n">get_weights</span> <span class="ow">or</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">get_node_name</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">OuterPin</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">pin</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="sa">f</span><span class="s2">"port_</span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+                <span class="k">if</span> <span class="n">split_ports</span> <span class="ow">and</span> <span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">get_verilog_index</span><span class="si">}</span><span class="s2">"</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span>
 
         <span class="c1"># Variables</span>
-        <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
-        <span class="n">instance_node_map</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+        <span class="n">node_map</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">elabel</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="c1"># Create Nodes</span>
-        <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">port</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">):</span>
-            <span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">indx</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"port_</span><span class="si">{</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s1">'rect'</span><span class="p">)</span>
-            <span class="n">instance_node_map</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"port_</span><span class="si">{</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="c1"># Create Port Nodes first</span>
+        <span class="n">node_indx</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">)</span><span class="si">}</span><span class="s2"> ports"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ports</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">port</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">get_node_name</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+                <span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node_indx</span><span class="p">,</span>
+                               <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">get_weights</span><span class="p">(</span><span class="n">pin</span><span class="p">),</span>
+                               <span class="n">shape</span><span class="o">=</span><span class="s2">"rect"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">node_name</span><span class="o">=</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">node_map</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_indx</span>
+                <span class="n">node_indx</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">split_ports</span><span class="p">:</span>
+                    <span class="k">break</span>
 
+        <span class="c1"># Create Instances Nodes</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span><span class="si">}</span><span class="s2"> instances"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span>
-            <span class="n">weight</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="s2">"_in_"</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">else</span> <span class="mi">5</span> <span class="k">if</span> <span class="s2">"_BUF_"</span> <span class="ow">in</span> <span class="n">name</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">instance_node_map</span><span class="p">),</span>
-                           <span class="n">label</span><span class="o">=</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
-            <span class="n">instance_node_map</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node_indx</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                           <span class="n">weight</span><span class="o">=</span><span class="n">get_weights</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
+                           <span class="n">node_name</span><span class="o">=</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="p">)</span>
+            <span class="n">node_map</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_indx</span>
+            <span class="n">node_indx</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># Create edges</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_cables</span><span class="p">()))</span><span class="si">}</span><span class="s2"> nets"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_cables</span><span class="p">()):</span>
             <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">cable</span><span class="o">.</span><span class="n">wires</span><span class="p">:</span>
+                <span class="c1"># Skip adding edge if there is no driver</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">wire</span><span class="o">.</span><span class="n">get_driver</span><span class="p">():</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No driver for </span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">wire</span><span class="o">.</span><span class="n">index</span><span class="p">()</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">wire</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"No driver found for </span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                     <span class="k">continue</span>
+                <span class="c1"># Get driver [source node]</span>
+                <span class="c1"># TODO: Consider multiple dirvers here</span>
                 <span class="n">driver_inst</span> <span class="o">=</span> <span class="n">get_node_name</span><span class="p">(</span><span class="n">wire</span><span class="o">.</span><span class="n">get_driver</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">driver_inst</span><span class="p">:</span>
-                    <span class="k">continue</span>
+
+                <span class="c1"># Make connection from drivers to each load</span>
                 <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">wire</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
                     <span class="n">node</span> <span class="o">=</span> <span class="n">get_node_name</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="n">driver_inst</span><span class="p">:</span>
                         <span class="k">continue</span>
-                    <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span>
-                        <span class="n">instance_node_map</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">driver_inst</span><span class="p">),</span>
-                        <span class="n">instance_node_map</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">node</span><span class="p">)])))</span>
+                    <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node_map</span><span class="p">[</span><span class="n">driver_inst</span><span class="p">],</span> <span class="n">node_map</span><span class="p">[</span><span class="n">node</span><span class="p">]))</span>
+                    <span class="n">elabel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">wire</span><span class="o">.</span><span class="n">get_verilog_index</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span><span class="si">}</span><span class="s2"> edges"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">edges</span><span class="p">):</span>
             <span class="n">weight</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
-            <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="o">*</span><span class="n">edge</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s2">]"</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">weight</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">graph</span>
+            <span class="n">edge_name</span> <span class="o">=</span> <span class="n">elabel</span><span class="p">[</span><span class="n">edges</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">edge</span><span class="p">)]</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="o">*</span><span class="n">edge</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s2">]"</span><span class="p">,</span>
+                           <span class="n">edge_name</span><span class="o">=</span><span class="n">edge_name</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">weight</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">graph</span></div>
 
     <span class="k">def</span> <span class="nf">_remove_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">child</span><span class="p">):</span>
         <span class="sd">"""</span>

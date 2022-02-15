@@ -222,19 +222,21 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/configuration_chain.html">Adding configuration chain to the fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/extract_configuration_order.html">Extract configuration chain order</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/switch_partition_01.html">Partitioning Connection Box</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/rendering/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/rendering/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/partition/tile_creation.html">FPGA Tiles from OpenFPGA Verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/partition/switch_partition_03.html">FPGA Tiles from OpenFPGA Verilog version 03</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/partition/netlist_to_graph.html">Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/partition/switch_partition_01.html">Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/partition/switch_partition_02.html">Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/partition/module_partition.html">Split all the CBs and SBs</a></li>
 </ul>
 </li>
 </ul>
@@ -436,6 +438,17 @@ else <code class="docutils literal notranslate"><span class="pre">assign</span> 
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.flatten_instance">
 <span class="sig-name descname"><span class="pre">flatten_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.flatten_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.flatten_instance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flatterns single instance in the given definition</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.get_connectivity_network">
+<span class="sig-name descname"><span class="pre">get_connectivity_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.get_connectivity_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.get_connectivity_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method converts current module into networkx graph
+each cell is represented as as node and nets are represented as edges</p>
+<ul class="simple">
+<li><p>Netowrkx should be installed</p></li>
+<li><p>Higher fanout nets are represented with independent edge from driver</p></li>
+</ul>
+<p>to each load</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.merge_instance">

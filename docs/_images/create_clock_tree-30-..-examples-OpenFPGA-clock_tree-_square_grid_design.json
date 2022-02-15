@@ -1,0 +1,503 @@
+{
+  "creator": "Yosys 0.10+12 (git sha1 356ec7bb, ccache clang 11.0.0-2~ubuntu20.04.1 -Os -flto -flto)",
+  "modules": {
+    "module1": {
+      "attributes": {
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:136.1-151.10"
+      },
+      "ports": {
+        "in0": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "out0": {
+          "direction": "output",
+          "bits": [ 3 ]
+        },
+        "clk": {
+          "direction": "input",
+          "bits": [ 4 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "clk": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:145.11-145.14"
+          }
+        },
+        "in0": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:143.11-143.14"
+          }
+        },
+        "out0": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:144.12-144.16"
+          }
+        }
+      }
+    },
+    "top": {
+      "attributes": {
+        "top": 1,
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:3.1-134.10"
+      },
+      "ports": {
+        "in_0": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "in_1": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "in_2": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "in_3": {
+          "direction": "input",
+          "bits": [ 5 ]
+        },
+        "out_0": {
+          "direction": "output",
+          "bits": [ 6 ]
+        },
+        "out_1": {
+          "direction": "output",
+          "bits": [ 7 ]
+        },
+        "out_2": {
+          "direction": "output",
+          "bits": [ 8 ]
+        },
+        "out_3": {
+          "direction": "output",
+          "bits": [ 9 ]
+        }
+      },
+      "cells": {
+        "inst_1_11": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:38.13-43.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 10 ],
+            "in0": [ 5 ],
+            "out0": [ 11 ]
+          }
+        },
+        "inst_1_12": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:62.13-67.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 12 ],
+            "in0": [ 4 ],
+            "out0": [ 13 ]
+          }
+        },
+        "inst_1_13": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:86.13-91.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 14 ],
+            "in0": [ 3 ],
+            "out0": [ 15 ]
+          }
+        },
+        "inst_1_14": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:110.13-115.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 16 ],
+            "in0": [ 2 ],
+            "out0": [ 17 ]
+          }
+        },
+        "inst_1_21": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:44.13-49.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 18 ],
+            "in0": [ 11 ],
+            "out0": [ 19 ]
+          }
+        },
+        "inst_1_22": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:68.13-73.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 20 ],
+            "in0": [ 13 ],
+            "out0": [ 21 ]
+          }
+        },
+        "inst_1_23": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:92.13-97.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 22 ],
+            "in0": [ 15 ],
+            "out0": [ 23 ]
+          }
+        },
+        "inst_1_24": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:116.13-121.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 24 ],
+            "in0": [ 17 ],
+            "out0": [ 25 ]
+          }
+        },
+        "inst_1_31": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:50.13-55.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 26 ],
+            "in0": [ 19 ],
+            "out0": [ 27 ]
+          }
+        },
+        "inst_1_32": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:74.13-79.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 28 ],
+            "in0": [ 21 ],
+            "out0": [ 29 ]
+          }
+        },
+        "inst_1_33": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:98.13-103.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 30 ],
+            "in0": [ 23 ],
+            "out0": [ 31 ]
+          }
+        },
+        "inst_1_34": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:122.13-127.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 32 ],
+            "in0": [ 25 ],
+            "out0": [ 33 ]
+          }
+        },
+        "inst_1_41": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:56.13-61.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 34 ],
+            "in0": [ 27 ],
+            "out0": [ 9 ]
+          }
+        },
+        "inst_1_42": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:80.13-85.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 35 ],
+            "in0": [ 29 ],
+            "out0": [ 8 ]
+          }
+        },
+        "inst_1_43": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:104.13-109.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 36 ],
+            "in0": [ 31 ],
+            "out0": [ 7 ]
+          }
+        },
+        "inst_1_44": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:128.13-133.6"
+          },
+          "port_directions": {
+            "clk": "input",
+            "in0": "input",
+            "out0": "output"
+          },
+          "connections": {
+            "clk": [ 37 ],
+            "in0": [ 33 ],
+            "out0": [ 6 ]
+          }
+        }
+      },
+      "netnames": {
+        "in_0": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:15.11-15.15"
+          }
+        },
+        "in_1": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:16.11-16.15"
+          }
+        },
+        "in_2": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:17.11-17.15"
+          }
+        },
+        "in_3": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:18.11-18.15"
+          }
+        },
+        "out_0": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:19.12-19.17"
+          }
+        },
+        "out_1": {
+          "hide_name": 0,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:20.12-20.17"
+          }
+        },
+        "out_2": {
+          "hide_name": 0,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:21.12-21.17"
+          }
+        },
+        "out_3": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:22.12-22.17"
+          }
+        },
+        "row1": {
+          "hide_name": 0,
+          "bits": [ 11, 19, 27 ],
+          "attributes": {
+          }
+        },
+        "row2": {
+          "hide_name": 0,
+          "bits": [ 13, 21, 29 ],
+          "attributes": {
+          }
+        },
+        "row3": {
+          "hide_name": 0,
+          "bits": [ 15, 23, 31 ],
+          "attributes": {
+          }
+        },
+        "row4": {
+          "hide_name": 0,
+          "bits": [ 17, 25, 33, 38 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:27.15-27.19",
+            "unused_bits": "3"
+          }
+        },
+        "unconn": {
+          "hide_name": 0,
+          "bits": [ 39, 10, 18, 26, 34, 12, 20, 28, 35, 14, 22, 30, 36, 16, 24, 32, 37 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v:36.16-36.22",
+            "unused_bits": "0 "
+          }
+        }
+      }
+    }
+  }
+}

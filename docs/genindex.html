@@ -220,19 +220,21 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/configuration_chain.html">Adding configuration chain to the fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/extract_configuration_order.html">Extract configuration chain order</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/switch_partition_01.html">Partitioning Connection Box</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/basic/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/clock_tree/connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/clock_tree/create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/clock_tree/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/rendering/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/rendering/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/partition/tile_creation.html">FPGA Tiles from OpenFPGA Verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/partition/switch_partition_03.html">FPGA Tiles from OpenFPGA Verilog version 03</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/partition/netlist_to_graph.html">Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/partition/switch_partition_01.html">Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/partition/switch_partition_02.html">Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga/partition/module_partition.html">Split all the CBs and SBs</a></li>
 </ul>
 </li>
 </ul>
@@ -419,16 +421,18 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/utility/generated/spydrnet_physical.util.get_attr.html#spydrnet_physical.util.get_attr">get_attr() (in module spydrnet_physical.util)</a>
 </li>
+        <li><a href="reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.get_connectivity_network">get_connectivity_network() (spydrnet_physical.ir.definition.Definition method)</a>
+</li>
         <li><a href="reference/classes/element.html#spydrnet_physical.ir.element.Element.get_index">get_index (spydrnet_physical.ir.element.Element property)</a>
 
         <ul>
           <li><a href="reference/classes/outerpin.html#spydrnet_physical.ir.outerpin.OuterPin.get_index">(spydrnet_physical.ir.outerpin.OuterPin property)</a>
 </li>
         </ul></li>
-        <li><a href="reference/classes/bundle.html#spydrnet_physical.ir.bundle.Bundle.get_index">get_index() (spydrnet_physical.ir.bundle.Bundle method)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/classes/bundle.html#spydrnet_physical.ir.bundle.Bundle.get_index">get_index() (spydrnet_physical.ir.bundle.Bundle method)</a>
+</li>
         <li><a href="reference/utility/generated/spydrnet_physical.util.get_names.html#spydrnet_physical.util.get_names">get_names() (in module spydrnet_physical.util)</a>
 </li>
         <li><a href="reference/openfpga/routing_render.html#spydrnet_physical.util.RoutingRender.get_stats">get_stats() (spydrnet_physical.util.RoutingRender method)</a>

@@ -222,19 +222,21 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/configuration_chain.html">Adding configuration chain to the fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/tile_creation.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/extract_configuration_order.html">Extract configuration chain order</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/switch_partition_01.html">Partitioning Connection Box</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/basic/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/clock_tree/connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/clock_tree/create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/clock_tree/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/rendering/floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/rendering/render_routing_box.html">Rendering Switch Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/partition/tile_creation.html">FPGA Tiles from OpenFPGA Verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/partition/switch_partition_03.html">FPGA Tiles from OpenFPGA Verilog version 03</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/partition/netlist_to_graph.html">Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/partition/switch_partition_01.html">Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/partition/switch_partition_02.html">Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/partition/module_partition.html">Split all the CBs and SBs</a></li>
 </ul>
 </li>
 </ul>
@@ -268,7 +270,7 @@
         <article role="main">
           <section id="computation-times">
 <span id="sphx-glr-auto-basic-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>00:00.171</strong> total execution time for <strong>auto_basic</strong> files:</p>
+<p><strong>00:00.151</strong> total execution time for <strong>auto_basic</strong> files:</p>
 <div class="table-wrapper"><table class="docutils align-default">
 <colgroup>
 <col style="width: 84%"/>
@@ -277,30 +279,30 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="partitioning_experiments.html#sphx-glr-auto-basic-partitioning-experiments-py"><span class="std std-ref">Partitions Experimentation</span></a> (<code class="docutils literal notranslate"><span class="pre">partitioning_experiments.py</span></code>)</p></td>
-<td><p>00:00.086</p></td>
+<td><p>00:00.077</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="display_info.html#sphx-glr-auto-basic-display-info-py"><span class="std std-ref">Display Netlist Information Functions</span></a> (<code class="docutils literal notranslate"><span class="pre">display_info.py</span></code>)</p></td>
-<td><p>00:00.035</p></td>
+<td><p>00:00.027</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="wire_feedthrough.html#sphx-glr-auto-basic-wire-feedthrough-py"><span class="std std-ref">Genrating feedthrough from single instance</span></a> (<code class="docutils literal notranslate"><span class="pre">wire_feedthrough.py</span></code>)</p></td>
-<td><p>00:00.021</p></td>
+<td><p>00:00.017</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="display_hierarchical_netlist.html#sphx-glr-auto-basic-display-hierarchical-netlist-py"><span class="std std-ref">Visualise Hierarchical Netlist</span></a> (<code class="docutils literal notranslate"><span class="pre">display_hierarchical_netlist.py</span></code>)</p></td>
-<td><p>00:00.015</p></td>
+<td><p>00:00.017</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="group_ungroup_cells.html#sphx-glr-auto-basic-group-ungroup-cells-py"><span class="std std-ref">Grouping ungrouping cells</span></a> (<code class="docutils literal notranslate"><span class="pre">group_ungroup_cells.py</span></code>)</p></td>
 <td><p>00:00.012</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="merge_instance.html#sphx-glr-auto-basic-merge-instance-py"><span class="std std-ref">Merging two instances in the design</span></a> (<code class="docutils literal notranslate"><span class="pre">merge_instance.py</span></code>)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="merge_multiple_instances.html#sphx-glr-auto-basic-merge-multiple-instances-py"><span class="std std-ref">Merging group of instances</span></a> (<code class="docutils literal notranslate"><span class="pre">merge_multiple_instances.py</span></code>)</p></td>
 <td><p>00:00.001</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="merge_multiple_instances.html#sphx-glr-auto-basic-merge-multiple-instances-py"><span class="std std-ref">Merging group of instances</span></a> (<code class="docutils literal notranslate"><span class="pre">merge_multiple_instances.py</span></code>)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="merge_instance.html#sphx-glr-auto-basic-merge-instance-py"><span class="std std-ref">Merging two instances in the design</span></a> (<code class="docutils literal notranslate"><span class="pre">merge_instance.py</span></code>)</p></td>
 <td><p>00:00.001</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
