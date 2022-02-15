@@ -282,13 +282,13 @@ are grouped.</p>
 And partition modules are placed in <cite>cbx_1__1__0.v</cite> and <cite>cbx_1__1__1.v</cite></p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>********************
-nodes 42
+nodes 326
 Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _module_experiments_cbx_1__1_.csr 2 &gt; __module_experiments_cbx_1__1_.csr.log]
 ============ Partition stats =============
                 P1              P2
 ==========================================
-mux             0               0
-CCDFF           0               0
+mux             100             100
+CCDFF           41              39
 ASSIGN          20              20
 </pre></div>
 </div>
@@ -518,7 +518,7 @@ ASSIGN          20              20
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.384 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.447 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-module-partition-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/79bbbb9bc62ff06b9938023113c99e66/module_partition.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">module_partition.py</span></code></a></p>
