@@ -46,7 +46,6 @@ sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="switch_partition_03")
 
 
 def main():
-    return
     proj = '../homogeneous_fabric/*_Verilog'
     task = '../homogeneous_fabric/*_Task'
     source_files = glob.glob(f'{proj}/lb/*.v')
@@ -70,9 +69,10 @@ def main():
                     skip_constraints=True, definition_list=[modules])
         graph = cb_module.get_connectivity_network(split_ports=True)
         graph = clean_cb_graph(graph)
-
+        continue
         save_graph(f"_{modules}_nx_graph_pre", graph=graph)
 
+        print(f"nodes {len(graph)}")
         # show_graph_stats(graph)
         annotate_graph(graph)
 
