@@ -3,23 +3,15 @@
 Partition Conn Box 01
 =====================
 
-This example demonstrate how pre tech mapped netlist of connection box 
-can be partition based on switch patterns. 
+This example demonstrate how pre-tech mapped netlist of connection box 
+can be partition based on mux connection patterns. 
 
 1. Calculate difference beetween top and bottom switches on each channels 
-2. Sort each channel based on difference 
-3. Partition where difference crosses 0 
-4. In case thee are multiple point with 0 difference split them equally in both 
+2. Sort each channel based on difference beetween opposite connections
+3. Partition channels where difference crosses 0
+4. In case of multiple point with 0 difference split them equally in both 
 partition
 
-
-**Horizontal Connection Box**
-
-.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_0.svg
-    :width: 150px 
-
-.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_1.svg
-    :width: 150px
 
 **Vertical Connection Box**
 
@@ -97,6 +89,15 @@ def main():
         def left_pinmap(x): return (left_chan +
                                     [None, None, None, None] +
                                     right_chan).index(x)
+
+# %%
+# **Horizontal Connection Box**
+#
+# .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_0.svg
+#     :width: 150px
+#
+# .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_1.svg
+#     :width: 150px
 
         # Print vertical connection box (CBX) information and split
         print(" =========== CBX =========== ")

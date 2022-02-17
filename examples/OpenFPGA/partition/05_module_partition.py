@@ -1,7 +1,7 @@
 """
-==================
-Split CBs and SBs 
-==================
+===============================
+Split CBs and SBs across fabric
+===============================
 
 Given two set of channels, split all the CBs and SBs in the design 
 This script expects external input of how vertical and horizontal channels 
@@ -268,10 +268,6 @@ def clean_and_annotate_sb_graph(graph, h_chan, v_chan):
                        label=f"{dir[0]}_{dir[1]}_input_ports")
         in_indx = node_indx
         node_indx += node_indx
-        # graph.add_node(node_indx, weight=10000,
-        #                label=f"{dir[0]}_{dir[1]}_output_ports")
-        # out_indx = node_indx
-        # node_indx += node_indx
 
         for in_pins in fn.filter(nodes, f"{dir[0]}_{dir[1]}_grid*_pin_O*"):
             graph = nx.contracted_nodes(graph, in_indx, nodes.index(in_pins))

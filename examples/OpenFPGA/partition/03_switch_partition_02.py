@@ -3,12 +3,13 @@
 Partition Conn Box 02
 =====================
 
-This example demonstrate, how connection box can be split into two parts
-to be merged with the respective logic blocks.
+This example demonstrate, how a techmapped connection box can be split into 
+two parts.
 
-It first converts the pre tech-mapped connection box netlist to a
-networkX graph. The graph is converted to a two dimentional array and
-passed to metis library which performs the partitioning.
+It first converts a tech-mapped connection box netlist to a networkX graph. 
+The graph is converted to a two dimentional array and passed to metis library 
+which performs the partitioning based on assigned weigts.
+
 The partitioned graph is rendered in the following SVG.
 
 To simplify the partitioning, all the global signals are stripped down
@@ -57,15 +58,16 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
-    return
-    # Read verilog sources
-    proj = '../homogeneous_fabric'
-    source_files = []
-    source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
-    source_files += glob.glob(
-        f'{proj}/FPGA44_Task/CustomModules/standard_cell_p*.v')
-    source_files += glob.glob(f'{proj}/FPGA44_Task/CustomModules/ccff.v')
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    # Read FPGA Netlist
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    proj = '../homogeneous_fabric/*_Verilog'
+    task = '../homogeneous_fabric/*_Task'
+    source_files = glob.glob(f'{proj}/lb/*.v')
+    source_files += glob.glob(f'{proj}/routing/*.v')
+    source_files += glob.glob(f'{proj}/sub_module/*.v')
+    source_files += glob.glob(f'{task}/CustomModules/standard_cell_primitives.v')
+    source_files += glob.glob(f'{proj}/fpga_top.v')
 
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -114,10 +116,10 @@ def main():
 
     # Get connectivity graph
     G = cb_module.get_connectivity_network()
-
     nodes = list(nx.get_node_attributes(G, 'label').values())
-    target = nodes.index("port_top_pin_I")
-    source = nodes.index("port_bottom_pin_I")
+
+    target = nodes.index("top_pin_I")
+    source = nodes.index("bottom_pin_I")
     G.nodes[target]["weight"] = 100
     G.nodes[source]["weight"] = 100
 
@@ -201,7 +203,7 @@ def main():
     with open("_graph.part.1", "w") as fp:
         fp.write("\n".join(partitions[1]))
 
-    sb11_gsb = f"{proj}/FPGA44_gsb/sb_1__1_.xml"
+    sb11_gsb = glob.glob(f"{proj}/../FPGA44_gsb/sb_1__1_.xml")[0]
     sb_render = RoutingRender("sb_1__1_", sb11_gsb)
     sw_top = sb_render.report_ipins("top", show=False)
     sw_top[sw_top == 'x'] = "t"

@@ -1,10 +1,9 @@
 """
-===========================================
-FPGA Tiles from OpenFPGA Verilog version 03
-===========================================
+==================================
+Partition Conn Box 02 - Simplified
+==================================
 
-This example demonstrates how to create a tile strcuture from
-Verilog netlist obtained from OpenFPGA
+This is simplified script Partition Conn Box 02
 
 **cbx_1__1_ Split**
 
