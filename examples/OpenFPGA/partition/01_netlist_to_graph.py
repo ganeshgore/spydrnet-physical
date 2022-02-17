@@ -1,7 +1,7 @@
 """
-===========================
+==============================
 Netlist to graph (networkx)
-===========================
+==============================
 
 This example demonstrate how to convert a netlist to a netowrkx graph.
 
