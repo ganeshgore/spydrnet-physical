@@ -9,13 +9,14 @@ Verilog netlist obtained from OpenFPGA
 """
 
 import glob
+import json
 import logging
 import tempfile
 from itertools import chain
 from os import path
 
 import spydrnet as sdn
-from spydrnet_physical.util import (OpenFPGA, Tile01)
+from spydrnet_physical.util import (OpenFPGA, Tile02)
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
@@ -66,8 +67,23 @@ def main():
     # Before Creating Tiles
     fpga.design_top_stat()
 
-    fpga.register_tile_generator(Tile01)
-    fpga.create_tiles()
+    # fpga.register_tile_generator(Tile02)
+    # fpga.create_tiles()
+    for module in list(netlist.get_definitions("*_1__1*")):
+        # Flatten the netlist
+        for instance in list(module.get_instances('*_ipin_*')):
+            module.flatten_instance(instance)
+        for instance in list(module.get_instances('*_track_*')):
+            module.flatten_instance(instance)
+
+        parts_files = glob.glob(f"_{module.name}_part_*.json")
+        for part, each_file in enumerate(parts_files):
+            instance_list = json.load(open(each_file))
+            module.merge_instance([next(module.get_instances(i)) for i in instance_list],
+                                  new_definition_name=f'{module.name}_{part}',
+                                  new_instance_name=f'{module.name}_{part}_1')
+        for eachInst in module.references:
+            fpga.top_module.flatten_instance(eachInst)
 
     # After Tile creation
     fpga.design_top_stat()
