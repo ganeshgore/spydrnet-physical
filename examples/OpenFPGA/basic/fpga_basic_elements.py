@@ -82,11 +82,11 @@ def main():
         fp.write(
             f'`include "{proj}/FPGA44_Task/CustomModules/standard_cell_primitives.v"\n')
         fp.write(
-            f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/muxes.v"\n')
+            f'`include "{proj}/FPGA44_Verilog/sub_module/muxes.v"\n')
         fp.write(
-            f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/memories.v"\n')
+            f'`include "{proj}/FPGA44_Verilog/sub_module/memories.v"\n')
         fp.write(
-            f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/inv_buf_passgate.v"\n')
+            f'`include "{proj}/FPGA44_Verilog/sub_module/inv_buf_passgate.v"\n')
 
 
 if __name__ == "__main__":
