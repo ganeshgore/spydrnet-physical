@@ -84,7 +84,7 @@ def main():
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # Split routing resources
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    for module in list(netlist.get_definitions("sb_1__1*")):
+    for module in list(netlist.get_definitions("*_1__1*")):
         # Flatten the netlist
         for instance in list(module.get_instances('*_ipin_*')):
             module.flatten_instance(instance)
@@ -119,9 +119,9 @@ def main():
             options=f"-objtype cut -minconn -niter 10000")
         # save_paritioned_graph(module.name, graph, cbx_membership)
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        pprint(list(zip(list(nx.get_node_attributes(
-            graph, 'label').values()), list(nx.get_node_attributes(
-                graph, 'weight').values()), cbx_membership)))
+        # pprint(list(zip(list(nx.get_node_attributes(
+        #     graph, 'label').values()), list(nx.get_node_attributes(
+        #         graph, 'weight').values()), cbx_membership)))
         instance_list = [[] for _ in range(cuts)]
         for index, color in enumerate(cbx_membership):
             node = graph.nodes[index]

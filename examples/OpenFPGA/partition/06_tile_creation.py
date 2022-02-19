@@ -76,7 +76,7 @@ def main():
         for instance in list(module.get_instances('*_track_*')):
             module.flatten_instance(instance)
 
-        parts_files = glob.glob(f"_{module.name}_part_*.json")
+        parts_files = glob.glob(f"./tiles_data/{module.name}_part_*.json")
         for part, each_file in enumerate(parts_files):
             instance_list = json.load(open(each_file))
             module.merge_instance([next(module.get_instances(i)) for i in instance_list],
