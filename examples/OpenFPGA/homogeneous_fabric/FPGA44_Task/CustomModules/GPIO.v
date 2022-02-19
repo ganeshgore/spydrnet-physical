@@ -11,8 +11,8 @@ input outpad;
 output inpad;
 
 INV_X1     INV     ( .A(DIR), .Y(DIRB) );
-BUFTUCLDX1 BUF_IN  ( .O(PAD), .I(outpad), .E(DIR) );
-BUFTUCLDX1 BUF_OUT ( .O(inpad), .I(PAD), .E(DIRB) );
+BUFT_X1 BUF_IN  ( .Y(PAD), .A(outpad), .E(DIR) );
+BUFT_X1 BUF_OUT ( .Y(inpad), .A(PAD), .E(DIRB) );
 
 endmodule
 

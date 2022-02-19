@@ -16,7 +16,7 @@ from itertools import chain
 from os import path
 
 import spydrnet as sdn
-from spydrnet_physical.util import (OpenFPGA, Tile02)
+from spydrnet_physical.util import OpenFPGA
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')

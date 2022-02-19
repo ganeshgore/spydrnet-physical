@@ -135,6 +135,13 @@ module BUF_X8(A, Y);
 endmodule
 `endcelldefine
 
+`celldefine
+module BUFT_X1(A, Y, E);
+    input A;
+    input E;
+    output Y;
+endmodule
+`endcelldefine
 
 `celldefine
 module BUFCLK_X1(A, Y);
