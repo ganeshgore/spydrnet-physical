@@ -1,7 +1,7 @@
 """
-=====================
-Rendering Switch Box
-=====================
+=====================================
+Rendering Switch and Connection Boxes
+=====================================
 
 This example demostrate how a switch box (SB) and connection box (CB)
 can be rendered in a SVG format.

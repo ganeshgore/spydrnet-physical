@@ -90,6 +90,12 @@ def main():
             print(f"Flatterning {eachInst.name}")
             fpga.top_module.flatten_instance(eachInst)
 
+    for module in list(netlist.get_definitions("cbx_1__0_")):
+        # Flatten the netlist
+        for instance in list(module.get_instances('*_ipin_*')):
+            module.flatten_instance(instance)
+        print(get_names(module.get_instances()))
+
     # After Tile creation
     fpga.design_top_stat()
 
