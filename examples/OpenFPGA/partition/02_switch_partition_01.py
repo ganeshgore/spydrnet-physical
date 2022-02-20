@@ -21,6 +21,13 @@ partition
 .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__2_1.svg
     :width: 800px
 
+**Horizontal Connection Box**
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_0.svg
+    :width: 150px
+
+.. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_1.svg
+    :width: 150px
 
 """
 
@@ -89,15 +96,6 @@ def main():
     def left_pinmap(x): return (left_chan +
                                 [None, None, None, None] +
                                 right_chan).index(x)
-
-# %%
-# **Horizontal Connection Box**
-#
-# .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_0.svg
-#     :width: 150px
-#
-# .. image:: ../../../../examples/OpenFPGA/partition/_cbx_1__1_1.svg
-#     :width: 150px
 
     # Print vertical connection box (CBX) information and split
     print(" =========== CBX =========== ")
