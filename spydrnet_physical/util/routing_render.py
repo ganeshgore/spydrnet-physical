@@ -40,8 +40,16 @@ class RoutingRender:
             print(format_str.format(indx, count, "".join(row)))
 
     @staticmethod
+    def _filter_attrib(eles, attrib, value):
+        return [e for e in eles if e.attrib[attrib] == value]
+
+    @staticmethod
+    def _get_driver_node(root, type, side):
+        return root.findall(f"*/driver_node[@type='{type}'][@side='{side}']")
+
+    @staticmethod
     def _get_max_index(ele):
-        return max([int(i.attrib["index"])for i in ele] + [-1])+1
+        return len({int(i.attrib["index"]): "" for i in ele}.keys())
 
     @staticmethod
     def _set_bit(x, indx, symbol='x'):
@@ -269,51 +277,35 @@ class RoutingRender:
             set((e.attrib["index"] for e in self.term_bottom)))
 
         # Left side OPins
-        self.opin_l = root.findall(
-            "*/driver_node[@type='OPIN'][@side='left']")
-        self.opin_l_len = max([int(i.attrib["index"])
-                               for i in self.opin_l] + [-1])+1
-        self.opin_l_t = [
-            e for e in self.opin_l if e.attrib["grid_side"] == "top"]
+        self.opin_l = self._get_driver_node(root, "OPIN", "left")
+        self.opin_l_len = self._get_max_index(self.opin_l)
+        self.opin_l_t = self._filter_attrib(self.opin_l, "grid_side", "top")
         self.opin_l_t_len = self._get_max_index(self.opin_l_t)
-        self.opin_l_b = [
-            e for e in self.opin_l if e.attrib["grid_side"] == "bottom"]
+        self.opin_l_b = self._filter_attrib(self.opin_l, "grid_side", "bottom")
         self.opin_l_b_len = self._get_max_index(self.opin_l_b)
 
-        # Right side OPins
-        self.opin_r = root.findall(
-            "*/driver_node[@type='OPIN'][@side='right']")
-        self.opin_r_len = max([int(i.attrib["index"])
-                               for i in self.opin_r] + [-1])+1
-        self.opin_r_t = [
-            e for e in self.opin_r if e.attrib["grid_side"] == "top"]
+        # right side OPins
+        self.opin_r = self._get_driver_node(root, "OPIN", "right")
+        self.opin_r_len = self._get_max_index(self.opin_r)
+        self.opin_r_t = self._filter_attrib(self.opin_r, "grid_side", "top")
         self.opin_r_t_len = self._get_max_index(self.opin_r_t)
-        self.opin_r_b = [
-            e for e in self.opin_r if e.attrib["grid_side"] == "bottom"]
+        self.opin_r_b = self._filter_attrib(self.opin_r, "grid_side", "bottom")
         self.opin_r_b_len = self._get_max_index(self.opin_r_b)
 
-        # Top side OPins
-        self.opin_t = root.findall("*/driver_node[@type='OPIN'][@side='top']")
-        self.opin_t_len = max([int(i.attrib["index"])
-                               for i in self.opin_t] + [-1])+1
-
-        self.opin_t_l = [
-            e for e in self.opin_t if e.attrib["grid_side"] == "left"]
+        # top side OPins
+        self.opin_t = self._get_driver_node(root, "OPIN", "top")
+        self.opin_t_len = self._get_max_index(self.opin_t)
+        self.opin_t_l = self._filter_attrib(self.opin_t, "grid_side", "left")
         self.opin_t_l_len = self._get_max_index(self.opin_t_l)
-        self.opin_t_r = [
-            e for e in self.opin_t if e.attrib["grid_side"] == "right"]
+        self.opin_t_r = self._filter_attrib(self.opin_t, "grid_side", "right")
         self.opin_t_r_len = self._get_max_index(self.opin_t_r)
 
-        # bottom side OPins
-        self.opin_b = root.findall(
-            "*/driver_node[@type='OPIN'][@side='bottom']")
-        self.opin_b_len = max([int(i.attrib["index"])
-                               for i in self.opin_b] + [-1])+1
-        self.opin_b_l = [
-            e for e in self.opin_b if e.attrib["grid_side"] == "left"]
+        # Bottom side OPins
+        self.opin_b = self._get_driver_node(root, "OPIN", "bottom")
+        self.opin_b_len = self._get_max_index(self.opin_b)
+        self.opin_b_l = self._filter_attrib(self.opin_b, "grid_side", "left")
         self.opin_b_l_len = self._get_max_index(self.opin_b_l)
-        self.opin_b_r = [
-            e for e in self.opin_b if e.attrib["grid_side"] == "right"]
+        self.opin_b_r = self._filter_attrib(self.opin_b, "grid_side", "right")
         self.opin_b_r_len = self._get_max_index(self.opin_b_r)
 
     def get_stats(self, print_header=False, noprint=False):
