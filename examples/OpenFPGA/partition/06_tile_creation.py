@@ -11,12 +11,15 @@ Verilog netlist obtained from OpenFPGA
 import glob
 import json
 import logging
+from pathlib import Path
 import tempfile
 from itertools import chain
 from os import path
 
 import spydrnet as sdn
 from spydrnet_physical.util import OpenFPGA
+from spydrnet_physical.util.get_names import get_names
+
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
@@ -62,14 +65,14 @@ def main():
                 fpga.top_module.combine_cables(
                     f"{i.name}_{p.name}", cable_list)
 
-    fpga.create_grid_clb_feedthroughs()
+    # fpga.create_grid_clb_feedthroughs()
 
     # Before Creating Tiles
     fpga.design_top_stat()
 
     # fpga.register_tile_generator(Tile02)
     # fpga.create_tiles()
-    for module in list(netlist.get_definitions("*_1__1*")):
+    for module in list(netlist.get_definitions("*b_1__1*")):
         # Flatten the netlist
         for instance in list(module.get_instances('*_ipin_*')):
             module.flatten_instance(instance)
@@ -82,19 +85,22 @@ def main():
             module.merge_instance([next(module.get_instances(i)) for i in instance_list],
                                   new_definition_name=f'{module.name}_{part}',
                                   new_instance_name=f'{module.name}_{part}_1')
+
         for eachInst in module.references:
+            print(f"Flatterning {eachInst.name}")
             fpga.top_module.flatten_instance(eachInst)
 
     # After Tile creation
     fpga.design_top_stat()
 
     # Save netlist
-    base_dir = (proj, "_output")
-    fpga.save_netlist("sb*", path.join(*base_dir, "routing"))
-    fpga.save_netlist("cb*", path.join(*base_dir, "routing"))
-    fpga.save_netlist("grid*", path.join(*base_dir, "lb"))
-    fpga.save_netlist("*tile*", path.join(*base_dir, "tiles"))
-    fpga.save_netlist("fpga_top", path.join(*base_dir))
+    base_dir = "_output_tile02"
+    Path(base_dir).mkdir(parents=True, exist_ok=True)
+    fpga.save_netlist("sb*", path.join(base_dir, "routing"))
+    fpga.save_netlist("cb*", path.join(base_dir, "routing"))
+    fpga.save_netlist("grid*", path.join(base_dir, "lb"))
+    fpga.save_netlist("*tile*", path.join(base_dir, "tiles"))
+    fpga.save_netlist("fpga_top", path.join(base_dir))
 
 
 if __name__ == "__main__":
