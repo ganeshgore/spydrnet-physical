@@ -44,8 +44,8 @@ class RoutingRender:
         return [e for e in eles if e.attrib[attrib] == value]
 
     @staticmethod
-    def _get_driver_node(root, type, side):
-        return root.findall(f"*/driver_node[@type='{type}'][@side='{side}']")
+    def _get_driver_node(root, p, type, side):
+        return root.findall(f"{p}/driver_node[@type='{type}'][@side='{side}']")
 
     @staticmethod
     def _get_max_index(ele):
@@ -203,16 +203,7 @@ class RoutingRender:
         self.chanx_len = self.chanx_l_len + self.chanx_r_len
         self.chanx_l_out_map = [0]*self.chanx_len
         self.chanx_r_out_map = [0]*self.chanx_len
-        self.chanx_drivers_l = \
-            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]')
-
-        self.chanx_drivers_r = \
-            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="right"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="right"]')
-        self.chanx_drivers = \
-            root.findall('.//CHANX/driver_node[@type="CHANX"]') + \
-            root.findall('.//CHANY/driver_node[@type="CHANX"]')
+        self.chanx_drivers = self._get_driver_node(root, "CHANX", "CHANX", "*")
 
         self.chany_t = root.findall("CHANY[@side='top']")
         self.chany_t_len = len(self.chany_t)
@@ -223,15 +214,7 @@ class RoutingRender:
         self.chany_len = self.chany_t_len + self.chany_b_len
         self.chany_t_out_map = [0]*self.chany_len
         self.chany_b_out_map = [0]*self.chany_len
-        self.chany_drivers_t = \
-            root.findall('.//CHANY/driver_node[@type="CHANY"][@side="top"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANY"][@side="top"]')
-        self.chany_drivers_b = \
-            root.findall('.//CHANY/driver_node[@type="CHANY"][@side="bottom"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANY"][@side="bottom"]')
-        self.chany_drivers = \
-            root.findall('.//CHANY/driver_node[@type="CHANY"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANY"]')
+        self.chany_drivers = self._get_driver_node(root, "CHANY", "CHANY", "*")
 
         self.ipin_l = root.findall("IPIN[@side='left']")
         self.ipin_l_len = self._get_max_index(self.ipin_l)
@@ -258,26 +241,8 @@ class RoutingRender:
         self.ft_bottom_len = len(
             set((e.attrib["index"] for e in self.ft_bottom)))
 
-        # Collect Terminating connections
-        self.term_left = [chan for chan in self.chanx_l if len(
-            chan.getchildren()) > 1]
-        self.term_left_len = len(
-            set((e.attrib["index"] for e in self.term_left)))
-        self.term_right = [chan for chan in self.chanx_r if len(
-            chan.getchildren()) > 1]
-        self.term_right_len = len(
-            set((e.attrib["index"] for e in self.term_right)))
-        self.term_top = [chan for chan in self.chany_t if len(
-            chan.getchildren()) > 1]
-        self.term_top_len = len(
-            set((e.attrib["index"] for e in self.term_top)))
-        self.term_bottom = [chan for chan in self.chany_b if len(
-            chan.getchildren()) > 1]
-        self.term_bottom_len = len(
-            set((e.attrib["index"] for e in self.term_bottom)))
-
         # Left side OPins
-        self.opin_l = self._get_driver_node(root, "OPIN", "left")
+        self.opin_l = self._get_driver_node(root, "*", "OPIN", "left")
         self.opin_l_len = self._get_max_index(self.opin_l)
         self.opin_l_t = self._filter_attrib(self.opin_l, "grid_side", "top")
         self.opin_l_t_len = self._get_max_index(self.opin_l_t)
@@ -285,7 +250,7 @@ class RoutingRender:
         self.opin_l_b_len = self._get_max_index(self.opin_l_b)
 
         # right side OPins
-        self.opin_r = self._get_driver_node(root, "OPIN", "right")
+        self.opin_r = self._get_driver_node(root, "*", "OPIN", "right")
         self.opin_r_len = self._get_max_index(self.opin_r)
         self.opin_r_t = self._filter_attrib(self.opin_r, "grid_side", "top")
         self.opin_r_t_len = self._get_max_index(self.opin_r_t)
@@ -293,7 +258,7 @@ class RoutingRender:
         self.opin_r_b_len = self._get_max_index(self.opin_r_b)
 
         # top side OPins
-        self.opin_t = self._get_driver_node(root, "OPIN", "top")
+        self.opin_t = self._get_driver_node(root, "*", "OPIN", "top")
         self.opin_t_len = self._get_max_index(self.opin_t)
         self.opin_t_l = self._filter_attrib(self.opin_t, "grid_side", "left")
         self.opin_t_l_len = self._get_max_index(self.opin_t_l)
@@ -301,7 +266,7 @@ class RoutingRender:
         self.opin_t_r_len = self._get_max_index(self.opin_t_r)
 
         # Bottom side OPins
-        self.opin_b = self._get_driver_node(root, "OPIN", "bottom")
+        self.opin_b = self._get_driver_node(root, "*", "OPIN", "bottom")
         self.opin_b_len = self._get_max_index(self.opin_b)
         self.opin_b_l = self._filter_attrib(self.opin_b, "grid_side", "left")
         self.opin_b_l_len = self._get_max_index(self.opin_b_l)
