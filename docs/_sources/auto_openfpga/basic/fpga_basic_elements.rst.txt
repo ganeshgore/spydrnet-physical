@@ -110,11 +110,11 @@ Verilog netlist obtained from OpenFPGA
             fp.write(
                 f'`include "{proj}/FPGA44_Task/CustomModules/standard_cell_primitives.v"\n')
             fp.write(
-                f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/muxes.v"\n')
+                f'`include "{proj}/FPGA44_Verilog/sub_module/muxes.v"\n')
             fp.write(
-                f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/memories.v"\n')
+                f'`include "{proj}/FPGA44_Verilog/sub_module/memories.v"\n')
             fp.write(
-                f'`include "{proj}/FPGA44_Verilog/SRC/sub_module/inv_buf_passgate.v"\n')
+                f'`include "{proj}/FPGA44_Verilog/sub_module/inv_buf_passgate.v"\n')
 
 
     if __name__ == "__main__":
@@ -123,7 +123,7 @@ Verilog netlist obtained from OpenFPGA
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.409 seconds)
+   **Total running time of the script:** ( 0 minutes  3.275 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_basic_fpga_basic_elements.py:
