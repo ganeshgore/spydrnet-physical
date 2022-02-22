@@ -11,12 +11,58 @@ logger = logging.getLogger('spydrnet_logs')
 
 
 class RoutingRender:
+    """
+    This class illustrates the FPGA switch box and connection box based on the
+    given GSB xml files.
+
+    **General Variables**
+
+    Attributes:
+        self.name: Name of the module 
+        self.scale: General scale for rendering connectivity
+        self.spacing: Margin beetween each section
+        self.root: Parsed XML Root element
+
+    .. csv-table:: Channel Variables
+       :widths: 25, 75
+
+       self.chanx, Unique list of elements horizontal channels
+       self.chanx_l        ,Unique list of elements left incoming chanx channels
+       self.chanx_l_len    ,length of ``chanx_l``
+       self.chanx_r        ,Unique list of elements right incoming chanx channels
+       self.chanx_r_len    ,length of ``chanx_r``
+
+       self.chanx_l_drivers,New generated left outgoing channels with feedthrough
+       self.chanx_l_ft     ,Left outgoing channels with feedthrough
+       self.chanx_l_out_map,Mapping of ft/driver index with offset on the left side
+
+       self.ipin_l         ,Unique list of elements outgoing from connection box on left side 
+       self.ipin_l_len     ,Length of ``ipin_l``
+
+       self.opin_l         ,Unique list of elements incoming from left side 
+       self.opin_l_len     ,Length of ``opin_l``
+       self.opin_l_t       ,Unique list of elements incoming from left top side 
+       self.opin_l_t_len   ,Length of ``opin_l_t``
+       self.opin_l_b       ,Unique list of elements incoming from left bottom side 
+       self.opin_l_b_len   ,Length of ``opin_l_b``
+
+
+
+    """
+
     def __init__(self, name, gsb_xml) -> None:
+        '''
+        Initialise the rendering class
+
+        args:
+            name (str): Name of the connection box
+            gsb_xml (str): XML file path to read
+        '''
         self.name = name
         self.scale = 40
         self.spacing = self.scale*2
-        self.gsb_xml = gsb_xml
-        self.root = ET.parse(self.gsb_xml).getroot()
+        self.root = gsb_xml if isinstance(gsb_xml, ET.Element) \
+            else ET.parse(self.gsb_xml).getroot()
         self.extract_info()
 
     def update_dimensions(self, scale, spacing):
@@ -199,7 +245,6 @@ class RoutingRender:
         root = self.root
         self.chanx_l = root.findall("CHANX[@side='left']")
         self.chanx_l_len = len(self.chanx_l)
-
         self.chanx_r = root.findall("CHANX[@side='right']")
         self.chanx_r_len = len(self.chanx_r)
 
