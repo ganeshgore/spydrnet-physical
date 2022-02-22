@@ -77,7 +77,7 @@ class RoutingRender:
         print("%15s %8s %8s %8s %8s %8s %8s %8s %8s %15s %15s %15s %15s" %
               ('module',
                'chanx_l', 'chanx_r', 'chany_t', 'chany_b',
-               'ipin_t', 'ipin_b', 'ipin_r', 'ipin_l',
+               'ipin_l', 'ipin_r', 'ipin_t', 'ipin_b',
                'opin_l', 'opin_r', 'opin_t', 'opin_b'))
         print("=="*80)
 
@@ -121,20 +121,25 @@ class RoutingRender:
             _ = [self._set_vbit(ChanX, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANX"]')]
             ChanY = ['_']*self.chany_len
+            ChanY = ['_']*40
             _ = [self._set_hbit(ChanY, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANY"]')]
-            OPIN_L = ['_']*self.opin_l_len
-            _ = [self._set_bit(OPIN_L, e.attrib['index'])
-                 for e in chan.findall('./driver_node[@type="OPIN"][@side="left"]')]
-            OPIN_R = ['_']*self.opin_l_len
-            _ = [self._set_bit(OPIN_R, e.attrib['index'])
-                 for e in chan.findall('./driver_node[@type="OPIN"][@side="right"]')]
-            OPIN_T = ['_']*self.opin_l_len
-            _ = [self._set_bit(OPIN_T, e.attrib['index'])
-                 for e in chan.findall('./driver_node[@type="OPIN"][@side="top"]')]
-            OPIN_B = ['_']*self.opin_l_len
-            _ = [self._set_bit(OPIN_B, e.attrib['index'])
-                 for e in chan.findall('./driver_node[@type="OPIN"][@side="bottom"]')]
+            # OPIN_L = ['_']*self.opin_l_len
+            # _ = [self._set_bit(OPIN_L, e.attrib['index'])
+            #      for e in chan.findall('./driver_node[@type="OPIN"][@side="left"]')]
+            # OPIN_R = ['_']*self.opin_l_len
+            # _ = [self._set_bit(OPIN_R, e.attrib['index'])
+            #      for e in chan.findall('./driver_node[@type="OPIN"][@side="right"]')]
+            # OPIN_T = ['_']*self.opin_l_len
+            # _ = [self._set_bit(OPIN_T, e.attrib['index'])
+            #      for e in chan.findall('./driver_node[@type="OPIN"][@side="top"]')]
+            # OPIN_B = ['_']*self.opin_l_len
+            # _ = [self._set_bit(OPIN_B, e.attrib['index'])
+            #      for e in chan.findall('./driver_node[@type="OPIN"][@side="bottom"]')]
+            OPIN_L = ["_", "_"]
+            OPIN_R = ["_", "_"]
+            OPIN_T = ["_", "_"]
+            OPIN_B = ["_", "_"]
             print(format_str.format(
                 chan.attrib["index"],
                 chan.attrib["mux_size"],
@@ -283,12 +288,12 @@ class RoutingRender:
                (self.name,
                 self.chanx_l_len, self.chanx_r_len,
                 self.chany_t_len, self.chany_b_len,
+                self.ipin_l_len, self.ipin_r_len,
                 self.ipin_t_len, self.ipin_b_len,
-                self.ipin_r_len, self.ipin_l_len,
-                f"{self.opin_t_len:3} [{self.opin_t_l_len:3},{self.opin_t_r_len:3}]",
-                f"{self.opin_b_len:3} [{self.opin_b_l_len:3},{self.opin_b_r_len:3}]",
+                f"{self.opin_l_len:3} [{self.opin_l_t_len:3},{self.opin_l_b_len:3}]",
                 f"{self.opin_r_len:3} [{self.opin_r_t_len:3},{self.opin_r_b_len:3}]",
-                f"{self.opin_l_len:3} [{self.opin_l_t_len:3},{self.opin_l_b_len:3}]"))
+                f"{self.opin_t_len:3} [{self.opin_t_l_len:3},{self.opin_t_r_len:3}]",
+                f"{self.opin_b_len:3} [{self.opin_b_l_len:3},{self.opin_b_r_len:3}]"))
         if not noprint:
             print(msg)
         return msg
