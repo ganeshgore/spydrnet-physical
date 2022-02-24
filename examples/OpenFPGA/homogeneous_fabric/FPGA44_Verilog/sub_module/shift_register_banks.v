@@ -1,6 +1,6 @@
 //-------------------------------------------
 //	FPGA Synthesizable Verilog Netlist
-//	Description: Decoders for fabric configuration protocol
+//	Description: Shift register banks used in FPGA
 //	Organization: University of Utah
 //-------------------------------------------
 //----- Time scale -----
