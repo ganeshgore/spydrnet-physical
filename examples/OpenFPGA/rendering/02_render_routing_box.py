@@ -60,7 +60,7 @@ def main():
         sb_render.get_stats(print_header=bool(indx == 0))
         # Render full switch-box and save as SVG
         sb_render.render_switch_pattern()
-        sb_render.save(filename="_sb_1__1_.svg")
+        sb_render.save(filename=f"_{module}.svg")
         sb_render.render_connection_box('left', filename="_cbx_1__1_.svg")
         sb_render.render_connection_box('top', filename="_cbx_1__2_.svg")
 
