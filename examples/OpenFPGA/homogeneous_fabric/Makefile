@@ -12,11 +12,12 @@ runOpenFPGA:
 	source $${OPENFPGA_PATH}/openfpga.sh
 	run-task FPGA44_Task --remove_run_dir all
 	run-task FPGA44_Task
-	cp -r FPGA44_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/SRC \
-	FPGA44_Verilog
-	cp -r FPGA44_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/gsb \
-	FPGA44_gsb
+	cp -r FPGA44_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/SRC/** \
+	FPGA44_Verilog/
+	cp -r FPGA44_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/gsb/** \
+	FPGA44_gsb/
 	find ./FPGA44_Verilog -name "*.v" -exec sed -i "s/.*default_nettype/\/\/ \`default_nettype/g" '{}' \;
+	find ./FPGA44_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Date.*/d"
 	duration=$$SECONDS
 	echo "$$(($$duration / 60)) minutes and $$(($$duration % 60)) seconds elapsed." >> runOpenFPGA
 
