@@ -72,6 +72,7 @@ def main():
         for ele in root.findall("IPIN"):
             root.remove(ele)
         root.append(extract_input(root))
+        root.attrib["type"] = "SB"
         tree.write(f"{gsb}/{module[1:]}.xml", encoding="utf-8")
 
         # =====================================================================
@@ -88,6 +89,7 @@ def main():
             filename = [ref for ref, inst in instance_list.items()
                         if filename in inst][0]
             root.append(extract_input(root))
+            root.attrib["type"] = "CBX"
             tree.write(f"{gsb}/{filename}.xml")
 
         # =====================================================================
@@ -107,6 +109,7 @@ def main():
             filename = [ref for ref, inst in instance_list.items()
                         if filename in inst][0]
             root.append(extract_input(root))
+            root.attrib["type"] = "CBY"
             tree.write(f"{gsb}/{filename}.xml")
 
 
