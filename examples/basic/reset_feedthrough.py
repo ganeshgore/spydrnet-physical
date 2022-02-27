@@ -26,9 +26,6 @@ for i in range(len(cables)):
     cable_names.append(cables[i].name)
 print(cable_names)
 
-#Creating feedthrough port for reset cable
-top.reference.create_feedthroughs_ports(next(top.get_cables("rst_in")))
-
 sdn.compose(netlist, '_reset_feedthrough1.v', skip_constraints=True)
 _ref=[]
 _ref_mod=[]
