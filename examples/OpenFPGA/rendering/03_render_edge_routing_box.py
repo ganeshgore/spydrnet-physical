@@ -46,6 +46,9 @@ def main():
         print(f"Printing module : ========== {module} ========== ")
         cb_render.report_ipins()
 
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    #  This prints switch box information
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     for indx, conn_box in enumerate(glob.glob(f'{gsb}/sb_*__*_.xml')):
         module = os.path.splitext(os.path.basename(conn_box))[0]
         print(f"Printing module : ========== {module} ========== ")
