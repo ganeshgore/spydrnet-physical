@@ -1,6 +1,6 @@
 """
 =====================================
-Create Reset Feedthrough in Fpga_top
+Create Reset Feedthrough in fpga_top
 =====================================
 
 """
@@ -12,14 +12,14 @@ netlist = sdnphy.load_netlist_by_name('_fpga_top')
 print(netlist)
 top = netlist.top_instance
 
-#Getting the ports' list for referencing purpose
+#Getting the ports' list for our reference
 port_names=[]
 ports = list(top.get_ports())
 for i in range(len(ports)):
     port_names.append(ports[i].name)
 print(port_names)
 
-#Getting the cables' list
+#Getting the cables' list for our reference
 cables = list(top.get_cables())
 cable_names=[]
 for i in range(len(cables)):
