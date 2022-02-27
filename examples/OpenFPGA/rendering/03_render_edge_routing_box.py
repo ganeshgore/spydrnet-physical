@@ -6,16 +6,6 @@ Rendering Switch and Connection Boxes
 This example demostrate how a switch box (SB) and connection box (CB)
 can be rendered in a SVG format.
 
-
-**Horizontal Connection Box**
-
-.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__0_.svg
-    :width: 150px
-.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_.svg
-    :width: 150px
-.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_.svg
-    :width: 150px
-
 """
 
 import glob
@@ -38,16 +28,26 @@ np.set_printoptions(linewidth=200)
 def main():
     gsb = '../homogeneous_fabric/FPGA44_gsb'
 
-    for indx, conn_box in enumerate(glob.glob(f'{gsb}/cbx_*.xml')):
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    #  This prints horizontal connection box information
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    for indx, conn_box in enumerate(glob.glob(f'{gsb}/cbx_*__*_.xml')):
         module = os.path.splitext(os.path.basename(conn_box))[0]
+        cb_render = cb_renderer(module, conn_box)
+        print(f"Printing module : ========== {module} ========== ")
+        cb_render.report_ipins()
 
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    #  This prints vertical connection box information
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    for indx, conn_box in enumerate(glob.glob(f'{gsb}/cby_*__*_.xml')):
+        module = os.path.splitext(os.path.basename(conn_box))[0]
         cb_render = cb_renderer(module, conn_box)
         print(f"Printing module : ========== {module} ========== ")
         cb_render.report_ipins()
 
     for indx, conn_box in enumerate(glob.glob(f'{gsb}/sb_*__*_.xml')):
         module = os.path.splitext(os.path.basename(conn_box))[0]
-
         print(f"Printing module : ========== {module} ========== ")
         sb_render = sb_renderer(module, conn_box)
         sb_render.report_connectivity(filter_direct=True,
