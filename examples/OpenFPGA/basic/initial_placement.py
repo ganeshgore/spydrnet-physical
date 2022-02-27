@@ -3,8 +3,8 @@
 Creating FPGA Tiles from OpenFPGA verilog
 =========================================
 
-This example demonstate how to create a tile strcuture from
-Verilog netlist obtained from OpenFPGA
+This example demonstrates how to create a tile structure from
+verilog netlist obtained from OpenFPGA
 
 """
 

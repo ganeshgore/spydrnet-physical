@@ -1,6 +1,7 @@
 
 """
-OpenFPGA architecture Parsing
+=============================
+OpenFPGA Architecture Parsing
 =============================
 
 """

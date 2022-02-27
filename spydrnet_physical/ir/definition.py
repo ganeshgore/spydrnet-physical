@@ -129,7 +129,7 @@ class Definition(DefinitionBase):
         args:
             instances_list (list[instance]): List of instances to create
                                             feedthrough from
-            cable (Cable): cable fro which feedthrough needs to be creared
+            cable (Cable): cable from which feedthrough needs to be creared
             get_port_names(callable): --
             get_cable_names(callable): --
 
@@ -275,7 +275,7 @@ class Definition(DefinitionBase):
         # ====== Input Sanity checks
         for eachModule in instances_list:
             assert isinstance(
-                eachModule, sdn.Instance), "Modulelist contains none non-intance object [%s]" % type(eachModule)
+                eachModule, sdn.Instance), "Modulelist contains none non-instance object [%s]" % type(eachModule)
 
         if pin_map:
             if isinstance(pin_map, dict):
@@ -346,8 +346,8 @@ class Definition(DefinitionBase):
 
     def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True):
         """
-        This method optimizes the definitions pins bu inspecting all the
-        instances of the definition
+        This method optimizes the definitions pins but inspecting all the
+        instances of the definition.
 
         parameters
         ----------
@@ -355,7 +355,7 @@ class Definition(DefinitionBase):
         dry_run: Just performs the dryrun and list the pins which can be merged or absorbed
         pins: only consider specific pins, provide filter function
         absorb: if two pins are only connected to each other they will be absorbed and internal connection will be made
-        merge: if two pins are connected to each other and few other instances, one of the pin will be absorbed and other will exist
+        merge: if two pins are connected to each other and few other instances, one of the pins will be absorbed and other will exist
         """
         duplicatePins = []  # Set of all pins which can be merged or absorbed
         absorbPins = []  # Subset of duplicate pins
@@ -422,7 +422,7 @@ class Definition(DefinitionBase):
 
         return duplicatePins if merge else absorbPins if absorb else None
 
-    # TODO : Need to consider floating paraters
+    # TODO : Need to consider floating parameters
     def OptWires(self, no_load=True,  no_driver=False, floating=True):
         '''
         List the wires which can be optimised based on different constraints
@@ -472,7 +472,7 @@ class Definition(DefinitionBase):
 
     def _get_assignment_definition(self, assign_library, size):
         '''
-        Returns assignment definition for the give size
+        Returns assignment definition for the given size
 
         parameters
         ----------
@@ -656,9 +656,9 @@ class Definition(DefinitionBase):
         self.remove_cable(cable)
 
     def flatten_instance(self, instance):
-        """ Flatterns single instance in the given definition """
-        assert isinstance(instance, sdn.Instance), "Argument not a Instance"
-        assert instance in self.children, "Instance is not part of current definition"
+        """ Flattens single instance in the given definition """
+        assert isinstance(instance, sdn.Instance), "Argument not an Instance"
+        assert instance in self.children, "Instance is not a part of the current definition"
         cable_map = {}
         # recreating internal cables on top level
         for cable in instance.reference.get_cables():
