@@ -71,23 +71,7 @@
   <!-- ODIN II specific config ends -->
   <!-- Physical descriptions begin -->
   <layout tileable="true">
-    <auto_layout aspect_ratio="1.0">
-      <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
-      <perimeter type="io" priority="100"/>
-      <corners type="EMPTY" priority="101"/>
-      <!--Fill with 'clb'-->
-      <fill type="clb" priority="10"/>
-    </auto_layout>
     <fixed_layout name="4x4" width="6" height="6">
-      <row type="io" starty="H-1" priority="100"/>
-      <row type="io" starty="0" priority="100"/>
-      <col type="io" startx="0" priority="100"/>
-      <col type="io" startx="W-1" priority="100"/>
-      <corners type="EMPTY" priority="101"/>
-      <!--Fill with 'clb'-->
-      <fill type="clb" priority="10"/>
-    </fixed_layout>
-    <fixed_layout name="8x8" width="10" height="10">
       <row type="io" starty="H-1" priority="100"/>
       <row type="io" starty="0" priority="100"/>
       <col type="io" startx="0" priority="100"/>

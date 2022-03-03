@@ -1,5 +1,13 @@
 ''' Example plugin to extend functionality '''
+import typing
+import spydrnet as sdn
 from spydrnet.ir.wire import Wire as WireBase
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.wire import Wire as WireSDN
+    from spydrnet_physical.ir.element import Element as ElementPhy
+    WireBase = type("WireBase", (WireSDN, ElementPhy), {})
 
 
 class Wire(WireBase):
@@ -25,3 +33,17 @@ class Wire(WireBase):
             return (size-indx) + self.cable.lower_index
         else:
             return indx + self.cable.lower_index
+
+    def get_driver(self):
+        '''
+        returns the driver(s) of the wire
+        '''
+        drivers = []
+        for pin in self._pins:
+            if pin.__class__ is sdn.InnerPin:
+                if pin.port.direction is sdn.IN:
+                    drivers.append(pin)
+            else:
+                if pin.inner_pin.port.direction is sdn.OUT:
+                    drivers.append(pin)
+        return drivers

@@ -22,12 +22,10 @@ jobs:
 
       - name: Build Documentation
         shell: bash
+        id: build
         run: |
           source /tmp/buildenv/bin/activate
-          if [ -f "requirements.txt" ]; then
-            python3 -m pip install --upgrade \
-            --no-cache-dir -r requirements.txt
-          fi
+          bash ./.github/build_env.sh
           if [ -f "docs/requirements.txt" ]; then
             python3 -m pip install --upgrade \
             --no-cache-dir -r docs/requirements.txt
@@ -36,12 +34,21 @@ jobs:
           cd docs && make html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore
+      - name: Upload regression results
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: docs_build
+          retention-days: 2
+          path: |
+            docs/**/*
+            examples/**/*
       - name: Deploy documentation
-        if: ${{ success() }}
+        if: ${{ (steps.build.outcome == 'success') }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: docs
           publish_dir: docs/build/html
-          destination_dir: docs/
+          destination_dir: docs
           exclude_assets: "doctrees"

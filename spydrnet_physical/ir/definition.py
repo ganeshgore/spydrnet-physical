@@ -1,21 +1,39 @@
 
 import logging
+import typing
+from itertools import combinations
 
 import spydrnet as sdn
 from spydrnet.ir import Definition as DefinitionBase
-from itertools import combinations
 from spydrnet.ir.innerpin import InnerPin
 from spydrnet.ir.outerpin import OuterPin
-
 from spydrnet.ir.port import Port
 
 logger = logging.getLogger('spydrnet_logs')
+try:
+    import networkx as nx
+except ImportError:
+    logger.debug("Networks module not loaded")
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir import Definition as DefinitionSDN
+    from spydrnet_physical.ir.first_class_element import \
+        FirstClassElement as FirstClassElementPhy
+    DefinitionBase = type(
+        "DefinitionBase", (DefinitionSDN, FirstClassElementPhy), {})
 
 
 class Definition(DefinitionBase):
     """
     Extending the definitions representation
     """
+
+    def __init__(self, name=None, properties=None):
+        super().__init__(name=name, properties=properties)
+        properties = properties or dict()
+        self.properties["WIDTH"] = properties.get("WIDTH", 50)
+        self.properties["HEIGHT"] = properties.get("WIDTH", 50)
 
     def _disconnect_port(self, port):
         '''
@@ -83,8 +101,13 @@ class Definition(DefinitionBase):
 
         assign_lib = self._get_assignment_library()
         assign_def = self._get_assignment_definition(assign_lib, cable.size)
-        instance = self.create_child(f"{inport_name}_{outport_name}_ft",
-                                     reference=assign_def)
+        inst_name = f"{inport_name}_{outport_name}_ft"
+        i = 1
+        while next(self.get_instances(inst_name), None):
+            inst_name = f"{inport_name}_{outport_name}_ft" + f"_{i}"
+            i += 1
+
+        instance = self.create_child(inst_name, reference=assign_def)
 
         int_c.connect_port(inport)
         int_c.connect_instance_port(instance, next(assign_def.get_ports("i")))
@@ -135,12 +158,16 @@ class Definition(DefinitionBase):
                 for pin in set(each_w.pins):
                     # These are loads and
                     if (isinstance(pin, OuterPin) and (pin.port.direction == sdn.IN)) or \
-                        (isinstance(pin, InnerPin) and (pin.port.direction == sdn.OUT)):
+                            (isinstance(pin, InnerPin) and (pin.port.direction == sdn.OUT)):
                         each_w.disconnect_pin(pin)
                         new_cable.wires[pin.get_index].connect_pin(pin)
             cable.connect_instance_port(instance, inport)
             cable_list.append(new_cable)
         return cable_list
+
+    def create_ft_multiple(self, *args, **kwargs):
+        ''' Alias to create_feedthrough_multiple '''
+        return self.create_feedthrough_multiple(*args, **kwargs)
 
     def create_feedthrough_multiple(self, instances_list):
         """
@@ -177,12 +204,13 @@ class Definition(DefinitionBase):
         for indx2, instances_list in enumerate(instances_list):
             for indx, inst in enumerate(instances_list[1][::-1]):
                 cable = instances_list[0]
-                logger.info(f"Iterating {cable.name} for inst {inst.name}")
+                logger.debug(f"Iterating {cable.name} for inst {inst.name}")
 
                 new_cable = self.create_cable(f"{cable.name}_ft_{indx}")
                 new_cable.create_wires(cable.size)
 
-                logger.info(f"Created new cable {cable.name} {new_cable.name}")
+                logger.debug(
+                    f"Created new cable {cable.name} {new_cable.name}")
                 new_cables.append(new_cable)
                 new_cable.connect_instance_port(inst, port_map[indx][1])
                 for each_w in cable.wires:
@@ -194,114 +222,127 @@ class Definition(DefinitionBase):
                 cable.connect_instance_port(inst, port_map[indx][0])
         return new_cables, port_map
 
-    # def merge_multiple_instance(self, instances_list_tuple, new_definition_name=None, pin_map=None):
-    #     """
-    #     This method can merge multiple group of instances having same reference.
-    #     First pair of the instances_list_tuple is used to create new definition
-    #     and this def is reuse while grouping remaining group of instances
-    #     instances_list_tuple = [(inst_1, inst_2, ...., inst_n), <instance_name>]
-    #     new_definition_name = Name for the new definition
-    #     pin_map             = Function of dictionary to rename pins
-    #     """
-    #     mainDef = None
-    #     instance_list = []
-    #     for instances_list, instance_name in instances_list_tuple:
-    #         newDef, newInst, _ = self.merge_instance(instances_list,
-    #                                                  new_definition_name=f"{new_definition_name}_{instance_name}",
-    #                                                  new_instance_name=instance_name,
-    #                                                  pin_map=pin_map)
-    #         instance_list.append(newInst)
-    #         if not mainDef:
-    #             mainDef = newDef
-    #             mainDef.name = new_definition_name
-    #         else:
-    #             newInst.reference = mainDef
-    #             self.library.remove_definition(newDef)
-    #     return mainDef, instance_list
+    def merge_multiple_instance(self, instances_list_tuple, new_definition_name=None, pin_map=None):
+        """
+        This method can merge multiple group of instances
+        having same order of reference definition.
 
-    # def merge_instance(self, instances_list, new_definition_name=None, new_instance_name=None, pin_map=None):
-    #     """
-    #     instances_list      : List of instances to be merged
-    #     new_definition_name : Name of the new definition created
-    #     new_instance_name   : Name of the new instance created
-    #     pin_map : function or a dictionary mapping pin of each module
-    #               function call arguments:
-    #               get_pin_name(<definition_name:<str>, <pin_name:<str>,
-    #                             <instance_name:<str>)
-    #     """
-    #     RenameMap = {}  # Stores the final rename map
+        First pair of the instances_list_tuple is used to create new definition
+        and that is reused while grouping remaining group of instances
 
-    #     # ====== Input Sanity checks
-    #     for eachModule in instances_list:
-    #         assert isinstance(
-    #             eachModule, Instance), "Modulelist contains none non-intance object"
+        args:
+            instances_list_tuple = [(inst_1, inst_2, ...., inst_n), <instance_name>]
+            new_definition_name (str) = Name for the new definition
+            pin_map (Callable)          = Function of dictionary to rename pins
+        """
+        mainDef = None
+        instance_list = []
+        for instances_list, instance_name in instances_list_tuple:
+            newDef, newInst, _ = self.merge_instance(instances_list,
+                                                     new_definition_name=f"{new_definition_name}_{instance_name}",
+                                                     new_instance_name=instance_name,
+                                                     pin_map=pin_map)
+            instance_list.append(newInst)
+            if not mainDef:
+                mainDef = newDef
+                mainDef.name = new_definition_name
+            else:
+                newInst.reference = mainDef
+                self.library.remove_definition(newDef)
+        return mainDef, instance_list
 
-    #     if pin_map:
-    #         if isinstance(pin_map, dict):
-    #             pin_map_copy = pin_map
-    #             def pin_map(x, y, _): return pin_map_copy.get(x, {}).get(y, {})
-    #         if not callable(pin_map):
-    #             print(
-    #                 "pin_map argument should be dictionary or function, received {type(pin_map)}")
+    # TODO: Try to break this method
+    def merge_instance(self, instances_list,
+                       new_definition_name="",
+                       new_instance_name="", pin_map=None):
+        """
+        Merges the list of instances to unique definition
 
-    #     # ====== Create a new definition
-    #     if not new_definition_name:
-    #         new_def_name = "_".join(
-    #             [each.reference.name for each in instances_list]) + "_merged"
-    #         print(f"Inferred definition name {new_def_name} ")
-    #     else:
-    #         new_def_name = new_definition_name
-    #     newMod = self.library.create_definition(name=new_def_name)
+        args:
+            instances_list (List(Instance)): List of instances to be merged
+            new_definition_name : Name of the new definition created
+            new_instance_name   : Name of the new instance created
+            pin_map (Callable, Dict) : External function to map new pin name
+                    based in definition and instance name
+                    get_pin_name(<definition_name:<str>, <pin_name:<str>,
+                    <instance_name:<str>)
 
-    #     # ===== Create instance of the definition
-    #     if not new_instance_name:
-    #         new_instance_name = f"{new_def_name}_1"
-    #     MergedModule = self.create_child(name=new_instance_name,
-    #                                      reference=newMod)
+        returns:
+            (Definition, Instance, Dict)
+        """
+        RenameMap = {}  # Stores the final rename map
 
-    #     # ===== Interate over each module and create new module
-    #     for index, eachM in enumerate(instances_list):
+        # ====== Input Sanity checks
+        for eachModule in instances_list:
+            assert isinstance(
+                eachModule, sdn.Instance), "Modulelist contains none non-intance object [%s]" % type(eachModule)
 
-    #         RenameMap[eachM.reference.name] = {}
-    #         RenameMap[eachM.reference.name][index] = {}
-    #         currMap = RenameMap[eachM.reference.name][index]
-    #         IntInst = newMod.create_child(name=eachM.name,
-    #                                       reference=eachM.reference)
-    #         # Iterate over each port of current instance
-    #         for p in eachM.get_ports():
-    #             pClone = p.clone()  # It copied all pins, wires and cables
+        if pin_map:
+            if isinstance(pin_map, dict):
+                pin_map_copy = pin_map
+                def pin_map(x, y, _): return pin_map_copy.get(x, {}).get(y, {})
+            if not callable(pin_map):
+                print(
+                    "pin_map argument should be dictionary or function, received {type(pin_map)}")
 
-    #             for eachSuffix in [""]+[f"_{i}" for i in range(10)]:
-    #                 newName = pClone.name + eachSuffix
-    #                 if not len(list(newMod.get_ports(newName))):
-    #                     break
-    #             newCable = newMod.create_cable(
-    #                 name=newName,
-    #                 is_downto=pClone.is_downto,
-    #                 is_scalar=pClone.is_scalar,
-    #                 lower_index=pClone.lower_index,
-    #             )
+        # ====== Create a new definition
+        if not new_definition_name:
+            new_def_name = "_".join(
+                [each.reference.name for each in instances_list]) + "_merged"
+            print(f"Inferred definition name {new_def_name} ")
+        else:
+            new_def_name = new_definition_name
+        newMod = self.library.create_definition(name=new_def_name)
 
-    #             # Create connection inside new definition
-    #             for eachPClone, eachP in zip(pClone.pins, p.pins):
-    #                 w = newCable.create_wire()
-    #                 w.connect_pin(eachPClone)
-    #                 w.connect_pin(IntInst.pins[eachP])
-    #             pClone.change_name(newName)
-    #             newMod.add_port(pClone)
+        # ===== Create instance of the definition
+        if not new_instance_name:
+            new_instance_name = f"{new_def_name}_1"
+        MergedModule = self.create_child(name=new_instance_name,
+                                         reference=newMod)
 
-    #             currMap[p.name] = newName
+        # ===== Interate over each module and create new module
+        for index, eachM in enumerate(instances_list):
 
-    #             for eachPin in p.pins:
-    #                 instOutPin = eachM.pins[eachPin]
-    #                 conWire = instOutPin.wire
-    #                 instPin = MergedModule.pins[pClone.pins[eachPin.index()]]
-    #                 conWire.connect_pin(instPin)
-    #                 instOutPin.wire.disconnect_pin(instOutPin)
-    #                 newCable.wires[eachPin.index()].connect_pin(instOutPin)
+            RenameMap[eachM.reference.name] = {}
+            RenameMap[eachM.reference.name][index] = {}
+            currMap = RenameMap[eachM.reference.name][index]
+            IntInst = newMod.create_child(name=eachM.name,
+                                          reference=eachM.reference)
+            # Iterate over each port of current instance
+            for p in eachM.get_ports():
+                pClone = p.clone()  # It copied all pins, wires and cables
+                for eachSuffix in [""]+[f"_{i}" for i in range(1000)]:
+                    newName = pClone.name + eachSuffix
+                    if not len(list(newMod.get_ports(newName))):
+                        break
+                newCable = newMod.create_cable(
+                    name=newName,
+                    is_downto=pClone.is_downto,
+                    is_scalar=pClone.is_scalar,
+                    lower_index=pClone.lower_index,
+                )
 
-    #         self.remove_child(eachM)
-    #     return newMod, MergedModule, RenameMap
+                # Create connection inside new definition
+                for eachPClone, eachP in zip(pClone.pins, p.pins):
+                    w = newCable.create_wire()
+                    w.connect_pin(eachPClone)
+                    w.connect_pin(IntInst.pins[eachP])
+                pClone.change_name(newName)
+                newMod.add_port(pClone)
+
+                currMap[p.name] = newName
+
+                for eachPin in p.pins:
+                    instOutPin = eachM.pins[eachPin]
+                    conWire = instOutPin.wire
+                    instPin = MergedModule.pins[pClone.pins[eachPin.index()]]
+                    if conWire:
+                        conWire.connect_pin(instPin)
+                        conWire.disconnect_pin(instOutPin)
+                    newCable.wires[eachPin.index()].connect_pin(instOutPin)
+
+            self.remove_child(eachM)
+        return newMod, MergedModule, RenameMap
 
     def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True):
         """
@@ -324,18 +365,24 @@ class Definition(DefinitionBase):
         for fromPort, toPort in combinations(defPort, 2):
             if len(fromPort.pins) == len(toPort.pins):
                 # Compare only when port has same width
-                sameNet = True
+                sameNet = True  # Flag to detect boh ports are connected to same cable
                 singleWire = True
                 for eachPin1, eachPin2 in zip(fromPort.pins, toPort.pins):
                     for eachInst in self.references:
                         eachPin1 = eachInst.pins[eachPin1]
                         eachPin2 = eachInst.pins[eachPin2]
-                        if not eachPin1.wire == eachPin2.wire:
+                        if (eachPin1.wire is None) or (eachPin2.wire is None):
+                            sameNet = False
+                            break
+                        elif not (eachPin1.wire == eachPin2.wire):
                             sameNet = False
                             break
                         elif singleWire:
-                            singleWire = set(eachPin1.wire.pins) == set(
-                                (eachPin1, eachPin2))
+                            if eachPin1.wire:
+                                singleWire = set(eachPin1.wire.pins) == \
+                                    set((eachPin1, eachPin2))
+                            else:
+                                singleWire = False
 
                 if sameNet:
                     # Check if frompin exist in the previous pairs
@@ -466,12 +513,19 @@ class Definition(DefinitionBase):
         assert self.library, "Library is not defined for the definition"
         assert self.library.netlist, "netlist is not defined for the library definition"
 
-        new_port = port.clone()
-        new_port.name = port_name if port_name else f"{port.name}_dup"
+        new_port_name = port_name if port_name else f"{port.name}_dup"
+        new_port = self.create_port(new_port_name,
+                                    direction=port.direction,
+                                    is_scalar=port.is_scalar,
+                                    lower_index=port.lower_index,
+                                    is_downto=port.is_downto)
+        new_port.create_pins(port.size)
+        new_cable = self.create_cable(new_port_name,
+                                      is_scalar=port.is_scalar,
+                                      lower_index=port.lower_index,
+                                      is_downto=port.is_downto,
+                                      wires=port.size)
         port_cable = port.pins[0].wire.cable
-        new_cable = port_cable.clone()
-        new_cable.name = new_port.name
-        new_cable.connect_port(new_port)
 
         assign_library = self._get_assignment_library()
         definition = self._get_assignment_definition(
@@ -525,41 +579,210 @@ class Definition(DefinitionBase):
             self.remove_cable(c)
         return newCable
 
-    # def combine_ports(self, newPortName, ports):
-    #     """ This can combine multiple input or output ports togther
-    #         to create a bus structure.
-    #     """
-    #     direction = ports[0].direction
-    #     for p in ports[1:]:
-    #         assert isinstance(p, Port), \
-    #             f"combine_ports can combine Ports found {type(p)}"
-    #         assert direction == p.direction, \
-    #             f"combine_ports combines only input or output ports, \
-    #             found {type(p.direction)}"
-    #         assert self == p.definition, \
-    #             f"all ports to combine should belong to same definition"
+    def combine_ports(self, port_name, ports):
+        """
+        This method can combine multiple input or output ports togther
+        to create a bus structure.
 
-    #     newPort = self.create_port(newPortName, direction=direction)
-    #     newCable = self.create_cable(newPortName, is_scalar=newPort.is_scalar)
-    #     for p in ports:
-    #         newPin = newPort.create_pin()
-    #         pp = p.pins[0]
-    #         ppWire = pp.wire
-    #         # Switch Instances connection
-    #         for instance in self.references:
-    #             if instance.pins[pp].is_connected:
-    #                 instance.pins[pp].wire.connect_pin(instance.pins[newPin])
-    #         if ppWire:
-    #             # Switch Internal Wire
-    #             ppWire.connect_pin(newPin)
-    #             self.remove_cable(ppWire.cable)
-    #             ppWire.cable.remove_wire(ppWire)
-    #             newCable.add_wire(ppWire)
-    #         logger.debug(f"Removing port {p.name}")
-    #         self.remove_port(p)
-    #     logger.debug(f"Combined with {newPort.name} " +
-    #                  f"created cable {newCable.name}")
-    #     return newPort, newCable
+        It does create a cable for internal wires, but does not
+        change anything about the external wire connection
+        ports[0] will be newport[0]
+        default properties will be used for creating a new port
+
+        args:
+            port_name (str) : Name of the new port
+            ports (list[Ports]) : List of ports to combine
+
+        return:
+            (new_port, new_cable) : return new port and internal cable
+        """
+        direction = ports[0].direction
+        for p in ports[1:]:
+            assert isinstance(p, Port), \
+                f"combine_ports can combine Ports found {type(p)}"
+            assert direction == p.direction, \
+                f"combine_ports combines only input or output ports, \
+                found {type(p.direction)}"
+            assert self == p.definition, \
+                f"all ports to combine should belong to same definition"
+
+        new_port = self.create_port(port_name, direction=direction)
+        new_cable = self.create_cable(port_name, is_scalar=new_port.is_scalar)
+        for p in ports:
+            newPin = new_port.create_pin()
+            pp = p.pins[0]
+            ppWire = pp.wire
+            # Switch Instances connection
+            for instance in self.references:
+                if instance.pins[pp].is_connected:
+                    instance.pins[pp].wire.connect_pin(instance.pins[newPin])
+            if ppWire:
+                # Switch Internal Wire
+                ppWire.connect_pin(newPin)
+                self.remove_cable(ppWire.cable)
+                ppWire.cable.remove_wire(ppWire)
+                new_cable.add_wire(ppWire)
+            logger.debug(f"Removing port {p.name}")
+            self.remove_port(p)
+        logger.debug(f"Combined with {new_port.name} " +
+                     f"created cable {new_cable.name}")
+        return new_port, new_cable
+
+    def create_unconn_wires(self):
+        unconn_cable = self.create_cable("unconn")
+        w = unconn_cable.create_wire()  # dummy wire
+        for instance in self.children:
+            print(instance)
+            for pin in instance.get_port_pins(instance.reference.ports):
+                if not pin.wire:
+                    w = unconn_cable.create_wire()
+                    w.connect_pin(pin)
+
+    def split_port(self, port):
+        if isinstance(port, str):
+            port = next(self.get_ports(port))
+
+        cable = next(self.get_cables(port.name))
+        for indx, pin in enumerate(port.pins[::-1]):
+            new_port = self.create_port(
+                f"{port.name}_{indx}", direction=port.direction)
+            new_cable = self.create_cable(f"{port.name}_{indx}")
+            cable.remove_wire(pin.wire)
+            new_cable.add_wire(pin.wire)
+            port.remove_pin(pin)
+            new_port.add_pin(pin)
+
+        self.remove_port(port)
+        self.remove_cable(cable)
+
+    def flatten_instance(self, instance):
+        """ Flatterns single instance in the given definition """
+        assert isinstance(instance, sdn.Instance), "Argument not a Instance"
+        assert instance in self.children, "Instance is not part of current definition"
+        cable_map = {}
+        # recreating internal cables on top level
+        for cable in instance.reference.get_cables():
+            if not cable.is_port_cable:
+                new_cable = cable.clone()
+                new_cable.name = instance.name + "_" + new_cable.name
+                self.add_cable(new_cable)
+                cable_map[cable] = new_cable
+        # recreating sub instance on the top level and create connections
+        for sub_instance in instance.reference.children:
+            new_instance = sub_instance.clone()
+            new_instance.name = instance.name + "_" + new_instance.name
+            self.add_child(new_instance)
+            # create connection, iteratre over each port of sub-instance
+            for port in sub_instance.reference.ports:
+                for pin in sub_instance.get_port_pins(port.name):
+                    if not pin.wire:
+                        # skip if sub-instance pin is not connected
+                        continue
+                    if pin.wire.cable.is_port_cable:
+                        # if the pin wire is connected to instance port
+                        pin_top = next(filter(
+                            lambda x: isinstance(x, sdn.InnerPin),
+                            pin.wire.pins))
+                        pin_top = instance.pins[pin_top]
+                        if not pin_top.wire:
+                            # skip if instance pin is not connected
+                            continue
+                        wire = pin_top.wire
+                    else:
+                        # internal wire
+                        wire = cable_map[pin.wire.cable].wires[pin.wire.index()]
+                    wire.connect_pin(new_instance.pins[pin])
+        self.remove_child(instance)
+
+    def get_connectivity_network(self, get_weights=None, split_ports=False):
+        """
+        This method converts current module into networkx graph
+        each cell is represented as as node and nets are represented as edges
+
+        - Netowrkx should be installed
+        - Higher fanout nets are represented with independent edge from driver 
+        to each load
+
+        """
+        assert "nx" not in dir(), "Netowrkx library not installed"
+
+        get_weights = get_weights or (lambda x: 1)
+
+        def get_node_name(pin):
+            if isinstance(pin, sdn.OuterPin):
+                return pin.instance.name
+            else:
+                if split_ports and (pin.port.size > 1):
+                    return f"{pin.port.name}_{pin.get_verilog_index}"
+                else:
+                    return pin.port.name
+
+        # Variables
+        graph = nx.DiGraph()
+        node_map = {}
+        edges = []
+        elabel = []
+
+        # Create Port Nodes first
+        node_indx = 0
+        logger.debug(f"Found {len(self.ports)} ports")
+        for port in self.ports:
+            for pin in port.pins:
+                name = get_node_name(pin)
+                graph.add_node(node_indx,
+                               label=name, weight=get_weights(pin),
+                               shape="rect", port=True, node_name=port.name)
+                node_map[name] = node_indx
+                node_indx += 1
+                if not split_ports:
+                    break
+
+        # Create Instances Nodes
+        logger.debug(f"Found {len(self.children)} instances")
+        for instance in self.children:
+            name = instance.name
+            graph.add_node(node_indx, port=False,
+                           weight=get_weights(instance),
+                           node_name=instance.name, label=instance.name, )
+            node_map[instance.name] = node_indx
+            node_indx += 1
+
+        # Create edges
+        logger.debug(f"Found {len(list(self.get_cables()))} nets")
+        for cable in list(self.get_cables()):
+            for wire in cable.wires:
+                # Skip adding edge if there is no driver
+                if not wire.get_driver():
+                    logger.debug(f"No driver found for {cable.name}")
+                    continue
+                # Get driver [source node]
+                # TODO: Consider multiple dirvers here
+                driver_inst = get_node_name(wire.get_driver()[0])
+
+                # Make connection from drivers to each load
+                for p in wire.pins:
+                    node = get_node_name(p)
+                    if node == driver_inst:
+                        continue
+                    edges.append((node_map[driver_inst], node_map[node]))
+                    elabel.append(f"{cable.name}_{wire.get_verilog_index}")
+
+        logger.debug(f"Adding {len(set(edges))} edges")
+        for edge in set(edges):
+            weight = edges.count(edge)
+            edge_name = elabel[edges.index(edge)]
+            graph.add_edge(*edge, label=f"[{weight}]",
+                           edge_name=edge_name, weight=float(weight))
+        return graph
+
+    def _remove_child(self, child):
+        """
+        Internal function for dissociating a child instance from the definition.
+        """
+        super()._remove_child(child=child)
+        for pin in list(child.get_port_pins(child.get_ports())):
+            if pin.wire:
+                pin.wire.disconnect_pin(pin)
 
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())

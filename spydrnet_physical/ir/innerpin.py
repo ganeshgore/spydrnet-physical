@@ -1,4 +1,11 @@
+import typing
 from spydrnet.ir.innerpin import InnerPin as InnerPinBase
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.innerpin import InnerPin as InnerPinSDN
+    from spydrnet_physical.ir.pin import Pin as PinPhy
+    InnerPinBase = type("InnerPinBase", (InnerPinSDN, PinPhy), {})
 
 
 class InnerPin(InnerPinBase):

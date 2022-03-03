@@ -1,16 +1,14 @@
 //-------------------------------------------
 //	FPGA Synthesizable Verilog Netlist
 //	Description: Verilog modules for pb_type: fle
-//	Author: Xifan TANG
 //	Organization: University of Utah
-//	Date: Thu Oct 28 13:17:18 2021
 //-------------------------------------------
 //----- Time scale -----
 `timescale 1ns / 1ps
 
 // ----- BEGIN Physical programmable logic block Verilog module: fle -----
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for logical_tile_clb_mode_default__fle -----
 module logical_tile_clb_mode_default__fle(cfg_done,
@@ -102,7 +100,7 @@ endmodule
 // ----- END Verilog module for logical_tile_clb_mode_default__fle -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

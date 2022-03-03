@@ -12,8 +12,17 @@ runOpenFPGA:
 	source $${OPENFPGA_PATH}/openfpga.sh
 	run-task FPGA44_Task --remove_run_dir all
 	run-task FPGA44_Task
-	cp -r FPGA44_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/SRC \
-	FPGA44_Verilog
+	rm -rf FPGA44_Verilog && mkdir FPGA44_Verilog
+	rm -rf FPGA44_gsb && mkdir FPGA44_gsb
+	cp -R FPGA44_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/FPGA44_Verilog .
+	cp -R FPGA44_Task/CustomModules/ FPGA44_Verilog/
+	cp -R FPGA44_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/FPGA44_gsb/ .
+	for file in FPGA44_gsb/*.xml; do mv "$$file" "$${file/sb_/_sb_}"; done
+	find ./FPGA44_Verilog -name "*.v" -exec sed -i "s/.*default_nettype/\/\/ \`default_nettype/g" '{}' \;
+	find ./FPGA44_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Date.*/d"
+	find ./FPGA44_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Author.*/d"
+	${PYTHON_EXEC} clean_gsb.py
+	find ./FPGA44_gsb -name "*.xml" -type f -exec xmllint --output '{}' --format '{}' \;
 	duration=$$SECONDS
 	echo "$$(($$duration / 60)) minutes and $$(($$duration % 60)) seconds elapsed." >> runOpenFPGA
 

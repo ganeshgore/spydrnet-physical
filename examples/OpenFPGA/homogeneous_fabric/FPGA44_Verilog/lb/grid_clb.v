@@ -1,16 +1,14 @@
 //-------------------------------------------
 //	FPGA Synthesizable Verilog Netlist
 //	Description: Verilog modules for physical tile: clb]
-//	Author: Xifan TANG
 //	Organization: University of Utah
-//	Date: Thu Oct 28 13:17:19 2021
 //-------------------------------------------
 //----- Time scale -----
 `timescale 1ns / 1ps
 
 // ----- BEGIN Grid Verilog module: grid_clb -----
 //----- Default net type -----
-`default_nettype wire
+// `default_nettype wire
 
 // ----- Verilog module for grid_clb -----
 module grid_clb(cfg_done,
@@ -214,7 +212,7 @@ endmodule
 // ----- END Verilog module for grid_clb -----
 
 //----- Default net type -----
-`default_nettype none
+// `default_nettype none
 
 
 

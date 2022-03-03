@@ -16,11 +16,11 @@
 import os
 import sys
 import pathlib
-sys.path.insert(0,os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../..'))  # nopep8
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from sphinx_gallery.sorting import ExplicitOrder
-from sphinx_gallery.sorting import ExampleTitleSortKey
+from sphinx_gallery.sorting import FileNameSortKey
 
 
 # -- Project information -----------------------------------------------------
@@ -37,7 +37,7 @@ release = sdnphy.__release__
 numfig = True
 
 
-# -- General configuration ---------------------------------------------------
+# -- General configuration --
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #
@@ -47,6 +47,7 @@ numfig = True
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinxcontrib.programoutput',
     'sphinx.ext.autosummary',
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
@@ -224,15 +225,23 @@ rst_epilog = """
 
 sphinx_gallery_conf = {
     # path to your example scripts
-    'examples_dirs': [os.path.join('..', '..', 'examples', 'basic'), os.path.join('..', '..', 'examples', 'OpenFPGA'), ],
+    'examples_dirs': [
+        os.path.join('..', '..', 'examples', 'basic'),
+        os.path.join('..', '..', 'examples', 'OpenFPGA')
+    ],
     # path to where to save gallery generated output
     'gallery_dirs': ['auto_basic', "auto_openfpga"],
     'remove_config_comments': True,
     'filename_pattern': '/*.py',
     'capture_repr': (),
-    'within_subsection_order': ExampleTitleSortKey,
+    'within_subsection_order': FileNameSortKey,
     'subsection_order': ExplicitOrder(['../../examples/basic',
-                                       '../../examples/OpenFPGA']),
+                                       '../../examples/OpenFPGA',
+                                       '../../examples/OpenFPGA/basic',
+                                       '../../examples/OpenFPGA/clock_tree',
+                                       '../../examples/OpenFPGA/config_chain',
+                                       '../../examples/OpenFPGA/rendering',
+                                       '../../examples/OpenFPGA/partition']),
 }
 
 

@@ -1,484 +1,402 @@
 """
-This class created OpenFPGA related netlist transformations
+This is OpenFPGA generated Verilog Netlist Parser Class
 """
+
+import logging
+import os
+import re
+from collections import OrderedDict
 from fnmatch import fnmatch
+from pathlib import Path
+from typing import Callable
+from spydrnet.ir.definition import Definition
+from spydrnet_physical.util import initial_placement
+
+import spydrnet as sdn
+
+logger = logging.getLogger('spydrnet_logs')
 
 
-class OpenFPGA_Tile01:
+class OpenFPGA:
 
-    def __init__(self, grid, netlist):
+    def __init__(self, grid, netlist, library="work", top_module="fpga_top"):
         '''
-        Init class
+        Init class with OpenFPGA netlist
 
         args:
+            grid (int, int): Size of the FPGA grid
             netlist (sdn.netlist): Pass OpenFPGA core netlist
+            library (str): library name
+            top_module (str): top_module name
         '''
         self.fpga_size = grid
         self._netlist = netlist
-        self._task_directory = netlist
+        self._library = next(netlist.get_libraries(library))
+        self._top_module = next(self._library.get_definitions(top_module))
+        netlist.top_instance = self._top_module
+        self.written_modules = []  # Stores written definitions names
+        self.tile_creator = None
+        self.config_creator = None
+        self.register_placement_creator(initial_placement)
 
-    def run_task(self):
+    @property
+    def library(self):
+        """
+        Returns library
+        """
+        return self._library
+
+    @property
+    def top_module(self) -> Definition:
+        """
+        Returns top_module
+        """
+        return self._top_module
+
+    def register_tile_generator(self, cls, *args, **kwargs):
+        """
+        This registers the tile generator class to OpenFPGA base class
+        """
+        self.tile_creator = cls(
+            self.fpga_size, self._netlist, self.library, self._top_module, *args, **kwargs)
+
+    def register_config_generator(self, cls, *args, **kwargs):
+        """
+        This registers the tile generator class to OpenFPGA base class
+        """
+        self.config_creator = cls(
+            self.fpga_size, self._netlist, self.library, self._top_module, *args, **kwargs)
+
+    def register_placement_creator(self, cls, *args, **kwargs):
+        """
+        This registers the tile generator class to OpenFPGA base class
+        """
+        self.placement_creator = cls(
+            self.fpga_size, self._netlist, self.library, self._top_module, *args, **kwargs)
+
+    def create_tiles(self):
+        """
+        proxy function to create_tiles method of  tile_creator class
+        """
+        if not self.tile_creator:
+            logger.error("tile_creator not registered")
+        return self.tile_creator.create_tiles()
+
+    def add_configuration_scheme(self):
+        """
+        proxy function to create_tiles method of tile_creator class
+        """
+        if not self.config_creator:
+            logger.error("config_creator not registered")
+        return self.config_creator.add_configuration_scheme()
+
+    def create_placement(self):
+        """
+        Proxy fucntion to add placement and shaping information to each instance
+        """
+        if not self.placement_creator:
+            logger.error("placement_creator not registered")
+        return self.placement_creator.create_placement()
+
+    def place_pins(self):
+        """
+        This adds pin placment nforamtion to tile instances
+        """
+        NotImplementedError
+
+    def render_floorplan(self):
+        """ This method runs the fpga render class to assign
+        shape and location to each module instance"""
         pass
 
-    def _main_tile(self, work, top_module):
-        '''Create main Tiles
-                              +-----+
-                              |     |
-                +-------+ +----     ---+
-                |  CBY  | |     SB     |
-                +-------+ +----     ---+
-            +---------------+ |     |
-            |               | +-----+
-            |               | +-----+
-            |               | |     |
-            |      CLB      | | CBX |
-            |               | +-----+
-            |               |
-            +---------------+
-      '''
-        merge_module_list = []
-        for x in range(2, self.fpga_size[0]):
-            for y in range(2, self.fpga_size[1]):
-                clb = next(work.get_instances(f"grid_clb_{x}__{y}_"))
-                cbx = next(work.get_instances(f"cbx_{x}__{y}_"))
-                cby = next(work.get_instances(f"cby_{x}__{y}_"))
-                sb = next(work.get_instances(f"sb_{x}__{y}_"))
-                merge_module_list.append(((clb, cbx, cby, sb),
-                                          f"tile_{x}__{y}_"))
+    def show_placement_data(self, pattern="*"):
+        print("%20s %20s %5s %5s %5s %5s" % ("MODULE", "INSTANCE", "LOC_X", "LOC_Y",
+                                             "WIDTH", "HEIGHT"))
+        print(" = ="*20)
+        for instance in self.top_module.get_instances(pattern):
+            print("%20s %20s %5d %5d %5d %5d" % (
+                instance.name,
+                instance.reference.name,
+                instance.properties.get("LOC_X", 0),
+                instance.properties.get("LOC_Y", 0),
+                instance.reference.properties.get("WIDTH", 0),
+                instance.reference.properties.get("HEIGHT", 0),
+            ))
 
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name="tile")
-        next(work.get_definitions("tile")).OptPins()
-
-    def _left_tile(self, work, top_module):
-        '''        Create Left Tiles
-
-            +-----+                  +-----+
-            |     |                  |     |
-            |     +--+ +-------+ +---+     +--+
-            | SB     | |  CBY  | |     SB     |
-            |     +--+ +-------+ +---+     +--+
-            |     | +--------------+ |     |
-            +-----+ |              | +-----+
-            +-----+ |              | +-----+
-            |     | |              | |     |
-            | CBX | |     CLB      | | CBX |
-            +-----+ |              | +-----+
-                    |              |
-                    +--------------+
+    def design_top_stat(self):
         '''
-        instance_list = []
-        for i in range(2, self.self.fpga_size[0]):
-            clb = next(work.get_instances(f"grid_clb_1__{i}_"))
-            cby0 = next(work.get_instances(f"cby_0__{i}_"))
-            cby1 = next(work.get_instances(f"cby_1__{i}_"))
-            cbx1 = next(work.get_instances(f"cbx_1__{i}_"))
-            sb0 = next(work.get_instances(f"sb_0__{i}_"))
-            sb1 = next(work.get_instances(f"sb_1__{i}_"))
-            grid_io = next(work.get_instances(f"grid_io_left_0__{i}_"))
-            instance_list.append(((clb, cby0, cby1, cbx1, sb0, sb1, grid_io),
-                                  f"tile_1__{i}_"))
+        Get statistics of the top module
 
-        top_module.merge_multiple_instance(instance_list,
-                                           new_definition_name="left_tile")
-        next(work.get_definitions("left_tile")).OptPins()
-
-    def _right_tile(self, work, top_module):
-        '''    Create Right Tiles
-                             +-----+
-                             |     |
-                +-------+ +--+     |
-                |  CBY  | |    SB  |
-                +-------+ +--+     |
-            +--------------+ |     |
-            |              | +-----+
-            |              | +-----+
-            |              | |     |
-            |     CLB      | | CBX |
-            |              | +-----+
-            |              |
-            +--------------+
+        Reference       Count
+        ========================
         '''
-        instance_list = []
-        for i in range(2, self.fpga_size[0]):
-            clb = next(work.get_instances(
-                f"grid_clb_{self.fpga_size[0]}__{i}_"))
-            cbx1 = next(work.get_instances(f"cbx_{self.fpga_size[0]}__{i}_"))
-            cby0 = next(work.get_instances(f"cby_{self.fpga_size[0]}__{i}_"))
-            sb0 = next(work.get_instances(f"sb_{self.fpga_size[0]}__{i}_"))
-            grid_io = next(work.get_instances(
-                f"grid_io_right_{self.fpga_size[0]+1}__{i}_"))
-            instance_list.append(((clb, cbx1, cby0, sb0, grid_io),
-                                  f"tile_{self.fpga_size[0]}__{i}_"))
+        design = self._top_module
+        print("= = "*10)
+        print("= = "*3 + " DESIGN STATS " + "= "*7)
+        print("= = "*10)
+        print(f"    top_module : {design.name}")
+        print(f"    instances  : {len(design.children)}")
+        print("= = "*10)
+        inst_cnt = {}
+        for inst in design.children:
+            if "ASSIG" in inst.reference.library.name:
+                continue
+            inst_cnt[inst.reference.name] = 1 + \
+                inst_cnt.get(inst.reference.name, 0)
+        inst_cnt = OrderedDict(sorted(inst_cnt.items(),
+                                      reverse=True,
+                                      key=lambda t: t[1]))
+        print("{: >20} {: >8}".format('References', 'count'))
+        print("- - "*10)
+        for def_, count in inst_cnt.items():
+            print("{: >20} {: >8}".format(
+                def_ if len(def_) < 20 else f"...{def_[-17:]}", count))
+        return inst_cnt
 
-        top_module.merge_multiple_instance(instance_list,
-                                           new_definition_name=f"right_tile")
-        next(work.get_definitions("right_tile")).OptPins()
+    def remove_config_chain(self):
+        """ Remove configuration chain from design """
+        cable_list = []
+        for cable in list(self.top_module.get_cables("*ccff_*")):
+            cable_list.append(cable.name)
+            for pin in list(cable.wires[0].pins):
+                if isinstance(pin, sdn.OuterPin):
+                    pin.wire.disconnect_pin(pin)
+            if not cable.is_port_cable:
+                self.top_module.remove_cable(cable)
+        return cable_list
 
-    def _top_tile(self, work, top_module):
-        '''     Create Top Tiles
-               +-------+ +------------+
-               |  CBY  | |     SB     |
-               +-------+ +---+     +--+
-            +--------------+ |     |
-            |              | +-----+
-            |              | +-----+
-            |              | |     |
-            |     CLB      | | CBX |
-            |              | +-----+
-            |              |
-            +--------------+
+    def remove_undriven_nets(self):
         '''
-        merge_module_list = []
-        for i in range(2, self.fpga_size[1]):
-            clb = next(work.get_instances(
-                f"grid_clb_{i}__{self.fpga_size[1]}_"))
-            cbx = next(work.get_instances(f"cbx_{i}__{self.fpga_size[1]}_"))
-            cby = next(work.get_instances(f"cby_{i}__{self.fpga_size[1]}_"))
-            sb = next(work.get_instances(f"sb_{i}__{self.fpga_size[1]}_"))
-            grid_io = next(work.get_instances(
-                f"grid_io_top_{i}__{self.fpga_size[1]+1}_"))
-            merge_module_list.append(((clb, cbx, cby, sb, grid_io),
-                                      f"tile_{i}__{self.fpga_size[1]}_"))
+        Removes undriven/floating nets from the top level
 
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name="top_tile")
-        next(work.get_definitions("top_tile")).OptPins()
-
-    def _bottom_tile(self, work, top_module):
-        '''   Create Bottom Tiles
-                             +-----+
-                             |     |
-               +-------+ +---+     +--+
-               |  CBY  | |     SB     |
-               +-------+ +---+     +--+
-            +--------------+ |     |
-            |              | +-----+
-            |              | +-----+
-            |              | |     |
-            |     CLB      | | CBX |
-            |              | +-----+
-            |              | +-----+
-            +--------------+ |     |
-               +-------+ +---+     +--+
-               |  CBY  | |     SB     |
-               +-------+ +------------+
+        the net name with undriven keyword in the name is considered as floating nets
         '''
-        instance_list = []
-        for i in range(2, self.self.fpga_size[1]):
-            clb = next(work.get_instances(f"grid_clb_{i}__1_"))
-            cbx0 = next(work.get_instances(f"cbx_{i}__0_"))
-            cbx1 = next(work.get_instances(f"cbx_{i}__1_"))
-            cby1 = next(work.get_instances(f"cby_{i}__1_"))
-            sb0 = next(work.get_instances(f"sb_{i}__0_"))
-            sb1 = next(work.get_instances(f"sb_{i}__1_"))
-            grid_io = next(work.get_instances(f"grid_io_bottom_{i}__0_"))
-            instance_list.append(((clb, cbx0, cbx1, cby1, sb0, sb1, grid_io),
-                                  f"tile_{i}__1_"))
+        removed_cables = []
+        for cable in self._top_module.get_cables("*undriven*"):
+            removed_cables.append(cable.name)
+            self._top_module.remove_cable(cable)
+        return removed_cables
 
-        top_module.merge_multiple_instance(instance_list,
-                                           new_definition_name=f"bottom_tile")
-        next(work.get_definitions("bottom_tile")).OptPins()
+    def _convert_to_bus(self, module: sdn.Definition, in_patt: str,
+                        out_patt: str, sort_pins: (Callable) = None):
+        """
+        Convertes matching `in_patt` pins to bus with `out_patt` name
+        """
+        def get_pins(x): return fnmatch(x.name, in_patt)
+        ports = list(module.get_ports(filter=get_pins))
+        if ports:
+            ports = sorted(ports, key=sort_pins or (lambda x: x.name))
+            module.combine_ports(out_patt, ports)
 
-    def _top_left_tile(self, work, top_module):
-        '''       Create top left tile
-            +--------+ +-------+ +------------+
-            |  SB    | |  CBY  | |     SB     |
-            |     +--+ +-------+ +---+     +--+
-            |     | +--------------+ |     |
-            +-----+ |              | +-----+
-            +-----+ |              | +-----+
-            |     | |              | |     |
-            | CBX | |     CLB      | | CBX |
-            +-----+ |              | +-----+
-                    |              |
-                    +--------------+
+    def create_grid_io_bus(self):
+        """
+        Convert `grid_io` Input/Output pins to bus structure
+        ::
+        # Input Pins
+        right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
+        left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
+        top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
+        bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
+
+        # Output Pins
+        right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
+        left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
+        top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
+        bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
+
+        """
+        sides = ("left", "top", "right", "bottom")
+
+        #  =========  grid_io renaming =========
+        for grid_io in self._library.get_definitions("grid_io*"):
+            for side in sides:
+                #  Input pins
+                self._convert_to_bus(grid_io, f"{side}*_pin_outpad_*",
+                                     f"io_{side}_in")
+                self._convert_to_bus(grid_io, f"{side}*_pin_outpad_*",
+                                     f"io_{side}_out")
+
+    def create_grid_clb_bus(self):
         '''
-        merge_module_list = []
-        clb = next(work.get_instances(f"grid_clb_1__{self.fpga_size[1]}_"))
-        cbx0 = next(work.get_instances(f"cbx_1__{self.fpga_size[1]}_"))
-        cby0 = next(work.get_instances(f"cby_0__{self.fpga_size[1]}_"))
-        cby1 = next(work.get_instances(f"cby_1__{self.fpga_size[1]}_"))
-        sb0 = next(work.get_instances(f"sb_0__{self.fpga_size[1]}_"))
-        sb1 = next(work.get_instances(f"sb_1__{self.fpga_size[1]}_"))
-        grid_io_0 = next(work.get_instances(
-            f"grid_io_top_1__{self.fpga_size[1]+1}_"))
-        grid_io_1 = next(work.get_instances(
-            f"grid_io_left_0__{self.fpga_size[1]}_"))
-        merge_module_list.append(((clb, cbx0, cby0, cby1, sb0, sb1, grid_io_0, grid_io_1),
-                                  f"tile_1__{self.fpga_size[1]}_"))
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name=f"top_left_tile")
-        next(work.get_definitions("top_left_tile")).OptPins()
+        Convert `grid_clb` Input/Output pins to bus structure
+        ::
+          # Input Pins
+          right_width_0_height_0_subtile_*__pin_I_0_    -> grid_right_in
+          left_width_0_height_0_subtile_*__pin_I_0_     -> grid_left_in
+          top_width_0_height_0_subtile_*__pin_I_0_      -> grid_top_in
+          bottom_width_0_height_0_subtile_*__pin_I_0_   -> grid_bottom_in
 
-    def _top_right_tile(self, work, top_module):
-        '''          Create top right tile
-            +------------+ +-------+ +---------+
-            |     SB     | |  CBY  | |     SB  |
-            +---+     +--+ +-------+ +---+     |
-                |     | +--------------+ |     |
-                +-----+ |              | +-----+
-                +-----+ |              | +-----+
-                |     | |              | |     |
-                | CBX | |     CLB      | | CBX |
-                +-----+ |              | +-----+
-                        |              |
-                        +--------------+
-        '''
-        merge_module_list = []
-        clb = next(work.get_instances(
-            f"grid_clb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        cbx0 = next(work.get_instances(
-            f"cbx_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        cby0 = next(work.get_instances(
-            f"cby_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        sb0 = next(work.get_instances(
-            f"sb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        grid_io_0 = next(work.get_instances(
-            f"grid_io_right_{self.fpga_size[0]+1}__{self.fpga_size[1]}_"))
-        grid_io_1 = next(work.get_instances(
-            f"grid_io_top_{self.fpga_size[0]}__{self.fpga_size[1]+1}_"))
-        merge_module_list.append(((clb, cbx0, cby0, sb0, grid_io_0, grid_io_1),
-                                  f"tile_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name=f"top_right_tile")
-        next(work.get_definitions("top_right_tile")).OptPins()
-
-    def _bottom_left_tile(self, work, top_module):
-        '''      Create bottom left tile
-            +-----+                  +-----+
-            |     |                  |     |
-            |     +--+ +-------+ +---+     +--+
-            | SB     | |  CBY  | |     SB  |  |
-            |     +--+ +-------+ +---+     +--+
-            |     | +--------------+ |     |
-            +-----+ |              | +-----+
-            +-----+ |              | +-----+
-            |     | |              | |     |
-            | CBX | |     CLB      | | CBX |
-            +-----+ |              | +-----+
-            +-----+ |              | +-----+
-            |     | +--------------+ |     |
-            |     +--+ +-------+ +---+     +--+
-            | SB     | |  CBY  | |     SB     |
-            +--------+ +-------+ +------------+
+          # Output Pins
+          right_width_0_height_0_subtile_*__pin_O_0_    -> grid_right_out
+          left_width_0_height_0_subtile_*__pin_O_0_     -> grid_left_out
+          top_width_0_height_0_subtile_*__pin_O_0_      -> grid_top_out
+          bottom_width_0_height_0_subtile_*__pin_O_0_   -> grid_bottom_out
 
         '''
-        merge_module_list = []
-        clb = next(work.get_instances(f"grid_clb_1__1_"))
-        cbx0 = next(work.get_instances(f"cbx_1__0_"))
-        cbx1 = next(work.get_instances(f"cbx_1__1_"))
-        cby0 = next(work.get_instances(f"cby_0__1_"))
-        cby1 = next(work.get_instances(f"cby_1__1_"))
-        sb0 = next(work.get_instances(f"sb_0__0_"))
-        sb1 = next(work.get_instances(f"sb_0__1_"))
-        sb2 = next(work.get_instances(f"sb_1__0_"))
-        sb3 = next(work.get_instances(f"sb_1__1_"))
-        grid_io_0 = next(work.get_instances(f"grid_io_left_0__1_"))
-        grid_io_1 = next(work.get_instances(f"grid_io_bottom_1__0_"))
-        merge_module_list.append(((clb, cbx0, cbx1, cby0, cby1, sb0, sb1, sb2, sb3, grid_io_0, grid_io_1),
-                                  f"tile_1__1_"))
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name=f"bottom_left_tile")
 
-        next(work.get_definitions("bottom_left_tile")).OptPins()
-
-    def _bottom_right_tile(self, work, top_module):
-        ''' Create bottom right tile
-                              +-----+
-                              |     |
-                +-------+ +---+     |
-                |  CBY  | |     SB  |
-                +-------+ +---+     |
-             +--------------+ |     |
-             |              | +-----+
-             |              | +-----+
-             |              | |     |
-             |     CLB      | | CBX |
-             |              | +-----+
-             |              | +-----+
-             +--------------+ |     |
-                +-------+ +---+     |
-                |  CBY  | |     SB  |
-                +-------+ +---------+
-        '''
-        merge_module_list = []
-        clb = next(work.get_instances(f"grid_clb_{self.fpga_size[0]}__1_"))
-        cbx0 = next(work.get_instances(f"cbx_{self.fpga_size[0]}__0_"))
-        cbx1 = next(work.get_instances(f"cbx_{self.fpga_size[0]}__1_"))
-        cby0 = next(work.get_instances(f"cby_{self.fpga_size[0]}__1_"))
-        sb0 = next(work.get_instances(f"sb_{self.fpga_size[0]}__0_"))
-        sb1 = next(work.get_instances(f"sb_{self.fpga_size[0]}__1_"))
-        grid_io_0 = next(work.get_instances(
-            f"grid_io_bottom_{self.fpga_size[0]}__0_"))
-        grid_io_1 = next(work.get_instances(
-            f"grid_io_right_{self.fpga_size[0]+1}__1_"))
-        merge_module_list.append(((clb, cbx0, cbx1, cby0, sb0, sb1, grid_io_0, grid_io_1),
-                                  f"tile_{self.fpga_size[0]}__1_"))
-        top_module.merge_multiple_instance(merge_module_list,
-                                           new_definition_name="bottom_right_tile")
-        next(work.get_definitions("bottom_right_tile")).OptPins()
-
-    def create_grid_io_bus(self, work):
-        sides = [("left", "top", "bottom"),
-                ("top", "left", "right"),
-                ("right", "top", "bottom"),
-                ("bottom", "left", "right")]
-
-        #  =========  grid_io  =========
-        for grid_io in work.get_definitions("grid_io*"):
-            for s1, s2_1, s2_2 in sides:
-                # Plan upper pins
-                ports = list(grid_io.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"{s1}*_pin_inpad_*upper")
-                                            ))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    grid_io.combine_ports(f"io_{s2_1}_{s1[0]}_in", ports)
-
-                # Plan lower pins
-                ports = list(grid_io.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"{s1}*_pin_inpad_*lower")
-                                            ))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    grid_io.combine_ports(f"io_{s2_2}_{s1[0]}_in", ports)
-
-                # Plan lower pins (Remaining in case of non duplicatded pins appear)
-                ports = list(grid_io.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"{s1}*_pin_inpad_*")
-                                            ))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    grid_io.combine_ports(f"io_{s1}_in", ports)
-
-                # Plan input pins
-                ports = list(grid_io.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"{s1}*_pin_outpad_*")
-                                            ))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    grid_io.combine_ports(f"io_{s1}_out", ports)
-
-
-    def create_grid_clb_bus(self, work):
-        sides = [("left", "left_1", "left_2"),
-                ("top", "left", "right"),
-                ("right", "top", "bottom"),
-                ("bottom", "bottom_2", "bottom_1")]
-        grid_clb = next(work.get_definitions("grid_clb*"))
+        sides = ("left", "top", "right", "bottom")
+        grid_clb = next(self._library.get_definitions("grid_clb*"))
 
         for port in grid_clb.get_ports("*pin_clk*"):
             grid_clb.remove_port(port)
-        #  =========  grid_clb  =========
-        for s1, s2_1, s2_2 in sides:
-            # Plan upper pins
-            ports = list(grid_clb.get_ports(filter=lambda x:
-                                            fnmatch(x.name, f"{s1}*_pin_O_*upper")
-                                            ))
-            if ports:
-                ports = sorted(ports, key=lambda x: x.name)
-                grid_clb.combine_ports(f"clb_{s2_1}_{s1[0]}_out", ports)
 
-            # Plan lower pins
-            ports = list(grid_clb.get_ports(filter=lambda x:
-                                            fnmatch(x.name, f"{s1}*_pin_O_*lower")
-                                            ))
-            if ports:
-                ports = sorted(ports, key=lambda x: x.name)
-                grid_clb.combine_ports(f"clb_{s2_2}_{s1[0]}_out", ports)
+        #  =========  grid_clb renaming =========
+        for side in sides:
+            #  Input pins
+            self._convert_to_bus(grid_clb, f"{side}*_pin_I_*",
+                                 f"grid_{side}_in")
+            self._convert_to_bus(grid_clb, f"{side}*_pin_O_*",
+                                 f"grid_{side}_out")
 
-            # Plan lower pins (Remaining in case of non duplicatded pins appear)
-            ports = list(grid_clb.get_ports(filter=lambda x:
-                                            fnmatch(x.name, f"{s1}*_pin_O_*_")
-                                            ))
-            if ports:
-                ports = sorted(ports, key=lambda x: x.name)
-                grid_clb.combine_ports(f"clb_{s1}_out", ports)
+    def create_sb_bus(self):
+        """
+        Convert `sb` Input pins to bus structure
+        ::
+          # Input Pins
+          top_left_grid_right_width_0_height_0_subtile_*__pin_O_*_      -> sb_top_l_in
+          top_right_grid_left_width_0_height_0_subtile_*__pin_O_*_      -> sb_top_r_in
+          bottom_left_grid_right_width_0_height_0_subtile_*__pin_O_*_   -> sb_bottom_l_in
+          bottom_right_grid_left_width_0_height_0_subtile_*__pin_O_*_   -> sb_bottom_r_in
 
-            # Plan input pins
-            ports = list(grid_clb.get_ports(filter=lambda x:
-                                            fnmatch(x.name, f"{s1}*_pin_I*")
-                                            ))
-            if ports:
-                ports = sorted(ports, key=lambda x: x.name)
-                grid_clb.combine_ports(f"clb_{s1}_in", ports)
+          left_top_grid_bottom_width_0_height_0_subtile_*__pin_O_*_     -> sb_left_t_in
+          left_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_     -> sb_left_b_in
+          right_top_grid_bottom_width_0_height_0_subtile_*__pin_O_*_    -> sb_right_t_in
+          right_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_    -> sb_right_b_in
 
+        """
 
-    def create_sb_bus(self, work):
-        sides = ["top", "right", "bottom", "left"]
-        for sb in work.get_definitions("sb_*"):
+        sides = ("top", "right", "bottom", "left")
+        for sb in self._library.get_definitions("sb_*"):
             for s1 in sides:
                 for s2 in sides:
-                    ports = list(sb.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"*{s1}_{s2}_grid_*_pin_O_*")
-                                            ))
-                    if ports:
-                        ports = sorted(ports, key=lambda x: x.name)
-                        sb.combine_ports(f"sb_{s1}_{s2[0]}_in", ports)
+                    # input pins from each corner
+                    self._convert_to_bus(sb, f"{s1}_{s2}_grid_*_pin_O_*",
+                                         f"grid_{s1}_{s2[0]}_in")
+                    self._convert_to_bus(sb, f"*{s1}_{s2}_grid_*__pin_inpad_*",
+                                         f"grid_{s1}_{s2[0]}_inpad")
 
-                    ports = list(sb.get_ports(filter=lambda x:
-                                            fnmatch(
-                                                x.name, f"*{s1}_{s2}_grid_*__pin_inpad_*")
-                                            ))
-                    if ports:
-                        ports = sorted(ports, key=lambda x: x.name)
-                        sb.combine_ports(f"sb_{s1}_{s2[0]}_inpad", ports)
+    def create_cb_bus(self):
+        """
+        Convert `cb` Input pins to bus structure
+        ::
 
+          right_grid_left_width_0_height_0_subtile_*__pin_I_*_      -> grid_right_in
+          left_grid_right_width_0_height_0_subtile_*__pin_I_*_      -> grid_left_in
+          top_grid_bottom_width_0_height_0_subtile_*__pin_I_*_      -> grid_top_in
+          bottom_grid_top_width_0_height_0_subtile_*__pin_I_*_      -> grid_bottom_in
 
-    def create_cb_bus(self, work):
-        sides = ["top", "right", "bottom", "left"]
-        for cbx in work.get_definitions("cbx_*"):
+          right_grid_left_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_right_in
+          left_grid_right_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_left_in
+          top_grid_bottom_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_top_in
+          bottom_grid_top_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_bottom_in
+
+        """
+        sides = ("top", "right", "bottom", "left")
+        for cbx in self._library.get_definitions("cb?_*"):
             for indx, s1 in enumerate(sides):
-                ports = list(cbx.get_ports(filter=lambda x:
-                                        fnmatch(x.name, f"*{s1}_grid_*__pin_I_*")))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    cbx.combine_ports(f"cb_{s1}_in", ports)
+                # Input pins
+                self._convert_to_bus(cbx, f"*{s1}_grid_*__pin_I_*",
+                                     f"grid_{s1}_out")
+                self._convert_to_bus(cbx, f"*{s1}_grid_*__pin_outpad_*",
+                                     f"grid_{s1}_outpad")
 
-                ports = list(cbx.get_ports(filter=lambda x:
-                                        fnmatch(x.name, f"*{s1}_grid_*__pin_outpad_*")))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    cbx.combine_ports(f"cb_{s1}_outpad", ports)
+    def _get_cordinates(self, name):
+        x, y = map(int, re.match(r".*_(\w+)__(\w+)_", name).groups())
+        return x, y
 
-        for cby in work.get_definitions("cby_*"):
-            for indx, s1 in enumerate(sides):
-                ports = list(cby.get_ports(filter=lambda x:
-                                        fnmatch(x.name, f"*{s1}_grid_*__pin_I_*")))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    cby.combine_ports(f"cb_{s1}_in", ports)
+    def _create_grid_out_feedthrough(self, clb, side):
+        ft_map = {}
+        for grid in clb.references:
+            cable = grid.get_port_cables(f"grid_{side}_out")[0]
+            x, y = self._get_cordinates(grid.name)
+            through_inst_name = {
+                "left": f"cby_{x-1}__{y+0}_",
+                "right": f"cby_{x-0}__{y+0}_",
+                "top": f"cbx_{x+0}__{y+0}_",
+                "bottom": f"cbx_{x+0}__{y-1}_",
+            }[side]
+            through_inst = next(
+                self._top_module.get_instances(through_inst_name))
+            ref_name = through_inst.reference.name
+            ft_map[ref_name] = ft_map.get(ref_name, [])
+            ft_map[ref_name].append((cable, (through_inst,)))
 
-                ports = list(cby.get_ports(filter=lambda x:
-                                        fnmatch(x.name, f"*{s1}_grid_*__pin_outpad_*")))
-                if ports:
-                    ports = sorted(ports, key=lambda x: x.name)
-                    cby.combine_ports(f"cb_{s1}_outpad", ports)
+        for ref_name, inst_map in ft_map.items():
+            cables, new_ports = self._top_module.create_ft_multiple(inst_map)
+            side1, side2, oppo_side = {
+                "left": ('top', 'bottom', 'right'),
+                "right": ('top', 'bottom', 'left'),
+                "top": ('left', 'right', 'bottom'),
+                "bottom": ('left', 'right', 'top'),
+            }[side]
+            new_ports[0][0].change_name(f"grid_{oppo_side}_in")
+            new_ports[0][1].change_name(f"grid_{side1}_{side[0]}_out")
+            for cable in cables:
+                cable.name = cable.name.replace("_out_", f"_{side1}_out_")
 
-    def create_tiles(self):
+            cables, new_ports = self._top_module.create_ft_multiple(inst_map)
+            new_ports[0][0].change_name(f"grid_{oppo_side}_in2")
+            new_ports[0][1].change_name(f"grid_{side2}_{side[0]}_out")
+            for cable in cables:
+                cable.name = cable.name.replace("_out_", f"_{side2}_out_")
+            next(self._library.get_definitions(ref_name)).OptPins()
+
+    def create_grid_clb_feedthroughs(self):
         '''
-        Creates tiles
+        Creates feedthrough for ``grid_clb`` outputs, to convert digonal
+        connections to horizontal and vertical
+
+        `grid_clb` output on each side is feedthrough from connection box as
+        shown in the following example (onle left side feedthroughs are shown)
+        ::
+          +-----+                       +-----+
+          |     |                       |     |
+          |     +--+                    |     +--+
+          | SB     |                    | SB     |
+          |     +-++                    |     +--+
+          |     | |                     |     |
+          +-----+ |                     +--+--+
+                  |  +------               |       +------
+          +-----+ |  |                  +-----+    |
+          |     | |  |                  |  |  |    |
+          |     | +--+ CLB              |  +-------+ CLB
+          | CBX | |  |                  |  |  |    |
+          +-----+ |  |                  +-----+    |
+                  |  |                     |       |
+          +-----+ |  +------            +--+--+    +------
+          |     | |                     |     |
+          |     +-++                    |     +--+
+          | SB     |                    | SB     |
+          |     +--+                    |     +--+
+          |     |                       |     |
+          +-----+                       +-----+
+          Before                After feedthrough creations
         '''
-        work = next(self._netlist.get_libraries("work"))
-        top_module = next(work.get_definitions("fpga_core"))
+        clb = next(self._library.get_definitions("grid_clb"))
 
-        # ##############  Main Tiles  ##############
-        self._main_tile(work, top_module)
+        self._create_grid_out_feedthrough(clb, 'left')
+        self._create_grid_out_feedthrough(clb, 'right')
+        self._create_grid_out_feedthrough(clb, 'top')
+        self._create_grid_out_feedthrough(clb, 'bottom')
 
-        # ##############  Side Tiles  ##############
-        self._left_tile(work, top_module)
-        self._right_tile(work, top_module)
-        self._top_tile(work, top_module)
-        self._bottom_tile(work, top_module)
+    def clear_written_modules(self):
+        while self.written_modules:
+            self.written_modules.pop()
 
-        # ############## Corner Tiles ##############
-        self._top_left_tile(work, top_module)
-        self._top_right_tile(work, top_module)
-        self._bottom_left_tile(work, top_module)
-        self._bottom_right_tile(work, top_module)
+    def save_netlist(self, patten="*",  location=".", skip_constraints=True):
+        '''
+        Save verilog files
+        '''
+        for definition in self._library.get_definitions(patten):
+            if definition.name in self.written_modules:
+                continue
+            logger.debug("Writing %s", definition.name)
+            Path(location).mkdir(parents=True, exist_ok=True)
+            sdn.compose(self._netlist,
+                        filename=os.path.join(
+                            location, f"{definition.name}.v"),
+                        skip_constraints=skip_constraints,
+                        definition_list=[definition.name],
+                        write_blackbox=True)
+            self.written_modules.append(definition.name)
+        return self.written_modules

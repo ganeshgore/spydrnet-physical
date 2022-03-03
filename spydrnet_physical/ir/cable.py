@@ -1,6 +1,13 @@
 ''' Example plugin to extend functionality '''
+import typing
 from spydrnet.ir.cable import Cable as CableBase
 from spydrnet.ir import Port, InnerPin, OuterPin
+
+
+if typing.TYPE_CHECKING:
+    from spydrnet.ir.cable import Cable as CableSDN
+    from spydrnet_physical.ir.bundle import Bundle as BundlePhy
+    CableBase = type("BundleBase", (CableSDN, BundlePhy), {})
 
 
 class Cable(CableBase):
@@ -81,14 +88,45 @@ class Cable(CableBase):
         lower = lower or (0 if self.is_downto else self.size)
 
         assign_lib = self.definition._get_assignment_library()
-        assign_def = self.definition._get_assignment_definition(assign_lib, self.size)
+        assign_def = self.definition._get_assignment_definition(
+            assign_lib, self.size)
         instance = self.definition.create_child(f"{self.name}_{cable.name}_assign",
-                                     reference=assign_def)
+                                                reference=assign_def)
 
         self.connect_instance_port(instance, next(assign_def.get_ports("i")))
 
-        print(f"upper {upper}")
-        print(f"lower {lower}")
         for indx, pin in enumerate(next(assign_def.get_ports("o")).pins):
-            cable.wires[range(lower,upper+1)[indx]].connect_pin(instance.pins[pin])
+            cable.wires[range(lower, upper+1)[indx]
+                        ].connect_pin(instance.pins[pin])
         return instance
+
+    def split(self, get_name=None):
+        get_name = get_name or (lambda x: f"{self.name}_{x}")
+        for indx, wire in enumerate(self._wires[::-1]):
+            new_cable = self.definition.create_cable(get_name(indx))
+            self.remove_wire(wire)
+            new_cable.add_wire(wire)
+        self.definition.remove_cable(self)
+
+    def check_concat(self):
+        """ This fucntion check if the cable is concatenated while connecting to other ports
+        """
+        assert self.size, "Cable does not contain any wires"
+
+        connectedPorts = len(self._wires[0].pins)
+        for wire in self._wires:
+            if not connectedPorts == len(wire.pins):
+                return False
+            for pin in wire.pins:
+                if isinstance(pin, InnerPin):
+                    if not pin.port.size == self.size:
+                        return False
+                    if not pin.index() == wire.index():
+                        return False
+                else:
+                    if not pin.inner_pin.port.size == self.size:
+                        return False
+                    if not pin.inner_pin.index() == wire.index():
+                        return False
+
+        return True
