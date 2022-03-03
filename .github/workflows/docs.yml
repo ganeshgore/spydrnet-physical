@@ -1,16 +1,17 @@
 name: Documentation
 on:
+  pull:
   push:
     branches:
       - ganesh_dev
       - main
-    paths:
-      - "docs/**"
-      - "examples/**"
-      - "spydrnet_physical/ir/**"
-      - "spydrnet_physical/util/**"
-      - "spydrnet_physical/support_files/sample_verilog/**"
-      - ".github/workflows/docs.yml"
+    # paths:
+    #   - "docs/**"
+    #   - "examples/**"
+    #   - "spydrnet_physical/ir/**"
+    #   - "spydrnet_physical/util/**"
+    #   - "spydrnet_physical/support_files/sample_verilog/**"
+    #   - ".github/workflows/docs.yml"
 
 jobs:
   build_docs:
