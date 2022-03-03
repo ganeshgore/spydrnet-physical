@@ -1,17 +1,6 @@
 name: Documentation
-on:
-  pull:
-  push:
-    branches:
-      - ganesh_dev
-      - main
-    # paths:
-    #   - "docs/**"
-    #   - "examples/**"
-    #   - "spydrnet_physical/ir/**"
-    #   - "spydrnet_physical/util/**"
-    #   - "spydrnet_physical/support_files/sample_verilog/**"
-    #   - ".github/workflows/docs.yml"
+
+on: [push, pull_request]
 
 jobs:
   build_docs:
@@ -44,8 +33,15 @@ jobs:
           path: |
             docs/**/*
             examples/**/*
+      - name: Prepare developement documentation
+        if: ${{ (steps.build.outcome == 'success') && (github.ref == 'refs/heads/pre_release') }}
+        shell: bash
+        id: prepare_pre_release
+        run: |
+          mv docs/build/html 
+          find docs/build/html/pre_release  -name "*.html*" -exec sed -i "s/<head>/<head><base href=\"pre_release\">/" {} \;
       - name: Deploy documentation
-        if: ${{ (steps.build.outcome == 'success') }}
+        if: ${{ (steps.build.outcome == 'success') && (github.ref == 'refs/heads/main' || (github.ref == 'refs/heads/pre_release')) }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
