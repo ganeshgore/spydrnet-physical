@@ -60,7 +60,7 @@ def main():
             instance_list[each.reference.name] = []
         instance_list[each.reference.name].append(each.name)
 
-    for indx, file in enumerate(glob.glob(f'{gsb}/_*.xml')):
+    for indx, file in enumerate(sorted(glob.glob(f'{gsb}/_*.xml'))):
         module = os.path.splitext(os.path.basename(file))[0]
         # =====================================================================
         # Extract Switch Box information

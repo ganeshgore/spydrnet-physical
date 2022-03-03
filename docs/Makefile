@@ -27,7 +27,7 @@ reload:
 
 run_examples:
 	find ../examples -type f -name "*.py" \
-	-execdir bash -c "${PYTHON_EXEC} {} > {}.log"  \; \
+	-execdir bash -c "${PYTHON_EXEC} {}" \; \
 	-exec echo "Running : " "$$? {} " \; || true
 
 clean:
