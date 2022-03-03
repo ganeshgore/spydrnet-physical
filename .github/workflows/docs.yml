@@ -38,7 +38,7 @@ jobs:
         shell: bash
         id: prepare_pre_release
         run: |
-          mv docs/build/html 
+          mv docs/build/html docs/build/html/pre_release
           find docs/build/html/pre_release  -name "*.html*" -exec sed -i "s/<head>/<head><base href=\"pre_release\">/" {} \;
       - name: Deploy documentation
         if: ${{ (steps.build.outcome == 'success') && (github.ref == 'refs/heads/main' || (github.ref == 'refs/heads/pre_release')) }}

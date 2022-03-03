@@ -26,13 +26,18 @@ Download final annotated verilog netlist:
 """
 
 
+import logging
 from os import path
-import spydrnet as sdn
 from pprint import pprint
+
+import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from spydrnet_physical.util.get_floorplan import FloorPlanViz
 
 PROPERTY = "VERILOG.InlineConstraints"
+
+logger = logging.getLogger('spydrnet_logs')
+sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="01_floorplan_rendering")
 
 netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
 top = netlist.top_instance.reference
