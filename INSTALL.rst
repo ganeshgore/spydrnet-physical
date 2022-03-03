@@ -1,7 +1,7 @@
 .. _INSTALL.rst:
 
 Install
-=======
+-------
 
 Run one of the following commands to install the latest release of *SpyDrNet-Physical*.
 
@@ -16,6 +16,10 @@ Run one of the following commands to install the latest release of *SpyDrNet-Phy
    # Meanwhile, to install from a git repo, run the following command 
    python3 -m pip install git+https://github.com/ganeshgore/spydrnet-physical.git
 
+
+Development Version
+^^^^^^^^^^^^^^^^^^^
+
 To install a current bleeding edge (current;y under development) version directly from GitHub
 
 
@@ -24,12 +28,14 @@ To install a current bleeding edge (current;y under development) version directl
    pip install git+https://github.com/ganeshgore/spydrnet_physical@pre_release
 
 
-.. note:: Installing ``SpyDrNet-Physical`` module will install SpyDrNet package. For more detailed information related to SpyDrNet installation, please visit.
+.. note:: Installing ``SpyDrNet-Physical`` module will install ``SpyDrNet`` package. 
+   For more detailed information related to SpyDrNet installation, please visit.
 
 
 Dependencies
-------------
+^^^^^^^^^^^^
 
 `SpyDrNet-Physical` depends on the following packages for functionality like rendering in browser and exporting SVG file.
+
 - `websock <https://pypi.org/project/websock/>`_ To create a WebSocket connect with a browser
 - `svgwrite <https://pypi.org/project/svgwrite/>`_ To render netlist in SVG
