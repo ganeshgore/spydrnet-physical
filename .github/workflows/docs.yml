@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
       - name: Build Documentation
         shell: bash
         id: build
@@ -33,15 +32,25 @@ jobs:
           path: |
             docs/**/*
             examples/**/*
-      - name: Prepare developement documentation
-        if: ${{ (steps.build.outcome == 'success') && (github.ref == 'refs/heads/pre_release') }}
+      - name: Prepare pre_release documentation
+        if: ${{ (steps.build.outcome == 'success') }}
         shell: bash
         id: prepare_pre_release
         run: |
-          mv docs/build/html 
-          find docs/build/html/pre_release  -name "*.html*" -exec sed -i "s/<head>/<head><base href=\"pre_release\">/" {} \;
+          mv docs/build/html docs/build/html_pre_release
+          find ./docs/build/html_pre_release -name "*.html*" -exec sed -i "s/<head>/<head><base href=\"pre_release\">/" {} \;
+          echo "body{border-top: 20px solid #FF9800;}" > ./docs/build/html_pre_release/_static/custom.css
+      - name: Deploy pre_release documentation
+        if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/pre_release')) }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: docs
+          publish_dir: docs/build/html_pre_release
+          destination_dir: docs/pre_release
+          exclude_assets: "doctrees"
       - name: Deploy documentation
-        if: ${{ (steps.build.outcome == 'success') && (github.ref == 'refs/heads/main' || (github.ref == 'refs/heads/pre_release')) }}
+        if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/main')) }}
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

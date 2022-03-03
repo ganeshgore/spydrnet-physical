@@ -35,13 +35,13 @@ can be rendered in a SVG format.
 import glob
 import logging
 from os import path
-import numpy as np
 
+import numpy as np
 import spydrnet as sdn
 from spydrnet_physical.util import RoutingRender
 
 logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='DEBUG')
+sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="02_render_routing_box")
 
 scale = 50
 SPACING = 150

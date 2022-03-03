@@ -69,6 +69,8 @@ def sort_input_channels(switch_mat, get_bias=False):
 
 
 def main():
+    # This example dead because of updated GSB file format
+    return
     proj = '../homogeneous_fabric'
     sb = glob.glob(f'{proj}/*_Verilog/routing/sb_1__1_.v')[0]
     module = path.splitext(path.basename(sb))[0]
