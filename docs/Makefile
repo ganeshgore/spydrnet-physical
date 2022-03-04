@@ -27,8 +27,9 @@ reload:
 
 run_examples:
 	find ../examples -type f -name "*.py" \
-	-execdir bash -c "${PYTHON_EXEC} {} > {}.log"  \; \
-	-exec echo "Running : " "$$? {} " \; || true
+	-exec echo "Running : " "$$? {} " \; \
+	-execdir bash -c "${PYTHON_EXEC} {} > /dev/null" \; \
+	 || true
 
 clean:
 	rm -rf build source/auto_*

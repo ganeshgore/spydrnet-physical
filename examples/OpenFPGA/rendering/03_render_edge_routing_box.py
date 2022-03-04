@@ -22,6 +22,10 @@ sdn.enable_file_logging(LOG_LEVEL='DEBUG')
 scale = 50
 SPACING = 150
 
+logger = logging.getLogger('spydrnet_logs')
+sdn.enable_file_logging(
+    LOG_LEVEL='DEBUG', filename="03_render_edge_routing_box")
+
 np.set_printoptions(linewidth=200)
 
 
