@@ -49,13 +49,13 @@ Table of Contents
    introduction/tutorial
    reference/index
    auto_sample_verilog/index
+   example
 
 .. .. toctree::
 ..    :maxdepth: 1
 
 ..    introduction/install
 ..    introduction.rst
-..    example.rst
 ..    tests/index
 
 
