@@ -273,9 +273,9 @@ class Definition(DefinitionBase):
         RenameMap = {}  # Stores the final rename map
 
         # ====== Input Sanity checks
-        for eachModule in instances_list:
+        for i, eachModule in enumerate(instances_list):
             assert isinstance(
-                eachModule, sdn.Instance), "Modulelist contains none non-intance object [%s]" % type(eachModule)
+                eachModule, sdn.Instance), "Modulelist contains none non-intance object [%s] at location %d " % (type(eachModule), i)
 
         if pin_map:
             if isinstance(pin_map, dict):
