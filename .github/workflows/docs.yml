@@ -33,7 +33,7 @@ jobs:
             docs/**/*
             examples/**/*
       - name: Prepare pre_release documentation
-        if: ${{ (steps.build.outcome == 'success') }}
+        if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/pre_release')) }}
         shell: bash
         id: prepare_pre_release
         run: |
