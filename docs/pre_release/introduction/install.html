@@ -235,7 +235,7 @@
 <span id="install-rst"></span><h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
 <p>Run one of the following commands to install the latest release of <em>SpyDrNet-Physical</em>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># We have not released spydrnet-physical package to pip yet</span>
-<span class="c1"># Once the library is released you can use the following commands to install the package</span>
+<span class="c1"># Once the library is released, you can use the following commands to install the package</span>
 <span class="c1"># python3 -m pip install spydrnet-physical # For global installation or</span>
 <span class="c1"># python3 -m pip install spydrnet-physical --user #  For local installation or</span>
 <span class="c1">#</span>
@@ -253,6 +253,23 @@ python3 -m pip install git+https://github.com/ganeshgore/spydrnet-physical.git
 <p class="admonition-title">Note</p>
 <p>Installing <code class="docutils literal notranslate"><span class="pre">SpyDrNet-Physical</span></code> module will install <code class="docutils literal notranslate"><span class="pre">SpyDrNet</span></code> package.
 For more detailed information related to SpyDrNet installation, please visit.</p>
+</div>
+</section>
+<section id="validate-installation">
+<h2>Validate Installation<a class="headerlink" href="#validate-installation" title="Permalink to this headline">¶</a></h2>
+<p>To enable plugins while using <code class="docutils literal notranslate"><span class="pre">Spydrnet</span></code>, please create <cite>.spydrnet</cite> file
+in your home directory. This file contains the list of plugins to load while
+loading <code class="docutils literal notranslate"><span class="pre">spydrnet</span></code> library. To enable <code class="docutils literal notranslate"><span class="pre">spydrnet_physical</span></code>,
+add <code class="docutils literal notranslate"><span class="pre">spydrnet_physical</span></code> in the <cite>.spydrnet</cite> file.
+Alternately run the  following command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">"spydrnet_physical"</span> &gt; .spydrnet
+</pre></div>
+</div>
+<p>To check if the <code class="docutils literal notranslate"><span class="pre">spydrnet_physical</span></code> plugin loads correctly, execute</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -c <span class="s2">"import spydrnet as sdn;print(sdn.get_active_plugins().keys())"</span>
+<span class="c1"># Expected output:</span>
+<span class="c1"># dict_keys(['spydrnet_physical'])</span>
+</pre></div>
 </div>
 </section>
 <section id="dependencies">
@@ -320,6 +337,7 @@ For more detailed information related to SpyDrNet installation, please visit.</p
             <ul>
 <li><a class="reference internal" href="#">Install</a><ul>
 <li><a class="reference internal" href="#development-version">Development Version</a></li>
+<li><a class="reference internal" href="#validate-installation">Validate Installation</a></li>
 <li><a class="reference internal" href="#dependencies">Dependencies</a></li>
 </ul>
 </li>
