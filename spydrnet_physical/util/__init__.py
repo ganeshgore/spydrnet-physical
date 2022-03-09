@@ -7,9 +7,9 @@ from spydrnet_physical.util.openfpga import OpenFPGA
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
 from spydrnet_physical.util.tile01 import (Tile01, config_chain_01,
                                            config_chain_simple)
-from spydrnet_physical.util.tile02 import (Tile02, config_chain_02)
+# from spydrnet_physical.util.tile02 import (Tile02, config_chain_02)
 from spydrnet_physical.util.connection_pattern import (ConnectionPattern,
-                                                       ConnectPoint, 
+                                                       ConnectPoint,
                                                        ConnectPointList)
 
 from spydrnet_physical.util.routing_render import RoutingRender, cb_renderer, sb_renderer
