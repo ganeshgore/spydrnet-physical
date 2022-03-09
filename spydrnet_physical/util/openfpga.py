@@ -245,21 +245,21 @@ class OpenFPGA:
             ports = sorted(ports, key=sort_pins or (lambda x: x.name))
             module.combine_ports(out_patt, ports)
 
-    def create_grid_io_bus(self):
+    def create_grid_io_bus(self, inpad="inpad", outpad="outpad"):
         """
         Convert `grid_io` Input/Output pins to bus structure
         ::
-        # Input Pins
-        right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
-        left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
-        top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
-        bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
+          # Input Pins
+          right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
+          left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
+          top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
+          bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
 
-        # Output Pins
-        right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
-        left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
-        top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
-        bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
+          # Output Pins
+          right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
+          left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
+          top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
+          bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
 
         """
         sides = ("left", "top", "right", "bottom")
@@ -268,9 +268,9 @@ class OpenFPGA:
         for grid_io in self._library.get_definitions("grid_io*"):
             for side in sides:
                 #  Input pins
-                self._convert_to_bus(grid_io, f"{side}*_pin_outpad_*",
+                self._convert_to_bus(grid_io, f"{side}*_pin_{inpad}_*",
                                      f"io_{side}_in")
-                self._convert_to_bus(grid_io, f"{side}*_pin_outpad_*",
+                self._convert_to_bus(grid_io, f"{side}*_pin_{outpad}_*",
                                      f"io_{side}_out")
 
     def create_grid_clb_bus(self):
