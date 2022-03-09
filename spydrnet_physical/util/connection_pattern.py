@@ -25,10 +25,10 @@ class ConnectPoint:
     ''' This store the individual connections points '''
 
     def __init__(self, from_x, from_y, to_x, to_y):
-        self.from_x = from_x
-        self.from_y = from_y
-        self.to_x = to_x
-        self.to_y = to_y
+        self.from_x = int(from_x)
+        self.from_y = int(from_y)
+        self.to_x = int(to_x)
+        self.to_y = int(to_y)
         self.from_dir = ""
         self.to_dir = ""
         self._update_direction()
@@ -225,6 +225,7 @@ class ConnectPointList:
         return lines
 
     def add_connect_point(self, point):
+        assert isinstance(point, ConnectPoint)
         self._points.append(point)
         self._update_cursor()
         return point
@@ -244,11 +245,11 @@ class ConnectPointList:
             str(str): return svg string
         '''
         sizex = max([max(x1, x2) for x1, y1, x2, y2 in self._points])+1
-        sizey = max([max(x1, x2) for x1, y1, x2, y2 in self._points])+1
+        sizey = max([max(y1, y2) for x1, y1, x2, y2 in self._points])+1
 
-        svg = None
-        # dwg = svgwrite.Drawing("_render.svg", style="border: 1px solid grey;")
-        dwg = svgwrite.Drawing("_render.svg")
+        dwg = svgwrite.Drawing("_render.svg", size=(
+            ((sizex+10)*scale)+(5*scale), 
+            ((sizey+10)*scale)+(1*(sizey+10)*scale)))
         dwg.viewbox(-5*scale, -1*(sizey+10)*scale,
                     (sizex+10)*scale, (sizey+10)*scale)
 
@@ -256,16 +257,23 @@ class ConnectPointList:
         dwgMain = dwg.add(Group(id="main", transform="scale(1,-1)"))
         dwg.defs.add(dwg.style("""
                 text{font-family: Verdana;}
-                line{stroke: black; stroke-linecap:round}
+                .connection{stroke: black; stroke-linecap:round; opacity: 0.7;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
                 #core_boundary{stroke:grey; stroke_width:0.5;}
-                .marker{stroke:red; stroke_width:0.5;}
+                .gridmarker{stroke:red; stroke_width:0.5;}
                 """))
+        DRMarker = dwg.marker(refX="30", refY="30",
+                              viewBox="0 0 120 120",
+                              markerUnits="strokeWidth",
+                              markerWidth="8", markerHeight="10", orient="auto")
+        DRMarker.add(dwg.path(d="M 0 0 L 60 30 L 0 60 z", fill="blue"))
+        dwg.defs.add(DRMarker)
         for conn in self._points:
             conn = conn*scale
             dwgMain.add(dwg.line(start=conn.from_connection,
                                  end=conn.to_connection,
+                                 marker_end=DRMarker.get_funciri(),
                                  class_="connection"))
         return dwg
 
@@ -342,7 +350,6 @@ class ConnectPointList:
                 next(port.get_cables()).assign_cable(prev_cable)
             module.remove_port(port)
 
-
     def create_ft_connection(self, top_definition, signal_cable):
         ''' Create connections
         '''
@@ -369,6 +376,21 @@ class ConnectPointList:
     def __iter__(self):
         yield from self._points
 
+    def short_through(self, through_point):
+        incoming = None
+        outgoing = None
+        for point in self._points:
+            if point.from_connection == through_point:
+                outgoing = point
+            if point.to_connection == through_point:
+                incoming = point
+            if incoming and outgoing:
+                break
+
+        assert isinstance(incoming, ConnectPoint), "Incoming connection not found"
+        assert isinstance(outgoing, ConnectPoint), "Outgoing connection not found"
+        incoming.to_x, incoming.to_y = outgoing.to_connection
+        self._points.remove(outgoing)
 
 class ConnectionPattern:
     def __init__(self, sizex, sizey):
@@ -466,12 +488,12 @@ class ConnectionPattern:
                 dwgMarker.add(dwg.line(start=((i+0.5)*scale, 0.5*scale),
                                        end=((i+0.5)*scale,
                                             (self.sizey+0.5)*scale),
-                                       class_="marker"))
+                                       class_="gridmarker"))
             for i in range(0, self.sizey+1):
                 dwgMarker.add(dwg.line(start=(0.5*scale, (i+0.5)*scale),
                                        end=((self.sizex+0.5) *
                                             scale, (i+0.5)*scale),
-                                       class_="marker"))
+                                       class_="gridmarker"))
 
         # Add labels to the grid
         if add_module_labels:
