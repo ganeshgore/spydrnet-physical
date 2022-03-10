@@ -3,10 +3,10 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Render FPGA Basic Elements" href="fpga_basic_elements.html" /><link rel="prev" title="OpenFPGA Related Restructuring" href="../index.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Render Placement information from Verilog netlist" href="03_initial_placement.html" /><link rel="prev" title="OpenFPGA Architecture Parsing" href="01_fpga_arch_parse.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>OpenFPGA architecture Parsing - SpyDrNet-Physical alpha documentation</title>
+        <title>Render FPGA Basic Elements - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -220,9 +220,9 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">OpenFPGA architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01_fpga_arch_parse.html">OpenFPGA Architecture Parsing</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_initial_placement.html">Render Placement information from Verilog netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -269,39 +269,112 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-basic-fpga-arch-parse-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-basic-02-fpga-basic-elements-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="openfpga-architecture-parsing">
-<span id="sphx-glr-auto-openfpga-basic-fpga-arch-parse-py"></span><h1>OpenFPGA architecture Parsing<a class="headerlink" href="#openfpga-architecture-parsing" title="Permalink to this headline">¶</a></h1>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{'4x4': (6, 6)}
-['io', 'clb']
+<section class="sphx-glr-example-title" id="render-fpga-basic-elements">
+<span id="sphx-glr-auto-openfpga-basic-02-fpga-basic-elements-py"></span><h1>Render FPGA Basic Elements<a class="headerlink" href="#render-fpga-basic-elements" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstates, how to render primitive FPGA elements using yosys
+and <a class="reference external" href="https://github.com/nturley/netlistsvg">netlistSVG</a> program.
+This sexample also demonstrates the use of <code class="docutils literal notranslate"><span class="pre">OpenFPGA</span></code> class.</p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/_includes.v" src="../../_images/02_fpga_basic_elements-33-..-examples-OpenFPGA-basic-_includes.svg"/>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">from</span> <span class="nn">spydrnet.ir</span> <span class="kn">import</span> <span class="n">library</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">Tile01</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="c1">#               Reading homogeneous 4x4 FPGA netlist</span>
+    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="s2">"../homogeneous_fabric"</span>
+    <span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/lb/*.v'</span><span class="p">)</span>
+    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/routing/*.v'</span><span class="p">)</span>
+    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/sub_module/*.v'</span><span class="p">)</span>
+    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/fpga_top.v'</span><span class="p">)</span>
+    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Task/CustomModules/standard_cell_wrapper.v'</span><span class="p">)</span>
+
+    <span class="c1"># Temporary fix to read multiple verilog files</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">".v"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">eachV</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">eachV</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fpv</span><span class="p">:</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpv</span><span class="o">.</span><span class="n">readlines</span><span class="p">())))</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="c1"># Create OpenFPGA object</span>
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
+
+    <span class="c1"># Convert wires to bus structure</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_io_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_sb_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_cb_bus</span><span class="p">()</span>
+
+    <span class="c1"># Remove undriven nets</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">remove_undriven_nets</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">remove_config_chain</span><span class="p">()</span>
+
+    <span class="c1"># Top level nets to bus</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_clb*"</span><span class="p">),</span>
+                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_io*"</span><span class="p">),</span>
+                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"sb_*"</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">check_all_scalar_connections</span><span class="p">(</span><span class="n">p</span><span class="p">)):</span>
+                <span class="n">cable_list</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">pins</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">cable_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">cable</span><span class="p">)</span>
+                <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">combine_cables</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">cable_list</span><span class="p">)</span>
+
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_feedthroughs</span><span class="p">()</span>
+
+    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="c1">#                   Start rendering CBX11</span>
+    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="n">cbx11</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"cbx_1__1_"</span><span class="p">))</span>
+    <span class="c1"># Remove configuration elements</span>
+    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">cbx11</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"*mem*"</span><span class="p">)):</span>
+        <span class="n">cbx11</span><span class="o">.</span><span class="n">remove_child</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_netlist</span><span class="p">(</span><span class="s2">"cbx_1__1_"</span><span class="p">,</span> <span class="s2">"./_tmp"</span><span class="p">)</span>
+
+    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="c1">#              Create include files to render</span>
+    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="c1"># Create include file to render schematic usign yosys</span>
+    <span class="n">cust_proj</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/FPGA44_Task/CustomModules"</span>
+    <span class="n">veri_proj</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/FPGA44_Verilog"</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"_includes.v"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'`include "./_tmp/cbx_1__1_.v"</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'`include "</span><span class="si">{</span><span class="n">cust_proj</span><span class="si">}</span><span class="s1">/standard_cell_primitives.v"</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'`include "</span><span class="si">{</span><span class="n">veri_proj</span><span class="si">}</span><span class="s1">/sub_module/muxes.v"</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'`include "</span><span class="si">{</span><span class="n">veri_proj</span><span class="si">}</span><span class="s1">/sub_module/memories.v"</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'`include "</span><span class="si">{</span><span class="n">veri_proj</span><span class="si">}</span><span class="s1">/sub_module/inv_buf_passgate.v"</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA_Arch</span>
-
-<span class="n">vpr_arch</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'..'</span><span class="p">,</span> <span class="s1">'homogeneous_fabric'</span><span class="p">,</span> <span class="s1">'FPGA44_Task'</span><span class="p">,</span>
-                        <span class="s1">'arch'</span><span class="p">,</span> <span class="s1">'k6_N10_tileable.xml'</span><span class="p">)</span>
-<span class="n">openfpga_arch</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'..'</span><span class="p">,</span> <span class="s1">'homogeneous_fabric'</span><span class="p">,</span> <span class="s1">'FPGA44_Task'</span><span class="p">,</span>
-                             <span class="s1">'arch'</span><span class="p">,</span> <span class="s1">'k6_N10_openfpga.xml'</span><span class="p">)</span>
-<span class="n">fpga_arch</span> <span class="o">=</span> <span class="n">OpenFPGA_Arch</span><span class="p">(</span><span class="n">vpr_arch</span><span class="p">,</span> <span class="n">openfpga_arch</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">get_layout</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">pb_types</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.002 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-fpga-arch-parse-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.102 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-02-fpga-basic-elements-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/26d837e1a21054a39d2e38bab0a1c787/fpga_arch_parse.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">fpga_arch_parse.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/d752c58609f3b7cf6d4dcf1f6eae7bf7/02_fpga_basic_elements.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_fpga_basic_elements.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/466c41d2f16dfd2266dbb05683d9c65d/fpga_arch_parse.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">fpga_arch_parse.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/0356327f41d671308f25900a90e4adf4/02_fpga_basic_elements.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02_fpga_basic_elements.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -312,23 +385,23 @@ to download the full example code</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="fpga_basic_elements.html">
+          <a class="next-page" href="03_initial_placement.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Render FPGA Basic Elements</div>
+                <div class="title">Render Placement information from Verilog netlist</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../index.html">
+          <a class="prev-page" href="01_fpga_arch_parse.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">OpenFPGA Related Restructuring</div>
+                <div class="title">OpenFPGA Architecture Parsing</div>
                 
               </div>
             </a>
@@ -340,7 +413,7 @@ to download the full example code</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/auto_openfpga/basic/fpga_arch_parse.rst.txt"
+            <a class="muted-link" href="../../_sources/auto_openfpga/basic/02_fpga_basic_elements.rst.txt"
                rel="nofollow">
               Show Source
             </a>

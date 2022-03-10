@@ -3,7 +3,7 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="OpenFPGA architecture Parsing" href="basic/fpga_arch_parse.html" /><link rel="prev" title="Genrating feedthrough from single instance" href="../auto_basic/wire_feedthrough.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="OpenFPGA Architecture Parsing" href="basic/01_fpga_arch_parse.html" /><link rel="prev" title="Genrating feedthrough from single instance" href="../auto_basic/wire_feedthrough.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>OpenFPGA Related Restructuring - SpyDrNet-Physical alpha documentation</title>
@@ -220,9 +220,9 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="basic/fpga_arch_parse.html">OpenFPGA architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basic/01_fpga_arch_parse.html">OpenFPGA Architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basic/02_fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basic/03_initial_placement.html">Render Placement information from Verilog netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -271,27 +271,27 @@
 <span id="sphx-glr-auto-openfpga"></span><h1>OpenFPGA Related Restructuring<a class="headerlink" href="#openfpga-related-restructuring" title="Permalink to this headline">¶</a></h1>
 <div class="sphx-glr-clear"></div><section id="basic-examples">
 <span id="sec-basic-examples"></span><span id="sphx-glr-auto-openfpga-basic"></span><h2>Basic Examples<a class="headerlink" href="#basic-examples" title="Permalink to this headline">¶</a></h2>
-<p>A collection of examples to introduce the functionality, features, and uses of SpyDrNet.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="OpenFPGA architecture Parsing"><figure class="align-default" id="id1">
-<img alt="OpenFPGA architecture Parsing" src="../_images/sphx_glr_fpga_arch_parse_thumb.png"/>
+<p>A collection of examples introduces the functionality and features, SpyDrNet-Physical library.</p>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the OpenFPGA_Arch class which parses the  VPR and OpenFPGA Architectu..."><figure class="align-default" id="id1">
+<img alt="OpenFPGA Architecture Parsing" src="../_images/sphx_glr_01_fpga_arch_parse_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text"><a class="reference internal" href="basic/fpga_arch_parse.html#sphx-glr-auto-openfpga-basic-fpga-arch-parse-py"><span class="std std-ref">OpenFPGA architecture Parsing</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text"><a class="reference internal" href="basic/01_fpga_arch_parse.html#sphx-glr-auto-openfpga-basic-01-fpga-arch-parse-py"><span class="std std-ref">OpenFPGA Architecture Parsing</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF..."><figure class="align-default" id="id2">
-<img alt="Render FPGA Basic Elements" src="../_images/sphx_glr_fpga_basic_elements_thumb.png"/>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstates, how to render primitive FPGA elements using yosys  and `netlistSVG &lt;h..."><figure class="align-default" id="id2">
+<img alt="Render FPGA Basic Elements" src="../_images/sphx_glr_02_fpga_basic_elements_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text"><a class="reference internal" href="basic/fpga_basic_elements.html#sphx-glr-auto-openfpga-basic-fpga-basic-elements-py"><span class="std std-ref">Render FPGA Basic Elements</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text"><a class="reference internal" href="basic/02_fpga_basic_elements.html#sphx-glr-auto-openfpga-basic-02-fpga-basic-elements-py"><span class="std std-ref">Render FPGA Basic Elements</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF..."><figure class="align-default" id="id3">
-<img alt="Creating FPGA Tiles from OpenFPGA verilog" src="../_images/sphx_glr_initial_placement_thumb.png"/>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter..."><figure class="align-default" id="id3">
+<img alt="Render Placement information from Verilog netlist" src="../_images/sphx_glr_03_initial_placement_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text"><a class="reference internal" href="basic/initial_placement.html#sphx-glr-auto-openfpga-basic-initial-placement-py"><span class="std std-ref">Creating FPGA Tiles from OpenFPGA verilog</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text"><a class="reference internal" href="basic/03_initial_placement.html#sphx-glr-auto-openfpga-basic-03-initial-placement-py"><span class="std std-ref">Render Placement information from Verilog netlist</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
@@ -438,12 +438,12 @@ features, and uses of SpyDrNet.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="basic/fpga_arch_parse.html">
+          <a class="next-page" href="basic/01_fpga_arch_parse.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">OpenFPGA architecture Parsing</div>
+                <div class="title">OpenFPGA Architecture Parsing</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
