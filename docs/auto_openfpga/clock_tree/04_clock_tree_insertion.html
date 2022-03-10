@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Rendering Switch and Connection Boxes" href="02_render_routing_box.html" /><link rel="prev" title="H-Tree insertion in FPGA Tilable grid" href="../clock_tree/04_clock_tree_insertion.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Demonstrate how to render basic floorplan" href="../rendering/01_floorplan_rendering.html" /><link rel="prev" title="Create Clock Tree Embedding" href="03_create_clock_tree.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Demonstrate how to render basic floorplan - SpyDrNet-Physical alpha documentation</title>
+        <title>H-Tree insertion in FPGA Tilable grid - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -224,13 +224,13 @@
 <li class="toctree-l3"><a class="reference internal" href="../basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../clock_tree/03_create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../clock_tree/04_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_render_routing_box.html">Rendering Switch and Connection Boxes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03_render_edge_routing_box.html">Rendering Switch and Connection Boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01_connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rendering/01_floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rendering/02_render_routing_box.html">Rendering Switch and Connection Boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../rendering/03_render_edge_routing_box.html">Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../partition/01_netlist_to_graph.html">Netlist to graph (networkx)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../partition/02_switch_partition_01.html">Partition Conn Box 01</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../partition/03_switch_partition_02.html">Partition Conn Box 02</a></li>
@@ -269,112 +269,34 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-rendering-01-floorplan-rendering-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-clock-tree-04-clock-tree-insertion-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="demonstrate-how-to-render-basic-floorplan">
-<span id="sphx-glr-auto-openfpga-rendering-01-floorplan-rendering-py"></span><h1>Demonstrate how to render basic floorplan<a class="headerlink" href="#demonstrate-how-to-render-basic-floorplan" title="Permalink to this headline">¶</a></h1>
-<p>Properties on different objects</p>
-<p><strong>On Definitions</strong>
-WIDTH and HEIGHT = The rectangular dimension of the module</p>
-<p><strong>On Instances</strong>:
-LOC_X and LOC_Y = Location of the component with respect to its parrent</p>
-<p><strong>On Ports</strong>:
-_SIDE      : On whihc side the port is placed [left/right/bottom/top]
-_OFFSET    : Offset from the origin of that side, Considering clockwise direction
-first point on respective side is considered as origin</p>
-<p>Download final annotated verilog netlist:
-<a class="reference download internal" download="" href="../../_downloads/f00d3472e921878811205b52236e2fde/_annotate_netlist.v"><code class="xref download docutils literal notranslate"><span class="pre">_annotate_netlist.v</span></code></a></p>
-<a class="reference internal image-reference" href="../../_images/_basic_hierarchy_floorplan.svg"><img alt="../../_images/_basic_hierarchy_floorplan.svg" src="../../_images/_basic_hierarchy_floorplan.svg" width="500px"/></a>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util.get_floorplan</span> <span class="kn">import</span> <span class="n">FloorPlanViz</span>
-
-<span class="n">PROPERTY</span> <span class="o">=</span> <span class="s2">"VERILOG.InlineConstraints"</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'DEBUG'</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"01_floorplan_rendering"</span><span class="p">)</span>
-
-<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'basic_hierarchy'</span><span class="p">)</span>
-<span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
-
-<span class="n">module1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"module1"</span><span class="p">))</span>
-<span class="n">module2</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"module2"</span><span class="p">))</span>
-
-<span class="n">inst_1_0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_1_0"</span><span class="p">))</span>
-<span class="n">inst_1_1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_1_1"</span><span class="p">))</span>
-
-<span class="n">inst_2_0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_2_0"</span><span class="p">))</span>
-<span class="n">inst_2_1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_2_1"</span><span class="p">))</span>
-
-<span class="n">top</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"WIDTH"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"250"</span>
-<span class="n">top</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"250"</span>
-
-<span class="n">inst_1_0</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_X"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"50"</span>
-<span class="n">inst_1_0</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_Y"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"50"</span>
-
-<span class="n">inst_1_1</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_X"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"50"</span>
-<span class="n">inst_1_1</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_Y"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"150"</span>
-
-<span class="n">inst_2_0</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_X"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"150"</span>
-<span class="n">inst_2_0</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_Y"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"50"</span>
-
-<span class="n">inst_2_1</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_X"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"150"</span>
-<span class="n">inst_2_1</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_Y"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"150"</span>
-
-
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in0"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in0"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"10"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in1"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in1"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"30"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"bus_in"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"bus_in"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"50"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"out0"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"right"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"out0"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"20"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"bus_out"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"right"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"bus_out"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"40"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in0"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in0"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"10"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in1"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in1"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"30"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"out"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"right"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"out"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"20"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">module2</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in0"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">module2</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in0"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"10"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">module2</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in1"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"left"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">module2</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"in1"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"30"</span>
-
-<span class="nb">next</span><span class="p">(</span><span class="n">module2</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"out"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SIDE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"right"</span>
-<span class="nb">next</span><span class="p">(</span><span class="n">module2</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"out"</span><span class="p">))</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"OFFSET"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"20"</span>
-
-<span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
-<span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">()</span>
-<span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
-<span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_basic_hierarchy_floorplan.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_annotate_netlist.v'</span><span class="p">)</span>
+<section class="sphx-glr-example-title" id="h-tree-insertion-in-fpga-tilable-grid">
+<span id="sphx-glr-auto-openfpga-clock-tree-04-clock-tree-insertion-py"></span><h1>H-Tree insertion in FPGA Tilable grid<a class="headerlink" href="#h-tree-insertion-in-fpga-tilable-grid" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates how to insert H-Tree in tileable FPGA grid</p>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NotImplemented
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.014 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-rendering-01-floorplan-rendering-py">
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+
+<span class="c1"># TODO</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"NotImplemented"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.001 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-04-clock-tree-insertion-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/63cc322236273520e98146a273d937db/01_floorplan_rendering.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_floorplan_rendering.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/a5a3daff075214e4b598490387cc0333/04_clock_tree_insertion.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_clock_tree_insertion.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/98cbce3b549f89b47c79cd72924685c3/01_floorplan_rendering.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_floorplan_rendering.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/71119419e689d961a64a25795105f064/04_clock_tree_insertion.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_clock_tree_insertion.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -385,23 +307,23 @@ first point on respective side is considered as origin</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="02_render_routing_box.html">
+          <a class="next-page" href="../rendering/01_floorplan_rendering.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Rendering Switch and Connection Boxes</div>
+                <div class="title">Demonstrate how to render basic floorplan</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../clock_tree/04_clock_tree_insertion.html">
+          <a class="prev-page" href="03_create_clock_tree.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">H-Tree insertion in FPGA Tilable grid</div>
+                <div class="title">Create Clock Tree Embedding</div>
                 
               </div>
             </a>
@@ -413,7 +335,7 @@ first point on respective side is considered as origin</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/auto_openfpga/rendering/01_floorplan_rendering.rst.txt"
+            <a class="muted-link" href="../../_sources/auto_openfpga/clock_tree/04_clock_tree_insertion.rst.txt"
                rel="nofollow">
               Show Source
             </a>

@@ -224,9 +224,10 @@
 <li class="toctree-l3"><a class="reference internal" href="basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="clock_tree/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="clock_tree/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="clock_tree/create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clock_tree/03_create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clock_tree/04_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rendering/01_floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rendering/02_render_routing_box.html">Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rendering/03_render_edge_routing_box.html">Rendering Switch and Connection Boxes</a></li>
@@ -308,26 +309,34 @@
 <span id="sec-clock-tree-embedding"></span><span id="sphx-glr-auto-openfpga-clock-tree"></span><h2>Clock Tree Embedding<a class="headerlink" href="#clock-tree-embedding" title="Permalink to this headline">¶</a></h2>
 <p>A collection of examples to introduce the functionality,
 features, and uses of SpyDrNet.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to insert H-Tree in tileable FPGA grid"><figure class="align-default" id="id5">
-<img alt="H-Tree insertion in FPGA Tilable grid" src="../_images/sphx_glr_clock_tree_insertion_thumb.png"/>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to genrate different connection pattern for routing global signals..."><figure class="align-default" id="id5">
+<img alt="Connection Pattern Generation" src="../_images/sphx_glr_01_connection_patterns_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 12 </span><span class="caption-text"><a class="reference internal" href="clock_tree/clock_tree_insertion.html#sphx-glr-auto-openfpga-clock-tree-clock-tree-insertion-py"><span class="std std-ref">H-Tree insertion in FPGA Tilable grid</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text"><a class="reference internal" href="clock_tree/01_connection_patterns.html#sphx-glr-auto-openfpga-clock-tree-01-connection-patterns-py"><span class="std std-ref">Connection Pattern Generation</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to genrate different connection pattern for routing global signals..."><figure class="align-default" id="id6">
-<img alt="Connection Pattern Generation" src="../_images/sphx_glr_connection_patterns_thumb.png"/>
+<img alt="Create H-Tree Connectivity pattern" src="../_images/sphx_glr_02_create_htree_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text"><a class="reference internal" href="clock_tree/connection_patterns.html#sphx-glr-auto-openfpga-clock-tree-connection-patterns-py"><span class="std std-ref">Connection Pattern Generation</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text"><a class="reference internal" href="clock_tree/02_create_htree.html#sphx-glr-auto-openfpga-clock-tree-02-create-htree-py"><span class="std std-ref">Create H-Tree Connectivity pattern</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-thumbcontainer" tooltip=" .. hdl-diagram:: ../../../../examples/OpenFPGA/clock_tree/_square_grid_design.v    :type: netl..."><figure class="align-default" id="id7">
-<img alt="Create Clock Tree Embedding" src="../_images/sphx_glr_create_clock_tree_thumb.png"/>
+<img alt="Create Clock Tree Embedding" src="../_images/sphx_glr_03_create_clock_tree_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 14 </span><span class="caption-text"><a class="reference internal" href="clock_tree/create_clock_tree.html#sphx-glr-auto-openfpga-clock-tree-create-clock-tree-py"><span class="std std-ref">Create Clock Tree Embedding</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text"><a class="reference internal" href="clock_tree/03_create_clock_tree.html#sphx-glr-auto-openfpga-clock-tree-03-create-clock-tree-py"><span class="std std-ref">Create Clock Tree Embedding</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to insert H-Tree in tileable FPGA grid"><figure class="align-default" id="id8">
+<img alt="H-Tree insertion in FPGA Tilable grid" src="../_images/sphx_glr_04_clock_tree_insertion_thumb.png"/>
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text"><a class="reference internal" href="clock_tree/04_clock_tree_insertion.html#sphx-glr-auto-openfpga-clock-tree-04-clock-tree-insertion-py"><span class="std std-ref">H-Tree insertion in FPGA Tilable grid</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
@@ -336,26 +345,26 @@ features, and uses of SpyDrNet.</p>
 <section id="module-rendering-examples">
 <span id="sec-rendering"></span><span id="sphx-glr-auto-openfpga-rendering"></span><h2>Module Rendering Examples<a class="headerlink" href="#module-rendering-examples" title="Permalink to this headline">¶</a></h2>
 <p>A collection of examples to introduce the functionality, features, and uses of SpyDrNet.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="Properties on different objects"><figure class="align-default" id="id8">
+<div class="sphx-glr-thumbcontainer" tooltip="Properties on different objects"><figure class="align-default" id="id9">
 <img alt="Demonstrate how to render basic floorplan" src="../_images/sphx_glr_01_floorplan_rendering_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text"><a class="reference internal" href="rendering/01_floorplan_rendering.html#sphx-glr-auto-openfpga-rendering-01-floorplan-rendering-py"><span class="std std-ref">Demonstrate how to render basic floorplan</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how a switch box (SB) and connection box (CB) can be rendered in a SVG ..."><figure class="align-default" id="id9">
-<img alt="Rendering Switch and Connection Boxes" src="../_images/sphx_glr_02_render_routing_box_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 16 </span><span class="caption-text"><a class="reference internal" href="rendering/02_render_routing_box.html#sphx-glr-auto-openfpga-rendering-02-render-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text"><a class="reference internal" href="rendering/01_floorplan_rendering.html#sphx-glr-auto-openfpga-rendering-01-floorplan-rendering-py"><span class="std std-ref">Demonstrate how to render basic floorplan</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how a switch box (SB) and connection box (CB) can be rendered in a SVG ..."><figure class="align-default" id="id10">
+<img alt="Rendering Switch and Connection Boxes" src="../_images/sphx_glr_02_render_routing_box_thumb.png"/>
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text"><a class="reference internal" href="rendering/02_render_routing_box.html#sphx-glr-auto-openfpga-rendering-02-render-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how a switch box (SB) and connection box (CB) can be rendered in a SVG ..."><figure class="align-default" id="id11">
 <img alt="Rendering Switch and Connection Boxes" src="../_images/sphx_glr_03_render_edge_routing_box_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 17 </span><span class="caption-text"><a class="reference internal" href="rendering/03_render_edge_routing_box.html#sphx-glr-auto-openfpga-rendering-03-render-edge-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text"><a class="reference internal" href="rendering/03_render_edge_routing_box.html#sphx-glr-auto-openfpga-rendering-03-render-edge-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
@@ -364,50 +373,50 @@ features, and uses of SpyDrNet.</p>
 <section id="partition-examples">
 <span id="sec-partitions"></span><span id="sphx-glr-auto-openfpga-partition"></span><h2>Partition Examples<a class="headerlink" href="#partition-examples" title="Permalink to this headline">¶</a></h2>
 <p>A collection of examples to introduce the functionality, features, and uses of SpyDrNet.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to convert a netlist to a netowrkx graph."><figure class="align-default" id="id11">
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to convert a netlist to a netowrkx graph."><figure class="align-default" id="id12">
 <img alt="Netlist to graph (networkx)" src="../_images/sphx_glr_01_netlist_to_graph_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 18 </span><span class="caption-text"><a class="reference internal" href="partition/01_netlist_to_graph.html#sphx-glr-auto-openfpga-partition-01-netlist-to-graph-py"><span class="std std-ref">Netlist to graph (networkx)</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text"><a class="reference internal" href="partition/01_netlist_to_graph.html#sphx-glr-auto-openfpga-partition-01-netlist-to-graph-py"><span class="std std-ref">Netlist to graph (networkx)</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how pre-tech mapped netlist of connection box  can be partition based ..."><figure class="align-default" id="id12">
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how pre-tech mapped netlist of connection box  can be partition based ..."><figure class="align-default" id="id13">
 <img alt="Partition Conn Box 01" src="../_images/sphx_glr_02_switch_partition_01_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 19 </span><span class="caption-text"><a class="reference internal" href="partition/02_switch_partition_01.html#sphx-glr-auto-openfpga-partition-02-switch-partition-01-py"><span class="std std-ref">Partition Conn Box 01</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text"><a class="reference internal" href="partition/02_switch_partition_01.html#sphx-glr-auto-openfpga-partition-02-switch-partition-01-py"><span class="std std-ref">Partition Conn Box 01</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate, how a techmapped connection box can be split into  two parts."><figure class="align-default" id="id13">
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate, how a techmapped connection box can be split into  two parts."><figure class="align-default" id="id14">
 <img alt="Partition Conn Box 02" src="../_images/sphx_glr_03_switch_partition_02_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 20 </span><span class="caption-text"><a class="reference internal" href="partition/03_switch_partition_02.html#sphx-glr-auto-openfpga-partition-03-switch-partition-02-py"><span class="std std-ref">Partition Conn Box 02</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text"><a class="reference internal" href="partition/03_switch_partition_02.html#sphx-glr-auto-openfpga-partition-03-switch-partition-02-py"><span class="std std-ref">Partition Conn Box 02</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This is simplified script Partition Conn Box 02"><figure class="align-default" id="id14">
+<div class="sphx-glr-thumbcontainer" tooltip="This is simplified script Partition Conn Box 02"><figure class="align-default" id="id15">
 <img alt="Partition Conn Box 02 - Simplified" src="../_images/sphx_glr_04_switch_partition_03_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 21 </span><span class="caption-text"><a class="reference internal" href="partition/04_switch_partition_03.html#sphx-glr-auto-openfpga-partition-04-switch-partition-03-py"><span class="std std-ref">Partition Conn Box 02 - Simplified</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text"><a class="reference internal" href="partition/04_switch_partition_03.html#sphx-glr-auto-openfpga-partition-04-switch-partition-03-py"><span class="std std-ref">Partition Conn Box 02 - Simplified</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Given two set of channels, split all the CBs and SBs in the design  This script expects externa..."><figure class="align-default" id="id15">
+<div class="sphx-glr-thumbcontainer" tooltip="Given two set of channels, split all the CBs and SBs in the design  This script expects externa..."><figure class="align-default" id="id16">
 <img alt="Split CBs and SBs across fabric" src="../_images/sphx_glr_05_module_partition_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 22 </span><span class="caption-text"><a class="reference internal" href="partition/05_module_partition.html#sphx-glr-auto-openfpga-partition-05-module-partition-py"><span class="std std-ref">Split CBs and SBs across fabric</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text"><a class="reference internal" href="partition/05_module_partition.html#sphx-glr-auto-openfpga-partition-05-module-partition-py"><span class="std std-ref">Split CBs and SBs across fabric</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF..."><figure class="align-default" id="id16">
+<div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF..."><figure class="align-default" id="id17">
 <img alt="FPGA Tiles from OpenFPGA Verilog" src="../_images/sphx_glr_06_tile_creation_thumb.png"/>
 <figcaption>
-<p><span class="caption-number">Fig. 23 </span><span class="caption-text"><a class="reference internal" href="partition/06_tile_creation.html#sphx-glr-auto-openfpga-partition-06-tile-creation-py"><span class="std std-ref">FPGA Tiles from OpenFPGA Verilog</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text"><a class="reference internal" href="partition/06_tile_creation.html#sphx-glr-auto-openfpga-partition-06-tile-creation-py"><span class="std std-ref">FPGA Tiles from OpenFPGA Verilog</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </figcaption>
 </figure>
 </div><div class="toctree-wrapper compound">

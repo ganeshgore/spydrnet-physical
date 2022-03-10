@@ -224,9 +224,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/03_create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/04_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/01_floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/02_render_routing_box.html">Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/03_render_edge_routing_box.html">Rendering Switch and Connection Boxes</a></li>
@@ -295,19 +296,22 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.ConnectionPattern.__init__" title="spydrnet_physical.util.ConnectionPattern.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(sizex, sizey)</p></td>
 <td><p>Initialise FPGA parameters</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">auto_select</span></code>()</p></td>
-<td><p>Auto implements the global tree with crop and scale operations</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_fishbone</span></code>([x_margin, y_margin])</p></td>
-<td><p>Returns fishbone pattern for the given grid size</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_htree</span></code>([x_margin, y_margin])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_htree</span></code>([n])</p></td>
 <td><p>Returns HTree pattern fo the given grid size</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_pattern</span></code>([scale, title, add_module_labels])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">auto_select</span></code>()</p></td>
+<td><p>Auto implements the global tree with crop and scale operations</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_fishbone</span></code>([x_margin, y_margin])</p></td>
+<td><p>Returns fishbone pattern for the given grid size</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_htree</span></code>(size)</p></td>
+<td><p>Returns H-Tree of specific size</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_pattern</span></code>([scale, title, add_module_labels])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code>()</p></td>
 <td><p></p></td>
 </tr>
 </tbody>

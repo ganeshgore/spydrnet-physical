@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="360" version="1.1" viewBox="-20,-60,140,40" width="400">
-    <defs id="id16">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="140" version="1.1" viewBox="0,-110.0,100,140" width="100">
+    <defs id="id18">
         <style type="text/css"><![CDATA[
                 text{font-family: Verdana;}
+                svgg{background-color:grey;}
                 .connection{stroke: black; stroke-linecap:round; opacity: 0.7;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
-                #core_boundary{stroke:grey; stroke_width:0.5;}
+                # core_boundary{stroke:grey; stroke_width:0.5;}
                 .gridmarker{stroke:red; stroke_width:0.5;}
                 ]]></style>
-        <marker id="id15" markerHeight="10" markerUnits="strokeWidth" markerWidth="8" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
+        <marker id="id17" markerHeight="10" markerUnits="strokeWidth" markerWidth="8" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
             <path d="M 0 0 L 60 30 L 0 60 z" fill="blue"/>
         </marker>
     </defs>
@@ -26,22 +27,22 @@
         <line class="gridmarker" x1="10.0" x2="90.0" y1="90.0" y2="90.0"/>
     </g>
     <g id="main" transform="scale(1,-1)">
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="40" y1="0" y2="20"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="60" y1="20" y2="20"/>
-        <line class="connection" marker-end="url(#id15)" x1="60" x2="80" y1="20" y2="20"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="20" y1="20" y2="20"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="40" y1="20" y2="40"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="60" y1="40" y2="40"/>
-        <line class="connection" marker-end="url(#id15)" x1="60" x2="80" y1="40" y2="40"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="20" y1="40" y2="40"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="40" y1="40" y2="60"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="60" y1="60" y2="60"/>
-        <line class="connection" marker-end="url(#id15)" x1="60" x2="80" y1="60" y2="60"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="20" y1="60" y2="60"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="40" y1="60" y2="80"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="60" y1="80" y2="80"/>
-        <line class="connection" marker-end="url(#id15)" x1="60" x2="80" y1="80" y2="80"/>
-        <line class="connection" marker-end="url(#id15)" x1="40" x2="20" y1="80" y2="80"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="40" y1="0" y2="20"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="60" y1="20" y2="20"/>
+        <line class="connection" marker-end="url(#id17)" x1="60" x2="80" y1="20" y2="20"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="20" y1="20" y2="20"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="40" y1="20" y2="40"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="60" y1="40" y2="40"/>
+        <line class="connection" marker-end="url(#id17)" x1="60" x2="80" y1="40" y2="40"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="20" y1="40" y2="40"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="40" y1="40" y2="60"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="60" y1="60" y2="60"/>
+        <line class="connection" marker-end="url(#id17)" x1="60" x2="80" y1="60" y2="60"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="20" y1="60" y2="60"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="40" y1="60" y2="80"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="60" y1="80" y2="80"/>
+        <line class="connection" marker-end="url(#id17)" x1="60" x2="80" y1="80" y2="80"/>
+        <line class="connection" marker-end="url(#id17)" x1="40" x2="20" y1="80" y2="80"/>
         <g id="text">
             <text alignment-baseline="middle" class="moduleLabel" fill="black" font-size="8.0" text-anchor="middle" transform="scale(1,-1)" x="50.0" y="10.0">Merging option</text>
         </g>

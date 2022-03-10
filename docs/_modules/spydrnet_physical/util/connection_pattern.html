@@ -223,9 +223,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/initial_placement.html">Creating FPGA Tiles from OpenFPGA verilog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/03_create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/04_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/01_floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/02_render_routing_box.html">Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/03_render_edge_routing_box.html">Rendering Switch and Connection Boxes</a></li>
@@ -282,6 +283,7 @@
 <span class="sd">'''</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">move</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
@@ -412,6 +414,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span> <span class="o">=</span> <span class="n">sizey</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ConnectPoint</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">point</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_connect_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
 
@@ -438,13 +441,21 @@
         <span class="sd">''' returns y location of cursor '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
+    <span class="k">def</span> <span class="nf">hold_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Holds the cursor at current position '''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">release_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Rleases cursor and moves with each point addition '''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span> <span class="o">=</span> <span class="kc">True</span>
+
     <span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"H"</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">""" Flips all the points horizontally or vertically"""</span>
         <span class="k">raise</span> <span class="bp">NotImplemented</span>
 
     <span class="k">def</span> <span class="nf">sample_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_distance</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">''' This method splits all the connections longer that ``max_distance`` to </span>
-<span class="sd">        at max ``max_distance`` length </span>
+        <span class="sd">''' This method splits all the connections longer that ``max_distance`` to</span>
+<span class="sd">        at max ``max_distance`` length</span>
 <span class="sd">        '''</span>
         <span class="n">cursor_backup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
         <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">):</span>
@@ -484,10 +495,12 @@
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="n">point</span><span class="o">.</span><span class="n">scale_connection</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">anchor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="n">point</span><span class="o">.</span><span class="n">translate_connection</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">270</span><span class="p">,</span> <span class="s1">'CW'</span><span class="p">,</span> <span class="s1">'ACW'</span><span class="p">)</span>
@@ -523,7 +536,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
 
     <span class="k">def</span> <span class="nf">_update_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_connection</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_connection</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -557,21 +571,22 @@
 <span class="sd">        '''</span>
         <span class="n">sizex</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">max</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span>
         <span class="n">sizey</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">max</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span>
-
-        <span class="n">dwg</span> <span class="o">=</span> <span class="n">svgwrite</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="s2">"_render.svg"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span>
-            <span class="p">((</span><span class="n">sizex</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">scale</span><span class="p">),</span>
-            <span class="p">((</span><span class="n">sizey</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="n">sizey</span><span class="o">+</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">)))</span>
-        <span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">scale</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="n">sizey</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">,</span>
-                    <span class="p">(</span><span class="n">sizex</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">,</span> <span class="p">(</span><span class="n">sizey</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">)</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">sizex</span><span class="o">*</span><span class="n">scale</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">sizey</span><span class="o">*</span><span class="n">scale</span>
+        <span class="n">x_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">y_offset</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">height</span>
+        <span class="n">dwg</span> <span class="o">=</span> <span class="n">svgwrite</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="s2">"_render.svg"</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+        <span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
 
         <span class="n">dwgMarker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"markers"</span><span class="p">,</span>  <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">))</span>
         <span class="n">dwgMain</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"main"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">))</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"""</span>
 <span class="s2">                text{font-family: Verdana;}</span>
+<span class="s2">                svgg{background-color:grey;}</span>
 <span class="s2">                .connection{stroke: black; stroke-linecap:round; opacity: 0.7;}</span>
 <span class="s2">                span{text-anchor: "middle"; alignment_baseline: "middle"}</span>
 <span class="s2">                .gridLabels{fill: grey;font-style: italic;font-weight: 900}</span>
-<span class="s2">                #core_boundary{stroke:grey; stroke_width:0.5;}</span>
+<span class="s2">                # core_boundary{stroke:grey; stroke_width:0.5;}</span>
 <span class="s2">                .gridmarker{stroke:red; stroke_width:0.5;}</span>
 <span class="s2">                """</span><span class="p">))</span>
         <span class="n">DRMarker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">refX</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span> <span class="n">refY</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span>
@@ -726,11 +741,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ybias</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="n">sizex</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="n">sizey</span><span class="p">)</span></div>
 
-    <span class="nd">@property</span>
+    <span class="o">@</span> <span class="nb">property</span>
     <span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span>
 
-    <span class="nd">@connections</span><span class="o">.</span><span class="n">setter</span>
+    <span class="o">@</span> <span class="n">connections</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span>
@@ -739,7 +754,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">,</span>
                                          <span class="n">sizey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">)</span>
 
-    <span class="nd">@staticmethod</span>
+    <span class="o">@</span> <span class="nb">staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_prime_factors</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
         <span class="n">prime_factors</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">while</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -760,11 +775,44 @@
 <span class="sd">        '''</span>
         <span class="ne">NotImplementedError</span>
 
-    <span class="k">def</span> <span class="nf">get_htree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">y_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_htree</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+        <span class="sd">''' Returns H-Tree of specific size '''</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">size</span> <span class="k">if</span> <span class="n">size</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">else</span> <span class="p">(</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">move_x</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mid</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">hold_cursor</span><span class="p">()</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mid</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mid</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">points</span><span class="o">.</span><span class="n">release_cursor</span><span class="p">()</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">move_x</span><span class="p">(</span><span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mid</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">hold_cursor</span><span class="p">()</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mid</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">points</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mid</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">points</span>
+
+    <span class="k">def</span> <span class="nf">add_htree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Returns HTree pattern fo the given grid size</span>
 <span class="sd">        '''</span>
-        <span class="ne">NotImplementedError</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"Support only (2^n)+1 width"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span>
+
+        <span class="n">dev_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">dev_size</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="o">*</span><span class="mi">2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span>
+        <span class="c1"># points = self._connect</span>
+        <span class="c1"># x_center = ((self.sizex+1)*0.5)</span>
+        <span class="c1"># y_center = ((self.sizey+1)*0.5)</span>
+        <span class="c1"># print(x_center, y_center)</span>
 
     <span class="k">def</span> <span class="nf">get_fishbone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">y_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
         <span class="sd">'''</span>
@@ -843,8 +891,15 @@
                              <span class="n">font_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="o">*</span><span class="n">scale</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span>
                              <span class="n">alignment_baseline</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">,</span>
                              <span class="n">text_anchor</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">))</span>
-        <span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">scale</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">,</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span><span class="p">)</span>
+
+        <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="o">*</span><span class="n">scale</span> <span class="o">+</span> <span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="o">*</span><span class="n">scale</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">scale</span><span class="p">)</span>
+        <span class="n">x_offset</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">y_offset</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">height</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.5</span><span class="o">*</span><span class="n">scale</span><span class="p">)</span>
+        <span class="n">dwg</span><span class="p">[</span><span class="s2">"width"</span><span class="p">]</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="n">dwg</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span>
+        <span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">dwg</span></div>
 
 
