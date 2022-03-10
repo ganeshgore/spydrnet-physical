@@ -7,7 +7,7 @@ This example demonstrate how to genrate different connection pattern
 for routing global signals. By default this library support basic fishbone
 and HTree patterns, which can be extended to create desired connectivity
 usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``, 
-``scale`` and `sample`
+``scale`` and ``sample``
 
 
 **Output**
@@ -93,7 +93,6 @@ svg.saveas("_fishbone_pattern_scaling2.svg", pretty=True, indent=4)
 # ===============================
 #        Sampling Example
 # ===============================
-
 right_tree.sample_connections()
 svg = p_manager.render_pattern(title="Scale and Sample")
 svg.saveas("_fishbone_pattern_sampling.svg", pretty=True, indent=4)
