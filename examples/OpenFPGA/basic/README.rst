@@ -3,6 +3,5 @@
 Basic Examples  
 ===============
 
-A collection of examples to introduce the functionality, features, and uses of SpyDrNet.
-
-
+A collection of examples introduces the functionality and features, SpyDrNet-Physical library.
+ 

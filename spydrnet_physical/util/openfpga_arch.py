@@ -21,7 +21,7 @@ class OpenFPGA_Arch:
     def _get_pb_types(self):
         return [pb.get('name') for pb in self.vpr_arch.findall("./complexblocklist/pb_type")]
 
-    def get_layout(self):
+    def get_layouts(self):
         '''
         Returns available layouts in the architecture
         '''
@@ -33,7 +33,7 @@ class OpenFPGA_Arch:
 
     def is_homogeneous(self):
         """
-        Checks if
+        Checks if the device is homogeneous device or heterogenous
         """
         layout = self.vpr_arch.find("layout").findall("fixed_layout")[0]
         print(layout.findall("clb"))

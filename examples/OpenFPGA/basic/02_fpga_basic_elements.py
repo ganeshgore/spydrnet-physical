@@ -3,8 +3,9 @@
 Render FPGA Basic Elements
 ===========================
 
-This example demonstate how to create a tile strcuture from
-Verilog netlist obtained from OpenFPGA
+This example demonstates, how to render primitive FPGA elements using yosys 
+and `netlistSVG <https://github.com/nturley/netlistsvg>`_ program.
+This sexample also demonstrates the use of ``OpenFPGA`` class.
 
 .. hdl-diagram:: ../../../../examples/OpenFPGA/basic/_includes.v
    :type: netlistsvg
@@ -28,6 +29,9 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 def main():
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    #               Reading homogeneous 4x4 FPGA netlist
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     proj = "../homogeneous_fabric"
     source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
     source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
@@ -44,6 +48,7 @@ def main():
         fp.seek(0)
         netlist = sdn.parse(fp.name)
 
+    # Create OpenFPGA object
     fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
 
     # Convert wires to bus structure
@@ -70,23 +75,28 @@ def main():
 
     fpga.create_grid_clb_feedthroughs()
 
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    #                   Start rendering CBX11
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     cbx11 = next(fpga.library.get_definitions("cbx_1__1_"))
+    # Remove configuration elements
     for instance in list(cbx11.get_instances("*mem*")):
         cbx11.remove_child(instance)
 
     fpga.save_netlist("cbx_1__1_", "./_tmp")
 
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    #              Create include files to render
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # Create include file to render schematic usign yosys
+    cust_proj = f"{proj}/FPGA44_Task/CustomModules"
+    veri_proj = f"{proj}/FPGA44_Verilog"
     with open("_includes.v", "w") as fp:
         fp.write('`include "./_tmp/cbx_1__1_.v"\n')
-        fp.write(
-            f'`include "{proj}/FPGA44_Task/CustomModules/standard_cell_primitives.v"\n')
-        fp.write(
-            f'`include "{proj}/FPGA44_Verilog/sub_module/muxes.v"\n')
-        fp.write(
-            f'`include "{proj}/FPGA44_Verilog/sub_module/memories.v"\n')
-        fp.write(
-            f'`include "{proj}/FPGA44_Verilog/sub_module/inv_buf_passgate.v"\n')
+        fp.write(f'`include "{cust_proj}/standard_cell_primitives.v"\n')
+        fp.write(f'`include "{veri_proj}/sub_module/muxes.v"\n')
+        fp.write(f'`include "{veri_proj}/sub_module/memories.v"\n')
+        fp.write(f'`include "{veri_proj}/sub_module/inv_buf_passgate.v"\n')
 
 
 if __name__ == "__main__":
