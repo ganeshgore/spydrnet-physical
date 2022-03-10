@@ -276,7 +276,8 @@ to download the full example code</p>
 <p>This example demonstrate how to genrate different connection pattern
 for routing global signals. By default this library support basic fishbone
 and HTree patterns, which can be extended to create desired connectivity
-usng transformations like <code class="docutils literal notranslate"><span class="pre">rotate</span></code>, <code class="docutils literal notranslate"><span class="pre">transalate</span></code>, <code class="docutils literal notranslate"><span class="pre">margin</span></code>, <code class="docutils literal notranslate"><span class="pre">merge</span></code>, and <code class="docutils literal notranslate"><span class="pre">scale</span></code></p>
+usng transformations like <code class="docutils literal notranslate"><span class="pre">rotate</span></code>, <code class="docutils literal notranslate"><span class="pre">transalate</span></code>, <code class="docutils literal notranslate"><span class="pre">margin</span></code>, <code class="docutils literal notranslate"><span class="pre">merge</span></code>,
+<code class="docutils literal notranslate"><span class="pre">scale</span></code> and <cite>sample</cite></p>
 <p><strong>Output</strong></p>
 <a class="reference internal image-reference" href="../../_images/_fishbone_pattern.svg"><img alt="../../_images/_fishbone_pattern.svg" src="../../_images/_fishbone_pattern.svg" width="200px"/></a>
 <a class="reference internal image-reference" href="../../_images/_fishbone_pattern_90.svg"><img alt="../../_images/_fishbone_pattern_90.svg" src="../../_images/_fishbone_pattern_90.svg" width="200px"/></a>
@@ -284,6 +285,7 @@ usng transformations like <code class="docutils literal notranslate"><span class
 <a class="reference internal image-reference" href="../../_images/_fishbone_pattern_merging.svg"><img alt="../../_images/_fishbone_pattern_merging.svg" src="../../_images/_fishbone_pattern_merging.svg" width="200px"/></a>
 <a class="reference internal image-reference" href="../../_images/_fishbone_pattern_scaling1.svg"><img alt="../../_images/_fishbone_pattern_scaling1.svg" src="../../_images/_fishbone_pattern_scaling1.svg" width="200px"/></a>
 <a class="reference internal image-reference" href="../../_images/_fishbone_pattern_scaling2.svg"><img alt="../../_images/_fishbone_pattern_scaling2.svg" src="../../_images/_fishbone_pattern_scaling2.svg" width="200px"/></a>
+<a class="reference internal image-reference" href="../../_images/_fishbone_pattern_sampling.svg"><img alt="../../_images/_fishbone_pattern_sampling.svg" src="../../_images/_fishbone_pattern_sampling.svg" width="200px"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spydrnet_physical.util.connection_pattern</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span>
 
 <span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -338,9 +340,17 @@ usng transformations like <code class="docutils literal notranslate"><span class
 <span class="n">right_tree</span><span class="o">.</span><span class="n">crop_edges</span><span class="p">()</span>
 <span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Scale and Merge"</span><span class="p">)</span>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_scaling2.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># ===============================</span>
+<span class="c1">#        Sampling Example</span>
+<span class="c1"># ===============================</span>
+
+<span class="n">right_tree</span><span class="o">.</span><span class="n">sample_connections</span><span class="p">()</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Scale and Sample"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_sampling.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.026 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.034 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-connection-patterns-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e28fb3868731c581665f2237ecb0ddd8/connection_patterns.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">connection_patterns.py</span></code></a></p>

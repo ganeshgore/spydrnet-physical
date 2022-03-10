@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="400" version="1.1" viewBox="-20,-100,180,80" width="420">
-    <defs id="id12">
+    <defs id="id14">
         <style type="text/css"><![CDATA[
                 text{font-family: Verdana;}
                 .connection{stroke: black; stroke-linecap:round; opacity: 0.7;}
@@ -9,7 +9,7 @@
                 #core_boundary{stroke:grey; stroke_width:0.5;}
                 .gridmarker{stroke:red; stroke_width:0.5;}
                 ]]></style>
-        <marker id="id11" markerHeight="10" markerUnits="strokeWidth" markerWidth="8" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
+        <marker id="id13" markerHeight="10" markerUnits="strokeWidth" markerWidth="8" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
             <path d="M 0 0 L 60 30 L 0 60 z" fill="blue"/>
         </marker>
     </defs>
@@ -30,17 +30,25 @@
         <line class="gridmarker" x1="10.0" x2="130.0" y1="130.0" y2="130.0"/>
     </g>
     <g id="main" transform="scale(1,-1)">
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="60" y1="0" y2="20"/>
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="100" y1="20" y2="20"/>
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="20" y1="20" y2="20"/>
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="60" y1="20" y2="60"/>
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="100" y1="60" y2="60"/>
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="20" y1="60" y2="60"/>
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="60" y1="60" y2="100"/>
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="100" y1="100" y2="100"/>
-        <line class="connection" marker-end="url(#id11)" x1="60" x2="20" y1="100" y2="100"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="60" y1="0" y2="20"/>
+        <line class="connection" marker-end="url(#id13)" x1="80" x2="100" y1="20" y2="20"/>
+        <line class="connection" marker-end="url(#id13)" x1="40" x2="20" y1="20" y2="20"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="60" y1="40" y2="60"/>
+        <line class="connection" marker-end="url(#id13)" x1="80" x2="100" y1="60" y2="60"/>
+        <line class="connection" marker-end="url(#id13)" x1="40" x2="20" y1="60" y2="60"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="60" y1="80" y2="100"/>
+        <line class="connection" marker-end="url(#id13)" x1="80" x2="100" y1="100" y2="100"/>
+        <line class="connection" marker-end="url(#id13)" x1="40" x2="20" y1="100" y2="100"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="80" y1="20" y2="20"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="40" y1="20" y2="20"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="60" y1="20" y2="40"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="80" y1="60" y2="60"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="40" y1="60" y2="60"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="60" y1="60" y2="80"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="80" y1="100" y2="100"/>
+        <line class="connection" marker-end="url(#id13)" x1="60" x2="40" y1="100" y2="100"/>
         <g id="text">
-            <text alignment-baseline="middle" class="moduleLabel" fill="black" font-size="12.0" text-anchor="middle" transform="scale(1,-1)" x="70.0" y="10.0">Scale and Merge</text>
+            <text alignment-baseline="middle" class="moduleLabel" fill="black" font-size="12.0" text-anchor="middle" transform="scale(1,-1)" x="70.0" y="10.0">Scale and Sample</text>
         </g>
     </g>
 </svg>
