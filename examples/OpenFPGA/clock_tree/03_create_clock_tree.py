@@ -18,14 +18,10 @@ Create Clock Tree Embedding
     :align: center
 
 '''
-# .. hdl-diagram:: ../../../../examples/OpenFPGA/_feedthrough_design.v
-#    :type: netlistsvg
-#    :align: center
-#    :module: top
 
 from os import path
 import spydrnet as sdn
-from spydrnet_physical.util.connection_pattern import ConnectionPattern
+from spydrnet_physical.util import ConnectionPattern
 import spydrnet_physical as sdnphy
 from spydrnet_physical.ir.definition import Definition
 from pprint import pp, pprint

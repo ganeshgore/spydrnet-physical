@@ -35,7 +35,7 @@ usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``,
 
 """
 
-from spydrnet_physical.util.connection_pattern import ConnectionPattern
+from spydrnet_physical.util import ConnectionPattern
 
 p_manager = ConnectionPattern(5, 5)
 fishbone_pattern = p_manager.get_fishbone()
@@ -83,7 +83,7 @@ svg = p_manager.render_pattern(title="Original")
 svg.saveas("_fishbone_pattern_scaling1.svg", pretty=True, indent=4)
 left_tree.scale(2, anchor=(1, 1))
 
-p_manager = ConnectionPattern(6, 6)
+p_manager = ConnectionPattern(5, 5)
 right_tree = p_manager.connections
 right_tree.merge(left_tree)
 right_tree.crop_edges()

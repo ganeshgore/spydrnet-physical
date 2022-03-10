@@ -14,6 +14,7 @@ None, None : Right
 '''
 import math
 from copy import deepcopy
+from shutil import move
 from typing import List
 
 import spydrnet as sdn
@@ -144,6 +145,7 @@ class ConnectPointList:
         self.sizey = sizey
         self._points: List[ConnectPoint] = []
         self._cursor = []
+        self._cursor_state = True
         if point:
             self.add_connect_point(point)
 
@@ -170,13 +172,21 @@ class ConnectPointList:
         ''' returns y location of cursor '''
         return self._cursor[1]
 
+    def hold_cursor(self):
+        ''' Holds the cursor at current position '''
+        self._cursor_state = False
+
+    def release_cursor(self):
+        ''' Rleases cursor and moves with each point addition '''
+        self._cursor_state = True
+
     def flip(self, orientation="H", base=None):
         """ Flips all the points horizontally or vertically"""
         raise NotImplemented
 
     def sample_connections(self, max_distance=1):
-        ''' This method splits all the connections longer that ``max_distance`` to 
-        at max ``max_distance`` length 
+        ''' This method splits all the connections longer that ``max_distance`` to
+        at max ``max_distance`` length
         '''
         cursor_backup = self.cursor
         for indx, each in enumerate(self._points):
@@ -216,10 +226,12 @@ class ConnectPointList:
     def scale(self, scale, anchor=(0, 0)):
         for point in self._points:
             point.scale_connection(scale, anchor)
+        return self
 
     def translate(self, x, y):
         for point in self._points:
             point.translate_connection(x, y)
+        return self
 
     def rotate(self, angle=0):
         angles = (0, 90, 180, 270, -90, -180, -270, 'CW', 'ACW')
@@ -255,7 +267,8 @@ class ConnectPointList:
         return self.cursor
 
     def _update_cursor(self):
-        self._cursor = self._points[-1].to_connection
+        if self._cursor_state:
+            self._cursor = self._points[-1].to_connection
         return self.cursor
 
     def __str__(self):
@@ -289,21 +302,22 @@ class ConnectPointList:
         '''
         sizex = max([max(x1, x2) for x1, y1, x2, y2 in self._points])+1
         sizey = max([max(y1, y2) for x1, y1, x2, y2 in self._points])+1
-
-        dwg = svgwrite.Drawing("_render.svg", size=(
-            ((sizex+10)*scale)+(5*scale),
-            ((sizey+4)*scale)+(1*(sizey+4)*scale)))
-        dwg.viewbox(-5*scale, -1*(sizey+10)*scale,
-                    (sizex+10)*scale, (sizey+10)*scale)
+        width = sizex*scale
+        height = sizey*scale
+        x_offset = 0
+        y_offset = -1*height
+        dwg = svgwrite.Drawing("_render.svg", size=(width, height))
+        dwg.viewbox(x_offset, y_offset, width, height)
 
         dwgMarker = dwg.add(Group(id="markers",  transform="scale(1,-1)"))
         dwgMain = dwg.add(Group(id="main", transform="scale(1,-1)"))
         dwg.defs.add(dwg.style("""
                 text{font-family: Verdana;}
+                svgg{background-color:grey;}
                 .connection{stroke: black; stroke-linecap:round; opacity: 0.7;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
-                #core_boundary{stroke:grey; stroke_width:0.5;}
+                # core_boundary{stroke:grey; stroke_width:0.5;}
                 .gridmarker{stroke:red; stroke_width:0.5;}
                 """))
         DRMarker = dwg.marker(refX="30", refY="30",
@@ -458,11 +472,11 @@ class ConnectionPattern:
         self.ybias = 0
         self._connect = ConnectPointList(sizex=sizex, sizey=sizey)
 
-    @property
+    @ property
     def connections(self):
         return self._connect
 
-    @connections.setter
+    @ connections.setter
     def connections(self, value):
         self._connect = value
         return self._connect
@@ -471,7 +485,7 @@ class ConnectionPattern:
         self._connect = ConnectPointList(sizex=self.sizex,
                                          sizey=self.sizey)
 
-    @staticmethod
+    @ staticmethod
     def _get_prime_factors(number):
         prime_factors = []
         while number % 2 == 0:
@@ -492,11 +506,44 @@ class ConnectionPattern:
         '''
         NotImplementedError
 
-    def get_htree(self, x_margin=(0, 0), y_margin=(0, 0)):
+    @staticmethod
+    def get_htree(size):
+        ''' Returns H-Tree of specific size '''
+        points = ConnectPointList(sizex=size, sizey=size)
+        size = size if size % 2 else (size-1)
+        mid = (size+1)/2
+        points.cursor = (mid, mid)
+        points.move_x(value=1, steps=int(mid/2))
+        points.hold_cursor()
+        points.move_y(value=1, steps=int(mid/2))
+        points.move_y(value=-1, steps=int(mid/2))
+
+        points.release_cursor()
+        points.cursor = (mid, mid)
+        points.move_x(value=-1, steps=int(mid/2))
+        points.hold_cursor()
+        points.move_y(value=1, steps=int(mid/2))
+        points.move_y(value=-1, steps=int(mid/2))
+        return points
+
+    def add_htree(self, n=3):
         '''
         Returns HTree pattern fo the given grid size
         '''
-        NotImplementedError
+        assert (math.log2(n-1) % 1) == 0, "Support only (2^n)+1 width"
+        self._connect.merge(self.get_htree(n))
+        return self._connect
+
+        dev_size = min(self.sizex, self.sizey)
+        while n < dev_size:
+            print(n)
+            n = n*2
+            self.get_fishbone()
+        return self._connect
+        # points = self._connect
+        # x_center = ((self.sizex+1)*0.5)
+        # y_center = ((self.sizey+1)*0.5)
+        # print(x_center, y_center)
 
     def get_fishbone(self, x_margin=(0, 0), y_margin=(0, 0)):
         '''
@@ -575,8 +622,15 @@ class ConnectionPattern:
                              font_size=self.sizey*scale*0.1,
                              alignment_baseline="middle",
                              text_anchor="middle"))
-        dwg.viewbox(-1*scale, -1*(self.sizey-1)*scale,
-                    (self.sizex+3)*scale, (self.sizey-2)*scale)
+
+        width = self.sizex*scale + (scale)
+        height = self.sizey*scale + (3*scale)
+        x_offset = 0
+        y_offset = -1*height + (1.5*scale)
+        dwg["width"] = width
+        dwg["height"] = height
+        dwg.viewbox(x_offset, y_offset, width, height)
+
         return dwg
 
 
