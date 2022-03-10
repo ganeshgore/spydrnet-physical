@@ -281,7 +281,7 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir.definition</span> <span class="kn">import</span> <span class="n">Definition</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">initial_placement</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">initial_placement</span><span class="p">,</span> <span class="n">get_names</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 
@@ -430,6 +430,20 @@
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_str</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">inst_cnt</span></div>
+
+    <span class="k">def</span> <span class="nf">remove_direct_interc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">direct_interc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"direct_*"</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">direct_interc</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">ports</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">:</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">direct_interc</span><span class="o">.</span><span class="n">get_ports</span><span class="p">()}</span>
+        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"direct_interc_*"</span><span class="p">)):</span>
+            <span class="n">wire_from</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">ports</span><span class="p">[</span><span class="s2">"in"</span><span class="p">]</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">wire</span>
+            <span class="n">wire_to</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">ports</span><span class="p">[</span><span class="s2">"out"</span><span class="p">]</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">wire</span>
+            <span class="k">for</span> <span class="n">eachpin</span> <span class="ow">in</span> <span class="n">wire_to</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                <span class="n">wire_to</span><span class="o">.</span><span class="n">disconnect_pin</span><span class="p">(</span><span class="n">eachpin</span><span class="p">)</span>
+                <span class="n">wire_from</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">eachpin</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">remove_child</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+
 
 <div class="viewcode-block" id="OpenFPGA.merge_all_grid_ios"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.merge_all_grid_ios">[docs]</a>    <span class="k">def</span> <span class="nf">merge_all_grid_ios</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
