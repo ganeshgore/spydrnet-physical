@@ -3,7 +3,7 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="H-Tree insertion in FPGA Tilable grid" href="04_clock_tree_insertion.html" /><link rel="prev" title="Create H-Tree Connectivity pattern" href="02_create_htree.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="H-Tree insertion in FPGA Tilable grid" href="05_clock_tree_insertion.html" /><link rel="prev" title="Create Hybrid Connectivity Pattern" href="03_create_htree.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Create Clock Tree Embedding - SpyDrNet-Physical alpha documentation</title>
@@ -226,8 +226,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_create_htree.html">Create Hybrid Connectivity Pattern</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/01_floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/02_render_routing_box.html">Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/03_render_edge_routing_box.html">Rendering Switch and Connection Boxes</a></li>
@@ -269,12 +270,12 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-clock-tree-03-create-clock-tree-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-clock-tree-04-create-clock-tree-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="create-clock-tree-embedding">
-<span id="sphx-glr-auto-openfpga-clock-tree-03-create-clock-tree-py"></span><h1>Create Clock Tree Embedding<a class="headerlink" href="#create-clock-tree-embedding" title="Permalink to this headline">¶</a></h1>
-<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v" src="../../_images/03_create_clock_tree-30-..-examples-OpenFPGA-clock_tree-_square_grid_design.svg"/>
+<span id="sphx-glr-auto-openfpga-clock-tree-04-create-clock-tree-py"></span><h1>Create Clock Tree Embedding<a class="headerlink" href="#create-clock-tree-embedding" title="Permalink to this headline">¶</a></h1>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/clock_tree/_square_grid_design.v" src="../../_images/04_create_clock_tree-30-..-examples-OpenFPGA-clock_tree-_square_grid_design.svg"/>
 </div>
 <a class="reference internal image-reference" href="../../_images/_fishbone_pattern_0.svg"><img alt="../../_images/_fishbone_pattern_0.svg" class="align-center" src="../../_images/_fishbone_pattern_0.svg" width="300px"/></a>
 <a class="reference internal image-reference" href="../../_images/_clock_tree_floorplan.svg"><img alt="../../_images/_clock_tree_floorplan.svg" class="align-center" src="../../_images/_clock_tree_floorplan.svg" width="500px"/></a>
@@ -441,13 +442,13 @@ to download the full example code</p>
 <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_clock_tree_floorplan.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.051 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-03-create-clock-tree-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.049 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-04-create-clock-tree-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/505623b318272147c3416a626c9697df/03_create_clock_tree.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_create_clock_tree.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/08f9f07719e83bc206291e8f71ccb10a/04_create_clock_tree.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_create_clock_tree.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/4ae2a7c1bbe0964a93d8e43bfebacf04/03_create_clock_tree.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_create_clock_tree.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/44fb55bb43b47b3fd4613d7c8fa1d8b5/04_create_clock_tree.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_create_clock_tree.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -458,7 +459,7 @@ to download the full example code</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="04_clock_tree_insertion.html">
+          <a class="next-page" href="05_clock_tree_insertion.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
@@ -467,14 +468,14 @@ to download the full example code</p>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="02_create_htree.html">
+          <a class="prev-page" href="03_create_htree.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Create H-Tree Connectivity pattern</div>
+                <div class="title">Create Hybrid Connectivity Pattern</div>
                 
               </div>
             </a>
@@ -486,7 +487,7 @@ to download the full example code</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/auto_openfpga/clock_tree/03_create_clock_tree.rst.txt"
+            <a class="muted-link" href="../../_sources/auto_openfpga/clock_tree/04_create_clock_tree.rst.txt"
                rel="nofollow">
               Show Source
             </a>

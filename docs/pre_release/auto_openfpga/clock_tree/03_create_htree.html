@@ -3,10 +3,10 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Demonstrate how to render basic floorplan" href="../rendering/01_floorplan_rendering.html" /><link rel="prev" title="Create Clock Tree Embedding" href="03_create_clock_tree.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Create Clock Tree Embedding" href="04_create_clock_tree.html" /><link rel="prev" title="Create H-Tree Connectivity pattern" href="02_create_htree.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>H-Tree insertion in FPGA Tilable grid - SpyDrNet-Physical alpha documentation</title>
+        <title>Create Hybrid Connectivity Pattern - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -226,8 +226,9 @@
 <li class="toctree-l3"><a class="reference internal" href="../basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03_create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/01_floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/02_render_routing_box.html">Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/03_render_edge_routing_box.html">Rendering Switch and Connection Boxes</a></li>
@@ -269,34 +270,53 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-clock-tree-04-clock-tree-insertion-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-clock-tree-03-create-htree-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="h-tree-insertion-in-fpga-tilable-grid">
-<span id="sphx-glr-auto-openfpga-clock-tree-04-clock-tree-insertion-py"></span><h1>H-Tree insertion in FPGA Tilable grid<a class="headerlink" href="#h-tree-insertion-in-fpga-tilable-grid" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstrates how to insert H-Tree in tileable FPGA grid</p>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NotImplemented
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+<section class="sphx-glr-example-title" id="create-hybrid-connectivity-pattern">
+<span id="sphx-glr-auto-openfpga-clock-tree-03-create-htree-py"></span><h1>Create Hybrid Connectivity Pattern<a class="headerlink" href="#create-hybrid-connectivity-pattern" title="Permalink to this headline">¶</a></h1>
+<p>This example demostrate how to create hybrid connetivity pattern for any
+arbitrary (non square ) tiles.</p>
+<p><strong>Output</strong></p>
+<a class="reference internal image-reference" href="../../_images/_hybrid_connectivity_pattern.svg"><img alt="../../_images/_hybrid_connectivity_pattern.svg" class="align-center" src="../../_images/_hybrid_connectivity_pattern.svg" width="500px"/></a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span>
 
-<span class="c1"># TODO</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"NotImplemented"</span><span class="p">)</span>
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">19</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="n">cpat</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">)</span>
+<span class="n">hyb_pat</span> <span class="o">=</span> <span class="n">cpat</span><span class="o">.</span><span class="n">connections</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="n">WIDTH</span><span class="o">-</span><span class="n">HEIGHT</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">hyb_pat</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">hyb_pat</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">WIDTH</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">hyb_pat</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">((</span><span class="n">HEIGHT</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="p">((</span><span class="n">HEIGHT</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span> <span class="o">==</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">hyb_pat</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">((</span><span class="n">HEIGHT</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="p">((</span><span class="n">HEIGHT</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">hyb_pat</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">hyb_pat</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">svg</span> <span class="o">=</span> <span class="n">cpat</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Hybrid Pattern"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_hybrid_connectivity_pattern.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.001 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-04-clock-tree-insertion-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.033 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-03-create-htree-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/a5a3daff075214e4b598490387cc0333/04_clock_tree_insertion.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_clock_tree_insertion.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/7fd72747e3bce38e621819500c8aa7a4/03_create_htree.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_create_htree.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/71119419e689d961a64a25795105f064/04_clock_tree_insertion.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_clock_tree_insertion.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/2a0745f9d584b1f7689574d965b99ab3/03_create_htree.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_create_htree.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -307,23 +327,23 @@ to download the full example code</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../rendering/01_floorplan_rendering.html">
+          <a class="next-page" href="04_create_clock_tree.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Demonstrate how to render basic floorplan</div>
+                <div class="title">Create Clock Tree Embedding</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="03_create_clock_tree.html">
+          <a class="prev-page" href="02_create_htree.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Create Clock Tree Embedding</div>
+                <div class="title">Create H-Tree Connectivity pattern</div>
                 
               </div>
             </a>
@@ -335,7 +355,7 @@ to download the full example code</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/auto_openfpga/clock_tree/04_clock_tree_insertion.rst.txt"
+            <a class="muted-link" href="../../_sources/auto_openfpga/clock_tree/03_create_htree.rst.txt"
                rel="nofollow">
               Show Source
             </a>
