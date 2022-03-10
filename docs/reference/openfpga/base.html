@@ -177,6 +177,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.get_names.html">spydrnet_physical.util.get_names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.ConnectPoint.html">spydrnet_physical.util.ConnectPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.ConnectPointList.html">spydrnet_physical.util.ConnectPointList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.ConnectionPattern.html">spydrnet_physical.util.ConnectionPattern</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Transformations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -349,19 +352,21 @@ different unique pairs of the IO and CB blocks</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_grid_io_bus">
-<span class="sig-name descname"><span class="pre">create_grid_io_bus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_grid_io_bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_grid_io_bus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert <cite>grid_io</cite> Input/Output pins to bus structure
-::
-# Input Pins
-right_width_0_height_0_subtile_*__pin_inpad_0_    -&gt; io_right_in
-left_width_0_height_0_subtile_*__pin_inpad_0_     -&gt; io_left_in
-top_width_0_height_0_subtile_*__pin_inpad_0_      -&gt; io_top_in
-bottom_width_0_height_0_subtile_*__pin_inpad_0_   -&gt; io_bottom_in</p>
-<p># Output Pins
-right_width_0_height_0_subtile_*__pin_outpad_0_   -&gt; io_right_out
-left_width_0_height_0_subtile_*__pin_outpad_0_    -&gt; io_left_out
-top_width_0_height_0_subtile_*__pin_outpad_0_     -&gt; io_top_out
-bottom_width_0_height_0_subtile_*__pin_outpad_0_  -&gt; io_bottom_out</p>
+<span class="sig-name descname"><span class="pre">create_grid_io_bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inpad'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'outpad'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_grid_io_bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_grid_io_bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <cite>grid_io</cite> Input/Output pins to bus structure</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Input Pins</span>
+<span class="n">right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_inpad_0_</span>    <span class="o">-&gt;</span> <span class="n">io_right_in</span>
+<span class="n">left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_inpad_0_</span>     <span class="o">-&gt;</span> <span class="n">io_left_in</span>
+<span class="n">top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_inpad_0_</span>      <span class="o">-&gt;</span> <span class="n">io_top_in</span>
+<span class="n">bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_inpad_0_</span>   <span class="o">-&gt;</span> <span class="n">io_bottom_in</span>
+
+<span class="c1"># Output Pins</span>
+<span class="n">right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_0_</span>   <span class="o">-&gt;</span> <span class="n">io_right_out</span>
+<span class="n">left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_0_</span>    <span class="o">-&gt;</span> <span class="n">io_left_out</span>
+<span class="n">top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_0_</span>     <span class="o">-&gt;</span> <span class="n">io_top_out</span>
+<span class="n">bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_0_</span>  <span class="o">-&gt;</span> <span class="n">io_bottom_out</span>
+</pre></div>
+</div>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_grid_clb_bus">
