@@ -25,13 +25,25 @@ class ConnectPoint:
     ''' This store the individual connections points '''
 
     def __init__(self, from_x, from_y, to_x, to_y):
-        self.from_x = int(from_x)
-        self.from_y = int(from_y)
-        self.to_x = int(to_x)
-        self.to_y = int(to_y)
+        from_x, from_y = int(from_x), int(from_y)
+        to_x, to_y = int(to_x), int(to_y)
+        assert not ((from_x == to_x) and (from_y == to_y)), \
+            "Can not make connection to the same grid"
+        assert ((from_x == to_x) and (from_y != to_y)) or \
+               ((from_x != to_x) and (from_y == to_y)), \
+            "Only horizontal or vertical connections are possible " + \
+            f"{from_x}  {from_y} {to_x}  {to_y}"
+        self.from_x, self.from_y = (from_x, from_y)
+        self.to_x, self.to_y = (to_x, to_y)
+
         self.from_dir = ""
         self.to_dir = ""
         self._update_direction()
+
+    @property
+    def distance(self):
+        ''' return the connection distance '''
+        return abs(self.from_x-self.to_x) + abs(self.from_y-self.to_y)
 
     @property
     def connection(self):
@@ -60,6 +72,7 @@ class ConnectPoint:
         self.to_x, self.to_y = self._rotate_point(
             self.to_connection,
             angle=angle, sizex=sizex, sizey=sizey)
+        self._update_direction()
 
     def translate_connection(self, x, y):
         self.from_x, self.from_y = self.from_x + x, self.from_y+y
@@ -161,6 +174,26 @@ class ConnectPointList:
         """ Flips all the points horizontally or vertically"""
         raise NotImplemented
 
+    def sample_connections(self, max_distance=1):
+        ''' This method splits all the connections longer that ``max_distance`` to 
+        at max ``max_distance`` length 
+        '''
+        cursor_backup = self.cursor
+        for indx, each in enumerate(self._points):
+            if each.distance > max_distance:
+                self.cursor = (each.from_x, each.from_y)
+                for i in range(max_distance, each.distance, max_distance):
+                    if each.from_dir == "right":
+                        self.move_x(value=max_distance)
+                    elif each.from_dir == "left":
+                        self.move_x(value=-1*max_distance)
+                    if each.from_dir == "top":
+                        self.move_y(value=max_distance)
+                    elif each.from_dir == "bottom":
+                        self.move_y(value=-1*max_distance)
+                each.from_x, each.from_y = self._cursor
+        self.cursor = cursor_backup 
+
     def crop_edges(self):
         ''' Crops all the connections going out of grid '''
         for point in self._points:
@@ -195,7 +228,7 @@ class ConnectPointList:
             point.rotate_connection(angle, sizex=self.sizex, sizey=self.sizey)
 
     def add_next_point(self, x, y):
-        x_prev, y_prev = self.points[-1].to_connection
+        x_prev, y_prev = self._cursor
         point = ConnectPoint(x_prev, y_prev, x, y)
         self.add_connect_point(point)
         self._update_cursor()
@@ -569,4 +602,5 @@ if __name__ == "__main__":
     conn_list = fpga.connections
     conn_list.merge(left_tree)
     conn_list.crop_edges()
+    conn_list.sample_connections()
     fpga.render_pattern().save(pretty=True, indent=4)
