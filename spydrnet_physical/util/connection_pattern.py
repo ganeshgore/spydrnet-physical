@@ -507,23 +507,26 @@ class ConnectionPattern:
         NotImplementedError
 
     @staticmethod
-    def get_htree(size):
+    def get_htree(size, root=0, side=0, repeat=1):
         ''' Returns H-Tree of specific size '''
         points = ConnectPointList(sizex=size, sizey=size)
         size = size if size % 2 else (size-1)
         mid = (size+1)/2
         points.cursor = (mid, mid)
-        points.move_x(value=1, steps=int(mid/2))
-        points.hold_cursor()
-        points.move_y(value=1, steps=int(mid/2))
-        points.move_y(value=-1, steps=int(mid/2))
+        for _ in range(repeat):
+            points.release_cursor()
+            points.move_x(value=1, steps=int(mid/2)+root)
+            points.hold_cursor()
+            points.move_y(value=1, steps=int(mid/2)+side)
+            points.move_y(value=-1, steps=int(mid/2)+side)
 
-        points.release_cursor()
         points.cursor = (mid, mid)
-        points.move_x(value=-1, steps=int(mid/2))
-        points.hold_cursor()
-        points.move_y(value=1, steps=int(mid/2))
-        points.move_y(value=-1, steps=int(mid/2))
+        for _ in range(repeat):
+            points.release_cursor()
+            points.move_x(value=-1, steps=int(mid/2)+root)
+            points.hold_cursor()
+            points.move_y(value=1, steps=int(mid/2)+side)
+            points.move_y(value=-1, steps=int(mid/2)+side)
         return points
 
     def add_htree(self, n=3):

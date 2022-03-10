@@ -24,6 +24,8 @@ WIDTH = 7
 HEIGHT = 7
 p_manager = ConnectionPattern(WIDTH, HEIGHT)
 htree_pattern = p_manager.connections
+htree_pattern.cursor = (int(WIDTH/2)+1, 0)
+htree_pattern.move_y(steps=int(WIDTH/2)+1)
 htree_pattern.merge(p_manager.get_htree(WIDTH))
 htree_pattern.merge(p_manager.get_htree(int(WIDTH/2)).translate(0, 0))
 htree_pattern.merge(p_manager.get_htree(int(WIDTH/2)).translate(4, 0))
