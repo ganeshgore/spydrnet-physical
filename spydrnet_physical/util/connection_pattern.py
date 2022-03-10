@@ -149,16 +149,20 @@ class ConnectPointList:
 
     @property
     def get_x(self):
+        ''' returns x location of cursor '''
         return self._cursor[0]
 
     @property
     def get_y(self):
+        ''' returns y location of cursor '''
         return self._cursor[1]
 
-    def flip(self):
-        pass
+    def flip(self, orientation="H", base=None):
+        """ Flips all the points horizontally or vertically"""
+        raise NotImplemented
 
     def crop_edges(self):
+        ''' Crops all the connections going out of grid '''
         for point in self._points:
             for eachp in ('from_x', 'to_x'):
                 pt = getattr(point, eachp)
@@ -198,6 +202,7 @@ class ConnectPointList:
         return point
 
     def move_x(self, value=1, steps=1):
+        ''' Moves cursor in x direction by specified steps times by specified value'''
         x_prev, y_prev = self.cursor
         for _ in range(steps):
             point = ConnectPoint(x_prev, y_prev, x_prev+value, y_prev)
@@ -207,6 +212,7 @@ class ConnectPointList:
         return self.cursor
 
     def move_y(self, value=1, steps=1):
+        ''' Moves cursor in y direction by specified steps times by specified value'''
         x_prev, y_prev = self.cursor
         for _ in range(steps):
             point = ConnectPoint(x_prev, y_prev, x_prev, y_prev+value)
