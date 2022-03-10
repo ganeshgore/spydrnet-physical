@@ -124,7 +124,7 @@ class ConnectPoint:
 
 
 class ConnectPointList:
-    ''' This store list of connection points  '''
+    ''' This stores list of connection points  '''
 
     def __init__(self, sizex=None, sizey=None, point=None):
         self.sizex = sizex
@@ -197,19 +197,21 @@ class ConnectPointList:
         self._update_cursor()
         return point
 
-    def move_x(self, value=1):
+    def move_x(self, value=1, steps=1):
         x_prev, y_prev = self.cursor
-        point = ConnectPoint(x_prev, y_prev, x_prev+value, y_prev)
-        self.cursor = (x_prev+value, y_prev)
-        self.add_connect_point(point)
+        for _ in range(steps):
+            point = ConnectPoint(x_prev, y_prev, x_prev+value, y_prev)
+            self.add_connect_point(point)
+            x_prev, y_prev = (x_prev+value, y_prev)
         self._update_cursor()
         return self.cursor
 
-    def move_y(self, value=1):
+    def move_y(self, value=1, steps=1):
         x_prev, y_prev = self.cursor
-        point = ConnectPoint(x_prev, y_prev, x_prev, y_prev+value)
-        self.cursor = (x_prev, y_prev+value)
-        self.add_connect_point(point)
+        for _ in range(steps):
+            point = ConnectPoint(x_prev, y_prev, x_prev, y_prev+value)
+            self.add_connect_point(point)
+            x_prev, y_prev = (x_prev, y_prev+value)
         self._update_cursor()
         return self.cursor
 
@@ -238,6 +240,8 @@ class ConnectPointList:
 
     def render_pattern(self, scale=20):
         '''
+        This renderes connection points list in a SVG format
+
         args:
             connect (list): collection connection pattern
 
@@ -248,7 +252,7 @@ class ConnectPointList:
         sizey = max([max(y1, y2) for x1, y1, x2, y2 in self._points])+1
 
         dwg = svgwrite.Drawing("_render.svg", size=(
-            ((sizex+10)*scale)+(5*scale), 
+            ((sizex+10)*scale)+(5*scale),
             ((sizey+10)*scale)+(1*(sizey+10)*scale)))
         dwg.viewbox(-5*scale, -1*(sizey+10)*scale,
                     (sizex+10)*scale, (sizey+10)*scale)
@@ -330,7 +334,7 @@ class ConnectPointList:
                 module.create_port(f"{port.name}_{inp}_in",
                                    pins=port.size, direction=sdn.IN)
                 cable = module.create_cable(f"{port.name}_{inp}_in",
-                                    wires=port.size)
+                                            wires=port.size)
                 if prev_cable:
                     prev_cable.assign_cable(cable)
                 prev_cable = cable
@@ -342,7 +346,7 @@ class ConnectPointList:
                 module.create_port(f"{port.name}_{outp}_out",
                                    pins=port.size, direction=sdn.OUT)
                 cable = module.create_cable(f"{port.name}_{outp}_out",
-                                    wires=port.size)
+                                            wires=port.size)
                 if prev_cable:
                     prev_cable.assign_cable(cable)
                 prev_cable = cable
@@ -387,12 +391,20 @@ class ConnectPointList:
             if incoming and outgoing:
                 break
 
-        assert isinstance(incoming, ConnectPoint), "Incoming connection not found"
-        assert isinstance(outgoing, ConnectPoint), "Outgoing connection not found"
+        assert isinstance(
+            incoming, ConnectPoint), "Incoming connection not found"
+        assert isinstance(
+            outgoing, ConnectPoint), "Outgoing connection not found"
         incoming.to_x, incoming.to_y = outgoing.to_connection
         self._points.remove(outgoing)
 
+
 class ConnectionPattern:
+    '''
+    This creates a connection patterns (`ConnectPointList`) based on pre-defined rule
+
+    '''
+
     def __init__(self, sizex, sizey):
         '''
         Initialise FPGA parameters
