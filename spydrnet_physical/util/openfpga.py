@@ -11,7 +11,7 @@ from fnmatch import fnmatch
 from pathlib import Path
 from typing import Callable
 from spydrnet.ir.definition import Definition
-from spydrnet_physical.util import initial_placement
+from spydrnet_physical.util import initial_placement, get_names
 
 import spydrnet as sdn
 
@@ -160,6 +160,20 @@ class OpenFPGA:
             with open(filename, 'w') as fp:
                 fp.write("\n".join(output_str))
         return inst_cnt
+
+    def remove_direct_interc(self):
+        direct_interc = next(self._top_module.get_definitions("direct_*"), None)
+        if not direct_interc:
+            return
+        ports = {p.name:p for p in direct_interc.get_ports()}
+        for each in list(self._top_module.get_instances("direct_interc_*")):
+            wire_from = each.pins[ports["in"].pins[0]].wire
+            wire_to = each.pins[ports["out"].pins[0]].wire
+            for eachpin in wire_to.pins:
+                wire_to.disconnect_pin(eachpin)
+                wire_from.connect_pin(eachpin)
+            self._top_module.remove_child(each)
+
 
     def merge_all_grid_ios(self):
         '''
