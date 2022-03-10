@@ -192,7 +192,7 @@ class ConnectPointList:
                     elif each.from_dir == "bottom":
                         self.move_y(value=-1*max_distance)
                 each.from_x, each.from_y = self._cursor
-        self.cursor = cursor_backup 
+        self.cursor = cursor_backup
 
     def crop_edges(self):
         ''' Crops all the connections going out of grid '''
@@ -292,7 +292,7 @@ class ConnectPointList:
 
         dwg = svgwrite.Drawing("_render.svg", size=(
             ((sizex+10)*scale)+(5*scale),
-            ((sizey+10)*scale)+(1*(sizey+10)*scale)))
+            ((sizey+4)*scale)+(1*(sizey+4)*scale)))
         dwg.viewbox(-5*scale, -1*(sizey+10)*scale,
                     (sizex+10)*scale, (sizey+10)*scale)
 
@@ -575,8 +575,8 @@ class ConnectionPattern:
                              font_size=self.sizey*scale*0.1,
                              alignment_baseline="middle",
                              text_anchor="middle"))
-        dwg.viewbox(-1*scale, -1*(self.sizey+2)*scale,
-                    (self.sizex+3)*scale, (self.sizey+3)*scale)
+        dwg.viewbox(-1*scale, -1*(self.sizey-1)*scale,
+                    (self.sizex+3)*scale, (self.sizey-2)*scale)
         return dwg
 
 

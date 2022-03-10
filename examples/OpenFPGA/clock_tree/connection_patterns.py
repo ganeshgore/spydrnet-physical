@@ -6,7 +6,8 @@ Connection Pattern Generation
 This example demonstrate how to genrate different connection pattern
 for routing global signals. By default this library support basic fishbone
 and HTree patterns, which can be extended to create desired connectivity
-usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``, and ``scale``
+usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``, 
+``scale`` and `sample`
 
 
 **Output**
@@ -27,6 +28,9 @@ usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``, and
     :width: 200px
 
 .. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern_scaling2.svg
+    :width: 200px
+
+.. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern_sampling.svg
     :width: 200px
 
 """
@@ -85,3 +89,11 @@ right_tree.merge(left_tree)
 right_tree.crop_edges()
 svg = p_manager.render_pattern(title="Scale and Merge")
 svg.saveas("_fishbone_pattern_scaling2.svg", pretty=True, indent=4)
+
+# ===============================
+#        Sampling Example
+# ===============================
+
+right_tree.sample_connections()
+svg = p_manager.render_pattern(title="Scale and Sample")
+svg.saveas("_fishbone_pattern_sampling.svg", pretty=True, indent=4)
