@@ -39,6 +39,7 @@ class ConnectPoint:
 
         self.from_dir = ""
         self.to_dir = ""
+        self._color = "black"
         self._update_direction()
 
     @property
@@ -65,6 +66,16 @@ class ConnectPoint:
     def to_connection(self):
         ''' return to connection points '''
         return (self.to_x, self.to_y)
+
+    @property
+    def color(self):
+        ''' return color of conneton '''
+        return self._color
+
+    @color.setter
+    def color(self, color):
+        self._color = color
+        return self._color
 
     def rotate_connection(self, angle, sizex=None, sizey=None):
         self.from_x, self.from_y = self._rotate_point(
@@ -126,15 +137,21 @@ class ConnectPoint:
         yield from self.connection
 
     def __str__(self) -> str:
-        return "%5d %5d %5d %5d" % (self.from_x, self.from_y, self.to_x, self.to_y)
+        return "%5d %5d %5d %5d %s" % (self.from_x, self.from_y, self.to_x, self.to_y)
 
     def __mul__(self, scale):
-        return ConnectPoint(scale*self.from_x, scale*self.from_y,
-                            scale*self.to_x, scale*self.to_y)
+        self.from_x *= scale
+        self.from_y *= scale
+        self.to_x *= scale
+        self.to_y *= scale
+        return self
 
     def __rmul__(self, scale):
-        return ConnectPoint(scale*self.from_x, scale*self.from_y,
-                            scale*self.to_x, scale*self.to_y)
+        self.from_x *= scale
+        self.from_y *= scale
+        self.to_x *= scale
+        self.to_y *= scale
+        return self
 
 
 class ConnectPointList:
@@ -171,6 +188,12 @@ class ConnectPointList:
     def get_y(self):
         ''' returns y location of cursor '''
         return self._cursor[1]
+
+    def set_color(self, color):
+        ''' Set color to all the points in the connection list '''
+        for each in self._points:
+            each.color = color
+        return self
 
     def hold_cursor(self):
         ''' Holds the cursor at current position '''
@@ -222,6 +245,7 @@ class ConnectPointList:
 
     def merge(self, connectlist):
         self._points.extend(connectlist._points)
+        return self
 
     def scale(self, scale, anchor=(0, 0)):
         for point in self._points:
@@ -238,6 +262,7 @@ class ConnectPointList:
         assert angle in angles, "Supports only %s degree ratations" % angles
         for point in self._points:
             point.rotate_connection(angle, sizex=self.sizex, sizey=self.sizey)
+        return self
 
     def add_next_point(self, x, y):
         x_prev, y_prev = self._cursor
@@ -314,7 +339,7 @@ class ConnectPointList:
         dwg.defs.add(dwg.style("""
                 text{font-family: Verdana;}
                 svgg{background-color:grey;}
-                .connection{stroke: black; stroke-linecap:round; opacity: 0.7;}
+                .connection{stroke-linecap:round; opacity: 0.7;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
                 # core_boundary{stroke:grey; stroke_width:0.5;}
@@ -330,6 +355,7 @@ class ConnectPointList:
             conn = conn*scale
             dwgMain.add(dwg.line(start=conn.from_connection,
                                  end=conn.to_connection,
+                                 stroke=conn.color,
                                  marker_end=DRMarker.get_funciri(),
                                  class_="connection"))
         return dwg
