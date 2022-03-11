@@ -8,6 +8,7 @@ from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
 from spydrnet_physical.util.tile01 import (Tile01, config_chain_01,
                                            config_chain_simple)
 # from spydrnet_physical.util.tile02 import (Tile02, config_chain_02)
+from spydrnet_physical.util.fpga_grid_gen import fpga_grid_gen as FPGAGridGen
 from spydrnet_physical.util.connection_pattern import (ConnectionPattern,
                                                        ConnectPoint,
                                                        ConnectPointList)
