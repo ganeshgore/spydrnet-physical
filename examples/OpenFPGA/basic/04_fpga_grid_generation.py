@@ -34,7 +34,7 @@ def main():
     fpga = FPGAGridGen(design_name="example_design",
                        arch_file="./support_files/vpr_arch_render_demo.xml",
                        release_root="_release",
-                       layout="dp")
+                       layout="ultimate")
     fpga.enumerate_grid()
     fpga.print_grid()
 

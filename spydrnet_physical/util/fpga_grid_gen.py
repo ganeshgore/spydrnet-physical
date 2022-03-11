@@ -154,7 +154,7 @@ class fpga_grid_gen():
         else:
             val = val.replace("W", "{W}")
             val = val.replace("H", "{H}")
-            return eval(val.format(**vars))
+            return int(eval(val.format(**vars)))
 
     def _set_value(self, x, y, value, width=1, height=1):
         """
@@ -246,8 +246,8 @@ class fpga_grid_gen():
 
         for xstep in range(0, self.width, repeatx):
             for ystep in range(0, self.height, repeaty):
-                for x in range(startx, endx+1, incrx):
-                    for y in range(starty, endy+1, incry):
+                for x in range(startx, endx, incrx):
+                    for y in range(starty, endy, incry):
                         self._set_value(xstep+x, ystep+y,
                                         ele_type, ele_w, ele_h)
 

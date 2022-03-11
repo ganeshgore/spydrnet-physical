@@ -6,7 +6,7 @@
         <tile name="io_bottom" capacity="6" area="0"/>
         <tile name="io_left" capacity="6" area="0"/>
         <tile name="clb" width="1" height="1" area="0"/>
-        <tile name="dsp" width="1" height="2" area="0"/>
+        <tile name="dsp" width="2" height="1" area="0"/>
         <tile name="ram9k" width="1" area="0"/>
     </tiles>
 
@@ -25,6 +25,16 @@
             <!--Row of RAM9K with 'EMPTY' blocks wherever a RAM9k does not fit. Vertical offset by 1 for perimeter.-->
             <!-- <row type="ram9k" startx="1" starty="4" repeaty="6" priority="20"/> -->
             <region type="ram9k" startx="1" endx="2" starty="2" endy="3" priority="20"/>
+        </fixed_layout>
+        <fixed_layout name="ultimate" width="16" height="20">
+            <row type="io_top" starty="H-1" priority="100"/>
+            <row type="io_bottom" starty="0" priority="100"/>
+            <col type="io_left" startx="0" priority="100"/>
+            <col type="io_right" startx="W-1" priority="100"/>
+            <corners type="EMPTY" priority="101"/>
+            <fill type="clb" priority="10"/>
+            <region type="dsp" startx="3" endx="W-3" starty="H/2" incry="H" priority="30"/>
+            <region type="ram9k" startx="3" endx="W-3" starty="5" incry="5" priority="20"/>
         </fixed_layout>
     </layout>
 </architecture>
