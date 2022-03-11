@@ -3,10 +3,10 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Create Clock Tree Embedding" href="04_create_clock_tree.html" /><link rel="prev" title="Create H-Tree Connectivity pattern" href="02_create_htree.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Renaming Homogeneous FPGA Modules" href="rename_modules.html" /><link rel="prev" title="Render Placement information from Verilog netlist" href="03_initial_placement.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Create Hybrid Connectivity Pattern - SpyDrNet-Physical alpha documentation</title>
+        <title>FPGA Layout grid generation - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -220,16 +220,16 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../basic/01_fpga_arch_parse.html">OpenFPGA Architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../basic/02_fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../basic/03_initial_placement.html">Render Placement information from Verilog netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../basic/04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="01_connection_patterns.html">Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Create Hybrid Connectivity Pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_create_clock_tree.html">Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01_fpga_arch_parse.html">OpenFPGA Architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_initial_placement.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">FPGA Layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/03_create_htree.html">Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/04_create_clock_tree.html">Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/05_clock_tree_insertion.html">H-Tree insertion in FPGA Tilable grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/01_floorplan_rendering.html">Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/02_render_routing_box.html">Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/03_render_edge_routing_box.html">Rendering Switch and Connection Boxes</a></li>
@@ -271,53 +271,78 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-clock-tree-03-create-htree-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-basic-04-fpga-grid-generation-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="create-hybrid-connectivity-pattern">
-<span id="sphx-glr-auto-openfpga-clock-tree-03-create-htree-py"></span><h1>Create Hybrid Connectivity Pattern<a class="headerlink" href="#create-hybrid-connectivity-pattern" title="Permalink to this headline">¶</a></h1>
-<p>This example demostrate how to create hybrid connetivity pattern for any
-arbitrary (non square ) tiles.</p>
-<p><strong>Output</strong></p>
-<a class="reference internal image-reference" href="../../_images/_hybrid_connectivity_pattern.svg"><img alt="../../_images/_hybrid_connectivity_pattern.svg" class="align-center" src="../../_images/_hybrid_connectivity_pattern.svg" width="500px"/></a>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span>
-
-<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">19</span>
-<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">13</span>
-<span class="n">cpat</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">)</span>
-<span class="n">hyb_pat</span> <span class="o">=</span> <span class="n">cpat</span><span class="o">.</span><span class="n">connections</span>
-<span class="n">hyb_pat</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">hyb_pat</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-    <span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="n">WIDTH</span><span class="o">-</span><span class="n">HEIGHT</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">cpat</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">hyb_pat</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-    <span class="n">hyb_pat</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">WIDTH</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">hyb_pat</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">((</span><span class="n">HEIGHT</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="p">((</span><span class="n">HEIGHT</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span> <span class="o">==</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">hyb_pat</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">((</span><span class="n">HEIGHT</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="p">((</span><span class="n">HEIGHT</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">hyb_pat</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">hyb_pat</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="n">svg</span> <span class="o">=</span> <span class="n">cpat</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Hybrid Pattern"</span><span class="p">)</span>
-<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_hybrid_connectivity_pattern.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<section class="sphx-glr-example-title" id="fpga-layout-grid-generation">
+<span id="sphx-glr-auto-openfpga-basic-04-fpga-grid-generation-py"></span><h1>FPGA Layout grid generation<a class="headerlink" href="#fpga-layout-grid-generation" title="Permalink to this headline">¶</a></h1>
+<p>This class generates the 2D matrix of the FPGA grid.</p>
+<p><strong>Expected Output</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>EMPTY     io_top     io_top     io_top     io_top     io_top     io_top     EMPTY
+io_left     clb        clb        clb        clb        clb        clb      io_right
+io_left     clb        clb        clb        clb        clb        clb      io_right
+io_left    ram9k                 ram9k                 ram9k                io_right
+io_left     clb        clb        clb        clb        clb        clb      io_right
+io_left     dsp                   dsp                   dsp                 io_right
+io_left     clb        clb        clb        clb        clb        clb      io_right
+EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.038 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-03-create-htree-py">
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span> EMPTY      io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     EMPTY
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb       ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k       clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        dsp         →         dsp         →         dsp         →         dsp         →         dsp         →         clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb       ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k       clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right
+ EMPTY    io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FPGAGridGen</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
+                       <span class="n">arch_file</span><span class="o">=</span><span class="s2">"./support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
+                       <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
+                       <span class="n">layout</span><span class="o">=</span><span class="s2">"ultimate"</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">print_grid</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.003 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-04-fpga-grid-generation-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/7fd72747e3bce38e621819500c8aa7a4/03_create_htree.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_create_htree.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/fa2a3dee437cb163de30e1af8d97a894/04_fpga_grid_generation.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_fpga_grid_generation.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/2a0745f9d584b1f7689574d965b99ab3/03_create_htree.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_create_htree.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/4c0ca7c3a399477149668cb34626c338/04_fpga_grid_generation.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_fpga_grid_generation.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -328,23 +353,23 @@ arbitrary (non square ) tiles.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="04_create_clock_tree.html">
+          <a class="next-page" href="rename_modules.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Create Clock Tree Embedding</div>
+                <div class="title">Renaming Homogeneous FPGA Modules</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="02_create_htree.html">
+          <a class="prev-page" href="03_initial_placement.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Create H-Tree Connectivity pattern</div>
+                <div class="title">Render Placement information from Verilog netlist</div>
                 
               </div>
             </a>
@@ -356,7 +381,7 @@ arbitrary (non square ) tiles.</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/auto_openfpga/clock_tree/03_create_htree.rst.txt"
+            <a class="muted-link" href="../../_sources/auto_openfpga/basic/04_fpga_grid_generation.rst.txt"
                rel="nofollow">
               Show Source
             </a>

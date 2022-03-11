@@ -223,6 +223,7 @@
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">OpenFPGA Architecture Parsing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_initial_placement.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -279,7 +280,7 @@ to download the full example code</p>
 <cite>VPR</cite> and <cite>OpenFPGA</cite> Architecture file and provides logical information.</p>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{'4x4': (6, 6)}
-['io', 'clb']
+{'io': (1, 1), 'clb': (1, 1)}
 </pre></div>
 </div>
 <div class="line-block">
@@ -291,7 +292,7 @@ to download the full example code</p>
 <span class="n">task_dir</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'..'</span><span class="p">,</span> <span class="s1">'homogeneous_fabric'</span><span class="p">,</span> <span class="s1">'FPGA44_Task'</span><span class="p">)</span>
 <span class="n">vpr_arch</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">task_dir</span><span class="p">,</span> <span class="s1">'arch'</span><span class="p">,</span> <span class="s1">'k6_N10_tileable.xml'</span><span class="p">)</span>
 <span class="n">openfpga_arch</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">task_dir</span><span class="p">,</span> <span class="s1">'arch'</span><span class="p">,</span> <span class="s1">'k6_N10_openfpga.xml'</span><span class="p">)</span>
-<span class="n">fpga_arch</span> <span class="o">=</span> <span class="n">OpenFPGA_Arch</span><span class="p">(</span><span class="n">vpr_arch</span><span class="p">,</span> <span class="n">openfpga_arch</span><span class="p">)</span>
+<span class="n">fpga_arch</span> <span class="o">=</span> <span class="n">OpenFPGA_Arch</span><span class="p">(</span><span class="n">vpr_arch</span><span class="p">,</span> <span class="n">openfpga_arch</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"4x4"</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">get_layouts</span><span class="p">())</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">pb_types</span><span class="p">)</span>
