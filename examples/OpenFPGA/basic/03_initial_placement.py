@@ -3,16 +3,11 @@
 Render Placement information from Verilog netlist
 =================================================
 
-<<<<<<< HEAD:examples/OpenFPGA/basic/initial_placement.py
-This example demonstrates how to create a tile structure from
-verilog netlist obtained from OpenFPGA
-=======
 This example demonstate how to render FPGA Tile using ``FloorPlanViz`` class
 User can provide external script to render tiles, by default the rendering is
 based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
->>>>>>> fcf694a2151b6ffc87371bbe9b0fb3bcb9ddddcb:examples/OpenFPGA/basic/03_initial_placement.py
 
 """
 
