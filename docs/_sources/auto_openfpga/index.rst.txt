@@ -20,22 +20,20 @@ OpenFPGA Related Restructuring
 Basic Examples  
 ===============
 
-A collection of examples to introduce the functionality, features, and uses of SpyDrNet.
-
-
-
+A collection of examples introduces the functionality and features, SpyDrNet-Physical library.
+ 
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="OpenFPGA architecture Parsing">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the OpenFPGA_Arch class which parses the  VPR and OpenFPGA Architectu...">
 
 .. only:: html
 
- .. figure:: /auto_openfpga/basic/images/thumb/sphx_glr_fpga_arch_parse_thumb.png
-     :alt: OpenFPGA architecture Parsing
+ .. figure:: /auto_openfpga/basic/images/thumb/sphx_glr_01_fpga_arch_parse_thumb.png
+     :alt: OpenFPGA Architecture Parsing
 
-     :ref:`sphx_glr_auto_openfpga_basic_fpga_arch_parse.py`
+     :ref:`sphx_glr_auto_openfpga_basic_01_fpga_arch_parse.py`
 
 .. raw:: html
 
@@ -45,18 +43,18 @@ A collection of examples to introduce the functionality, features, and uses of S
 .. toctree::
    :hidden:
 
-   /auto_openfpga/basic/fpga_arch_parse
+   /auto_openfpga/basic/01_fpga_arch_parse
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstates, how to render primitive FPGA elements using yosys  and `netlistSVG &lt;h...">
 
 .. only:: html
 
- .. figure:: /auto_openfpga/basic/images/thumb/sphx_glr_fpga_basic_elements_thumb.png
+ .. figure:: /auto_openfpga/basic/images/thumb/sphx_glr_02_fpga_basic_elements_thumb.png
      :alt: Render FPGA Basic Elements
 
-     :ref:`sphx_glr_auto_openfpga_basic_fpga_basic_elements.py`
+     :ref:`sphx_glr_auto_openfpga_basic_02_fpga_basic_elements.py`
 
 .. raw:: html
 
@@ -66,18 +64,18 @@ A collection of examples to introduce the functionality, features, and uses of S
 .. toctree::
    :hidden:
 
-   /auto_openfpga/basic/fpga_basic_elements
+   /auto_openfpga/basic/02_fpga_basic_elements
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
 
 .. only:: html
 
- .. figure:: /auto_openfpga/basic/images/thumb/sphx_glr_initial_placement_thumb.png
-     :alt: Creating FPGA Tiles from OpenFPGA verilog
+ .. figure:: /auto_openfpga/basic/images/thumb/sphx_glr_03_initial_placement_thumb.png
+     :alt: Render Placement information from Verilog netlist
 
-     :ref:`sphx_glr_auto_openfpga_basic_initial_placement.py`
+     :ref:`sphx_glr_auto_openfpga_basic_03_initial_placement.py`
 
 .. raw:: html
 
@@ -87,7 +85,28 @@ A collection of examples to introduce the functionality, features, and uses of S
 .. toctree::
    :hidden:
 
-   /auto_openfpga/basic/initial_placement
+   /auto_openfpga/basic/03_initial_placement
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This class generates the 2D matrix of the FPGA grid.">
+
+.. only:: html
+
+ .. figure:: /auto_openfpga/basic/images/thumb/sphx_glr_04_fpga_grid_generation_thumb.png
+     :alt: FPGA Layout grid generation
+
+     :ref:`sphx_glr_auto_openfpga_basic_04_fpga_grid_generation.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_openfpga/basic/04_fpga_grid_generation
 
 .. raw:: html
 
@@ -171,14 +190,14 @@ features, and uses of SpyDrNet.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip=" .. hdl-diagram:: ../../../../examples/OpenFPGA/clock_tree/_square_grid_design.v    :type: netl...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how to create hybrid connetivity pattern for any  arbitrary (non square...">
 
 .. only:: html
 
- .. figure:: /auto_openfpga/clock_tree/images/thumb/sphx_glr_03_create_clock_tree_thumb.png
-     :alt: Create Clock Tree Embedding
+ .. figure:: /auto_openfpga/clock_tree/images/thumb/sphx_glr_03_create_htree_thumb.png
+     :alt: Create Hybrid Connectivity Pattern
 
-     :ref:`sphx_glr_auto_openfpga_clock_tree_03_create_clock_tree.py`
+     :ref:`sphx_glr_auto_openfpga_clock_tree_03_create_htree.py`
 
 .. raw:: html
 
@@ -188,7 +207,28 @@ features, and uses of SpyDrNet.
 .. toctree::
    :hidden:
 
-   /auto_openfpga/clock_tree/03_create_clock_tree
+   /auto_openfpga/clock_tree/03_create_htree
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" .. hdl-diagram:: ../../../../examples/OpenFPGA/clock_tree/_square_grid_design.v    :type: netl...">
+
+.. only:: html
+
+ .. figure:: /auto_openfpga/clock_tree/images/thumb/sphx_glr_04_create_clock_tree_thumb.png
+     :alt: Create Clock Tree Embedding
+
+     :ref:`sphx_glr_auto_openfpga_clock_tree_04_create_clock_tree.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_openfpga/clock_tree/04_create_clock_tree
 
 .. raw:: html
 
@@ -196,10 +236,10 @@ features, and uses of SpyDrNet.
 
 .. only:: html
 
- .. figure:: /auto_openfpga/clock_tree/images/thumb/sphx_glr_04_clock_tree_insertion_thumb.png
+ .. figure:: /auto_openfpga/clock_tree/images/thumb/sphx_glr_05_clock_tree_insertion_thumb.png
      :alt: H-Tree insertion in FPGA Tilable grid
 
-     :ref:`sphx_glr_auto_openfpga_clock_tree_04_clock_tree_insertion.py`
+     :ref:`sphx_glr_auto_openfpga_clock_tree_05_clock_tree_insertion.py`
 
 .. raw:: html
 
@@ -209,7 +249,7 @@ features, and uses of SpyDrNet.
 .. toctree::
    :hidden:
 
-   /auto_openfpga/clock_tree/04_clock_tree_insertion
+   /auto_openfpga/clock_tree/05_clock_tree_insertion
 .. raw:: html
 
     <div class="sphx-glr-clear"></div>
