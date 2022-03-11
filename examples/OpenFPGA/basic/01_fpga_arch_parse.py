@@ -13,7 +13,7 @@ from spydrnet_physical.util import OpenFPGA_Arch
 task_dir = ('..', 'homogeneous_fabric', 'FPGA44_Task')
 vpr_arch = os.path.join(*task_dir, 'arch', 'k6_N10_tileable.xml')
 openfpga_arch = os.path.join(*task_dir, 'arch', 'k6_N10_openfpga.xml')
-fpga_arch = OpenFPGA_Arch(vpr_arch, openfpga_arch)
+fpga_arch = OpenFPGA_Arch(vpr_arch, openfpga_arch, layout="4x4")
 
 print(fpga_arch.get_layouts())
 print(fpga_arch.pb_types)
