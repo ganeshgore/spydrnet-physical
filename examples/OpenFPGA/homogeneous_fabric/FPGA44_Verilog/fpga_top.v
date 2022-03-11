@@ -1,9 +1,7 @@
 //-------------------------------------------
 //	FPGA Synthesizable Verilog Netlist
 //	Description: Top-level Verilog module for FPGA
-//	Author: Xifan TANG
 //	Organization: University of Utah
-//	Date: Thu Oct 28 13:17:19 2021
 //-------------------------------------------
 //----- Time scale -----
 `timescale 1ns / 1ps

@@ -1,6 +1,7 @@
 import logging
 import xml.etree.ElementTree as ET
 
+from pprint import pprint
 from svgwrite import Drawing, shapes
 from svgwrite.container import Group
 from svgwrite.mixins import XLink
@@ -10,13 +11,336 @@ import numpy as np
 logger = logging.getLogger('spydrnet_logs')
 
 
-class RoutingRender:
-    def __init__(self, name, gsb_xml) -> None:
+class base_renderer():
+    """
+    This is a base class for ``cb_renderer`` and ``sb_renderer``
+    """
+
+    def __init__(self, name, gsb_xml, scale=40, spacing=None) -> None:
         self.name = name
-        self.scale = 40
-        self.spacing = self.scale*2
-        self.gsb_xml = gsb_xml
-        self.root = ET.parse(self.gsb_xml).getroot()
+        self.scale = scale
+        self.spacing = spacing if spacing else self.scale*2
+        self.root = gsb_xml if isinstance(gsb_xml, ET.Element) \
+            else ET.parse(gsb_xml).getroot()
+        self.extract_info()
+
+    @staticmethod
+    def _get_label(x):
+        '''
+        returns attribute  ``<side>_<index>`` as a string
+        '''
+        return f"{x.attrib['side']}_{int(x.attrib['index'])}"
+
+    def _setup_svg(self):
+        # Variables for SVG rendering
+        self.dwg = Drawing()
+        self.dwgbg = self.dwg.add(Group(id="bg"))
+        self.region = self.dwg.add(Group(id="region", transform="scale(1,-1)"))
+        self.core = self.dwg.add(Group(id="mainframe"))
+        self.dwgShapes = self.core.add(Group(id="mainShapes",
+                                             transform="scale(1,-1)"))
+        self.switches = self.core.add(Group(id="switches",
+                                            transform="scale(1,-1)"))
+        self.dwgText = self.core.add(Group(id="mainText",
+                                           transform="scale(1,-1)"))
+        self.marker_red = self._create_arrowhead('red')
+        self.marker_green = self._create_arrowhead('green')
+        self.marker_blue = self._create_arrowhead('blue')
+        self.marker_terminate = self._create_termination('blue')
+        return self.dwg
+
+    def save(self, filename=None, viewbox=None):
+        """ Save SVG file"""
+        self._add_stylehseet()
+        filename = filename or "_"+self.name+".svg"
+        margin = 200
+        # width, height = self.x_max_4-self.x_min_4, self.y_max_4-self.y_min_4
+        # viewbox = viewbox or (self.x_min_4-margin, -1*(self.y_max_4+margin),
+        #                       width+2*margin, height+2*margin)
+        # self.dwg.viewbox(*viewbox)
+        logger.debug(f"Saving svg {filename}")
+        self.dwg.saveas(filename, pretty=True)
+
+    def _create_termination(self, hex_color):
+        DRMarker = self.dwg.marker(refX="0", refY="0",
+                                   viewBox="-10 -30 20 60",
+                                   markerUnits="strokeWidth",
+                                   markerWidth="4", markerHeight="10", orient="auto")
+        DRMarker.add(shapes.Rect(insert=(-5, -15), height="30",
+                                 width="10", fill=hex_color))
+        self.dwg.defs.add(DRMarker)
+        return DRMarker
+
+    def _create_arrowhead(self, hex_color):
+        DRMarker = self.dwg.marker(refX="30", refY="30",
+                                   viewBox="0 0 120 120",
+                                   markerUnits="strokeWidth",
+                                   markerWidth="8", markerHeight="10", orient="auto")
+        DRMarker.add(self.dwg.path(d="M 0 0 L 60 30 L 0 60 z", fill=hex_color))
+        self.dwg.defs.add(DRMarker)
+        return DRMarker
+
+    def _add_stylehseet(self):
+        '''
+        Adds custom stylesheet to the SVG image
+        '''
+        self.dwg.defs.add(self.dwg.style("""
+                text{font-family: LATO; font-weight: 800; font-size: 25px;}
+                svg{outline: 1px solid grey; outline-offset: -2px;}
+                .module_boundary{fill:#f4f0e6}
+                .origin{stroke: red; stroke-width: 1;}
+                .channel{stroke: grey; stroke-width: 4;}
+                .switch{stroke: black; fill:blue; stroke-width: 0;}
+                .short{stroke: black; fill:black; stroke-width: 0;}
+                .inpin{stroke: red;stroke-width: 4;}
+                .outpin{stroke: green;stroke-width: 4;}
+                .rl_chan{stroke: red;}
+                .lr_chan{stroke: blue;}
+                .lr_text{fill: blue;}
+                .rl_text{fill: red;}
+                .bt_chan{stroke: red;}
+                .bt_text{fill: red;}
+                .tb_chan{stroke: blue;}
+                .tb_text{fill: blue;}
+                .region1{fill: #CCE7D4;}
+                .region2{fill: #F8AC92;}
+                .region3{fill: #C4E7EB;}
+                .region4{fill: #F5F3C9;}
+                .boundry{stroke: red;stroke-width: 10;fill: none;opacity: 10%;}
+                .OPIN{fill: green;}
+                .left_pin{
+                    fill:blue;
+                    text-anchor: start;
+                    transform: translate(5px, 00px) scale(1,-1);}
+                .right_pin{
+                    fill:blue;
+                    text-anchor: end;
+                    transform: translate(-5px, 00px) scale(1,-1);}
+                .bottom_pin{
+                    fill:blue;
+                    transform-box: fill-box;
+                    transform-origin: start;
+                    text-anchor: start;
+                    transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+                .top_pin{
+                    fill:blue;
+                    transform-box: fill-box;
+                    transform-origin: bottom left;
+                    text-anchor: start;
+                    transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+                .in_pin{fill: blue !important;}
+                .out_pin{fill: red !important;}
+            """))
+
+
+class sb_renderer(base_renderer):
+    def extract_info(self) -> None:
+        """
+        Extracts all parameters
+
+        .. csv-table:: Channel Variables
+            :widths: 25, 100
+
+            chan_out        , All output channels
+            chanx_[l/r]_in  , Horizontal left and right incoming channels
+            chany_[t/b]_in  , Vertical top and bottom incoming channels
+            opin_l[l/r/t/b] , Incoming grid output channels 
+        """
+        self.chan_out = sorted(self.root.findall("CHANX")+self.root.findall("CHANY"),
+                               key=lambda x: f"{x.attrib['side']}_{int(x.attrib['index']):03}")
+        self.chan_out_l = len(self.chan_out)
+
+        self.chanx_l_in = sorted(self.root.findall(".//INPUT/CHANX/driver_node[@side='left']"),
+                                 key=lambda x: int(x.attrib['index']))
+        self.chanx_r_in = sorted(self.root.findall(".//INPUT/CHANX/driver_node[@side='right']"),
+                                 key=lambda x: int(x.attrib['index']))
+        self.chany_t_in = sorted(self.root.findall(".//INPUT/CHANY/driver_node[@side='top']"),
+                                 key=lambda x: int(x.attrib['index']))
+        self.chany_b_in = sorted(self.root.findall(".//INPUT/CHANY/driver_node[@side='bottom']"),
+                                 key=lambda x: int(x.attrib['index']))
+
+        self.opin_l = sorted(self.root.findall(".//INPUT/OPIN/driver_node[@side='left']"),
+                             key=lambda x: int(x.attrib['index']))
+        self.opin_r = sorted(self.root.findall(".//INPUT/OPIN/driver_node[@side='right']"),
+                             key=lambda x: int(x.attrib['index']))
+        self.opin_t = sorted(self.root.findall(".//INPUT/OPIN/driver_node[@side='top']"),
+                             key=lambda x: int(x.attrib['index']))
+        self.opin_b = sorted(self.root.findall(".//INPUT/OPIN/driver_node[@side='bottom']"),
+                             key=lambda x: int(x.attrib['index']))
+
+        self.channels = self.root.attrib["type"].lower()
+        assert self.channels == "sb", "XML file does not contain Switch box information"
+
+    def _create_header(self, in_pin):
+        """
+        Create headers for printing information
+        """
+        index_label_map, loc = {}, 0
+        header, conn_str = "", ""
+        for side, side_chann in {"chany_bottom": self.chany_b_in,
+                                 "chanx_left": self.chanx_l_in,
+                                 "chanx_right": self.chanx_r_in,
+                                 "chany_top": self.chany_t_in,
+                                 "opin_bottom": self.opin_b,
+                                 "opin_left": self.opin_l,
+                                 "opin_right": self.opin_r,
+                                 "opin_top": self.opin_t}.items():
+            if not side in in_pin:
+                continue
+            margin = 2 if len(side_chann) > 7 else 7
+            i = len(side_chann)+2*margin
+            loc += margin
+            conn_str += " "*margin
+            header += side.center(i)
+            for x in side_chann:
+                index_label_map[f"{x.attrib['type'].lower()}_" +
+                                self._get_label(x)] = loc
+                loc += 1
+                conn_str += "."
+            loc += margin
+            conn_str += " "*margin
+        return header, conn_str, index_label_map
+
+    def report_connectivity(self, pin_map={}, in_pin=None, out_pin=None, filter_direct=False):
+        """
+        Report connectivity of each driver mux
+
+        parameters
+        ----------
+
+        filter_direct (bool): Skips printing of direct feedtrhough connections
+        in_pin
+        out_pin
+        """
+        out_pin = out_pin or ["left", "right", "top", "bottom"]
+        out_pin = [out_pin] if isinstance(out_pin, str) else out_pin
+        in_pin = in_pin or ["chanx_left", "chanx_right", "chany_top",
+                            "chany_bottom", "opin_left", "opin_right",
+                            "opin_top", "opin_bottom"]
+        in_pin = [in_pin] if isinstance(in_pin, str) else in_pin
+
+        header, conn_str, index_label_map = self._create_header(in_pin)
+        index_label_map.update(pin_map)
+
+        print(f"{' ':11}{header}")
+        for eachPin in (self.chan_out):
+            direct = "-" if eachPin.attrib["mux_size"] == "0" else " "
+            if filter_direct and direct == '-':
+                continue
+            if not eachPin.attrib["side"] in out_pin:
+                continue
+            print(f"{self._get_label(eachPin):10}{direct:1}", end="")
+            conn = list(conn_str)
+            for eachconn in eachPin:
+                if not f"{eachconn.attrib['type'].lower()}_{eachconn.attrib['side']}" in in_pin:
+                    continue
+                conn[index_label_map[f"{eachconn.attrib['type'].lower()}_" +
+                                     self._get_label(eachconn)]] = "x"
+            print("".join(conn), end="")
+            print("")
+        print("")
+
+
+class cb_renderer(base_renderer):
+    """
+    This class renders the conenction box information
+    """
+
+    def extract_info(self) -> None:
+        """
+        .. csv-table:: Channel Variables
+            :widths: 25, 100
+
+            ipin_l     , IPIN (Output) Pin toward left direction
+            ipin_l_len , Number of output pins towards left direction
+        """
+        self.ipin = sorted(self.root.findall("IPIN"),
+                           key=lambda x: f"{x.attrib['side']}_{x.attrib['index']}")
+        self.ipin_l = len(self.ipin)
+        self.chan = sorted(self.root.findall(".//INPUT/*/driver_node"),
+                           key=lambda x: int(x.attrib['index']))
+        self.chan_l = len(self.chan)
+        self.channels = self.root.attrib["type"].lower()
+        assert "cb" in self.channels, "XML file does not contain connection box information"
+
+    def report_ipins(self, pMap=None):
+        """
+        Reports IPIN information
+
+        parameters
+        ----------
+
+        pMap: Pin map information if position needs to modified {pin_label: location}
+            example: {'top_1': 2, 'left_1': 1 }
+
+        """
+        pMap = {f"{i.attrib['side']}_{i.attrib['index']}": indx for indx, i in enumerate(
+            self.chan)}
+        for each_pin in self.ipin:
+            print(
+                f"{each_pin.attrib['side']:>10} " +
+                f"{each_pin.attrib['index']:4}", end="")
+            conn_map = ["-"]*self.chan_l
+            for conn in each_pin:
+                conn_map[pMap[f"{conn.attrib['side']}_{conn.attrib['index']}"]] = "x"
+            print("".join(conn_map), end="")
+            print(f" {conn_map.count('x'):3}")
+            print("", end="")
+
+
+class RoutingRender:
+    """
+    This class illustrates the FPGA switch box and connection box based on the
+    given GSB xml files.
+
+    **General Variables**
+
+    Attributes:
+        self.name: Name of the module
+        self.scale: General scale for rendering connectivity
+        self.spacing: Margin beetween each section
+        self.root: Parsed XML Root element
+
+    .. csv-table:: Channel Variables
+       :widths: 25, 75
+
+       self.chanx           ,Unique list of elements horizontal channels
+       self.chanx_l         ,Unique list of elements left incoming chanx channels
+       self.chanx_l_len     ,length of ``chanx_l``
+       self.chanx_r         ,Unique list of elements right incoming chanx channels
+       self.chanx_r_len     ,length of ``chanx_r``
+
+       self.chanx_l_drivers ,New generated left outgoing channels with feedthrough
+       self.chanx_l_ft      ,Left outgoing channels with feedthrough
+       self.chanx_l_out_map ,Mapping of ft/driver index with offset on the left side
+
+       self.ipin_l          ,Unique list of elements outgoing from connection box on left side
+       self.ipin_l_len      ,Length of ``ipin_l``
+
+       self.opin_l          ,Unique list of elements incoming from left side
+       self.opin_l_len      ,Length of ``opin_l``
+       self.opin_l_t        ,Unique list of elements incoming from left top side
+       self.opin_l_t_len    ,Length of ``opin_l_t``
+       self.opin_l_b        ,Unique list of elements incoming from left bottom side
+       self.opin_l_b_len    ,Length of ``opin_l_b``
+
+
+
+    """
+
+    def __init__(self, name, gsb_xml, scale=40, spacing=None) -> None:
+        '''
+        Initialise the rendering class
+
+        args:
+            name (str): Name of the connection box
+            gsb_xml (str): XML file path to read
+        '''
+        self.name = name
+        self.scale = scale
+        self.spacing = spacing if spacing else self.scale*2
+        self.root = gsb_xml if isinstance(gsb_xml, ET.Element) \
+            else ET.parse(gsb_xml).getroot()
         self.extract_info()
 
     def update_dimensions(self, scale, spacing):
@@ -26,7 +350,7 @@ class RoutingRender:
         self.scale = int(scale) or self.scale
         self.spacing = int(spacing) or self.spacing
 
-    @staticmethod
+    @ staticmethod
     def render_ipin(sw):
         size = sw.shape
         format_str = "{:<6} {:<6} {:^%d} " % size[1]
@@ -39,19 +363,27 @@ class RoutingRender:
             count = row.size - list(row).count("_")
             print(format_str.format(indx, count, "".join(row)))
 
-    @staticmethod
-    def _get_max_index(ele):
-        return max([int(i.attrib["index"])for i in ele] + [-1])+1
+    @ staticmethod
+    def _filter_attrib(eles, attrib, value):
+        return [e for e in eles if e.attrib[attrib] == value]
 
-    @staticmethod
+    @ staticmethod
+    def _get_driver_node(root, p, type, side):
+        return root.findall(f"{p}/driver_node[@type='{type}'][@side='{side}']")
+
+    @ staticmethod
+    def _get_max_index(ele):
+        return len({int(i.attrib["index"]): "" for i in ele}.keys())
+
+    @ staticmethod
     def _set_bit(x, indx, symbol='x'):
         x[int(indx)] = symbol
 
-    @staticmethod
+    @ staticmethod
     def _set_vbit(x, indx):
         x[int(indx)] = 'l' if int(indx) % 2 else "r"
 
-    @staticmethod
+    @ staticmethod
     def _set_hbit(x, indx):
         x[int(indx)] = 't' if int(indx) % 2 else "b"
 
@@ -69,7 +401,7 @@ class RoutingRender:
         print("%15s %8s %8s %8s %8s %8s %8s %8s %8s %15s %15s %15s %15s" %
               ('module',
                'chanx_l', 'chanx_r', 'chany_t', 'chany_b',
-               'ipin_t', 'ipin_b', 'ipin_r', 'ipin_l',
+               'ipin_l', 'ipin_r', 'ipin_t', 'ipin_b',
                'opin_l', 'opin_r', 'opin_t', 'opin_b'))
         print("=="*80)
 
@@ -80,7 +412,7 @@ class RoutingRender:
                  "top": self.ipin_t,
                  "bottom": self.ipin_b}[side]
         arr = np.empty(shape=[0, self.chanx_len if side in [
-                       'top', 'bottom'] else self.chany_len], dtype=np.str)
+            'top', 'bottom'] else self.chany_len], dtype=np.str)
         for chan in items:
             ChanX = ['_']*self.chanx_len
             _ = [self._set_bit(ChanX, e.attrib['index'])
@@ -113,20 +445,25 @@ class RoutingRender:
             _ = [self._set_vbit(ChanX, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANX"]')]
             ChanY = ['_']*self.chany_len
+            ChanY = ['_']*40
             _ = [self._set_hbit(ChanY, e.attrib['index'])
                  for e in chan.findall('./driver_node[@type="CHANY"]')]
-            OPIN_L = ['_']*self.opin_l_len
-            _ = [self._set_bit(OPIN_L, e.attrib['index'])
-                 for e in chan.findall('./driver_node[@type="OPIN"][@side="left"]')]
-            OPIN_R = ['_']*self.opin_l_len
-            _ = [self._set_bit(OPIN_R, e.attrib['index'])
-                 for e in chan.findall('./driver_node[@type="OPIN"][@side="right"]')]
-            OPIN_T = ['_']*self.opin_l_len
-            _ = [self._set_bit(OPIN_T, e.attrib['index'])
-                 for e in chan.findall('./driver_node[@type="OPIN"][@side="top"]')]
-            OPIN_B = ['_']*self.opin_l_len
-            _ = [self._set_bit(OPIN_B, e.attrib['index'])
-                 for e in chan.findall('./driver_node[@type="OPIN"][@side="bottom"]')]
+            # OPIN_L = ['_']*self.opin_l_len
+            # _ = [self._set_bit(OPIN_L, e.attrib['index'])
+            #      for e in chan.findall('./driver_node[@type="OPIN"][@side="left"]')]
+            # OPIN_R = ['_']*self.opin_l_len
+            # _ = [self._set_bit(OPIN_R, e.attrib['index'])
+            #      for e in chan.findall('./driver_node[@type="OPIN"][@side="right"]')]
+            # OPIN_T = ['_']*self.opin_l_len
+            # _ = [self._set_bit(OPIN_T, e.attrib['index'])
+            #      for e in chan.findall('./driver_node[@type="OPIN"][@side="top"]')]
+            # OPIN_B = ['_']*self.opin_l_len
+            # _ = [self._set_bit(OPIN_B, e.attrib['index'])
+            #      for e in chan.findall('./driver_node[@type="OPIN"][@side="bottom"]')]
+            OPIN_L = ["_", "_"]
+            OPIN_R = ["_", "_"]
+            OPIN_T = ["_", "_"]
+            OPIN_B = ["_", "_"]
             print(format_str.format(
                 chan.attrib["index"],
                 chan.attrib["mux_size"],
@@ -184,26 +521,18 @@ class RoutingRender:
         Extracts insformation from provided general switch box file
         """
         root = self.root
+        self.chanx = sorted(root.findall("CHANX"),
+                            key=lambda x: int(x.attrib['index']))
+        self.chanx_len = len(self.chanx)
         self.chanx_l = root.findall("CHANX[@side='left']")
         self.chanx_l_len = len(self.chanx_l)
-
         self.chanx_r = root.findall("CHANX[@side='right']")
         self.chanx_r_len = len(self.chanx_r)
 
-        self.chanx = sorted(root.findall("CHANX"),
-                            key=lambda x: int(x.attrib['index']))
-        self.chanx_len = self.chanx_l_len + self.chanx_r_len
         self.chanx_l_out_map = [0]*self.chanx_len
         self.chanx_r_out_map = [0]*self.chanx_len
-        self.chanx_drivers_l = \
-            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="left"]')
-
-        self.chanx_drivers_r = \
-            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="right"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANX"][@side="right"]')
-        self.chanx_drivers = \
-            root.findall('.//CHANX/driver_node[@type="CHANX"]') + \
+        self.chanx_drivers = self.chanx_l + self.chanx_r
+        self.chanx_drivers = root.findall('.//CHANX/driver_node[@type="CHANX"]') + \
             root.findall('.//CHANY/driver_node[@type="CHANX"]')
 
         self.chany_t = root.findall("CHANY[@side='top']")
@@ -215,14 +544,8 @@ class RoutingRender:
         self.chany_len = self.chany_t_len + self.chany_b_len
         self.chany_t_out_map = [0]*self.chany_len
         self.chany_b_out_map = [0]*self.chany_len
-        self.chany_drivers_t = \
-            root.findall('.//CHANY/driver_node[@type="CHANY"][@side="top"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANY"][@side="top"]')
-        self.chany_drivers_b = \
-            root.findall('.//CHANY/driver_node[@type="CHANY"][@side="bottom"]') + \
-            root.findall('.//CHANX/driver_node[@type="CHANY"][@side="bottom"]')
-        self.chany_drivers = \
-            root.findall('.//CHANY/driver_node[@type="CHANY"]') + \
+        self.chany_drivers = self.chany_t + self.chany_b
+        self.chany_drivers = root.findall('.//CHANY/driver_node[@type="CHANY"]') + \
             root.findall('.//CHANX/driver_node[@type="CHANY"]')
 
         self.ipin_l = root.findall("IPIN[@side='left']")
@@ -250,70 +573,36 @@ class RoutingRender:
         self.ft_bottom_len = len(
             set((e.attrib["index"] for e in self.ft_bottom)))
 
-        # Collect Terminating connections
-        self.term_left = [chan for chan in self.chanx_l if len(
-            chan.getchildren()) > 1]
-        self.term_left_len = len(
-            set((e.attrib["index"] for e in self.term_left)))
-        self.term_right = [chan for chan in self.chanx_r if len(
-            chan.getchildren()) > 1]
-        self.term_right_len = len(
-            set((e.attrib["index"] for e in self.term_right)))
-        self.term_top = [chan for chan in self.chany_t if len(
-            chan.getchildren()) > 1]
-        self.term_top_len = len(
-            set((e.attrib["index"] for e in self.term_top)))
-        self.term_bottom = [chan for chan in self.chany_b if len(
-            chan.getchildren()) > 1]
-        self.term_bottom_len = len(
-            set((e.attrib["index"] for e in self.term_bottom)))
-
         # Left side OPins
-        self.opin_l = root.findall(
-            "*/driver_node[@type='OPIN'][@side='left']")
-        self.opin_l_len = max([int(i.attrib["index"])
-                               for i in self.opin_l] + [-1])+1
-        self.opin_l_t = [
-            e for e in self.opin_l if e.attrib["grid_side"] == "top"]
+        self.opin_l = self._get_driver_node(root, "*", "OPIN", "left")
+        self.opin_l_len = self._get_max_index(self.opin_l)
+        self.opin_l_t = self._filter_attrib(self.opin_l, "grid_side", "top")
         self.opin_l_t_len = self._get_max_index(self.opin_l_t)
-        self.opin_l_b = [
-            e for e in self.opin_l if e.attrib["grid_side"] == "bottom"]
+        self.opin_l_b = self._filter_attrib(self.opin_l, "grid_side", "bottom")
         self.opin_l_b_len = self._get_max_index(self.opin_l_b)
 
-        # Right side OPins
-        self.opin_r = root.findall(
-            "*/driver_node[@type='OPIN'][@side='right']")
-        self.opin_r_len = max([int(i.attrib["index"])
-                               for i in self.opin_r] + [-1])+1
-        self.opin_r_t = [
-            e for e in self.opin_r if e.attrib["grid_side"] == "top"]
+        # right side OPins
+        self.opin_r = self._get_driver_node(root, "*", "OPIN", "right")
+        self.opin_r_len = self._get_max_index(self.opin_r)
+        self.opin_r_t = self._filter_attrib(self.opin_r, "grid_side", "top")
         self.opin_r_t_len = self._get_max_index(self.opin_r_t)
-        self.opin_r_b = [
-            e for e in self.opin_r if e.attrib["grid_side"] == "bottom"]
+        self.opin_r_b = self._filter_attrib(self.opin_r, "grid_side", "bottom")
         self.opin_r_b_len = self._get_max_index(self.opin_r_b)
 
-        # Top side OPins
-        self.opin_t = root.findall("*/driver_node[@type='OPIN'][@side='top']")
-        self.opin_t_len = max([int(i.attrib["index"])
-                               for i in self.opin_t] + [-1])+1
-
-        self.opin_t_l = [
-            e for e in self.opin_t if e.attrib["grid_side"] == "left"]
+        # top side OPins
+        self.opin_t = self._get_driver_node(root, "*", "OPIN", "top")
+        self.opin_t_len = self._get_max_index(self.opin_t)
+        self.opin_t_l = self._filter_attrib(self.opin_t, "grid_side", "left")
         self.opin_t_l_len = self._get_max_index(self.opin_t_l)
-        self.opin_t_r = [
-            e for e in self.opin_t if e.attrib["grid_side"] == "right"]
+        self.opin_t_r = self._filter_attrib(self.opin_t, "grid_side", "right")
         self.opin_t_r_len = self._get_max_index(self.opin_t_r)
 
-        # bottom side OPins
-        self.opin_b = root.findall(
-            "*/driver_node[@type='OPIN'][@side='bottom']")
-        self.opin_b_len = max([int(i.attrib["index"])
-                               for i in self.opin_b] + [-1])+1
-        self.opin_b_l = [
-            e for e in self.opin_b if e.attrib["grid_side"] == "left"]
+        # Bottom side OPins
+        self.opin_b = self._get_driver_node(root, "*", "OPIN", "bottom")
+        self.opin_b_len = self._get_max_index(self.opin_b)
+        self.opin_b_l = self._filter_attrib(self.opin_b, "grid_side", "left")
         self.opin_b_l_len = self._get_max_index(self.opin_b_l)
-        self.opin_b_r = [
-            e for e in self.opin_b if e.attrib["grid_side"] == "right"]
+        self.opin_b_r = self._filter_attrib(self.opin_b, "grid_side", "right")
         self.opin_b_r_len = self._get_max_index(self.opin_b_r)
 
     def get_stats(self, print_header=False, noprint=False):
@@ -326,12 +615,12 @@ class RoutingRender:
                (self.name,
                 self.chanx_l_len, self.chanx_r_len,
                 self.chany_t_len, self.chany_b_len,
+                self.ipin_l_len, self.ipin_r_len,
                 self.ipin_t_len, self.ipin_b_len,
-                self.ipin_r_len, self.ipin_l_len,
-                f"{self.opin_t_len:3} [{self.opin_t_l_len:3},{self.opin_t_r_len:3}]",
-                f"{self.opin_b_len:3} [{self.opin_b_l_len:3},{self.opin_b_r_len:3}]",
+                f"{self.opin_l_len:3} [{self.opin_l_t_len:3},{self.opin_l_b_len:3}]",
                 f"{self.opin_r_len:3} [{self.opin_r_t_len:3},{self.opin_r_b_len:3}]",
-                f"{self.opin_l_len:3} [{self.opin_l_t_len:3},{self.opin_l_b_len:3}]"))
+                f"{self.opin_t_len:3} [{self.opin_t_l_len:3},{self.opin_t_r_len:3}]",
+                f"{self.opin_b_len:3} [{self.opin_b_l_len:3},{self.opin_b_r_len:3}]"))
         if not noprint:
             print(msg)
         return msg
@@ -433,7 +722,7 @@ class RoutingRender:
         Create SVG object rendering all the switchs from switch box
         """
         self._setup_svg()
-        self._add_partitions()
+        self.add_partitions()
         self._add_origin_marker()
         self._add_channels()
         self._add_opins()
@@ -471,7 +760,7 @@ class RoutingRender:
                 self.dwgShapes.add(shapes.Line(start=(self.x_max_0, y_line),
                                                end=(self.x_min_4, y_line),
                                                marker_start=self.marker_red.get_funciri(),
-                                               marker_end=self.marker_red.get_funciri(),
+
                                                class_="channel rl_chan"))
                 self._add_short_at(x_line, y_line)
 
@@ -729,7 +1018,7 @@ class RoutingRender:
 
     def _add_ipins(self, side="left", channel_map=None):
         channel_map = channel_map or (lambda side, x: x)
-        if side is "left":
+        if side == "left":
             ipins = self.ipin_t + self.ipin_b
         else:
             ipins = self.ipin_r + self.ipin_l
@@ -811,11 +1100,35 @@ class RoutingRender:
     def _add_short_at(self, x, y):
         self.switches.add(shapes.Circle(center=(x, y), r=10, class_="short"))
 
-    def _add_partitions(self):
+    def add_partitions(self):
+        """
+        This function creates initial floorplan for rendering switch boxes
+            ┌───────────────────────────────┐
+            │                               │
+            │ ┌───────────────────────────┐ │
+            │ │                           │ │
+            │ │  ┌──────────────────────┐ │ │
+            │ │  │                      │ │ │
+            │ │  │ ┌──────────────────┐ │ │ │
+            │ │  │ │                  │ │ │ │
+            │ │  │ │Channel_CrossOver │ │ │ │
+            │ │  │ │                  │ │ │ │
+            │ │  │ └──────────────────┘ │ │ │
+            │ │  │   Driver_Channels_1  │ │ │
+            │ │  └──────────────────────┘ │ │
+            │ │      Driver_Channels_2    │ │
+            │ └───────────────────────────┘ │
+            │            OPINs_1            │
+            └───────────────────────────────┘
+
+        ``Channel_CrossOver`` and ``Driver_Channels_1`` section always exists.
+        ``Driver_Channels_2`` on specific site can be skipped if there are no
+        channels drivers in that direction
+        """
         min_terminating = min(self.ft_left_len, self.ft_right_len,
                               self.ft_top_len, self.ft_bottom_len)
 
-        # width, height calculation
+        # Width, Height Calculation for
         width = self.chanx_len*self.scale + 2*self.spacing
         height = self.chany_len*self.scale + 2*self.spacing
 
@@ -882,31 +1195,6 @@ class RoutingRender:
         self.region.add(shapes.Rect(insert=(0, 0),
                                     size=(width, height),
                                     class_="region1"))
-
-    def _add_switches(self):
-        for chan, ele in enumerate(self.chanx):
-            for switch in ele.getchildren():
-                sw_type = switch.attrib["type"]
-                side = switch.attrib["side"]
-                index = int(switch.attrib["index"])
-                grid_side = switch.attrib.get("grid_side", "")
-                if sw_type == "CHANX":
-                    pass
-                elif sw_type == "CHANY":
-                    pass
-        # for chan_indx, chan in enumerate(self.ipin_t):
-        #     for switch in chan.getchildren():
-        #         sw_type = switch.attrib["type"]
-        #         side = switch.attrib["side"]
-        #         index = int(switch.attrib["index"])
-
-        #         if sw_type.startswith("CHANX"):
-        #             cx = (index+1)*self.scale + self.spacing
-        #             cy = ((chan_indx)+(self.chany_len+1)) * \
-        #                 self.scale + self.spacing
-        #             self.switches.add(shapes.Circle(
-        #                 center=(cx, cy), r=10, class_="switch"
-        #             ))
 
     def _add_origin_marker(self):
         self.dwgbg.add(shapes.Line(start=(0, 1*self.scale),

@@ -273,9 +273,9 @@ class Definition(DefinitionBase):
         RenameMap = {}  # Stores the final rename map
 
         # ====== Input Sanity checks
-        for eachModule in instances_list:
+        for i, eachModule in enumerate(instances_list):
             assert isinstance(
-                eachModule, sdn.Instance), "Modulelist contains none non-instance object [%s]" % type(eachModule)
+                eachModule, sdn.Instance), "Modulelist contains none non-intance object [%s] at location %d " % (type(eachModule), i)
 
         if pin_map:
             if isinstance(pin_map, dict):
@@ -702,6 +702,7 @@ class Definition(DefinitionBase):
         - Netowrkx should be installed
         - Higher fanout nets are represented with independent edge from driver 
         to each load
+
         """
         assert "nx" not in dir(), "Netowrkx library not installed"
 
@@ -711,7 +712,7 @@ class Definition(DefinitionBase):
             if isinstance(pin, sdn.OuterPin):
                 return pin.instance.name
             else:
-                if split_ports:
+                if split_ports and (pin.port.size > 1):
                     return f"{pin.port.name}_{pin.get_verilog_index}"
                 else:
                     return pin.port.name
@@ -720,9 +721,11 @@ class Definition(DefinitionBase):
         graph = nx.DiGraph()
         node_map = {}
         edges = []
+        elabel = []
 
         # Create Port Nodes first
         node_indx = 0
+        logger.debug(f"Found {len(self.ports)} ports")
         for port in self.ports:
             for pin in port.pins:
                 name = get_node_name(pin)
@@ -735,6 +738,7 @@ class Definition(DefinitionBase):
                     break
 
         # Create Instances Nodes
+        logger.debug(f"Found {len(self.children)} instances")
         for instance in self.children:
             name = instance.name
             graph.add_node(node_indx, port=False,
@@ -744,10 +748,12 @@ class Definition(DefinitionBase):
             node_indx += 1
 
         # Create edges
+        logger.debug(f"Found {len(list(self.get_cables()))} nets")
         for cable in list(self.get_cables()):
             for wire in cable.wires:
                 # Skip adding edge if there is no driver
                 if not wire.get_driver():
+                    logger.debug(f"No driver found for {cable.name}")
                     continue
                 # Get driver [source node]
                 # TODO: Consider multiple dirvers here
@@ -759,11 +765,14 @@ class Definition(DefinitionBase):
                     if node == driver_inst:
                         continue
                     edges.append((node_map[driver_inst], node_map[node]))
+                    elabel.append(f"{cable.name}_{wire.get_verilog_index}")
 
+        logger.debug(f"Adding {len(set(edges))} edges")
         for edge in set(edges):
             weight = edges.count(edge)
+            edge_name = elabel[edges.index(edge)]
             graph.add_edge(*edge, label=f"[{weight}]",
-                           name="", weight=float(weight))
+                           edge_name=edge_name, weight=float(weight))
         return graph
 
     def _remove_child(self, child):

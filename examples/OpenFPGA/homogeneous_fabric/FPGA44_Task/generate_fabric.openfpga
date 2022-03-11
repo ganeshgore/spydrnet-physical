@@ -6,7 +6,12 @@
 #   - fabric hierarchy description for ICC2's hierarchical flow
 #   - Timing/Design constraints
 #
-vpr ${VPR_ARCH_FILE} ${VPR_TESTBENCH_BLIF} --clock_modeling route --device ${OPENFPGA_VPR_DEVICE_LAYOUT} --route_chan_width ${OPENFPGA_VPR_ROUTE_CHAN_WIDTH} --absorb_buffer_luts off --write_rr_graph rr_graph.openfpga.xml
+vpr ${VPR_ARCH_FILE} ${VPR_TESTBENCH_BLIF} \
+    --clock_modeling route \
+    --device ${OPENFPGA_VPR_DEVICE_LAYOUT} \
+    --route_chan_width ${OPENFPGA_VPR_ROUTE_CHAN_WIDTH} \
+    --absorb_buffer_luts off \
+    --write_rr_graph rr_graph.openfpga.xml
 
 # Read OpenFPGA architecture definition
 read_openfpga_arch -f ${OPENFPGA_ARCH_FILE}
@@ -27,7 +32,7 @@ build_fabric --compress_routing
 
 # Dump GSB data
 # Necessary for creation of rr graph for SymbiFlow
-write_gsb_to_xml --file gsb
+write_gsb_to_xml --file FPGA44_gsb --unique
 
 # Repack the netlist to physical pbs
 # This must be done before bitstream generator and testbench generation
@@ -42,14 +47,14 @@ write_fabric_bitstream --format xml --file fabric_bitstream.xml
 
 # Write the Verilog netlist for FPGA fabric
 #  - Enable the use of explicit port mapping in Verilog netlist
-write_fabric_verilog --file ./SRC --explicit_port_mapping --verbose --default_net_type wire
+write_fabric_verilog --file ./FPGA44_Verilog --explicit_port_mapping --verbose --default_net_type wire
 
 # The following command seems to be deprecated in OpenFPGA from now on.
 # The below two others replace its functionality.
 #
-#  write_verilog_testbench --file ./SRC --reference_benchmark_file_path ${REFERENCE_VERILOG_TESTBENCH} --print_top_testbench --print_preconfig_top_testbench --print_simulation_ini ./SimulationDeck/simulation_deck.ini --explicit_port_mapping
+#  write_verilog_testbench --file ./FPGA44_Verilog --reference_benchmark_file_path ${REFERENCE_VERILOG_TESTBENCH} --print_top_testbench --print_preconfig_top_testbench --print_simulation_ini ./SimulationDeck/simulation_deck.ini --explicit_port_mapping
 #
-write_preconfigured_testbench --file ./SRC --reference_benchmark_file_path ${REFERENCE_VERILOG_TESTBENCH} --explicit_port_mapping
+write_preconfigured_testbench --file ./FPGA44_Verilog --reference_benchmark_file_path ${REFERENCE_VERILOG_TESTBENCH} --explicit_port_mapping
 write_simulation_task_info --file ./SimulationDeck/simulation_deck.ini --hdl_dir ./HDL_DIR --reference_benchmark_file_path ${REFERENCE_VERILOG_TESTBENCH}
 
 # Write the SDC files for PnR backend
@@ -61,6 +66,3 @@ write_sdc_disable_timing_configure_ports --file ./SDC/disable_configure_ports.sd
 
 # Finish and exit OpenFPGA
 exit
-
-# Note :
-# To run verification at the end of the flow maintain source in ./SRC directory

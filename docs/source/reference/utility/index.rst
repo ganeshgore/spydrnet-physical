@@ -15,3 +15,6 @@ Overview
 
     get_names
     get_attr
+    ConnectPoint
+    ConnectPointList
+    ConnectionPattern

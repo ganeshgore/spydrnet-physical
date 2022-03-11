@@ -1,13 +1,17 @@
+"""
+This is OpenFPGA generated Verilog Netlist Parser Class
+"""
 
 import logging
 import os
+from pprint import pprint, pformat
 import re
 from collections import OrderedDict
 from fnmatch import fnmatch
 from pathlib import Path
 from typing import Callable
 from spydrnet.ir.definition import Definition
-from spydrnet_physical.util import initial_placement
+from spydrnet_physical.util import initial_placement, get_names
 
 import spydrnet as sdn
 
@@ -120,20 +124,15 @@ class OpenFPGA:
                 instance.reference.properties.get("HEIGHT", 0),
             ))
 
-    def design_top_stat(self):
+    def design_top_stat(self, pattern="*", filename=None):
         '''
         Get statistics of the top module
 
         Reference       Count
         ========================
         '''
+        output_str = []
         design = self._top_module
-        print("= = "*10)
-        print("= = "*3 + " DESIGN STATS " + "= "*7)
-        print("= = "*10)
-        print(f"    top_module : {design.name}")
-        print(f"    instances  : {len(design.children)}")
-        print("= = "*10)
         inst_cnt = {}
         for inst in design.children:
             if "ASSIG" in inst.reference.library.name:
@@ -143,17 +142,92 @@ class OpenFPGA:
         inst_cnt = OrderedDict(sorted(inst_cnt.items(),
                                       reverse=True,
                                       key=lambda t: t[1]))
-        print("{: >20} {: >8}".format('References', 'count'))
-        print("- - "*10)
-        for def_, count in inst_cnt.items():
-            print("{: >20} {: >8}".format(
-                def_ if len(def_) < 20 else f"...{def_[-17:]}", count))
+        output_str.append("= = "*10)
+        output_str.append("= = "*3 + " DESIGN STATS " + "= "*7)
+        output_str.append("= = "*10)
+        output_str.append(f"    top_module : {design.name}")
+        output_str.append(f"    definitions: {len(inst_cnt)}")
+        output_str.append(f"    instances  : {len(design.children)}")
+        output_str.append("= = "*10)
+        output_str.append("{: >20} {: >8}".format('References', 'count'))
+        output_str.append("- - "*10)
+        for def_ in sorted(inst_cnt.keys()):
+            if fnmatch(def_, pattern):
+                output_str.append("{: >20} {: >8}".format(
+                    def_ if len(def_) < 20 else f"...{def_[-17:]}", inst_cnt[def_]))
+        print("\n".join(output_str))
+        if filename:
+            with open(filename, 'w') as fp:
+                fp.write("\n".join(output_str))
         return inst_cnt
 
-    def remove_config_chain(self):
+    def remove_direct_interc(self):
+        direct_interc = next(self._top_module.get_definitions("direct_*"), None)
+        if not direct_interc:
+            return
+        ports = {p.name:p for p in direct_interc.get_ports()}
+        for each in list(self._top_module.get_instances("direct_interc_*")):
+            wire_from = each.pins[ports["in"].pins[0]].wire
+            wire_to = each.pins[ports["out"].pins[0]].wire
+            for eachpin in wire_to.pins:
+                wire_to.disconnect_pin(eachpin)
+                wire_from.connect_pin(eachpin)
+            self._top_module.remove_child(each)
+
+
+    def merge_all_grid_ios(self):
+        '''
+        This method creates the group of ``grid_io`` and neighbouring ``connection_box``
+        whichcna be merge. 
+
+        Variable ``cb_list``, ``grid_io_list`` first creates the list of instances on 
+        the periphery of the FPGA, starting from the left bottom corner and going clockwise
+
+        ``merge_list`` is a dictionary which creates the group of instances for
+        different unique pairs of the IO and CB blocks 
+        '''
+        WIDTH = self.fpga_size[0]
+        HEIGHT = self.fpga_size[1]
+        label = ["cby*"]*HEIGHT + ["cbx*"]*WIDTH + \
+            ["cby*"]*HEIGHT + ["cbx*"]*WIDTH
+        x_pts = [0]*HEIGHT + list(range(1, WIDTH+1)) + \
+                [WIDTH]*HEIGHT + list(range(WIDTH, 0, -1))
+        y_pts = list(range(1, HEIGHT)) + [HEIGHT]*(WIDTH+1) + \
+            list(range(HEIGHT, 0, -1)) + [0]*WIDTH
+        cb_list = ["%s_%d__%d_" % (each) for each in zip(label, x_pts, y_pts)]
+
+        label = ["grid*left*"]*HEIGHT + ["grid*top*"]*WIDTH + \
+            ["grid*right*"]*HEIGHT + ["grid*bottom*"]*WIDTH
+        x_pts = [0]*HEIGHT + list(range(1, WIDTH+1)) + \
+                [WIDTH+1]*HEIGHT + list(range(WIDTH, 0, -1))
+        y_pts = list(range(1, HEIGHT+1)) + [HEIGHT+1]*(WIDTH) + \
+            list(range(HEIGHT, 0, -1)) + [0]*WIDTH
+        grid_io_list = ["%s_%d__%d_" % (each)
+                        for each in zip(label, x_pts, y_pts)]
+
+        merge_list = {}
+        for cb, io in zip(cb_list, grid_io_list):
+            io = next(self._netlist.get_instances(io))
+            cb = next(self._netlist.get_instances(cb))
+            lbl = f"{io.reference.name}_{cb.reference.name}"
+            merge_list[lbl] = merge_list.get(lbl, [])
+            merge_list[lbl] += [((io, cb), cb.name+"_new")]
+
+        for _, instance_list in merge_list.items():
+            new_module_name = instance_list[0][0][1].reference.name+"_new"
+            mainDef, instance_list = self.top_module.merge_multiple_instance(
+                instance_list,
+                new_definition_name=new_module_name)
+            next(self.library.get_definitions(
+                mainDef.name[:-4])).name += "_old"
+            mainDef.name = mainDef.name[:-4]
+            for inst in instance_list:
+                inst.name = inst.name[:-4]
+
+    def remove_config_chain(self, name="ccff_"):
         """ Remove configuration chain from design """
         cable_list = []
-        for cable in list(self.top_module.get_cables("*ccff_*")):
+        for cable in list(self.top_module.get_cables(f"*{name}*")):
             cable_list.append(cable.name)
             for pin in list(cable.wires[0].pins):
                 if isinstance(pin, sdn.OuterPin):
@@ -185,21 +259,22 @@ class OpenFPGA:
             ports = sorted(ports, key=sort_pins or (lambda x: x.name))
             module.combine_ports(out_patt, ports)
 
-    def create_grid_io_bus(self):
+    def create_grid_io_bus(self, inpad="inpad", outpad="outpad"):
         """
         Convert `grid_io` Input/Output pins to bus structure
         ::
-        # Input Pins
-        right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
-        left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
-        top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
-        bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
+          # Input Pins
+          right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
+          left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
+          top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
+          bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
 
-        # Output Pins
-        right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
-        left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
-        top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
-        bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
+          # Output Pins
+          right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
+          left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
+          top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
+          bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
+
         """
         sides = ("left", "top", "right", "bottom")
 
@@ -207,9 +282,9 @@ class OpenFPGA:
         for grid_io in self._library.get_definitions("grid_io*"):
             for side in sides:
                 #  Input pins
-                self._convert_to_bus(grid_io, f"{side}*_pin_outpad_*",
+                self._convert_to_bus(grid_io, f"{side}*_pin_{inpad}_*",
                                      f"io_{side}_in")
-                self._convert_to_bus(grid_io, f"{side}*_pin_outpad_*",
+                self._convert_to_bus(grid_io, f"{side}*_pin_{outpad}_*",
                                      f"io_{side}_out")
 
     def create_grid_clb_bus(self):
@@ -227,6 +302,7 @@ class OpenFPGA:
           left_width_0_height_0_subtile_*__pin_O_0_     -> grid_left_out
           top_width_0_height_0_subtile_*__pin_O_0_      -> grid_top_out
           bottom_width_0_height_0_subtile_*__pin_O_0_   -> grid_bottom_out
+
         '''
 
         sides = ("left", "top", "right", "bottom")
@@ -257,6 +333,7 @@ class OpenFPGA:
           left_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_     -> sb_left_b_in
           right_top_grid_bottom_width_0_height_0_subtile_*__pin_O_*_    -> sb_right_t_in
           right_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_    -> sb_right_b_in
+
         """
 
         sides = ("top", "right", "bottom", "left")
@@ -283,6 +360,7 @@ class OpenFPGA:
           left_grid_right_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_left_in
           top_grid_bottom_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_top_in
           bottom_grid_top_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_bottom_in
+
         """
         sides = ("top", "right", "bottom", "left")
         for cbx in self._library.get_definitions("cb?_*"):
@@ -376,13 +454,19 @@ class OpenFPGA:
         while self.written_modules:
             self.written_modules.pop()
 
-    def save_netlist(self, patten="*",  location=".", skip_constraints=True):
+    def save_netlist(self, patten="*",  location=".",
+                     skip_constraints=True, sort_cables=False,
+                     sort_instances=False):
         '''
         Save verilog files
         '''
         for definition in self._library.get_definitions(patten):
             if definition.name in self.written_modules:
                 continue
+            if sort_cables:
+                definition._cables.sort(key=lambda x: x.name)
+            if sort_instances:
+                definition._children.sort(key=lambda x: x.name)
             logger.debug("Writing %s", definition.name)
             Path(location).mkdir(parents=True, exist_ok=True)
             sdn.compose(self._netlist,

@@ -14,6 +14,7 @@ None, None : Right
 '''
 import math
 from copy import deepcopy
+from shutil import move
 from typing import List
 
 import spydrnet as sdn
@@ -25,13 +26,25 @@ class ConnectPoint:
     ''' This store the individual connections points '''
 
     def __init__(self, from_x, from_y, to_x, to_y):
-        self.from_x = from_x
-        self.from_y = from_y
-        self.to_x = to_x
-        self.to_y = to_y
+        from_x, from_y = int(from_x), int(from_y)
+        to_x, to_y = int(to_x), int(to_y)
+        assert not ((from_x == to_x) and (from_y == to_y)), \
+            "Can not make connection to the same grid"
+        assert ((from_x == to_x) and (from_y != to_y)) or \
+               ((from_x != to_x) and (from_y == to_y)), \
+            "Only horizontal or vertical connections are possible " + \
+            f"{from_x}  {from_y} {to_x}  {to_y}"
+        self.from_x, self.from_y = (from_x, from_y)
+        self.to_x, self.to_y = (to_x, to_y)
+
         self.from_dir = ""
         self.to_dir = ""
         self._update_direction()
+
+    @property
+    def distance(self):
+        ''' return the connection distance '''
+        return abs(self.from_x-self.to_x) + abs(self.from_y-self.to_y)
 
     @property
     def connection(self):
@@ -60,6 +73,7 @@ class ConnectPoint:
         self.to_x, self.to_y = self._rotate_point(
             self.to_connection,
             angle=angle, sizex=sizex, sizey=sizey)
+        self._update_direction()
 
     def translate_connection(self, x, y):
         self.from_x, self.from_y = self.from_x + x, self.from_y+y
@@ -124,13 +138,14 @@ class ConnectPoint:
 
 
 class ConnectPointList:
-    ''' This store list of connection points  '''
+    ''' This stores list of connection points  '''
 
     def __init__(self, sizex=None, sizey=None, point=None):
         self.sizex = sizex
         self.sizey = sizey
         self._points: List[ConnectPoint] = []
         self._cursor = []
+        self._cursor_state = True
         if point:
             self.add_connect_point(point)
 
@@ -149,16 +164,48 @@ class ConnectPointList:
 
     @property
     def get_x(self):
+        ''' returns x location of cursor '''
         return self._cursor[0]
 
     @property
     def get_y(self):
+        ''' returns y location of cursor '''
         return self._cursor[1]
 
-    def flip(self):
-        pass
+    def hold_cursor(self):
+        ''' Holds the cursor at current position '''
+        self._cursor_state = False
+
+    def release_cursor(self):
+        ''' Rleases cursor and moves with each point addition '''
+        self._cursor_state = True
+
+    def flip(self, orientation="H", base=None):
+        """ Flips all the points horizontally or vertically"""
+        raise NotImplemented
+
+    def sample_connections(self, max_distance=1):
+        ''' This method splits all the connections longer that ``max_distance`` to
+        at max ``max_distance`` length
+        '''
+        cursor_backup = self.cursor
+        for indx, each in enumerate(self._points):
+            if each.distance > max_distance:
+                self.cursor = (each.from_x, each.from_y)
+                for i in range(max_distance, each.distance, max_distance):
+                    if each.from_dir == "right":
+                        self.move_x(value=max_distance)
+                    elif each.from_dir == "left":
+                        self.move_x(value=-1*max_distance)
+                    if each.from_dir == "top":
+                        self.move_y(value=max_distance)
+                    elif each.from_dir == "bottom":
+                        self.move_y(value=-1*max_distance)
+                each.from_x, each.from_y = self._cursor
+        self.cursor = cursor_backup
 
     def crop_edges(self):
+        ''' Crops all the connections going out of grid '''
         for point in self._points:
             for eachp in ('from_x', 'to_x'):
                 pt = getattr(point, eachp)
@@ -179,10 +226,12 @@ class ConnectPointList:
     def scale(self, scale, anchor=(0, 0)):
         for point in self._points:
             point.scale_connection(scale, anchor)
+        return self
 
     def translate(self, x, y):
         for point in self._points:
             point.translate_connection(x, y)
+        return self
 
     def rotate(self, angle=0):
         angles = (0, 90, 180, 270, -90, -180, -270, 'CW', 'ACW')
@@ -191,30 +240,35 @@ class ConnectPointList:
             point.rotate_connection(angle, sizex=self.sizex, sizey=self.sizey)
 
     def add_next_point(self, x, y):
-        x_prev, y_prev = self.points[-1].to_connection
+        x_prev, y_prev = self._cursor
         point = ConnectPoint(x_prev, y_prev, x, y)
         self.add_connect_point(point)
         self._update_cursor()
         return point
 
-    def move_x(self, value=1):
+    def move_x(self, value=1, steps=1):
+        ''' Moves cursor in x direction by specified steps times by specified value'''
         x_prev, y_prev = self.cursor
-        point = ConnectPoint(x_prev, y_prev, x_prev+value, y_prev)
-        self.cursor = (x_prev+value, y_prev)
-        self.add_connect_point(point)
+        for _ in range(steps):
+            point = ConnectPoint(x_prev, y_prev, x_prev+value, y_prev)
+            self.add_connect_point(point)
+            x_prev, y_prev = (x_prev+value, y_prev)
         self._update_cursor()
         return self.cursor
 
-    def move_y(self, value=1):
+    def move_y(self, value=1, steps=1):
+        ''' Moves cursor in y direction by specified steps times by specified value'''
         x_prev, y_prev = self.cursor
-        point = ConnectPoint(x_prev, y_prev, x_prev, y_prev+value)
-        self.cursor = (x_prev, y_prev+value)
-        self.add_connect_point(point)
+        for _ in range(steps):
+            point = ConnectPoint(x_prev, y_prev, x_prev, y_prev+value)
+            self.add_connect_point(point)
+            x_prev, y_prev = (x_prev, y_prev+value)
         self._update_cursor()
         return self.cursor
 
     def _update_cursor(self):
-        self._cursor = self._points[-1].to_connection
+        if self._cursor_state:
+            self._cursor = self._points[-1].to_connection
         return self.cursor
 
     def __str__(self):
@@ -225,6 +279,7 @@ class ConnectPointList:
         return lines
 
     def add_connect_point(self, point):
+        assert isinstance(point, ConnectPoint)
         self._points.append(point)
         self._update_cursor()
         return point
@@ -237,6 +292,8 @@ class ConnectPointList:
 
     def render_pattern(self, scale=20):
         '''
+        This renderes connection points list in a SVG format
+
         args:
             connect (list): collection connection pattern
 
@@ -244,28 +301,36 @@ class ConnectPointList:
             str(str): return svg string
         '''
         sizex = max([max(x1, x2) for x1, y1, x2, y2 in self._points])+1
-        sizey = max([max(x1, x2) for x1, y1, x2, y2 in self._points])+1
-
-        svg = None
-        # dwg = svgwrite.Drawing("_render.svg", style="border: 1px solid grey;")
-        dwg = svgwrite.Drawing("_render.svg")
-        dwg.viewbox(-5*scale, -1*(sizey+10)*scale,
-                    (sizex+10)*scale, (sizey+10)*scale)
+        sizey = max([max(y1, y2) for x1, y1, x2, y2 in self._points])+1
+        width = sizex*scale
+        height = sizey*scale
+        x_offset = 0
+        y_offset = -1*height
+        dwg = svgwrite.Drawing("_render.svg", size=(width, height))
+        dwg.viewbox(x_offset, y_offset, width, height)
 
         dwgMarker = dwg.add(Group(id="markers",  transform="scale(1,-1)"))
         dwgMain = dwg.add(Group(id="main", transform="scale(1,-1)"))
         dwg.defs.add(dwg.style("""
                 text{font-family: Verdana;}
-                line{stroke: black; stroke-linecap:round}
+                svgg{background-color:grey;}
+                .connection{stroke: black; stroke-linecap:round; opacity: 0.7;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
-                #core_boundary{stroke:grey; stroke_width:0.5;}
-                .marker{stroke:red; stroke_width:0.5;}
+                # core_boundary{stroke:grey; stroke_width:0.5;}
+                .gridmarker{stroke:red; stroke_width:0.5;}
                 """))
+        DRMarker = dwg.marker(refX="30", refY="30",
+                              viewBox="0 0 120 120",
+                              markerUnits="strokeWidth",
+                              markerWidth="8", markerHeight="10", orient="auto")
+        DRMarker.add(dwg.path(d="M 0 0 L 60 30 L 0 60 z", fill="blue"))
+        dwg.defs.add(DRMarker)
         for conn in self._points:
             conn = conn*scale
             dwgMain.add(dwg.line(start=conn.from_connection,
                                  end=conn.to_connection,
+                                 marker_end=DRMarker.get_funciri(),
                                  class_="connection"))
         return dwg
 
@@ -322,7 +387,7 @@ class ConnectPointList:
                 module.create_port(f"{port.name}_{inp}_in",
                                    pins=port.size, direction=sdn.IN)
                 cable = module.create_cable(f"{port.name}_{inp}_in",
-                                    wires=port.size)
+                                            wires=port.size)
                 if prev_cable:
                     prev_cable.assign_cable(cable)
                 prev_cable = cable
@@ -334,14 +399,13 @@ class ConnectPointList:
                 module.create_port(f"{port.name}_{outp}_out",
                                    pins=port.size, direction=sdn.OUT)
                 cable = module.create_cable(f"{port.name}_{outp}_out",
-                                    wires=port.size)
+                                            wires=port.size)
                 if prev_cable:
                     prev_cable.assign_cable(cable)
                 prev_cable = cable
             if prev_cable:
                 next(port.get_cables()).assign_cable(prev_cable)
             module.remove_port(port)
-
 
     def create_ft_connection(self, top_definition, signal_cable):
         ''' Create connections
@@ -369,8 +433,31 @@ class ConnectPointList:
     def __iter__(self):
         yield from self._points
 
+    def short_through(self, through_point):
+        incoming = None
+        outgoing = None
+        for point in self._points:
+            if point.from_connection == through_point:
+                outgoing = point
+            if point.to_connection == through_point:
+                incoming = point
+            if incoming and outgoing:
+                break
+
+        assert isinstance(
+            incoming, ConnectPoint), "Incoming connection not found"
+        assert isinstance(
+            outgoing, ConnectPoint), "Outgoing connection not found"
+        incoming.to_x, incoming.to_y = outgoing.to_connection
+        self._points.remove(outgoing)
+
 
 class ConnectionPattern:
+    '''
+    This creates a connection patterns (`ConnectPointList`) based on pre-defined rule
+
+    '''
+
     def __init__(self, sizex, sizey):
         '''
         Initialise FPGA parameters
@@ -385,11 +472,11 @@ class ConnectionPattern:
         self.ybias = 0
         self._connect = ConnectPointList(sizex=sizex, sizey=sizey)
 
-    @property
+    @ property
     def connections(self):
         return self._connect
 
-    @connections.setter
+    @ connections.setter
     def connections(self, value):
         self._connect = value
         return self._connect
@@ -398,7 +485,7 @@ class ConnectionPattern:
         self._connect = ConnectPointList(sizex=self.sizex,
                                          sizey=self.sizey)
 
-    @staticmethod
+    @ staticmethod
     def _get_prime_factors(number):
         prime_factors = []
         while number % 2 == 0:
@@ -419,11 +506,47 @@ class ConnectionPattern:
         '''
         NotImplementedError
 
-    def get_htree(self, x_margin=(0, 0), y_margin=(0, 0)):
+    @staticmethod
+    def get_htree(size, root=0, side=0, repeat=1):
+        ''' Returns H-Tree of specific size '''
+        points = ConnectPointList(sizex=size, sizey=size)
+        size = size if size % 2 else (size-1)
+        mid = (size+1)/2
+        points.cursor = (mid, mid)
+        for _ in range(repeat):
+            points.release_cursor()
+            points.move_x(value=1, steps=int(mid/2)+root)
+            points.hold_cursor()
+            points.move_y(value=1, steps=int(mid/2)+side)
+            points.move_y(value=-1, steps=int(mid/2)+side)
+
+        points.cursor = (mid, mid)
+        for _ in range(repeat):
+            points.release_cursor()
+            points.move_x(value=-1, steps=int(mid/2)+root)
+            points.hold_cursor()
+            points.move_y(value=1, steps=int(mid/2)+side)
+            points.move_y(value=-1, steps=int(mid/2)+side)
+        return points
+
+    def add_htree(self, n=3):
         '''
         Returns HTree pattern fo the given grid size
         '''
-        NotImplementedError
+        assert (math.log2(n-1) % 1) == 0, "Support only (2^n)+1 width"
+        self._connect.merge(self.get_htree(n))
+        return self._connect
+
+        dev_size = min(self.sizex, self.sizey)
+        while n < dev_size:
+            print(n)
+            n = n*2
+            self.get_fishbone()
+        return self._connect
+        # points = self._connect
+        # x_center = ((self.sizex+1)*0.5)
+        # y_center = ((self.sizey+1)*0.5)
+        # print(x_center, y_center)
 
     def get_fishbone(self, x_margin=(0, 0), y_margin=(0, 0)):
         '''
@@ -466,12 +589,12 @@ class ConnectionPattern:
                 dwgMarker.add(dwg.line(start=((i+0.5)*scale, 0.5*scale),
                                        end=((i+0.5)*scale,
                                             (self.sizey+0.5)*scale),
-                                       class_="marker"))
+                                       class_="gridmarker"))
             for i in range(0, self.sizey+1):
                 dwgMarker.add(dwg.line(start=(0.5*scale, (i+0.5)*scale),
                                        end=((self.sizex+0.5) *
                                             scale, (i+0.5)*scale),
-                                       class_="marker"))
+                                       class_="gridmarker"))
 
         # Add labels to the grid
         if add_module_labels:
@@ -502,8 +625,15 @@ class ConnectionPattern:
                              font_size=self.sizey*scale*0.1,
                              alignment_baseline="middle",
                              text_anchor="middle"))
-        dwg.viewbox(-1*scale, -1*(self.sizey+2)*scale,
-                    (self.sizex+3)*scale, (self.sizey+3)*scale)
+
+        width = self.sizex*scale + (scale)
+        height = self.sizey*scale + (3*scale)
+        x_offset = 0
+        y_offset = -1*height + (1.5*scale)
+        dwg["width"] = width
+        dwg["height"] = height
+        dwg.viewbox(x_offset, y_offset, width, height)
+
         return dwg
 
 
@@ -529,4 +659,5 @@ if __name__ == "__main__":
     conn_list = fpga.connections
     conn_list.merge(left_tree)
     conn_list.crop_edges()
+    conn_list.sample_connections()
     fpga.render_pattern().save(pretty=True, indent=4)
