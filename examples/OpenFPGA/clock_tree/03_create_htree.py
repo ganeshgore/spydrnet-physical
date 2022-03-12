@@ -13,8 +13,14 @@ arbitrary (non square ) tiles.
     :width: 500px
     :align: center
 
-"""
+.. image:: ../../../../examples/OpenFPGA/clock_tree/_hybrid_connectivity_pattern_graph.svg
+    :width: 500px
+    :align: center
 
+"""
+import matplotlib.pyplot as plt
+import networkx as nx
+from networkx.drawing.nx_pydot import to_pydot
 from spydrnet_physical.util import ConnectionPattern
 
 WIDTH = 19
@@ -44,3 +50,9 @@ for x in range(3, WIDTH-1):
 
 svg = cpat.render_pattern(title="Hybrid Pattern")
 svg.saveas("_hybrid_connectivity_pattern.svg", pretty=True, indent=4)
+
+graph, _ = hyb_pat.create_graph()
+graph = to_pydot(graph)
+graph.write_dot("_hybrid_connectivity_pattern_graph.dot")
+graph.write_svg("_hybrid_connectivity_pattern_graph.svg")
+graph.write_png("_hybrid_connectivity_pattern_graph.png")

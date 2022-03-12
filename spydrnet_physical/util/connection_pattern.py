@@ -17,9 +17,12 @@ from copy import deepcopy
 from shutil import move
 from typing import List
 
+import networkx as nx
 import spydrnet as sdn
 import svgwrite
 from svgwrite.container import Group
+
+DEFAULT_COLOR = " black"
 
 
 class ConnectPoint:
@@ -39,7 +42,7 @@ class ConnectPoint:
 
         self.from_dir = ""
         self.to_dir = ""
-        self._color = "black"
+        self._color = DEFAULT_COLOR
         self._update_direction()
 
     @property
@@ -243,6 +246,22 @@ class ConnectPointList:
                 if pt > self.sizey:
                     setattr(point, eachp, 0)
 
+    def create_graph(self):
+        node_mapping = {}
+        graph = nx.DiGraph(directed=True)
+        node = 0
+        for conn in self._points:
+            from_node_lbl = f"%d_%d_" % conn.from_connection
+            to_node_lbl = f"%d_%d_" % conn.to_connection
+            for lbl in [from_node_lbl, to_node_lbl]:
+                if not lbl in node_mapping.keys():
+                    node_mapping[lbl] = node
+                    node += 1
+            from_node = node_mapping[from_node_lbl]
+            to_node = node_mapping[to_node_lbl]
+            graph.add_edge(from_node, to_node)
+        return graph, node_mapping
+
     def merge(self, connectlist):
         self._points.extend(connectlist._points)
         return self
@@ -271,21 +290,29 @@ class ConnectPointList:
         self._update_cursor()
         return point
 
-    def move_x(self, value=1, steps=1):
+    def move_cursor_x(self, value=1):
+        self._cursor = self._cursor[0]+value, self._cursor[1]
+
+    def move_cursor_y(self, value=1):
+        self._cursor = self.cursor[0], self._cursor[1]+value
+
+    def move_x(self, value=1, steps=1, color=DEFAULT_COLOR):
         ''' Moves cursor in x direction by specified steps times by specified value'''
         x_prev, y_prev = self.cursor
         for _ in range(steps):
             point = ConnectPoint(x_prev, y_prev, x_prev+value, y_prev)
+            point.color = color
             self.add_connect_point(point)
             x_prev, y_prev = (x_prev+value, y_prev)
         self._update_cursor()
         return self.cursor
 
-    def move_y(self, value=1, steps=1):
+    def move_y(self, value=1, steps=1, color=DEFAULT_COLOR):
         ''' Moves cursor in y direction by specified steps times by specified value'''
         x_prev, y_prev = self.cursor
         for _ in range(steps):
             point = ConnectPoint(x_prev, y_prev, x_prev, y_prev+value)
+            point.color = color
             self.add_connect_point(point)
             x_prev, y_prev = (x_prev, y_prev+value)
         self._update_cursor()
@@ -342,8 +369,8 @@ class ConnectPointList:
                 .connection{stroke-linecap:round; opacity: 0.7;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
-                # core_boundary{stroke:grey; stroke_width:0.5;}
-                .gridmarker{stroke:red; stroke_width:0.5;}
+                # core_boundary{stroke:grey; stroke-width:0.5;}
+                .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
                 """))
         DRMarker = dwg.marker(refX="30", refY="30",
                               viewBox="0 0 120 120",
@@ -496,7 +523,12 @@ class ConnectionPattern:
         self.sizey = sizey
         self.xbias = 0
         self.ybias = 0
+        self.dwg_main = None
         self._connect = ConnectPointList(sizex=sizex, sizey=sizey)
+
+    @property
+    def svg_main(self):
+        return self.dwg_main
 
     @ property
     def connections(self):
@@ -605,8 +637,8 @@ class ConnectionPattern:
     def render_pattern(self, scale=20, title=None, add_module_labels=False):
         dwg = self._connect.render_pattern(scale)
 
-        dwgMain = [e for e in dwg.elements if e.get_id() == "main"][0]
-        dwgText = dwgMain.add(Group(id="text"))
+        self.dwg_main = [e for e in dwg.elements if e.get_id() == "main"][0]
+        dwgText = self.dwgMain.add(Group(id="text"))
         dwgMarker = [e for e in dwg.elements if e.get_id() == "markers"]
 
         if dwgMarker:
