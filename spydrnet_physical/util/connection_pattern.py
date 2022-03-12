@@ -638,7 +638,7 @@ class ConnectionPattern:
         dwg = self._connect.render_pattern(scale)
 
         self.dwg_main = [e for e in dwg.elements if e.get_id() == "main"][0]
-        dwgText = self.dwgMain.add(Group(id="text"))
+        dwgText = self.dwg_main.add(Group(id="text"))
         dwgMarker = [e for e in dwg.elements if e.get_id() == "markers"]
 
         if dwgMarker:

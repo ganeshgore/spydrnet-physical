@@ -14,7 +14,7 @@ arbitrary (non square ) tiles.
     :align: center
 
 .. image:: ../../../../examples/OpenFPGA/clock_tree/_hybrid_connectivity_pattern_graph.svg
-    :width: 500px
+    :height: 500px
     :align: center
 
 """
