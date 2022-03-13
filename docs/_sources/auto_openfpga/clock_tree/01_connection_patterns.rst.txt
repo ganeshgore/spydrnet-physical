@@ -66,7 +66,7 @@ usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``,
     from spydrnet_physical.util import ConnectionPattern
 
     p_manager = ConnectionPattern(5, 5)
-    fishbone_pattern = p_manager.get_fishbone()
+    fishbone_pattern = p_manager.get_fishbone().set_color("green")
     svg = p_manager.render_pattern(title="Fishbone Pattern")
     svg.saveas("_fishbone_pattern.svg", pretty=True, indent=4)
 
@@ -128,7 +128,7 @@ usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``,
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.030 seconds)
+   **Total running time of the script:** ( 0 minutes  0.039 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_clock_tree_01_connection_patterns.py:

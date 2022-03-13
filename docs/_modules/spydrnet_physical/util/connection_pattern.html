@@ -288,9 +288,12 @@
 <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">move</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">svgwrite</span>
 <span class="kn">from</span> <span class="nn">svgwrite.container</span> <span class="kn">import</span> <span class="n">Group</span>
+
+<span class="n">DEFAULT_COLOR</span> <span class="o">=</span> <span class="s2">" black"</span>
 
 
 <div class="viewcode-block" id="ConnectPoint"><a class="viewcode-back" href="../../../reference/utility/generated/spydrnet_physical.util.ConnectPoint.html#spydrnet_physical.util.ConnectPoint">[docs]</a><span class="k">class</span> <span class="nc">ConnectPoint</span><span class="p">:</span>
@@ -310,6 +313,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">from_dir</span> <span class="o">=</span> <span class="s2">""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">to_dir</span> <span class="o">=</span> <span class="s2">""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="n">DEFAULT_COLOR</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_direction</span><span class="p">()</span></div>
 
     <span class="nd">@property</span>
@@ -336,6 +340,16 @@
     <span class="k">def</span> <span class="nf">to_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' return to connection points '''</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_y</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' return color of conneton '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color</span>
+
+    <span class="nd">@color</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color</span>
 
     <span class="k">def</span> <span class="nf">rotate_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">sizex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_point</span><span class="p">(</span>
@@ -397,7 +411,7 @@
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">"</span><span class="si">%5d</span><span class="s2"> </span><span class="si">%5d</span><span class="s2"> </span><span class="si">%5d</span><span class="s2"> </span><span class="si">%5d</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">"</span><span class="si">%5d</span><span class="s2"> </span><span class="si">%5d</span><span class="s2"> </span><span class="si">%5d</span><span class="s2"> </span><span class="si">%5d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_y</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">ConnectPoint</span><span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="n">scale</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">from_y</span><span class="p">,</span>
@@ -431,7 +445,7 @@
     <span class="nd">@cursor</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="n">point</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">get_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -442,6 +456,12 @@
     <span class="k">def</span> <span class="nf">get_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' returns y location of cursor '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+        <span class="sd">''' Set color to all the points in the connection list '''</span>
+        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
+            <span class="n">each</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">hold_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Holds the cursor at current position '''</span>
@@ -459,10 +479,10 @@
         <span class="sd">''' This method splits all the connections longer that ``max_distance`` to</span>
 <span class="sd">        at max ``max_distance`` length</span>
 <span class="sd">        '''</span>
-        <span class="n">cursor_backup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="n">cursor_backup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
         <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">each</span><span class="o">.</span><span class="n">distance</span> <span class="o">&gt;</span> <span class="n">max_distance</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">each</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="n">each</span><span class="o">.</span><span class="n">from_y</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">each</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="n">each</span><span class="o">.</span><span class="n">from_y</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_distance</span><span class="p">,</span> <span class="n">each</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">max_distance</span><span class="p">):</span>
                     <span class="k">if</span> <span class="n">each</span><span class="o">.</span><span class="n">from_dir</span> <span class="o">==</span> <span class="s2">"right"</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">move_x</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">max_distance</span><span class="p">)</span>
@@ -473,7 +493,7 @@
                     <span class="k">elif</span> <span class="n">each</span><span class="o">.</span><span class="n">from_dir</span> <span class="o">==</span> <span class="s2">"bottom"</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="o">*</span><span class="n">max_distance</span><span class="p">)</span>
                 <span class="n">each</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="n">each</span><span class="o">.</span><span class="n">from_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="n">cursor_backup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="n">cursor_backup</span>
 
     <span class="k">def</span> <span class="nf">crop_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Crops all the connections going out of grid '''</span>
@@ -491,8 +511,28 @@
                 <span class="k">if</span> <span class="n">pt</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">:</span>
                     <span class="nb">setattr</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">eachp</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">trim_borders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">from_x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">to_x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">)</span> \
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">from_y</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">to_y</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">from_x</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">to_x</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> \
+                    <span class="ow">or</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">from_y</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">to_y</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
+            <span class="n">from_node</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"_%d_%d_"</span> <span class="o">%</span> <span class="n">conn</span><span class="o">.</span><span class="n">from_connection</span>
+            <span class="n">to_node</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"_%d_%d_"</span> <span class="o">%</span> <span class="n">conn</span><span class="o">.</span><span class="n">to_connection</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">from_node</span><span class="p">,</span> <span class="n">to_node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">graph</span>
+
     <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connectlist</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">connectlist</span><span class="o">.</span><span class="n">_points</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
@@ -509,6 +549,7 @@
         <span class="k">assert</span> <span class="n">angle</span> <span class="ow">in</span> <span class="n">angles</span><span class="p">,</span> <span class="s2">"Supports only </span><span class="si">%s</span><span class="s2"> degree ratations"</span> <span class="o">%</span> <span class="n">angles</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="n">point</span><span class="o">.</span><span class="n">rotate_connection</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">sizex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">add_next_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
@@ -517,30 +558,38 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">point</span>
 
-    <span class="k">def</span> <span class="nf">move_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">move_cursor_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">move_cursor_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">move_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
         <span class="sd">''' Moves cursor in x direction by specified steps times by specified value'''</span>
-        <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
             <span class="n">point</span> <span class="o">=</span> <span class="n">ConnectPoint</span><span class="p">(</span><span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span><span class="p">,</span> <span class="n">x_prev</span><span class="o">+</span><span class="n">value</span><span class="p">,</span> <span class="n">y_prev</span><span class="p">)</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_connect_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
             <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_prev</span><span class="o">+</span><span class="n">value</span><span class="p">,</span> <span class="n">y_prev</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
 
-    <span class="k">def</span> <span class="nf">move_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">move_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
         <span class="sd">''' Moves cursor in y direction by specified steps times by specified value'''</span>
-        <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
             <span class="n">point</span> <span class="o">=</span> <span class="n">ConnectPoint</span><span class="p">(</span><span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span><span class="p">,</span> <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span><span class="o">+</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_connect_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
             <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span><span class="o">+</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
 
     <span class="k">def</span> <span class="nf">_update_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_connection</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">lines</span> <span class="o">=</span> <span class="s2">""</span>
@@ -585,11 +634,11 @@
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"""</span>
 <span class="s2">                text{font-family: Verdana;}</span>
 <span class="s2">                svgg{background-color:grey;}</span>
-<span class="s2">                .connection{stroke: black; stroke-linecap:round; opacity: 0.7;}</span>
+<span class="s2">                .connection{stroke-linecap:round; opacity: 0.7; stroke-width:1.2;}</span>
 <span class="s2">                span{text-anchor: "middle"; alignment_baseline: "middle"}</span>
 <span class="s2">                .gridLabels{fill: grey;font-style: italic;font-weight: 900}</span>
-<span class="s2">                # core_boundary{stroke:grey; stroke_width:0.5;}</span>
-<span class="s2">                .gridmarker{stroke:red; stroke_width:0.5;}</span>
+<span class="s2">                # core_boundary{stroke:grey; stroke-width:0.5;}</span>
+<span class="s2">                .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}</span>
 <span class="s2">                """</span><span class="p">))</span>
         <span class="n">DRMarker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">refX</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span> <span class="n">refY</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span>
                               <span class="n">viewBox</span><span class="o">=</span><span class="s2">"0 0 120 120"</span><span class="p">,</span>
@@ -598,9 +647,10 @@
         <span class="n">DRMarker</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="s2">"M 0 0 L 60 30 L 0 60 z"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">))</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DRMarker</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
-            <span class="n">conn</span> <span class="o">=</span> <span class="n">conn</span><span class="o">*</span><span class="n">scale</span>
-            <span class="n">dwgMain</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">from_connection</span><span class="p">,</span>
-                                 <span class="n">end</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">to_connection</span><span class="p">,</span>
+            <span class="n">conn_new</span> <span class="o">=</span> <span class="n">conn</span><span class="o">*</span><span class="n">scale</span>
+            <span class="n">dwgMain</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">conn_new</span><span class="o">.</span><span class="n">from_connection</span><span class="p">,</span>
+                                 <span class="n">end</span><span class="o">=</span><span class="n">conn_new</span><span class="o">.</span><span class="n">to_connection</span><span class="p">,</span>
+                                 <span class="n">stroke</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
                                  <span class="n">marker_end</span><span class="o">=</span><span class="n">DRMarker</span><span class="o">.</span><span class="n">get_funciri</span><span class="p">(),</span>
                                  <span class="n">class_</span><span class="o">=</span><span class="s2">"connection"</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">dwg</span>
@@ -741,7 +791,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span> <span class="o">=</span> <span class="n">sizey</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xbias</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ybias</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwg_main</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="n">sizex</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="n">sizey</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">svg_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg_main</span>
 
     <span class="o">@</span> <span class="nb">property</span>
     <span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -850,8 +905,8 @@
     <span class="k">def</span> <span class="nf">render_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_module_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">dwg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
 
-        <span class="n">dwgMain</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">dwg</span><span class="o">.</span><span class="n">elements</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"main"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">dwgText</span> <span class="o">=</span> <span class="n">dwgMain</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"text"</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwg_main</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">dwg</span><span class="o">.</span><span class="n">elements</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"main"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dwgText</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"text"</span><span class="p">))</span>
         <span class="n">dwgMarker</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">dwg</span><span class="o">.</span><span class="n">elements</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"markers"</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">dwgMarker</span><span class="p">:</span>
