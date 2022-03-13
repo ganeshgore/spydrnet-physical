@@ -143,18 +143,12 @@ class ConnectPoint:
         return "%5d %5d %5d %5d %s" % (self.from_x, self.from_y, self.to_x, self.to_y)
 
     def __mul__(self, scale):
-        self.from_x *= scale
-        self.from_y *= scale
-        self.to_x *= scale
-        self.to_y *= scale
-        return self
+        return ConnectPoint(scale*self.from_x, scale*self.from_y,
+                            scale*self.to_x, scale*self.to_y)
 
     def __rmul__(self, scale):
-        self.from_x *= scale
-        self.from_y *= scale
-        self.to_x *= scale
-        self.to_y *= scale
-        return self
+        return ConnectPoint(scale*self.from_x, scale*self.from_y,
+                            scale*self.to_x, scale*self.to_y)
 
 
 class ConnectPointList:
@@ -180,7 +174,7 @@ class ConnectPointList:
     @cursor.setter
     def cursor(self, point):
         self._cursor = point
-        return self.cursor
+        return self._cursor
 
     @property
     def get_x(self):
@@ -214,10 +208,10 @@ class ConnectPointList:
         ''' This method splits all the connections longer that ``max_distance`` to
         at max ``max_distance`` length
         '''
-        cursor_backup = self.cursor
+        cursor_backup = self._cursor
         for indx, each in enumerate(self._points):
             if each.distance > max_distance:
-                self.cursor = (each.from_x, each.from_y)
+                self._cursor = (each.from_x, each.from_y)
                 for i in range(max_distance, each.distance, max_distance):
                     if each.from_dir == "right":
                         self.move_x(value=max_distance)
@@ -228,7 +222,7 @@ class ConnectPointList:
                     elif each.from_dir == "bottom":
                         self.move_y(value=-1*max_distance)
                 each.from_x, each.from_y = self._cursor
-        self.cursor = cursor_backup
+        self._cursor = cursor_backup
 
     def crop_edges(self):
         ''' Crops all the connections going out of grid '''
@@ -246,21 +240,24 @@ class ConnectPointList:
                 if pt > self.sizey:
                     setattr(point, eachp, 0)
 
+    def trim_borders(self):
+        for point in self._points[::-1]:
+            if (point.from_x > self.sizex) or (point.to_x > self.sizex) \
+                    or (point.from_y > self.sizey) or (point.to_y > self.sizey):
+                self._points.remove(point)
+            if (point.from_x < 1) or (point.to_x < 1) \
+                    or (point.from_y < 1) or (point.to_y < 1):
+                self._points.remove(point)
+        return self
+
     def create_graph(self):
-        node_mapping = {}
         graph = nx.DiGraph(directed=True)
         node = 0
         for conn in self._points:
-            from_node_lbl = f"%d_%d_" % conn.from_connection
-            to_node_lbl = f"%d_%d_" % conn.to_connection
-            for lbl in [from_node_lbl, to_node_lbl]:
-                if not lbl in node_mapping.keys():
-                    node_mapping[lbl] = node
-                    node += 1
-            from_node = node_mapping[from_node_lbl]
-            to_node = node_mapping[to_node_lbl]
+            from_node = f"_%d_%d_" % conn.from_connection
+            to_node = f"_%d_%d_" % conn.to_connection
             graph.add_edge(from_node, to_node)
-        return graph, node_mapping
+        return graph
 
     def merge(self, connectlist):
         self._points.extend(connectlist._points)
@@ -294,34 +291,34 @@ class ConnectPointList:
         self._cursor = self._cursor[0]+value, self._cursor[1]
 
     def move_cursor_y(self, value=1):
-        self._cursor = self.cursor[0], self._cursor[1]+value
+        self._cursor = self._cursor[0], self._cursor[1]+value
 
     def move_x(self, value=1, steps=1, color=DEFAULT_COLOR):
         ''' Moves cursor in x direction by specified steps times by specified value'''
-        x_prev, y_prev = self.cursor
+        x_prev, y_prev = self._cursor
         for _ in range(steps):
             point = ConnectPoint(x_prev, y_prev, x_prev+value, y_prev)
             point.color = color
             self.add_connect_point(point)
             x_prev, y_prev = (x_prev+value, y_prev)
         self._update_cursor()
-        return self.cursor
+        return self._cursor
 
     def move_y(self, value=1, steps=1, color=DEFAULT_COLOR):
         ''' Moves cursor in y direction by specified steps times by specified value'''
-        x_prev, y_prev = self.cursor
+        x_prev, y_prev = self._cursor
         for _ in range(steps):
             point = ConnectPoint(x_prev, y_prev, x_prev, y_prev+value)
             point.color = color
             self.add_connect_point(point)
             x_prev, y_prev = (x_prev, y_prev+value)
         self._update_cursor()
-        return self.cursor
+        return self._cursor
 
     def _update_cursor(self):
         if self._cursor_state:
             self._cursor = self._points[-1].to_connection
-        return self.cursor
+        return self._cursor
 
     def __str__(self):
         lines = ""
@@ -366,7 +363,7 @@ class ConnectPointList:
         dwg.defs.add(dwg.style("""
                 text{font-family: Verdana;}
                 svgg{background-color:grey;}
-                .connection{stroke-linecap:round; opacity: 0.7;}
+                .connection{stroke-linecap:round; opacity: 0.7; stroke-width:1.2;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
                 # core_boundary{stroke:grey; stroke-width:0.5;}
@@ -379,9 +376,9 @@ class ConnectPointList:
         DRMarker.add(dwg.path(d="M 0 0 L 60 30 L 0 60 z", fill="blue"))
         dwg.defs.add(DRMarker)
         for conn in self._points:
-            conn = conn*scale
-            dwgMain.add(dwg.line(start=conn.from_connection,
-                                 end=conn.to_connection,
+            conn_new = conn*scale
+            dwgMain.add(dwg.line(start=conn_new.from_connection,
+                                 end=conn_new.to_connection,
                                  stroke=conn.color,
                                  marker_end=DRMarker.get_funciri(),
                                  class_="connection"))
