@@ -486,6 +486,38 @@ class OpenFPGA:
             self.written_modules.append(definition.name)
         return self.written_modules
 
-    def load_grid(self, pickle_path):
-        with open(pickle_path, 'rb') as fp:
-            self.fpga_grid: FPGAGridGen = pickle.load(fp)
+    def load_grid(self, pickle_path) -> FPGAGridGen:
+        if isinstance(pickle_path, FPGAGridGen):
+            self.fpga_grid = pickle_path
+        else:
+            with open(pickle_path, 'rb') as fp:
+                self.fpga_grid: FPGAGridGen = pickle.load(fp)
+
+    def get_top_instance(self, x, y):
+        """
+        This method generates the grid instance information given the 
+        cordinate points 
+        """
+        if 0 in (x, y):
+            return "top"
+        if (x % 2 == 0) and (y % 2 == 0):
+            grid_lbl = self.fpga_grid.get_block(int(x/2), int(y/2))
+            return "%s_%d__%d_" % grid_lbl
+        module = {
+            True: "sb",
+            (x % 2 == 1) and (y % 2 == 0): "cby",
+            (x % 2 == 0) and (y % 2 == 1): "cbx"}[True]
+        xi, yi = int(x/2), int(y/2)
+        if module == "sb":
+            if self.fpga_grid.grid[yi+1][xi+1] == self.fpga_grid.UP_ARROW:
+                grid_lbl = self.fpga_grid.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        elif module == "cby":
+            if self.fpga_grid.grid[yi][xi+1] in [self.fpga_grid.UP_ARROW, self.fpga_grid.RIGHT_ARROW]:
+                grid_lbl = self.fpga_grid.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        elif module == "cbx":
+            if self.fpga_grid.grid[yi+1][xi] in [self.fpga_grid.UP_ARROW]:
+                grid_lbl = self.fpga_grid.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        return f"{module}_{int(x/2)}_{int(y/2)}"
