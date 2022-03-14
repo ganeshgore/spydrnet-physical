@@ -392,24 +392,9 @@ sb_0__0_        cbx_1__0_       sb_1__0_        cbx_2__0_       sb_2__0_        
 <span class="c1">#  Prepare cordinate mapping function for embedding</span>
 <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
 
-<span class="k">def</span> <span class="nf">get_reference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">"top"</span>
-    <span class="k">return</span> <span class="n">get_top_instance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span>
-
-
-<span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">"top"</span>
-    <span class="n">inst_name</span> <span class="o">=</span> <span class="n">get_top_instance_name</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">top_definition</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">inst_name</span><span class="p">))</span>
-    <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">"Instance not found on top_level "</span> <span class="o">+</span> <span class="n">inst_name</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-
 <span class="k">def</span> <span class="nf">get_top_instance_name</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"top"</span>
     <span class="n">module</span> <span class="o">=</span> <span class="p">{</span>
         <span class="kc">True</span><span class="p">:</span> <span class="s2">"sb"</span><span class="p">,</span>
         <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span> <span class="s2">"grid_clb"</span><span class="p">,</span>
@@ -431,16 +416,15 @@ sb_0__0_        cbx_1__0_       sb_1__0_        cbx_2__0_       sb_2__0_        
 
 <span class="c1"># reset_cable = top_definition.create_cable("reset_wire", wires=1)</span>
 <span class="n">reset_cable</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top_definition</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"reset"</span><span class="p">))</span>
-<span class="n">reset_conn_patt</span><span class="o">.</span><span class="n">get_reference</span> <span class="o">=</span> <span class="n">get_reference</span>
-<span class="n">reset_conn_patt</span><span class="o">.</span><span class="n">get_top_instance</span> <span class="o">=</span> <span class="n">get_top_instance</span>
-<span class="n">pprint</span><span class="p">(</span><span class="n">reset_conn_patt</span><span class="o">.</span><span class="n">show_stats</span><span class="p">())</span>
+<span class="n">reset_conn_patt</span><span class="o">.</span><span class="n">get_top_instance_name</span> <span class="o">=</span> <span class="n">get_top_instance_name</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">reset_conn_patt</span><span class="o">.</span><span class="n">show_stats</span><span class="p">(</span><span class="n">netlist</span><span class="p">))</span>
 <span class="n">reset_conn_patt</span><span class="o">.</span><span class="n">create_ft_ports</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s2">"reset"</span><span class="p">,</span> <span class="n">reset_cable</span><span class="p">)</span>
-<span class="n">reset_conn_patt</span><span class="o">.</span><span class="n">create_ft_connection</span><span class="p">(</span><span class="n">top_definition</span><span class="p">,</span> <span class="n">reset_cable</span><span class="p">)</span>
+<span class="n">reset_conn_patt</span><span class="o">.</span><span class="n">create_ft_connection</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">reset_cable</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_fpga_top.v'</span><span class="p">,</span> <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="s2">"fpga_top"</span><span class="p">],</span>
             <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.112 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.644 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-06-reset-feedthrough-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/e14c169feb07679b5b064c2ed0972e23/06_reset_feedthrough.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">06_reset_feedthrough.py</span></code></a></p>

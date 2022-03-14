@@ -298,7 +298,18 @@ to download the full example code</p>
 &lt;class 'spydrnet.ir.Instance'; name 'inst_1_24'; parent definition.name 'top'; reference definition.name 'module1'&gt;
 &lt;class 'spydrnet.ir.Instance'; name 'inst_1_34'; parent definition.name 'top'; reference definition.name 'module1'&gt;
 &lt;class 'spydrnet.ir.Instance'; name 'inst_1_44'; parent definition.name 'top'; reference definition.name 'module1'&gt;
+{'module1': {'in': {'bottom': 4, 'left': 8, 'right': 4, 'top': 0},
+             'out': {'bottom': 0, 'left': 4, 'right': 8, 'top': 3}},
+ 'top': {'out': {'bottom': 0, 'left': 0, 'right': 0, 'top': 1}}}
+inst_1_14       inst_1_24       inst_1_34       inst_1_44
+inst_1_13       inst_1_23       inst_1_33       inst_1_43
+inst_1_12       inst_1_22       inst_1_32       inst_1_42
+inst_1_11       inst_1_21       inst_1_31       inst_1_41
 
+module1         module1         module1         module1
+module1         module1         module1         module1
+module1         module1         module1         module1
+module1         module1         module1         module1
 &lt;class 'spydrnet.ir.Instance'; name 'inst_1_11'; parent definition.name 'top'; reference definition.name 'module1'&gt;
 &lt;class 'spydrnet.ir.Instance'; name 'inst_1_21'; parent definition.name 'top'; reference definition.name 'module1'&gt;
 &lt;class 'spydrnet.ir.Instance'; name 'inst_1_31'; parent definition.name 'top'; reference definition.name 'module1'&gt;
@@ -349,27 +360,20 @@ to download the full example code</p>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_0.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_reference</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_top_instance_name</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">"top"</span>
-    <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"inst_1_</span><span class="si">{</span><span class="n">x</span><span class="si">}{</span><span class="n">y</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"inst_1_</span><span class="si">{</span><span class="n">x</span><span class="si">}{</span><span class="n">y</span><span class="si">}</span><span class="s2">"</span>
 
 
-<span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">"top"</span>
-    <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"inst_1_</span><span class="si">{</span><span class="n">x</span><span class="si">}{</span><span class="n">y</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
-
-
-<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">get_reference</span> <span class="o">=</span> <span class="n">get_reference</span>
-<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">get_top_instance</span> <span class="o">=</span> <span class="n">get_top_instance</span>
-
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">get_top_instance_name</span> <span class="o">=</span> <span class="n">get_top_instance_name</span>
 <span class="n">clk_cable</span> <span class="o">=</span> <span class="n">top_definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"clk"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
+<span class="n">pprint</span><span class="p">(</span><span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">show_stats</span><span class="p">(</span><span class="n">netlist</span><span class="p">))</span>
 <span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">create_ft_ports</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s2">"clk"</span><span class="p">,</span> <span class="n">clk_cable</span><span class="p">)</span>
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">create_ft_connection</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">clk_cable</span><span class="p">)</span>
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">print_instance_grid_map</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">()</span>
-<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">create_ft_connection</span><span class="p">(</span><span class="n">top_definition</span><span class="p">,</span> <span class="n">clk_cable</span><span class="p">)</span>
-
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">print_reference_grid_map</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
 
 <span class="n">top_definition</span><span class="o">.</span><span class="n">split_port</span><span class="p">(</span><span class="s2">"in"</span><span class="p">)</span>
 <span class="n">top_definition</span><span class="o">.</span><span class="n">split_port</span><span class="p">(</span><span class="s2">"out"</span><span class="p">)</span>
@@ -444,7 +448,7 @@ to download the full example code</p>
 <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_clock_tree_floorplan.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.053 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.044 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-04-create-clock-tree-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/08f9f07719e83bc206291e8f71ccb10a/04_create_clock_tree.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_create_clock_tree.py</span></code></a></p>

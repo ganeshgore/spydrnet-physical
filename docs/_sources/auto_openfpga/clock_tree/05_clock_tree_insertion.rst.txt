@@ -41,7 +41,7 @@ the clock tree, and then embed these pattern using ``create_ft_ports`` and
 .. image:: ../../../../examples/OpenFPGA/clock_tree/_clock_tree_connections.svg
     :width: 220px
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-190
+.. GENERATED FROM PYTHON SOURCE LINES 26-173
 
 
 
@@ -115,24 +115,9 @@ the clock tree, and then embed these pattern using ``create_ft_ports`` and
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 
-    def get_reference(x, y):
-        if 0 in (x, y):
-            return "top"
-        return get_top_instance(x, y).reference.name
-
-
-    def get_top_instance(x, y):
-        if 0 in (x, y):
-            return "top"
-        inst_name = get_top_instance_name(x, y)
-        try:
-            return next(top_definition.get_instances(inst_name))
-        except StopIteration:
-            logger.exception("Instance not found on top_level " + inst_name)
-            sys.exit(1)
-
-
     def get_top_instance_name(x, y):
+        if 0 in (x, y):
+            return "top"
         module = {
             True: "sb",
             (x % 2 == 0) and (y % 2 == 0): "grid_clb",
@@ -202,16 +187,14 @@ the clock tree, and then embed these pattern using ``create_ft_ports`` and
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
     clk_l0_cable = top_definition.create_cable("clk_l0", wires=1)
-    l0_patt.get_reference = get_reference
-    l0_patt.get_top_instance = get_top_instance
+    l0_patt.get_top_instance_name = get_top_instance_name
     l0_patt.create_ft_ports(netlist, "clk_l0", clk_l0_cable)
-    l0_patt.create_ft_connection(top_definition, clk_l0_cable)
+    l0_patt.create_ft_connection(netlist, clk_l0_cable)
 
     clk_l1_cable = top_definition.create_cable("clk_l1", wires=1)
-    l1_patt.get_reference = get_reference
-    l1_patt.get_top_instance = get_top_instance
+    l1_patt.get_top_instance_name = get_top_instance_name
     l1_patt.create_ft_ports(netlist, "clk_l1", clk_l1_cable)
-    l1_patt.create_ft_connection(top_definition, clk_l1_cable, down_port="clk_l0")
+    l1_patt.create_ft_connection(netlist, clk_l1_cable, down_port="clk_l0")
 
     sdn.compose(netlist, '_fpga_top.v', definition_list=["fpga_top"],
                 skip_constraints=True, write_blackbox=False)
@@ -219,7 +202,7 @@ the clock tree, and then embed these pattern using ``create_ft_ports`` and
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.124 seconds)
+   **Total running time of the script:** ( 0 minutes  2.647 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_clock_tree_05_clock_tree_insertion.py:
