@@ -258,13 +258,13 @@ def CollectRst():
             if file.endswith(".v"):
                 basename = os.path.splitext(os.path.basename(file))[0]
                 filename = os.path.join(subdir, file)
-                print(f"subdir {subdir}")
-                print(f"file {file}")
-                print(f"basename {basename}")
-                print(f"out_dir {out_dir}")
-                print(f"filename {filename}")
-                print(os.path.join(out_dir, file+".rst"))
-                print()
+                # print(f"subdir {subdir}")
+                # print(f"file {file}")
+                # print(f"basename {basename}")
+                # print(f"out_dir {out_dir}")
+                # print(f"filename {filename}")
+                # print(os.path.join(out_dir, file+".rst"))
+                # print()
                 with open(os.path.join(out_dir, basename+".rst"), "w") as fp:
                     fp.write(
                         f'{basename}\n' +

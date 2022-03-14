@@ -162,10 +162,11 @@ class OpenFPGA:
         return inst_cnt
 
     def remove_direct_interc(self):
-        direct_interc = next(self._top_module.get_definitions("direct_*"), None)
+        direct_interc = next(
+            self._top_module.get_definitions("direct_*"), None)
         if not direct_interc:
             return
-        ports = {p.name:p for p in direct_interc.get_ports()}
+        ports = {p.name: p for p in direct_interc.get_ports()}
         for each in list(self._top_module.get_instances("direct_interc_*")):
             wire_from = each.pins[ports["in"].pins[0]].wire
             wire_to = each.pins[ports["out"].pins[0]].wire
@@ -173,7 +174,6 @@ class OpenFPGA:
                 wire_to.disconnect_pin(eachpin)
                 wire_from.connect_pin(eachpin)
             self._top_module.remove_child(each)
-
 
     def merge_all_grid_ios(self):
         '''
@@ -263,17 +263,17 @@ class OpenFPGA:
         """
         Convert `grid_io` Input/Output pins to bus structure
         ::
-          # Input Pins
-          right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
-          left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
-          top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
-          bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
+           # Input Pins
+           right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
+           left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
+           top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
+           bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
 
-          # Output Pins
-          right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
-          left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
-          top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
-          bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
+           # Output Pins
+           right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
+           left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
+           top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
+           bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
 
         """
         sides = ("left", "top", "right", "bottom")
