@@ -1,21 +1,22 @@
 
-import math
-from copy import deepcopy
-from shutil import move
-from typing import List
 
-import networkx as nx
-import spydrnet as sdn
-import svgwrite
-from svgwrite.container import Group
+from copy import deepcopy
+
 
 DEFAULT_COLOR = " black"
 
 
 class ConnectPoint:
-    ''' This store the individual connections points '''
+    ''' 
+    This class stores information of each connection made in the grid.
 
-    def __init__(self, from_x, from_y, to_x, to_y):
+    Each connection is strictly either vertical or horizontal, 
+    the diagonal connections are invalid. Following properties 
+    are store with each connection
+    '''
+
+    def __init__(self, from_x, from_y, to_x, to_y, color=DEFAULT_COLOR,
+                 level="same"):
         from_x, from_y = int(from_x), int(from_y)
         to_x, to_y = int(to_x), int(to_y)
         assert not ((from_x == to_x) and (from_y == to_y)), \
@@ -29,17 +30,19 @@ class ConnectPoint:
 
         self.from_dir = ""
         self.to_dir = ""
-        self._color = DEFAULT_COLOR
+        self._level = level
+        self._color = color
         self._update_direction()
 
     @property
-    def distance(self):
-        ''' return the connection distance '''
-        return abs(self.from_x-self.to_x) + abs(self.from_y-self.to_y)
+    def level(self):
+        ''' Returns connection level '''
+        return self._level
 
     @property
     def connection(self):
-        ''' return all four connection points '''
+        ''' Return ``from`` and ``to`` connection points () 
+        (``from_x``, ``from_y``, ``to_x``, ``to_y``)'''
         return (self.from_x, self.from_y, self.to_x, self.to_y)
 
     @property
@@ -58,9 +61,24 @@ class ConnectPoint:
         return (self.to_x, self.to_y)
 
     @property
+    def distance(self):
+        ''' return the connection distance '''
+        return abs(self.from_x-self.to_x) + abs(self.from_y-self.to_y)
+
+    @property
     def color(self):
         ''' return color of conneton '''
         return self._color
+
+    @from_connection.setter
+    def from_connection(self, points):
+        self.from_x, self.from_y = points
+        return (self.from_x, self.from_y)
+
+    @to_connection.setter
+    def to_connection(self, points):
+        self.to_x, self.to_y = points
+        return (self.to_x, self.to_y)
 
     @color.setter
     def color(self, color):
@@ -130,9 +148,13 @@ class ConnectPoint:
         return "%5d %5d %5d %5d %s" % (self.from_x, self.from_y, self.to_x, self.to_y)
 
     def __mul__(self, scale):
-        return ConnectPoint(scale*self.from_x, scale*self.from_y,
-                            scale*self.to_x, scale*self.to_y)
+        pt = deepcopy(self)
+        pt.from_connection = (scale*self.from_x, scale*self.from_y)
+        pt.to_connection = (scale*self.to_x, scale*self.to_y)
+        return pt
 
     def __rmul__(self, scale):
-        return ConnectPoint(scale*self.from_x, scale*self.from_y,
-                            scale*self.to_x, scale*self.to_y)
+        pt = deepcopy(self)
+        pt.from_connection = (scale*self.from_x, scale*self.from_y)
+        pt.to_connection = (scale*self.to_x, scale*self.to_y)
+        return pt
