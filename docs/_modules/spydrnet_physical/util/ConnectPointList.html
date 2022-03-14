@@ -534,7 +534,7 @@
         <span class="n">DRMarker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">refX</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span> <span class="n">refY</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span>
                               <span class="n">viewBox</span><span class="o">=</span><span class="s2">"0 0 120 120"</span><span class="p">,</span>
                               <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
-                              <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"8"</span><span class="p">,</span> <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">)</span>
+                              <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span> <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">)</span>
         <span class="n">DRMarker</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="s2">"M 0 0 L 60 30 L 0 60 z"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">))</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DRMarker</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
@@ -580,7 +580,7 @@
 
         <span class="k">return</span> <span class="n">mstat</span>
 
-    <span class="k">def</span> <span class="nf">create_ft_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create_ft_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Create feedthrough port on the given module</span>
 

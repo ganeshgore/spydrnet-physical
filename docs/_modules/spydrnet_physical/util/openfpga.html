@@ -276,16 +276,17 @@
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span><span class="p">,</span> <span class="n">pformat</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">from</span> <span class="nn">fnmatch</span> <span class="kn">import</span> <span class="n">fnmatch</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span><span class="p">,</span> <span class="n">pprint</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
-<span class="kn">from</span> <span class="nn">spydrnet.ir.definition</span> <span class="kn">import</span> <span class="n">Definition</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">initial_placement</span><span class="p">,</span> <span class="n">get_names</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">from</span> <span class="nn">spydrnet.ir.definition</span> <span class="kn">import</span> <span class="n">Definition</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">get_names</span><span class="p">,</span> <span class="n">initial_placement</span><span class="p">)</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 
@@ -311,6 +312,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tile_creator</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config_creator</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">initial_placement</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">netlist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns library</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">library</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -748,7 +756,11 @@
                         <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
                         <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span></div>
+
+    <span class="k">def</span> <span class="nf">load_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pickle_path</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pickle_path</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fpga_grid</span><span class="p">:</span> <span class="n">FPGAGridGen</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span></div>
 </pre></div>
         </article>
       </div>
