@@ -5,14 +5,18 @@ Create Reset Feedthrough in fpga_top
 
 """
 import glob
+import logging
+import sys
 import tempfile
-from asyncio.log import logger
 from itertools import chain
 from pprint import pprint
 
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from spydrnet_physical.util import ConnectionPattern, OpenFPGA
+
+logger = logging.getLogger('spydrnet_logs')
+sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # Read FPGA Netlist
@@ -89,7 +93,7 @@ def get_top_instance(x, y):
         return next(top_definition.get_instances(inst_name))
     except StopIteration:
         logger.exception("Instance not found on top_level " + inst_name)
-        exit()
+        sys.exit(1)
 
 
 def get_top_instance_name(x, y):
@@ -121,4 +125,3 @@ reset_conn_patt.create_ft_ports(netlist, "reset", reset_cable)
 reset_conn_patt.create_ft_connection(top_definition, reset_cable)
 sdn.compose(netlist, '_fpga_top.v', definition_list=["fpga_top"],
             skip_constraints=True, write_blackbox=False)
-exit()
