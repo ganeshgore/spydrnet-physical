@@ -262,7 +262,7 @@ class ConnectPointList:
         DRMarker = dwg.marker(refX="30", refY="30",
                               viewBox="0 0 120 120",
                               markerUnits="strokeWidth",
-                              markerWidth="8", markerHeight="10", orient="auto")
+                              markerWidth="5", markerHeight="10", orient="auto")
         DRMarker.add(dwg.path(d="M 0 0 L 60 30 L 0 60 z", fill="blue"))
         dwg.defs.add(DRMarker)
         for conn in self._points:
@@ -308,7 +308,7 @@ class ConnectPointList:
 
         return mstat
 
-    def create_ft_ports(self, netlist, port_name: str, cable: sdn.Cable):
+    def create_ft_ports(self, netlist: sdn.Netlist, port_name: str, cable: sdn.Cable):
         '''
         Create feedthrough port on the given module
 

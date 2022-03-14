@@ -4,16 +4,17 @@ This is OpenFPGA generated Verilog Netlist Parser Class
 
 import logging
 import os
-from pprint import pprint, pformat
+import pickle
 import re
 from collections import OrderedDict
 from fnmatch import fnmatch
 from pathlib import Path
+from pprint import pformat, pprint
 from typing import Callable
-from spydrnet.ir.definition import Definition
-from spydrnet_physical.util import initial_placement, get_names
 
 import spydrnet as sdn
+from spydrnet.ir.definition import Definition
+from spydrnet_physical.util import (FPGAGridGen, get_names, initial_placement)
 
 logger = logging.getLogger('spydrnet_logs')
 
@@ -39,6 +40,13 @@ class OpenFPGA:
         self.tile_creator = None
         self.config_creator = None
         self.register_placement_creator(initial_placement)
+
+    @property
+    def netlist(self):
+        """
+        Returns library
+        """
+        return self._netlist
 
     @property
     def library(self):
@@ -477,3 +485,7 @@ class OpenFPGA:
                         write_blackbox=True)
             self.written_modules.append(definition.name)
         return self.written_modules
+
+    def load_grid(self, pickle_path):
+        with open(pickle_path, 'rb') as fp:
+            self.fpga_grid: FPGAGridGen = pickle.load(fp)

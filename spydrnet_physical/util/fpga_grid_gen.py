@@ -103,6 +103,8 @@ class fpga_grid_gen():
         self.pb_type = {}
         self.grid = [[0 for x in range(self.width)]
                      for y in range(self.height)]
+        self.RIGHT_ARROW = RIGHT_ARROW
+        self.UP_ARROW = UP_ARROW
 
     def get_width(self):
         ''' Get width of FPGA '''
@@ -133,14 +135,14 @@ class fpga_grid_gen():
         adjusted X and Y cordianates
         '''
         value = self.grid[y][x]
-        while not value:
-            value = [(self.grid[y-1][x], x, y-1),
-                     (self.grid[y][x-1], x-1, y),
-                     (self.grid[y-1][x-1], x-1, y-1), ]
-            value = [v for v in value if v[0] != self.clb]
-            value, x, y = value[0]
+        while value in [self.RIGHT_ARROW, self.UP_ARROW]:
+            if value == self.UP_ARROW:
+                y -= 1
+            if value == self.RIGHT_ARROW:
+                x -= 1
             if x < 1 and y < 1:
                 break
+            value = self.grid[y][x]
         return value, x, y
 
     @staticmethod
@@ -284,6 +286,7 @@ class fpga_grid_gen():
                 self.add_region(element)
             else:
                 continue
+        return self.grid
 
 
 if __name__ == '__main__':
