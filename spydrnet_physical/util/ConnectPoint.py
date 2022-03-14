@@ -85,6 +85,12 @@ class ConnectPoint:
         self._color = color
         return self._color
 
+    @level.setter
+    def level(self, value):
+        ''' Sets connection level '''
+        self._level = value
+        return self._level
+
     def rotate_connection(self, angle, sizex=None, sizey=None):
         self.from_x, self.from_y = self._rotate_point(
             self.from_connection,

@@ -1,4 +1,3 @@
-import importlib_resources
 from spydrnet_physical.util.base_class import (OpenFPGA_Config_Generator,
                                                OpenFPGA_Placement_Generator,
                                                OpenFPGA_Tile_Generator)

@@ -54,6 +54,33 @@ class ConnectPointList:
             each.color = color
         return self
 
+    def search_from_point(self, point):
+        for pt in self._points:
+            if (pt.from_connection == point):
+                return pt
+
+    def search_to_point(self, point):
+        for pt in self._points:
+            if (pt.to_connection == point):
+                return pt
+
+    def push_connection_down(self, point):
+        if isinstance(point, tuple):
+            point = self.search_to_point(point)
+        point.level = "down"
+        return point
+
+    def pull_connection_up(self, point):
+        if isinstance(point, tuple):
+            point = self.search_from_point(point)
+        point.level = "up"
+        return point
+
+    def reset_level(self, point):
+        assert isinstance(point, ConnectPoint), \
+            "point should be instance of ConnectPoint class not " + type(point)
+        point.level = "same"
+
     def hold_cursor(self):
         ''' Holds the cursor at current position '''
         self._cursor_state = False
@@ -228,7 +255,8 @@ class ConnectPointList:
                 .connection{stroke-linecap:round; opacity: 0.7; stroke-width:1.2;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
-                # core_boundary{stroke:grey; stroke-width:0.5;}
+                .down{stroke-dasharray: 5;}
+                .up{stroke-dasharray: 5;}
                 .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
                 """))
         DRMarker = dwg.marker(refX="30", refY="30",
@@ -243,7 +271,7 @@ class ConnectPointList:
                                  end=conn_new.to_connection,
                                  stroke=conn.color,
                                  marker_end=DRMarker.get_funciri(),
-                                 class_="connection"))
+                                 class_=f"connection {conn.level}"))
         return dwg
 
     def get_reference(self, x, y):
@@ -262,22 +290,23 @@ class ConnectPointList:
         '''
         Extracts the connectivity statistics for port and connection creation
         '''
-        module_stat = {}
+        mstat = {}
         for point in self._points:
             from_conn = self.get_reference(*point.from_connection)
             to_conn = self.get_reference(*point.to_connection)
 
-            module_stat[from_conn] = module_stat.get(from_conn, {})
-            module_stat[from_conn]["out"] = module_stat[from_conn].get(
-                "out", {"left": 0, "right": 0, "top": 0, "bottom": 0})
-            module_stat[from_conn]["out"][point.direction(reverse=True)] += 1
+            if point.level in ["same", "down"]:
+                mstat[from_conn] = mstat.get(from_conn, {})
+                mstat[from_conn]["out"] = mstat[from_conn].get(
+                    "out", {"left": 0, "right": 0, "top": 0, "bottom": 0})
+                mstat[from_conn]["out"][point.direction(reverse=True)] += 1
+            if point.level in ["same", "up"]:
+                mstat[to_conn] = mstat.get(to_conn, {})
+                mstat[to_conn]["in"] = mstat[to_conn].get(
+                    "in", {"left": 0, "right": 0, "top": 0, "bottom": 0})
+                mstat[to_conn]["in"][point.direction(reverse=False)] += 1
 
-            module_stat[to_conn] = module_stat.get(to_conn, {})
-            module_stat[to_conn]["in"] = module_stat[to_conn].get(
-                "in", {"left": 0, "right": 0, "top": 0, "bottom": 0})
-            module_stat[to_conn]["in"][point.direction(reverse=False)] += 1
-
-        return module_stat
+        return mstat
 
     def create_ft_ports(self, netlist, port_name: str, cable: sdn.Cable):
         '''
@@ -321,16 +350,25 @@ class ConnectPointList:
             if port:
                 module.remove_port(port)
 
-    def create_ft_connection(self, top_definition, signal_cable):
-        ''' Create feedthrough connections
+    def create_ft_connection(self, top_definition, signal_cable,
+                             down_port=None, up_port=None):
+        ''' Performs top level connection using connection file
+
+        Args:
+            top_definition(sdn.Definition): Top level module definition 
+            signal_cable(str): Current level signal port
+            down_port(str) : Name of down level port 
         '''
         signal = signal_cable.name
         cable = top_definition.create_cable(signal+"_ft")
         for point in self._points:
+            if point.level == "up":
+                continue
             w = cable.create_wire()
             if 0 in point.from_connection:
-                signal_cable.assign_cable(
-                    cable, upper=w.get_index, lower=w.get_index)
+                signal_cable.assign_cable(cable,
+                                          upper=w.get_index,
+                                          lower=w.get_index)
             else:
                 inst = self.get_top_instance(*point.from_connection)
                 port_name = f"{signal}_{point.from_dir}_out"
@@ -341,8 +379,10 @@ class ConnectPointList:
                     cable, upper=w.get_index, lower=w.get_index)
             else:
                 inst = self.get_top_instance(*point.to_connection)
-                w.connect_pin(next(inst.get_port_pins(
-                    f"{signal}_{point.to_dir}_in")))
+                port_name = {
+                    "same": f"{signal}_{point.to_dir}_in",
+                    "down": f"{down_port}_{point.to_dir}_in"}[point.level]
+                w.connect_pin(next(inst.get_port_pins(port_name)))
 
     def __iter__(self):
         yield from self._points
