@@ -87,7 +87,9 @@ l1_patt.cursor = (int(WIDTH/2)+1, 0)
 l1_patt.move_y(steps=int(WIDTH/2)+1)
 l1_patt.merge(p_manager.get_htree(WIDTH))
 l1_patt.set_color("red")
-l1_patt.push_connection_down((3, 3))
+for x in range(2):
+    for y in range(2):
+        l1_patt.push_connection_down((3+(x*4), 3+(y*4)))
 svg = p_manager.render_pattern(title="L1 Pattern")
 svg.saveas("_clock_tree_connections_l0.svg", pretty=True, indent=4)
 
@@ -97,9 +99,13 @@ l0_patt.merge(p_manager.get_htree(4).translate(1, 1))
 l0_patt.merge(p_manager.get_htree(4).translate(5, 1))
 l0_patt.merge(p_manager.get_htree(4).translate(5, 5))
 l0_patt.merge(p_manager.get_htree(4).translate(1, 5))
-pt = ConnectPoint(3, 4, 3, 3)
-l0_patt.add_connect_point(pt)
-l0_patt.pull_connection_up(pt)
+
+for x in range(2):
+    for y in range(2):
+        ydir = -1 if y else 1
+        pt = ConnectPoint(3+(x*4), 3+(y*4)+ydir, 3+(x*4), 3+(y*4))
+        l0_patt.add_connect_point(pt)
+        l0_patt.pull_connection_up(pt)
 l0_patt.set_color("grey")
 svg = p_manager.render_pattern(title="L0 Pattern")
 svg.saveas("_clock_tree_connections_l1.svg", pretty=True, indent=4)
