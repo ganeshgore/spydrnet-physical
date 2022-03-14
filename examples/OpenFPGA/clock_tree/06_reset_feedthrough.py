@@ -79,24 +79,9 @@ svg.saveas("_reset_connections.svg", pretty=True, indent=4)
 #  Prepare cordinate mapping function for embedding
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-def get_reference(x, y):
-    if 0 in (x, y):
-        return "top"
-    return get_top_instance(x, y).reference.name
-
-
-def get_top_instance(x, y):
-    if 0 in (x, y):
-        return "top"
-    inst_name = get_top_instance_name(x, y)
-    try:
-        return next(top_definition.get_instances(inst_name))
-    except StopIteration:
-        logger.exception("Instance not found on top_level " + inst_name)
-        sys.exit(1)
-
-
 def get_top_instance_name(x, y):
+    if 0 in (x, y):
+        return "top"
     module = {
         True: "sb",
         (x % 2 == 0) and (y % 2 == 0): "grid_clb",
@@ -118,10 +103,9 @@ sdn.compose(netlist, '_fpga_top_initial.v', definition_list=["fpga_top"],
 
 # reset_cable = top_definition.create_cable("reset_wire", wires=1)
 reset_cable = next(top_definition.get_cables("reset"))
-reset_conn_patt.get_reference = get_reference
-reset_conn_patt.get_top_instance = get_top_instance
-pprint(reset_conn_patt.show_stats())
+reset_conn_patt.get_top_instance_name = get_top_instance_name
+pprint(reset_conn_patt.show_stats(netlist))
 reset_conn_patt.create_ft_ports(netlist, "reset", reset_cable)
-reset_conn_patt.create_ft_connection(top_definition, reset_cable)
+reset_conn_patt.create_ft_connection(netlist, reset_cable)
 sdn.compose(netlist, '_fpga_top.v', definition_list=["fpga_top"],
             skip_constraints=True, write_blackbox=False)

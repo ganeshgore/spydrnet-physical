@@ -3,6 +3,7 @@ import math
 from copy import deepcopy
 from shutil import move
 from typing import List
+import logging
 
 import networkx as nx
 import spydrnet as sdn
@@ -11,6 +12,9 @@ from spydrnet_physical.util import ConnectPoint
 from svgwrite.container import Group
 
 DEFAULT_COLOR = " black"
+
+logger = logging.getLogger('spydrnet_logs')
+sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 class ConnectPointList:
@@ -274,26 +278,45 @@ class ConnectPointList:
                                  class_=f"connection {conn.level}"))
         return dwg
 
-    def get_reference(self, x, y):
+    def get_reference(self, netlist, x, y):
         '''
         Return reference for the given tile location
         '''
-        return "PlaceholderModule"
+        inst = self.get_top_instance(netlist, x, y)
+        return inst.reference.name if isinstance(inst, sdn.Instance) else inst
 
-    def get_top_instance(self, x, y):
+    def get_top_instance(self, netlist: sdn.Netlist, x, y):
         '''
         Return reference for the given tile location
+
+        Returns:
+            sdn.Instance: Returns SpyDrNet instance 
+        '''
+        if 0 in (x, y):
+            return "top"
+        instance_name = self.get_top_instance_name(x, y)
+        try:
+            return next(netlist.top_instance.reference.get_instances(instance_name))
+        except StopIteration:
+            logger.exception("Instance not found " + instance_name)
+
+    def get_top_instance_name(self, x, y):
+        '''
+        Returns the instance from top_level design
+
+        Returns:
+            str: Instance name
         '''
         return "PlaceholderModule"
 
-    def show_stats(self):
+    def show_stats(self, netlist):
         '''
         Extracts the connectivity statistics for port and connection creation
         '''
         mstat = {}
         for point in self._points:
-            from_conn = self.get_reference(*point.from_connection)
-            to_conn = self.get_reference(*point.to_connection)
+            from_conn = self.get_reference(netlist, *point.from_connection)
+            to_conn = self.get_reference(netlist, *point.to_connection)
 
             if point.level in ["same", "down"]:
                 mstat[from_conn] = mstat.get(from_conn, {})
@@ -317,7 +340,7 @@ class ConnectPointList:
             port (str): port name on each module
         '''
 
-        for m_name, values in self.show_stats().items():
+        for m_name, values in self.show_stats(netlist).items():
             if m_name == "top":
                 continue
             module: sdn.Definition = next(netlist.get_definitions(m_name))
@@ -350,17 +373,17 @@ class ConnectPointList:
             if port:
                 module.remove_port(port)
 
-    def create_ft_connection(self, top_definition, signal_cable,
+    def create_ft_connection(self, netlist: sdn.Netlist, signal_cable: sdn.Instance,
                              down_port=None, up_port=None):
         ''' Performs top level connection using connection file
 
         Args:
-            top_definition(sdn.Definition): Top level module definition 
+            netlist(sdn.Netlist): Top level netlist
             signal_cable(str): Current level signal port
             down_port(str) : Name of down level port 
         '''
         signal = signal_cable.name
-        cable = top_definition.create_cable(signal+"_ft")
+        cable = netlist.top_instance.reference.create_cable(signal+"_ft")
         for point in self._points:
             if point.level == "up":
                 continue
@@ -370,7 +393,7 @@ class ConnectPointList:
                                           upper=w.get_index,
                                           lower=w.get_index)
             else:
-                inst = self.get_top_instance(*point.from_connection)
+                inst = self.get_top_instance(netlist, *point.from_connection)
                 port_name = f"{signal}_{point.from_dir}_out"
                 w.connect_pin(next(inst.get_port_pins(port_name)))
 
@@ -378,11 +401,25 @@ class ConnectPointList:
                 signal_cable.assign_cable(
                     cable, upper=w.get_index, lower=w.get_index)
             else:
-                inst = self.get_top_instance(*point.to_connection)
+                inst = self.get_top_instance(netlist, *point.to_connection)
                 port_name = {
                     "same": f"{signal}_{point.to_dir}_in",
                     "down": f"{down_port}_{point.to_dir}_in"}[point.level]
                 w.connect_pin(next(inst.get_port_pins(port_name)))
+
+    def print_instance_grid_map(self):
+        """ Prints mapping beetween grid cordinates and top level instances """
+        for y in range(self.sizey, 0, -1):
+            for x in range(1, self.sizex+1):
+                print(f"{self.get_top_instance_name(x, y):15}", end=" ")
+            print("")
+
+    def print_reference_grid_map(self, netlist: sdn.Netlist):
+        """ Prints mapping beetween grid cordinates and top level instance refereneces """
+        for y in range(self.sizey, 0, -1):
+            for x in range(1, self.sizex+1):
+                print(f"{self.get_reference(netlist, x, y):15}", end=" ")
+            print("")
 
     def __iter__(self):
         yield from self._points

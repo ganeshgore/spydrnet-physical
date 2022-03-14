@@ -87,24 +87,9 @@ svg.saveas("_clock_tree_connections.svg", pretty=True, indent=4)
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 
-def get_reference(x, y):
-    if 0 in (x, y):
-        return "top"
-    return get_top_instance(x, y).reference.name
-
-
-def get_top_instance(x, y):
-    if 0 in (x, y):
-        return "top"
-    inst_name = get_top_instance_name(x, y)
-    try:
-        return next(top_definition.get_instances(inst_name))
-    except StopIteration:
-        logger.exception("Instance not found on top_level " + inst_name)
-        sys.exit(1)
-
-
 def get_top_instance_name(x, y):
+    if 0 in (x, y):
+        return "top"
     module = {
         True: "sb",
         (x % 2 == 0) and (y % 2 == 0): "grid_clb",
@@ -174,16 +159,14 @@ sdn.compose(netlist, '_fpga_top_initial.v', definition_list=["fpga_top"],
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 clk_l0_cable = top_definition.create_cable("clk_l0", wires=1)
-l0_patt.get_reference = get_reference
-l0_patt.get_top_instance = get_top_instance
+l0_patt.get_top_instance_name = get_top_instance_name
 l0_patt.create_ft_ports(netlist, "clk_l0", clk_l0_cable)
-l0_patt.create_ft_connection(top_definition, clk_l0_cable)
+l0_patt.create_ft_connection(netlist, clk_l0_cable)
 
 clk_l1_cable = top_definition.create_cable("clk_l1", wires=1)
-l1_patt.get_reference = get_reference
-l1_patt.get_top_instance = get_top_instance
+l1_patt.get_top_instance_name = get_top_instance_name
 l1_patt.create_ft_ports(netlist, "clk_l1", clk_l1_cable)
-l1_patt.create_ft_connection(top_definition, clk_l1_cable, down_port="clk_l0")
+l1_patt.create_ft_connection(netlist, clk_l1_cable, down_port="clk_l0")
 
 sdn.compose(netlist, '_fpga_top.v', definition_list=["fpga_top"],
             skip_constraints=True, write_blackbox=False)
