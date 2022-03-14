@@ -19,13 +19,14 @@ This example demonstrates how to insert H-Tree in tileable FPGA grid
 # Read FPGA Netlist
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 import glob
+import logging
+import sys
 import tempfile
-from asyncio.log import logger
 from itertools import chain
-from pprint import pprint
+
 import spydrnet as sdn
-import spydrnet_physical as sdnphy
 from spydrnet_physical.util import ConnectionPattern, OpenFPGA
+
 proj = '../homogeneous_fabric/*_Verilog'
 task = '../homogeneous_fabric/*_Task'
 source_files = glob.glob(f'{proj}/lb/*.v')
@@ -33,6 +34,9 @@ source_files += glob.glob(f'{proj}/routing/*.v')
 source_files += glob.glob(f'{proj}/sub_module/*.v')
 source_files += glob.glob(f'{task}/CustomModules/standard_cell_primitives.v')
 source_files += glob.glob(f'{proj}/fpga_top.v')
+
+logger = logging.getLogger('spydrnet_logs')
+sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 # Temporary fix to read multiple verilog files
 with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -121,7 +125,7 @@ def get_top_instance(x, y):
         return next(top_definition.get_instances(inst_name))
     except StopIteration:
         logger.exception("Instance not found on top_level " + inst_name)
-        exit()
+        sys.exit(1)
 
 
 def get_top_instance_name(x, y):
@@ -158,4 +162,3 @@ l0_patt.create_ft_connection(top_definition, clk_l0_cable)
 
 sdn.compose(netlist, '_fpga_top.v', definition_list=["sb_1__1_"],
             skip_constraints=True, write_blackbox=False)
-exit()
