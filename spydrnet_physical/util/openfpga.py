@@ -520,4 +520,4 @@ class OpenFPGA:
             if self.fpga_grid.grid[yi+1][xi] in [self.fpga_grid.UP_ARROW]:
                 grid_lbl = self.fpga_grid.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
-        return f"{module}_{int(x/2)}_{int(y/2)}"
+        return f"{module}_{int(x/2)}__{int(y/2)}_"
