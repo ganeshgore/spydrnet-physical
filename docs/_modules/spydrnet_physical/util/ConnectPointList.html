@@ -326,6 +326,33 @@
             <span class="n">each</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
         <span class="k">return</span> <span class="bp">self</span>
 
+    <span class="k">def</span> <span class="nf">search_from_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">from_connection</span> <span class="o">==</span> <span class="n">point</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">pt</span>
+
+    <span class="k">def</span> <span class="nf">search_to_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">to_connection</span> <span class="o">==</span> <span class="n">point</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">pt</span>
+
+    <span class="k">def</span> <span class="nf">push_connection_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_to_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="s2">"down"</span>
+        <span class="k">return</span> <span class="n">point</span>
+
+    <span class="k">def</span> <span class="nf">pull_connection_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_from_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="s2">"up"</span>
+        <span class="k">return</span> <span class="n">point</span>
+
+    <span class="k">def</span> <span class="nf">reset_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">ConnectPoint</span><span class="p">),</span> \
+            <span class="s2">"point should be instance of ConnectPoint class not "</span> <span class="o">+</span> <span class="nb">type</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="s2">"same"</span>
+
     <span class="k">def</span> <span class="nf">hold_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Holds the cursor at current position '''</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span> <span class="o">=</span> <span class="kc">False</span>
@@ -500,7 +527,8 @@
 <span class="s2">                .connection{stroke-linecap:round; opacity: 0.7; stroke-width:1.2;}</span>
 <span class="s2">                span{text-anchor: "middle"; alignment_baseline: "middle"}</span>
 <span class="s2">                .gridLabels{fill: grey;font-style: italic;font-weight: 900}</span>
-<span class="s2">                # core_boundary{stroke:grey; stroke-width:0.5;}</span>
+<span class="s2">                .down{stroke-dasharray: 5;}</span>
+<span class="s2">                .up{stroke-dasharray: 5;}</span>
 <span class="s2">                .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}</span>
 <span class="s2">                """</span><span class="p">))</span>
         <span class="n">DRMarker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">refX</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span> <span class="n">refY</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span>
@@ -515,7 +543,7 @@
                                  <span class="n">end</span><span class="o">=</span><span class="n">conn_new</span><span class="o">.</span><span class="n">to_connection</span><span class="p">,</span>
                                  <span class="n">stroke</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
                                  <span class="n">marker_end</span><span class="o">=</span><span class="n">DRMarker</span><span class="o">.</span><span class="n">get_funciri</span><span class="p">(),</span>
-                                 <span class="n">class_</span><span class="o">=</span><span class="s2">"connection"</span><span class="p">))</span>
+                                 <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"connection </span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">dwg</span>
 
     <span class="k">def</span> <span class="nf">get_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -534,22 +562,23 @@
         <span class="sd">'''</span>
 <span class="sd">        Extracts the connectivity statistics for port and connection creation</span>
 <span class="sd">        '''</span>
-        <span class="n">module_stat</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">mstat</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="n">from_conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">(</span><span class="o">*</span><span class="n">point</span><span class="o">.</span><span class="n">from_connection</span><span class="p">)</span>
             <span class="n">to_conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">(</span><span class="o">*</span><span class="n">point</span><span class="o">.</span><span class="n">to_connection</span><span class="p">)</span>
 
-            <span class="n">module_stat</span><span class="p">[</span><span class="n">from_conn</span><span class="p">]</span> <span class="o">=</span> <span class="n">module_stat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">from_conn</span><span class="p">,</span> <span class="p">{})</span>
-            <span class="n">module_stat</span><span class="p">[</span><span class="n">from_conn</span><span class="p">][</span><span class="s2">"out"</span><span class="p">]</span> <span class="o">=</span> <span class="n">module_stat</span><span class="p">[</span><span class="n">from_conn</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s2">"out"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"left"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
-            <span class="n">module_stat</span><span class="p">[</span><span class="n">from_conn</span><span class="p">][</span><span class="s2">"out"</span><span class="p">][</span><span class="n">point</span><span class="o">.</span><span class="n">direction</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"same"</span><span class="p">,</span> <span class="s2">"down"</span><span class="p">]:</span>
+                <span class="n">mstat</span><span class="p">[</span><span class="n">from_conn</span><span class="p">]</span> <span class="o">=</span> <span class="n">mstat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">from_conn</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">mstat</span><span class="p">[</span><span class="n">from_conn</span><span class="p">][</span><span class="s2">"out"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mstat</span><span class="p">[</span><span class="n">from_conn</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="s2">"out"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"left"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+                <span class="n">mstat</span><span class="p">[</span><span class="n">from_conn</span><span class="p">][</span><span class="s2">"out"</span><span class="p">][</span><span class="n">point</span><span class="o">.</span><span class="n">direction</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"same"</span><span class="p">,</span> <span class="s2">"up"</span><span class="p">]:</span>
+                <span class="n">mstat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">]</span> <span class="o">=</span> <span class="n">mstat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">to_conn</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">mstat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">][</span><span class="s2">"in"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mstat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="s2">"in"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"left"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+                <span class="n">mstat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">][</span><span class="s2">"in"</span><span class="p">][</span><span class="n">point</span><span class="o">.</span><span class="n">direction</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
 
-            <span class="n">module_stat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">]</span> <span class="o">=</span> <span class="n">module_stat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">to_conn</span><span class="p">,</span> <span class="p">{})</span>
-            <span class="n">module_stat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">][</span><span class="s2">"in"</span><span class="p">]</span> <span class="o">=</span> <span class="n">module_stat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                <span class="s2">"in"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"left"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
-            <span class="n">module_stat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">][</span><span class="s2">"in"</span><span class="p">][</span><span class="n">point</span><span class="o">.</span><span class="n">direction</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="k">return</span> <span class="n">module_stat</span>
+        <span class="k">return</span> <span class="n">mstat</span>
 
     <span class="k">def</span> <span class="nf">create_ft_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">):</span>
         <span class="sd">'''</span>
@@ -593,16 +622,25 @@
             <span class="k">if</span> <span class="n">port</span><span class="p">:</span>
                 <span class="n">module</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">create_ft_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_definition</span><span class="p">,</span> <span class="n">signal_cable</span><span class="p">):</span>
-        <span class="sd">''' Create feedthrough connections</span>
+    <span class="k">def</span> <span class="nf">create_ft_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_definition</span><span class="p">,</span> <span class="n">signal_cable</span><span class="p">,</span>
+                             <span class="n">down_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">up_port</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">''' Performs top level connection using connection file</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            top_definition(sdn.Definition): Top level module definition </span>
+<span class="sd">            signal_cable(str): Current level signal port</span>
+<span class="sd">            down_port(str) : Name of down level port </span>
 <span class="sd">        '''</span>
         <span class="n">signal</span> <span class="o">=</span> <span class="n">signal_cable</span><span class="o">.</span><span class="n">name</span>
         <span class="n">cable</span> <span class="o">=</span> <span class="n">top_definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">signal</span><span class="o">+</span><span class="s2">"_ft"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="o">==</span> <span class="s2">"up"</span><span class="p">:</span>
+                <span class="k">continue</span>
             <span class="n">w</span> <span class="o">=</span> <span class="n">cable</span><span class="o">.</span><span class="n">create_wire</span><span class="p">()</span>
             <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="n">point</span><span class="o">.</span><span class="n">from_connection</span><span class="p">:</span>
-                <span class="n">signal_cable</span><span class="o">.</span><span class="n">assign_cable</span><span class="p">(</span>
-                    <span class="n">cable</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">w</span><span class="o">.</span><span class="n">get_index</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">w</span><span class="o">.</span><span class="n">get_index</span><span class="p">)</span>
+                <span class="n">signal_cable</span><span class="o">.</span><span class="n">assign_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">,</span>
+                                          <span class="n">upper</span><span class="o">=</span><span class="n">w</span><span class="o">.</span><span class="n">get_index</span><span class="p">,</span>
+                                          <span class="n">lower</span><span class="o">=</span><span class="n">w</span><span class="o">.</span><span class="n">get_index</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_top_instance</span><span class="p">(</span><span class="o">*</span><span class="n">point</span><span class="o">.</span><span class="n">from_connection</span><span class="p">)</span>
                 <span class="n">port_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">signal</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">point</span><span class="o">.</span><span class="n">from_dir</span><span class="si">}</span><span class="s2">_out"</span>
@@ -613,8 +651,10 @@
                     <span class="n">cable</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">w</span><span class="o">.</span><span class="n">get_index</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="n">w</span><span class="o">.</span><span class="n">get_index</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_top_instance</span><span class="p">(</span><span class="o">*</span><span class="n">point</span><span class="o">.</span><span class="n">to_connection</span><span class="p">)</span>
-                <span class="n">w</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">signal</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">point</span><span class="o">.</span><span class="n">to_dir</span><span class="si">}</span><span class="s2">_in"</span><span class="p">)))</span>
+                <span class="n">port_name</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">"same"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">signal</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">point</span><span class="o">.</span><span class="n">to_dir</span><span class="si">}</span><span class="s2">_in"</span><span class="p">,</span>
+                    <span class="s2">"down"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">down_port</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">point</span><span class="o">.</span><span class="n">to_dir</span><span class="si">}</span><span class="s2">_in"</span><span class="p">}[</span><span class="n">point</span><span class="o">.</span><span class="n">level</span><span class="p">]</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="n">port_name</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span>

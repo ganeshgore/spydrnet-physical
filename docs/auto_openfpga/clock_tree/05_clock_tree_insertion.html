@@ -292,6 +292,7 @@ to download the full example code</p>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span><span class="p">,</span> <span class="n">OpenFPGA</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util.ConnectPoint</span> <span class="kn">import</span> <span class="n">ConnectPoint</span>
 
 <span class="n">proj</span> <span class="o">=</span> <span class="s1">'../homogeneous_fabric/*_Verilog'</span>
 <span class="n">task</span> <span class="o">=</span> <span class="s1">'../homogeneous_fabric/*_Task'</span>
@@ -352,6 +353,7 @@ to download the full example code</p>
 <span class="n">l1_patt</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">l1_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p_manager</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">))</span>
 <span class="n">l1_patt</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">"red"</span><span class="p">)</span>
+<span class="n">l1_patt</span><span class="o">.</span><span class="n">push_connection_down</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"L1 Pattern"</span><span class="p">)</span>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_clock_tree_connections_l0.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
@@ -361,6 +363,9 @@ to download the full example code</p>
 <span class="n">l0_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p_manager</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">l0_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p_manager</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">l0_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p_manager</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">pt</span> <span class="o">=</span> <span class="n">ConnectPoint</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">l0_patt</span><span class="o">.</span><span class="n">add_connect_point</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+<span class="n">l0_patt</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
 <span class="n">l0_patt</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">"grey"</span><span class="p">)</span>
 <span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"L0 Pattern"</span><span class="p">)</span>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_clock_tree_connections_l1.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
@@ -403,22 +408,8 @@ to download the full example code</p>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">_"</span>
 
 
-<span class="c1"># # Check mapping by printing 2D grid</span>
-<span class="c1"># for y in range(9, 0, -1):</span>
-<span class="c1">#     for x in range(1, 9+1):</span>
-<span class="c1">#         print(f"{get_top_instance_name(x, y):15}", end=" ")</span>
-<span class="c1">#     print("")</span>
-
-<span class="c1"># Embedded the connectivity</span>
-
-<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_fpga_top_initial.v'</span><span class="p">,</span> <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="s2">"sb_1__1_"</span><span class="p">],</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_fpga_top_initial.v'</span><span class="p">,</span> <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="s2">"fpga_top"</span><span class="p">],</span>
             <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="n">clk_l1_cable</span> <span class="o">=</span> <span class="n">top_definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"clk_l1"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">l1_patt</span><span class="o">.</span><span class="n">get_reference</span> <span class="o">=</span> <span class="n">get_reference</span>
-<span class="n">l1_patt</span><span class="o">.</span><span class="n">get_top_instance</span> <span class="o">=</span> <span class="n">get_top_instance</span>
-<span class="n">l1_patt</span><span class="o">.</span><span class="n">create_ft_ports</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s2">"clk_l1"</span><span class="p">,</span> <span class="n">clk_l1_cable</span><span class="p">)</span>
-<span class="n">l1_patt</span><span class="o">.</span><span class="n">create_ft_connection</span><span class="p">(</span><span class="n">top_definition</span><span class="p">,</span> <span class="n">clk_l1_cable</span><span class="p">)</span>
 
 <span class="n">clk_l0_cable</span> <span class="o">=</span> <span class="n">top_definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"clk_l0"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">l0_patt</span><span class="o">.</span><span class="n">get_reference</span> <span class="o">=</span> <span class="n">get_reference</span>
@@ -426,11 +417,18 @@ to download the full example code</p>
 <span class="n">l0_patt</span><span class="o">.</span><span class="n">create_ft_ports</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s2">"clk_l0"</span><span class="p">,</span> <span class="n">clk_l0_cable</span><span class="p">)</span>
 <span class="n">l0_patt</span><span class="o">.</span><span class="n">create_ft_connection</span><span class="p">(</span><span class="n">top_definition</span><span class="p">,</span> <span class="n">clk_l0_cable</span><span class="p">)</span>
 
-<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_fpga_top.v'</span><span class="p">,</span> <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="s2">"sb_1__1_"</span><span class="p">],</span>
+<span class="n">clk_l1_cable</span> <span class="o">=</span> <span class="n">top_definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"clk_l1"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">l1_patt</span><span class="o">.</span><span class="n">get_reference</span> <span class="o">=</span> <span class="n">get_reference</span>
+<span class="n">l1_patt</span><span class="o">.</span><span class="n">get_top_instance</span> <span class="o">=</span> <span class="n">get_top_instance</span>
+<span class="n">l1_patt</span><span class="o">.</span><span class="n">create_ft_ports</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s2">"clk_l1"</span><span class="p">,</span> <span class="n">clk_l1_cable</span><span class="p">)</span>
+<span class="n">l1_patt</span><span class="o">.</span><span class="n">create_ft_connection</span><span class="p">(</span><span class="n">top_definition</span><span class="p">,</span> <span class="n">clk_l1_cable</span><span class="p">,</span> <span class="n">down_port</span><span class="o">=</span><span class="s2">"clk_l0"</span><span class="p">)</span>
+
+
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_fpga_top.v'</span><span class="p">,</span> <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="s2">"fpga_top"</span><span class="p">],</span>
             <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.587 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.717 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-05-clock-tree-insertion-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0899a8e65b009f1912d7867aa015278e/05_clock_tree_insertion.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_clock_tree_insertion.py</span></code></a></p>

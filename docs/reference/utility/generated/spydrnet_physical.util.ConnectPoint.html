@@ -274,11 +274,14 @@
 <h1>spydrnet_physical.util.ConnectPoint<a class="headerlink" href="#spydrnet-physical-util-connectpoint" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="spydrnet_physical.util.ConnectPoint">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.util.</span></span><span class="sig-name descname"><span class="pre">ConnectPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/spydrnet_physical/util/ConnectPoint.html#ConnectPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.ConnectPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>This store the individual connections points</p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.util.</span></span><span class="sig-name descname"><span class="pre">ConnectPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/spydrnet_physical/util/ConnectPoint.html#ConnectPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.ConnectPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class stores information of each connection made in the grid.</p>
+<p>Each connection is strictly either vertical or horizontal,
+the diagonal connections are invalid. Following properties
+are store with each connection</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.ConnectPoint.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/spydrnet_physical/util/ConnectPoint.html#ConnectPoint.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.ConnectPoint.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/spydrnet_physical/util/ConnectPoint.html#ConnectPoint.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.ConnectPoint.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <p class="rubric">Methods</p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
@@ -287,7 +290,7 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(from_x, from_y, to_x, to_y)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(from_x, from_y, to_x, to_y[, ...])</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">direction</span></code>([reverse])</p></td>
@@ -315,7 +318,7 @@
 <td><p>return color of conneton</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">connection</span></code></p></td>
-<td><p>return all four connection points</p></td>
+<td><p>Return <code class="docutils literal notranslate"><span class="pre">from</span></code> and <code class="docutils literal notranslate"><span class="pre">to</span></code> connection points () (<code class="docutils literal notranslate"><span class="pre">from_x</span></code>, <code class="docutils literal notranslate"><span class="pre">from_y</span></code>, <code class="docutils literal notranslate"><span class="pre">to_x</span></code>, <code class="docutils literal notranslate"><span class="pre">to_y</span></code>)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">distance</span></code></p></td>
 <td><p>return the connection distance</p></td>
@@ -326,7 +329,10 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_connection</span></code></p></td>
 <td><p>return all four connection points</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_connection</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">level</span></code></p></td>
+<td><p>Returns connection level</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_connection</span></code></p></td>
 <td><p>return to connection points</p></td>
 </tr>
 </tbody>

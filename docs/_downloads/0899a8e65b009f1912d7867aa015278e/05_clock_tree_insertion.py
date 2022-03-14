@@ -26,6 +26,7 @@ from itertools import chain
 
 import spydrnet as sdn
 from spydrnet_physical.util import ConnectionPattern, OpenFPGA
+from spydrnet_physical.util.ConnectPoint import ConnectPoint
 
 proj = '../homogeneous_fabric/*_Verilog'
 task = '../homogeneous_fabric/*_Task'
@@ -86,6 +87,7 @@ l1_patt.cursor = (int(WIDTH/2)+1, 0)
 l1_patt.move_y(steps=int(WIDTH/2)+1)
 l1_patt.merge(p_manager.get_htree(WIDTH))
 l1_patt.set_color("red")
+l1_patt.push_connection_down((3, 3))
 svg = p_manager.render_pattern(title="L1 Pattern")
 svg.saveas("_clock_tree_connections_l0.svg", pretty=True, indent=4)
 
@@ -95,6 +97,9 @@ l0_patt.merge(p_manager.get_htree(4).translate(1, 1))
 l0_patt.merge(p_manager.get_htree(4).translate(5, 1))
 l0_patt.merge(p_manager.get_htree(4).translate(5, 5))
 l0_patt.merge(p_manager.get_htree(4).translate(1, 5))
+pt = ConnectPoint(3, 4, 3, 3)
+l0_patt.add_connect_point(pt)
+l0_patt.pull_connection_up(pt)
 l0_patt.set_color("grey")
 svg = p_manager.render_pattern(title="L0 Pattern")
 svg.saveas("_clock_tree_connections_l1.svg", pretty=True, indent=4)
@@ -137,22 +142,8 @@ def get_top_instance_name(x, y):
     return f"{module}_{int(x/2)}__{int(y/2)}_"
 
 
-# # Check mapping by printing 2D grid
-# for y in range(9, 0, -1):
-#     for x in range(1, 9+1):
-#         print(f"{get_top_instance_name(x, y):15}", end=" ")
-#     print("")
-
-# Embedded the connectivity
-
-sdn.compose(netlist, '_fpga_top_initial.v', definition_list=["sb_1__1_"],
+sdn.compose(netlist, '_fpga_top_initial.v', definition_list=["fpga_top"],
             skip_constraints=True, write_blackbox=False)
-
-clk_l1_cable = top_definition.create_cable("clk_l1", wires=1)
-l1_patt.get_reference = get_reference
-l1_patt.get_top_instance = get_top_instance
-l1_patt.create_ft_ports(netlist, "clk_l1", clk_l1_cable)
-l1_patt.create_ft_connection(top_definition, clk_l1_cable)
 
 clk_l0_cable = top_definition.create_cable("clk_l0", wires=1)
 l0_patt.get_reference = get_reference
@@ -160,5 +151,12 @@ l0_patt.get_top_instance = get_top_instance
 l0_patt.create_ft_ports(netlist, "clk_l0", clk_l0_cable)
 l0_patt.create_ft_connection(top_definition, clk_l0_cable)
 
-sdn.compose(netlist, '_fpga_top.v', definition_list=["sb_1__1_"],
+clk_l1_cable = top_definition.create_cable("clk_l1", wires=1)
+l1_patt.get_reference = get_reference
+l1_patt.get_top_instance = get_top_instance
+l1_patt.create_ft_ports(netlist, "clk_l1", clk_l1_cable)
+l1_patt.create_ft_connection(top_definition, clk_l1_cable, down_port="clk_l0")
+
+
+sdn.compose(netlist, '_fpga_top.v', definition_list=["fpga_top"],
             skip_constraints=True, write_blackbox=False)
