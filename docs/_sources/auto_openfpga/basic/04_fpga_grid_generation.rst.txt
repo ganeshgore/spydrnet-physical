@@ -25,6 +25,16 @@ FPGA Layout grid generation
 This class generates the 2D matrix of the FPGA grid.
 
 
+**layout section of Architecture file**
+
+
+.. program-output:: bash -c "xmllint --format --xpath '//layout' ../../examples/OpenFPGA/basic/support_files/vpr_arch_render_demo.xml > ./auto_prog_output/arch_layout_snnipet.xml"
+
+
+.. literalinclude:: ../../auto_prog_output/arch_layout_snnipet.xml
+   :language: xml
+
+
 **Expected Output**:
 
 .. code-block:: text
@@ -38,7 +48,7 @@ This class generates the 2D matrix of the FPGA grid.
     io_left     clb        clb        clb        clb        clb        clb      io_right
     EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-44
+.. GENERATED FROM PYTHON SOURCE LINES 33-54
 
 
 

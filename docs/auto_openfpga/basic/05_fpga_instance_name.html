@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="FPGA Layout grid generation" href="04_fpga_grid_generation.html" /><link rel="prev" title="Render FPGA Basic Elements" href="02_fpga_basic_elements.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Renaming Homogeneous FPGA Modules" href="rename_modules.html" /><link rel="prev" title="FPGA Layout grid generation" href="04_fpga_grid_generation.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Render Placement information from Verilog netlist - SpyDrNet-Physical alpha documentation</title>
+        <title>FPGA Instance to Layout mapping - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
@@ -222,9 +222,9 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">OpenFPGA Related Restructuring</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="01_fpga_arch_parse.html">OpenFPGA Architecture Parsing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_initial_placement.html">Render Placement information from Verilog netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -273,52 +273,21 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-basic-03-initial-placement-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-basic-05-fpga-instance-name-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="render-placement-information-from-verilog-netlist">
-<span id="sphx-glr-auto-openfpga-basic-03-initial-placement-py"></span><h1>Render Placement information from Verilog netlist<a class="headerlink" href="#render-placement-information-from-verilog-netlist" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstate how to render FPGA Tile using <code class="docutils literal notranslate"><span class="pre">FloorPlanViz</span></code> class
-User can provide external script to render tiles, by default the rendering is
-based on <code class="docutils literal notranslate"><span class="pre">initial_placement</span></code> class.</p>
-<p>This script can be used for shaping and placement of the modules before place and route.</p>
+<section class="sphx-glr-example-title" id="fpga-instance-to-layout-mapping">
+<span id="sphx-glr-auto-openfpga-basic-05-fpga-instance-name-py"></span><h1>FPGA Instance to Layout mapping<a class="headerlink" href="#fpga-instance-to-layout-mapping" title="Permalink to this headline">¶</a></h1>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>              MODULE             INSTANCE LOC_X LOC_Y WIDTH HEIGHT
- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-            sb_0__0_             sb_0__0_    96    96   200   200
-            sb_0__1_             sb_0__1_    96   496   200   200
-            sb_0__2_             sb_0__1_    96   896   200   200
-            sb_0__3_             sb_0__1_    96  1296   200   200
-            sb_0__4_             sb_0__4_    96  1696   200   200
-           cby_0__1_            cby_0__1_    96   296   200   200
-           cby_0__2_            cby_0__1_    96   696   200   200
-           cby_0__3_            cby_0__1_    96  1096   200   200
-           cby_0__4_            cby_0__1_    96  1496   200   200
-= = = = = = = = = = = = = = = = = = = =
-= = = = = =  DESIGN STATS = = = = = = =
-= = = = = = = = = = = = = = = = = = = =
-    top_module : fpga_top
-    definitions: 16
-    instances  : 81
-= = = = = = = = = = = = = = = = = = = =
-          References    count
-- - - - - - - - - - - - - - - - - - - -
-           cbx_1__0_        4
-           cbx_1__1_       12
-           cbx_1__4_        4
-           cby_0__1_        4
-           cby_1__1_       12
-           cby_4__1_        4
-            grid_clb       16
-            sb_0__0_        1
-            sb_0__1_        3
-            sb_0__4_        1
-            sb_1__0_        3
-            sb_1__1_        9
-            sb_1__4_        3
-            sb_4__0_        1
-            sb_4__1_        3
-            sb_4__4_        1
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>sb_0_4    cbx_1_4   sb_1_4    cbx_2_4   sb_2_4    cbx_3_4   sb_3_4    cbx_4_4   sb_4_4
+cby_0_4   clb_1__4_ cby_1_4   clb_2__4_ cby_2_4   clb_3__4_ cby_3_4   clb_4__4_ cby_4_4
+sb_0_3    cbx_1_3   sb_1_3    cbx_2_3   sb_2_3    cbx_3_3   sb_3_3    cbx_4_3   sb_4_3
+cby_0_3   clb_1__3_ cby_1_3   clb_2__3_ cby_2_3   clb_3__3_ cby_3_3   clb_4__3_ cby_4_3
+sb_0_2    cbx_1_2   sb_1_2    cbx_2_2   sb_2_2    cbx_3_2   sb_3_2    cbx_4_2   sb_4_2
+cby_0_2   clb_1__2_ cby_1_2   clb_2__2_ cby_2_2   clb_3__2_ cby_3_2   clb_4__2_ cby_4_2
+sb_0_1    cbx_1_1   sb_1_1    cbx_2_1   sb_2_1    cbx_3_1   sb_3_1    cbx_4_1   sb_4_1
+cby_0_1   clb_1__1_ cby_1_1   clb_2__1_ cby_2_1   clb_3__1_ cby_3_1   clb_4__1_ cby_4_1
+sb_0_0    cbx_1_0   sb_1_0    cbx_2_0   sb_2_0    cbx_3_0   sb_3_0    cbx_4_0   sb_4_0
 </pre></div>
 </div>
 <div class="line-block">
@@ -326,13 +295,10 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util.get_floorplan</span> <span class="kn">import</span> <span class="n">FloorPlanViz</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util.shell</span> <span class="kn">import</span> <span class="n">launch_shell</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">FPGAGridGen</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
@@ -355,38 +321,29 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 
     <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
 
-    <span class="c1"># Convert wires to bus structure</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_io_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_sb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_cb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">merge_all_grid_ios</span><span class="p">()</span>
+    <span class="n">fpga_grid</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">'FPGA4x4'</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"4x4"</span><span class="p">,</span>
+                            <span class="n">arch_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/FPGA44_Task/arch/k6_N10_tileable.xml"</span><span class="p">,</span>
+                            <span class="n">release_root</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">fpga_grid</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">load_grid</span><span class="p">(</span><span class="n">fpga_grid</span><span class="p">)</span>
 
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="c1">#           Floorplan visualization</span>
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_placement</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="s2">"*_0__*"</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
-
-    <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="p">)</span>
-    <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
-    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fpga_initial_placement.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">fpga</span><span class="o">.</span><span class="n">get_top_instance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">10</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.096 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-03-initial-placement-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.691 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-05-fpga-instance-name-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/2339083e424d642c72d44fdd86f18dcc/03_initial_placement.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_initial_placement.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/a8de9fbbdb5f6d7c479111b7f432c847/05_fpga_instance_name.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_fpga_instance_name.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/110a66bf0c3f3ddbaecaa061ea9b7391/03_initial_placement.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_initial_placement.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/f61fc7ef46ecc9019b8e789d47776a79/05_fpga_instance_name.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">05_fpga_instance_name.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -397,23 +354,23 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="04_fpga_grid_generation.html">
+          <a class="next-page" href="rename_modules.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">FPGA Layout grid generation</div>
+                <div class="title">Renaming Homogeneous FPGA Modules</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="02_fpga_basic_elements.html">
+          <a class="prev-page" href="04_fpga_grid_generation.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Render FPGA Basic Elements</div>
+                <div class="title">FPGA Layout grid generation</div>
                 
               </div>
             </a>
@@ -425,7 +382,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/auto_openfpga/basic/03_initial_placement.rst.txt"
+            <a class="muted-link" href="../../_sources/auto_openfpga/basic/05_fpga_instance_name.rst.txt"
                rel="nofollow">
               Show Source
             </a>
