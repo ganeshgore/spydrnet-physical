@@ -13,6 +13,7 @@ from pprint import pformat, pprint
 from typing import Callable
 
 import spydrnet as sdn
+import spydrnet_physical as sdnphy
 from spydrnet.ir.definition import Definition
 from spydrnet_physical.util import (FPGAGridGen, get_names, initial_placement)
 
@@ -521,3 +522,21 @@ class OpenFPGA:
                 grid_lbl = self.fpga_grid.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
         return f"{module}_{int(x/2)}__{int(y/2)}_"
+
+    def fix_grid_pin_names(self, regex=r".*__pin_(.*)_0_"):
+        '''
+        This method is used to fix the pin names on the grid modules
+
+        Args:
+            regex(str): Regex string used to extract the name of the port
+        '''
+        eachmodule: sdn.module
+        for eachmodule in self.top_module.get_definitions("grid_clb*"):
+            logger.debug(f"Fixing pins on {eachmodule.name} module")
+            top_port: sdn.Port
+            for top_port in eachmodule.get_ports("*"):
+                pin_name = re.match(regex, top_port.name)
+                if pin_name:
+                    pin_name = pin_name.groups()[0]
+                    top_port.change_name(pin_name)
+                    logger.debug(f"{top_port.name} =>> {pin_name}")
