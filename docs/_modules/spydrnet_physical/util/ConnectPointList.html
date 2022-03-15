@@ -325,6 +325,10 @@
         <span class="sd">''' returns y location of cursor '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
+    <span class="k">def</span> <span class="nf">set_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
     <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
         <span class="sd">''' Set color to all the points in the connection list '''</span>
         <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
@@ -368,7 +372,9 @@
 
     <span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"H"</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">""" Flips all the points horizontally or vertically"""</span>
-        <span class="k">raise</span> <span class="bp">NotImplemented</span>
+        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">flip_connection</span><span class="p">(</span><span class="n">orientation</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">sample_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_distance</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">''' This method splits all the connections longer that ``max_distance`` to</span>
@@ -468,7 +474,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">add_connect_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
             <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_prev</span><span class="o">+</span><span class="n">value</span><span class="p">,</span> <span class="n">y_prev</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">move_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
         <span class="sd">''' Moves cursor in y direction by specified steps times by specified value'''</span>
@@ -479,7 +485,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">add_connect_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
             <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span><span class="o">+</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">_update_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span><span class="p">:</span>

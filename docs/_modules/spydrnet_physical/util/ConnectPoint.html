@@ -364,6 +364,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level</span>
 
+    <span class="k">def</span> <span class="nf">flip_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">orientation</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"v"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">from_y</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_y</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">orientation</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"h"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">from_x</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_x</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">orientation</span> <span class="o">+</span> <span class="s2">" Orinetation is not supported"</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">rotate_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">sizex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_point</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">from_connection</span><span class="p">,</span>
