@@ -286,6 +286,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir.definition</span> <span class="kn">import</span> <span class="n">Definition</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">get_names</span><span class="p">,</span> <span class="n">initial_placement</span><span class="p">)</span>
 
@@ -793,7 +794,25 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_grid</span><span class="o">.</span><span class="n">grid</span><span class="p">[</span><span class="n">yi</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">xi</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_grid</span><span class="o">.</span><span class="n">UP_ARROW</span><span class="p">]:</span>
                 <span class="n">grid_lbl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_grid</span><span class="o">.</span><span class="n">get_block</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
                 <span class="k">return</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">__</span><span class="si">%d</span><span class="s2">_"</span> <span class="o">%</span> <span class="n">grid_lbl</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span></div></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">_"</span></div>
+
+<div class="viewcode-block" id="OpenFPGA.fix_grid_pin_names"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.fix_grid_pin_names">[docs]</a>    <span class="k">def</span> <span class="nf">fix_grid_pin_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">".*__pin_(.*)_0_"</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        This method is used to fix the pin names on the grid modules</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            regex(str): Regex string used to extract the name of the port</span>
+<span class="sd">        '''</span>
+        <span class="n">eachmodule</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">module</span>
+        <span class="k">for</span> <span class="n">eachmodule</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"grid_clb*"</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fixing pins on </span><span class="si">{</span><span class="n">eachmodule</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> module"</span><span class="p">)</span>
+            <span class="n">top_port</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Port</span>
+            <span class="k">for</span> <span class="n">top_port</span> <span class="ow">in</span> <span class="n">eachmodule</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"*"</span><span class="p">):</span>
+                <span class="n">pin_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">top_port</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">pin_name</span><span class="p">:</span>
+                    <span class="n">pin_name</span> <span class="o">=</span> <span class="n">pin_name</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">top_port</span><span class="o">.</span><span class="n">change_name</span><span class="p">(</span><span class="n">pin_name</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">top_port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> =&gt;&gt; </span><span class="si">{</span><span class="n">pin_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div></div>
 </pre></div>
         </article>
       </div>
