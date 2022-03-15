@@ -91,6 +91,16 @@ class ConnectPoint:
         self._level = value
         return self._level
 
+    def flip_connection(self, orientation):
+        if orientation.lower() == "v":
+            self.from_y *= -1
+            self.to_y *= -1
+        elif orientation.lower() == "h":
+            self.from_x *= -1
+            self.to_x *= -1
+        else:
+            raise Exception(orientation + " Orinetation is not supported")
+
     def rotate_connection(self, angle, sizex=None, sizey=None):
         self.from_x, self.from_y = self._rotate_point(
             self.from_connection,

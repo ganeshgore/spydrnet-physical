@@ -52,6 +52,10 @@ class ConnectPointList:
         ''' returns y location of cursor '''
         return self._cursor[1]
 
+    def set_cursor(self, x, y):
+        self._cursor = (x, y)
+        return self
+
     def set_color(self, color):
         ''' Set color to all the points in the connection list '''
         for each in self._points:
@@ -95,7 +99,9 @@ class ConnectPointList:
 
     def flip(self, orientation="H", base=None):
         """ Flips all the points horizontally or vertically"""
-        raise NotImplemented
+        for point in self._points:
+            point.flip_connection(orientation)
+        return self
 
     def sample_connections(self, max_distance=1):
         ''' This method splits all the connections longer that ``max_distance`` to
@@ -195,7 +201,7 @@ class ConnectPointList:
             self.add_connect_point(point)
             x_prev, y_prev = (x_prev+value, y_prev)
         self._update_cursor()
-        return self._cursor
+        return self
 
     def move_y(self, value=1, steps=1, color=DEFAULT_COLOR):
         ''' Moves cursor in y direction by specified steps times by specified value'''
@@ -206,7 +212,7 @@ class ConnectPointList:
             self.add_connect_point(point)
             x_prev, y_prev = (x_prev, y_prev+value)
         self._update_cursor()
-        return self._cursor
+        return self
 
     def _update_cursor(self):
         if self._cursor_state:
