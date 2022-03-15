@@ -315,15 +315,15 @@ class ConnectPointList:
         '''
         mstat = {}
         for point in self._points:
-            from_conn = self.get_reference(netlist, *point.from_connection)
-            to_conn = self.get_reference(netlist, *point.to_connection)
 
             if point.level in ["same", "down"]:
+                from_conn = self.get_reference(netlist, *point.from_connection)
                 mstat[from_conn] = mstat.get(from_conn, {})
                 mstat[from_conn]["out"] = mstat[from_conn].get(
                     "out", {"left": 0, "right": 0, "top": 0, "bottom": 0})
                 mstat[from_conn]["out"][point.direction(reverse=True)] += 1
             if point.level in ["same", "up"]:
+                to_conn = self.get_reference(netlist, *point.to_connection)
                 mstat[to_conn] = mstat.get(to_conn, {})
                 mstat[to_conn]["in"] = mstat[to_conn].get(
                     "in", {"left": 0, "right": 0, "top": 0, "bottom": 0})

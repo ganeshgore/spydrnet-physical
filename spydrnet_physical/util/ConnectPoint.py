@@ -151,7 +151,7 @@ class ConnectPoint:
         yield from self.connection
 
     def __str__(self) -> str:
-        return "%5d %5d %5d %5d %s" % (self.from_x, self.from_y, self.to_x, self.to_y)
+        return "%5d %5d %5d %5d [%s]" % (self.from_x, self.from_y, self.to_x, self.to_y, self._level)
 
     def __mul__(self, scale):
         pt = deepcopy(self)
