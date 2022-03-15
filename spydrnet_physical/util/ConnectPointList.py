@@ -62,6 +62,26 @@ class ConnectPointList:
             each.color = color
         return self
 
+    def store_points(self, filename):
+        ''' Stores all points and its attributes in csv format in the file '''
+        raise NotImplementedError
+
+    def validate_connectivity(self):
+        """
+        This fucntion checks following
+
+        * If there is any connection coming outside from range (0-sizex+1) or (0-sizey+1)
+        * If there is any redundant connections
+        """
+        raise NotImplementedError
+
+    def load_points(self, filename):
+        ''' Loads all points and its attributes from the given csv file 
+
+        Format: from_x, from_y, to_x, to_y, level, color
+        '''
+        raise NotImplementedError
+
     def search_from_point(self, point):
         for pt in self._points:
             if (pt.from_connection == point):
