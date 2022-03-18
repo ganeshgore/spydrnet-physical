@@ -38,7 +38,7 @@ usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``,
 from spydrnet_physical.util import ConnectionPattern
 
 p_manager = ConnectionPattern(5, 5)
-fishbone_pattern = p_manager.get_fishbone()
+fishbone_pattern = p_manager.get_fishbone().set_color("green")
 svg = p_manager.render_pattern(title="Fishbone Pattern")
 svg.saveas("_fishbone_pattern.svg", pretty=True, indent=4)
 

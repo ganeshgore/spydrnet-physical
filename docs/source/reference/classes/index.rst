@@ -14,14 +14,17 @@ Basic object types
 .. toctree::
    :maxdepth: 2
 
-   element
+   library
    bundle
-   pin
+   element
+   definition
+   instance
+   cable
+   wire
    innerpin
    outerpin
-   cable
-   definition
-   library
+   pin
+   port
 
 Example Netlist in the Intermediate Representation
 

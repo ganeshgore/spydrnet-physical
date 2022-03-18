@@ -47,27 +47,20 @@ svg = p_manager.render_pattern(title="Merging option")
 svg.saveas("_fishbone_pattern_0.svg", pretty=True, indent=4)
 
 
-def get_reference(x, y):
+def get_top_instance_name(x, y):
     if 0 in (x, y):
         return "top"
-    return next(netlist.get_instances(f"inst_1_{x}{y}")).reference.name
+    return f"inst_1_{x}{y}"
 
 
-def get_top_instance(x, y):
-    if 0 in (x, y):
-        return "top"
-    return next(netlist.get_instances(f"inst_1_{x}{y}"))
-
-
-fishbone_pattern.get_reference = get_reference
-fishbone_pattern.get_top_instance = get_top_instance
-
+fishbone_pattern.get_top_instance_name = get_top_instance_name
 clk_cable = top_definition.create_cable("clk", wires=1)
-
-fishbone_pattern.create_ft_ports(netlist, "clk")
+pprint(fishbone_pattern.show_stats(netlist))
+fishbone_pattern.create_ft_ports(netlist, "clk", clk_cable)
+fishbone_pattern.create_ft_connection(netlist, clk_cable)
+fishbone_pattern.print_instance_grid_map()
 print()
-fishbone_pattern.create_ft_connection(top_definition, clk_cable)
-
+fishbone_pattern.print_reference_grid_map(netlist)
 
 top_definition.split_port("in")
 top_definition.split_port("out")

@@ -4,16 +4,18 @@ This is OpenFPGA generated Verilog Netlist Parser Class
 
 import logging
 import os
-from pprint import pprint, pformat
+import pickle
 import re
 from collections import OrderedDict
 from fnmatch import fnmatch
 from pathlib import Path
+from pprint import pformat, pprint
 from typing import Callable
-from spydrnet.ir.definition import Definition
-from spydrnet_physical.util import initial_placement, get_names
 
 import spydrnet as sdn
+import spydrnet_physical as sdnphy
+from spydrnet.ir.definition import Definition
+from spydrnet_physical.util import (FPGAGridGen, get_names, initial_placement)
 
 logger = logging.getLogger('spydrnet_logs')
 
@@ -39,6 +41,13 @@ class OpenFPGA:
         self.tile_creator = None
         self.config_creator = None
         self.register_placement_creator(initial_placement)
+
+    @property
+    def netlist(self):
+        """
+        Returns library
+        """
+        return self._netlist
 
     @property
     def library(self):
@@ -91,13 +100,13 @@ class OpenFPGA:
             logger.error("config_creator not registered")
         return self.config_creator.add_configuration_scheme()
 
-    def create_placement(self):
+    def create_placement(self, *args, **kwargs):
         """
         Proxy fucntion to add placement and shaping information to each instance
         """
         if not self.placement_creator:
             logger.error("placement_creator not registered")
-        return self.placement_creator.create_placement()
+        return self.placement_creator.create_placement(*args, **kwargs)
 
     def place_pins(self):
         """
@@ -162,10 +171,11 @@ class OpenFPGA:
         return inst_cnt
 
     def remove_direct_interc(self):
-        direct_interc = next(self._top_module.get_definitions("direct_*"), None)
+        direct_interc = next(
+            self._top_module.get_definitions("direct_*"), None)
         if not direct_interc:
             return
-        ports = {p.name:p for p in direct_interc.get_ports()}
+        ports = {p.name: p for p in direct_interc.get_ports()}
         for each in list(self._top_module.get_instances("direct_interc_*")):
             wire_from = each.pins[ports["in"].pins[0]].wire
             wire_to = each.pins[ports["out"].pins[0]].wire
@@ -173,7 +183,6 @@ class OpenFPGA:
                 wire_to.disconnect_pin(eachpin)
                 wire_from.connect_pin(eachpin)
             self._top_module.remove_child(each)
-
 
     def merge_all_grid_ios(self):
         '''
@@ -263,17 +272,17 @@ class OpenFPGA:
         """
         Convert `grid_io` Input/Output pins to bus structure
         ::
-          # Input Pins
-          right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
-          left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
-          top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
-          bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
+           # Input Pins
+           right_width_0_height_0_subtile_*__pin_inpad_0_    -> io_right_in
+           left_width_0_height_0_subtile_*__pin_inpad_0_     -> io_left_in
+           top_width_0_height_0_subtile_*__pin_inpad_0_      -> io_top_in
+           bottom_width_0_height_0_subtile_*__pin_inpad_0_   -> io_bottom_in
 
-          # Output Pins
-          right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
-          left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
-          top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
-          bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
+           # Output Pins
+           right_width_0_height_0_subtile_*__pin_outpad_0_   -> io_right_out
+           left_width_0_height_0_subtile_*__pin_outpad_0_    -> io_left_out
+           top_width_0_height_0_subtile_*__pin_outpad_0_     -> io_top_out
+           bottom_width_0_height_0_subtile_*__pin_outpad_0_  -> io_bottom_out
 
         """
         sides = ("left", "top", "right", "bottom")
@@ -346,7 +355,7 @@ class OpenFPGA:
                     self._convert_to_bus(sb, f"*{s1}_{s2}_grid_*__pin_inpad_*",
                                          f"grid_{s1}_{s2[0]}_inpad")
 
-    def create_cb_bus(self):
+    def create_cb_bus(self, pins=[]):
         """
         Convert `cb` Input pins to bus structure
         ::
@@ -362,14 +371,14 @@ class OpenFPGA:
           bottom_grid_top_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_bottom_in
 
         """
+        pins = pins + [("I", "out"), ("outpad", "outpad")]
         sides = ("top", "right", "bottom", "left")
         for cbx in self._library.get_definitions("cb?_*"):
             for indx, s1 in enumerate(sides):
                 # Input pins
-                self._convert_to_bus(cbx, f"*{s1}_grid_*__pin_I_*",
-                                     f"grid_{s1}_out")
-                self._convert_to_bus(cbx, f"*{s1}_grid_*__pin_outpad_*",
-                                     f"grid_{s1}_outpad")
+                for pin in pins:
+                    self._convert_to_bus(cbx, f"*{s1}_grid_*__pin_{pin[0]}_*",
+                                         f"grid_{s1}_{pin[1]}")
 
     def _get_cordinates(self, name):
         x, y = map(int, re.match(r".*_(\w+)__(\w+)_", name).groups())
@@ -456,13 +465,16 @@ class OpenFPGA:
 
     def save_netlist(self, patten="*",  location=".",
                      skip_constraints=True, sort_cables=False,
-                     sort_instances=False):
+                     sort_instances=False, sort_ports=False):
         '''
         Save verilog files
         '''
         for definition in self._library.get_definitions(patten):
             if definition.name in self.written_modules:
                 continue
+            if sort_ports:
+                definition._ports.sort(
+                    key=lambda x: str(x._direction) + x.name)
             if sort_cables:
                 definition._cables.sort(key=lambda x: x.name)
             if sort_instances:
@@ -477,3 +489,57 @@ class OpenFPGA:
                         write_blackbox=True)
             self.written_modules.append(definition.name)
         return self.written_modules
+
+    def load_grid(self, pickle_path) -> FPGAGridGen:
+        if isinstance(pickle_path, FPGAGridGen):
+            self.fpga_grid = pickle_path
+        else:
+            with open(pickle_path, 'rb') as fp:
+                self.fpga_grid: FPGAGridGen = pickle.load(fp)
+
+    def get_top_instance(self, x, y):
+        """
+        This method generates the grid instance information given the 
+        cordinate points 
+        """
+        if 0 in (x, y):
+            return "top"
+        if (x % 2 == 0) and (y % 2 == 0):
+            grid_lbl = self.fpga_grid.get_block(int(x/2), int(y/2))
+            return "%s_%d__%d_" % grid_lbl
+        module = {
+            True: "sb",
+            (x % 2 == 1) and (y % 2 == 0): "cby",
+            (x % 2 == 0) and (y % 2 == 1): "cbx"}[True]
+        xi, yi = int(x/2), int(y/2)
+        if module == "sb":
+            if self.fpga_grid.grid[yi+1][xi+1] == self.fpga_grid.UP_ARROW:
+                grid_lbl = self.fpga_grid.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        elif module == "cby":
+            if self.fpga_grid.grid[yi][xi+1] in [self.fpga_grid.UP_ARROW, self.fpga_grid.RIGHT_ARROW]:
+                grid_lbl = self.fpga_grid.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        elif module == "cbx":
+            if self.fpga_grid.grid[yi+1][xi] in [self.fpga_grid.UP_ARROW]:
+                grid_lbl = self.fpga_grid.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        return f"{module}_{int(x/2)}__{int(y/2)}_"
+
+    def fix_grid_pin_names(self, regex=r".*__pin_(.*)_0_"):
+        '''
+        This method is used to fix the pin names on the grid modules
+
+        Args:
+            regex(str): Regex string used to extract the name of the port
+        '''
+        eachmodule: sdn.module
+        for eachmodule in self.top_module.get_definitions("grid_clb*"):
+            logger.debug(f"Fixing pins on {eachmodule.name} module")
+            top_port: sdn.Port
+            for top_port in eachmodule.get_ports("*"):
+                pin_name = re.match(regex, top_port.name)
+                if pin_name:
+                    pin_name = pin_name.groups()[0]
+                    top_port.change_name(pin_name)
+                    logger.debug(f"{top_port.name} =>> {pin_name}")
