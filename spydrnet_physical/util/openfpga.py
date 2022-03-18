@@ -100,13 +100,13 @@ class OpenFPGA:
             logger.error("config_creator not registered")
         return self.config_creator.add_configuration_scheme()
 
-    def create_placement(self):
+    def create_placement(self, *args, **kwargs):
         """
         Proxy fucntion to add placement and shaping information to each instance
         """
         if not self.placement_creator:
             logger.error("placement_creator not registered")
-        return self.placement_creator.create_placement()
+        return self.placement_creator.create_placement(*args, **kwargs)
 
     def place_pins(self):
         """
@@ -380,7 +380,6 @@ class OpenFPGA:
                     self._convert_to_bus(cbx, f"*{s1}_grid_*__pin_{pin[0]}_*",
                                          f"grid_{s1}_{pin[1]}")
 
-
     def _get_cordinates(self, name):
         x, y = map(int, re.match(r".*_(\w+)__(\w+)_", name).groups())
         return x, y
@@ -466,13 +465,16 @@ class OpenFPGA:
 
     def save_netlist(self, patten="*",  location=".",
                      skip_constraints=True, sort_cables=False,
-                     sort_instances=False):
+                     sort_instances=False, sort_ports=False):
         '''
         Save verilog files
         '''
         for definition in self._library.get_definitions(patten):
             if definition.name in self.written_modules:
                 continue
+            if sort_ports:
+                definition._ports.sort(
+                    key=lambda x: str(x._direction) + x.name)
             if sort_cables:
                 definition._cables.sort(key=lambda x: x.name)
             if sort_instances:
