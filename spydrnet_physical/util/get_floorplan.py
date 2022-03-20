@@ -54,10 +54,7 @@ Optional and valid only when shape in RectL [left/right/bottom/top]
 Offset from the origin of that side
 First point on respective side in clockwise direction is considered as origin
 
-TODO:
------
-
-Add Some sort of a cordinate transformation which scaleX and scaleY.
+**TODO** Add Some sort of a cordinate transformation which scaleX and scaleY.
 All the inputs are in mutliple of SC_HEIGHT and SC_WIDTH, default value
 of these variables is set to 1
 
@@ -67,7 +64,6 @@ of these variables is set to 1
 
 import logging
 import os
-from tkinter import LEFT, RIGHT
 
 import spydrnet as sdn
 from matplotlib.pyplot import text

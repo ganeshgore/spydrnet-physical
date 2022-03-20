@@ -15,8 +15,6 @@ Base Transformations
    base
    
    routing_render
-   
-   floorplan_visualizer
 
 
 Tiling APIs

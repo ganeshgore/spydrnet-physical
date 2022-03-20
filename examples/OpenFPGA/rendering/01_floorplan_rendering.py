@@ -1,21 +1,15 @@
-"""
+'''
 =========================================
 Demonstrate how to render basic floorplan
 =========================================
 
-Properties on different objects
 
-**On Definitions**
-WIDTH and HEIGHT = The rectangular dimension of the module
+.. include:: ../../../../spydrnet_physical/util/get_floorplan.py
+    :start-after: """
+    :end-before: """
 
-**On Instances**:
-LOC_X and LOC_Y = Location of the component with respect to its parrent
-
-**On Ports**:
-_SIDE      : On whihc side the port is placed [left/right/bottom/top]
-_OFFSET    : Offset from the origin of that side, Considering clockwise direction
-first point on respective side is considered as origin
-
+Output
+======
 
 Download final annotated verilog netlist:
 :download:`_annotate_netlist.v <../../../../examples/OpenFPGA/rendering/_annotate_netlist.v>`
@@ -23,7 +17,7 @@ Download final annotated verilog netlist:
 .. image:: ../../../../examples/OpenFPGA/rendering/_basic_hierarchy_floorplan.svg
     :width: 500px
 
-"""
+'''
 
 
 import logging
