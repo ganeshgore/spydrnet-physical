@@ -482,8 +482,8 @@ class OpenFPGA:
             logger.debug("Writing %s", definition.name)
             Path(location).mkdir(parents=True, exist_ok=True)
             sdn.compose(self._netlist,
-                        filename=os.path.join(
-                            location, f"{definition.name}.v"),
+                        filename=os.path.join(location, f"{definition.name}.v"),
+                        sort_all=True,
                         skip_constraints=skip_constraints,
                         definition_list=[definition.name],
                         write_blackbox=True)
