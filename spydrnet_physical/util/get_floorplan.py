@@ -1,7 +1,7 @@
 """
 This script implements simple floorplanning visualisation using SVG images.
 
-The visualizer uses the information stored in each verilog object (as a property)
+The visualizer uses the information stored in each verilog object (as a PROP)
 to perform shaping and placement of each block.
 but there is no explicit routing performed,
 all the edges are connected from point to point.
@@ -47,7 +47,7 @@ Dimensions of the rectilinear block (if shape is `RectL`)
 ``SIDE``:
 Shape sice where module port is placed [left/right/bottom/top]
 
-``SIDE_2``:
+``SIDE2``:
 Optional and valid only when shape in RectL [left/right/bottom/top]
 
 ``OFFSET``:
@@ -67,6 +67,7 @@ of these variables is set to 1
 
 import logging
 import os
+from tkinter import LEFT, RIGHT
 
 import spydrnet as sdn
 from matplotlib.pyplot import text
@@ -79,10 +80,15 @@ logger = logging.getLogger('spydrnet_logs')
 base_dir = os.path.dirname(os.path.abspath(__file__))
 PROJ_BASE_DIR = os.path.abspath(os.path.join(base_dir, ".."))
 
-PROPERTY = "VERILOG.InlineConstraints"
+PROP = "VERILOG.InlineConstraints"
 
 PIN_H = 4
 PIN_W = 4
+
+TOP_PIN = 1
+BOTTOM_PIN = 2
+LEFT_PIN = 3
+RIGHT_PIN = 4
 
 
 class FloorPlanViz:
@@ -124,12 +130,12 @@ class FloorPlanViz:
         '''
         # Create symbol for top-module and add in svg
         self.skip_pins = skip_pins
-        self.add_symbol(self.module, skip_pins=skip_pins)
+        self.add_symbol(self.module)
         self.add_top_block(self.module)
 
         # Iterate over all the instaces and place
         for child in self.module.children:
-            self.add_symbol(child.reference, skip_pins=skip_pins)
+            self.add_symbol(child.reference)
             self.add_block(child)
 
         if skip_connections:
@@ -144,15 +150,15 @@ class FloorPlanViz:
                 for p in cable.wires[0].pins:
                     x, y = 0, 0
                     if isinstance(p, OuterPin):
-                        x = int(p.instance.data[PROPERTY].get("LOC_X", 0))
-                        y = int(p.instance.data[PROPERTY].get("LOC_Y", 0))
+                        x = int(p.instance.data[PROP].get("LOC_X", 0))
+                        y = int(p.instance.data[PROP].get("LOC_Y", 0))
                         m = p.instance.reference
-                        x += int(m.data[PROPERTY].get(f"{p.port.name}_X", 0))
-                        y += int(m.data[PROPERTY].get(f"{p.port.name}_Y", 0))
+                        x += int(m.data[PROP].get(f"{p.port.name}_X", 0))
+                        y += int(m.data[PROP].get(f"{p.port.name}_Y", 0))
                     else:
-                        x = int(self.module.data[PROPERTY].get(
+                        x = int(self.module.data[PROP].get(
                             f"{p.port.name}_X", 0))
-                        y = int(self.module.data[PROPERTY].get(
+                        y = int(self.module.data[PROP].get(
                             f"{p.port.name}_Y", 0))
                     points.append((x, y))
                 # if connections found connect them in sequence
@@ -204,13 +210,66 @@ class FloorPlanViz:
         self.view_w = self.view_w if self.view_w > x else x
         self.view_h = self.view_h if self.view_h > y else y
 
-    def add_rect_symbol_pins(self, module: sdn.Definition, new_def: Symbol):
-        width = int(module.data[PROPERTY].get("WIDTH", 10))
-        height = int(module.data[PROPERTY].get("HEIGHT", 10))
+    def add_rect_linear_symbol_pins(self, module: sdn.Definition, new_def: Symbol):
+        a, b, c, d, e, f = map(int, module.data[PROP].get("POINTS", [10]*6))
+        width = b+d+e
+        height = a+c+f
+
         for port in module.ports:
             p = port.name
-            SIDE = port.data[PROPERTY].get(f"SIDE", [])
-            OFFSET = int(port.data[PROPERTY].get(f"OFFSET", 0))
+            SIDE = port.data[PROP].get(f"SIDE", "center")
+            SIDE2 = port.data[PROP].get(f"SIDE2", "center")
+            OFFSET = int(port.data[PROP].get(f"OFFSET", 0))
+
+            LOC_X, LOC_Y, PIN_DIR = {
+                "left": {
+                    "top": (OFFSET, a+f, TOP_PIN),
+                    "bottom": (OFFSET, f, BOTTOM_PIN),
+                    "center": (0, f+OFFSET, LEFT_PIN),
+                },
+                "right": {
+                    "top": (b+d+OFFSET, a+f, TOP_PIN),
+                    "bottom": (b+d+OFFSET, f, BOTTOM_PIN),
+                    "center": (width, f+OFFSET, RIGHT_PIN),
+                },
+                "bottom": {
+                    "left": (b, OFFSET, LEFT_PIN),
+                    "right": (b+d, OFFSET, RIGHT_PIN),
+                    "center": (b+OFFSET, 0, BOTTOM_PIN),
+                },
+                "top":  {
+                    "left": (b, a+f+OFFSET, LEFT_PIN),
+                    "right": (b+d, a+f+OFFSET, RIGHT_PIN),
+                    "center": (b+OFFSET, height, TOP_PIN),
+                },
+                "center": {
+                    "center": (width*0.5, height*0.5, TOP_PIN)
+                }}[SIDE][SIDE2]
+
+            pin_w, pin_h, mult = (PIN_W, PIN_H, -1) if PIN_DIR in [LEFT_PIN, RIGHT_PIN] \
+                else (PIN_H, PIN_W, 1)
+
+            new_def.add(self.dwg.rect(insert=(LOC_X-pin_w*0.5, LOC_Y-pin_h*0.5),
+                                      size=(pin_w, pin_h),
+                                      class_=f"module_pin {str(port.direction).split('.')[-1].lower()}_pin",
+                                      onmousemove=f"showTooltip(evt, '{port.name}');",
+                                      onmouseout="hideTooltip();",
+                                      stroke_width=0))
+            new_def.add(self.dwg.text(port.name,
+                                      insert=(LOC_X-pin_w*0.5,
+                                              mult * (LOC_Y-pin_h*0.5)),
+                                      class_=f"pin {SIDE}_pin {SIDE2}_pin",))
+
+            module.data[PROP][f"{p}_X"] = LOC_X
+            module.data[PROP][f"{p}_Y"] = LOC_Y
+
+    def add_rect_symbol_pins(self, module: sdn.Definition, new_def: Symbol):
+        width = int(module.data[PROP].get("WIDTH", 10))
+        height = int(module.data[PROP].get("HEIGHT", 10))
+        for port in module.ports:
+            p = port.name
+            SIDE = port.data[PROP].get(f"SIDE", [])
+            OFFSET = int(port.data[PROP].get(f"OFFSET", 0))
 
             if 'left' in SIDE:
                 LOC_X, LOC_Y = 2, OFFSET
@@ -244,12 +303,12 @@ class FloorPlanViz:
                                       class_=f"pin {SIDE}_pin",))
 
             # transform=f"translate({OFF_X}, {OFF_Y}) rotate({ROT}) " + "scale(1,-1)",
-            module.data[PROPERTY][f"{p}_X"] = LOC_X
-            module.data[PROPERTY][f"{p}_Y"] = LOC_Y
+            module.data[PROP][f"{p}_X"] = LOC_X
+            module.data[PROP][f"{p}_Y"] = LOC_Y
 
     def add_rect_symbol(self, module: sdn.Definition):
-        width = int(module.data[PROPERTY].get("WIDTH", 10))
-        height = int(module.data[PROPERTY].get("HEIGHT", 10))
+        width = int(module.data[PROP].get("WIDTH", 10))
+        height = int(module.data[PROP].get("HEIGHT", 10))
         new_def = self.dwg.symbol(id=module.name)
         self.def_list[module.name] = {
             "name": module.name,
@@ -266,15 +325,35 @@ class FloorPlanViz:
             self.add_rect_symbol_pins(module, new_def)
         return new_def
 
-    def add_rect_linear_symbol(self):
-        pass
+    def add_rect_linear_symbol(self, module: sdn.Definition):
+        a, b, c, d, e, f = map(int, module.data[PROP].get("POINTS", [10]*6))
+        new_def = self.dwg.symbol(id=module.name)
+        self.def_list[module.name] = {
+            "name": module.name,
+            "instance": new_def,
+            "shape": "rectl",
+            "a": a, "b": b, "c": c,
+            "d": d, "e": e, "f": f,
+            "width": b+d+e,
+            "height": a+c+f,
+        }
+        path = f"M {b} 0 v {f} h {-1*b} v {a} h {b} "
+        path += f" v {c} h {d} v {-1*c} h {e} v {-1*a} "
+        path += f" h {-1*e} v {-1*f} Z"
+        path += f" Z"
+        logger.debug("")
+        new_def.add(self.dwg.path(d=path,
+                                  class_=f"module_boundary {module.name}"))
+        if not self.skip_pins:
+            self.add_rect_linear_symbol_pins(module, new_def)
+        return new_def
 
     def add_symbol(self, module):
         if "ASSIG" in module.name:
             return
         if self.def_list.get(module.name, None):
             return self.def_list[module.name]
-        shape = module.data[PROPERTY].get("SHAPE", "rect")
+        shape = module.data[PROP].get("SHAPE", "rect")
         if shape.lower() == "rectl":
             new_def = self.add_rect_linear_symbol(module)
         else:
@@ -309,10 +388,10 @@ class FloorPlanViz:
 
     def get_label_location(self, instance):
         defDict = self.def_list[instance.reference.name]
-        loc_x = int(instance.data[PROPERTY].get("LOC_X", 0))
-        loc_y = int(instance.data[PROPERTY].get("LOC_Y", 0))
+        loc_x = int(instance.data[PROP].get("LOC_X", 0))
+        loc_y = int(instance.data[PROP].get("LOC_Y", 0))
         loc_x += defDict["width"]*0.5
-        loc_y += 20
+        loc_y += defDict["height"]*0.5
         loc_y *= -1
         return (loc_x, loc_y)
 
@@ -322,8 +401,8 @@ class FloorPlanViz:
             return
         defDict = self.def_list[name]
 
-        loc_x = int(instance.data[PROPERTY].get("LOC_X", 0))
-        loc_y = int(instance.data[PROPERTY].get("LOC_Y", 0))
+        loc_x = int(instance.data[PROP].get("LOC_X", 0))
+        loc_y = int(instance.data[PROP].get("LOC_Y", 0))
 
         self.dwgShapes.add(self.dwg.use(defDict["instance"],
                                         class_=f"{instance.name}",

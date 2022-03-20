@@ -13,7 +13,10 @@ Base Transformations
    :maxdepth: 1
 
    base
+   
    routing_render
+   
+   floorplan_visualizer
 
 
 Tiling APIs
