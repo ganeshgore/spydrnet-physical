@@ -1,28 +1,74 @@
-'''
-This script implements simple floorplanning visualisation on SVG image
+"""
+This script implements simple floorplanning visualisation using SVG images.
 
-The visualiaser use the information stored in each object property to
-perform placement, there is no explicit routing, all the edges are connected
-from point to point.
+The visualizer uses the information stored in each verilog object (as a property)
+to perform shaping and placement of each block.
+but there is no explicit routing performed,
+all the edges are connected from point to point.
 
-Properties on different objects
+Detail of properties on different objects
 
 **On Definitions**
-WIDTH and HEIGHT = The rectangular dimension of the module
 
-**On Instances**:
-LOC_X and LOC_Y = Location of the component with respect to its parrent
+``SHAPE`` =  Shape of the module [`Rect` (Default), `RectL`]
+
+``WIDTH`` and ``HEIGHT`` = The rectangular dimension of the module (if Shape is `Rect`)
+
+``A``, ``B`` , ``C`` , ``D`` , ``E``, ``F``  =
+Dimensions of the rectilinear block (if shape is `RectL`)
+
+
+.. code-block::
+
+                    d
+                ┌──────────┐
+                │          │
+               c│          │
+            b   │          │   e
+         ┌──────┘          └──────┐
+         │                        │
+        a│           0            │
+         │                        │
+         └──────┐          ┌──────┘
+                │          │
+               f│          │
+                │          │
+                └──────────┘
+              RectL Shape
+
+
+**On Instances**
+
+``LOC_X`` and ``LOC_Y`` = Location of the component with respect to its parrent
 
 
 **On Ports**:
-_SIDE      : On whihc side the port is placed [left/right/bottom/top]
-_OFFSET    : Offset from the origin of that side
-            Considering clockwise direction first point on respective side is
-            considered as origin
-'''
+
+``SIDE``:
+Shape sice where module port is placed [left/right/bottom/top]
+
+``SIDE_2``:
+Optional and valid only when shape in RectL [left/right/bottom/top]
+
+``OFFSET``: 
+Offset from the origin of that side
+First point on respective side in clockwise direction is considered as origin
+
+TODO: 
+-----
+
+Add Some sort of a cordinate transformation which scaleX and scaleY.
+All the inputs are in mutliple of SC_HEIGHT and SC_WIDTH, default value
+of these variables is set to 1
+
+
+
+"""
 
 import logging
 import os
+
+from matplotlib.pyplot import text
 
 from spydrnet.ir.outerpin import OuterPin
 from svgwrite import Drawing
@@ -45,6 +91,12 @@ class FloorPlanViz:
     '''
 
     def __init__(self, definition, viewbox=(0, 0, 1000, 1000)):
+        """
+        Initialise the class with definition to render.
+
+        Optionally, provide the Height and Width if its not set on the definition 
+        itself
+        """
         self.module = definition
         self.def_list = {}  # Stores symbol refrences
         self.view_w = 0  # This variable tracks the maximum width of the SVG
@@ -56,12 +108,10 @@ class FloorPlanViz:
         # Create groups in SVG image
         self.dwgbg = self.dwg.add(Group(id="bg"))
         self.core = self.dwg.add(Group(id="mainframe"))
-        self.dwgShapes = self.core.add(
-            Group(id="mainShapes", transform="scale(1,-1)"))
-        self.dwgText = self.core.add(
-            Group(id="mainText", transform="scale(1,-1)"))
-        self.dwgEdges = self.core.add(
-            Group(id="edges", transform="scale(1,-1)"))
+        t_prop = {"transform": "scale(1,-1)"}
+        self.dwgShapes = self.core.add(Group(id="mainShapes", **t_prop))
+        self.dwgText = self.core.add(Group(id="mainText", **t_prop))
+        self.dwgEdges = self.core.add(Group(id="edges", **t_prop))
 
         self.add_stylehseet()
 
@@ -264,13 +314,18 @@ class FloorPlanViz:
         self.dwgShapes.add(self.dwg.use(defDict["instance"],
                                         class_=f"{instance.name}",
                                         insert=(loc_x, loc_y)))
-        self.dwgText.add(self.dwg.text(f"{instance.name}",
-                                       insert=self.get_label_location(
-                                           instance),
-                                       transform="scale(1,-1)",
-                                       fill="black",
-                                       alignment_baseline="middle",
-                                       text_anchor="middle"))
+
+        module_name = self.dwg.tspan(text=f"[{instance.reference.name}]",
+                                     insert=self.get_label_location(instance),
+                                     dy=["1.2em", ])
+        module_text = self.dwg.text(f"{instance.name}",
+                                    insert=self.get_label_location(instance),
+                                    transform="scale(1,-1)",
+                                    fill="black",
+                                    alignment_baseline="middle",
+                                    text_anchor="middle")
+        module_text.add(module_name)
+        self.dwgText.add(module_text)
 
     def get_svg(self):
         '''
