@@ -172,8 +172,8 @@ class FloorPlanViz:
         Adds custom stylesheet to the SVG image
         '''
         self.dwg.defs.add(self.dwg.style("""
-            text{font-family: LATO; font-weight: 800; font-size: 5px;}
-            .module_boundary{fill:#f4f0e6; stroke:grey; stroke-width:1}
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
             .left_pin{
                 fill:blue;
                 text-anchor: start;
@@ -305,6 +305,7 @@ class FloorPlanViz:
     def add_rect_symbol(self, module: sdn.Definition):
         width = int(module.data[PROP].get("WIDTH", 10))
         height = int(module.data[PROP].get("HEIGHT", 10))
+        COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
         new_def = self.dwg.symbol(id=module.name)
         self.def_list[module.name] = {
             "name": module.name,
@@ -316,6 +317,7 @@ class FloorPlanViz:
         }
         new_def.add(self.dwg.rect(insert=(1, 1),
                                   size=(width-1, height-1),
+                                  fill=COLOR,
                                   class_=f"module_boundary {module.name}"))
         if not self.skip_pins:
             self.add_rect_symbol_pins(module, new_def)
@@ -323,6 +325,7 @@ class FloorPlanViz:
 
     def add_rect_linear_symbol(self, module: sdn.Definition):
         a, b, c, d, e, f = map(int, module.data[PROP].get("POINTS", [10]*6))
+        COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
         new_def = self.dwg.symbol(id=module.name)
         self.def_list[module.name] = {
             "name": module.name,
@@ -339,6 +342,7 @@ class FloorPlanViz:
         path += f" Z"
         logger.debug("")
         new_def.add(self.dwg.path(d=path,
+                                  fill=COLOR,
                                   class_=f"module_boundary {module.name}"))
         if not self.skip_pins:
             self.add_rect_linear_symbol_pins(module, new_def)
