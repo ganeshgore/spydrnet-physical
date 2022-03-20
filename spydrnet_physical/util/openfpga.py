@@ -9,13 +9,10 @@ import re
 from collections import OrderedDict
 from fnmatch import fnmatch
 from pathlib import Path
-from pprint import pformat, pprint
 from typing import Callable
 
 import spydrnet as sdn
-import spydrnet_physical as sdnphy
-from spydrnet.ir.definition import Definition
-from spydrnet_physical.util import (FPGAGridGen, get_names, initial_placement)
+from spydrnet_physical.util import FPGAGridGen, initial_placement
 
 logger = logging.getLogger('spydrnet_logs')
 
@@ -57,7 +54,7 @@ class OpenFPGA:
         return self._library
 
     @property
-    def top_module(self) -> Definition:
+    def top_module(self) -> sdn.Definition:
         """
         Returns top_module
         """
@@ -463,7 +460,7 @@ class OpenFPGA:
         while self.written_modules:
             self.written_modules.pop()
 
-    def save_netlist(self, patten="*",  location=".",
+    def save_netlist(self, patten="*",  location=".", sort_print=False,
                      skip_constraints=True, sort_cables=False,
                      sort_instances=False, sort_ports=False):
         '''
@@ -482,8 +479,9 @@ class OpenFPGA:
             logger.debug("Writing %s", definition.name)
             Path(location).mkdir(parents=True, exist_ok=True)
             sdn.compose(self._netlist,
-                        filename=os.path.join(location, f"{definition.name}.v"),
-                        sort_all=True,
+                        filename=os.path.join(
+                            location, f"{definition.name}.v"),
+                        sort_all=sort_print,
                         skip_constraints=skip_constraints,
                         definition_list=[definition.name],
                         write_blackbox=True)
