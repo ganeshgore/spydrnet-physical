@@ -50,11 +50,11 @@ Shape sice where module port is placed [left/right/bottom/top]
 ``SIDE_2``:
 Optional and valid only when shape in RectL [left/right/bottom/top]
 
-``OFFSET``: 
+``OFFSET``:
 Offset from the origin of that side
 First point on respective side in clockwise direction is considered as origin
 
-TODO: 
+TODO:
 -----
 
 Add Some sort of a cordinate transformation which scaleX and scaleY.
@@ -68,11 +68,11 @@ of these variables is set to 1
 import logging
 import os
 
+import spydrnet as sdn
 from matplotlib.pyplot import text
-
 from spydrnet.ir.outerpin import OuterPin
 from svgwrite import Drawing
-from svgwrite.container import Group
+from svgwrite.container import Group, Symbol
 from svgwrite.shapes import Polyline
 
 logger = logging.getLogger('spydrnet_logs')
@@ -94,13 +94,14 @@ class FloorPlanViz:
         """
         Initialise the class with definition to render.
 
-        Optionally, provide the Height and Width if its not set on the definition 
+        Optionally, provide the Height and Width if its not set on the definition
         itself
         """
         self.module = definition
         self.def_list = {}  # Stores symbol refrences
         self.view_w = 0  # This variable tracks the maximum width of the SVG
         self.view_h = 0  # This variable tracks the maximum height of the SVG
+        self.skip_pins = True
 
         # Create SVG drawing
         self.dwg = Drawing()
@@ -122,6 +123,7 @@ class FloorPlanViz:
         Entry point to generate SVG
         '''
         # Create symbol for top-module and add in svg
+        self.skip_pins = skip_pins
         self.add_symbol(self.module, skip_pins=skip_pins)
         self.add_top_block(self.module)
 
@@ -169,7 +171,7 @@ class FloorPlanViz:
         '''
         self.dwg.defs.add(self.dwg.style("""
             text{font-family: LATO; font-weight: 800; font-size: 5px;}
-            .module_boundary{fill:#f4f0e6}
+            .module_boundary{fill:#f4f0e6; stroke:grey; stroke-width:1}
             .left_pin{
                 fill:blue;
                 text-anchor: start;
@@ -202,29 +204,9 @@ class FloorPlanViz:
         self.view_w = self.view_w if self.view_w > x else x
         self.view_h = self.view_h if self.view_h > y else y
 
-    def add_symbol(self, module, skip_pins=False):
-        if "ASSIG" in module.name:
-            return
-        if self.def_list.get(module.name, None):
-            return self.def_list[module.name]
+    def add_rect_symbol_pins(self, module: sdn.Definition, new_def: Symbol):
         width = int(module.data[PROPERTY].get("WIDTH", 10))
         height = int(module.data[PROPERTY].get("HEIGHT", 10))
-        new_def = self.dwg.symbol(id=module.name)
-        self.def_list[module.name] = {
-            "name": module.name,
-            "instance": new_def,
-            "width": width,
-            "height": height,
-        }
-        new_def.add(self.dwg.rect(insert=(1, 1),
-                                  size=(width-1, height-1),
-                                  class_="module_boundary",
-                                  stroke="grey",
-                                  fill="white",
-                                  stroke_width=2))
-        if skip_pins:
-            self.dwg.defs.add(new_def)
-            return new_def
         for port in module.ports:
             p = port.name
             SIDE = port.data[PROPERTY].get(f"SIDE", [])
@@ -265,6 +247,38 @@ class FloorPlanViz:
             module.data[PROPERTY][f"{p}_X"] = LOC_X
             module.data[PROPERTY][f"{p}_Y"] = LOC_Y
 
+    def add_rect_symbol(self, module: sdn.Definition):
+        width = int(module.data[PROPERTY].get("WIDTH", 10))
+        height = int(module.data[PROPERTY].get("HEIGHT", 10))
+        new_def = self.dwg.symbol(id=module.name)
+        self.def_list[module.name] = {
+            "name": module.name,
+            "instance": new_def,
+            "shape": "rect",
+            "points": None,
+            "width": width,
+            "height": height,
+        }
+        new_def.add(self.dwg.rect(insert=(1, 1),
+                                  size=(width-1, height-1),
+                                  class_=f"module_boundary {module.name}"))
+        if not self.skip_pins:
+            self.add_rect_symbol_pins(module, new_def)
+        return new_def
+
+    def add_rect_linear_symbol(self):
+        pass
+
+    def add_symbol(self, module):
+        if "ASSIG" in module.name:
+            return
+        if self.def_list.get(module.name, None):
+            return self.def_list[module.name]
+        shape = module.data[PROPERTY].get("SHAPE", "rect")
+        if shape.lower() == "rectl":
+            new_def = self.add_rect_linear_symbol(module)
+        else:
+            new_def = self.add_rect_symbol(module)
         self.dwg.defs.add(new_def)
         return new_def
 
