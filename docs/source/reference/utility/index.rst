@@ -20,6 +20,7 @@ Helper methods
 
     get_names
     get_attr
+    GridFloorplanGen
 
 Connectivity Pattern Generation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
