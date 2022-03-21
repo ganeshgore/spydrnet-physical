@@ -18,8 +18,14 @@ logger = logging.getLogger('spydrnet_logs')
 
 
 class OpenFPGA:
+    '''
+    This is top-level clas of OpenFPGa which provides methods for 
+    different generic netlist restructuring
 
-    def __init__(self, grid, netlist, library="work", top_module="fpga_top"):
+    '''
+
+    def __init__(self, grid, netlist, library="work", top_module="fpga_top",
+                 arch_xml=None):
         '''
         Init class with OpenFPGA netlist
 
@@ -37,6 +43,10 @@ class OpenFPGA:
         self.written_modules = []  # Stores written definitions names
         self.tile_creator = None
         self.config_creator = None
+        if arch_xml:
+            self.load_grid(arch_xml)
+        else:
+            self.fpga_grid = None
         self.register_placement_creator(initial_placement)
 
     @property
@@ -78,8 +88,10 @@ class OpenFPGA:
         """
         This registers the tile generator class to OpenFPGA base class
         """
-        self.placement_creator = cls(
-            self.fpga_size, self._netlist, self.library, self._top_module, *args, **kwargs)
+        self.placement_creator = cls(self.fpga_size,
+                                     self._netlist,
+                                     self.fpga_grid,
+                                     * args, **kwargs)
 
     def create_tiles(self):
         """
@@ -425,7 +437,11 @@ class OpenFPGA:
 
         `grid_clb` output on each side is feedthrough from connection box as
         shown in the following example (onle left side feedthroughs are shown)
+
+        .. rst-class:: ascii
+
         ::
+
           +-----+                       +-----+
           |     |                       |     |
           |     +--+                    |     +--+

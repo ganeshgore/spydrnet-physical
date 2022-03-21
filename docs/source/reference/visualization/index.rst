@@ -13,4 +13,6 @@ Outline
 
    floorplan_visualizer
 
+   openfpga_floorplan
+
    architecture_visualizer

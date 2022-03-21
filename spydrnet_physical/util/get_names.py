@@ -7,7 +7,7 @@ logger = logging.getLogger('spydrnet_logs')
 
 def get_names(objects):
     '''
-    Returns name propperty of the object (it the object contains name property)
+    Returns name name of the verilog object (if the it contains name property)
 
     args:
         object(list[Cable, Port, Definition, Instance]): pass list of objects
@@ -27,7 +27,7 @@ def get_names(objects):
 
 def get_attr(objects, attr):
     '''
-    Returns specific attribute of the object
+    Returns specific attribute from the properties of the object
 
     args:
         object(list[Cable, Port, Definition, Instance]): pass list of objects

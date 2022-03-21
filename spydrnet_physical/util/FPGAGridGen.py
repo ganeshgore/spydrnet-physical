@@ -1,9 +1,9 @@
 # ##############################################################################
 # Tool: OpenFPGA-Physical
-# Script: fpga_grid_gen.py
+# Script: FPGAGridGen.py
 ################################################################################
 '''
-fpga_grid_gen
+FPGAGridGen
 -------------
 
 This scripts read the layout section of the VPR architecture file and 
@@ -33,8 +33,8 @@ def main() -> None:
     Execute when this file called as a script
     """
     args = parse_argument()
-    grid = fpga_grid_gen(args.design_name, args.arch_file,
-                         args.layout, args.release_root)
+    grid = FPGAGridGen(args.design_name, args.arch_file,
+                       args.layout, args.release_root)
     grid.enumerate_grid()
     grid.print_grid()
 
@@ -56,13 +56,13 @@ def parse_argument() -> argparse.Namespace:
     return parser.parse_args()
 
 
-class fpga_grid_gen():
+class FPGAGridGen():
     '''
     This class generates the 2D matrix of the FPGA grid.
 
     **Example**:
 
-        python3.8 fpga_grid_gen.py **--design_name** FPGA66_flex
+        python3.8 FPGAGridGen.py **--design_name** FPGA66_flex
         **--layout** dp
         **--arch_file** example_files/vpr_arch_render_demo.xml
 

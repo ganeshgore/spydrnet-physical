@@ -1,4 +1,81 @@
 """
+====================
+OpenFPGA Floorplaner
+====================
+
+This is dedicated OpenFPGA floorplaner which shape tiles in traditional structure
+as shown below. This placement class is not dependent iupon the architecture and always 
+applied to homogeneous structure.
+
+There are two brod categories of inputs,
+
+**Paramater Based** (*Preferred*):
+
+Following figure details the various paramteres referred in this class
+
+.. rst-class:: ascii
+
+::
+
+                 
+                |<-----  GRID_X  ----->|
+                |                      |
+        ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐  ∧
+        │           ││   CBX_TOP   ││              ││             ││           │  | 
+        │           ││   _WIDTH    ││              ││             ││           │  | CBX_TOP_HEIGHT
+        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ∨
+        │        │┌───────────────────┐│        │┌───────────────────┐│        │  
+        └────────┘│   GRID_CLB_RATIO  │└────────┘│                   │└────────┘  
+        ┌────────┐│       W/H         │┌────────┐│                   │┌────────┐
+        │        ││                   ││        ││                   ││        │
+        │  CBY_  ││                   ││   CB_  ││                   ││  CBY_  │
+        │  LEFT_ ││                   ││ HEIGHT ││                   ││ RIGHT_ │
+        │ HEIGHT ││                   ││ _RATIO ││                   ││ HEIGHT │
+        │        ││                   ││        ││                   ││        │
+        └────────┘│                   │└────────┘│                   │└────────┘
+        ┌────────┐│                   │┌────────┐│                   │┌────────┐
+    ↑   │        │└───────────────────┘│        │└───────────────────┘│        │
+    |   │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │
+    |   │           ││  CB_WIDTH_  ││              ││             ││           │  FPGA_SIZE[0],y
+    |   │           ││    RATIO    ││              ││             ││           │ 
+    G   │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │
+    R   │        │┌───────────────────┐│        │┌───────────────────┐│        │
+    I   └────────┘│                   │└────────┘│                   │└────────┘
+    D   ┌────────┐│                   │┌────────┐│                   │┌────────┐
+    _   │        ││                   ││        ││                   ││        │
+    Y   │        ││                   ││        ││                   ││        │
+    |   │        ││                   ││        ││                   ││        │
+    |   │        ││                   ││        ││                   ││        │
+    |   │        ││                   ││        ││                   ││        │
+    |   └────────┘│                   │└────────┘│                   │└────────┘
+    |   ┌────────┐│                   │┌────────┐│                   │┌────────┐
+    ↓   │        │└───────────────────┘│        │└───────────────────┘│        │
+        │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │  ∧
+        │           ││ CBX_BOTTOM_ ││              ││             ││           │  |
+        │           ││   _WIDTH    ││              ││             ││           │  | CBX_BOTTOM_HEIGHT
+        └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘  ∨
+        <-------->                                                    <-------->
+        CBY_LEFT_WIDTH                                           CBY_RIGHT_WIDTH
+
+
+**Area Based**: 
+
+- ``OVERALL_UTILIZATION``
+- ``GRID_CLB_UTILIZATION``
+- ``SB_UTILIZATION``
+
+
+**Common Paramters**
+
+- ``GRID_CLB_CHAN_X`` and ``GRID_CLB_CHAN_Y``: Grid CLB margins
+- ``CBx_CHAN_X`` and ``CBx_CHAN_Y`` : Connection box X margins
+- ``CBy_CHAN_X`` and ``CBy_CHAN_Y`` : Connection box Y margins
+- ``GPIO_CHAN_X`` and ``GPIO_CHAN_Y``: GPIO cell margins
+
+
+**Ideas**: 
+
+* Optionally provide a method to apply shaping and placement to the netlist elements
 
 """
 
@@ -18,26 +95,34 @@ CPP = 4
 SC_HEIGHT = 4
 
 
-class fpga_floorplan(OpenFPGA_Placement_Generator):
+class openfpga_floorplan(OpenFPGA_Placement_Generator):
+    """
+    Extends the ``OpenFPGA_Placement_Generator`` class to OpenFPGA grid.
 
-    def __init__(self, grid, netlist, library, top_module, debug=False,
-                 areaFile=None, padFile=None, gridIO=False, shapingConf=None):
-        super().__init__(grid, netlist, library, top_module)
+    args:
 
-        self.sizeX = grid[0]
-        self.sizeY = grid[1]
+      grid_size(int, int) : FPGA grid size
+      netlist(sdn.Netlist): Netlist of grid
+      library(sdn.Library): Library of the netlist
+      shapingConf(os.path): YAML/JSON file with parameter values
+      areaFile(os.path):  CSV file with area information of each Module
+      debug(bool): To enable debugging mode 
+      gridIO(bool): To display gridIO modules
+    """
+
+    def __init__(self, grid_size, netlist, fpga_grid,
+                 shapingConf=None, areaFile=None, debug=False):
+        super().__init__(grid_size, netlist, fpga_grid)
+
+        self.sizeX, self.sizeY = grid_size
         self.PlacementDB = []
         self.PlacementDBKey = {}
         self.GPIOPlacmentKey = []
         self.debug = debug
+        self.fpga_grid = fpga_grid
 
         self.get_default_configuration()
-
         self.areaFile = areaFile
-        self.padFile = padFile
-        self.gridIO = gridIO
-        self.PadNames = {}
-
         self.skipChannels = False
 
         # Color Setting
@@ -45,14 +130,19 @@ class fpga_floorplan(OpenFPGA_Placement_Generator):
         self.CBX_COLOR = "#d9d9f3"
         self.CBY_COLOR = "#a8d0db"
         self.SB_COLOR = "#ceefe4"
-        self.PAD_COLOR = "#204969"
         self.GRID_IO_COLOR = "#ff8000"
 
-        # Pads Related
-        self.pad_w = 80
-        self.pad_h = 10
         if shapingConf:
             self.update_default_configuration(shapingConf)
+
+    def validate_placement(self, GRID_X, GRID_Y) -> bool:
+        """
+        Validates placement inforamtion genrerated 
+
+        Checks if each instance is placed on the `GRID_X` and `GRID_Y` intersection
+        Generally the values of  `GRID_X` and `GRID_Y` is `4*CPP` and `2*SC_HEIGHT`
+        """
+        raise NotImplementedError
 
     def create_placement(self):
         """
@@ -127,26 +217,21 @@ class fpga_floorplan(OpenFPGA_Placement_Generator):
             "CBX_COLOR": self.CBX_COLOR,
             "CBY_COLOR": self.CBY_COLOR,
             "SB_COLOR": self.SB_COLOR,
-            "PAD_COLOR": self.PAD_COLOR,
             "GRID_IO_COLOR": self.GRID_IO_COLOR,
             "CORE_BBOX": (0, 0, int(self.CLB_GRID_X*(self.sizeX+1)),
                           int(self.CLB_GRID_Y*(self.sizeY+1)))
         }
 
-    def figSize(self):
-        size = (4+(1*self.sizeX), 4+(1*self.sizeY))
-        if self.sizeX < 16:
-            dpi = 300
-        elif self.sizeX < 64:
-            dpi = 100
-        else:
-            dpi = 50
-        return {"size": size, "dpi": dpi}
-
     def snapDims(self, num, dim=2):
         return int(math.ceil(num/dim)*dim)
 
     def ComputeGrid(self, skipChannels=False):
+        """
+        Based on the strategy selected, Area_based or parameter_based 
+        this method performs the complete calculation and prepares 
+        all intermediate varaibles. 
+        It also performs rouding based on `SC_HEIGHT` and `CPP` values
+        """
         self.skipChannels = skipChannels
         if self.areaFile:
             BlockArea = {}
@@ -195,45 +280,28 @@ class fpga_floorplan(OpenFPGA_Placement_Generator):
             print(f"self.SB_W {self.SB_W}")
             print(f"self.SB_H {self.SB_H}")
 
-        if self.padFile:
-            if os.path.exists(self.padFile):
-                print(f"Found PinMapFile {self.padFile}")
-                df_pinMap = pd.read_csv(self.padFile)
-                df_pinMap.rename(columns=lambda x: x.strip(), inplace=True)
-                self.PadNames["L"] = df_pinMap["Remark"]
-                self.PadNames["T"] = df_pinMap["Remark.1"]
-                self.PadNames["R"] = df_pinMap["Remark.2"]
-                self.PadNames["B"] = df_pinMap["Remark.3"]
-                self.NumOfPads = len(df_pinMap.index)
-
     def CreateDatabase(self):
         # Create Blocks
+        grid_ele_size = {}
+
         for x in range(self.sizeX+1):
             for y in range(self.sizeY+1):
                 self.add_sb(x, y)
-                if x < self.sizeY:
+                if x < self.sizeX:
                     self.add_cbx(x, y)
-                if y < self.sizeX:
+                if y < self.sizeY:
                     self.add_cby(x, y)
                 if (x < self.sizeX) and (y < self.sizeY):
-                    self.add_clb(x, y)
+                    label = self.fpga_grid[y+1][x+1]
+                    if not (label in [self.grid.RIGHT_ARROW, self.grid.UP_ARROW, "EMPTY"]):
+                        if not label in grid_ele_size.keys():
+                            ele_w, ele_h = self.grid.fpga_arch.tiles[label]
+                            grid_ele_size[label] = (ele_w, ele_h)
+                        else:
+                            ele_w, ele_h = grid_ele_size[label]
+                        self.add_clb(x, y, width=ele_w,
+                                     height=ele_h, lbl=label)
 
-                # Create gridIOs
-                if self.gridIO:
-                    if (y == self.sizeY) and (x < self.sizeX):
-                        self.add_gridIOH(x, y, side="top")
-                    if (y == 0) and (x < self.sizeX):
-                        self.add_gridIOH(x, y, side="bottom")
-                    if (x == 0) and (y < self.sizeY):
-                        self.add_gridIOV(x, y, side="left")
-                    if (x == self.sizeX) and (y < self.sizeY):
-                        self.add_gridIOV(x, y, side="right")
-
-        # Create Pins
-        if self.PadNames:
-            for side in ["L", "T", "R", "B"]:
-                for i in range(self.NumOfPads):
-                    self.add_pad(side, i, self.PadNames[side][i])
         return self.PlacementDB
 
     def add_clb(self, xi, yi, lbl=None):
@@ -457,142 +525,6 @@ class fpga_floorplan(OpenFPGA_Placement_Generator):
                                            "yi": yi,
                                            "dims": [a, b, c, d, e, f],
                                            "initShape": initShape}
-
-    def add_gridIOH(self, xi, yi, side, lbl=None):
-        x, y = (xi+1)*self.CLB_GRID_X, (yi+1)*self.CLB_GRID_Y
-        llx = x-self.snapDims((self.GRID_IOH_W)*0.5)
-        lly = y-self.snapDims((self.CLB_H*0.5)+self.CBX_H)
-        lly += (-1*self.gridIO_HB) if side == "bottom" else self.CBX_H
-        W1 = self.GRID_IOH_W
-        H1 = self.gridIO_HB
-        initShape = [(llx, lly, W1, H1)]
-
-        if not self.skipChannels:
-            llx += self.CBX_CHAN_L
-            lly += 0 if side == "bottom" else self.gridIO_MT
-            W1 = self.GRID_IOH_W-self.CBX_CHAN_L-self.CBX_CHAN_R
-            H1 = self.gridIO_HB-self.gridIO_MB
-
-        if side == "bottom":
-            moduleName = f"grid_io_{side}"
-            block_name = f"grid_io_{side}_{xi+1}__{yi}_"
-            short_block_name = f"io{side}_{xi+1}_{yi}"
-        else:
-            moduleName = f"grid_io_{side}"
-            block_name = f"grid_io_{side}_{xi+1}__{yi+1}_"
-            short_block_name = f"io{side}_{xi+1}_{yi+1}"
-        points = [0, 0, 0, W1, H1, W1, H1, 0]
-        self.PlacementDB.append(block_name)
-
-        self.PlacementDBKey[block_name] = {"name": block_name,
-                                           "short_name": short_block_name,
-                                           "bbox": [llx, lly, llx+W1, lly+H1],
-                                           "points": points,
-                                           "center": [llx+W1*0.5, lly+H1*0.5],
-                                           "module": moduleName,
-                                           "color": self.GRID_IO_COLOR,
-                                           "shape": [(llx, lly, W1, H1)],
-                                           "initShape": initShape}
-
-    def add_gridIOV(self, xi, yi, side, lbl=None):
-        x, y = (xi+1)*self.CLB_GRID_X, (yi+1)*self.CLB_GRID_Y
-        llx = x-self.snapDims((self.CLB_W*0.5)+self.CBY_W)
-        lly = y-self.snapDims(self.GRID_IOV_H)*0.5
-        llx += (-1*(self.gridIO_WL)) if side == "left" else self.CBY_W
-        W1 = self.gridIO_WL
-        H1 = self.GRID_IOV_H
-        initShape = [(llx, lly, W1, H1)]
-
-        if not self.skipChannels:
-            llx += self.CBY_CHAN_L
-            llx += (-1*self.gridIO_ML) if side == "left" else self.gridIO_MR
-            lly += self.CBY_CHAN_B
-            W1 = self.gridIO_WL-self.gridIO_ML
-            H1 = self.GRID_IOV_H-self.CBY_CHAN_T-self.CBY_CHAN_B
-
-        if side == "left":
-            moduleName = f"grid_io_{side}"
-            block_name = f"grid_io_{side}_{xi}__{yi+1}_"
-            short_block_name = f"io{side}_{xi}_{yi+1}"
-        else:
-            moduleName = f"grid_io_{side}"
-            block_name = f"grid_io_{side}_{xi+1}__{yi+1}_"
-            short_block_name = f"io{side}_{xi+1}_{yi+1}"
-        points = [0, 0, 0, W1, H1, W1, H1, 0]
-        self.PlacementDB.append(block_name)
-
-        self.PlacementDBKey[block_name] = {"name": block_name,
-                                           "short_name": short_block_name,
-                                           "bbox": [llx, lly, llx+W1, lly+H1],
-                                           "points": points,
-                                           "center": [llx+W1*0.5, lly+H1*0.5],
-                                           "module": moduleName,
-                                           "color": self.GRID_IO_COLOR,
-                                           "shape": [(llx, lly, W1, H1)],
-                                           "initShape": initShape}
-
-    def add_pad(self, side="L", number=0, padname="xx"):
-        CoreMinX, CoreMinY = (0.5*self.CLB_W), (0.5*self.CLB_H)
-        CoreMaxX, CoreMaxY = (((self.sizeX+0.5) * self.CLB_GRID_X)+0.5*self.CBY_W,
-                              ((self.sizeY+0.5) * self.CLB_GRID_Y)+0.5*self.CBX_H)
-        if side in ["L", "R"]:
-            pad_w = self.pad_w
-            pad_h = (((self.CLB_H+self.CBX_H)*self.sizeY+1) +
-                     self.CBX_H)/self.NumOfPads
-            shift = (number*pad_h)
-            initialshitX = (self.CLB_GRID_Y - self.CBX_H-(self.CLB_H*0.5))
-            initialshitY = (self.CLB_GRID_X - self.CBY_W-(self.CLB_W*0.5))
-            pad_spacing = 24
-            if side == "L":
-                pad_x = CoreMinX - (pad_w*0.5) - pad_spacing
-                pad_y = initialshitX + shift + pad_h*0.5
-                pad_llx = pad_x - (pad_w*0.5)
-                pad_lly = pad_y - (pad_h*0.5)
-                pad_w, pad_h = pad_w, pad_h
-                rot = 0
-                t = 0.5
-            elif side == "R":
-                pad_x = CoreMaxX + (pad_w*0.5) + pad_spacing
-                pad_y = initialshitX + shift + pad_h*0.5
-                pad_llx = pad_x - (pad_w*0.5)
-                pad_lly = pad_y - (pad_h*0.5)
-                pad_w, pad_h = pad_w, pad_h
-                rot = 0
-                t = 0.5
-        else:
-            pad_w = (((self.CLB_W+self.CBY_W)*self.sizeX+1) +
-                     self.CBY_W)/self.NumOfPads
-            pad_h = self.pad_h
-            shift = (number*pad_w)
-            initialshitY = (self.CLB_GRID_X - self.CBY_W-(self.CLB_W*0.5))
-            pad_spacing = 3
-            if side == "T":
-                pad_x = initialshitY + shift + pad_w*0.5
-                pad_y = CoreMaxY + pad_spacing + pad_h*0.5
-                pad_llx = pad_x - (0.5*pad_w)
-                pad_lly = pad_y - pad_h*0.5
-                pad_w, pad_h = pad_w, pad_h
-                rot = 90
-                t = 0.5
-            elif side == "B":
-                pad_x = initialshitY + shift + pad_w*0.5
-                pad_y = CoreMinY - pad_spacing - pad_h*0.5
-                pad_llx = pad_x - (0.5*pad_w)
-                pad_lly = pad_y - pad_h*0.5
-                pad_w, pad_h = pad_w, pad_h
-                rot = -90
-                t = 0.5
-
-        self.GPIOPlacmentKey.append(
-            {
-                "side": side,
-                "rot": rot,
-                "text": padname.strip(),
-                "shape": [(pad_llx, pad_lly, pad_w, pad_h)],
-                "color": self.PAD_COLOR,
-                "center": [pad_x, pad_y],
-            }
-        )
 
     def moduleFmt(self, mod, X, Y):
         return f"{mod}_{X}__{Y}_"

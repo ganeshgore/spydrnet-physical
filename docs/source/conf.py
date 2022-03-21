@@ -17,6 +17,7 @@ import os
 import sys
 import pathlib
 sys.path.insert(0, os.path.abspath('../..'))  # nopep8
+sys.path.insert(0, os.path.abspath('../../spydrnet_physical'))  # nopep8
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from sphinx_gallery.sorting import ExplicitOrder
@@ -57,6 +58,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
+    'sphinx.ext.graphviz',
     'sphinx.ext.githubpages',
     'sphinxcontrib_hdl_diagrams',
     'sphinx_gallery.gen_gallery',
@@ -65,6 +67,8 @@ extensions = [
 
 # generate autosummary pages
 autosummary_generate = True
+
+graphviz_output_format = "svg"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

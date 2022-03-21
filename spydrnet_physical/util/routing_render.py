@@ -134,6 +134,10 @@ class base_renderer():
 
 
 class sb_renderer(base_renderer):
+    '''
+    Renders the switch box information from GSB (Generic Switch Box) file
+    '''
+
     def extract_info(self) -> None:
         """
         Extracts all parameters

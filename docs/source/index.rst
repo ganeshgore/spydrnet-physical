@@ -49,6 +49,7 @@ Table of Contents
    introduction/tutorial
    reference/index
    auto_sample_verilog/index
+   developers/index 
    example
 
 .. .. toctree::

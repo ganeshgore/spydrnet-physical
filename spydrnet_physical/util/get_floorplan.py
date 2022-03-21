@@ -17,8 +17,9 @@ Detail of properties on different objects
 ``A``, ``B`` , ``C`` , ``D`` , ``E``, ``F``  =
 Dimensions of the rectilinear block (if shape is `RectL`)
 
+.. rst-class:: ascii
 
-.. code-block::
+::
 
                     d
                 ┌──────────┐
@@ -34,7 +35,7 @@ Dimensions of the rectilinear block (if shape is `RectL`)
                f│          │
                 │          │
                 └──────────┘
-              RectL Shape
+                RectL Shape
 
 
 **On Instances**
@@ -53,6 +54,31 @@ Optional and valid only when shape in RectL [left/right/bottom/top]
 ``OFFSET``:
 Offset from the origin of that side
 First point on respective side in clockwise direction is considered as origin
+
+
+.. rst-class:: ascii
+
+::
+
+                       top/top
+                     ┌──────────┐
+            top/left │          | top/right
+                     │          │
+           left/top  │          │ right/top
+              ┌──────┘          └──────┐
+              │                        │
+    left/left │           0            │ right/right
+              │                        │
+              └──────┐          ┌──────┘
+        left/bottom  │          │ right/bottom
+                     │          │
+         bottom/left │          | bottom/right
+                     └──────────┘
+                    bottom/bottom
+
+        Representing SIDE/SIDE2 parameters
+
+
 
 **TODO** Add Some sort of a cordinate transformation which scaleX and scaleY.
 All the inputs are in mutliple of SC_HEIGHT and SC_WIDTH, default value

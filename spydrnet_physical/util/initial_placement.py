@@ -22,9 +22,9 @@ SC_HEIGHT = 4
 
 class initial_placement(OpenFPGA_Placement_Generator):
 
-    def __init__(self, grid, netlist, library, top_module, debug=False,
+    def __init__(self, grid, netlist, debug=False,
                  areaFile=None, padFile=None, gridIO=False, shapingConf=None):
-        super().__init__(grid, netlist, library, top_module)
+        super().__init__(grid, netlist, None)
 
         self.sizeX = grid[0]
         self.sizeY = grid[1]
