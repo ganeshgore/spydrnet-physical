@@ -1,0 +1,259 @@
+{
+  "creator": "Yosys 0.13+39 (git sha1 9c9366895, ccache clang 11.0.0-2~ubuntu20.04.1 -Os -flto -flto)",
+  "modules": {
+    "module1": {
+      "attributes": {
+        "blackbox": 1,
+        "hdlname": "\\module1",
+        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:20.1-25.10"
+      },
+      "ports": {
+        "in0": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "in1": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "out": {
+          "direction": "output",
+          "bits": [ 4 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "in0": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:21.11-21.14"
+          }
+        },
+        "in1": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:22.11-22.14"
+          }
+        },
+        "out": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:23.12-23.15"
+          }
+        }
+      }
+    },
+    "module2": {
+      "attributes": {
+        "blackbox": 1,
+        "hdlname": "\\module2",
+        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:27.1-32.10"
+      },
+      "ports": {
+        "in0": {
+          "direction": "input",
+          "bits": [ 2, 3 ]
+        },
+        "in1": {
+          "direction": "input",
+          "bits": [ 4, 5 ]
+        },
+        "out": {
+          "direction": "output",
+          "bits": [ 6, 7 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "in0": {
+          "hide_name": 0,
+          "bits": [ 2, 3 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:28.16-28.19"
+          }
+        },
+        "in1": {
+          "hide_name": 0,
+          "bits": [ 4, 5 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:29.16-29.19"
+          }
+        },
+        "out": {
+          "hide_name": 0,
+          "bits": [ 6, 7 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:30.17-30.20"
+          }
+        }
+      }
+    },
+    "top": {
+      "attributes": {
+        "hdlname": "\\top",
+        "top": 1,
+        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:2.1-18.10"
+      },
+      "ports": {
+        "in0": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "in1": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "bus_in": {
+          "direction": "input",
+          "bits": [ 4, 5 ]
+        },
+        "out0": {
+          "direction": "output",
+          "bits": [ 6 ]
+        },
+        "bus_out": {
+          "direction": "output",
+          "bits": [ 7, 8 ]
+        }
+      },
+      "cells": {
+        "inst_1_0": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:12.13-12.57"
+          },
+          "port_directions": {
+            "in0": "input",
+            "in1": "input",
+            "out": "output"
+          },
+          "connections": {
+            "in0": [ 2 ],
+            "in1": [ 3 ],
+            "out": [ 9 ]
+          }
+        },
+        "inst_1_1": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:13.13-13.58"
+          },
+          "port_directions": {
+            "in0": "input",
+            "in1": "input",
+            "out": "output"
+          },
+          "connections": {
+            "in0": [ 9 ],
+            "in1": [ 2 ],
+            "out": [ 6 ]
+          }
+        },
+        "inst_2_0": {
+          "hide_name": 0,
+          "type": "module2",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:15.13-15.70"
+          },
+          "port_directions": {
+            "in0": "input",
+            "in1": "input",
+            "out": "output"
+          },
+          "connections": {
+            "in0": [ 3, 2 ],
+            "in1": [ 4, 5 ],
+            "out": [ 10, 11 ]
+          }
+        },
+        "inst_2_1": {
+          "hide_name": 0,
+          "type": "module2",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:16.13-16.69"
+          },
+          "port_directions": {
+            "in0": "input",
+            "in1": "input",
+            "out": "output"
+          },
+          "connections": {
+            "in0": [ 10, 11 ],
+            "in1": [ 10, 11 ],
+            "out": [ 7, 8 ]
+          }
+        }
+      },
+      "netnames": {
+        "bus_in": {
+          "hide_name": 0,
+          "bits": [ 4, 5 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:5.16-5.22"
+          }
+        },
+        "bus_out": {
+          "hide_name": 0,
+          "bits": [ 7, 8 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:7.17-7.24"
+          }
+        },
+        "in0": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:3.11-3.14"
+          }
+        },
+        "in1": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:4.11-4.14"
+          }
+        },
+        "out0": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:6.12-6.16"
+          }
+        },
+        "wire0": {
+          "hide_name": 0,
+          "bits": [ 9 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:9.10-9.15"
+          }
+        },
+        "wire_bus": {
+          "hide_name": 0,
+          "bits": [ 10, 11 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/basic_hierarchy.v:10.15-10.23"
+          }
+        }
+      }
+    }
+  }
+}
