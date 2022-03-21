@@ -2,8 +2,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-800,800,800" width="100%">
     <defs>
         <style type="text/css"><![CDATA[
-            text{font-family: LATO; font-weight: 800; font-size: 5px;}
-            .module_boundary{fill:#f4f0e6}
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
             .left_pin{
                 fill:blue;
                 text-anchor: start;
@@ -28,7 +28,7 @@
             .out_pin{fill: blue;}
         ]]></style>
         <symbol id="top">
-            <rect class="module_boundary" fill="white" height="699" stroke="grey" stroke-width="2" width="699" x="1" y="1"/>
+            <rect class="module_boundary top" fill="#f4f0e6" height="699" width="699" x="1" y="1"/>
             <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in_0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="498.0"/>
             <text class="pin left_pin" x="0.0" y="-498.0">in_0</text>
             <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in_1');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="398.0"/>
@@ -47,7 +47,7 @@
             <text class="pin right_pin" x="697.0" y="-398.0">out_3</text>
         </symbol>
         <symbol id="module1">
-            <rect class="module_boundary" fill="white" height="99" stroke="grey" stroke-width="2" width="99" x="1" y="1"/>
+            <rect class="module_boundary module1" fill="#f4f0e6" height="99" width="99" x="1" y="1"/>
             <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="8.0"/>
             <text class="pin left_pin" x="0.0" y="-8.0">in0</text>
             <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="97.0" y="58.0"/>
@@ -91,22 +91,70 @@
         </g>
         <g id="mainText" transform="scale(1,-1)">
             <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="350.0" y="-70.0">top</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-145">inst_1_11</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-145">inst_1_21</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-145">inst_1_31</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-145">inst_1_41</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-270">inst_1_12</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-270">inst_1_22</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-270">inst_1_32</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-270">inst_1_42</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-395">inst_1_13</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-395">inst_1_23</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-395">inst_1_33</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-395">inst_1_43</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-520">inst_1_14</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-520">inst_1_24</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-520">inst_1_34</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-520">inst_1_44</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-175.0">
+                inst_1_11
+                <tspan dy="1.2em" x="175.0" y="-175.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-175.0">
+                inst_1_21
+                <tspan dy="1.2em" x="300.0" y="-175.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-175.0">
+                inst_1_31
+                <tspan dy="1.2em" x="425.0" y="-175.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-175.0">
+                inst_1_41
+                <tspan dy="1.2em" x="550.0" y="-175.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-300.0">
+                inst_1_12
+                <tspan dy="1.2em" x="175.0" y="-300.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-300.0">
+                inst_1_22
+                <tspan dy="1.2em" x="300.0" y="-300.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-300.0">
+                inst_1_32
+                <tspan dy="1.2em" x="425.0" y="-300.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-300.0">
+                inst_1_42
+                <tspan dy="1.2em" x="550.0" y="-300.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-425.0">
+                inst_1_13
+                <tspan dy="1.2em" x="175.0" y="-425.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-425.0">
+                inst_1_23
+                <tspan dy="1.2em" x="300.0" y="-425.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-425.0">
+                inst_1_33
+                <tspan dy="1.2em" x="425.0" y="-425.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-425.0">
+                inst_1_43
+                <tspan dy="1.2em" x="550.0" y="-425.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-550.0">
+                inst_1_14
+                <tspan dy="1.2em" x="175.0" y="-550.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="300.0" y="-550.0">
+                inst_1_24
+                <tspan dy="1.2em" x="300.0" y="-550.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="425.0" y="-550.0">
+                inst_1_34
+                <tspan dy="1.2em" x="425.0" y="-550.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="550.0" y="-550.0">
+                inst_1_44
+                <tspan dy="1.2em" x="550.0" y="-550.0">[module1]</tspan>
+            </text>
         </g>
         <g id="edges" transform="scale(1,-1)">
             <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk');" onmouseout="hideTooltip();" points="0,0" stroke="black" stroke-width="1"/>

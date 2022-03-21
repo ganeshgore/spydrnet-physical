@@ -28,7 +28,11 @@ based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-68
+.. image:: ../../../../examples/OpenFPGA/basic/_fpga_initial_placement.svg
+   :width: 70%
+   :align: center
+
+.. GENERATED FROM PYTHON SOURCE LINES 17-72
 
 
 
@@ -92,9 +96,8 @@ This script can be used for shaping and placement of the modules before place an
     import tempfile
 
     import spydrnet as sdn
-    from spydrnet_physical.util import OpenFPGA
+    from spydrnet_physical.util import OpenFPGA, initial_placement
     from spydrnet_physical.util.get_floorplan import FloorPlanViz
-    from spydrnet_physical.util.shell import launch_shell
 
     logger = logging.getLogger('spydrnet_logs')
     sdn.enable_file_logging(LOG_LEVEL='INFO')
@@ -127,7 +130,8 @@ This script can be used for shaping and placement of the modules before place an
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         #           Floorplan visualization
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
+        fpga.register_placement_creator(initial_placement,
+                                        areaFile='area_info.txt')
         fpga.create_placement()
         fpga.show_placement_data("*_0__*")
         fpga.design_top_stat()
@@ -144,7 +148,7 @@ This script can be used for shaping and placement of the modules before place an
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.439 seconds)
+   **Total running time of the script:** ( 0 minutes  2.960 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_basic_03_initial_placement.py:

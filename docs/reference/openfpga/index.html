@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="OpenFPGA Base" href="base.html" /><link rel="prev" title="spydrnet_physical.util.ConnectionPattern" href="../utility/generated/spydrnet_physical.util.ConnectionPattern.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="OpenFPGA Base" href="base.html" /><link rel="prev" title="Architecture Visualisation" href="../visualization/architecture_visualizer.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>OpenFPGA Transformations - SpyDrNet-Physical alpha documentation</title>
@@ -164,14 +164,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../introduction/tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../classes/element.html">Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/library.html">Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../classes/bundle.html">Bundle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../classes/pin.html">Pin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/element.html">Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/definition.html">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/instance.html">Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/cable.html">Cable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/wire.html">Wire</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../classes/innerpin.html">InnerPin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../classes/outerpin.html">OuterPin</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../classes/cable.html">Cable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../classes/definition.html">Definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../classes/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/pin.html">Pin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/port.html">Port</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -182,10 +185,15 @@
 <li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.ConnectionPattern.html">spydrnet_physical.util.ConnectionPattern</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">OpenFPGA Transformations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visualization/floorplan_visualizer.html">FloorPlan Visualizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visualization/architecture_visualizer.html">Architecture Visualisation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">OpenFPGA Transformations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="routing_render.html">Routing Render</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="tile01.html">Tile-01</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tile01.html">Tile-01</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="Tile01/tile.html">Tile</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Tile01/left-tile.html">Left-Tile</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Tile01/right-tile.html">Right-Tile</a></li>
@@ -201,15 +209,15 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/grid_example.html">grid_example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/nested_hierarchy.html">nested_hierarchy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_hierarchical_netlist.html">Visualise Hierarchical Netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_info.html">Display Netlist Information Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">Grouping ungrouping cells</a></li>
@@ -219,12 +227,13 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">Genrating feedthrough from single instance</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga/index.html">OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/01_fpga_arch_parse.html">OpenFPGA Architecture Parsing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/02_fpga_basic_elements.html">Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/03_initial_placement.html">Render Placement information from Verilog netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -316,14 +325,14 @@
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../utility/generated/spydrnet_physical.util.ConnectionPattern.html">
+          <a class="prev-page" href="../visualization/architecture_visualizer.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">spydrnet_physical.util.ConnectionPattern</div>
+                <div class="title">Architecture Visualisation</div>
                 
               </div>
             </a>

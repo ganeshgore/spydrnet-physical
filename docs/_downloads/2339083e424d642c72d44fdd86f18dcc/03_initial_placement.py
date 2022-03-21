@@ -9,6 +9,10 @@ based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
+.. image:: ../../../../examples/OpenFPGA/basic/_fpga_initial_placement.svg
+   :width: 70%
+   :align: center
+
 """
 
 import glob
@@ -17,9 +21,8 @@ import os
 import tempfile
 
 import spydrnet as sdn
-from spydrnet_physical.util import OpenFPGA
+from spydrnet_physical.util import OpenFPGA, initial_placement
 from spydrnet_physical.util.get_floorplan import FloorPlanViz
-from spydrnet_physical.util.shell import launch_shell
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
@@ -52,7 +55,8 @@ def main():
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #           Floorplan visualization
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
+    fpga.register_placement_creator(initial_placement,
+                                    areaFile='area_info.txt')
     fpga.create_placement()
     fpga.show_placement_data("*_0__*")
     fpga.design_top_stat()

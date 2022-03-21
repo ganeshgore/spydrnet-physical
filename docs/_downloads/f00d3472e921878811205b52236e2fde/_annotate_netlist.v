@@ -59,7 +59,7 @@ module top
     );
 endmodule
 
-(* WIDTH = 50, HEIGHT = 50, in0_X = 2, in0_Y = 10, in1_X = 2, in1_Y = 30, out_X = 49, out_Y = 30 *)
+(* WIDTH = 50, HEIGHT = 60, SHAPE = RectL, POINTS = [25, 25, 25, 25, 25, 25], in0_X = 50, in0_Y = 60, in1_X = 0, in1_Y = 35, out_X = 75, out_Y = 45 *)
 module module1
 (
     in0,
@@ -67,9 +67,9 @@ module module1
     out
 );
 
-(* SIDE = left, OFFSET = 10 *)
+(* SIDE = top, OFFSET = 10, SIDE2 = right *)
     input in0;
-(* SIDE = left, OFFSET = 30 *)
+(* SIDE = left, OFFSET = 10 *)
     input in1;
 (* SIDE = right, OFFSET = 20 *)
     output out;
@@ -80,7 +80,7 @@ module module1
 
 endmodule
 
-(* WIDTH = 50, HEIGHT = 50, in0_X = 2, in0_Y = 10, in1_X = 2, in1_Y = 30, out_X = 49, out_Y = 30 *)
+(* WIDTH = 50, HEIGHT = 40, in0_X = 2, in0_Y = 10, in1_X = 2, in1_Y = 30, out_X = 49, out_Y = 20 *)
 module module2
 (
     in0,
