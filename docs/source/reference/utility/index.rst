@@ -41,6 +41,18 @@ OpenFPGA Helper Classes
     OpenFPGA
     FPGAGridGen
     initial_placement
+    openfpga_floorplan
+
+
+OpenFPGA Class Templates
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autosummary::
+   :toctree: generated
+
+    OpenFPGA_Config_Generator
+    OpenFPGA_Placement_Generator
+    OpenFPGA_Tile_Generator
 
 
 Rendering and Visualization 
@@ -71,11 +83,6 @@ FPGA Tiling Related
 
 .. autosummary::
    :toctree: generated
-
-    OpenFPGA_Config_Generator
-    OpenFPGA_Placement_Generator
-    OpenFPGA_Tile_Generator
-    openfpga_floorplan
 
     OpenFPGA_Arch
     Tile01

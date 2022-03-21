@@ -9,11 +9,10 @@ based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. image:: ../../../../examples/OpenFPGA/basic/_design_floorplan.svg
-   :width: 70%
-   :align: center
-
 """
+# .. image:: ../../../../examples/OpenFPGA/basic/_design_floorplan.svg
+#    :width: 70%
+#    :align: center
 
 import glob
 import logging
@@ -37,6 +36,7 @@ GRID_COLOR = '#f4f0e6'
 
 
 def main():
+    return
     proj = "../homogeneous_fabric"
     source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
     source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
