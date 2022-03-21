@@ -112,10 +112,37 @@ BOTTOM_PIN = 2
 LEFT_PIN = 3
 RIGHT_PIN = 4
 
+STYLE_SHEET = """
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        """
+
 
 class FloorPlanViz:
     '''
-    Implmenetation of SVG Visualiser
+    Implmenetation of SVG Visualiser `floorplan_visualizer <reference/visualization/floorplan_visualizer.rst>`_ 
     '''
 
     def __init__(self, definition, viewbox=(0, 0, 1000, 1000)):
@@ -131,6 +158,7 @@ class FloorPlanViz:
         self.view_h = 0  # This variable tracks the maximum height of the SVG
         self.skip_pins = True
 
+        self.custom_style = None
         # Create SVG drawing
         self.dwg = Drawing()
         self.dwg.viewbox(*viewbox)
@@ -144,11 +172,30 @@ class FloorPlanViz:
 
         self.add_stylehseet()
 
+    @property
+    def custom_style_sheet(self):
+        '''
+        Return custom styles added in this visualiazer
+        '''
+        return self.custom_style
+
+    @custom_style_sheet.setter
+    def custom_style_sheet(self, value):
+        '''
+        Adds custom styles in this visualizer
+        '''
+        self.custom_style = value
+
     def compose(self, skip_connections=False,
                 skip_pins=False,
-                filter_cables=(lambda x: True)):
+                filter_cables=(lambda x: True)) -> Drawing:
         '''
-        Entry point to generate SVG
+        Entry point to generate final SVG file
+
+        args:
+            skip_connections(bool) : Skip rednering connections beetween modules
+            skip_pins(bool) :Skip rendering modules pins  
+            filter_cables(Callable): A callable function which filters the connections to redner
         '''
         # Create symbol for top-module and add in svg
         self.skip_pins = skip_pins
@@ -192,47 +239,112 @@ class FloorPlanViz:
                                  onmousemove=f"showTooltip(evt, '{cable.name}');",
                                  onmouseout="hideTooltip();",
                                  stroke_width="1"))
+        return self.dwg
 
-    def add_stylehseet(self):
-        '''
-        Adds custom stylesheet to the SVG image
-        '''
-        self.dwg.defs.add(self.dwg.style("""
-            text{font-family: Verdana; font-size: 5px;}
-            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
-            .left_pin{
-                fill:blue;
-                text-anchor: start;
-                transform: translate(5px, 00px) scale(1,-1);}
-            .right_pin{
-                fill:blue;
-                text-anchor: end;
-                transform: translate(-5px, 00px) scale(1,-1);}
-            .bottom_pin{
-                fill:blue;
-                transform-box: fill-box;
-                transform-origin: start;
-                text-anchor: start;
-                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
-            .top_pin{
-                fill:blue;
-                transform-box: fill-box;
-                transform-origin: bottom left;
-                text-anchor: start;
-                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
-            .in_pin{fill: red;}
-            .out_pin{fill: blue;}
-        """))
+    def add_top_block(self, top_module):
+        """
+        Adds top level block in the design 
+        """
+        name = top_module.name
+        defDict = self.def_list[name]
+        self.dwgShapes.add(self.dwg.use(defDict["instance"],
+                                        class_=f"topModule",
+                                        insert=(0, 0)))
+        self.dwgText.add(self.dwg.text(defDict["name"],
+                                       insert=(defDict["width"]*0.5,
+                                               -1*defDict["height"]*0.1),
+                                       fill="black",
+                                       transform="scale(1,-1)",
+                                       alignment_baseline="middle",
+                                       text_anchor="middle"))
+        self._update_viewbox(defDict["width"], defDict["height"])
 
-    def _update_viewbox(self, x, y):
-        '''
-        Updates the view box x and y value provided before saving image
+    def add_symbol(self, module):
+        """
+        Inserts symbols in the SVG file
+        """
+        if "ASSIG" in module.name:
+            return
+        if self.def_list.get(module.name, None):
+            return self.def_list[module.name]
+        shape = module.data[PROP].get("SHAPE", "rect")
+        if shape.lower() == "rectl":
+            new_def = self._add_rect_linear_symbol(module)
+        else:
+            new_def = self._add_rect_symbol(module)
+        self.dwg.defs.add(new_def)
+        return new_def
 
-        '''
-        self.view_w = self.view_w if self.view_w > x else x
-        self.view_h = self.view_h if self.view_h > y else y
+    def add_block(self, instance):
+        """
+        Iterates over each instance and adds them in SVG file
+        """
+        name = instance.reference.name
+        if "ASSIG" in name:
+            return
+        defDict = self.def_list[name]
 
-    def add_rect_linear_symbol_pins(self, module: sdn.Definition, new_def: Symbol):
+        loc_x = int(instance.data[PROP].get("LOC_X", 0))
+        loc_y = int(instance.data[PROP].get("LOC_Y", 0))
+
+        self.dwgShapes.add(self.dwg.use(defDict["instance"],
+                                        class_=f"{instance.name}",
+                                        insert=(loc_x, loc_y)))
+
+        module_name = self.dwg.tspan(text=f"[{instance.reference.name}]",
+                                     insert=self._get_label_location(instance),
+                                     dy=["1.2em", ])
+        module_text = self.dwg.text(f"{instance.name}",
+                                    insert=self._get_label_location(instance),
+                                    transform="scale(1,-1)",
+                                    fill="black",
+                                    alignment_baseline="middle",
+                                    text_anchor="middle")
+        module_text.add(module_name)
+        self.dwgText.add(module_text)
+
+    def _get_label_location(self, instance) -> tuple:
+        '''
+        Return the label location given the verilog instance 
+
+        Always in the center of the shape
+        '''
+        defDict = self.def_list[instance.reference.name]
+        loc_x = int(instance.data[PROP].get("LOC_X", 0))
+        loc_y = int(instance.data[PROP].get("LOC_Y", 0))
+        loc_x += defDict["width"]*0.5
+        loc_y += defDict["height"]*0.5
+        loc_y *= -1
+        return (loc_x, loc_y)
+
+    # ===================================================
+    #        Methods for shapes and pin addition
+    # ===================================================
+    def _add_rect_symbol(self, module: sdn.Definition) -> None:
+        width = int(module.data[PROP].get("WIDTH", 10))
+        height = int(module.data[PROP].get("HEIGHT", 10))
+        COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
+        new_def = self.dwg.symbol(id=module.name)
+        self.def_list[module.name] = {
+            "name": module.name,
+            "instance": new_def,
+            "shape": "rect",
+            "points": None,
+            "width": width,
+            "height": height,
+        }
+        new_def.add(self.dwg.rect(insert=(1, 1),
+                                  size=(width-1, height-1),
+                                  fill=COLOR,
+                                  class_=f"module_boundary {module.name}"))
+        if not self.skip_pins:
+            self._add_rect_symbol_pins(module, new_def)
+        return new_def
+
+    def _add_rect_linear_symbol_pins(self, module: sdn.Definition, new_def: Symbol) -> None:
+        '''
+        Adds ``rect_linear`` modules in the SVG symbol list
+        '''
         a, b, c, d, e, f = map(int, module.data[PROP].get("POINTS", [10]*6))
         width = b+d+e
         height = a+c+f
@@ -285,7 +397,35 @@ class FloorPlanViz:
             module.data[PROP][f"{p}_X"] = LOC_X
             module.data[PROP][f"{p}_Y"] = LOC_Y
 
-    def add_rect_symbol_pins(self, module: sdn.Definition, new_def: Symbol):
+    def _add_rect_linear_symbol(self, module: sdn.Definition) -> None:
+        a, b, c, d, e, f = map(int, module.data[PROP].get("POINTS", [10]*6))
+        COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
+        new_def = self.dwg.symbol(id=module.name)
+        self.def_list[module.name] = {
+            "name": module.name,
+            "instance": new_def,
+            "shape": "rectl",
+            "a": a, "b": b, "c": c,
+            "d": d, "e": e, "f": f,
+            "width": b+d+e,
+            "height": a+c+f,
+        }
+        path = f"M {b} 0 v {f} h {-1*b} v {a} h {b} "
+        path += f" v {c} h {d} v {-1*c} h {e} v {-1*a} "
+        path += f" h {-1*e} v {-1*f} Z"
+        path += f" Z"
+        logger.debug("")
+        new_def.add(self.dwg.path(d=path,
+                                  fill=COLOR,
+                                  class_=f"module_boundary {module.name}"))
+        if not self.skip_pins:
+            self._add_rect_linear_symbol_pins(module, new_def)
+        return new_def
+
+    def _add_rect_symbol_pins(self, module: sdn.Definition, new_def: Symbol) -> None:
+        '''
+        Adds pins on the rectangular shpapes
+        '''
         width = int(module.data[PROP].get("WIDTH", 10))
         height = int(module.data[PROP].get("HEIGHT", 10))
         for port in module.ports:
@@ -328,66 +468,27 @@ class FloorPlanViz:
             module.data[PROP][f"{p}_X"] = LOC_X
             module.data[PROP][f"{p}_Y"] = LOC_Y
 
-    def add_rect_symbol(self, module: sdn.Definition):
-        width = int(module.data[PROP].get("WIDTH", 10))
-        height = int(module.data[PROP].get("HEIGHT", 10))
-        COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
-        new_def = self.dwg.symbol(id=module.name)
-        self.def_list[module.name] = {
-            "name": module.name,
-            "instance": new_def,
-            "shape": "rect",
-            "points": None,
-            "width": width,
-            "height": height,
-        }
-        new_def.add(self.dwg.rect(insert=(1, 1),
-                                  size=(width-1, height-1),
-                                  fill=COLOR,
-                                  class_=f"module_boundary {module.name}"))
-        if not self.skip_pins:
-            self.add_rect_symbol_pins(module, new_def)
-        return new_def
+    # ===================================================
+    #              SVG Rendering Related
+    # ===================================================
 
-    def add_rect_linear_symbol(self, module: sdn.Definition):
-        a, b, c, d, e, f = map(int, module.data[PROP].get("POINTS", [10]*6))
-        COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
-        new_def = self.dwg.symbol(id=module.name)
-        self.def_list[module.name] = {
-            "name": module.name,
-            "instance": new_def,
-            "shape": "rectl",
-            "a": a, "b": b, "c": c,
-            "d": d, "e": e, "f": f,
-            "width": b+d+e,
-            "height": a+c+f,
-        }
-        path = f"M {b} 0 v {f} h {-1*b} v {a} h {b} "
-        path += f" v {c} h {d} v {-1*c} h {e} v {-1*a} "
-        path += f" h {-1*e} v {-1*f} Z"
-        path += f" Z"
-        logger.debug("")
-        new_def.add(self.dwg.path(d=path,
-                                  fill=COLOR,
-                                  class_=f"module_boundary {module.name}"))
-        if not self.skip_pins:
-            self.add_rect_linear_symbol_pins(module, new_def)
-        return new_def
+    def _update_viewbox(self, x, y):
+        '''
+        Updates the view box x and y value provided before saving image
 
-    def add_symbol(self, module):
-        if "ASSIG" in module.name:
-            return
-        if self.def_list.get(module.name, None):
-            return self.def_list[module.name]
-        shape = module.data[PROP].get("SHAPE", "rect")
-        if shape.lower() == "rectl":
-            new_def = self.add_rect_linear_symbol(module)
-        else:
-            new_def = self.add_rect_symbol(module)
-        self.dwg.defs.add(new_def)
-        return new_def
+        '''
+        self.view_w = self.view_w if self.view_w > x else x
+        self.view_h = self.view_h if self.view_h > y else y
 
-    def add_background(self, bgColor="#FFF"):
+    def add_stylehseet(self):
+        '''
+        Adds custom stylesheet to the SVG image
+        '''
+        self.dwg.defs.add(self.dwg.style(STYLE_SHEET))
+        if self.custom_style:
+            self.dwg.defs.add(self.dwg.style(self.custom_style))
+
+    def _add_background(self, bgColor="#FFF"):
         self.dwgbg.add(self.dwg.rect(insert=(-25, -25),
                                      size=(self.view_w+50,
                                            self.view_h+50),
@@ -397,60 +498,11 @@ class FloorPlanViz:
         self.dwg.viewbox(-50, -1*(self.view_h+100),
                          self.view_w+100, self.view_h+100)
 
-    def add_top_block(self, top_module):
-        name = top_module.name
-        defDict = self.def_list[name]
-        self.dwgShapes.add(self.dwg.use(defDict["instance"],
-                                        class_=f"topModule",
-                                        insert=(0, 0)))
-        self.dwgText.add(self.dwg.text(defDict["name"],
-                                       insert=(defDict["width"]*0.5,
-                                               -1*defDict["height"]*0.1),
-                                       fill="black",
-                                       transform="scale(1,-1)",
-                                       alignment_baseline="middle",
-                                       text_anchor="middle"))
-        self._update_viewbox(defDict["width"], defDict["height"])
-
-    def get_label_location(self, instance):
-        defDict = self.def_list[instance.reference.name]
-        loc_x = int(instance.data[PROP].get("LOC_X", 0))
-        loc_y = int(instance.data[PROP].get("LOC_Y", 0))
-        loc_x += defDict["width"]*0.5
-        loc_y += defDict["height"]*0.5
-        loc_y *= -1
-        return (loc_x, loc_y)
-
-    def add_block(self, instance):
-        name = instance.reference.name
-        if "ASSIG" in name:
-            return
-        defDict = self.def_list[name]
-
-        loc_x = int(instance.data[PROP].get("LOC_X", 0))
-        loc_y = int(instance.data[PROP].get("LOC_Y", 0))
-
-        self.dwgShapes.add(self.dwg.use(defDict["instance"],
-                                        class_=f"{instance.name}",
-                                        insert=(loc_x, loc_y)))
-
-        module_name = self.dwg.tspan(text=f"[{instance.reference.name}]",
-                                     insert=self.get_label_location(instance),
-                                     dy=["1.2em", ])
-        module_text = self.dwg.text(f"{instance.name}",
-                                    insert=self.get_label_location(instance),
-                                    transform="scale(1,-1)",
-                                    fill="black",
-                                    alignment_baseline="middle",
-                                    text_anchor="middle")
-        module_text.add(module_name)
-        self.dwgText.add(module_text)
-
     def get_svg(self):
         '''
         Returns SVG string of the current floorplan
         '''
-        self.add_background()
+        self._add_background()
         return self.dwg
 
     def get_html(self):
