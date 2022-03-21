@@ -308,7 +308,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="util.FloorPlanViz">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">FloorPlanViz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1000,</span> <span class="pre">1000)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FloorPlanViz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implmenetation of SVG Visualiser</p>
+<dd><p>Implmenetation of SVG Visualiser <a class="reference external" href="reference/visualization/floorplan_visualizer.rst">floorplan_visualizer</a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="util.FloorPlanViz.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1000,</span> <span class="pre">1000)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FloorPlanViz.__init__" title="Permalink to this definition">¶</a></dt>
@@ -326,44 +326,38 @@ itself</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#util.FloorPlanViz.__init__" title="util.FloorPlanViz.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(definition[, viewbox])</p></td>
 <td><p>Initialise the class with definition to render.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_background</span></code>([bgColor])</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_block</span></code>(instance)</p></td>
+<td><p>Iterates over each instance and adds them in SVG file</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_block</span></code>(instance)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_rect_linear_symbol</span></code>(module)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_rect_linear_symbol_pins</span></code>(module, new_def)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_rect_symbol</span></code>(module)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_rect_symbol_pins</span></code>(module, new_def)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stylehseet</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_stylehseet</span></code>()</p></td>
 <td><p>Adds custom stylesheet to the SVG image</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_symbol</span></code>(module)</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_symbol</span></code>(module)</p></td>
+<td><p>Inserts symbols in the SVG file</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_top_block</span></code>(top_module)</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_top_block</span></code>(top_module)</p></td>
+<td><p>Adds top level block in the design</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compose</span></code>([skip_connections, skip_pins, ...])</p></td>
-<td><p>Entry point to generate SVG</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compose</span></code>([skip_connections, skip_pins, ...])</p></td>
+<td><p>Entry point to generate final SVG file</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_html</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_html</span></code>()</p></td>
 <td><p>Adds the SVG image to HTML page which supports zoom and pan control using d3.js</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_label_location</span></code>(instance)</p></td>
-<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_svg</span></code>()</p></td>
 <td><p>Returns SVG string of the current floorplan</p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="rubric">Attributes</p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">custom_style_sheet</span></code></p></td>
+<td><p>Return custom styles added in this visualiazer</p></td>
 </tr>
 </tbody>
 </table></div>

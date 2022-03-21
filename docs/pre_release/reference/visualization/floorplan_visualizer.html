@@ -370,11 +370,40 @@ of these variables is set to 1</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.util.</span></span><span class="sig-name descname"><span class="pre">FloorPlanViz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1000,</span> <span class="pre">1000)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implmenetation of SVG Visualiser</p>
+<dd><p>Implmenetation of SVG Visualiser <a class="reference external" href="reference/visualization/floorplan_visualizer.rst">floorplan_visualizer</a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.custom_style_sheet">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">custom_style_sheet</span></span><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.custom_style_sheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return custom styles added in this visualiazer</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.compose">
-<span class="sig-name descname"><span class="pre">compose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">skip_connections=False</span></em>, <em class="sig-param"><span class="pre">skip_pins=False</span></em>, <em class="sig-param"><span class="pre">filter_cables=&lt;function</span> <span class="pre">FloorPlanViz.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.compose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.compose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Entry point to generate SVG</p>
+<span class="sig-name descname"><span class="pre">compose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">skip_connections=False</span></em>, <em class="sig-param"><span class="pre">skip_pins=False</span></em>, <em class="sig-param"><span class="pre">filter_cables=&lt;function</span> <span class="pre">FloorPlanViz.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">svgwrite.drawing.Drawing</span></span></span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.compose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.compose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entry point to generate final SVG file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>skip_connections</strong> (<em>bool</em>) – Skip rednering connections beetween modules</p></li>
+<li><p><strong>skip_pins</strong> (<em>bool</em>) – Skip rendering modules pins</p></li>
+<li><p><strong>filter_cables</strong> (<em>Callable</em>) – A callable function which filters the connections to redner</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.add_top_block">
+<span class="sig-name descname"><span class="pre">add_top_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.add_top_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.add_top_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds top level block in the design</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.add_symbol">
+<span class="sig-name descname"><span class="pre">add_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.add_symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.add_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts symbols in the SVG file</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.add_block">
+<span class="sig-name descname"><span class="pre">add_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.add_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.add_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over each instance and adds them in SVG file</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.add_stylehseet">
