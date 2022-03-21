@@ -129,17 +129,20 @@ class OpenFPGA:
         pass
 
     def show_placement_data(self, pattern="*"):
-        print("%20s %20s %5s %5s %5s %5s" % ("MODULE", "INSTANCE", "LOC_X", "LOC_Y",
-                                             "WIDTH", "HEIGHT"))
-        print(" = ="*20)
+        print("%20s %20s %5s %5s %5s %5s %8s %20s" % ("INSTANCE", "MODULE", "LOC_X", "LOC_Y",
+                                                      "WIDTH", "HEIGHT", "SHAPE", "POINTS"))
+        print(" = ="*30)
         for instance in self.top_module.get_instances(pattern):
-            print("%20s %20s %5d %5d %5d %5d" % (
+            print("%20s %20s %5d %5d %5d %5d %8s     %20s" % (
                 instance.name,
                 instance.reference.name,
                 instance.properties.get("LOC_X", 0),
                 instance.properties.get("LOC_Y", 0),
                 instance.reference.properties.get("WIDTH", 0),
                 instance.reference.properties.get("HEIGHT", 0),
+                instance.reference.properties.get("SHAPE", "--"),
+                " ".join(map(lambda x: f"{x:03}", instance.reference.properties.get(
+                    "POINTS", [0, 0, 0, 0, 0, 0]))),
             ))
 
     def design_top_stat(self, pattern="*", filename=None):

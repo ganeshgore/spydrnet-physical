@@ -3,7 +3,6 @@ from svgwrite import Drawing
 from svgwrite.container import Group
 
 STYLE_SHEET = """
-            line{stroke-width: 1; stroke: red;}
             .origin{fill:black}
             .grid_boundary{stroke-width: 1; stroke: grey; fill:lightgrey}
             """
@@ -55,12 +54,12 @@ class GridFloorplanGen:
 
     '''
 
-    def __init__(self, size_x, size_y) -> None:
+    def __init__(self, size_x, size_y, grid_x=100, grid_y=100) -> None:
         self.size_x = size_x
         self.size_y = size_y
 
-        self.grid_x = 100
-        self.grid_y = 100
+        self.grid_x = grid_x
+        self.grid_y = grid_y
 
         self.grid_x_width = [self.grid_x]*self.size_x
         self.grid_y_height = [self.grid_y]*self.size_y
@@ -77,6 +76,14 @@ class GridFloorplanGen:
     @property
     def height(self):
         return (self.grid_y_points[-1]-self.grid_y_points[0])
+
+    @property
+    def row_height(self):
+        return self.grid_y_height
+
+    @property
+    def col_width(self):
+        return self.grid_x_width
 
     @property
     def offset_x(self):
@@ -97,6 +104,9 @@ class GridFloorplanGen:
         self.grid_y_points[0] = value
         self.update_points()
         return self.grid_y_points
+
+    def get_x_y(self, x, y):
+        return (self.grid_x_points[x], self.grid_y_points[y])
 
     def create_grid(self):
         pass
@@ -125,7 +135,7 @@ class GridFloorplanGen:
         return " ".join(map(str, self.grid_x_points)) + \
             "\n" + " ".join(map(str, self.grid_y_points))
 
-    def render_grid(self, filename=None) -> Drawing:
+    def render_grid(self, return_group=False, filename=None) -> Drawing:
         # Default margin for the render
         margin_x = 100
         margin_y = 100
@@ -143,18 +153,22 @@ class GridFloorplanGen:
                     self.height+(margin_y*2))
 
         # Add main frame
-        dwgShapes.add(dwg.rect(
+        dwg.add(dwg.rect(
             insert=(self.offset_x, self.offset_y),
-            size=(self.width, self.height),
+            size=(self.width, self.height), **t_prop,
             class_="grid_boundary"))
 
         # Add horizontal lines
         for eachrow in self.grid_y_points:
             dwgShapes.add(dwg.line(start=(self.offset_x, eachrow),
-                                   end=(self.offset_x+self.width, eachrow)))
+                                   end=(self.offset_x+self.width, eachrow),
+                                   stroke_width=1, stroke='red'))
         # Add vertical lines
         for eachcol in self.grid_x_points:
             dwgShapes.add(dwg.line(start=(eachcol, self.offset_y),
-                                   end=(eachcol, self.offset_y+self.height)))
+                                   end=(eachcol, self.offset_y+self.height),
+                                   stroke_width=1, stroke='red'))
         dwg.add(dwg.rect(insert=(0, 0), size=(10, 10), class_="origin"))
+        if return_group:
+            return dwgShapes
         return dwg

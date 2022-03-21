@@ -253,6 +253,35 @@ class FPGAGridGen():
                         self._set_value(xstep+x, ystep+y,
                                         ele_type, ele_w, ele_h)
 
+    def get_top_instance(self, x, y):
+        """
+        This method generates the grid instance information given the 
+        cordinate points 
+        """
+        if 0 in (x, y):
+            return "top"
+        if (x % 2 == 0) and (y % 2 == 0):
+            grid_lbl = self.get_block(int(x/2), int(y/2))
+            return "%s_%d__%d_" % grid_lbl
+        module = {
+            True: "sb",
+            (x % 2 == 1) and (y % 2 == 0): "cby",
+            (x % 2 == 0) and (y % 2 == 1): "cbx"}[True]
+        xi, yi = int(x/2), int(y/2)
+        if module == "sb":
+            if self.grid[yi+1][xi+1] == self.UP_ARROW:
+                grid_lbl = self.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        elif module == "cby":
+            if self.grid[yi][xi+1] in [self.UP_ARROW, self.RIGHT_ARROW]:
+                grid_lbl = self.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        elif module == "cbx":
+            if self.grid[yi+1][xi] in [self.UP_ARROW]:
+                grid_lbl = self.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        return f"{module}_{int(x/2)}__{int(y/2)}_"
+
     def enumerate_grid(self):
         '''
         Enumerates the FPGA grid

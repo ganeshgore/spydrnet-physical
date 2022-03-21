@@ -75,6 +75,15 @@ class initial_placement(OpenFPGA_Placement_Generator):
 
                 instance.properties["LOC_X"] = bbox[0]*CPP
                 instance.properties["LOC_Y"] = bbox[1]*SC_HEIGHT
+            elif len(instance_info["shape"]) == 2:
+                if not module.name in visited:
+                    module.properties["SHAPE"] = "RectL"
+                    list_a = instance_info["dims"]
+                    list_b = [SC_HEIGHT, CPP, SC_HEIGHT, CPP, CPP, SC_HEIGHT]
+                    module.properties["POINTS"] = \
+                        [a*b for a, b in zip(list_a, list_b)]
+                instance.properties["LOC_X"] = bbox[0]*CPP
+                instance.properties["LOC_Y"] = bbox[1]*SC_HEIGHT
             else:
                 if not module.name in visited:
                     w, h = bbox[2]-bbox[0], bbox[3]-bbox[1]
@@ -97,8 +106,8 @@ class initial_placement(OpenFPGA_Placement_Generator):
         self.GRID_CLB_RATIO = 1  # This is actual dimension of the CLB unit width/height
 
         # Connection box size
-        self.GRID_RATIO_X, self.GRID_RATIO_Y = 2, 2
-        self.CBX_WIDTH_RATIO, self.CBY_HEIGHT_RATIO = 1, 1
+        self.GRID_RATIO_X, self.GRID_RATIO_Y = 1.5, 1.5
+        self.CBX_WIDTH_RATIO, self.CBY_HEIGHT_RATIO = 0.75, 0.75
 
         # Channel spacing between blocks
         self.CLB_CHAN_T, self.CLB_CHAN_B = 0, 0
