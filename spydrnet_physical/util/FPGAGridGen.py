@@ -268,15 +268,16 @@ class FPGAGridGen():
             (x % 2 == 1) and (y % 2 == 0): "cby",
             (x % 2 == 0) and (y % 2 == 1): "cbx"}[True]
         xi, yi = int(x/2), int(y/2)
-        if module == "sb":
-            if self.grid[yi+1][xi+1] == self.UP_ARROW:
+        # TODO : Square modules are not supported yet
+        # if module == "sb":
+        #     if self.grid[yi+1][xi+1] == self.UP_ARROW:
+        #         grid_lbl = self.get_block(xi, yi)
+        #         return "%s_%d__%d_" % grid_lbl
+        if module == "cby":
+            if self.grid[yi][xi+1] in [self.RIGHT_ARROW]:
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
-        elif module == "cby":
-            if self.grid[yi][xi+1] in [self.UP_ARROW, self.RIGHT_ARROW]:
-                grid_lbl = self.get_block(xi, yi)
-                return "%s_%d__%d_" % grid_lbl
-        elif module == "cbx":
+        if module == "cbx":
             if self.grid[yi+1][xi] in [self.UP_ARROW]:
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
