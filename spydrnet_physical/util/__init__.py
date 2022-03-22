@@ -20,4 +20,3 @@ from spydrnet_physical.util.connectivity_graph import (prepare_graph_from_nx,
                                                        write_metis_graph)
 from spydrnet_physical.util.get_floorplan import FloorPlanViz
 from spydrnet_physical.util.GridFloorplanGen import GridFloorplanGen
-from spydrnet_physical.util.openfpga_floorplan import openfpga_floorplan

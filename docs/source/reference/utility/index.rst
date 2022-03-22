@@ -42,7 +42,6 @@ OpenFPGA Helper Classes
     OpenFPGA
     FPGAGridGen
     initial_placement
-    openfpga_floorplan
 
 
 OpenFPGA Class Templates
