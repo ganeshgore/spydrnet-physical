@@ -1,6 +1,6 @@
 //-------------------------------------------
 //	FPGA Synthesizable Verilog Netlist
-//	Description: Verilog modules for Unique Switch Blocks[1][0]
+//	Description: Verilog modules for Unique Switch Blocks[3][0]
 //	Organization: University of Utah
 //-------------------------------------------
 //----- Time scale -----
@@ -9,19 +9,19 @@
 //----- Default net type -----
 // `default_nettype wire
 
-// ----- Verilog module for sb_1__0_ -----
-module sb_1__0_(cfg_done,
+// ----- Verilog module for sb_3__0_ -----
+module sb_3__0_(cfg_done,
                 prog_reset,
                 prog_clk,
                 chany_top_in,
                 top_left_grid_right_width_0_height_0_subtile_0__pin_O_1_,
                 top_left_grid_right_width_0_height_0_subtile_0__pin_O_5_,
                 top_left_grid_right_width_0_height_0_subtile_0__pin_O_9_,
-                top_right_grid_left_width_0_height_0_subtile_0__pin_out_6_,
-                top_right_grid_left_width_0_height_0_subtile_0__pin_out_14_,
+                top_right_grid_left_width_0_height_0_subtile_0__pin_O_3_,
+                top_right_grid_left_width_0_height_0_subtile_0__pin_O_7_,
                 chanx_right_in,
-                right_top_grid_bottom_width_0_height_0_subtile_0__pin_out_4_,
-                right_top_grid_bottom_width_0_height_0_subtile_0__pin_out_12_,
+                right_top_grid_bottom_width_0_height_0_subtile_0__pin_O_2_,
+                right_top_grid_bottom_width_0_height_0_subtile_0__pin_O_6_,
                 right_bottom_grid_top_width_0_height_0_subtile_0__pin_inpad_0_,
                 right_bottom_grid_top_width_0_height_0_subtile_1__pin_inpad_0_,
                 right_bottom_grid_top_width_0_height_0_subtile_2__pin_inpad_0_,
@@ -61,15 +61,15 @@ input [0:0] top_left_grid_right_width_0_height_0_subtile_0__pin_O_5_;
 //----- INPUT PORTS -----
 input [0:0] top_left_grid_right_width_0_height_0_subtile_0__pin_O_9_;
 //----- INPUT PORTS -----
-input [0:0] top_right_grid_left_width_0_height_0_subtile_0__pin_out_6_;
+input [0:0] top_right_grid_left_width_0_height_0_subtile_0__pin_O_3_;
 //----- INPUT PORTS -----
-input [0:0] top_right_grid_left_width_0_height_0_subtile_0__pin_out_14_;
+input [0:0] top_right_grid_left_width_0_height_0_subtile_0__pin_O_7_;
 //----- INPUT PORTS -----
 input [0:19] chanx_right_in;
 //----- INPUT PORTS -----
-input [0:0] right_top_grid_bottom_width_0_height_0_subtile_0__pin_out_4_;
+input [0:0] right_top_grid_bottom_width_0_height_0_subtile_0__pin_O_2_;
 //----- INPUT PORTS -----
-input [0:0] right_top_grid_bottom_width_0_height_0_subtile_0__pin_out_12_;
+input [0:0] right_top_grid_bottom_width_0_height_0_subtile_0__pin_O_6_;
 //----- INPUT PORTS -----
 input [0:0] right_bottom_grid_top_width_0_height_0_subtile_0__pin_inpad_0_;
 //----- INPUT PORTS -----
@@ -339,7 +339,7 @@ wire [0:3] mux2_size9_9_sram_inv;
 		.out(chany_top_out[2]));
 
 	mux2_size3 mux_top_track_6 (
-		.in({top_right_grid_left_width_0_height_0_subtile_0__pin_out_6_, chanx_right_in[5], chanx_right_in[19]}),
+		.in({top_right_grid_left_width_0_height_0_subtile_0__pin_O_3_, chanx_right_in[5], chanx_right_in[19]}),
 		.sram(mux2_size3_2_sram[0:1]),
 		.sram_inv(mux2_size3_2_sram_inv[0:1]),
 		.out(chany_top_out[3]));
@@ -363,7 +363,7 @@ wire [0:3] mux2_size9_9_sram_inv;
 		.out(chany_top_out[12]));
 
 	mux2_size3 mux_top_track_26 (
-		.in({top_right_grid_left_width_0_height_0_subtile_0__pin_out_6_, chanx_right_in[18], chanx_left_in[9]}),
+		.in({top_right_grid_left_width_0_height_0_subtile_0__pin_O_3_, chanx_right_in[18], chanx_left_in[9]}),
 		.sram(mux2_size3_6_sram[0:1]),
 		.sram_inv(mux2_size3_6_sram_inv[0:1]),
 		.out(chany_top_out[13]));
@@ -432,7 +432,7 @@ wire [0:3] mux2_size9_9_sram_inv;
 		.mem_outb(mux2_size3_6_sram_inv[0:1]));
 
 	mux2_size2 mux_top_track_8 (
-		.in({top_right_grid_left_width_0_height_0_subtile_0__pin_out_14_, chanx_right_in[6]}),
+		.in({top_right_grid_left_width_0_height_0_subtile_0__pin_O_7_, chanx_right_in[6]}),
 		.sram(mux2_size2_0_sram[0:1]),
 		.sram_inv(mux2_size2_0_sram_inv[0:1]),
 		.out(chany_top_out[4]));
@@ -462,7 +462,7 @@ wire [0:3] mux2_size9_9_sram_inv;
 		.out(chany_top_out[9]));
 
 	mux2_size2 mux_top_track_28 (
-		.in({top_right_grid_left_width_0_height_0_subtile_0__pin_out_14_, chanx_left_in[8]}),
+		.in({top_right_grid_left_width_0_height_0_subtile_0__pin_O_7_, chanx_left_in[8]}),
 		.sram(mux2_size2_5_sram[0:1]),
 		.sram_inv(mux2_size2_5_sram_inv[0:1]),
 		.out(chany_top_out[14]));
@@ -582,13 +582,13 @@ wire [0:3] mux2_size9_9_sram_inv;
 		.mem_outb(mux2_size4_0_sram_inv[0:2]));
 
 	mux2_size9 mux_right_track_0 (
-		.in({chany_top_in[4], chany_top_in[9], chany_top_in[14], chany_top_in[19], right_top_grid_bottom_width_0_height_0_subtile_0__pin_out_4_, right_bottom_grid_top_width_0_height_0_subtile_3__pin_inpad_0_, chanx_left_in[0], chanx_left_in[6], chanx_left_in[13]}),
+		.in({chany_top_in[4], chany_top_in[9], chany_top_in[14], chany_top_in[19], right_top_grid_bottom_width_0_height_0_subtile_0__pin_O_2_, right_bottom_grid_top_width_0_height_0_subtile_3__pin_inpad_0_, chanx_left_in[0], chanx_left_in[6], chanx_left_in[13]}),
 		.sram(mux2_size9_0_sram[0:3]),
 		.sram_inv(mux2_size9_0_sram_inv[0:3]),
 		.out(chanx_right_out[0]));
 
 	mux2_size9 mux_right_track_8 (
-		.in({chany_top_in[0], chany_top_in[5], chany_top_in[10], chany_top_in[15], right_top_grid_bottom_width_0_height_0_subtile_0__pin_out_12_, right_bottom_grid_top_width_0_height_0_subtile_4__pin_inpad_0_, chanx_left_in[1], chanx_left_in[8], chanx_left_in[14]}),
+		.in({chany_top_in[0], chany_top_in[5], chany_top_in[10], chany_top_in[15], right_top_grid_bottom_width_0_height_0_subtile_0__pin_O_6_, right_bottom_grid_top_width_0_height_0_subtile_4__pin_inpad_0_, chanx_left_in[1], chanx_left_in[8], chanx_left_in[14]}),
 		.sram(mux2_size9_1_sram[0:3]),
 		.sram_inv(mux2_size9_1_sram_inv[0:3]),
 		.out(chanx_right_out[4]));
@@ -732,7 +732,7 @@ wire [0:3] mux2_size9_9_sram_inv;
 		.mem_outb(mux2_size9_9_sram_inv[0:3]));
 
 endmodule
-// ----- END Verilog module for sb_1__0_ -----
+// ----- END Verilog module for sb_3__0_ -----
 
 //----- Default net type -----
 // `default_nettype none

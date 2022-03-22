@@ -1,6 +1,6 @@
 //-------------------------------------------
 //	FPGA Synthesizable Verilog Netlist
-//	Description: Verilog modules for Unique Connection Blocks[1][4]
+//	Description: Verilog modules for Unique Connection Blocks[2][8]
 //	Organization: University of Utah
 //-------------------------------------------
 //----- Time scale -----
@@ -9,8 +9,8 @@
 //----- Default net type -----
 // `default_nettype wire
 
-// ----- Verilog module for cbx_1__4_ -----
-module cbx_1__4_(cfg_done,
+// ----- Verilog module for cbx_2__8_ -----
+module cbx_2__8_(cfg_done,
                  prog_reset,
                  prog_clk,
                  chanx_left_in,
@@ -26,16 +26,8 @@ module cbx_1__4_(cfg_done,
                  top_grid_bottom_width_0_height_0_subtile_5__pin_outpad_0_,
                  top_grid_bottom_width_0_height_0_subtile_6__pin_outpad_0_,
                  top_grid_bottom_width_0_height_0_subtile_7__pin_outpad_0_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_0_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_4_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_8_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_12_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_16_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_20_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_24_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_28_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_32_,
-                 bottom_grid_top_width_0_height_0_subtile_0__pin_I_36_,
+                 bottom_grid_top_width_0_height_1_subtile_0__pin_a_1_,
+                 bottom_grid_top_width_0_height_1_subtile_0__pin_b_1_,
                  ccff_tail);
 //----- GLOBAL PORTS -----
 input [0:0] cfg_done;
@@ -70,25 +62,9 @@ output [0:0] top_grid_bottom_width_0_height_0_subtile_6__pin_outpad_0_;
 //----- OUTPUT PORTS -----
 output [0:0] top_grid_bottom_width_0_height_0_subtile_7__pin_outpad_0_;
 //----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_0_;
+output [0:0] bottom_grid_top_width_0_height_1_subtile_0__pin_a_1_;
 //----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_4_;
-//----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_8_;
-//----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_12_;
-//----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_16_;
-//----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_20_;
-//----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_24_;
-//----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_28_;
-//----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_32_;
-//----- OUTPUT PORTS -----
-output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_I_36_;
+output [0:0] bottom_grid_top_width_0_height_1_subtile_0__pin_b_1_;
 //----- OUTPUT PORTS -----
 output [0:0] ccff_tail;
 
@@ -98,22 +74,6 @@ output [0:0] ccff_tail;
 
 wire [0:3] mux2_size8_0_sram;
 wire [0:3] mux2_size8_0_sram_inv;
-wire [0:3] mux2_size8_10_sram;
-wire [0:3] mux2_size8_10_sram_inv;
-wire [0:3] mux2_size8_11_sram;
-wire [0:3] mux2_size8_11_sram_inv;
-wire [0:3] mux2_size8_12_sram;
-wire [0:3] mux2_size8_12_sram_inv;
-wire [0:3] mux2_size8_13_sram;
-wire [0:3] mux2_size8_13_sram_inv;
-wire [0:3] mux2_size8_14_sram;
-wire [0:3] mux2_size8_14_sram_inv;
-wire [0:3] mux2_size8_15_sram;
-wire [0:3] mux2_size8_15_sram_inv;
-wire [0:3] mux2_size8_16_sram;
-wire [0:3] mux2_size8_16_sram_inv;
-wire [0:3] mux2_size8_17_sram;
-wire [0:3] mux2_size8_17_sram_inv;
 wire [0:3] mux2_size8_1_sram;
 wire [0:3] mux2_size8_1_sram_inv;
 wire [0:3] mux2_size8_2_sram;
@@ -350,61 +310,13 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.in({chanx_left_in[0], chanx_right_in[0], chanx_left_in[6], chanx_right_in[6], chanx_left_in[8], chanx_right_in[8], chanx_left_in[14], chanx_right_in[14]}),
 		.sram(mux2_size8_8_sram[0:3]),
 		.sram_inv(mux2_size8_8_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_0_));
+		.out(bottom_grid_top_width_0_height_1_subtile_0__pin_a_1_));
 
 	mux2_size8 mux_top_ipin_1 (
 		.in({chanx_left_in[1], chanx_right_in[1], chanx_left_in[7], chanx_right_in[7], chanx_left_in[9], chanx_right_in[9], chanx_left_in[15], chanx_right_in[15]}),
 		.sram(mux2_size8_9_sram[0:3]),
 		.sram_inv(mux2_size8_9_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_4_));
-
-	mux2_size8 mux_top_ipin_2 (
-		.in({chanx_left_in[2], chanx_right_in[2], chanx_left_in[8], chanx_right_in[8], chanx_left_in[10], chanx_right_in[10], chanx_left_in[16], chanx_right_in[16]}),
-		.sram(mux2_size8_10_sram[0:3]),
-		.sram_inv(mux2_size8_10_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_8_));
-
-	mux2_size8 mux_top_ipin_3 (
-		.in({chanx_left_in[3], chanx_right_in[3], chanx_left_in[9], chanx_right_in[9], chanx_left_in[11], chanx_right_in[11], chanx_left_in[17], chanx_right_in[17]}),
-		.sram(mux2_size8_11_sram[0:3]),
-		.sram_inv(mux2_size8_11_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_12_));
-
-	mux2_size8 mux_top_ipin_4 (
-		.in({chanx_left_in[4], chanx_right_in[4], chanx_left_in[10], chanx_right_in[10], chanx_left_in[12], chanx_right_in[12], chanx_left_in[18], chanx_right_in[18]}),
-		.sram(mux2_size8_12_sram[0:3]),
-		.sram_inv(mux2_size8_12_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_16_));
-
-	mux2_size8 mux_top_ipin_5 (
-		.in({chanx_left_in[5], chanx_right_in[5], chanx_left_in[11], chanx_right_in[11], chanx_left_in[13], chanx_right_in[13], chanx_left_in[19], chanx_right_in[19]}),
-		.sram(mux2_size8_13_sram[0:3]),
-		.sram_inv(mux2_size8_13_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_20_));
-
-	mux2_size8 mux_top_ipin_6 (
-		.in({chanx_left_in[0], chanx_right_in[0], chanx_left_in[6], chanx_right_in[6], chanx_left_in[12], chanx_right_in[12], chanx_left_in[14], chanx_right_in[14]}),
-		.sram(mux2_size8_14_sram[0:3]),
-		.sram_inv(mux2_size8_14_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_24_));
-
-	mux2_size8 mux_top_ipin_7 (
-		.in({chanx_left_in[1], chanx_right_in[1], chanx_left_in[7], chanx_right_in[7], chanx_left_in[13], chanx_right_in[13], chanx_left_in[15], chanx_right_in[15]}),
-		.sram(mux2_size8_15_sram[0:3]),
-		.sram_inv(mux2_size8_15_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_28_));
-
-	mux2_size8 mux_top_ipin_8 (
-		.in({chanx_left_in[2], chanx_right_in[2], chanx_left_in[8], chanx_right_in[8], chanx_left_in[14], chanx_right_in[14], chanx_left_in[16], chanx_right_in[16]}),
-		.sram(mux2_size8_16_sram[0:3]),
-		.sram_inv(mux2_size8_16_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_32_));
-
-	mux2_size8 mux_top_ipin_9 (
-		.in({chanx_left_in[3], chanx_right_in[3], chanx_left_in[9], chanx_right_in[9], chanx_left_in[15], chanx_right_in[15], chanx_left_in[17], chanx_right_in[17]}),
-		.sram(mux2_size8_17_sram[0:3]),
-		.sram_inv(mux2_size8_17_sram_inv[0:3]),
-		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_I_36_));
+		.out(bottom_grid_top_width_0_height_1_subtile_0__pin_b_1_));
 
 	mux2_size8_mem mem_bottom_ipin_0 (
 		.cfg_done(cfg_done),
@@ -492,84 +404,12 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
 		.ccff_head(mux2_size8_mem_8_ccff_tail),
-		.ccff_tail(mux2_size8_mem_9_ccff_tail),
+		.ccff_tail(ccff_tail),
 		.mem_out(mux2_size8_9_sram[0:3]),
 		.mem_outb(mux2_size8_9_sram_inv[0:3]));
 
-	mux2_size8_mem mem_top_ipin_2 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_9_ccff_tail),
-		.ccff_tail(mux2_size8_mem_10_ccff_tail),
-		.mem_out(mux2_size8_10_sram[0:3]),
-		.mem_outb(mux2_size8_10_sram_inv[0:3]));
-
-	mux2_size8_mem mem_top_ipin_3 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_10_ccff_tail),
-		.ccff_tail(mux2_size8_mem_11_ccff_tail),
-		.mem_out(mux2_size8_11_sram[0:3]),
-		.mem_outb(mux2_size8_11_sram_inv[0:3]));
-
-	mux2_size8_mem mem_top_ipin_4 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_11_ccff_tail),
-		.ccff_tail(mux2_size8_mem_12_ccff_tail),
-		.mem_out(mux2_size8_12_sram[0:3]),
-		.mem_outb(mux2_size8_12_sram_inv[0:3]));
-
-	mux2_size8_mem mem_top_ipin_5 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_12_ccff_tail),
-		.ccff_tail(mux2_size8_mem_13_ccff_tail),
-		.mem_out(mux2_size8_13_sram[0:3]),
-		.mem_outb(mux2_size8_13_sram_inv[0:3]));
-
-	mux2_size8_mem mem_top_ipin_6 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_13_ccff_tail),
-		.ccff_tail(mux2_size8_mem_14_ccff_tail),
-		.mem_out(mux2_size8_14_sram[0:3]),
-		.mem_outb(mux2_size8_14_sram_inv[0:3]));
-
-	mux2_size8_mem mem_top_ipin_7 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_14_ccff_tail),
-		.ccff_tail(mux2_size8_mem_15_ccff_tail),
-		.mem_out(mux2_size8_15_sram[0:3]),
-		.mem_outb(mux2_size8_15_sram_inv[0:3]));
-
-	mux2_size8_mem mem_top_ipin_8 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_15_ccff_tail),
-		.ccff_tail(mux2_size8_mem_16_ccff_tail),
-		.mem_out(mux2_size8_16_sram[0:3]),
-		.mem_outb(mux2_size8_16_sram_inv[0:3]));
-
-	mux2_size8_mem mem_top_ipin_9 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_16_ccff_tail),
-		.ccff_tail(ccff_tail),
-		.mem_out(mux2_size8_17_sram[0:3]),
-		.mem_outb(mux2_size8_17_sram_inv[0:3]));
-
 endmodule
-// ----- END Verilog module for cbx_1__4_ -----
+// ----- END Verilog module for cbx_2__8_ -----
 
 //----- Default net type -----
 // `default_nettype none

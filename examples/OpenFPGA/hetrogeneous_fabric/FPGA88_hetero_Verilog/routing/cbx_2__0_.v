@@ -1,6 +1,6 @@
 //-------------------------------------------
 //	FPGA Synthesizable Verilog Netlist
-//	Description: Verilog modules for Unique Connection Blocks[1][1]
+//	Description: Verilog modules for Unique Connection Blocks[2][0]
 //	Organization: University of Utah
 //-------------------------------------------
 //----- Time scale -----
@@ -9,27 +9,25 @@
 //----- Default net type -----
 // `default_nettype wire
 
-// ----- Verilog module for cby_1__1_ -----
-module cby_1__1_(cfg_done,
+// ----- Verilog module for cbx_2__0_ -----
+module cbx_2__0_(cfg_done,
                  prog_reset,
                  prog_clk,
-                 chany_bottom_in,
-                 chany_top_in,
+                 chanx_left_in,
+                 chanx_right_in,
                  ccff_head,
-                 chany_bottom_out,
-                 chany_top_out,
-                 right_grid_left_width_0_height_0_subtile_0__pin_a_6_,
-                 right_grid_left_width_0_height_0_subtile_0__pin_b_6_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_1_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_5_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_9_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_13_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_17_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_21_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_25_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_29_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_33_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_37_,
+                 chanx_left_out,
+                 chanx_right_out,
+                 top_grid_bottom_width_0_height_0_subtile_0__pin_a_4_,
+                 top_grid_bottom_width_0_height_0_subtile_0__pin_b_4_,
+                 bottom_grid_top_width_0_height_0_subtile_0__pin_outpad_0_,
+                 bottom_grid_top_width_0_height_0_subtile_1__pin_outpad_0_,
+                 bottom_grid_top_width_0_height_0_subtile_2__pin_outpad_0_,
+                 bottom_grid_top_width_0_height_0_subtile_3__pin_outpad_0_,
+                 bottom_grid_top_width_0_height_0_subtile_4__pin_outpad_0_,
+                 bottom_grid_top_width_0_height_0_subtile_5__pin_outpad_0_,
+                 bottom_grid_top_width_0_height_0_subtile_6__pin_outpad_0_,
+                 bottom_grid_top_width_0_height_0_subtile_7__pin_outpad_0_,
                  ccff_tail);
 //----- GLOBAL PORTS -----
 input [0:0] cfg_done;
@@ -38,39 +36,35 @@ input [0:0] prog_reset;
 //----- GLOBAL PORTS -----
 input [0:0] prog_clk;
 //----- INPUT PORTS -----
-input [0:19] chany_bottom_in;
+input [0:19] chanx_left_in;
 //----- INPUT PORTS -----
-input [0:19] chany_top_in;
+input [0:19] chanx_right_in;
 //----- INPUT PORTS -----
 input [0:0] ccff_head;
 //----- OUTPUT PORTS -----
-output [0:19] chany_bottom_out;
+output [0:19] chanx_left_out;
 //----- OUTPUT PORTS -----
-output [0:19] chany_top_out;
+output [0:19] chanx_right_out;
 //----- OUTPUT PORTS -----
-output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_a_6_;
+output [0:0] top_grid_bottom_width_0_height_0_subtile_0__pin_a_4_;
 //----- OUTPUT PORTS -----
-output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_b_6_;
+output [0:0] top_grid_bottom_width_0_height_0_subtile_0__pin_b_4_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_1_;
+output [0:0] bottom_grid_top_width_0_height_0_subtile_0__pin_outpad_0_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_5_;
+output [0:0] bottom_grid_top_width_0_height_0_subtile_1__pin_outpad_0_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_9_;
+output [0:0] bottom_grid_top_width_0_height_0_subtile_2__pin_outpad_0_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_13_;
+output [0:0] bottom_grid_top_width_0_height_0_subtile_3__pin_outpad_0_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_17_;
+output [0:0] bottom_grid_top_width_0_height_0_subtile_4__pin_outpad_0_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_21_;
+output [0:0] bottom_grid_top_width_0_height_0_subtile_5__pin_outpad_0_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_25_;
+output [0:0] bottom_grid_top_width_0_height_0_subtile_6__pin_outpad_0_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_29_;
-//----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_33_;
-//----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_37_;
+output [0:0] bottom_grid_top_width_0_height_0_subtile_7__pin_outpad_0_;
 //----- OUTPUT PORTS -----
 output [0:0] ccff_tail;
 
@@ -80,10 +74,6 @@ output [0:0] ccff_tail;
 
 wire [0:3] mux2_size8_0_sram;
 wire [0:3] mux2_size8_0_sram_inv;
-wire [0:3] mux2_size8_10_sram;
-wire [0:3] mux2_size8_10_sram_inv;
-wire [0:3] mux2_size8_11_sram;
-wire [0:3] mux2_size8_11_sram_inv;
 wire [0:3] mux2_size8_1_sram;
 wire [0:3] mux2_size8_1_sram_inv;
 wire [0:3] mux2_size8_2_sram;
@@ -107,240 +97,228 @@ wire [0:3] mux2_size8_9_sram_inv;
 // ----- Local connection due to Wire 0 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[0] = chany_bottom_in[0];
+	assign chanx_right_out[0] = chanx_left_in[0];
 // ----- Local connection due to Wire 1 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[1] = chany_bottom_in[1];
+	assign chanx_right_out[1] = chanx_left_in[1];
 // ----- Local connection due to Wire 2 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[2] = chany_bottom_in[2];
+	assign chanx_right_out[2] = chanx_left_in[2];
 // ----- Local connection due to Wire 3 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[3] = chany_bottom_in[3];
+	assign chanx_right_out[3] = chanx_left_in[3];
 // ----- Local connection due to Wire 4 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[4] = chany_bottom_in[4];
+	assign chanx_right_out[4] = chanx_left_in[4];
 // ----- Local connection due to Wire 5 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[5] = chany_bottom_in[5];
+	assign chanx_right_out[5] = chanx_left_in[5];
 // ----- Local connection due to Wire 6 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[6] = chany_bottom_in[6];
+	assign chanx_right_out[6] = chanx_left_in[6];
 // ----- Local connection due to Wire 7 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[7] = chany_bottom_in[7];
+	assign chanx_right_out[7] = chanx_left_in[7];
 // ----- Local connection due to Wire 8 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[8] = chany_bottom_in[8];
+	assign chanx_right_out[8] = chanx_left_in[8];
 // ----- Local connection due to Wire 9 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[9] = chany_bottom_in[9];
+	assign chanx_right_out[9] = chanx_left_in[9];
 // ----- Local connection due to Wire 10 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[10] = chany_bottom_in[10];
+	assign chanx_right_out[10] = chanx_left_in[10];
 // ----- Local connection due to Wire 11 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[11] = chany_bottom_in[11];
+	assign chanx_right_out[11] = chanx_left_in[11];
 // ----- Local connection due to Wire 12 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[12] = chany_bottom_in[12];
+	assign chanx_right_out[12] = chanx_left_in[12];
 // ----- Local connection due to Wire 13 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[13] = chany_bottom_in[13];
+	assign chanx_right_out[13] = chanx_left_in[13];
 // ----- Local connection due to Wire 14 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[14] = chany_bottom_in[14];
+	assign chanx_right_out[14] = chanx_left_in[14];
 // ----- Local connection due to Wire 15 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[15] = chany_bottom_in[15];
+	assign chanx_right_out[15] = chanx_left_in[15];
 // ----- Local connection due to Wire 16 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[16] = chany_bottom_in[16];
+	assign chanx_right_out[16] = chanx_left_in[16];
 // ----- Local connection due to Wire 17 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[17] = chany_bottom_in[17];
+	assign chanx_right_out[17] = chanx_left_in[17];
 // ----- Local connection due to Wire 18 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[18] = chany_bottom_in[18];
+	assign chanx_right_out[18] = chanx_left_in[18];
 // ----- Local connection due to Wire 19 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_top_out[19] = chany_bottom_in[19];
+	assign chanx_right_out[19] = chanx_left_in[19];
 // ----- Local connection due to Wire 20 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[0] = chany_top_in[0];
+	assign chanx_left_out[0] = chanx_right_in[0];
 // ----- Local connection due to Wire 21 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[1] = chany_top_in[1];
+	assign chanx_left_out[1] = chanx_right_in[1];
 // ----- Local connection due to Wire 22 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[2] = chany_top_in[2];
+	assign chanx_left_out[2] = chanx_right_in[2];
 // ----- Local connection due to Wire 23 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[3] = chany_top_in[3];
+	assign chanx_left_out[3] = chanx_right_in[3];
 // ----- Local connection due to Wire 24 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[4] = chany_top_in[4];
+	assign chanx_left_out[4] = chanx_right_in[4];
 // ----- Local connection due to Wire 25 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[5] = chany_top_in[5];
+	assign chanx_left_out[5] = chanx_right_in[5];
 // ----- Local connection due to Wire 26 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[6] = chany_top_in[6];
+	assign chanx_left_out[6] = chanx_right_in[6];
 // ----- Local connection due to Wire 27 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[7] = chany_top_in[7];
+	assign chanx_left_out[7] = chanx_right_in[7];
 // ----- Local connection due to Wire 28 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[8] = chany_top_in[8];
+	assign chanx_left_out[8] = chanx_right_in[8];
 // ----- Local connection due to Wire 29 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[9] = chany_top_in[9];
+	assign chanx_left_out[9] = chanx_right_in[9];
 // ----- Local connection due to Wire 30 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[10] = chany_top_in[10];
+	assign chanx_left_out[10] = chanx_right_in[10];
 // ----- Local connection due to Wire 31 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[11] = chany_top_in[11];
+	assign chanx_left_out[11] = chanx_right_in[11];
 // ----- Local connection due to Wire 32 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[12] = chany_top_in[12];
+	assign chanx_left_out[12] = chanx_right_in[12];
 // ----- Local connection due to Wire 33 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[13] = chany_top_in[13];
+	assign chanx_left_out[13] = chanx_right_in[13];
 // ----- Local connection due to Wire 34 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[14] = chany_top_in[14];
+	assign chanx_left_out[14] = chanx_right_in[14];
 // ----- Local connection due to Wire 35 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[15] = chany_top_in[15];
+	assign chanx_left_out[15] = chanx_right_in[15];
 // ----- Local connection due to Wire 36 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[16] = chany_top_in[16];
+	assign chanx_left_out[16] = chanx_right_in[16];
 // ----- Local connection due to Wire 37 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[17] = chany_top_in[17];
+	assign chanx_left_out[17] = chanx_right_in[17];
 // ----- Local connection due to Wire 38 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[18] = chany_top_in[18];
+	assign chanx_left_out[18] = chanx_right_in[18];
 // ----- Local connection due to Wire 39 -----
 // ----- Net source id 0 -----
 // ----- Net sink id 0 -----
-	assign chany_bottom_out[19] = chany_top_in[19];
+	assign chanx_left_out[19] = chanx_right_in[19];
 // ----- END Local short connections -----
 // ----- BEGIN Local output short connections -----
 // ----- END Local output short connections -----
 
-	mux2_size8 mux_left_ipin_0 (
-		.in({chany_bottom_in[0], chany_top_in[0], chany_bottom_in[6], chany_top_in[6], chany_bottom_in[12], chany_top_in[12], chany_bottom_in[18], chany_top_in[18]}),
+	mux2_size8 mux_bottom_ipin_0 (
+		.in({chanx_left_in[0], chanx_right_in[0], chanx_left_in[6], chanx_right_in[6], chanx_left_in[12], chanx_right_in[12], chanx_left_in[18], chanx_right_in[18]}),
 		.sram(mux2_size8_0_sram[0:3]),
 		.sram_inv(mux2_size8_0_sram_inv[0:3]),
-		.out(right_grid_left_width_0_height_0_subtile_0__pin_a_6_));
+		.out(top_grid_bottom_width_0_height_0_subtile_0__pin_a_4_));
 
-	mux2_size8 mux_left_ipin_1 (
-		.in({chany_bottom_in[1], chany_top_in[1], chany_bottom_in[7], chany_top_in[7], chany_bottom_in[13], chany_top_in[13], chany_bottom_in[19], chany_top_in[19]}),
+	mux2_size8 mux_bottom_ipin_1 (
+		.in({chanx_left_in[1], chanx_right_in[1], chanx_left_in[7], chanx_right_in[7], chanx_left_in[13], chanx_right_in[13], chanx_left_in[19], chanx_right_in[19]}),
 		.sram(mux2_size8_1_sram[0:3]),
 		.sram_inv(mux2_size8_1_sram_inv[0:3]),
-		.out(right_grid_left_width_0_height_0_subtile_0__pin_b_6_));
+		.out(top_grid_bottom_width_0_height_0_subtile_0__pin_b_4_));
 
-	mux2_size8 mux_right_ipin_0 (
-		.in({chany_bottom_in[0], chany_top_in[0], chany_bottom_in[2], chany_top_in[2], chany_bottom_in[8], chany_top_in[8], chany_bottom_in[14], chany_top_in[14]}),
+	mux2_size8 mux_top_ipin_0 (
+		.in({chanx_left_in[0], chanx_right_in[0], chanx_left_in[2], chanx_right_in[2], chanx_left_in[8], chanx_right_in[8], chanx_left_in[14], chanx_right_in[14]}),
 		.sram(mux2_size8_2_sram[0:3]),
 		.sram_inv(mux2_size8_2_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_1_));
+		.out(bottom_grid_top_width_0_height_0_subtile_0__pin_outpad_0_));
 
-	mux2_size8 mux_right_ipin_1 (
-		.in({chany_bottom_in[1], chany_top_in[1], chany_bottom_in[3], chany_top_in[3], chany_bottom_in[9], chany_top_in[9], chany_bottom_in[15], chany_top_in[15]}),
+	mux2_size8 mux_top_ipin_1 (
+		.in({chanx_left_in[1], chanx_right_in[1], chanx_left_in[3], chanx_right_in[3], chanx_left_in[9], chanx_right_in[9], chanx_left_in[15], chanx_right_in[15]}),
 		.sram(mux2_size8_3_sram[0:3]),
 		.sram_inv(mux2_size8_3_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_5_));
+		.out(bottom_grid_top_width_0_height_0_subtile_1__pin_outpad_0_));
 
-	mux2_size8 mux_right_ipin_2 (
-		.in({chany_bottom_in[2], chany_top_in[2], chany_bottom_in[4], chany_top_in[4], chany_bottom_in[10], chany_top_in[10], chany_bottom_in[16], chany_top_in[16]}),
+	mux2_size8 mux_top_ipin_2 (
+		.in({chanx_left_in[2], chanx_right_in[2], chanx_left_in[4], chanx_right_in[4], chanx_left_in[10], chanx_right_in[10], chanx_left_in[16], chanx_right_in[16]}),
 		.sram(mux2_size8_4_sram[0:3]),
 		.sram_inv(mux2_size8_4_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_9_));
+		.out(bottom_grid_top_width_0_height_0_subtile_2__pin_outpad_0_));
 
-	mux2_size8 mux_right_ipin_3 (
-		.in({chany_bottom_in[3], chany_top_in[3], chany_bottom_in[5], chany_top_in[5], chany_bottom_in[11], chany_top_in[11], chany_bottom_in[17], chany_top_in[17]}),
+	mux2_size8 mux_top_ipin_3 (
+		.in({chanx_left_in[3], chanx_right_in[3], chanx_left_in[5], chanx_right_in[5], chanx_left_in[11], chanx_right_in[11], chanx_left_in[17], chanx_right_in[17]}),
 		.sram(mux2_size8_5_sram[0:3]),
 		.sram_inv(mux2_size8_5_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_13_));
+		.out(bottom_grid_top_width_0_height_0_subtile_3__pin_outpad_0_));
 
-	mux2_size8 mux_right_ipin_4 (
-		.in({chany_bottom_in[4], chany_top_in[4], chany_bottom_in[6], chany_top_in[6], chany_bottom_in[12], chany_top_in[12], chany_bottom_in[18], chany_top_in[18]}),
+	mux2_size8 mux_top_ipin_4 (
+		.in({chanx_left_in[4], chanx_right_in[4], chanx_left_in[6], chanx_right_in[6], chanx_left_in[12], chanx_right_in[12], chanx_left_in[18], chanx_right_in[18]}),
 		.sram(mux2_size8_6_sram[0:3]),
 		.sram_inv(mux2_size8_6_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_17_));
+		.out(bottom_grid_top_width_0_height_0_subtile_4__pin_outpad_0_));
 
-	mux2_size8 mux_right_ipin_5 (
-		.in({chany_bottom_in[5], chany_top_in[5], chany_bottom_in[7], chany_top_in[7], chany_bottom_in[13], chany_top_in[13], chany_bottom_in[19], chany_top_in[19]}),
+	mux2_size8 mux_top_ipin_5 (
+		.in({chanx_left_in[5], chanx_right_in[5], chanx_left_in[7], chanx_right_in[7], chanx_left_in[13], chanx_right_in[13], chanx_left_in[19], chanx_right_in[19]}),
 		.sram(mux2_size8_7_sram[0:3]),
 		.sram_inv(mux2_size8_7_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_21_));
+		.out(bottom_grid_top_width_0_height_0_subtile_5__pin_outpad_0_));
 
-	mux2_size8 mux_right_ipin_6 (
-		.in({chany_bottom_in[0], chany_top_in[0], chany_bottom_in[6], chany_top_in[6], chany_bottom_in[8], chany_top_in[8], chany_bottom_in[14], chany_top_in[14]}),
+	mux2_size8 mux_top_ipin_6 (
+		.in({chanx_left_in[0], chanx_right_in[0], chanx_left_in[6], chanx_right_in[6], chanx_left_in[8], chanx_right_in[8], chanx_left_in[14], chanx_right_in[14]}),
 		.sram(mux2_size8_8_sram[0:3]),
 		.sram_inv(mux2_size8_8_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_25_));
+		.out(bottom_grid_top_width_0_height_0_subtile_6__pin_outpad_0_));
 
-	mux2_size8 mux_right_ipin_7 (
-		.in({chany_bottom_in[1], chany_top_in[1], chany_bottom_in[7], chany_top_in[7], chany_bottom_in[9], chany_top_in[9], chany_bottom_in[15], chany_top_in[15]}),
+	mux2_size8 mux_top_ipin_7 (
+		.in({chanx_left_in[1], chanx_right_in[1], chanx_left_in[7], chanx_right_in[7], chanx_left_in[9], chanx_right_in[9], chanx_left_in[15], chanx_right_in[15]}),
 		.sram(mux2_size8_9_sram[0:3]),
 		.sram_inv(mux2_size8_9_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_29_));
+		.out(bottom_grid_top_width_0_height_0_subtile_7__pin_outpad_0_));
 
-	mux2_size8 mux_right_ipin_8 (
-		.in({chany_bottom_in[2], chany_top_in[2], chany_bottom_in[8], chany_top_in[8], chany_bottom_in[10], chany_top_in[10], chany_bottom_in[16], chany_top_in[16]}),
-		.sram(mux2_size8_10_sram[0:3]),
-		.sram_inv(mux2_size8_10_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_33_));
-
-	mux2_size8 mux_right_ipin_9 (
-		.in({chany_bottom_in[3], chany_top_in[3], chany_bottom_in[9], chany_top_in[9], chany_bottom_in[11], chany_top_in[11], chany_bottom_in[17], chany_top_in[17]}),
-		.sram(mux2_size8_11_sram[0:3]),
-		.sram_inv(mux2_size8_11_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_37_));
-
-	mux2_size8_mem mem_left_ipin_0 (
+	mux2_size8_mem mem_bottom_ipin_0 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -349,7 +327,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_0_sram[0:3]),
 		.mem_outb(mux2_size8_0_sram_inv[0:3]));
 
-	mux2_size8_mem mem_left_ipin_1 (
+	mux2_size8_mem mem_bottom_ipin_1 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -358,7 +336,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_1_sram[0:3]),
 		.mem_outb(mux2_size8_1_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_0 (
+	mux2_size8_mem mem_top_ipin_0 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -367,7 +345,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_2_sram[0:3]),
 		.mem_outb(mux2_size8_2_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_1 (
+	mux2_size8_mem mem_top_ipin_1 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -376,7 +354,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_3_sram[0:3]),
 		.mem_outb(mux2_size8_3_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_2 (
+	mux2_size8_mem mem_top_ipin_2 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -385,7 +363,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_4_sram[0:3]),
 		.mem_outb(mux2_size8_4_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_3 (
+	mux2_size8_mem mem_top_ipin_3 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -394,7 +372,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_5_sram[0:3]),
 		.mem_outb(mux2_size8_5_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_4 (
+	mux2_size8_mem mem_top_ipin_4 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -403,7 +381,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_6_sram[0:3]),
 		.mem_outb(mux2_size8_6_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_5 (
+	mux2_size8_mem mem_top_ipin_5 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -412,7 +390,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_7_sram[0:3]),
 		.mem_outb(mux2_size8_7_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_6 (
+	mux2_size8_mem mem_top_ipin_6 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -421,35 +399,17 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_8_sram[0:3]),
 		.mem_outb(mux2_size8_8_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_7 (
+	mux2_size8_mem mem_top_ipin_7 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
 		.ccff_head(mux2_size8_mem_8_ccff_tail),
-		.ccff_tail(mux2_size8_mem_9_ccff_tail),
+		.ccff_tail(ccff_tail),
 		.mem_out(mux2_size8_9_sram[0:3]),
 		.mem_outb(mux2_size8_9_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_8 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_9_ccff_tail),
-		.ccff_tail(mux2_size8_mem_10_ccff_tail),
-		.mem_out(mux2_size8_10_sram[0:3]),
-		.mem_outb(mux2_size8_10_sram_inv[0:3]));
-
-	mux2_size8_mem mem_right_ipin_9 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size8_mem_10_ccff_tail),
-		.ccff_tail(ccff_tail),
-		.mem_out(mux2_size8_11_sram[0:3]),
-		.mem_outb(mux2_size8_11_sram_inv[0:3]));
-
 endmodule
-// ----- END Verilog module for cby_1__1_ -----
+// ----- END Verilog module for cbx_2__0_ -----
 
 //----- Default net type -----
 // `default_nettype none

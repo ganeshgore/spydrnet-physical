@@ -234,87 +234,6 @@ endmodule
 //----- Default net type -----
 // `default_nettype wire
 
-// ----- Verilog module for mux2_size12_mem -----
-module mux2_size12_mem(cfg_done,
-                       prog_reset,
-                       prog_clk,
-                       ccff_head,
-                       ccff_tail,
-                       mem_out,
-                       mem_outb);
-//----- GLOBAL PORTS -----
-input [0:0] cfg_done;
-//----- GLOBAL PORTS -----
-input [0:0] prog_reset;
-//----- GLOBAL PORTS -----
-input [0:0] prog_clk;
-//----- INPUT PORTS -----
-input [0:0] ccff_head;
-//----- OUTPUT PORTS -----
-output [0:0] ccff_tail;
-//----- OUTPUT PORTS -----
-output [0:3] mem_out;
-//----- OUTPUT PORTS -----
-output [0:3] mem_outb;
-
-//----- BEGIN Registered ports -----
-//----- END Registered ports -----
-
-
-
-// ----- BEGIN Local short connections -----
-// ----- END Local short connections -----
-// ----- BEGIN Local output short connections -----
-// ----- END Local output short connections -----
-
-	CCDFF CCDFF_0_ (
-		.CFGE(cfg_done),
-		.RESET_B(prog_reset),
-		.CLK(prog_clk),
-		.D(ccff_head),
-		.Q(CCDFF_0_Q),
-		.CFGQN(mem_outb[0]),
-		.CFGQ(mem_out[0]));
-
-	CCDFF CCDFF_1_ (
-		.CFGE(cfg_done),
-		.RESET_B(prog_reset),
-		.CLK(prog_clk),
-		.D(CCDFF_0_Q),
-		.Q(CCDFF_1_Q),
-		.CFGQN(mem_outb[1]),
-		.CFGQ(mem_out[1]));
-
-	CCDFF CCDFF_2_ (
-		.CFGE(cfg_done),
-		.RESET_B(prog_reset),
-		.CLK(prog_clk),
-		.D(CCDFF_1_Q),
-		.Q(CCDFF_2_Q),
-		.CFGQN(mem_outb[2]),
-		.CFGQ(mem_out[2]));
-
-	CCDFF CCDFF_3_ (
-		.CFGE(cfg_done),
-		.RESET_B(prog_reset),
-		.CLK(prog_clk),
-		.D(CCDFF_2_Q),
-		.Q(ccff_tail),
-		.CFGQN(mem_outb[3]),
-		.CFGQ(mem_out[3]));
-
-endmodule
-// ----- END Verilog module for mux2_size12_mem -----
-
-//----- Default net type -----
-// `default_nettype none
-
-
-
-
-//----- Default net type -----
-// `default_nettype wire
-
 // ----- Verilog module for mux2_size3_mem -----
 module mux2_size3_mem(cfg_done,
                       prog_reset,
@@ -440,6 +359,168 @@ output [0:2] mem_outb;
 
 endmodule
 // ----- END Verilog module for mux2_size4_mem -----
+
+//----- Default net type -----
+// `default_nettype none
+
+
+
+
+//----- Default net type -----
+// `default_nettype wire
+
+// ----- Verilog module for mux2_size12_mem -----
+module mux2_size12_mem(cfg_done,
+                       prog_reset,
+                       prog_clk,
+                       ccff_head,
+                       ccff_tail,
+                       mem_out,
+                       mem_outb);
+//----- GLOBAL PORTS -----
+input [0:0] cfg_done;
+//----- GLOBAL PORTS -----
+input [0:0] prog_reset;
+//----- GLOBAL PORTS -----
+input [0:0] prog_clk;
+//----- INPUT PORTS -----
+input [0:0] ccff_head;
+//----- OUTPUT PORTS -----
+output [0:0] ccff_tail;
+//----- OUTPUT PORTS -----
+output [0:3] mem_out;
+//----- OUTPUT PORTS -----
+output [0:3] mem_outb;
+
+//----- BEGIN Registered ports -----
+//----- END Registered ports -----
+
+
+
+// ----- BEGIN Local short connections -----
+// ----- END Local short connections -----
+// ----- BEGIN Local output short connections -----
+// ----- END Local output short connections -----
+
+	CCDFF CCDFF_0_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(ccff_head),
+		.Q(CCDFF_0_Q),
+		.CFGQN(mem_outb[0]),
+		.CFGQ(mem_out[0]));
+
+	CCDFF CCDFF_1_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(CCDFF_0_Q),
+		.Q(CCDFF_1_Q),
+		.CFGQN(mem_outb[1]),
+		.CFGQ(mem_out[1]));
+
+	CCDFF CCDFF_2_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(CCDFF_1_Q),
+		.Q(CCDFF_2_Q),
+		.CFGQN(mem_outb[2]),
+		.CFGQ(mem_out[2]));
+
+	CCDFF CCDFF_3_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(CCDFF_2_Q),
+		.Q(ccff_tail),
+		.CFGQN(mem_outb[3]),
+		.CFGQ(mem_out[3]));
+
+endmodule
+// ----- END Verilog module for mux2_size12_mem -----
+
+//----- Default net type -----
+// `default_nettype none
+
+
+
+
+//----- Default net type -----
+// `default_nettype wire
+
+// ----- Verilog module for mux2_size11_mem -----
+module mux2_size11_mem(cfg_done,
+                       prog_reset,
+                       prog_clk,
+                       ccff_head,
+                       ccff_tail,
+                       mem_out,
+                       mem_outb);
+//----- GLOBAL PORTS -----
+input [0:0] cfg_done;
+//----- GLOBAL PORTS -----
+input [0:0] prog_reset;
+//----- GLOBAL PORTS -----
+input [0:0] prog_clk;
+//----- INPUT PORTS -----
+input [0:0] ccff_head;
+//----- OUTPUT PORTS -----
+output [0:0] ccff_tail;
+//----- OUTPUT PORTS -----
+output [0:3] mem_out;
+//----- OUTPUT PORTS -----
+output [0:3] mem_outb;
+
+//----- BEGIN Registered ports -----
+//----- END Registered ports -----
+
+
+
+// ----- BEGIN Local short connections -----
+// ----- END Local short connections -----
+// ----- BEGIN Local output short connections -----
+// ----- END Local output short connections -----
+
+	CCDFF CCDFF_0_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(ccff_head),
+		.Q(CCDFF_0_Q),
+		.CFGQN(mem_outb[0]),
+		.CFGQ(mem_out[0]));
+
+	CCDFF CCDFF_1_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(CCDFF_0_Q),
+		.Q(CCDFF_1_Q),
+		.CFGQN(mem_outb[1]),
+		.CFGQ(mem_out[1]));
+
+	CCDFF CCDFF_2_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(CCDFF_1_Q),
+		.Q(CCDFF_2_Q),
+		.CFGQN(mem_outb[2]),
+		.CFGQ(mem_out[2]));
+
+	CCDFF CCDFF_3_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(CCDFF_2_Q),
+		.Q(ccff_tail),
+		.CFGQN(mem_outb[3]),
+		.CFGQ(mem_out[3]));
+
+endmodule
+// ----- END Verilog module for mux2_size11_mem -----
 
 //----- Default net type -----
 // `default_nettype none
@@ -593,6 +674,78 @@ output [0:2] mem_outb;
 
 endmodule
 // ----- END Verilog module for mux2_size5_mem -----
+
+//----- Default net type -----
+// `default_nettype none
+
+
+
+
+//----- Default net type -----
+// `default_nettype wire
+
+// ----- Verilog module for mux2_size7_mem -----
+module mux2_size7_mem(cfg_done,
+                      prog_reset,
+                      prog_clk,
+                      ccff_head,
+                      ccff_tail,
+                      mem_out,
+                      mem_outb);
+//----- GLOBAL PORTS -----
+input [0:0] cfg_done;
+//----- GLOBAL PORTS -----
+input [0:0] prog_reset;
+//----- GLOBAL PORTS -----
+input [0:0] prog_clk;
+//----- INPUT PORTS -----
+input [0:0] ccff_head;
+//----- OUTPUT PORTS -----
+output [0:0] ccff_tail;
+//----- OUTPUT PORTS -----
+output [0:2] mem_out;
+//----- OUTPUT PORTS -----
+output [0:2] mem_outb;
+
+//----- BEGIN Registered ports -----
+//----- END Registered ports -----
+
+
+
+// ----- BEGIN Local short connections -----
+// ----- END Local short connections -----
+// ----- BEGIN Local output short connections -----
+// ----- END Local output short connections -----
+
+	CCDFF CCDFF_0_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(ccff_head),
+		.Q(CCDFF_0_Q),
+		.CFGQN(mem_outb[0]),
+		.CFGQ(mem_out[0]));
+
+	CCDFF CCDFF_1_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(CCDFF_0_Q),
+		.Q(CCDFF_1_Q),
+		.CFGQN(mem_outb[1]),
+		.CFGQ(mem_out[1]));
+
+	CCDFF CCDFF_2_ (
+		.CFGE(cfg_done),
+		.RESET_B(prog_reset),
+		.CLK(prog_clk),
+		.D(CCDFF_1_Q),
+		.Q(ccff_tail),
+		.CFGQN(mem_outb[2]),
+		.CFGQ(mem_out[2]));
+
+endmodule
+// ----- END Verilog module for mux2_size7_mem -----
 
 //----- Default net type -----
 // `default_nettype none

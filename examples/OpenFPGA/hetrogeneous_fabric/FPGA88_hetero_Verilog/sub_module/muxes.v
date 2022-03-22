@@ -252,121 +252,6 @@ endmodule
 //----- Default net type -----
 // `default_nettype wire
 
-// ----- Verilog module for mux2_size12 -----
-module mux2_size12(in,
-                   sram,
-                   sram_inv,
-                   out);
-//----- INPUT PORTS -----
-input [0:11] in;
-//----- INPUT PORTS -----
-input [0:3] sram;
-//----- INPUT PORTS -----
-input [0:3] sram_inv;
-//----- OUTPUT PORTS -----
-output [0:0] out;
-
-//----- BEGIN Registered ports -----
-//----- END Registered ports -----
-
-
-
-// ----- BEGIN Local short connections -----
-// ----- END Local short connections -----
-// ----- BEGIN Local output short connections -----
-// ----- END Local output short connections -----
-
-	const1 const1_0_ (
-		.const1(const1_0_const1));
-
-	BUF_X1 BUF_X1_0_ (
-		.A(MUX2_X1_11_Y),
-		.Y(out));
-
-	MUX2_X1 mux_l1_in_0_ (
-		.A0(in[0]),
-		.A1(in[1]),
-		.S(sram[0]),
-		.Y(MUX2_X1_0_Y));
-
-	MUX2_X1 mux_l1_in_1_ (
-		.A0(in[2]),
-		.A1(in[3]),
-		.S(sram[0]),
-		.Y(MUX2_X1_1_Y));
-
-	MUX2_X1 mux_l1_in_2_ (
-		.A0(in[4]),
-		.A1(in[5]),
-		.S(sram[0]),
-		.Y(MUX2_X1_2_Y));
-
-	MUX2_X1 mux_l1_in_3_ (
-		.A0(in[6]),
-		.A1(in[7]),
-		.S(sram[0]),
-		.Y(MUX2_X1_3_Y));
-
-	MUX2_X1 mux_l1_in_4_ (
-		.A0(in[8]),
-		.A1(in[9]),
-		.S(sram[0]),
-		.Y(MUX2_X1_4_Y));
-
-	MUX2_X1 mux_l2_in_0_ (
-		.A0(MUX2_X1_0_Y),
-		.A1(MUX2_X1_1_Y),
-		.S(sram[1]),
-		.Y(MUX2_X1_5_Y));
-
-	MUX2_X1 mux_l2_in_1_ (
-		.A0(MUX2_X1_2_Y),
-		.A1(MUX2_X1_3_Y),
-		.S(sram[1]),
-		.Y(MUX2_X1_6_Y));
-
-	MUX2_X1 mux_l2_in_2_ (
-		.A0(MUX2_X1_4_Y),
-		.A1(in[10]),
-		.S(sram[1]),
-		.Y(MUX2_X1_7_Y));
-
-	MUX2_X1 mux_l2_in_3_ (
-		.A0(in[11]),
-		.A1(const1_0_const1),
-		.S(sram[1]),
-		.Y(MUX2_X1_8_Y));
-
-	MUX2_X1 mux_l3_in_0_ (
-		.A0(MUX2_X1_5_Y),
-		.A1(MUX2_X1_6_Y),
-		.S(sram[2]),
-		.Y(MUX2_X1_9_Y));
-
-	MUX2_X1 mux_l3_in_1_ (
-		.A0(MUX2_X1_7_Y),
-		.A1(MUX2_X1_8_Y),
-		.S(sram[2]),
-		.Y(MUX2_X1_10_Y));
-
-	MUX2_X1 mux_l4_in_0_ (
-		.A0(MUX2_X1_9_Y),
-		.A1(MUX2_X1_10_Y),
-		.S(sram[3]),
-		.Y(MUX2_X1_11_Y));
-
-endmodule
-// ----- END Verilog module for mux2_size12 -----
-
-//----- Default net type -----
-// `default_nettype none
-
-
-
-
-//----- Default net type -----
-// `default_nettype wire
-
 // ----- Verilog module for mux2_size3 -----
 module mux2_size3(in,
                   sram,
@@ -485,6 +370,230 @@ output [0:0] out;
 
 endmodule
 // ----- END Verilog module for mux2_size4 -----
+
+//----- Default net type -----
+// `default_nettype none
+
+
+
+
+//----- Default net type -----
+// `default_nettype wire
+
+// ----- Verilog module for mux2_size12 -----
+module mux2_size12(in,
+                   sram,
+                   sram_inv,
+                   out);
+//----- INPUT PORTS -----
+input [0:11] in;
+//----- INPUT PORTS -----
+input [0:3] sram;
+//----- INPUT PORTS -----
+input [0:3] sram_inv;
+//----- OUTPUT PORTS -----
+output [0:0] out;
+
+//----- BEGIN Registered ports -----
+//----- END Registered ports -----
+
+
+
+// ----- BEGIN Local short connections -----
+// ----- END Local short connections -----
+// ----- BEGIN Local output short connections -----
+// ----- END Local output short connections -----
+
+	const1 const1_0_ (
+		.const1(const1_0_const1));
+
+	BUF_X1 BUF_X1_0_ (
+		.A(MUX2_X1_11_Y),
+		.Y(out));
+
+	MUX2_X1 mux_l1_in_0_ (
+		.A0(in[0]),
+		.A1(in[1]),
+		.S(sram[0]),
+		.Y(MUX2_X1_0_Y));
+
+	MUX2_X1 mux_l1_in_1_ (
+		.A0(in[2]),
+		.A1(in[3]),
+		.S(sram[0]),
+		.Y(MUX2_X1_1_Y));
+
+	MUX2_X1 mux_l1_in_2_ (
+		.A0(in[4]),
+		.A1(in[5]),
+		.S(sram[0]),
+		.Y(MUX2_X1_2_Y));
+
+	MUX2_X1 mux_l1_in_3_ (
+		.A0(in[6]),
+		.A1(in[7]),
+		.S(sram[0]),
+		.Y(MUX2_X1_3_Y));
+
+	MUX2_X1 mux_l1_in_4_ (
+		.A0(in[8]),
+		.A1(in[9]),
+		.S(sram[0]),
+		.Y(MUX2_X1_4_Y));
+
+	MUX2_X1 mux_l2_in_0_ (
+		.A0(MUX2_X1_0_Y),
+		.A1(MUX2_X1_1_Y),
+		.S(sram[1]),
+		.Y(MUX2_X1_5_Y));
+
+	MUX2_X1 mux_l2_in_1_ (
+		.A0(MUX2_X1_2_Y),
+		.A1(MUX2_X1_3_Y),
+		.S(sram[1]),
+		.Y(MUX2_X1_6_Y));
+
+	MUX2_X1 mux_l2_in_2_ (
+		.A0(MUX2_X1_4_Y),
+		.A1(in[10]),
+		.S(sram[1]),
+		.Y(MUX2_X1_7_Y));
+
+	MUX2_X1 mux_l2_in_3_ (
+		.A0(in[11]),
+		.A1(const1_0_const1),
+		.S(sram[1]),
+		.Y(MUX2_X1_8_Y));
+
+	MUX2_X1 mux_l3_in_0_ (
+		.A0(MUX2_X1_5_Y),
+		.A1(MUX2_X1_6_Y),
+		.S(sram[2]),
+		.Y(MUX2_X1_9_Y));
+
+	MUX2_X1 mux_l3_in_1_ (
+		.A0(MUX2_X1_7_Y),
+		.A1(MUX2_X1_8_Y),
+		.S(sram[2]),
+		.Y(MUX2_X1_10_Y));
+
+	MUX2_X1 mux_l4_in_0_ (
+		.A0(MUX2_X1_9_Y),
+		.A1(MUX2_X1_10_Y),
+		.S(sram[3]),
+		.Y(MUX2_X1_11_Y));
+
+endmodule
+// ----- END Verilog module for mux2_size12 -----
+
+//----- Default net type -----
+// `default_nettype none
+
+
+
+
+//----- Default net type -----
+// `default_nettype wire
+
+// ----- Verilog module for mux2_size11 -----
+module mux2_size11(in,
+                   sram,
+                   sram_inv,
+                   out);
+//----- INPUT PORTS -----
+input [0:10] in;
+//----- INPUT PORTS -----
+input [0:3] sram;
+//----- INPUT PORTS -----
+input [0:3] sram_inv;
+//----- OUTPUT PORTS -----
+output [0:0] out;
+
+//----- BEGIN Registered ports -----
+//----- END Registered ports -----
+
+
+
+// ----- BEGIN Local short connections -----
+// ----- END Local short connections -----
+// ----- BEGIN Local output short connections -----
+// ----- END Local output short connections -----
+
+	const1 const1_0_ (
+		.const1(const1_0_const1));
+
+	BUF_X1 BUF_X1_0_ (
+		.A(MUX2_X1_10_Y),
+		.Y(out));
+
+	MUX2_X1 mux_l1_in_0_ (
+		.A0(in[0]),
+		.A1(in[1]),
+		.S(sram[0]),
+		.Y(MUX2_X1_0_Y));
+
+	MUX2_X1 mux_l1_in_1_ (
+		.A0(in[2]),
+		.A1(in[3]),
+		.S(sram[0]),
+		.Y(MUX2_X1_1_Y));
+
+	MUX2_X1 mux_l1_in_2_ (
+		.A0(in[4]),
+		.A1(in[5]),
+		.S(sram[0]),
+		.Y(MUX2_X1_2_Y));
+
+	MUX2_X1 mux_l1_in_3_ (
+		.A0(in[6]),
+		.A1(in[7]),
+		.S(sram[0]),
+		.Y(MUX2_X1_3_Y));
+
+	MUX2_X1 mux_l2_in_0_ (
+		.A0(MUX2_X1_0_Y),
+		.A1(MUX2_X1_1_Y),
+		.S(sram[1]),
+		.Y(MUX2_X1_4_Y));
+
+	MUX2_X1 mux_l2_in_1_ (
+		.A0(MUX2_X1_2_Y),
+		.A1(MUX2_X1_3_Y),
+		.S(sram[1]),
+		.Y(MUX2_X1_5_Y));
+
+	MUX2_X1 mux_l2_in_2_ (
+		.A0(in[8]),
+		.A1(in[9]),
+		.S(sram[1]),
+		.Y(MUX2_X1_6_Y));
+
+	MUX2_X1 mux_l2_in_3_ (
+		.A0(in[10]),
+		.A1(const1_0_const1),
+		.S(sram[1]),
+		.Y(MUX2_X1_7_Y));
+
+	MUX2_X1 mux_l3_in_0_ (
+		.A0(MUX2_X1_4_Y),
+		.A1(MUX2_X1_5_Y),
+		.S(sram[2]),
+		.Y(MUX2_X1_8_Y));
+
+	MUX2_X1 mux_l3_in_1_ (
+		.A0(MUX2_X1_6_Y),
+		.A1(MUX2_X1_7_Y),
+		.S(sram[2]),
+		.Y(MUX2_X1_9_Y));
+
+	MUX2_X1 mux_l4_in_0_ (
+		.A0(MUX2_X1_8_Y),
+		.A1(MUX2_X1_9_Y),
+		.S(sram[3]),
+		.Y(MUX2_X1_10_Y));
+
+endmodule
+// ----- END Verilog module for mux2_size11 -----
 
 //----- Default net type -----
 // `default_nettype none
@@ -661,6 +770,91 @@ output [0:0] out;
 
 endmodule
 // ----- END Verilog module for mux2_size5 -----
+
+//----- Default net type -----
+// `default_nettype none
+
+
+
+
+//----- Default net type -----
+// `default_nettype wire
+
+// ----- Verilog module for mux2_size7 -----
+module mux2_size7(in,
+                  sram,
+                  sram_inv,
+                  out);
+//----- INPUT PORTS -----
+input [0:6] in;
+//----- INPUT PORTS -----
+input [0:2] sram;
+//----- INPUT PORTS -----
+input [0:2] sram_inv;
+//----- OUTPUT PORTS -----
+output [0:0] out;
+
+//----- BEGIN Registered ports -----
+//----- END Registered ports -----
+
+
+
+// ----- BEGIN Local short connections -----
+// ----- END Local short connections -----
+// ----- BEGIN Local output short connections -----
+// ----- END Local output short connections -----
+
+	const1 const1_0_ (
+		.const1(const1_0_const1));
+
+	BUF_X1 BUF_X1_0_ (
+		.A(MUX2_X1_6_Y),
+		.Y(out));
+
+	MUX2_X1 mux_l1_in_0_ (
+		.A0(in[0]),
+		.A1(in[1]),
+		.S(sram[0]),
+		.Y(MUX2_X1_0_Y));
+
+	MUX2_X1 mux_l1_in_1_ (
+		.A0(in[2]),
+		.A1(in[3]),
+		.S(sram[0]),
+		.Y(MUX2_X1_1_Y));
+
+	MUX2_X1 mux_l1_in_2_ (
+		.A0(in[4]),
+		.A1(in[5]),
+		.S(sram[0]),
+		.Y(MUX2_X1_2_Y));
+
+	MUX2_X1 mux_l1_in_3_ (
+		.A0(in[6]),
+		.A1(const1_0_const1),
+		.S(sram[0]),
+		.Y(MUX2_X1_3_Y));
+
+	MUX2_X1 mux_l2_in_0_ (
+		.A0(MUX2_X1_0_Y),
+		.A1(MUX2_X1_1_Y),
+		.S(sram[1]),
+		.Y(MUX2_X1_4_Y));
+
+	MUX2_X1 mux_l2_in_1_ (
+		.A0(MUX2_X1_2_Y),
+		.A1(MUX2_X1_3_Y),
+		.S(sram[1]),
+		.Y(MUX2_X1_5_Y));
+
+	MUX2_X1 mux_l3_in_0_ (
+		.A0(MUX2_X1_4_Y),
+		.A1(MUX2_X1_5_Y),
+		.S(sram[2]),
+		.Y(MUX2_X1_6_Y));
+
+endmodule
+// ----- END Verilog module for mux2_size7 -----
 
 //----- Default net type -----
 // `default_nettype none

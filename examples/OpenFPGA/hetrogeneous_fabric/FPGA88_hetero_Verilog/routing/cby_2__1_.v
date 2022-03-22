@@ -1,6 +1,6 @@
 //-------------------------------------------
 //	FPGA Synthesizable Verilog Netlist
-//	Description: Verilog modules for Unique Connection Blocks[1][1]
+//	Description: Verilog modules for Unique Connection Blocks[2][1]
 //	Organization: University of Utah
 //-------------------------------------------
 //----- Time scale -----
@@ -9,8 +9,8 @@
 //----- Default net type -----
 // `default_nettype wire
 
-// ----- Verilog module for cby_1__1_ -----
-module cby_1__1_(cfg_done,
+// ----- Verilog module for cby_2__1_ -----
+module cby_2__1_(cfg_done,
                  prog_reset,
                  prog_clk,
                  chany_bottom_in,
@@ -18,18 +18,18 @@ module cby_1__1_(cfg_done,
                  ccff_head,
                  chany_bottom_out,
                  chany_top_out,
-                 right_grid_left_width_0_height_0_subtile_0__pin_a_6_,
-                 right_grid_left_width_0_height_0_subtile_0__pin_b_6_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_1_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_5_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_9_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_13_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_17_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_21_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_25_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_29_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_33_,
-                 left_grid_right_width_0_height_0_subtile_0__pin_I_37_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_3_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_7_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_11_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_15_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_19_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_23_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_27_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_31_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_35_,
+                 right_grid_left_width_0_height_0_subtile_0__pin_I_39_,
+                 left_grid_right_width_0_height_0_subtile_0__pin_a_2_,
+                 left_grid_right_width_0_height_0_subtile_0__pin_b_2_,
                  ccff_tail);
 //----- GLOBAL PORTS -----
 input [0:0] cfg_done;
@@ -48,29 +48,29 @@ output [0:19] chany_bottom_out;
 //----- OUTPUT PORTS -----
 output [0:19] chany_top_out;
 //----- OUTPUT PORTS -----
-output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_a_6_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_3_;
 //----- OUTPUT PORTS -----
-output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_b_6_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_7_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_1_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_11_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_5_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_15_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_9_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_19_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_13_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_23_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_17_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_27_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_21_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_31_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_25_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_35_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_29_;
+output [0:0] right_grid_left_width_0_height_0_subtile_0__pin_I_39_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_33_;
+output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_a_2_;
 //----- OUTPUT PORTS -----
-output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_I_37_;
+output [0:0] left_grid_right_width_0_height_0_subtile_0__pin_b_2_;
 //----- OUTPUT PORTS -----
 output [0:0] ccff_tail;
 
@@ -272,73 +272,73 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.in({chany_bottom_in[0], chany_top_in[0], chany_bottom_in[6], chany_top_in[6], chany_bottom_in[12], chany_top_in[12], chany_bottom_in[18], chany_top_in[18]}),
 		.sram(mux2_size8_0_sram[0:3]),
 		.sram_inv(mux2_size8_0_sram_inv[0:3]),
-		.out(right_grid_left_width_0_height_0_subtile_0__pin_a_6_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_3_));
 
 	mux2_size8 mux_left_ipin_1 (
 		.in({chany_bottom_in[1], chany_top_in[1], chany_bottom_in[7], chany_top_in[7], chany_bottom_in[13], chany_top_in[13], chany_bottom_in[19], chany_top_in[19]}),
 		.sram(mux2_size8_1_sram[0:3]),
 		.sram_inv(mux2_size8_1_sram_inv[0:3]),
-		.out(right_grid_left_width_0_height_0_subtile_0__pin_b_6_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_7_));
 
-	mux2_size8 mux_right_ipin_0 (
+	mux2_size8 mux_left_ipin_2 (
 		.in({chany_bottom_in[0], chany_top_in[0], chany_bottom_in[2], chany_top_in[2], chany_bottom_in[8], chany_top_in[8], chany_bottom_in[14], chany_top_in[14]}),
 		.sram(mux2_size8_2_sram[0:3]),
 		.sram_inv(mux2_size8_2_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_1_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_11_));
 
-	mux2_size8 mux_right_ipin_1 (
+	mux2_size8 mux_left_ipin_3 (
 		.in({chany_bottom_in[1], chany_top_in[1], chany_bottom_in[3], chany_top_in[3], chany_bottom_in[9], chany_top_in[9], chany_bottom_in[15], chany_top_in[15]}),
 		.sram(mux2_size8_3_sram[0:3]),
 		.sram_inv(mux2_size8_3_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_5_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_15_));
 
-	mux2_size8 mux_right_ipin_2 (
+	mux2_size8 mux_left_ipin_4 (
 		.in({chany_bottom_in[2], chany_top_in[2], chany_bottom_in[4], chany_top_in[4], chany_bottom_in[10], chany_top_in[10], chany_bottom_in[16], chany_top_in[16]}),
 		.sram(mux2_size8_4_sram[0:3]),
 		.sram_inv(mux2_size8_4_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_9_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_19_));
 
-	mux2_size8 mux_right_ipin_3 (
+	mux2_size8 mux_left_ipin_5 (
 		.in({chany_bottom_in[3], chany_top_in[3], chany_bottom_in[5], chany_top_in[5], chany_bottom_in[11], chany_top_in[11], chany_bottom_in[17], chany_top_in[17]}),
 		.sram(mux2_size8_5_sram[0:3]),
 		.sram_inv(mux2_size8_5_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_13_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_23_));
 
-	mux2_size8 mux_right_ipin_4 (
+	mux2_size8 mux_left_ipin_6 (
 		.in({chany_bottom_in[4], chany_top_in[4], chany_bottom_in[6], chany_top_in[6], chany_bottom_in[12], chany_top_in[12], chany_bottom_in[18], chany_top_in[18]}),
 		.sram(mux2_size8_6_sram[0:3]),
 		.sram_inv(mux2_size8_6_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_17_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_27_));
 
-	mux2_size8 mux_right_ipin_5 (
+	mux2_size8 mux_left_ipin_7 (
 		.in({chany_bottom_in[5], chany_top_in[5], chany_bottom_in[7], chany_top_in[7], chany_bottom_in[13], chany_top_in[13], chany_bottom_in[19], chany_top_in[19]}),
 		.sram(mux2_size8_7_sram[0:3]),
 		.sram_inv(mux2_size8_7_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_21_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_31_));
 
-	mux2_size8 mux_right_ipin_6 (
+	mux2_size8 mux_left_ipin_8 (
 		.in({chany_bottom_in[0], chany_top_in[0], chany_bottom_in[6], chany_top_in[6], chany_bottom_in[8], chany_top_in[8], chany_bottom_in[14], chany_top_in[14]}),
 		.sram(mux2_size8_8_sram[0:3]),
 		.sram_inv(mux2_size8_8_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_25_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_35_));
 
-	mux2_size8 mux_right_ipin_7 (
+	mux2_size8 mux_left_ipin_9 (
 		.in({chany_bottom_in[1], chany_top_in[1], chany_bottom_in[7], chany_top_in[7], chany_bottom_in[9], chany_top_in[9], chany_bottom_in[15], chany_top_in[15]}),
 		.sram(mux2_size8_9_sram[0:3]),
 		.sram_inv(mux2_size8_9_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_29_));
+		.out(right_grid_left_width_0_height_0_subtile_0__pin_I_39_));
 
-	mux2_size8 mux_right_ipin_8 (
+	mux2_size8 mux_right_ipin_0 (
 		.in({chany_bottom_in[2], chany_top_in[2], chany_bottom_in[8], chany_top_in[8], chany_bottom_in[10], chany_top_in[10], chany_bottom_in[16], chany_top_in[16]}),
 		.sram(mux2_size8_10_sram[0:3]),
 		.sram_inv(mux2_size8_10_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_33_));
+		.out(left_grid_right_width_0_height_0_subtile_0__pin_a_2_));
 
-	mux2_size8 mux_right_ipin_9 (
+	mux2_size8 mux_right_ipin_1 (
 		.in({chany_bottom_in[3], chany_top_in[3], chany_bottom_in[9], chany_top_in[9], chany_bottom_in[11], chany_top_in[11], chany_bottom_in[17], chany_top_in[17]}),
 		.sram(mux2_size8_11_sram[0:3]),
 		.sram_inv(mux2_size8_11_sram_inv[0:3]),
-		.out(left_grid_right_width_0_height_0_subtile_0__pin_I_37_));
+		.out(left_grid_right_width_0_height_0_subtile_0__pin_b_2_));
 
 	mux2_size8_mem mem_left_ipin_0 (
 		.cfg_done(cfg_done),
@@ -358,7 +358,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_1_sram[0:3]),
 		.mem_outb(mux2_size8_1_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_0 (
+	mux2_size8_mem mem_left_ipin_2 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -367,7 +367,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_2_sram[0:3]),
 		.mem_outb(mux2_size8_2_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_1 (
+	mux2_size8_mem mem_left_ipin_3 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -376,7 +376,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_3_sram[0:3]),
 		.mem_outb(mux2_size8_3_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_2 (
+	mux2_size8_mem mem_left_ipin_4 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -385,7 +385,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_4_sram[0:3]),
 		.mem_outb(mux2_size8_4_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_3 (
+	mux2_size8_mem mem_left_ipin_5 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -394,7 +394,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_5_sram[0:3]),
 		.mem_outb(mux2_size8_5_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_4 (
+	mux2_size8_mem mem_left_ipin_6 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -403,7 +403,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_6_sram[0:3]),
 		.mem_outb(mux2_size8_6_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_5 (
+	mux2_size8_mem mem_left_ipin_7 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -412,7 +412,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_7_sram[0:3]),
 		.mem_outb(mux2_size8_7_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_6 (
+	mux2_size8_mem mem_left_ipin_8 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -421,7 +421,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_8_sram[0:3]),
 		.mem_outb(mux2_size8_8_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_7 (
+	mux2_size8_mem mem_left_ipin_9 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -430,7 +430,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_9_sram[0:3]),
 		.mem_outb(mux2_size8_9_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_8 (
+	mux2_size8_mem mem_right_ipin_0 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -439,7 +439,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_out(mux2_size8_10_sram[0:3]),
 		.mem_outb(mux2_size8_10_sram_inv[0:3]));
 
-	mux2_size8_mem mem_right_ipin_9 (
+	mux2_size8_mem mem_right_ipin_1 (
 		.cfg_done(cfg_done),
 		.prog_reset(prog_reset),
 		.prog_clk(prog_clk),
@@ -449,7 +449,7 @@ wire [0:3] mux2_size8_9_sram_inv;
 		.mem_outb(mux2_size8_11_sram_inv[0:3]));
 
 endmodule
-// ----- END Verilog module for cby_1__1_ -----
+// ----- END Verilog module for cby_2__1_ -----
 
 //----- Default net type -----
 // `default_nettype none
