@@ -1,6 +1,101 @@
 """
+====================
+OpenFPGA Floorplaner
+====================
+
+This is dedicated OpenFPGA floorplaner which shape tiles in traditional structure
+as shown below. This placement class is not dependent iupon the architecture and always
+applied to homogeneous structure.
+
+There are two brod categories of inputs,
+
+**Paramater Based** (*Preferred*):
+
+Following figure details the various paramteres referred in this class
+
+.. rst-class:: ascii
+
+::
+
+
+                |<-----  GRID_X  ----->|
+                |                      |
+        ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐  ∧
+        │           ││   CBX_TOP   ││              ││             ││           │  |
+        │           ││   _WIDTH    ││              ││             ││           │  | CBX_TOP_HEIGHT
+        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ∨
+        │        │┌───────────────────┐│        │┌───────────────────┐│        │
+        └────────┘│   GRID_CLB_RATIO  │└────────┘│                   │└────────┘
+        ┌────────┐│       W/H         │┌────────┐│                   │┌────────┐
+        │        ││                   ││        ││                   ││        │
+        │  CBY_  ││                   ││   CB_  ││                   ││  CBY_  │
+        │  LEFT_ ││                   ││ HEIGHT ││                   ││ RIGHT_ │
+        │ HEIGHT ││                   ││ _RATIO ││                   ││ HEIGHT │
+        │        ││                   ││        ││                   ││        │
+        └────────┘│                   │└────────┘│                   │└────────┘
+        ┌────────┐│                   │┌────────┐│                   │┌────────┐
+    ↑   │        │└───────────────────┘│        │└───────────────────┘│        │
+    |   │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │
+    |   │           ││  CB_WIDTH_  ││              ││             ││           │  FPGA_SIZE[0],y
+    |   │           ││    RATIO    ││              ││             ││           │
+    G   │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │
+    R   │        │┌───────────────────┐│        │┌───────────────────┐│        │
+    I   └────────┘│                   │└────────┘│                   │└────────┘
+    D   ┌────────┐│                   │┌────────┐│                   │┌────────┐
+    _   │        ││                   ││        ││                   ││        │
+    Y   │        ││                   ││        ││                   ││        │
+    |   │        ││                   ││        ││                   ││        │
+    |   │        ││                   ││        ││                   ││        │
+    |   │        ││                   ││        ││                   ││        │
+    |   └────────┘│                   │└────────┘│                   │└────────┘
+    |   ┌────────┐│                   │┌────────┐│                   │┌────────┐
+    ↓   │        │└───────────────────┘│        │└───────────────────┘│        │
+        │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │  ∧
+        │           ││ CBX_BOTTOM_ ││              ││             ││           │  |
+        │           ││   _WIDTH    ││              ││             ││           │  | CBX_BOTTOM_HEIGHT
+        └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘  ∨
+        <-------->                                                    <-------->
+        CBY_LEFT_WIDTH                                           CBY_RIGHT_WIDTH
+
+
+**Area Based**:
+
+- ``OVERALL_UTILIZATION``
+- ``GRID_CLB_UTILIZATION``
+- ``SB_UTILIZATION``
+
+
+**Common Parameters** (All of them are absolute numbers in multiple of *SC_HEIGHT* or *CPP*)
+
+- ``GRID_CLB_CHAN_X`` and ``GRID_CLB_CHAN_Y``: Grid CLB margins
+- ``CBx_CHAN_X`` and ``CBx_CHAN_Y`` : Connection box X margins
+- ``CBy_CHAN_X`` and ``CBy_CHAN_Y`` : Connection box Y margins
+- ``GPIO_CHAN_X`` and ``GPIO_CHAN_Y``: GPIO cell margins
+
+
+**Absolute Numbers** (In multiple of *SC_HEIGHT* or *CPP*)
+
+* ``GRID_X``
+* ``GRID_Y``
+* ``CLB_W``
+* ``CLB_H``
+* ``CBX_WIDTH``
+* ``CBY_HEIGHT``
+* ``LEFT_CBY_WIDTH``
+* ``LEFT_CBY_HEIGHT``
+* ``RIGHT_CBY_WIDTH``
+* ``RIGHT_CBY_HEIGHT``
+* ``TOP_CBX_WIDTH``
+* ``TOP_CBX_HEIGHT``
+* ``BOTTOM_CBX_WIDTH``
+* ``BOTTOM_CBX_HEIGHT``
+
+**Ideas**:
+
+* Optionally provide a method to apply shaping and placement to the netlist elements
 
 """
+
 
 
 import logging
