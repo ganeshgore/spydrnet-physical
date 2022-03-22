@@ -8,6 +8,7 @@
         <title>spydrnet_physical.util.get_floorplan - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css" />
@@ -177,11 +178,29 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/spydrnet_physical.util.get_names.html">spydrnet_physical.util.get_names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/spydrnet_physical.util.ConnectPoint.html">spydrnet_physical.util.ConnectPoint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/spydrnet_physical.util.ConnectPointList.html">spydrnet_physical.util.ConnectPointList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/spydrnet_physical.util.ConnectionPattern.html">spydrnet_physical.util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.get_names.html">util.get_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.initial_placement.html">util.initial_placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.FloorPlanViz.html">util.FloorPlanViz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.RoutingRender.html">util.RoutingRender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.cb_renderer.html">util.cb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.sb_renderer.html">util.sb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.prepare_graph_from_nx.html">util.prepare_graph_from_nx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.write_metis_graph.html">util.write_metis_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.run_metis.html">util.run_metis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.OpenFPGA_Arch.html">util.OpenFPGA_Arch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.Tile01.html">util.Tile01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.config_chain_01.html">util.config_chain_01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility/generated/util.config_chain_simple.html">util.config_chain_simple</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -215,6 +234,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/display_hierarchical_netlist.html">Visualise Hierarchical Netlist</a></li>
@@ -233,6 +253,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -299,8 +320,9 @@
 <span class="sd">``A``, ``B`` , ``C`` , ``D`` , ``E``, ``F``  =</span>
 <span class="sd">Dimensions of the rectilinear block (if shape is `RectL`)</span>
 
+<span class="sd">.. rst-class:: ascii</span>
 
-<span class="sd">.. code-block::</span>
+<span class="sd">::</span>
 
 <span class="sd">                    d</span>
 <span class="sd">                ┌──────────┐</span>
@@ -316,7 +338,7 @@
 <span class="sd">               f│          │</span>
 <span class="sd">                │          │</span>
 <span class="sd">                └──────────┘</span>
-<span class="sd">              RectL Shape</span>
+<span class="sd">                RectL Shape</span>
 
 
 <span class="sd">**On Instances**</span>
@@ -335,6 +357,31 @@
 <span class="sd">``OFFSET``:</span>
 <span class="sd">Offset from the origin of that side</span>
 <span class="sd">First point on respective side in clockwise direction is considered as origin</span>
+
+
+<span class="sd">.. rst-class:: ascii</span>
+
+<span class="sd">::</span>
+
+<span class="sd">                       top/top</span>
+<span class="sd">                     ┌──────────┐</span>
+<span class="sd">            top/left │          | top/right</span>
+<span class="sd">                     │          │</span>
+<span class="sd">           left/top  │          │ right/top</span>
+<span class="sd">              ┌──────┘          └──────┐</span>
+<span class="sd">              │                        │</span>
+<span class="sd">    left/left │           0            │ right/right</span>
+<span class="sd">              │                        │</span>
+<span class="sd">              └──────┐          ┌──────┘</span>
+<span class="sd">        left/bottom  │          │ right/bottom</span>
+<span class="sd">                     │          │</span>
+<span class="sd">         bottom/left │          | bottom/right</span>
+<span class="sd">                     └──────────┘</span>
+<span class="sd">                    bottom/bottom</span>
+
+<span class="sd">        Representing SIDE/SIDE2 parameters</span>
+
+
 
 <span class="sd">**TODO** Add Some sort of a cordinate transformation which scaleX and scaleY.</span>
 <span class="sd">All the inputs are in mutliple of SC_HEIGHT and SC_WIDTH, default value</span>
@@ -368,13 +415,40 @@
 <span class="n">LEFT_PIN</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">RIGHT_PIN</span> <span class="o">=</span> <span class="mi">4</span>
 
+<span class="n">STYLE_SHEET</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">            text{font-family: Verdana; font-size: 5px;}</span>
+<span class="s2">            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}</span>
+<span class="s2">            .left_pin{</span>
+<span class="s2">                fill:blue;</span>
+<span class="s2">                text-anchor: start;</span>
+<span class="s2">                transform: translate(5px, 00px) scale(1,-1);}</span>
+<span class="s2">            .right_pin{</span>
+<span class="s2">                fill:blue;</span>
+<span class="s2">                text-anchor: end;</span>
+<span class="s2">                transform: translate(-5px, 00px) scale(1,-1);}</span>
+<span class="s2">            .bottom_pin{</span>
+<span class="s2">                fill:blue;</span>
+<span class="s2">                transform-box: fill-box;</span>
+<span class="s2">                transform-origin: start;</span>
+<span class="s2">                text-anchor: start;</span>
+<span class="s2">                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}</span>
+<span class="s2">            .top_pin{</span>
+<span class="s2">                fill:blue;</span>
+<span class="s2">                transform-box: fill-box;</span>
+<span class="s2">                transform-origin: bottom left;</span>
+<span class="s2">                text-anchor: start;</span>
+<span class="s2">                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}</span>
+<span class="s2">            .in_pin{fill: red;}</span>
+<span class="s2">            .out_pin{fill: blue;}</span>
+<span class="s2">        """</span>
 
-<div class="viewcode-block" id="FloorPlanViz"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz">[docs]</a><span class="k">class</span> <span class="nc">FloorPlanViz</span><span class="p">:</span>
+
+<div class="viewcode-block" id="FloorPlanViz"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz">[docs]</a><span class="k">class</span> <span class="nc">FloorPlanViz</span><span class="p">:</span>
     <span class="sd">'''</span>
-<span class="sd">    Implmenetation of SVG Visualiser</span>
+<span class="sd">    Implmenetation of SVG Visualiser `floorplan_visualizer &lt;reference/visualization/floorplan_visualizer.rst&gt;`_ </span>
 <span class="sd">    '''</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">definition</span><span class="p">,</span> <span class="n">viewbox</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)):</span>
+<div class="viewcode-block" id="FloorPlanViz.__init__"><a class="viewcode-back" href="../../../reference/utility/generated/util.FloorPlanViz.html#util.FloorPlanViz.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">definition</span><span class="p">,</span> <span class="n">viewbox</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)):</span>
         <span class="sd">"""</span>
 <span class="sd">        Initialise the class with definition to render.</span>
 
@@ -387,6 +461,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># This variable tracks the maximum height of the SVG</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">skip_pins</span> <span class="o">=</span> <span class="kc">True</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">custom_style</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># Create SVG drawing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="o">*</span><span class="n">viewbox</span><span class="p">)</span>
@@ -398,13 +473,32 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dwgText</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"mainText"</span><span class="p">,</span> <span class="o">**</span><span class="n">t_prop</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwgEdges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"edges"</span><span class="p">,</span> <span class="o">**</span><span class="n">t_prop</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_stylehseet</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_stylehseet</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="FloorPlanViz.compose"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.compose">[docs]</a>    <span class="k">def</span> <span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skip_connections</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">skip_pins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">filter_cables</span><span class="o">=</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span><span class="p">)):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">custom_style_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
-<span class="sd">        Entry point to generate SVG</span>
+<span class="sd">        Return custom styles added in this visualiazer</span>
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_style</span>
+
+    <span class="nd">@custom_style_sheet</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">custom_style_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Adds custom styles in this visualizer</span>
+<span class="sd">        '''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">custom_style</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="FloorPlanViz.compose"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz.compose">[docs]</a>    <span class="k">def</span> <span class="nf">compose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skip_connections</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">skip_pins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">filter_cables</span><span class="o">=</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Drawing</span><span class="p">:</span>
+        <span class="sd">'''</span>
+<span class="sd">        Entry point to generate final SVG file</span>
+
+<span class="sd">        args:</span>
+<span class="sd">            skip_connections(bool) : Skip rednering connections beetween modules</span>
+<span class="sd">            skip_pins(bool) :Skip rendering modules pins  </span>
+<span class="sd">            filter_cables(Callable): A callable function which filters the connections to redner</span>
 <span class="sd">        '''</span>
         <span class="c1"># Create symbol for top-module and add in svg</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">skip_pins</span> <span class="o">=</span> <span class="n">skip_pins</span>
@@ -447,48 +541,113 @@
                                  <span class="n">stroke</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
                                  <span class="n">onmousemove</span><span class="o">=</span><span class="sa">f</span><span class="s2">"showTooltip(evt, '</span><span class="si">{</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">');"</span><span class="p">,</span>
                                  <span class="n">onmouseout</span><span class="o">=</span><span class="s2">"hideTooltip();"</span><span class="p">,</span>
-                                 <span class="n">stroke_width</span><span class="o">=</span><span class="s2">"1"</span><span class="p">))</span></div>
+                                 <span class="n">stroke_width</span><span class="o">=</span><span class="s2">"1"</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span></div>
 
-<div class="viewcode-block" id="FloorPlanViz.add_stylehseet"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.add_stylehseet">[docs]</a>    <span class="k">def</span> <span class="nf">add_stylehseet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FloorPlanViz.add_top_block"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz.add_top_block">[docs]</a>    <span class="k">def</span> <span class="nf">add_top_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_module</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Adds top level block in the design </span>
+<span class="sd">        """</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">top_module</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">defDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwgShapes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"instance"</span><span class="p">],</span>
+                                        <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"topModule"</span><span class="p">,</span>
+                                        <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwgText</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"name"</span><span class="p">],</span>
+                                       <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"width"</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span>
+                                               <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span><span class="o">*</span><span class="mf">0.1</span><span class="p">),</span>
+                                       <span class="n">fill</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+                                       <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">,</span>
+                                       <span class="n">alignment_baseline</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">,</span>
+                                       <span class="n">text_anchor</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewbox</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"width"</span><span class="p">],</span> <span class="n">defDict</span><span class="p">[</span><span class="s2">"height"</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="FloorPlanViz.add_symbol"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz.add_symbol">[docs]</a>    <span class="k">def</span> <span class="nf">add_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Inserts symbols in the SVG file</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="s2">"ASSIG"</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"SHAPE"</span><span class="p">,</span> <span class="s2">"rect"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">shape</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"rectl"</span><span class="p">:</span>
+            <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_rect_linear_symbol</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_rect_symbol</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_def</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_def</span></div>
+
+<div class="viewcode-block" id="FloorPlanViz.add_block"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz.add_block">[docs]</a>    <span class="k">def</span> <span class="nf">add_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Iterates over each instance and adds them in SVG file</span>
+<span class="sd">        """</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="s2">"ASSIG"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">defDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+
+        <span class="n">loc_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_X"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">loc_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_Y"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwgShapes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"instance"</span><span class="p">],</span>
+                                        <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                                        <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="n">loc_x</span><span class="p">,</span> <span class="n">loc_y</span><span class="p">)))</span>
+
+        <span class="n">module_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">tspan</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]"</span><span class="p">,</span>
+                                     <span class="n">insert</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_label_location</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
+                                     <span class="n">dy</span><span class="o">=</span><span class="p">[</span><span class="s2">"1.2em"</span><span class="p">,</span> <span class="p">])</span>
+        <span class="n">module_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                                    <span class="n">insert</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_label_location</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
+                                    <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">,</span>
+                                    <span class="n">fill</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+                                    <span class="n">alignment_baseline</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">,</span>
+                                    <span class="n">text_anchor</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">)</span>
+        <span class="n">module_text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwgText</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">module_text</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_label_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
         <span class="sd">'''</span>
-<span class="sd">        Adds custom stylesheet to the SVG image</span>
-<span class="sd">        '''</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"""</span>
-<span class="s2">            text{font-family: Verdana; font-size: 5px;}</span>
-<span class="s2">            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}</span>
-<span class="s2">            .left_pin{</span>
-<span class="s2">                fill:blue;</span>
-<span class="s2">                text-anchor: start;</span>
-<span class="s2">                transform: translate(5px, 00px) scale(1,-1);}</span>
-<span class="s2">            .right_pin{</span>
-<span class="s2">                fill:blue;</span>
-<span class="s2">                text-anchor: end;</span>
-<span class="s2">                transform: translate(-5px, 00px) scale(1,-1);}</span>
-<span class="s2">            .bottom_pin{</span>
-<span class="s2">                fill:blue;</span>
-<span class="s2">                transform-box: fill-box;</span>
-<span class="s2">                transform-origin: start;</span>
-<span class="s2">                text-anchor: start;</span>
-<span class="s2">                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}</span>
-<span class="s2">            .top_pin{</span>
-<span class="s2">                fill:blue;</span>
-<span class="s2">                transform-box: fill-box;</span>
-<span class="s2">                transform-origin: bottom left;</span>
-<span class="s2">                text-anchor: start;</span>
-<span class="s2">                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}</span>
-<span class="s2">            .in_pin{fill: red;}</span>
-<span class="s2">            .out_pin{fill: blue;}</span>
-<span class="s2">        """</span><span class="p">))</span></div>
+<span class="sd">        Return the label location given the verilog instance </span>
 
-    <span class="k">def</span> <span class="nf">_update_viewbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="sd">        Always in the center of the shape</span>
+<span class="sd">        '''</span>
+        <span class="n">defDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">loc_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_X"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">loc_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_Y"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">loc_x</span> <span class="o">+=</span> <span class="n">defDict</span><span class="p">[</span><span class="s2">"width"</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span>
+        <span class="n">loc_y</span> <span class="o">+=</span> <span class="n">defDict</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span>
+        <span class="n">loc_y</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">loc_x</span><span class="p">,</span> <span class="n">loc_y</span><span class="p">)</span>
+
+    <span class="c1"># ===================================================</span>
+    <span class="c1">#        Methods for shapes and pin addition</span>
+    <span class="c1"># ===================================================</span>
+    <span class="k">def</span> <span class="nf">_add_rect_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"HEIGHT"</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+        <span class="n">COLOR</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"COLOR"</span><span class="p">,</span> <span class="s2">"#f4f0e6"</span><span class="p">)</span>
+        <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">"instance"</span><span class="p">:</span> <span class="n">new_def</span><span class="p">,</span>
+            <span class="s2">"shape"</span><span class="p">:</span> <span class="s2">"rect"</span><span class="p">,</span>
+            <span class="s2">"points"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"width"</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
+            <span class="s2">"height"</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">new_def</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                  <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                                  <span class="n">fill</span><span class="o">=</span><span class="n">COLOR</span><span class="p">,</span>
+                                  <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"module_boundary </span><span class="si">{</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_pins</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_rect_symbol_pins</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">new_def</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_def</span>
+
+    <span class="k">def</span> <span class="nf">_add_rect_linear_symbol_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">,</span> <span class="n">new_def</span><span class="p">:</span> <span class="n">Symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">'''</span>
-<span class="sd">        Updates the view box x and y value provided before saving image</span>
-
+<span class="sd">        Adds ``rect_linear`` modules in the SVG symbol list</span>
 <span class="sd">        '''</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_w</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_w</span> <span class="o">&gt;</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span> <span class="o">&gt;</span> <span class="n">y</span> <span class="k">else</span> <span class="n">y</span>
-
-    <span class="k">def</span> <span class="nf">add_rect_linear_symbol_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">,</span> <span class="n">new_def</span><span class="p">:</span> <span class="n">Symbol</span><span class="p">):</span>
         <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"POINTS"</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">))</span>
         <span class="n">width</span> <span class="o">=</span> <span class="n">b</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="n">e</span>
         <span class="n">height</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="o">+</span><span class="n">f</span>
@@ -541,7 +700,35 @@
             <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">_X"</span><span class="p">]</span> <span class="o">=</span> <span class="n">LOC_X</span>
             <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">_Y"</span><span class="p">]</span> <span class="o">=</span> <span class="n">LOC_Y</span>
 
-    <span class="k">def</span> <span class="nf">add_rect_symbol_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">,</span> <span class="n">new_def</span><span class="p">:</span> <span class="n">Symbol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_add_rect_linear_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"POINTS"</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">))</span>
+        <span class="n">COLOR</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"COLOR"</span><span class="p">,</span> <span class="s2">"#f4f0e6"</span><span class="p">)</span>
+        <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">"instance"</span><span class="p">:</span> <span class="n">new_def</span><span class="p">,</span>
+            <span class="s2">"shape"</span><span class="p">:</span> <span class="s2">"rectl"</span><span class="p">,</span>
+            <span class="s2">"a"</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span>
+            <span class="s2">"d"</span><span class="p">:</span> <span class="n">d</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">:</span> <span class="n">e</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">:</span> <span class="n">f</span><span class="p">,</span>
+            <span class="s2">"width"</span><span class="p">:</span> <span class="n">b</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="n">e</span><span class="p">,</span>
+            <span class="s2">"height"</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="o">+</span><span class="n">f</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"M </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> 0 v </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">b</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> "</span>
+        <span class="n">path</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" v </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">c</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">a</span><span class="si">}</span><span class="s2"> "</span>
+        <span class="n">path</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" h </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">e</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">f</span><span class="si">}</span><span class="s2"> Z"</span>
+        <span class="n">path</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" Z"</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+        <span class="n">new_def</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+                                  <span class="n">fill</span><span class="o">=</span><span class="n">COLOR</span><span class="p">,</span>
+                                  <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"module_boundary </span><span class="si">{</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_pins</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_rect_linear_symbol_pins</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">new_def</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_def</span>
+
+    <span class="k">def</span> <span class="nf">_add_rect_symbol_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">,</span> <span class="n">new_def</span><span class="p">:</span> <span class="n">Symbol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">'''</span>
+<span class="sd">        Adds pins on the rectangular shpapes</span>
+<span class="sd">        '''</span>
         <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
         <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"HEIGHT"</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">ports</span><span class="p">:</span>
@@ -584,66 +771,27 @@
             <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">_X"</span><span class="p">]</span> <span class="o">=</span> <span class="n">LOC_X</span>
             <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">_Y"</span><span class="p">]</span> <span class="o">=</span> <span class="n">LOC_Y</span>
 
-    <span class="k">def</span> <span class="nf">add_rect_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">):</span>
-        <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"HEIGHT"</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-        <span class="n">COLOR</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"COLOR"</span><span class="p">,</span> <span class="s2">"#f4f0e6"</span><span class="p">)</span>
-        <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"name"</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="s2">"instance"</span><span class="p">:</span> <span class="n">new_def</span><span class="p">,</span>
-            <span class="s2">"shape"</span><span class="p">:</span> <span class="s2">"rect"</span><span class="p">,</span>
-            <span class="s2">"points"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">"width"</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span>
-            <span class="s2">"height"</span><span class="p">:</span> <span class="n">height</span><span class="p">,</span>
-        <span class="p">}</span>
-        <span class="n">new_def</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-                                  <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
-                                  <span class="n">fill</span><span class="o">=</span><span class="n">COLOR</span><span class="p">,</span>
-                                  <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"module_boundary </span><span class="si">{</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_pins</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_rect_symbol_pins</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">new_def</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">new_def</span>
+    <span class="c1"># ===================================================</span>
+    <span class="c1">#              SVG Rendering Related</span>
+    <span class="c1"># ===================================================</span>
 
-    <span class="k">def</span> <span class="nf">add_rect_linear_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">):</span>
-        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"POINTS"</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">*</span><span class="mi">6</span><span class="p">))</span>
-        <span class="n">COLOR</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"COLOR"</span><span class="p">,</span> <span class="s2">"#f4f0e6"</span><span class="p">)</span>
-        <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"name"</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="s2">"instance"</span><span class="p">:</span> <span class="n">new_def</span><span class="p">,</span>
-            <span class="s2">"shape"</span><span class="p">:</span> <span class="s2">"rectl"</span><span class="p">,</span>
-            <span class="s2">"a"</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span>
-            <span class="s2">"d"</span><span class="p">:</span> <span class="n">d</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">:</span> <span class="n">e</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">:</span> <span class="n">f</span><span class="p">,</span>
-            <span class="s2">"width"</span><span class="p">:</span> <span class="n">b</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="n">e</span><span class="p">,</span>
-            <span class="s2">"height"</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="n">c</span><span class="o">+</span><span class="n">f</span><span class="p">,</span>
-        <span class="p">}</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"M </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> 0 v </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">b</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> "</span>
-        <span class="n">path</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" v </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">c</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">a</span><span class="si">}</span><span class="s2"> "</span>
-        <span class="n">path</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" h </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">e</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">f</span><span class="si">}</span><span class="s2"> Z"</span>
-        <span class="n">path</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">" Z"</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
-        <span class="n">new_def</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-                                  <span class="n">fill</span><span class="o">=</span><span class="n">COLOR</span><span class="p">,</span>
-                                  <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"module_boundary </span><span class="si">{</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_pins</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_rect_linear_symbol_pins</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">new_def</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">new_def</span>
+    <span class="k">def</span> <span class="nf">_update_viewbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Updates the view box x and y value provided before saving image</span>
 
-    <span class="k">def</span> <span class="nf">add_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s2">"ASSIG"</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-        <span class="n">shape</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"SHAPE"</span><span class="p">,</span> <span class="s2">"rect"</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">shape</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"rectl"</span><span class="p">:</span>
-            <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_rect_linear_symbol</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_rect_symbol</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_def</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">new_def</span>
+<span class="sd">        '''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_w</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_w</span> <span class="o">&gt;</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span> <span class="o">&gt;</span> <span class="n">y</span> <span class="k">else</span> <span class="n">y</span>
 
-    <span class="k">def</span> <span class="nf">add_background</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bgColor</span><span class="o">=</span><span class="s2">"#FFF"</span><span class="p">):</span>
+<div class="viewcode-block" id="FloorPlanViz.add_stylehseet"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz.add_stylehseet">[docs]</a>    <span class="k">def</span> <span class="nf">add_stylehseet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Adds custom stylesheet to the SVG image</span>
+<span class="sd">        '''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="n">STYLE_SHEET</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_style</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">custom_style</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_background</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bgColor</span><span class="o">=</span><span class="s2">"#FFF"</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwgbg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">25</span><span class="p">),</span>
                                      <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_w</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span>
                                            <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span><span class="o">+</span><span class="mi">50</span><span class="p">),</span>
@@ -653,63 +801,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_h</span><span class="o">+</span><span class="mi">100</span><span class="p">),</span>
                          <span class="bp">self</span><span class="o">.</span><span class="n">view_w</span><span class="o">+</span><span class="mi">100</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span><span class="o">+</span><span class="mi">100</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">add_top_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">top_module</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">top_module</span><span class="o">.</span><span class="n">name</span>
-        <span class="n">defDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dwgShapes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"instance"</span><span class="p">],</span>
-                                        <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"topModule"</span><span class="p">,</span>
-                                        <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dwgText</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"name"</span><span class="p">],</span>
-                                       <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"width"</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span>
-                                               <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span><span class="o">*</span><span class="mf">0.1</span><span class="p">),</span>
-                                       <span class="n">fill</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
-                                       <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">,</span>
-                                       <span class="n">alignment_baseline</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">,</span>
-                                       <span class="n">text_anchor</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_viewbox</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"width"</span><span class="p">],</span> <span class="n">defDict</span><span class="p">[</span><span class="s2">"height"</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">get_label_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
-        <span class="n">defDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-        <span class="n">loc_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_X"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="n">loc_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_Y"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="n">loc_x</span> <span class="o">+=</span> <span class="n">defDict</span><span class="p">[</span><span class="s2">"width"</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span>
-        <span class="n">loc_y</span> <span class="o">+=</span> <span class="n">defDict</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span>
-        <span class="n">loc_y</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">loc_x</span><span class="p">,</span> <span class="n">loc_y</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">add_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span>
-        <span class="k">if</span> <span class="s2">"ASSIG"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="n">defDict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-
-        <span class="n">loc_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_X"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-        <span class="n">loc_y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_Y"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">dwgShapes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">defDict</span><span class="p">[</span><span class="s2">"instance"</span><span class="p">],</span>
-                                        <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-                                        <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="n">loc_x</span><span class="p">,</span> <span class="n">loc_y</span><span class="p">)))</span>
-
-        <span class="n">module_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">tspan</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]"</span><span class="p">,</span>
-                                     <span class="n">insert</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_label_location</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
-                                     <span class="n">dy</span><span class="o">=</span><span class="p">[</span><span class="s2">"1.2em"</span><span class="p">,</span> <span class="p">])</span>
-        <span class="n">module_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-                                    <span class="n">insert</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_label_location</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
-                                    <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">,</span>
-                                    <span class="n">fill</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
-                                    <span class="n">alignment_baseline</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">,</span>
-                                    <span class="n">text_anchor</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">)</span>
-        <span class="n">module_text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dwgText</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">module_text</span><span class="p">)</span>
-
-<div class="viewcode-block" id="FloorPlanViz.get_svg"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.get_svg">[docs]</a>    <span class="k">def</span> <span class="nf">get_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FloorPlanViz.get_svg"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz.get_svg">[docs]</a>    <span class="k">def</span> <span class="nf">get_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Returns SVG string of the current floorplan</span>
 <span class="sd">        '''</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_background</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_background</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span></div>
 
-<div class="viewcode-block" id="FloorPlanViz.get_html"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.get_html">[docs]</a>    <span class="k">def</span> <span class="nf">get_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FloorPlanViz.get_html"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz.get_html">[docs]</a>    <span class="k">def</span> <span class="nf">get_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Adds the SVG image to HTML page which supports zoom and pan control using d3.js</span>
 <span class="sd">        '''</span>

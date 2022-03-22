@@ -32,7 +32,7 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-119
+.. GENERATED FROM PYTHON SOURCE LINES 17-139
 
 
 
@@ -43,82 +43,33 @@ This script can be used for shaping and placement of the modules before place an
 
  .. code-block:: none
 
-    {'LOC_X': 296, 'LOC_Y': 296}
-    {'LOC_X': 296, 'LOC_Y': 696}
-    {'LOC_X': 296, 'LOC_Y': 1096}
-    {'LOC_X': 296, 'LOC_Y': 1496}
-    {'LOC_X': 696, 'LOC_Y': 296}
-    {'LOC_X': 696, 'LOC_Y': 696}
-    {'LOC_X': 696, 'LOC_Y': 1096}
-    {'LOC_X': 696, 'LOC_Y': 1496}
-    {'LOC_X': 1096, 'LOC_Y': 296}
-    {'LOC_X': 1096, 'LOC_Y': 696}
-    {'LOC_X': 1096, 'LOC_Y': 1096}
-    {'LOC_X': 1096, 'LOC_Y': 1496}
-    {'LOC_X': 1496, 'LOC_Y': 296}
-    {'LOC_X': 1496, 'LOC_Y': 696}
-    {'LOC_X': 1496, 'LOC_Y': 1096}
-    {'LOC_X': 1496, 'LOC_Y': 1496}
-    {'LOC_X': 296, 'LOC_Y': 496}
-    {'LOC_X': 296, 'LOC_Y': 896}
-    {'LOC_X': 296, 'LOC_Y': 1296}
-    {'LOC_X': 696, 'LOC_Y': 496}
-    {'LOC_X': 696, 'LOC_Y': 896}
-    {'LOC_X': 696, 'LOC_Y': 1296}
-    {'LOC_X': 1096, 'LOC_Y': 496}
-    {'LOC_X': 1096, 'LOC_Y': 896}
-    {'LOC_X': 1096, 'LOC_Y': 1296}
-    {'LOC_X': 1496, 'LOC_Y': 496}
-    {'LOC_X': 1496, 'LOC_Y': 896}
-    {'LOC_X': 1496, 'LOC_Y': 1296}
-    {'LOC_X': 496, 'LOC_Y': 296.0}
-    {'LOC_X': 496, 'LOC_Y': 696.0}
-    {'LOC_X': 496, 'LOC_Y': 1096.0}
-    {'LOC_X': 496, 'LOC_Y': 1496.0}
-    {'LOC_X': 896, 'LOC_Y': 296.0}
-    {'LOC_X': 896, 'LOC_Y': 696.0}
-    {'LOC_X': 896, 'LOC_Y': 1096.0}
-    {'LOC_X': 896, 'LOC_Y': 1496.0}
-    {'LOC_X': 1296, 'LOC_Y': 296.0}
-    {'LOC_X': 1296, 'LOC_Y': 696.0}
-    {'LOC_X': 1296, 'LOC_Y': 1096.0}
-    {'LOC_X': 1296, 'LOC_Y': 1496.0}
-                  MODULE             INSTANCE LOC_X LOC_Y WIDTH HEIGHT
-     = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-                sb_0__0_             sb_0__0_    96    96   200   200
-                sb_0__1_             sb_0__1_    96   496   200   200
-                sb_0__2_             sb_0__1_    96   896   200   200
-                sb_0__3_             sb_0__1_    96  1296   200   200
-                sb_0__4_             sb_0__4_    96  1696   200   200
-               cby_0__1_            cby_0__1_    96   296   200   200
-               cby_0__2_            cby_0__1_    96   696   200   200
-               cby_0__3_            cby_0__1_    96  1096   200   200
-               cby_0__4_            cby_0__1_    96  1496   200   200
-    = = = = = = = = = = = = = = = = = = = = 
-    = = = = = =  DESIGN STATS = = = = = = = 
-    = = = = = = = = = = = = = = = = = = = = 
-        top_module : fpga_top
-        definitions: 16
-        instances  : 81
-    = = = = = = = = = = = = = = = = = = = = 
-              References    count
-    - - - - - - - - - - - - - - - - - - - - 
-               cbx_1__0_        4
-               cbx_1__1_       12
-               cbx_1__4_        4
-               cby_0__1_        4
-               cby_1__1_       12
-               cby_4__1_        4
-                grid_clb       16
-                sb_0__0_        1
-                sb_0__1_        3
-                sb_0__4_        1
-                sb_1__0_        3
-                sb_1__1_        9
-                sb_1__4_        3
-                sb_4__0_        1
-                sb_4__1_        3
-                sb_4__4_        1
+                INSTANCE               MODULE LOC_X LOC_Y WIDTH HEIGHT    SHAPE               POINTS
+     = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+                sb_0__0_             sb_0__0_     0     0    50    50    RectL     104 000 24.0 104 24.0 000
+                sb_0__1_             sb_0__1_     0   280    50    50    RectL     104 000 24.0 104 24.0 24.0
+                sb_0__2_             sb_0__1_     0   584    50    50    RectL     104 000 24.0 104 24.0 24.0
+                sb_0__3_             sb_0__1_     0   888    50    50    RectL     104 000 24.0 104 24.0 24.0
+                sb_0__4_             sb_0__4_     0  1192    50    50    RectL     104 000 000 104 24.0 24.0
+                sb_1__0_             sb_1__0_   280     0    50    50    RectL     104 24.0 24.0 104 24.0 000
+                sb_2__0_             sb_1__0_   584     0    50    50    RectL     104 24.0 24.0 104 24.0 000
+                sb_3__0_             sb_1__0_   888     0    50    50    RectL     104 24.0 24.0 104 24.0 000
+                sb_1__1_             sb_1__1_   280   280    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_1__2_             sb_1__1_   280   584    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_1__3_             sb_1__1_   280   888    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_2__1_             sb_1__1_   584   280    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_2__2_             sb_1__1_   584   584    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_2__3_             sb_1__1_   584   888    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_3__1_             sb_1__1_   888   280    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_3__2_             sb_1__1_   888   584    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_3__3_             sb_1__1_   888   888    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+                sb_1__4_             sb_1__4_   280  1192    50    50    RectL     104 24.0 000 104 24.0 24.0
+                sb_2__4_             sb_1__4_   584  1192    50    50    RectL     104 24.0 000 104 24.0 24.0
+                sb_3__4_             sb_1__4_   888  1192    50    50    RectL     104 24.0 000 104 24.0 24.0
+                sb_4__0_             sb_4__0_  1192     0    50    50    RectL     104 24.0 24.0 104 000 000
+                sb_4__1_             sb_4__1_  1192   280    50    50    RectL     104 24.0 24.0 104 000 24.0
+                sb_4__2_             sb_4__1_  1192   584    50    50    RectL     104 24.0 24.0 104 000 24.0
+                sb_4__3_             sb_4__1_  1192   888    50    50    RectL     104 24.0 24.0 104 000 24.0
+                sb_4__4_             sb_4__4_  1192  1192    50    50    RectL     104 24.0 000 104 000 24.0
 
 
 
@@ -136,8 +87,9 @@ This script can be used for shaping and placement of the modules before place an
     import tempfile
 
     import spydrnet as sdn
-    from spydrnet_physical.util import OpenFPGA, initial_placement
-    from spydrnet_physical.util.get_floorplan import FloorPlanViz
+    from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen,
+                                        GridFloorplanGen, OpenFPGA,
+                                        initial_placement)
 
     logger = logging.getLogger('spydrnet_logs')
     sdn.enable_file_logging(LOG_LEVEL='INFO')
@@ -145,10 +97,10 @@ This script can be used for shaping and placement of the modules before place an
     PROP = "VERILOG.InlineConstraints"
 
 
-    CBX_COLOR = '#ceefe4'
+    CBX_COLOR = '#d9d9f3'
     CBY_COLOR = '#a8d0db'
     SB_COLOR = '#ceefe4'
-    GRID_COLOR = '#f4f0e6'
+    GRID_COLOR = '#ddd0b1'
 
 
     def main():
@@ -180,52 +132,71 @@ This script can be used for shaping and placement of the modules before place an
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         fpga.register_placement_creator(initial_placement,
                                         areaFile='area_info.txt')
+        fpga_grid = FPGAGridGen(design_name='FPGA4x4', layout="4x4",
+                                arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
+                                release_root=None)
+        fpga_grid.enumerate_grid()
+        fpga.load_grid(fpga_grid)
         fpga.create_placement()
+
+        p = fpga.placement_creator
+
+        # Create grid plan
+        grid_plan = GridFloorplanGen(9, 9, grid_x=200, grid_y=180)
+        for i in range(2, 9+1, 2):
+            grid_plan.set_column_width(i, p.CLB_W*4)
+
+        for i in range(2, 9+1, 2):
+            grid_plan.set_row_height(i, p.CLB_H*4)
+
+        for i in range(1, 9+1, 2):
+            grid_plan.set_column_width(i, (p.CLB_GRID_X-p.CLB_W)*4)
+
+        for i in range(1, 9+1, 2):
+            grid_plan.set_row_height(i, (p.CLB_GRID_Y-p.CLB_H)*4)
+
+        # dwg = grid_plan.render_grid()
+        # dwg.saveas("_fpga_grid_floorplan.svg", pretty=True, indent=4)
+
+        for xi in range(1, 10):
+            for yi in range(1, 10):
+                X_OFFSET, Y_OFFSET = 0, 0
+                inst_name = fpga_grid.get_top_instance(xi, yi)
+                points = grid_plan.get_x_y(xi-1, yi-1)
+                inst = next(fpga.top_module.get_instances(f"*{inst_name}"))
+                if "cbx" in inst_name:
+                    X_OFFSET, Y_OFFSET = 2*(p.CLB_W-p.CBX_W), 0
+                elif "cby" in inst_name:
+                    X_OFFSET, Y_OFFSET = 0, 2*(p.CLB_H-p.CBY_H)
+                elif "sb" in inst_name:
+                    PTS = inst.reference.data[PROP]["POINTS"]
+                    X_OFFSET, Y_OFFSET = PTS[1]*-1, PTS[-1]*-1
+                inst.data[PROP]['LOC_X'] = points[0] + X_OFFSET
+                inst.data[PROP]['LOC_Y'] = points[1] + Y_OFFSET
 
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         #           Adjust Floorplan
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        cbx11: sdn.Definition = next(fpga.top_module.get_definitions("cbx_1__1_"))
-        cbx11.data[PROP]["HEIGHT"] = 100
-        cbx11.data[PROP]["WIDTH"] = 200
-        cbx11.data[PROP]["COLOR"] = CBX_COLOR
+        for cbx in fpga.top_module.get_definitions("cbx_*"):
+            cbx.data[PROP]["COLOR"] = CBX_COLOR
 
-        cby11: sdn.Definition = next(fpga.top_module.get_definitions("cby_1__1_"))
-        cby11.data[PROP]["HEIGHT"] = 200
-        cby11.data[PROP]["WIDTH"] = 100
-        cby11.data[PROP]["COLOR"] = CBY_COLOR
+        for cby in fpga.top_module.get_definitions("cby_*"):
+            cby.data[PROP]["COLOR"] = CBY_COLOR
 
-        sb11: sdn.Definition = next(fpga.top_module.get_definitions("sb_1__1_"))
-        sb11.data[PROP]["SHAPE"] = 'RectL'
-        sb11.data[PROP]["POINTS"] = [100, 50, 50, 100, 50, 50]
-        sb11.data[PROP]["COLOR"] = SB_COLOR
+        for sb in fpga.top_module.get_definitions("sb_*"):
+            sb.data[PROP]["COLOR"] = SB_COLOR
 
         clb: sdn.Definition = next(fpga.top_module.get_definitions("grid_clb"))
-        clb.data[PROP]["HEIGHT"] = 300
-        clb.data[PROP]["WIDTH"] = 300
         clb.data[PROP]["COLOR"] = GRID_COLOR
 
-        for each in fpga.top_module.get_instances():
-            if each.reference is cbx11:
-                print(each.data[PROP])
-                each.data[PROP]["LOC_X"] += 0
-                each.data[PROP]["LOC_Y"] += 50
-            if each.reference is cby11:
-                print(each.data[PROP])
-                each.data[PROP]["LOC_X"] += 50
-                each.data[PROP]["LOC_Y"] += 0
-            if each.reference is clb:
-                print(each.data[PROP])
-                each.data[PROP]["LOC_X"] -= 50
-                each.data[PROP]["LOC_Y"] -= 50
-
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        fpga.show_placement_data("*_0__*")
-        fpga.design_top_stat()
+        fpga.show_placement_data("sb_*")
+        # fpga.design_top_stat()
 
         fp = FloorPlanViz(fpga.top_module)
         fp.compose(skip_connections=True, skip_pins=True)
         dwg = fp.get_svg()
+        dwg.add(grid_plan.render_grid(return_group=True))
         dwg.saveas("_design_floorplan.svg", pretty=True, indent=4)
 
 
@@ -235,7 +206,7 @@ This script can be used for shaping and placement of the modules before place an
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.859 seconds)
+   **Total running time of the script:** ( 0 minutes  3.041 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_basic_06_FloorplanDesign01.py:

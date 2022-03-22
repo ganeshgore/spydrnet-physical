@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="spydrnet_physical.util.get_names" href="generated/spydrnet_physical.util.get_names.html" /><link rel="prev" title="Port" href="../classes/port.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="util.get_names" href="generated/util.get_names.html" /><link rel="prev" title="Port" href="../classes/port.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Utility Functions - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
@@ -178,11 +179,29 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">Utility Functions</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="generated/spydrnet_physical.util.get_names.html">spydrnet_physical.util.get_names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/spydrnet_physical.util.ConnectPoint.html">spydrnet_physical.util.ConnectPoint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/spydrnet_physical.util.ConnectPointList.html">spydrnet_physical.util.ConnectPointList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/spydrnet_physical.util.ConnectionPattern.html">spydrnet_physical.util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.get_names.html">util.get_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.initial_placement.html">util.initial_placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.FloorPlanViz.html">util.FloorPlanViz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.RoutingRender.html">util.RoutingRender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.cb_renderer.html">util.cb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.sb_renderer.html">util.sb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.prepare_graph_from_nx.html">util.prepare_graph_from_nx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.write_metis_graph.html">util.write_metis_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.run_metis.html">util.run_metis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.OpenFPGA_Arch.html">util.OpenFPGA_Arch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.Tile01.html">util.Tile01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.config_chain_01.html">util.config_chain_01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/util.config_chain_simple.html">util.config_chain_simple</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -216,6 +235,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_hierarchical_netlist.html">Visualise Hierarchical Netlist</a></li>
@@ -234,6 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -284,29 +305,152 @@
 <span id="id1"></span><h1>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<section id="helper-methods">
+<h3>Helper methods<a class="headerlink" href="#helper-methods" title="Permalink to this headline">¶</a></h3>
 <div class="table-wrapper"><table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%"/>
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/spydrnet_physical.util.get_names.html#spydrnet_physical.util.get_names" title="spydrnet_physical.util.get_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_names</span></code></a>(objects)</p></td>
-<td><p>Returns name propperty of the object (it the object contains name property)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.get_names.html#util.get_names" title="util.get_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_names</span></code></a>(objects)</p></td>
+<td><p>Returns name name of the verilog object (if the it contains name property)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/spydrnet_physical.util.get_attr.html#spydrnet_physical.util.get_attr" title="spydrnet_physical.util.get_attr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_attr</span></code></a>(objects, attr)</p></td>
-<td><p>Returns specific attribute of the object</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.get_attr.html#util.get_attr" title="util.get_attr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_attr</span></code></a>(objects, attr)</p></td>
+<td><p>Returns specific attribute from the properties of the object</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/spydrnet_physical.util.ConnectPoint.html#spydrnet_physical.util.ConnectPoint" title="spydrnet_physical.util.ConnectPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConnectPoint</span></code></a>(from_x, from_y, to_x, to_y[, ...])</p></td>
-<td><p>This class stores information of each connection made in the grid.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/spydrnet_physical.util.ConnectPointList.html#spydrnet_physical.util.ConnectPointList" title="spydrnet_physical.util.ConnectPointList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConnectPointList</span></code></a>([sizex, sizey, point])</p></td>
-<td><p>This stores list of connection points</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/spydrnet_physical.util.ConnectionPattern.html#spydrnet_physical.util.ConnectionPattern" title="spydrnet_physical.util.ConnectionPattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConnectionPattern</span></code></a>(sizex, sizey)</p></td>
-<td><p>This creates a connection patterns (<cite>ConnectPointList</cite>) based on pre-defined rule</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.GridFloorplanGen.html#util.GridFloorplanGen" title="util.GridFloorplanGen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GridFloorplanGen</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table></div>
+</section>
+<section id="connectivity-pattern-generation">
+<h3>Connectivity Pattern Generation<a class="headerlink" href="#connectivity-pattern-generation" title="Permalink to this headline">¶</a></h3>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.ConnectPoint.html#util.ConnectPoint" title="util.ConnectPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConnectPoint</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.ConnectPointList.html#util.ConnectPointList" title="util.ConnectPointList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConnectPointList</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.ConnectionPattern.html#util.ConnectionPattern" title="util.ConnectionPattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConnectionPattern</span></code></a></p></td>
+<td><p>This file creates different connection patterns for connectivity</p></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="openfpga-helper-classes">
+<h3>OpenFPGA Helper Classes<a class="headerlink" href="#openfpga-helper-classes" title="Permalink to this headline">¶</a></h3>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.OpenFPGA.html#util.OpenFPGA" title="util.OpenFPGA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpenFPGA</span></code></a>(grid, netlist[, library, ...])</p></td>
+<td><p>This is top-level clas of OpenFPGa which provides methods for different generic netlist restructuring</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.FPGAGridGen.html#util.FPGAGridGen" title="util.FPGAGridGen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FPGAGridGen</span></code></a></p></td>
+<td><p>FPGAGridGen</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.initial_placement.html#util.initial_placement" title="util.initial_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initial_placement</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="openfpga-class-templates">
+<h3>OpenFPGA Class Templates<a class="headerlink" href="#openfpga-class-templates" title="Permalink to this headline">¶</a></h3>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.OpenFPGA_Config_Generator.html#util.OpenFPGA_Config_Generator" title="util.OpenFPGA_Config_Generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpenFPGA_Config_Generator</span></code></a>(grid, netlist, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.OpenFPGA_Placement_Generator.html#util.OpenFPGA_Placement_Generator" title="util.OpenFPGA_Placement_Generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpenFPGA_Placement_Generator</span></code></a>(grid_size, ...)</p></td>
+<td><p>Template class to create OpenFPGA Placement generator</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.OpenFPGA_Tile_Generator.html#util.OpenFPGA_Tile_Generator" title="util.OpenFPGA_Tile_Generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpenFPGA_Tile_Generator</span></code></a>(grid, netlist, ...)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="rendering-and-visualization">
+<h3>Rendering and Visualization<a class="headerlink" href="#rendering-and-visualization" title="Permalink to this headline">¶</a></h3>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.FloorPlanViz.html#util.FloorPlanViz" title="util.FloorPlanViz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FloorPlanViz</span></code></a>(definition[, viewbox])</p></td>
+<td><p>Implmenetation of SVG Visualiser <a class="reference external" href="reference/visualization/floorplan_visualizer.rst">floorplan_visualizer</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.RoutingRender.html#util.RoutingRender" title="util.RoutingRender"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RoutingRender</span></code></a>(name, gsb_xml[, scale, spacing])</p></td>
+<td><p>This class illustrates the FPGA switch box and connection box based on the given GSB xml files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.cb_renderer.html#util.cb_renderer" title="util.cb_renderer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cb_renderer</span></code></a>(name, gsb_xml[, scale, spacing])</p></td>
+<td><p>This class renders the conenction box information</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.sb_renderer.html#util.sb_renderer" title="util.sb_renderer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sb_renderer</span></code></a>(name, gsb_xml[, scale, spacing])</p></td>
+<td><p>Renders the switch box information from GSB (Generic Switch Box) file</p></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="graph-generation-and-partitioning">
+<h3>Graph Generation and Partitioning<a class="headerlink" href="#graph-generation-and-partitioning" title="Permalink to this headline">¶</a></h3>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.prepare_graph_from_nx.html#util.prepare_graph_from_nx" title="util.prepare_graph_from_nx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_graph_from_nx</span></code></a>(graph)</p></td>
+<td><p>This definition converts networkx graph to xadj, adjncy, eweights data structures</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.write_metis_graph.html#util.write_metis_graph" title="util.write_metis_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_metis_graph</span></code></a>(graph[, eweights, ...])</p></td>
+<td><p>This definition write the given netowrkx graph in CSR format for metis</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.run_metis.html#util.run_metis" title="util.run_metis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_metis</span></code></a>(filename, cuts[, options])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="fpga-tiling-related">
+<h3>FPGA Tiling Related<a class="headerlink" href="#fpga-tiling-related" title="Permalink to this headline">¶</a></h3>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.OpenFPGA_Arch.html#util.OpenFPGA_Arch" title="util.OpenFPGA_Arch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpenFPGA_Arch</span></code></a>(vpr_arch, openfpga_arch, layout)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.Tile01.html#util.Tile01" title="util.Tile01"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tile01</span></code></a>(grid, netlist, library, top_module)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/util.config_chain_01.html#util.config_chain_01" title="util.config_chain_01"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_chain_01</span></code></a>(grid, netlist, library, ...)</p></td>
+<td><p>This example demonstrate how configuration chain can be restructured after the tile tranformation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/util.config_chain_simple.html#util.config_chain_simple" title="util.config_chain_simple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_chain_simple</span></code></a>(grid, netlist, library, ...)</p></td>
+<td><p>This shows how the configuration chain can be built</p></td>
+</tr>
+</tbody>
+</table></div>
+</section>
 </section>
 </section>
 
@@ -315,12 +459,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="generated/spydrnet_physical.util.get_names.html">
+          <a class="next-page" href="generated/util.get_names.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">spydrnet_physical.util.get_names</div>
+                <div class="title">util.get_names</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -364,7 +508,16 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Utility Functions</a><ul>
-<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#overview">Overview</a><ul>
+<li><a class="reference internal" href="#helper-methods">Helper methods</a></li>
+<li><a class="reference internal" href="#connectivity-pattern-generation">Connectivity Pattern Generation</a></li>
+<li><a class="reference internal" href="#openfpga-helper-classes">OpenFPGA Helper Classes</a></li>
+<li><a class="reference internal" href="#openfpga-class-templates">OpenFPGA Class Templates</a></li>
+<li><a class="reference internal" href="#rendering-and-visualization">Rendering and Visualization</a></li>
+<li><a class="reference internal" href="#graph-generation-and-partitioning">Graph Generation and Partitioning</a></li>
+<li><a class="reference internal" href="#fpga-tiling-related">FPGA Tiling Related</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

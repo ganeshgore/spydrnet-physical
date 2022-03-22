@@ -3,12 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Renaming Homogeneous FPGA Modules" href="rename_modules.html" /><link rel="prev" title="FPGA Instance to Layout mapping" href="05_fpga_instance_name.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Grid Floorplan Generator" href="08_grid_floor_plan_example.html" /><link rel="prev" title="FPGA Instance to Layout mapping" href="05_fpga_instance_name.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Render Placement information from Verilog netlist - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
@@ -178,11 +179,29 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.get_names.html">spydrnet_physical.util.get_names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.ConnectPoint.html">spydrnet_physical.util.ConnectPoint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.ConnectPointList.html">spydrnet_physical.util.ConnectPointList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.ConnectionPattern.html">spydrnet_physical.util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_names.html">util.get_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.initial_placement.html">util.initial_placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.FloorPlanViz.html">util.FloorPlanViz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.RoutingRender.html">util.RoutingRender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.cb_renderer.html">util.cb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.sb_renderer.html">util.sb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.prepare_graph_from_nx.html">util.prepare_graph_from_nx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.write_metis_graph.html">util.write_metis_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.run_metis.html">util.run_metis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Arch.html">util.OpenFPGA_Arch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.Tile01.html">util.Tile01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.config_chain_01.html">util.config_chain_01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.config_chain_simple.html">util.config_chain_simple</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -216,6 +235,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_hierarchical_netlist.html">Visualise Hierarchical Netlist</a></li>
@@ -234,6 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -293,82 +314,33 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 <p>This script can be used for shaping and placement of the modules before place and route.</p>
 <a class="reference internal image-reference" href="../../_images/_design_floorplan.svg"><img alt="../../_images/_design_floorplan.svg" class="align-center" src="../../_images/_design_floorplan.svg" width="70%"/></a>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{'LOC_X': 296, 'LOC_Y': 296}
-{'LOC_X': 296, 'LOC_Y': 696}
-{'LOC_X': 296, 'LOC_Y': 1096}
-{'LOC_X': 296, 'LOC_Y': 1496}
-{'LOC_X': 696, 'LOC_Y': 296}
-{'LOC_X': 696, 'LOC_Y': 696}
-{'LOC_X': 696, 'LOC_Y': 1096}
-{'LOC_X': 696, 'LOC_Y': 1496}
-{'LOC_X': 1096, 'LOC_Y': 296}
-{'LOC_X': 1096, 'LOC_Y': 696}
-{'LOC_X': 1096, 'LOC_Y': 1096}
-{'LOC_X': 1096, 'LOC_Y': 1496}
-{'LOC_X': 1496, 'LOC_Y': 296}
-{'LOC_X': 1496, 'LOC_Y': 696}
-{'LOC_X': 1496, 'LOC_Y': 1096}
-{'LOC_X': 1496, 'LOC_Y': 1496}
-{'LOC_X': 296, 'LOC_Y': 496}
-{'LOC_X': 296, 'LOC_Y': 896}
-{'LOC_X': 296, 'LOC_Y': 1296}
-{'LOC_X': 696, 'LOC_Y': 496}
-{'LOC_X': 696, 'LOC_Y': 896}
-{'LOC_X': 696, 'LOC_Y': 1296}
-{'LOC_X': 1096, 'LOC_Y': 496}
-{'LOC_X': 1096, 'LOC_Y': 896}
-{'LOC_X': 1096, 'LOC_Y': 1296}
-{'LOC_X': 1496, 'LOC_Y': 496}
-{'LOC_X': 1496, 'LOC_Y': 896}
-{'LOC_X': 1496, 'LOC_Y': 1296}
-{'LOC_X': 496, 'LOC_Y': 296.0}
-{'LOC_X': 496, 'LOC_Y': 696.0}
-{'LOC_X': 496, 'LOC_Y': 1096.0}
-{'LOC_X': 496, 'LOC_Y': 1496.0}
-{'LOC_X': 896, 'LOC_Y': 296.0}
-{'LOC_X': 896, 'LOC_Y': 696.0}
-{'LOC_X': 896, 'LOC_Y': 1096.0}
-{'LOC_X': 896, 'LOC_Y': 1496.0}
-{'LOC_X': 1296, 'LOC_Y': 296.0}
-{'LOC_X': 1296, 'LOC_Y': 696.0}
-{'LOC_X': 1296, 'LOC_Y': 1096.0}
-{'LOC_X': 1296, 'LOC_Y': 1496.0}
-              MODULE             INSTANCE LOC_X LOC_Y WIDTH HEIGHT
- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-            sb_0__0_             sb_0__0_    96    96   200   200
-            sb_0__1_             sb_0__1_    96   496   200   200
-            sb_0__2_             sb_0__1_    96   896   200   200
-            sb_0__3_             sb_0__1_    96  1296   200   200
-            sb_0__4_             sb_0__4_    96  1696   200   200
-           cby_0__1_            cby_0__1_    96   296   200   200
-           cby_0__2_            cby_0__1_    96   696   200   200
-           cby_0__3_            cby_0__1_    96  1096   200   200
-           cby_0__4_            cby_0__1_    96  1496   200   200
-= = = = = = = = = = = = = = = = = = = =
-= = = = = =  DESIGN STATS = = = = = = =
-= = = = = = = = = = = = = = = = = = = =
-    top_module : fpga_top
-    definitions: 16
-    instances  : 81
-= = = = = = = = = = = = = = = = = = = =
-          References    count
-- - - - - - - - - - - - - - - - - - - -
-           cbx_1__0_        4
-           cbx_1__1_       12
-           cbx_1__4_        4
-           cby_0__1_        4
-           cby_1__1_       12
-           cby_4__1_        4
-            grid_clb       16
-            sb_0__0_        1
-            sb_0__1_        3
-            sb_0__4_        1
-            sb_1__0_        3
-            sb_1__1_        9
-            sb_1__4_        3
-            sb_4__0_        1
-            sb_4__1_        3
-            sb_4__4_        1
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>           INSTANCE               MODULE LOC_X LOC_Y WIDTH HEIGHT    SHAPE               POINTS
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+           sb_0__0_             sb_0__0_     0     0    50    50    RectL     104 000 24.0 104 24.0 000
+           sb_0__1_             sb_0__1_     0   280    50    50    RectL     104 000 24.0 104 24.0 24.0
+           sb_0__2_             sb_0__1_     0   584    50    50    RectL     104 000 24.0 104 24.0 24.0
+           sb_0__3_             sb_0__1_     0   888    50    50    RectL     104 000 24.0 104 24.0 24.0
+           sb_0__4_             sb_0__4_     0  1192    50    50    RectL     104 000 000 104 24.0 24.0
+           sb_1__0_             sb_1__0_   280     0    50    50    RectL     104 24.0 24.0 104 24.0 000
+           sb_2__0_             sb_1__0_   584     0    50    50    RectL     104 24.0 24.0 104 24.0 000
+           sb_3__0_             sb_1__0_   888     0    50    50    RectL     104 24.0 24.0 104 24.0 000
+           sb_1__1_             sb_1__1_   280   280    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_1__2_             sb_1__1_   280   584    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_1__3_             sb_1__1_   280   888    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_2__1_             sb_1__1_   584   280    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_2__2_             sb_1__1_   584   584    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_2__3_             sb_1__1_   584   888    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_3__1_             sb_1__1_   888   280    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_3__2_             sb_1__1_   888   584    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_3__3_             sb_1__1_   888   888    50    50    RectL     104 24.0 24.0 104 24.0 24.0
+           sb_1__4_             sb_1__4_   280  1192    50    50    RectL     104 24.0 000 104 24.0 24.0
+           sb_2__4_             sb_1__4_   584  1192    50    50    RectL     104 24.0 000 104 24.0 24.0
+           sb_3__4_             sb_1__4_   888  1192    50    50    RectL     104 24.0 000 104 24.0 24.0
+           sb_4__0_             sb_4__0_  1192     0    50    50    RectL     104 24.0 24.0 104 000 000
+           sb_4__1_             sb_4__1_  1192   280    50    50    RectL     104 24.0 24.0 104 000 24.0
+           sb_4__2_             sb_4__1_  1192   584    50    50    RectL     104 24.0 24.0 104 000 24.0
+           sb_4__3_             sb_4__1_  1192   888    50    50    RectL     104 24.0 24.0 104 000 24.0
+           sb_4__4_             sb_4__4_  1192  1192    50    50    RectL     104 24.0 000 104 000 24.0
 </pre></div>
 </div>
 <div class="line-block">
@@ -380,8 +352,9 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 <span class="kn">import</span> <span class="nn">tempfile</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">initial_placement</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util.get_floorplan</span> <span class="kn">import</span> <span class="n">FloorPlanViz</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">FloorPlanViz</span><span class="p">,</span> <span class="n">FPGAGridGen</span><span class="p">,</span>
+                                    <span class="n">GridFloorplanGen</span><span class="p">,</span> <span class="n">OpenFPGA</span><span class="p">,</span>
+                                    <span class="n">initial_placement</span><span class="p">)</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
@@ -389,10 +362,10 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 <span class="n">PROP</span> <span class="o">=</span> <span class="s2">"VERILOG.InlineConstraints"</span>
 
 
-<span class="n">CBX_COLOR</span> <span class="o">=</span> <span class="s1">'#ceefe4'</span>
+<span class="n">CBX_COLOR</span> <span class="o">=</span> <span class="s1">'#d9d9f3'</span>
 <span class="n">CBY_COLOR</span> <span class="o">=</span> <span class="s1">'#a8d0db'</span>
 <span class="n">SB_COLOR</span> <span class="o">=</span> <span class="s1">'#ceefe4'</span>
-<span class="n">GRID_COLOR</span> <span class="o">=</span> <span class="s1">'#f4f0e6'</span>
+<span class="n">GRID_COLOR</span> <span class="o">=</span> <span class="s1">'#ddd0b1'</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -424,52 +397,71 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">initial_placement</span><span class="p">,</span>
                                     <span class="n">areaFile</span><span class="o">=</span><span class="s1">'area_info.txt'</span><span class="p">)</span>
+    <span class="n">fpga_grid</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">'FPGA4x4'</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"4x4"</span><span class="p">,</span>
+                            <span class="n">arch_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/FPGA44_Task/arch/k6_N10_tileable.xml"</span><span class="p">,</span>
+                            <span class="n">release_root</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">fpga_grid</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">load_grid</span><span class="p">(</span><span class="n">fpga_grid</span><span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">create_placement</span><span class="p">()</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span>
+
+    <span class="c1"># Create grid plan</span>
+    <span class="n">grid_plan</span> <span class="o">=</span> <span class="n">GridFloorplanGen</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">grid_x</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">grid_y</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">grid_plan</span><span class="o">.</span><span class="n">set_column_width</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">CLB_W</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">grid_plan</span><span class="o">.</span><span class="n">set_row_height</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">CLB_H</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">grid_plan</span><span class="o">.</span><span class="n">set_column_width</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">CLB_GRID_X</span><span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">CLB_W</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">grid_plan</span><span class="o">.</span><span class="n">set_row_height</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">CLB_GRID_Y</span><span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">CLB_H</span><span class="p">)</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># dwg = grid_plan.render_grid()</span>
+    <span class="c1"># dwg.saveas("_fpga_grid_floorplan.svg", pretty=True, indent=4)</span>
+
+    <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="n">X_OFFSET</span><span class="p">,</span> <span class="n">Y_OFFSET</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="n">inst_name</span> <span class="o">=</span> <span class="n">fpga_grid</span><span class="o">.</span><span class="n">get_top_instance</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">grid_plan</span><span class="o">.</span><span class="n">get_x_y</span><span class="p">(</span><span class="n">xi</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">yi</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">inst</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"*</span><span class="si">{</span><span class="n">inst_name</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
+            <span class="k">if</span> <span class="s2">"cbx"</span> <span class="ow">in</span> <span class="n">inst_name</span><span class="p">:</span>
+                <span class="n">X_OFFSET</span><span class="p">,</span> <span class="n">Y_OFFSET</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">CLB_W</span><span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">CBX_W</span><span class="p">),</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="s2">"cby"</span> <span class="ow">in</span> <span class="n">inst_name</span><span class="p">:</span>
+                <span class="n">X_OFFSET</span><span class="p">,</span> <span class="n">Y_OFFSET</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">CLB_H</span><span class="o">-</span><span class="n">p</span><span class="o">.</span><span class="n">CBY_H</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">"sb"</span> <span class="ow">in</span> <span class="n">inst_name</span><span class="p">:</span>
+                <span class="n">PTS</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">]</span>
+                <span class="n">X_OFFSET</span><span class="p">,</span> <span class="n">Y_OFFSET</span> <span class="o">=</span> <span class="n">PTS</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*-</span><span class="mi">1</span><span class="p">,</span> <span class="n">PTS</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*-</span><span class="mi">1</span>
+            <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s1">'LOC_X'</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">X_OFFSET</span>
+            <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s1">'LOC_Y'</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Y_OFFSET</span>
 
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="c1">#           Adjust Floorplan</span>
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="n">cbx11</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"cbx_1__1_"</span><span class="p">))</span>
-    <span class="n">cbx11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-    <span class="n">cbx11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"WIDTH"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span>
-    <span class="n">cbx11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"COLOR"</span><span class="p">]</span> <span class="o">=</span> <span class="n">CBX_COLOR</span>
+    <span class="k">for</span> <span class="n">cbx</span> <span class="ow">in</span> <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"cbx_*"</span><span class="p">):</span>
+        <span class="n">cbx</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"COLOR"</span><span class="p">]</span> <span class="o">=</span> <span class="n">CBX_COLOR</span>
 
-    <span class="n">cby11</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"cby_1__1_"</span><span class="p">))</span>
-    <span class="n">cby11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span>
-    <span class="n">cby11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"WIDTH"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-    <span class="n">cby11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"COLOR"</span><span class="p">]</span> <span class="o">=</span> <span class="n">CBY_COLOR</span>
+    <span class="k">for</span> <span class="n">cby</span> <span class="ow">in</span> <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"cby_*"</span><span class="p">):</span>
+        <span class="n">cby</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"COLOR"</span><span class="p">]</span> <span class="o">=</span> <span class="n">CBY_COLOR</span>
 
-    <span class="n">sb11</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"sb_1__1_"</span><span class="p">))</span>
-    <span class="n">sb11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"SHAPE"</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'RectL'</span>
-    <span class="n">sb11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
-    <span class="n">sb11</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"COLOR"</span><span class="p">]</span> <span class="o">=</span> <span class="n">SB_COLOR</span>
+    <span class="k">for</span> <span class="n">sb</span> <span class="ow">in</span> <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"sb_*"</span><span class="p">):</span>
+        <span class="n">sb</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"COLOR"</span><span class="p">]</span> <span class="o">=</span> <span class="n">SB_COLOR</span>
 
     <span class="n">clb</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"grid_clb"</span><span class="p">))</span>
-    <span class="n">clb</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">300</span>
-    <span class="n">clb</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"WIDTH"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">300</span>
     <span class="n">clb</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"COLOR"</span><span class="p">]</span> <span class="o">=</span> <span class="n">GRID_COLOR</span>
 
-    <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">each</span><span class="o">.</span><span class="n">reference</span> <span class="ow">is</span> <span class="n">cbx11</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">])</span>
-            <span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"LOC_X"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">0</span>
-            <span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"LOC_Y"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">50</span>
-        <span class="k">if</span> <span class="n">each</span><span class="o">.</span><span class="n">reference</span> <span class="ow">is</span> <span class="n">cby11</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">])</span>
-            <span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"LOC_X"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">50</span>
-            <span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"LOC_Y"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="n">each</span><span class="o">.</span><span class="n">reference</span> <span class="ow">is</span> <span class="n">clb</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">])</span>
-            <span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"LOC_X"</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">50</span>
-            <span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"LOC_Y"</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">50</span>
-
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="s2">"*_0__*"</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="s2">"sb_*"</span><span class="p">)</span>
+    <span class="c1"># fpga.design_top_stat()</span>
 
     <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="p">)</span>
     <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">grid_plan</span><span class="o">.</span><span class="n">render_grid</span><span class="p">(</span><span class="n">return_group</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_design_floorplan.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
@@ -477,7 +469,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.859 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.041 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-06-floorplandesign01-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b905ecece6f4059017f2ebcd36f7d906/06_FloorplanDesign01.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">06_FloorplanDesign01.py</span></code></a></p>
@@ -494,12 +486,12 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="rename_modules.html">
+          <a class="next-page" href="08_grid_floor_plan_example.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Renaming Homogeneous FPGA Modules</div>
+                <div class="title">Grid Floorplan Generator</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

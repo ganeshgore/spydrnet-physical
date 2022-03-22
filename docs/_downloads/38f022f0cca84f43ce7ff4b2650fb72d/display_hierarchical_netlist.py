@@ -19,6 +19,8 @@ a given scalar or vector wires.
 
 `Open schematic in separate window </_images/_initial_design.html>`_
 
+The renderer is used from this project `Nic30/d3-hwschematic <https://github.com/Nic30/d3-hwschematic>`_
+
 """
 from os import path
 import spydrnet as sdn

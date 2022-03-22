@@ -9,6 +9,7 @@
         <title>FloorPlan Visualizer - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
@@ -178,11 +179,29 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.get_names.html">spydrnet_physical.util.get_names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.ConnectPoint.html">spydrnet_physical.util.ConnectPoint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.ConnectPointList.html">spydrnet_physical.util.ConnectPointList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utility/generated/spydrnet_physical.util.ConnectionPattern.html">spydrnet_physical.util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.get_names.html">util.get_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.initial_placement.html">util.initial_placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.FloorPlanViz.html">util.FloorPlanViz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.RoutingRender.html">util.RoutingRender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.cb_renderer.html">util.cb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.sb_renderer.html">util.sb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.prepare_graph_from_nx.html">util.prepare_graph_from_nx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.write_metis_graph.html">util.write_metis_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.run_metis.html">util.run_metis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA_Arch.html">util.OpenFPGA_Arch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.Tile01.html">util.Tile01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.config_chain_01.html">util.config_chain_01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.config_chain_simple.html">util.config_chain_simple</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Visualization and Floorplanning</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -216,6 +235,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_hierarchical_netlist.html">Visualise Hierarchical Netlist</a></li>
@@ -234,6 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga/clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -293,7 +314,7 @@ all the edges are connected from point to point.</p>
 <p><code class="docutils literal notranslate"><span class="pre">WIDTH</span></code> and <code class="docutils literal notranslate"><span class="pre">HEIGHT</span></code> = The rectangular dimension of the module (if Shape is <cite>Rect</cite>)</p>
 <p><code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code> , <code class="docutils literal notranslate"><span class="pre">C</span></code> , <code class="docutils literal notranslate"><span class="pre">D</span></code> , <code class="docutils literal notranslate"><span class="pre">E</span></code>, <code class="docutils literal notranslate"><span class="pre">F</span></code>  =
 Dimensions of the rectilinear block (if shape is <cite>RectL</cite>)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            d
+<div class="ascii highlight-default notranslate"><div class="highlight"><pre><span></span>            d
         ┌──────────┐
         │          │
        c│          │
@@ -307,7 +328,7 @@ a│           0            │
        f│          │
         │          │
         └──────────┘
-      RectL Shape
+        RectL Shape
 </pre></div>
 </div>
 <p><strong>On Instances</strong></p>
@@ -320,6 +341,25 @@ Optional and valid only when shape in RectL [left/right/bottom/top]</p>
 <p><code class="docutils literal notranslate"><span class="pre">OFFSET</span></code>:
 Offset from the origin of that side
 First point on respective side in clockwise direction is considered as origin</p>
+<div class="ascii highlight-default notranslate"><div class="highlight"><pre><span></span>                   top/top
+                 ┌──────────┐
+        top/left │          | top/right
+                 │          │
+       left/top  │          │ right/top
+          ┌──────┘          └──────┐
+          │                        │
+left/left │           0            │ right/right
+          │                        │
+          └──────┐          ┌──────┘
+    left/bottom  │          │ right/bottom
+                 │          │
+     bottom/left │          | bottom/right
+                 └──────────┘
+                bottom/bottom
+
+    Representing SIDE/SIDE2 parameters
+</pre></div>
+</div>
 <p><strong>TODO</strong> Add Some sort of a cordinate transformation which scaleX and scaleY.
 All the inputs are in mutliple of SC_HEIGHT and SC_WIDTH, default value
 of these variables is set to 1</p>
@@ -328,11 +368,40 @@ of these variables is set to 1</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.util.</span></span><span class="sig-name descname"><span class="pre">FloorPlanViz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viewbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1000,</span> <span class="pre">1000)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implmenetation of SVG Visualiser</p>
+<dd><p>Implmenetation of SVG Visualiser <a class="reference external" href="reference/visualization/floorplan_visualizer.rst">floorplan_visualizer</a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.custom_style_sheet">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">custom_style_sheet</span></span><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.custom_style_sheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return custom styles added in this visualiazer</p>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.compose">
-<span class="sig-name descname"><span class="pre">compose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">skip_connections=False</span></em>, <em class="sig-param"><span class="pre">skip_pins=False</span></em>, <em class="sig-param"><span class="pre">filter_cables=&lt;function</span> <span class="pre">FloorPlanViz.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.compose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.compose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Entry point to generate SVG</p>
+<span class="sig-name descname"><span class="pre">compose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">skip_connections=False</span></em>, <em class="sig-param"><span class="pre">skip_pins=False</span></em>, <em class="sig-param"><span class="pre">filter_cables=&lt;function</span> <span class="pre">FloorPlanViz.&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">svgwrite.drawing.Drawing</span></span></span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.compose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.compose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entry point to generate final SVG file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>skip_connections</strong> (<em>bool</em>) – Skip rednering connections beetween modules</p></li>
+<li><p><strong>skip_pins</strong> (<em>bool</em>) – Skip rendering modules pins</p></li>
+<li><p><strong>filter_cables</strong> (<em>Callable</em>) – A callable function which filters the connections to redner</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.add_top_block">
+<span class="sig-name descname"><span class="pre">add_top_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.add_top_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.add_top_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds top level block in the design</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.add_symbol">
+<span class="sig-name descname"><span class="pre">add_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.add_symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.add_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts symbols in the SVG file</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.add_block">
+<span class="sig-name descname"><span class="pre">add_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_floorplan.html#FloorPlanViz.add_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.FloorPlanViz.add_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over each instance and adds them in SVG file</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.util.FloorPlanViz.add_stylehseet">

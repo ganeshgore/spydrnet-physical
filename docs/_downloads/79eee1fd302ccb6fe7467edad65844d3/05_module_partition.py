@@ -15,27 +15,27 @@ And partition modules are placed in ``cbx_1__1__0.v`` and ``cbx_1__1__1.v``
 
 """
 
+import fnmatch as fn
 import glob
+import json
 import logging
 import tempfile
-import json
-import fnmatch as fn
 from os import path
 from pathlib import Path
+from pprint import pprint
+
+import matplotlib.pyplot as plt
+import networkx as nx
+import pydot
+import spydrnet as sdn
 from networkx.classes.function import nodes
+from networkx.drawing.nx_pydot import to_pydot
 from networkx.readwrite import json_graph
 from networkx.relabel import convert_node_labels_to_integers
-
-import networkx as nx
-import matplotlib.pyplot as plt
-import pydot
 from sklearn import cluster
-import spydrnet as sdn
-from pprint import pprint
+from spydrnet_physical.util import (OpenFPGA, get_names, run_metis,
+                                    write_metis_graph)
 from spydrnet_physical.util.shell import launch_shell
-from spydrnet_physical.util import get_names
-from networkx.drawing.nx_pydot import to_pydot
-from spydrnet_physical.util import (OpenFPGA, run_metis, write_metis_graph)
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="module_partition")
@@ -103,8 +103,8 @@ def main():
             cuts = 2
 
         save_graph(f"_{module.name}_graph_pre", graph=graph)
-        json.dump(json_graph.node_link_data(graph),
-                  open(f"_{module.name}_graph.json", 'w'), indent=6)
+        # json.dump(json_graph.node_link_data(graph),
+        #           open(f"_{module.name}_graph.json", 'w'), indent=6)
 
         vweights = nx.get_node_attributes(graph, "weight")
 

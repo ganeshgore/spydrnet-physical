@@ -9,6 +9,7 @@
         <title>Computation times - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
@@ -178,11 +179,29 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.get_names.html">spydrnet_physical.util.get_names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.get_attr.html">spydrnet_physical.util.get_attr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.ConnectPoint.html">spydrnet_physical.util.ConnectPoint</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.ConnectPointList.html">spydrnet_physical.util.ConnectPointList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/spydrnet_physical.util.ConnectionPattern.html">spydrnet_physical.util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_names.html">util.get_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.initial_placement.html">util.initial_placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.FloorPlanViz.html">util.FloorPlanViz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.RoutingRender.html">util.RoutingRender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.cb_renderer.html">util.cb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.sb_renderer.html">util.sb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.prepare_graph_from_nx.html">util.prepare_graph_from_nx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.write_metis_graph.html">util.write_metis_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.run_metis.html">util.run_metis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Arch.html">util.OpenFPGA_Arch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.Tile01.html">util.Tile01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.config_chain_01.html">util.config_chain_01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.config_chain_simple.html">util.config_chain_simple</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -216,6 +235,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../auto_sample_verilog/square_grid.html">square_grid</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_hierarchical_netlist.html">Visualise Hierarchical Netlist</a></li>
@@ -234,6 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -282,7 +303,7 @@
         <article role="main">
           <section id="computation-times">
 <span id="sphx-glr-auto-openfpga-basic-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>00:11.087</strong> total execution time for <strong>auto_openfpga_basic</strong> files:</p>
+<p><strong>00:11.779</strong> total execution time for <strong>auto_openfpga_basic</strong> files:</p>
 <div class="table-wrapper"><table class="docutils align-default">
 <colgroup>
 <col style="width: 84%"/>
@@ -291,30 +312,34 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="03_initial_placement.html#sphx-glr-auto-openfpga-basic-03-initial-placement-py"><span class="std std-ref">Render Placement information from Verilog netlist</span></a> (<code class="docutils literal notranslate"><span class="pre">03_initial_placement.py</span></code>)</p></td>
-<td><p>00:02.960</p></td>
+<td><p>00:03.146</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="06_FloorplanDesign01.html#sphx-glr-auto-openfpga-basic-06-floorplandesign01-py"><span class="std std-ref">Render Placement information from Verilog netlist</span></a> (<code class="docutils literal notranslate"><span class="pre">06_FloorplanDesign01.py</span></code>)</p></td>
-<td><p>00:02.859</p></td>
+<td><p>00:03.041</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="02_fpga_basic_elements.html#sphx-glr-auto-openfpga-basic-02-fpga-basic-elements-py"><span class="std std-ref">Render FPGA Basic Elements</span></a> (<code class="docutils literal notranslate"><span class="pre">02_fpga_basic_elements.py</span></code>)</p></td>
-<td><p>00:02.711</p></td>
+<td><p>00:02.863</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="05_fpga_instance_name.html#sphx-glr-auto-openfpga-basic-05-fpga-instance-name-py"><span class="std std-ref">FPGA Instance to Layout mapping</span></a> (<code class="docutils literal notranslate"><span class="pre">05_fpga_instance_name.py</span></code>)</p></td>
-<td><p>00:02.550</p></td>
+<td><p>00:02.717</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="04_fpga_grid_generation.html#sphx-glr-auto-openfpga-basic-04-fpga-grid-generation-py"><span class="std std-ref">FPGA Layout grid generation</span></a> (<code class="docutils literal notranslate"><span class="pre">04_fpga_grid_generation.py</span></code>)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="08_grid_floor_plan_example.html#sphx-glr-auto-openfpga-basic-08-grid-floor-plan-example-py"><span class="std std-ref">Grid Floorplan Generator</span></a> (<code class="docutils literal notranslate"><span class="pre">08_grid_floor_plan_example.py</span></code>)</p></td>
+<td><p>00:00.004</p></td>
+<td><p>0.0 MB</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="04_fpga_grid_generation.html#sphx-glr-auto-openfpga-basic-04-fpga-grid-generation-py"><span class="std std-ref">FPGA Layout grid generation</span></a> (<code class="docutils literal notranslate"><span class="pre">04_fpga_grid_generation.py</span></code>)</p></td>
 <td><p>00:00.003</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="01_fpga_arch_parse.html#sphx-glr-auto-openfpga-basic-01-fpga-arch-parse-py"><span class="std std-ref">OpenFPGA Architecture Parsing</span></a> (<code class="docutils literal notranslate"><span class="pre">01_fpga_arch_parse.py</span></code>)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="01_fpga_arch_parse.html#sphx-glr-auto-openfpga-basic-01-fpga-arch-parse-py"><span class="std std-ref">OpenFPGA Architecture Parsing</span></a> (<code class="docutils literal notranslate"><span class="pre">01_fpga_arch_parse.py</span></code>)</p></td>
 <td><p>00:00.002</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="rename_modules.html#sphx-glr-auto-openfpga-basic-rename-modules-py"><span class="std std-ref">Renaming Homogeneous FPGA Modules</span></a> (<code class="docutils literal notranslate"><span class="pre">rename_modules.py</span></code>)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="rename_modules.html#sphx-glr-auto-openfpga-basic-rename-modules-py"><span class="std std-ref">Renaming Homogeneous FPGA Modules</span></a> (<code class="docutils literal notranslate"><span class="pre">rename_modules.py</span></code>)</p></td>
 <td><p>00:00.001</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
