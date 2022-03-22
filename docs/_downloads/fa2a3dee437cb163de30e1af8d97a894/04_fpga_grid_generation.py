@@ -1,6 +1,6 @@
 """
 ===========================
-FPGA Layout grid generation 
+FPGA Layout grid generation
 ===========================
 
 This class generates the 2D matrix of the FPGA grid.
@@ -29,6 +29,13 @@ This class generates the 2D matrix of the FPGA grid.
     io_left     clb        clb        clb        clb        clb        clb      io_right
     EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
 
+
+.. literalinclude:: ../../../../examples/OpenFPGA/basic/_complete_grid_metrics.txt
+
+
+.. literalinclude:: ../../../../examples/OpenFPGA/basic/_complete_metrics.txt
+
+
 """
 
 import logging
@@ -44,9 +51,25 @@ def main():
     fpga = FPGAGridGen(design_name="example_design",
                        arch_file="./support_files/vpr_arch_render_demo.xml",
                        release_root="_release",
-                       layout="ultimate")
+                       layout="dp")
     fpga.enumerate_grid()
+    # Print CLB Grid
     fpga.print_grid()
+
+    # Complete Matrics
+    with open("_complete_grid_metrics.txt", "w") as fp:
+        for y in range(fpga.height-1, -1, -1):
+            for x in range(fpga.width):
+                fp.write("{0:^18}".format("[%s]" % " ".join(
+                    map(str, fpga.get_block(x, y)))))
+            fp.write("\n")
+
+    # Complete metrics
+    with open("_complete_metrics.txt", "w") as fp:
+        for y in range(2*(fpga.height-1), -1, -1):
+            for x in range((fpga.width*2)-1):
+                fp.write(" {0:^12} ".format(fpga.get_top_instance(x, y)))
+            fp.write("\n")
 
 
 if __name__ == "__main__":

@@ -19,7 +19,7 @@
 
 
 ===========================
-FPGA Layout grid generation 
+FPGA Layout grid generation
 ===========================
 
 This class generates the 2D matrix of the FPGA grid.
@@ -48,7 +48,13 @@ This class generates the 2D matrix of the FPGA grid.
     io_left     clb        clb        clb        clb        clb        clb      io_right
     EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-54
+
+.. literalinclude:: ../../../../examples/OpenFPGA/basic/_complete_grid_metrics.txt
+
+
+.. literalinclude:: ../../../../examples/OpenFPGA/basic/_complete_metrics.txt
+
+.. GENERATED FROM PYTHON SOURCE LINES 40-77
 
 
 
@@ -59,26 +65,14 @@ This class generates the 2D matrix of the FPGA grid.
 
  .. code-block:: none
 
-      EMPTY      io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     io_top     EMPTY    
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb       ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k       clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        dsp         →         dsp         →         dsp         →         dsp         →         dsp         →         clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb       ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k      ram9k       clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-     io_left      clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb        clb      io_right  
-      EMPTY    io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY    
+      EMPTY      io_top     io_top     io_top     io_top     io_top     io_top     EMPTY    
+     io_left      clb        clb        clb        clb        clb        clb      io_right  
+     io_left      clb        clb        clb        clb        clb        clb      io_right  
+     io_left      clb        clb        clb        clb        clb        clb      io_right  
+     io_left      clb        clb        clb        clb        clb        clb      io_right  
+     io_left     ram9k       clb        clb        clb        clb        clb      io_right  
+     io_left      clb        clb        clb        clb        clb        clb      io_right  
+      EMPTY    io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY    
 
 
 
@@ -103,9 +97,25 @@ This class generates the 2D matrix of the FPGA grid.
         fpga = FPGAGridGen(design_name="example_design",
                            arch_file="./support_files/vpr_arch_render_demo.xml",
                            release_root="_release",
-                           layout="ultimate")
+                           layout="dp")
         fpga.enumerate_grid()
+        # Print CLB Grid
         fpga.print_grid()
+
+        # Complete Matrics
+        with open("_complete_grid_metrics.txt", "w") as fp:
+            for y in range(fpga.height-1, -1, -1):
+                for x in range(fpga.width):
+                    fp.write("{0:^18}".format("[%s]" % " ".join(
+                        map(str, fpga.get_block(x, y)))))
+                fp.write("\n")
+
+        # Complete metrics
+        with open("_complete_metrics.txt", "w") as fp:
+            for y in range(2*(fpga.height-1), -1, -1):
+                for x in range((fpga.width*2)-1):
+                    fp.write(" {0:^12} ".format(fpga.get_top_instance(x, y)))
+                fp.write("\n")
 
 
     if __name__ == "__main__":
@@ -114,7 +124,7 @@ This class generates the 2D matrix of the FPGA grid.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.003 seconds)
+   **Total running time of the script:** ( 0 minutes  0.004 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_basic_04_fpga_grid_generation.py:
