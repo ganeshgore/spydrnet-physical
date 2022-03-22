@@ -228,8 +228,11 @@ class OpenFPGA:
 
         merge_list = {}
         for cb, io in zip(cb_list, grid_io_list):
-            io = next(self._netlist.get_instances(io))
-            cb = next(self._netlist.get_instances(cb))
+            try:
+                io = next(self._netlist.get_instances(io))
+                cb = next(self._netlist.get_instances(cb))
+            except StopIteration:
+                logger.exception("Missing instance %s %s" % (cb, io))
             lbl = f"{io.reference.name}_{cb.reference.name}"
             merge_list[lbl] = merge_list.get(lbl, [])
             merge_list[lbl] += [((io, cb), cb.name+"_new")]
