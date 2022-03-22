@@ -1,0 +1,54 @@
+﻿util.OpenFPGA
+=============
+
+.. currentmodule:: util
+
+.. autoclass:: OpenFPGA
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~OpenFPGA.__init__
+      ~OpenFPGA.add_configuration_scheme
+      ~OpenFPGA.clear_written_modules
+      ~OpenFPGA.create_cb_bus
+      ~OpenFPGA.create_grid_clb_bus
+      ~OpenFPGA.create_grid_clb_feedthroughs
+      ~OpenFPGA.create_grid_io_bus
+      ~OpenFPGA.create_placement
+      ~OpenFPGA.create_sb_bus
+      ~OpenFPGA.create_tiles
+      ~OpenFPGA.design_top_stat
+      ~OpenFPGA.fix_grid_pin_names
+      ~OpenFPGA.get_top_instance
+      ~OpenFPGA.load_grid
+      ~OpenFPGA.merge_all_grid_ios
+      ~OpenFPGA.place_pins
+      ~OpenFPGA.register_config_generator
+      ~OpenFPGA.register_placement_creator
+      ~OpenFPGA.register_tile_generator
+      ~OpenFPGA.remove_config_chain
+      ~OpenFPGA.remove_direct_interc
+      ~OpenFPGA.remove_undriven_nets
+      ~OpenFPGA.render_floorplan
+      ~OpenFPGA.save_netlist
+      ~OpenFPGA.show_placement_data
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~OpenFPGA.library
+      ~OpenFPGA.netlist
+      ~OpenFPGA.top_module
+   
+   
