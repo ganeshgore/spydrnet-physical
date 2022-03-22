@@ -170,7 +170,6 @@ class FloorPlanViz:
         self.dwgText = self.core.add(Group(id="mainText", **t_prop))
         self.dwgEdges = self.core.add(Group(id="edges", **t_prop))
 
-        self.add_stylehseet()
 
     @property
     def custom_style_sheet(self):
@@ -294,6 +293,7 @@ class FloorPlanViz:
         module_name = self.dwg.tspan(text=f"[{instance.reference.name}]",
                                      insert=self._get_label_location(instance),
                                      dy=["1.2em", ])
+        
         module_text = self.dwg.text(f"{instance.name}",
                                     insert=self._get_label_location(instance),
                                     transform="scale(1,-1)",
@@ -301,6 +301,14 @@ class FloorPlanViz:
                                     alignment_baseline="middle",
                                     text_anchor="middle")
         module_text.add(module_name)
+        
+        module_label = instance.reference.data[PROP].get('LABEL', None)
+        if module_label:
+            module_text.add(self.dwg.tspan(
+                insert=self._get_label_location(instance),
+                text=f"{module_label}",
+                dy=["2.4em", ]))
+
         self.dwgText.add(module_text)
 
     def _get_label_location(self, instance) -> tuple:
@@ -502,6 +510,7 @@ class FloorPlanViz:
         '''
         Returns SVG string of the current floorplan
         '''
+        self.add_stylehseet()
         self._add_background()
         return self.dwg
 

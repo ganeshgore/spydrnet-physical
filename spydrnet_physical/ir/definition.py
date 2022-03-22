@@ -35,6 +35,19 @@ class Definition(DefinitionBase):
         self.properties["WIDTH"] = properties.get("WIDTH", 50)
         self.properties["HEIGHT"] = properties.get("WIDTH", 50)
 
+    @property
+    def area(self):
+        shape = self.data["VERILOG.InlineConstraints"].get("SHAPE", None)
+        if shape == "ReacL":
+            a, b, c, d, e, f = \
+                self.data["VERILOG.InlineConstraints"].get(
+                    "POINTS", [0, 0, 0, 0, 0, 0])
+            return ((a+f+c) * d) + ((b+d+e) * a) - (d*a)
+        else:
+            W = self.data["VERILOG.InlineConstraints"].get("WIDTH", 0)
+            H = self.data["VERILOG.InlineConstraints"].get("HEIGHT", 0)
+            return W*H
+
     def _disconnect_port(self, port):
         '''
         This method disconnects the definition port from its cable
