@@ -11,7 +11,7 @@ from pprint import pformat, pprint
 from spydrnet_physical.util.shell import launch_shell
 
 import yaml
-from spydrnet_physical.util import OpenFPGA_Placement_Generator
+from spydrnet_physical.util import OpenFPGA_Placement_Generator, FPGAGridGen
 
 logger = logging.getLogger('spydrnet_logs')
 
@@ -22,7 +22,7 @@ SC_HEIGHT = 4
 
 class initial_placement(OpenFPGA_Placement_Generator):
 
-    def __init__(self, grid, netlist, debug=False,
+    def __init__(self, grid, netlist, fpga_grid: FPGAGridGen, debug=False,
                  areaFile=None, padFile=None, gridIO=False, shapingConf=None):
         super().__init__(grid, netlist, None)
 
@@ -31,6 +31,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
         self.PlacementDB = []
         self.PlacementDBKey = {}
         self.GPIOPlacmentKey = []
+        self.fpga_grid = fpga_grid
         self.debug = debug
 
         self.get_default_configuration()
@@ -65,14 +66,17 @@ class initial_placement(OpenFPGA_Placement_Generator):
         visited = []
         for instance_name, instance_info in self.PlacementDBKey.items():
             bbox = instance_info["bbox"]
-            instance = next(self._top_module.get_instances(instance_name))
+            try:
+                instance = next(self._top_module.get_instances(instance_name))
+            except StopIteration:
+                logger.warning(instance_name + " not found")
+                continue
             module = instance.reference
             if len(instance_info["shape"]) == 1:
                 if not module.name in visited:
                     llx, lly, w, h = instance_info["shape"][0]
                     module.properties["WIDTH"] = float(w)*CPP
                     module.properties["HEIGHT"] = float(h)*SC_HEIGHT
-
                 instance.properties["LOC_X"] = bbox[0]*CPP
                 instance.properties["LOC_Y"] = bbox[1]*SC_HEIGHT
             elif len(instance_info["shape"]) == 2:
