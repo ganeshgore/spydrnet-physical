@@ -181,13 +181,13 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_names.html">util.get_names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.initial_placement.html">util.initial_placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.openfpga_floorplan.html">util.openfpga_floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
@@ -206,8 +206,6 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/floorplan_visualizer.html">FloorPlan Visualizer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/openfpga_floorplan.html">OpenFPGA Floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/openfpga_floorplan.html#openfpga-floorplaner">OpenFPGA Floorplaner</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/architecture_visualizer.html">Architecture Visualisation</a></li>
 </ul>
 </li>
@@ -256,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_OpenFPGA_Floorplan.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -316,17 +314,17 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 <p>This script can be used for shaping and placement of the modules before place and route.</p>
 <a class="reference internal image-reference" href="../../_images/_fpga_initial_placement.svg"><img alt="../../_images/_fpga_initial_placement.svg" class="align-center" src="../../_images/_fpga_initial_placement.svg" width="70%"/></a>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>              MODULE             INSTANCE LOC_X LOC_Y WIDTH HEIGHT
- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-            sb_0__0_             sb_0__0_    96    96   200   200
-            sb_0__1_             sb_0__1_    96   496   200   200
-            sb_0__2_             sb_0__1_    96   896   200   200
-            sb_0__3_             sb_0__1_    96  1296   200   200
-            sb_0__4_             sb_0__4_    96  1696   200   200
-           cby_0__1_            cby_0__1_    96   296   200   200
-           cby_0__2_            cby_0__1_    96   696   200   200
-           cby_0__3_            cby_0__1_    96  1096   200   200
-           cby_0__4_            cby_0__1_    96  1496   200   200
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>            INSTANCE               MODULE LOC_X LOC_Y WIDTH HEIGHT    SHAPE               POINTS
+ = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+            sb_0__0_             sb_0__0_    96    96    50    50    RectL     104 000 24.0 104 24.0 000
+            sb_0__1_             sb_0__1_    96   376    50    50    RectL     104 000 24.0 104 24.0 24.0
+            sb_0__2_             sb_0__1_    96   680    50    50    RectL     104 000 24.0 104 24.0 24.0
+            sb_0__3_             sb_0__1_    96   984    50    50    RectL     104 000 24.0 104 24.0 24.0
+            sb_0__4_             sb_0__4_    96  1288    50    50    RectL     104 000 000 104 24.0 24.0
+           cby_0__1_            cby_0__1_    96   224   104   152       --     000 000 000 000 000 000
+           cby_0__2_            cby_0__1_    96   528   104   152       --     000 000 000 000 000 000
+           cby_0__3_            cby_0__1_    96   832   104   152       --     000 000 000 000 000 000
+           cby_0__4_            cby_0__1_    96  1136   104   152       --     000 000 000 000 000 000
 = = = = = = = = = = = = = = = = = = = =
 = = = = = =  DESIGN STATS = = = = = = =
 = = = = = = = = = = = = = = = = = = = =
@@ -413,7 +411,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.633 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.405 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-03-initial-placement-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/2339083e424d642c72d44fdd86f18dcc/03_initial_placement.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_initial_placement.py</span></code></a></p>

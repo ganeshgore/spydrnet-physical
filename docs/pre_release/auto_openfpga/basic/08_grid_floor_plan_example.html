@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Renaming Homogeneous FPGA Modules" href="rename_modules.html" /><link rel="prev" title="Render Placement information from Verilog netlist" href="06_FloorplanDesign01.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Render Placement information from Verilog netlist - SpyDrNet-Physical alpha documentation</title>
+        <title>Grid Floorplan Generator - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -181,13 +181,13 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_names.html">util.get_names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.initial_placement.html">util.initial_placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.openfpga_floorplan.html">util.openfpga_floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
@@ -206,8 +206,6 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/floorplan_visualizer.html">FloorPlan Visualizer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/openfpga_floorplan.html">OpenFPGA Floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/openfpga_floorplan.html#openfpga-floorplaner">OpenFPGA Floorplaner</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/architecture_visualizer.html">Architecture Visualisation</a></li>
 </ul>
 </li>
@@ -256,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -305,92 +303,49 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-basic-07-openfpga-floorplan-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-basic-08-grid-floor-plan-example-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="render-placement-information-from-verilog-netlist">
-<span id="sphx-glr-auto-openfpga-basic-07-openfpga-floorplan-py"></span><h1>Render Placement information from Verilog netlist<a class="headerlink" href="#render-placement-information-from-verilog-netlist" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstate how to render FPGA Tile using <code class="docutils literal notranslate"><span class="pre">FloorPlanViz</span></code> class
-User can provide external script to render tiles, by default the rendering is
-based on <code class="docutils literal notranslate"><span class="pre">initial_placement</span></code> class.</p>
-<p>This script can be used for shaping and placement of the modules before place and route.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># .. image:: ../../../../examples/OpenFPGA/basic/_design_floorplan.svg</span>
-<span class="c1">#    :width: 70%</span>
-<span class="c1">#    :align: center</span>
-
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
-
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">openfpga_floorplan</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util.get_floorplan</span> <span class="kn">import</span> <span class="n">FloorPlanViz</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
-
-<span class="n">PROP</span> <span class="o">=</span> <span class="s2">"VERILOG.InlineConstraints"</span>
-
-
-<span class="n">CBX_COLOR</span> <span class="o">=</span> <span class="s1">'#ceefe4'</span>
-<span class="n">CBY_COLOR</span> <span class="o">=</span> <span class="s1">'#a8d0db'</span>
-<span class="n">SB_COLOR</span> <span class="o">=</span> <span class="s1">'#ceefe4'</span>
-<span class="n">GRID_COLOR</span> <span class="o">=</span> <span class="s1">'#f4f0e6'</span>
+<section class="sphx-glr-example-title" id="grid-floorplan-generator">
+<span id="sphx-glr-auto-openfpga-basic-08-grid-floor-plan-example-py"></span><h1>Grid Floorplan Generator<a class="headerlink" href="#grid-floorplan-generator" title="Permalink to this headline">¶</a></h1>
+<p>This example demostrates how the grided floorplan is generated using
+<code class="docutils literal notranslate"><span class="pre">GridFloorplanGen</span></code> class</p>
+<a class="reference internal image-reference" href="../../_images/_grid_floorplan.svg"><img alt="../../_images/_grid_floorplan.svg" class="align-center" src="../../_images/_grid_floorplan.svg" width="70%"/></a>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>50 250 350 450 550 650 750 850 1050
+50 250 350 450 550 650 750 850 1050
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">GridFloorplanGen</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="k">return</span>
-    <span class="n">proj</span> <span class="o">=</span> <span class="s2">"../homogeneous_fabric"</span>
-    <span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/lb/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/routing/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/sub_module/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/fpga_top.v'</span><span class="p">)</span>
-
-    <span class="c1"># Temporary fix to read multiple verilog files</span>
-    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">".v"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">eachV</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">eachV</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fpv</span><span class="p">:</span>
-                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpv</span><span class="o">.</span><span class="n">readlines</span><span class="p">())))</span>
-        <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
-
-    <span class="c1"># Convert wires to bus structure</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_io_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_sb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_cb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">merge_all_grid_ios</span><span class="p">()</span>
-
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="c1">#           Floorplan visualization</span>
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">openfpga_floorplan</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_placement</span><span class="p">()</span>
-
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="s2">"*_0__*"</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
-
-    <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="p">)</span>
-    <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
-    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_openfpga_floorplan.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">grid_plan</span> <span class="o">=</span> <span class="n">GridFloorplanGen</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="n">grid_plan</span><span class="o">.</span><span class="n">offset_x</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">grid_plan</span><span class="o">.</span><span class="n">offset_y</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">grid_plan</span><span class="o">.</span><span class="n">set_column_width</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+    <span class="n">grid_plan</span><span class="o">.</span><span class="n">set_column_width</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+    <span class="n">grid_plan</span><span class="o">.</span><span class="n">set_row_height</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+    <span class="n">grid_plan</span><span class="o">.</span><span class="n">set_row_height</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+    <span class="n">dwg</span> <span class="o">=</span> <span class="n">grid_plan</span><span class="o">.</span><span class="n">render_grid</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">grid_plan</span><span class="p">)</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_grid_floorplan.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.002 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-07-openfpga-floorplan-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.005 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-08-grid-floor-plan-example-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/a55a38b9e1ece6cfb39552ed825baa11/07_OpenFPGA_Floorplan.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">07_OpenFPGA_Floorplan.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/4a0489dec8f9bd88196e7ff29d2cf4dc/08_grid_floor_plan_example.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">08_grid_floor_plan_example.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/c903600d4e3f77ccd234f835165e6fcf/07_OpenFPGA_Floorplan.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">07_OpenFPGA_Floorplan.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../../_downloads/7fe359f13c822494dd0c6cde2dc056e1/08_grid_floor_plan_example.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">08_grid_floor_plan_example.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -429,7 +384,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/auto_openfpga/basic/07_OpenFPGA_Floorplan.rst.txt"
+            <a class="muted-link" href="../../_sources/auto_openfpga/basic/08_grid_floor_plan_example.rst.txt"
                rel="nofollow">
               Show Source
             </a>

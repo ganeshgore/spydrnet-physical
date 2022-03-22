@@ -3,7 +3,7 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Connection Pattern Generation" href="../clock_tree/01_connection_patterns.html" /><link rel="prev" title="Render Placement information from Verilog netlist" href="07_OpenFPGA_Floorplan.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Connection Pattern Generation" href="../clock_tree/01_connection_patterns.html" /><link rel="prev" title="Grid Floorplan Generator" href="08_grid_floor_plan_example.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Renaming Homogeneous FPGA Modules - SpyDrNet-Physical alpha documentation</title>
@@ -181,13 +181,13 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_names.html">util.get_names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.initial_placement.html">util.initial_placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.openfpga_floorplan.html">util.openfpga_floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
@@ -206,8 +206,6 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/floorplan_visualizer.html">FloorPlan Visualizer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/openfpga_floorplan.html">OpenFPGA Floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/openfpga_floorplan.html#openfpga-floorplaner">OpenFPGA Floorplaner</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/architecture_visualizer.html">Architecture Visualisation</a></li>
 </ul>
 </li>
@@ -256,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_OpenFPGA_Floorplan.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -352,14 +350,14 @@ to download the full example code</p>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="07_OpenFPGA_Floorplan.html">
+          <a class="prev-page" href="08_grid_floor_plan_example.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Render Placement information from Verilog netlist</div>
+                <div class="title">Grid Floorplan Generator</div>
                 
               </div>
             </a>

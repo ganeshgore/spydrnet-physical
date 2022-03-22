@@ -181,13 +181,13 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_names.html">util.get_names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.initial_placement.html">util.initial_placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.openfpga_floorplan.html">util.openfpga_floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
@@ -206,8 +206,6 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/floorplan_visualizer.html">FloorPlan Visualizer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/openfpga_floorplan.html">OpenFPGA Floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/openfpga_floorplan.html#openfpga-floorplaner">OpenFPGA Floorplaner</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/visualization/architecture_visualizer.html">Architecture Visualisation</a></li>
 </ul>
 </li>
@@ -256,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../basic/04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../basic/05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../basic/06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../basic/07_OpenFPGA_Floorplan.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -305,7 +303,7 @@
         <article role="main">
           <section id="computation-times">
 <span id="sphx-glr-auto-openfpga-rendering-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Permalink to this headline">¶</a></h1>
-<p><strong>00:00.154</strong> total execution time for <strong>auto_openfpga_rendering</strong> files:</p>
+<p><strong>00:00.221</strong> total execution time for <strong>auto_openfpga_rendering</strong> files:</p>
 <div class="table-wrapper"><table class="docutils align-default">
 <colgroup>
 <col style="width: 85%"/>
@@ -314,15 +312,15 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="02_render_routing_box.html#sphx-glr-auto-openfpga-rendering-02-render-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a> (<code class="docutils literal notranslate"><span class="pre">02_render_routing_box.py</span></code>)</p></td>
-<td><p>00:00.105</p></td>
+<td><p>00:00.154</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="03_render_edge_routing_box.html#sphx-glr-auto-openfpga-rendering-03-render-edge-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a> (<code class="docutils literal notranslate"><span class="pre">03_render_edge_routing_box.py</span></code>)</p></td>
-<td><p>00:00.035</p></td>
+<td><p>00:00.046</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="01_floorplan_rendering.html#sphx-glr-auto-openfpga-rendering-01-floorplan-rendering-py"><span class="std std-ref">Demonstrate how to render basic floorplan</span></a> (<code class="docutils literal notranslate"><span class="pre">01_floorplan_rendering.py</span></code>)</p></td>
-<td><p>00:00.014</p></td>
+<td><p>00:00.021</p></td>
 <td><p>0.0 MB</p></td>
 </tr>
 </tbody>

@@ -3,10 +3,10 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="util.OpenFPGA_Config_Generator" href="util.OpenFPGA_Config_Generator.html" /><link rel="prev" title="util.initial_placement" href="util.initial_placement.html" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="util.ConnectPoint" href="util.ConnectPoint.html" /><link rel="prev" title="util.get_attr" href="util.get_attr.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>util.openfpga_floorplan - SpyDrNet-Physical alpha documentation</title>
+        <title>util.GridFloorplanGen - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
@@ -181,13 +181,13 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">Utility Functions</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="util.get_names.html">util.get_names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">util.GridFloorplanGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.ConnectPoint.html">util.ConnectPoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.ConnectPointList.html">util.ConnectPointList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.ConnectionPattern.html">util.ConnectionPattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.OpenFPGA.html">util.OpenFPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.FPGAGridGen.html">util.FPGAGridGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.initial_placement.html">util.initial_placement</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">util.openfpga_floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
@@ -206,8 +206,6 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../visualization/floorplan_visualizer.html">FloorPlan Visualizer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../visualization/openfpga_floorplan.html">OpenFPGA Floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../visualization/openfpga_floorplan.html#openfpga-floorplaner">OpenFPGA Floorplaner</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../visualization/architecture_visualizer.html">Architecture Visualisation</a></li>
 </ul>
 </li>
@@ -256,7 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/04_fpga_grid_generation.html">FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/05_fpga_instance_name.html">FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/06_FloorplanDesign01.html">Render Placement information from Verilog netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/07_OpenFPGA_Floorplan.html">Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/08_grid_floor_plan_example.html">Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/basic/rename_modules.html">Renaming Homogeneous FPGA Modules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/01_connection_patterns.html">Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/02_create_htree.html">Create H-Tree Connectivity pattern</a></li>
@@ -303,28 +301,52 @@
           </label>
         </div>
         <article role="main">
-          <section id="util-openfpga-floorplan">
-<h1>util.openfpga_floorplan<a class="headerlink" href="#util-openfpga-floorplan" title="Permalink to this headline">¶</a></h1>
+          <section id="util-gridfloorplangen">
+<h1>util.GridFloorplanGen<a class="headerlink" href="#util-gridfloorplangen" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="util.openfpga_floorplan">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">openfpga_floorplan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#util.openfpga_floorplan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extends the <code class="docutils literal notranslate"><span class="pre">OpenFPGA_Placement_Generator</span></code> class to OpenFPGA grid.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>grid_size</strong> (<em>int, int</em>) – FPGA grid size</p></li>
-<li><p><strong>netlist</strong> (<em>sdn.Netlist</em>) – Netlist of grid</p></li>
-<li><p><strong>library</strong> (<em>sdn.Library</em>) – Library of the netlist</p></li>
-<li><p><strong>shapingConf</strong> (<em>os.path</em>) – YAML/JSON file with parameter values</p></li>
-<li><p><strong>areaFile</strong> (<em>os.path</em>) – CSV file with area information of each Module</p></li>
-<li><p><strong>debug</strong> (<em>bool</em>) – To enable debugging mode</p></li>
-<li><p><strong>gridIO</strong> (<em>bool</em>) – To display gridIO modules</p></li>
-</ul>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="util.GridFloorplanGen">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">GridFloorplanGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#util.GridFloorplanGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class genrates generic floorplan for the grided design
+This is agnostics to the netlist or the design and just
+consideres the grid size.</p>
+<p>paramters:</p>
+<blockquote>
+<div><p>GRID_X(int) : X-direction pitch
+GRID_Y(int) : Y-direction pitch
+grid_x_points(list(int)) : x-sample points on grid
+grid_y_points(list(int)) : y-sample points on grid
+grid_x_width(list(int)) : Each column widths
+grid_y_height(list(int)) : Each row height</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;--</span><span class="n">GRID_X</span><span class="o">--&gt;</span>
+<span class="o">+----------+----------+----------+----------+</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">+-------------------------------------------+</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">+-------------------------------------------+</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">+-------------------------------------------+</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>
+<span class="o">+-------------------------------------------+</span>   <span class="n">ᐱ</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>   <span class="o">|</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span> <span class="n">GRID_Y</span>
+<span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>          <span class="o">|</span>   <span class="o">|</span>
+<span class="o">+----------+----------+----------+----------+</span>   <span class="n">ᐯ</span>
+
+            <span class="n">Grid</span> <span class="n">Representation</span>
+</pre></div>
+</div>
 <dl class="py method">
-<dt class="sig sig-object py" id="util.openfpga_floorplan.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#util.openfpga_floorplan.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="util.GridFloorplanGen.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#util.GridFloorplanGen.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <p class="rubric">Methods</p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
@@ -333,53 +355,53 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComputeGrid</span></code>([skipChannels])</p></td>
-<td><p>Based on the strategy selected, Area_based or parameter_based this method performs the complete calculation and prepares all intermediate varaibles.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">CreateDatabase</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(size_x, size_y[, grid_x, grid_y])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(grid_size, netlist, fpga_grid[, ...])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cbx</span></code>(xi, yi[, lbl])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_x_y</span></code>(x, y)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cby</span></code>(xi, yi[, lbl])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_grid</span></code>([return_group, filename])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_clb</span></code>(xi, yi[, lbl])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_column_width</span></code>(col_number, value)</p></td>
+<td><p>Indexing starts from the bottom left corner</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_row_height</span></code>(row_number, value)</p></td>
+<td><p>Indexing starts from the bottom left corner</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_points</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_sb</span></code>(xi, yi)</p></td>
-<td><p>d</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_placement</span></code>()</p></td>
-<td><p>Overrides the base method to create placement information</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_default_configuration</span></code>()</p></td>
+</tbody>
+</table></div>
+<p class="rubric">Attributes</p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">col_width</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stype</span></code>(x, y)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">height</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_variables</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset_x</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">moduleFmt</span></code>(mod, X, Y)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset_y</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">snapDims</span></code>(num[, dim])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">row_height</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique</span></code>(sequence)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">width</span></code></p></td>
 <td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_default_configuration</span></code>(shapingConf)</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_placement</span></code>(GRID_X, GRID_Y)</p></td>
-<td><p>Validates placement inforamtion genrerated</p></td>
 </tr>
 </tbody>
 </table></div>
@@ -391,23 +413,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="util.OpenFPGA_Config_Generator.html">
+          <a class="next-page" href="util.ConnectPoint.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">util.OpenFPGA_Config_Generator</div>
+                <div class="title">util.ConnectPoint</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="util.initial_placement.html">
+          <a class="prev-page" href="util.get_attr.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">util.initial_placement</div>
+                <div class="title">util.get_attr</div>
                 
               </div>
             </a>
@@ -419,7 +441,7 @@
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../../_sources/reference/utility/generated/util.openfpga_floorplan.rst.txt"
+            <a class="muted-link" href="../../../_sources/reference/utility/generated/util.GridFloorplanGen.rst.txt"
                rel="nofollow">
               Show Source
             </a>
