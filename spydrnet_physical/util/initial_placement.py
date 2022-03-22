@@ -97,7 +97,6 @@ Following figure details the various paramteres referred in this class
 """
 
 
-
 import logging
 import math
 import os
@@ -176,7 +175,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
                 instance.properties["LOC_Y"] = bbox[1]*SC_HEIGHT
             elif len(instance_info["shape"]) == 2:
                 if not module.name in visited:
-                    module.properties["SHAPE"] = "RectL"
+                    module.properties["SHAPE"] = "cross"
                     list_a = instance_info["dims"]
                     list_b = [SC_HEIGHT, CPP, SC_HEIGHT, CPP, CPP, SC_HEIGHT]
                     module.properties["POINTS"] = \

@@ -128,12 +128,50 @@ class OpenFPGA:
         shape and location to each module instance"""
         pass
 
-    def show_placement_data(self, pattern="*"):
-        print("%20s %20s %5s %5s %5s %5s %8s %20s" % ("INSTANCE", "MODULE", "LOC_X", "LOC_Y",
-                                                      "WIDTH", "HEIGHT", "SHAPE", "POINTS"))
-        print(" = ="*30)
+    @staticmethod
+    def get_shape_boundary(points):
+        a, b, c, d, e, f = points
+        sequence = ([(b, 0), (b, f),
+                     (0, f), (0, (f+a)),
+                     (b, (f+a)), (b, (a+c+f)),
+                     ((b+d), (a+c+f)), ((b+d), (a+f)),
+                     ((b+d+e), (a+f)), ((b+d+e), f),
+                     ((b+d), f), ((b+d), 0)])
+        seen = set()
+        u = [x for x in sequence if not (x in seen or seen.add(x))]
+        return [val for sublist in u for val in sublist]
+
+    def save_shaping_data(self, pattern="*", scale=1, filename=None):
+        output = []
+        output.append("{:^20} {:^20} {:^10} {:^10} {:^5} {:^8} {:<20}".format(
+            "INSTANCE", "MODULE", "LOC_X", "LOC_Y", "SHAPE", "BBOX_PT", "POINTS"))
+        output.append(" = ="*30)
         for instance in self.top_module.get_instances(pattern):
-            print("%20s %20s %5d %5d %5d %5d %8s     %20s" % (
+            S = instance.reference.properties.get("SHAPE", "rect")
+            W = instance.reference.properties.get("WIDTH", 0)
+            H = instance.reference.properties.get("HEIGHT", 0)
+            P = instance.reference.properties.get("POINTS", 0)
+            points = self.get_shape_boundary(
+                P) if S == "cross" else (0, 0, W, H)
+            output.append("{:^20} {:^20} {: 10.2f} {: 10.2f} {:^8} {:^5} {:20}".format(
+                instance.name,
+                instance.reference.name,
+                scale*instance.properties.get("LOC_X", 0),
+                scale*instance.properties.get("LOC_Y", 0),
+                S,
+                2 if S == "rect" else int(len(points)/2),
+                " ".join(map(lambda x: f"{x*scale: 6.3f}", points))))
+        if filename:
+            with open(filename, "w") as fp:
+                fp.write("\n".join(output))
+
+    def show_placement_data(self, pattern="*", filename=None):
+        output = []
+        output.append("%20s %20s %5s %5s %5s %5s %8s %20s" % ("INSTANCE", "MODULE", "LOC_X", "LOC_Y",
+                                                              "WIDTH", "HEIGHT", "SHAPE", "POINTS"))
+        output.append(" = ="*30)
+        for instance in self.top_module.get_instances(pattern):
+            output.append("%20s %20s %5d %5d %5d %5d %8s     %20s" % (
                 instance.name,
                 instance.reference.name,
                 instance.properties.get("LOC_X", 0),
@@ -141,9 +179,13 @@ class OpenFPGA:
                 instance.reference.properties.get("WIDTH", 0),
                 instance.reference.properties.get("HEIGHT", 0),
                 instance.reference.properties.get("SHAPE", "--"),
-                " ".join(map(lambda x: f"{x:03}", instance.reference.properties.get(
+                " ".join(map(lambda x: f"{x: 6.3f}", instance.reference.properties.get(
                     "POINTS", [0, 0, 0, 0, 0, 0]))),
             ))
+        print("\n".join(output))
+        if filename:
+            with open(filename, "w") as fp:
+                fp.write("\n".join(output))
 
     def design_top_stat(self, pattern="*", filename=None):
         '''

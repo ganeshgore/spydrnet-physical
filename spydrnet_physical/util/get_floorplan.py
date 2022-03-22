@@ -10,12 +10,12 @@ Detail of properties on different objects
 
 **On Definitions**
 
-``SHAPE`` =  Shape of the module [`Rect` (Default), `RectL`]
+``SHAPE`` =  Shape of the module [`Rect` (Default), `cross`]
 
 ``WIDTH`` and ``HEIGHT`` = The rectangular dimension of the module (if Shape is `Rect`)
 
 ``A``, ``B`` , ``C`` , ``D`` , ``E``, ``F``  =
-Dimensions of the rectilinear block (if shape is `RectL`)
+Dimensions of the rectilinear block (if shape is `cross`)
 
 .. rst-class:: ascii
 
@@ -35,7 +35,7 @@ Dimensions of the rectilinear block (if shape is `RectL`)
                f│          │
                 │          │
                 └──────────┘
-                RectL Shape
+                cross Shape
 
 
 **On Instances**
@@ -49,7 +49,7 @@ Dimensions of the rectilinear block (if shape is `RectL`)
 Shape sice where module port is placed [left/right/bottom/top]
 
 ``SIDE2``:
-Optional and valid only when shape in RectL [left/right/bottom/top]
+Optional and valid only when shape in cross [left/right/bottom/top]
 
 ``OFFSET``:
 Offset from the origin of that side
@@ -113,6 +113,7 @@ LEFT_PIN = 3
 RIGHT_PIN = 4
 
 STYLE_SHEET = """
+            .origin{fill:black}
             text{font-family: Verdana; font-size: 5px;}
             .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
             .left_pin{
@@ -169,7 +170,6 @@ class FloorPlanViz:
         self.dwgShapes = self.core.add(Group(id="mainShapes", **t_prop))
         self.dwgText = self.core.add(Group(id="mainText", **t_prop))
         self.dwgEdges = self.core.add(Group(id="edges", **t_prop))
-
 
     @property
     def custom_style_sheet(self):
@@ -267,7 +267,7 @@ class FloorPlanViz:
         if self.def_list.get(module.name, None):
             return self.def_list[module.name]
         shape = module.data[PROP].get("SHAPE", "rect")
-        if shape.lower() == "rectl":
+        if shape.lower() == "cross":
             new_def = self._add_rect_linear_symbol(module)
         else:
             new_def = self._add_rect_symbol(module)
@@ -293,7 +293,7 @@ class FloorPlanViz:
         module_name = self.dwg.tspan(text=f"[{instance.reference.name}]",
                                      insert=self._get_label_location(instance),
                                      dy=["1.2em", ])
-        
+
         module_text = self.dwg.text(f"{instance.name}",
                                     insert=self._get_label_location(instance),
                                     transform="scale(1,-1)",
@@ -301,7 +301,7 @@ class FloorPlanViz:
                                     alignment_baseline="middle",
                                     text_anchor="middle")
         module_text.add(module_name)
-        
+
         module_label = instance.reference.data[PROP].get('LABEL', None)
         if module_label:
             module_text.add(self.dwg.tspan(
@@ -412,7 +412,7 @@ class FloorPlanViz:
         self.def_list[module.name] = {
             "name": module.name,
             "instance": new_def,
-            "shape": "rectl",
+            "shape": "cross",
             "a": a, "b": b, "c": c,
             "d": d, "e": e, "f": f,
             "width": b+d+e,
@@ -505,6 +505,8 @@ class FloorPlanViz:
                                      stroke_width=0))
         self.dwg.viewbox(-50, -1*(self.view_h+100),
                          self.view_w+100, self.view_h+100)
+        self.dwg.add(self.dwg.rect(
+            insert=(0, 0), size=(10, 10), class_="origin"))
 
     def get_svg(self):
         '''
