@@ -348,27 +348,27 @@ ASSIGN           20              20
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fnmatch</span> <span class="k">as</span> <span class="nn">fn</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">fnmatch</span> <span class="k">as</span> <span class="nn">fn</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">pydot</span>
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">networkx.classes.function</span> <span class="kn">import</span> <span class="n">nodes</span>
+<span class="kn">from</span> <span class="nn">networkx.drawing.nx_pydot</span> <span class="kn">import</span> <span class="n">to_pydot</span>
 <span class="kn">from</span> <span class="nn">networkx.readwrite</span> <span class="kn">import</span> <span class="n">json_graph</span>
 <span class="kn">from</span> <span class="nn">networkx.relabel</span> <span class="kn">import</span> <span class="n">convert_node_labels_to_integers</span>
-
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pydot</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cluster</span>
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">get_names</span><span class="p">,</span> <span class="n">run_metis</span><span class="p">,</span>
+                                    <span class="n">write_metis_graph</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util.shell</span> <span class="kn">import</span> <span class="n">launch_shell</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">get_names</span>
-<span class="kn">from</span> <span class="nn">networkx.drawing.nx_pydot</span> <span class="kn">import</span> <span class="n">to_pydot</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">run_metis</span><span class="p">,</span> <span class="n">write_metis_graph</span><span class="p">)</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'DEBUG'</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"module_partition"</span><span class="p">)</span>
@@ -436,8 +436,8 @@ ASSIGN           20              20
             <span class="n">cuts</span> <span class="o">=</span> <span class="mi">2</span>
 
         <span class="n">save_graph</span><span class="p">(</span><span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_graph_pre"</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
-        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">json_graph</span><span class="o">.</span><span class="n">node_link_data</span><span class="p">(</span><span class="n">graph</span><span class="p">),</span>
-                  <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_graph.json"</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="c1"># json.dump(json_graph.node_link_data(graph),</span>
+        <span class="c1">#           open(f"_{module.name}_graph.json", 'w'), indent=6)</span>
 
         <span class="n">vweights</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">)</span>
 
@@ -711,7 +711,7 @@ ASSIGN           20              20
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  2.014 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  5.239 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-05-module-partition-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/79eee1fd302ccb6fe7467edad65844d3/05_module_partition.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">05_module_partition.py</span></code></a></p>
