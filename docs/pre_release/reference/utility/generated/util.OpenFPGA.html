@@ -367,43 +367,49 @@ different generic netlist restructuring</p>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_grid_pin_names</span></code>([regex])</p></td>
 <td><p>This method is used to fix the pin names on the grid modules</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code>(x, y)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_shape_boundary</span></code>(points)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code>(x, y)</p></td>
 <td><p>This method generates the grid instance information given the cordinate points</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_grid</span></code>(pickle_path)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_grid</span></code>(pickle_path)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_all_grid_ios</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_all_grid_ios</span></code>()</p></td>
 <td><p>This method creates the group of <code class="docutils literal notranslate"><span class="pre">grid_io</span></code> and neighbouring <code class="docutils literal notranslate"><span class="pre">connection_box</span></code> whichcna be merge.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_pins</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_pins</span></code>()</p></td>
 <td><p>This adds pin placment nforamtion to tile instances</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_config_generator</span></code>(cls, *args, **kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_config_generator</span></code>(cls, *args, **kwargs)</p></td>
 <td><p>This registers the tile generator class to OpenFPGA base class</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_placement_creator</span></code>(cls, *args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_placement_creator</span></code>(cls, *args, **kwargs)</p></td>
 <td><p>This registers the tile generator class to OpenFPGA base class</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_tile_generator</span></code>(cls, *args, **kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_tile_generator</span></code>(cls, *args, **kwargs)</p></td>
 <td><p>This registers the tile generator class to OpenFPGA base class</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_config_chain</span></code>([name])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_config_chain</span></code>([name])</p></td>
 <td><p>Remove configuration chain from design</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_direct_interc</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_direct_interc</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_undriven_nets</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_undriven_nets</span></code>()</p></td>
 <td><p>Removes undriven/floating nets from the top level</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_floorplan</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_floorplan</span></code>()</p></td>
 <td><p>This method runs the fpga render class to assign shape and location to each module instance</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_netlist</span></code>([patten, location, sort_print, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_netlist</span></code>([patten, location, sort_print, ...])</p></td>
 <td><p>Save verilog files</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_placement_data</span></code>([pattern])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_shaping_data</span></code>([pattern, scale, filename])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_placement_data</span></code>([pattern, filename])</p></td>
 <td><p></p></td>
 </tr>
 </tbody>

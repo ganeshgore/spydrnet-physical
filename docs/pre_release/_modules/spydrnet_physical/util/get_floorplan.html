@@ -314,12 +314,12 @@
 
 <span class="sd">**On Definitions**</span>
 
-<span class="sd">``SHAPE`` =  Shape of the module [`Rect` (Default), `RectL`]</span>
+<span class="sd">``SHAPE`` =  Shape of the module [`Rect` (Default), `cross`]</span>
 
 <span class="sd">``WIDTH`` and ``HEIGHT`` = The rectangular dimension of the module (if Shape is `Rect`)</span>
 
 <span class="sd">``A``, ``B`` , ``C`` , ``D`` , ``E``, ``F``  =</span>
-<span class="sd">Dimensions of the rectilinear block (if shape is `RectL`)</span>
+<span class="sd">Dimensions of the rectilinear block (if shape is `cross`)</span>
 
 <span class="sd">.. rst-class:: ascii</span>
 
@@ -339,7 +339,7 @@
 <span class="sd">               f│          │</span>
 <span class="sd">                │          │</span>
 <span class="sd">                └──────────┘</span>
-<span class="sd">                RectL Shape</span>
+<span class="sd">                cross Shape</span>
 
 
 <span class="sd">**On Instances**</span>
@@ -353,7 +353,7 @@
 <span class="sd">Shape sice where module port is placed [left/right/bottom/top]</span>
 
 <span class="sd">``SIDE2``:</span>
-<span class="sd">Optional and valid only when shape in RectL [left/right/bottom/top]</span>
+<span class="sd">Optional and valid only when shape in cross [left/right/bottom/top]</span>
 
 <span class="sd">``OFFSET``:</span>
 <span class="sd">Offset from the origin of that side</span>
@@ -417,6 +417,7 @@
 <span class="n">RIGHT_PIN</span> <span class="o">=</span> <span class="mi">4</span>
 
 <span class="n">STYLE_SHEET</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">            .origin{fill:black}</span>
 <span class="s2">            text{font-family: Verdana; font-size: 5px;}</span>
 <span class="s2">            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}</span>
 <span class="s2">            .left_pin{</span>
@@ -473,7 +474,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dwgShapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"mainShapes"</span><span class="p">,</span> <span class="o">**</span><span class="n">t_prop</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwgText</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"mainText"</span><span class="p">,</span> <span class="o">**</span><span class="n">t_prop</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwgEdges</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"edges"</span><span class="p">,</span> <span class="o">**</span><span class="n">t_prop</span><span class="p">))</span></div>
-
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">custom_style_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -571,7 +571,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"SHAPE"</span><span class="p">,</span> <span class="s2">"rect"</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">shape</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"rectl"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">shape</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"cross"</span><span class="p">:</span>
             <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_rect_linear_symbol</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">new_def</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_rect_symbol</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
@@ -597,7 +597,7 @@
         <span class="n">module_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">tspan</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]"</span><span class="p">,</span>
                                      <span class="n">insert</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_label_location</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
                                      <span class="n">dy</span><span class="o">=</span><span class="p">[</span><span class="s2">"1.2em"</span><span class="p">,</span> <span class="p">])</span>
-        
+
         <span class="n">module_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                                     <span class="n">insert</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_label_location</span><span class="p">(</span><span class="n">instance</span><span class="p">),</span>
                                     <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">,</span>
@@ -605,7 +605,7 @@
                                     <span class="n">alignment_baseline</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">,</span>
                                     <span class="n">text_anchor</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">)</span>
         <span class="n">module_text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
-        
+
         <span class="n">module_label</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LABEL'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">module_label</span><span class="p">:</span>
             <span class="n">module_text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">tspan</span><span class="p">(</span>
@@ -716,7 +716,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">def_list</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"name"</span><span class="p">:</span> <span class="n">module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="s2">"instance"</span><span class="p">:</span> <span class="n">new_def</span><span class="p">,</span>
-            <span class="s2">"shape"</span><span class="p">:</span> <span class="s2">"rectl"</span><span class="p">,</span>
+            <span class="s2">"shape"</span><span class="p">:</span> <span class="s2">"cross"</span><span class="p">,</span>
             <span class="s2">"a"</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span>
             <span class="s2">"d"</span><span class="p">:</span> <span class="n">d</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">:</span> <span class="n">e</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">:</span> <span class="n">f</span><span class="p">,</span>
             <span class="s2">"width"</span><span class="p">:</span> <span class="n">b</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="n">e</span><span class="p">,</span>
@@ -809,6 +809,8 @@
                                      <span class="n">stroke_width</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view_h</span><span class="o">+</span><span class="mi">100</span><span class="p">),</span>
                          <span class="bp">self</span><span class="o">.</span><span class="n">view_w</span><span class="o">+</span><span class="mi">100</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_h</span><span class="o">+</span><span class="mi">100</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span>
+            <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">class_</span><span class="o">=</span><span class="s2">"origin"</span><span class="p">))</span>
 
 <div class="viewcode-block" id="FloorPlanViz.get_svg"><a class="viewcode-back" href="../../../reference/visualization/floorplan_visualizer.html#util.FloorPlanViz.get_svg">[docs]</a>    <span class="k">def</span> <span class="nf">get_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>

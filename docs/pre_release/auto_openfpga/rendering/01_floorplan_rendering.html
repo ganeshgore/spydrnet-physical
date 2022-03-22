@@ -316,10 +316,10 @@ but there is no explicit routing performed,
 all the edges are connected from point to point.</p>
 <p>Detail of properties on different objects</p>
 <p><strong>On Definitions</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">SHAPE</span></code> =  Shape of the module [<cite>Rect</cite> (Default), <cite>RectL</cite>]</p>
+<p><code class="docutils literal notranslate"><span class="pre">SHAPE</span></code> =  Shape of the module [<cite>Rect</cite> (Default), <cite>cross</cite>]</p>
 <p><code class="docutils literal notranslate"><span class="pre">WIDTH</span></code> and <code class="docutils literal notranslate"><span class="pre">HEIGHT</span></code> = The rectangular dimension of the module (if Shape is <cite>Rect</cite>)</p>
 <p><code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">B</span></code> , <code class="docutils literal notranslate"><span class="pre">C</span></code> , <code class="docutils literal notranslate"><span class="pre">D</span></code> , <code class="docutils literal notranslate"><span class="pre">E</span></code>, <code class="docutils literal notranslate"><span class="pre">F</span></code>  =
-Dimensions of the rectilinear block (if shape is <cite>RectL</cite>)</p>
+Dimensions of the rectilinear block (if shape is <cite>cross</cite>)</p>
 <div class="ascii highlight-default notranslate"><div class="highlight"><pre><span></span>            d
         ┌──────────┐
         │          │
@@ -334,7 +334,7 @@ a│           0            │
        f│          │
         │          │
         └──────────┘
-        RectL Shape
+        cross Shape
 </pre></div>
 </div>
 <p><strong>On Instances</strong></p>
@@ -343,7 +343,7 @@ a│           0            │
 <p><code class="docutils literal notranslate"><span class="pre">SIDE</span></code>:
 Shape sice where module port is placed [left/right/bottom/top]</p>
 <p><code class="docutils literal notranslate"><span class="pre">SIDE2</span></code>:
-Optional and valid only when shape in RectL [left/right/bottom/top]</p>
+Optional and valid only when shape in cross [left/right/bottom/top]</p>
 <p><code class="docutils literal notranslate"><span class="pre">OFFSET</span></code>:
 Offset from the origin of that side
 First point on respective side in clockwise direction is considered as origin</p>
@@ -414,7 +414,7 @@ of these variables is set to 1</p>
 <span class="n">module2</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"40"</span>
 
 
-<span class="n">module1</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SHAPE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"RectL"</span>  <span class="c1"># RectL Shape</span>
+<span class="n">module1</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"SHAPE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"cross"</span>  <span class="c1"># cross Shape</span>
 <span class="n">module1</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"POINTS"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>  <span class="c1"># A, B, C, D , E, F</span>
 
 <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
@@ -480,7 +480,7 @@ of these variables is set to 1</p>
 <span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_annotate_netlist.v'</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.015 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.019 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-rendering-01-floorplan-rendering-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/63cc322236273520e98146a273d937db/01_floorplan_rendering.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_floorplan_rendering.py</span></code></a></p>

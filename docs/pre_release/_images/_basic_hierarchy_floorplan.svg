@@ -33,6 +33,7 @@
             <text class="pin right_pin" x="47.0" y="-18.0">out</text>
         </symbol>
         <style type="text/css"><![CDATA[
+            .origin{fill:black}
             text{font-family: Verdana; font-size: 5px;}
             .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
             .left_pin{
@@ -99,4 +100,5 @@
             <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'wire_bus');" onmouseout="hideTooltip();" points="199,70 152,160 152,180" stroke="black" stroke-width="1"/>
         </g>
     </g>
+    <rect class="origin" height="10" width="10" x="0" y="0"/>
 </svg>

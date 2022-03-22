@@ -60,7 +60,7 @@ module2.properties["HEIGHT"] = "40"
 module2.properties["HEIGHT"] = "40"
 
 
-module1.properties["SHAPE"] = "RectL"  # RectL Shape
+module1.properties["SHAPE"] = "cross"  # cross Shape
 module1.properties["POINTS"] = [25, 25, 25, 25, 25, 25]  # A, B, C, D , E, F
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
