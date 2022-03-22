@@ -308,9 +308,15 @@ to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="merging-two-instances-in-the-design">
 <span id="sphx-glr-auto-basic-merge-instance-py"></span><h1>Merging two instances in the design<a class="headerlink" href="#merging-two-instances-in-the-design" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstrate how to merge two instance of the design</p>
+<p>This example demonstrate how to merge two instance in the design to create a new
+merged definition</p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design_merge.v" src="../_images/merge_instance-33-..-examples-basic-_initial_design_merge.svg"/>
+</div>
+<p><strong>Output1</strong> Merged design Instance</p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_merged_design.v" src="../_images/merge_instance-40-..-examples-basic-_merged_design.svg"/>
+</div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>NotImplemented
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;class 'spydrnet.ir.Instance'; name 'merged_module_instance_0'; parent definition.name 'top'; reference definition.name 'merged_module'&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -319,12 +325,27 @@ to download the full example code</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
 
-<span class="c1"># TODO</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"NotImplemented"</span><span class="p">)</span>
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'nested_hierarchy'</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_initial_design_merge.v'</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'nested_hierarchy'</span><span class="p">)</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
+<span class="n">inst1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_1_0"</span><span class="p">))</span>
+<span class="n">inst2</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_1_1"</span><span class="p">))</span>
+
+<span class="n">top</span><span class="o">.</span><span class="n">merge_instance</span><span class="p">([</span><span class="n">inst1</span><span class="p">,</span> <span class="n">inst2</span><span class="p">],</span>
+                   <span class="n">new_definition_name</span><span class="o">=</span><span class="s2">"merged_module"</span><span class="p">,</span>
+                   <span class="n">new_instance_name</span><span class="o">=</span><span class="s2">"merged_module_instance_0"</span><span class="p">)</span>
+
+<span class="n">top</span><span class="o">.</span><span class="n">create_unconn_wires</span><span class="p">()</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_merged_design.v'</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.001 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.011 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-basic-merge-instance-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/d20ed7e75ca2c985c55bec6e000a5c9e/merge_instance.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">merge_instance.py</span></code></a></p>
