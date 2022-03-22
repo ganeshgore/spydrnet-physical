@@ -258,7 +258,7 @@ class FPGAGridGen():
         This method generates the grid instance information given the 
         cordinate points 
         """
-        if 0 in (x, y):
+        if 0 in (x, y) or ((self.height*2)-2 == y) or ((self.width*2)-2 == x):
             return "top"
         if (x % 2 == 0) and (y % 2 == 0):
             grid_lbl = self.get_block(int(x/2), int(y/2))
