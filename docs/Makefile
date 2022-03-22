@@ -12,6 +12,8 @@ BUILDDIR          = build
 AUTO_BUILD_DIR    = "auto_.*\/.*"
 PYTHON_EXEC       ?= "python3.8"
 
+.SILENT:
+
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
@@ -26,10 +28,16 @@ reload:
 	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
 
 run_examples:
-	find ../examples -type f -name "*.py" \
-	-exec echo "Running : " "$$? {} " \; \
-	-execdir bash -c "${PYTHON_EXEC} {} > /dev/null" \; \
-	 || true
+	find ../examples -type f -name "*.py" | \
+	parallel -j 4 'cd $$(dirname {}) ; \
+	${PYTHON_EXEC} $$(basename {}) &> /dev/null; \
+	if [ $$? -eq 0 ]; then echo "--- " {}; else echo "ERROR" {}; fi;'
+
+# run_examples:
+# 	find ../examples -type f -name "*.py" \
+# 	-exec echo "Running : " "$$? {} " \; \
+# 	-execdir bash -c "${PYTHON_EXEC} {} > /dev/null" \; \
+# 	 || true
 
 clean:
 	rm -rf build source/auto_*
