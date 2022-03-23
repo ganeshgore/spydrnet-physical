@@ -44,7 +44,15 @@ def launch_shell(**kwargs):
 
     kwargs['config'].update(
         {'InteractiveShell': {'prompts_class': _sdnphy_prompt}})
-    kwargs['banner1'] = "Launching interactive mode"
+    kwargs['banner1'] = '''
+     ___           ___      _  _     _       ___ _           _         _ 
+    / __|_ __ _  _|   \ _ _| \| |___| |_ ___| _ \ |_ _  _ __(_)__ __ _| |
+    \__ \ '_ \ || | |) | '_| .` / -_)  _|___|  _/ ' \ || (_-< / _/ _` | |
+    |___/ .__/\_, |___/|_| |_|\_\___|\__|   |_| |_||_\_, /__/_\__\__,_|_|
+        |_|   |__/                                   |__/                
+        
+    Launching SpyDrNet-Physical interactive mode
+     '''
 
     # check if shell instance already exists and clear it
     saved_shell_instance = InteractiveShell._instance

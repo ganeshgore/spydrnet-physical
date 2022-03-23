@@ -152,14 +152,14 @@ class OpenFPGA:
             H = instance.reference.properties.get("HEIGHT", 0)
             P = instance.reference.properties.get("POINTS", 0)
             points = self.get_shape_boundary(
-                P) if S == "cross" else (0, 0, W, H)
+                P) if S == "cross" else (0, 0, 0, H, W, H, W, 0)
             output.append("{:^20} {:^20} {: 10.2f} {: 10.2f} {:^8} {:^5} {:20}".format(
                 instance.name,
                 instance.reference.name,
                 scale*instance.properties.get("LOC_X", 0),
                 scale*instance.properties.get("LOC_Y", 0),
                 S,
-                2 if S == "rect" else int(len(points)/2),
+                4 if S == "rect" else int(len(points)/2),
                 " ".join(map(lambda x: f"{x*scale: 6.3f}", points))))
         if filename:
             with open(filename, "w") as fp:
