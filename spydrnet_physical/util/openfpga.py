@@ -593,13 +593,14 @@ class OpenFPGA:
                 return "%s_%d__%d_" % grid_lbl
         return f"{module}_{int(x/2)}__{int(y/2)}_"
 
-    def fix_grid_pin_names(self, regex=r".*__pin_(.*)_0_"):
+    def fix_grid_pin_names(self, regex=r".*__pin_(.*)_0_", name_map=None):
         '''
         This method is used to fix the pin names on the grid modules
 
         Args:
             regex(str): Regex string used to extract the name of the port
         '''
+        name_map = name_map or (lambda x: x)
         eachmodule: sdn.module
         for eachmodule in self.top_module.get_definitions("grid_clb*"):
             logger.debug(f"Fixing pins on {eachmodule.name} module")
@@ -607,6 +608,6 @@ class OpenFPGA:
             for top_port in eachmodule.get_ports("*"):
                 pin_name = re.match(regex, top_port.name)
                 if pin_name:
-                    pin_name = pin_name.groups()[0]
+                    pin_name = name_map(pin_name.groups()[0])
                     top_port.change_name(pin_name)
                     logger.debug(f"{top_port.name} =>> {pin_name}")
