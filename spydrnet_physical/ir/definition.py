@@ -38,7 +38,7 @@ class Definition(DefinitionBase):
     @property
     def area(self):
         shape = self.data["VERILOG.InlineConstraints"].get("SHAPE", None)
-        if shape == "ReacL":
+        if shape == "cross":
             a, b, c, d, e, f = \
                 self.data["VERILOG.InlineConstraints"].get(
                     "POINTS", [0, 0, 0, 0, 0, 0])
