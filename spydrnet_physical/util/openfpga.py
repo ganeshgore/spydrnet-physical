@@ -379,8 +379,8 @@ class OpenFPGA:
         sides = ("left", "top", "right", "bottom")
         grid_clb = next(self._library.get_definitions("grid_clb*"))
 
-        for port in grid_clb.get_ports("*pin_clk*"):
-            grid_clb.remove_port(port)
+        # for port in grid_clb.get_ports("*pin_clk*"):
+        #     grid_clb.remove_port(port)
 
         #  =========  grid_clb renaming =========
         for side in sides:
