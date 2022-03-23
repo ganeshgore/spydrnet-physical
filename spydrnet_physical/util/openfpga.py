@@ -151,8 +151,11 @@ class OpenFPGA:
             W = instance.reference.properties.get("WIDTH", 0)
             H = instance.reference.properties.get("HEIGHT", 0)
             P = instance.reference.properties.get("POINTS", 0)
-            points = self.get_shape_boundary(
-                P) if S == "cross" else (0, 0, 0, H, W, H, W, 0)
+            points = self.get_shape_boundary(P) if S == "cross" else \
+                P if S == "custom" else \
+                (0, 0, 0, H, W, H, W, 0) if S == "rect" else \
+                logger.exception("Unknown shape {} on module {}".format(S,
+                                                                        instance.reference.name))
             output.append("{:^20} {:^20} {: 10.2f} {: 10.2f} {:^8} {:^5} {:20}".format(
                 instance.name,
                 instance.reference.name,
@@ -187,7 +190,7 @@ class OpenFPGA:
             with open(filename, "w") as fp:
                 fp.write("\n".join(output))
 
-    def design_top_stat(self, pattern="*", filename=None, function= []):
+    def design_top_stat(self, pattern="*", filename=None, function=[]):
         '''
         Get statistics of the top module
 
