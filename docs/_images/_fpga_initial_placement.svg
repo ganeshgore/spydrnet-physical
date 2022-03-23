@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-2100,2100,2100" width="100%">
     <defs>
-        <style type="text/css"><![CDATA[
-            text{font-family: Verdana; font-size: 5px;}
-            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
-            .left_pin{
-                fill:blue;
-                text-anchor: start;
-                transform: translate(5px, 00px) scale(1,-1);}
-            .right_pin{
-                fill:blue;
-                text-anchor: end;
-                transform: translate(-5px, 00px) scale(1,-1);}
-            .bottom_pin{
-                fill:blue;
-                transform-box: fill-box;
-                transform-origin: start;
-                text-anchor: start;
-                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
-            .top_pin{
-                fill:blue;
-                transform-box: fill-box;
-                transform-origin: bottom left;
-                text-anchor: start;
-                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
-            .in_pin{fill: red;}
-            .out_pin{fill: blue;}
-        ]]></style>
         <symbol id="fpga_top">
             <rect class="module_boundary fpga_top" fill="#f4f0e6" height="1999" width="1999" x="1" y="1"/>
         </symbol>
@@ -78,6 +52,33 @@
         <symbol id="cbx_1__0_">
             <rect class="module_boundary cbx_1__0_" fill="#f4f0e6" height="103" width="151" x="1" y="1"/>
         </symbol>
+        <style type="text/css"><![CDATA[
+            .origin{fill:black}
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        ]]></style>
     </defs>
     <g id="bg">
         <rect fill="#FFF" height="2050" id="background" stroke-width="0" width="2050" x="-25" y="-25"/>
@@ -496,4 +497,5 @@
         </g>
         <g id="edges" transform="scale(1,-1)"/>
     </g>
+    <rect class="origin" height="10" width="10" x="0" y="0"/>
 </svg>

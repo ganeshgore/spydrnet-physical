@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-800,800,800" width="100%">
     <defs>
-        <style type="text/css"><![CDATA[
-            text{font-family: Verdana; font-size: 5px;}
-            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
-            .left_pin{
-                fill:blue;
-                text-anchor: start;
-                transform: translate(5px, 00px) scale(1,-1);}
-            .right_pin{
-                fill:blue;
-                text-anchor: end;
-                transform: translate(-5px, 00px) scale(1,-1);}
-            .bottom_pin{
-                fill:blue;
-                transform-box: fill-box;
-                transform-origin: start;
-                text-anchor: start;
-                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
-            .top_pin{
-                fill:blue;
-                transform-box: fill-box;
-                transform-origin: bottom left;
-                text-anchor: start;
-                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
-            .in_pin{fill: red;}
-            .out_pin{fill: blue;}
-        ]]></style>
         <symbol id="top">
             <rect class="module_boundary top" fill="#f4f0e6" height="699" width="699" x="1" y="1"/>
             <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in_0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="498.0"/>
@@ -65,6 +39,33 @@
             <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'clk_top_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="64.0" y="93.0"/>
             <text class="pin top_pin" x="64.0" y="93.0">clk_top_out</text>
         </symbol>
+        <style type="text/css"><![CDATA[
+            .origin{fill:black}
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        ]]></style>
     </defs>
     <g id="bg">
         <rect fill="#FFF" height="750" id="background" stroke-width="0" width="750" x="-25" y="-25"/>
@@ -196,4 +197,5 @@
             <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'clk_ft_15');" onmouseout="hideTooltip();" points="0,0 316,127" stroke="black" stroke-width="1"/>
         </g>
     </g>
+    <rect class="origin" height="10" width="10" x="0" y="0"/>
 </svg>

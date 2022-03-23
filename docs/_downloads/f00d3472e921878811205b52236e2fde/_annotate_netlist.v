@@ -59,7 +59,7 @@ module top
     );
 endmodule
 
-(* WIDTH = 50, HEIGHT = 60, SHAPE = RectL, POINTS = [25, 25, 25, 25, 25, 25], in0_X = 50, in0_Y = 60, in1_X = 0, in1_Y = 35, out_X = 75, out_Y = 45 *)
+(* WIDTH = 50, HEIGHT = 60, SHAPE = cross, POINTS = [25, 25, 25, 25, 25, 25], in0_X = 50, in0_Y = 60, in1_X = 0, in1_Y = 35, out_X = 75, out_Y = 45 *)
 module module1
 (
     in0,
