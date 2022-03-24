@@ -611,15 +611,18 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cable_list</span></div>
 
-<div class="viewcode-block" id="OpenFPGA.remove_undriven_nets"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.remove_undriven_nets">[docs]</a>    <span class="k">def</span> <span class="nf">remove_undriven_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenFPGA.remove_undriven_nets"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.remove_undriven_nets">[docs]</a>    <span class="k">def</span> <span class="nf">remove_undriven_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Removes undriven/floating nets from the top level</span>
 
 <span class="sd">        the net name with undriven keyword in the name is considered as floating nets</span>
 <span class="sd">        '''</span>
         <span class="n">removed_cables</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"*undriven*"</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="sa">f</span><span class="s2">"*undriven</span><span class="si">{</span><span class="n">pattern</span><span class="si">}</span><span class="s2">"</span><span class="p">):</span>
             <span class="n">removed_cables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">wire</span> <span class="ow">in</span> <span class="n">cable</span><span class="o">.</span><span class="n">wires</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">wire</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
+                    <span class="n">wire</span><span class="o">.</span><span class="n">disconnect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">removed_cables</span></div>
 
