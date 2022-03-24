@@ -307,15 +307,18 @@ class OpenFPGA:
                 self.top_module.remove_cable(cable)
         return cable_list
 
-    def remove_undriven_nets(self):
+    def remove_undriven_nets(self, pattern="*"):
         '''
         Removes undriven/floating nets from the top level
 
         the net name with undriven keyword in the name is considered as floating nets
         '''
         removed_cables = []
-        for cable in self._top_module.get_cables("*undriven*"):
+        for cable in self._top_module.get_cables(f"*undriven{pattern}"):
             removed_cables.append(cable.name)
+            for wire in cable.wires:
+                for pin in wire.pins:
+                    wire.disconnect_pin(pin)
             self._top_module.remove_cable(cable)
         return removed_cables
 

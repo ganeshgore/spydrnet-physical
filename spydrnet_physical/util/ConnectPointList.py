@@ -386,13 +386,13 @@ class ConnectPointList:
                 prev_cable.assign_cable(next(port.get_cables()))
 
             prev_cable = None
-            for outp in [k for k, v in values.get("out", {}).items() if v > 0]:
+            for outp in [k for k, v in values.get("out", {}).items() if v > 0][::-1]:
                 module.create_port(f"{port_name}_{outp}_out",
                                    pins=cable.size, direction=sdn.OUT)
                 cable = module.create_cable(f"{port_name}_{outp}_out",
                                             wires=cable.size)
                 if prev_cable:
-                    prev_cable.assign_cable(cable)
+                    cable.assign_cable(prev_cable)
                 prev_cable = cable
             if prev_cable and port:
                 next(port.get_cables()).assign_cable(prev_cable)
