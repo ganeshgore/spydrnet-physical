@@ -270,7 +270,7 @@ class FloorPlanViz:
         shape = module.data[PROP].get("SHAPE", "rect")
         if shape.lower() == "cross":
             new_def = self._add_rect_linear_symbol(module)
-        if shape.lower() == "custom":
+        elif shape.lower() == "custom":
             new_def = self._add_custom_symbol(module)
         else:
             new_def = self._add_rect_symbol(module)
@@ -425,9 +425,7 @@ class FloorPlanViz:
         path += f" v {c} h {d} v {-1*c} h {e} v {-1*a} "
         path += f" h {-1*e} v {-1*f} Z"
         path += f" Z"
-        logger.debug("")
-        new_def.add(self.dwg.path(d=path,
-                                  fill=COLOR,
+        new_def.add(self.dwg.path(d=path, fill=COLOR,
                                   class_=f"module_boundary {module.name}"))
         if not self.skip_pins:
             self._add_rect_linear_symbol_pins(module, new_def)
@@ -440,8 +438,7 @@ class FloorPlanViz:
         path = module.data[PROP].get("POINTS", "v 0 0 10 10 -10 -10").split()
         start_dir = path[0]
         origin = path[1:3]
-        path = list(map(int, path[3:]))
-        print(start_dir, origin, list(path))
+        path = list(map(int, map(float,path[3:])))
         COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
 
         minY = min(np.cumsum(path[::2]))

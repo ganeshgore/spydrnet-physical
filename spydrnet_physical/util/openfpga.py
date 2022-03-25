@@ -129,7 +129,22 @@ class OpenFPGA:
         pass
 
     @staticmethod
-    def get_shape_boundary(points):
+    def get_custom_boundary(points):
+        path = points.split()
+        direction = path[0].lower()
+        origin = path[1:3]
+        boundary = [int(float(origin[0])), int(float(origin[1]))]
+        for pt in map(int, map(float, path[3:])):
+            if direction == 'v':
+                boundary.extend([boundary[-2], boundary[-1]+pt])
+                direction = 'h'
+            else:
+                boundary.extend([boundary[-2]+pt, boundary[-1]])
+                direction = 'v'
+        return boundary
+
+    @staticmethod
+    def get_cross_shape_boundary(points):
         a, b, c, d, e, f = points
         sequence = ([(b, 0), (b, f),
                      (0, f), (0, (f+a)),
@@ -151,9 +166,9 @@ class OpenFPGA:
             W = instance.reference.properties.get("WIDTH", 0)
             H = instance.reference.properties.get("HEIGHT", 0)
             P = instance.reference.properties.get("POINTS", 0)
-            points = self.get_shape_boundary(P) if S == "cross" else \
-                P if S == "custom" else \
+            points = self.get_cross_shape_boundary(P) if S == "cross" else \
                 (0, 0, 0, H, W, H, W, 0) if S == "rect" else \
+                self.get_custom_boundary(P) if S == "custom" else \
                 logger.exception("Unknown shape {} on module {}".format(S,
                                                                         instance.reference.name))
             output.append("{:^20} {:^20} {: 10.2f} {: 10.2f} {:^8} {:^5} {:20}".format(
@@ -174,7 +189,7 @@ class OpenFPGA:
                                                               "WIDTH", "HEIGHT", "SHAPE", "POINTS"))
         output.append(" = ="*30)
         for instance in self.top_module.get_instances(pattern):
-            output.append("%20s %20s %5d %5d %5d %5d %8s     %20s" % (
+            output.append("%20s %20s %5d %5d %5d %5d %8s " % (
                 instance.name,
                 instance.reference.name,
                 instance.properties.get("LOC_X", 0),
@@ -182,8 +197,6 @@ class OpenFPGA:
                 instance.reference.properties.get("WIDTH", 0),
                 instance.reference.properties.get("HEIGHT", 0),
                 instance.reference.properties.get("SHAPE", "--"),
-                " ".join(map(lambda x: f"{x: 6.3f}", instance.reference.properties.get(
-                    "POINTS", [0, 0, 0, 0, 0, 0]))),
             ))
         print("\n".join(output))
         if filename:
