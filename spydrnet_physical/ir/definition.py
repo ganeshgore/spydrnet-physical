@@ -2,12 +2,13 @@
 import logging
 import typing
 from itertools import combinations
-
+import numpy as np
 import spydrnet as sdn
 from spydrnet.ir import Definition as DefinitionBase
 from spydrnet.ir.innerpin import InnerPin
 from spydrnet.ir.outerpin import OuterPin
 from spydrnet.ir.port import Port
+
 
 logger = logging.getLogger('spydrnet_logs')
 try:
@@ -35,6 +36,31 @@ class Definition(DefinitionBase):
         self.properties["WIDTH"] = properties.get("WIDTH", 50)
         self.properties["HEIGHT"] = properties.get("WIDTH", 50)
 
+    @staticmethod
+    def get_custom_boundary(points):
+        path = points.split()
+        direction = path[0].lower()
+        origin = path[1:3]
+        boundary = [int(origin[0]), int(origin[1])]
+        for pt in map(int, map(float, path[3:])):
+            if direction == 'v':
+                # print("v")
+                boundary.extend([boundary[-2], boundary[-1]+pt])
+                direction = 'h'
+            else:
+                # print("h")
+                boundary.extend([boundary[-2]+pt, boundary[-1]])
+                direction = 'v'
+            # print(boundary)
+        return boundary
+
+    @staticmethod
+    def PolyArea2D(pts):
+        pts = list(zip(pts[::2], pts[1::2]))
+        lines = np.hstack([pts, np.roll(pts, -1, axis=0)])
+        area = 0.5*abs(sum(x1*y2-x2*y1 for x1, y1, x2, y2 in lines))
+        return area
+
     @property
     def area(self):
         shape = self.data["VERILOG.InlineConstraints"].get("SHAPE", None)
@@ -43,6 +69,11 @@ class Definition(DefinitionBase):
                 self.data["VERILOG.InlineConstraints"].get(
                     "POINTS", [0, 0, 0, 0, 0, 0])
             return ((a+f+c) * d) + ((b+d+e) * a) - (d*a)
+        elif shape == "custom":
+            return self.PolyArea2D(self.get_custom_boundary(
+                self.data["VERILOG.InlineConstraints"].get("POINTS",
+                                                           [0, 0, 0, 0, 0, 0])
+            ))
         else:
             W = self.data["VERILOG.InlineConstraints"].get("WIDTH", 0)
             H = self.data["VERILOG.InlineConstraints"].get("HEIGHT", 0)
