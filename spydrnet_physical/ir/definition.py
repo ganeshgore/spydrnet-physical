@@ -828,6 +828,22 @@ class Definition(DefinitionBase):
             if pin.wire:
                 pin.wire.disconnect_pin(pin)
 
+
+    def make_instance_unique(self,instance, new_name):
+        """clone the definition and point the reference to the new definition"""
+        assert instance in self.children, \
+            "Isntance is not part of this definition"
+        reference = instance.reference
+        lib = instance.reference.library
+        index = lib.definitions.index(reference)
+        new_def = instance.reference.clone()
+        if instance.reference.name is not None:
+            name = instance.reference.name
+            new_def.name = new_name or (name+ '_new') 
+        lib.add_definition(new_def, index + 1)
+        instance.reference = new_def
+        return new_def
+        
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())
     #     for eachCables in self.get_cables():
