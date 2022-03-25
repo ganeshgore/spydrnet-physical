@@ -28,7 +28,7 @@ Dimensions of the rectilinear block (if shape is `cross`)
             b   │          │   e
          ┌──────┘          └──────┐
          │                        │
-        a│           0            │
+        a│                        │
          │                        │
          └──────┐          ┌──────┘
                 │          │
@@ -37,6 +37,8 @@ Dimensions of the rectilinear block (if shape is `cross`)
                 └──────────┘
                 cross Shape
 
+
+arbitary shape : Similar to path command is SVG
 
 **On Instances**
 
@@ -90,11 +92,10 @@ of these variables is set to 1
 
 import logging
 import os
-
 import spydrnet as sdn
-from matplotlib.pyplot import text
 from spydrnet.ir.outerpin import OuterPin
 from svgwrite import Drawing
+import numpy as np
 from svgwrite.container import Group, Symbol
 from svgwrite.shapes import Polyline
 
@@ -269,6 +270,8 @@ class FloorPlanViz:
         shape = module.data[PROP].get("SHAPE", "rect")
         if shape.lower() == "cross":
             new_def = self._add_rect_linear_symbol(module)
+        if shape.lower() == "custom":
+            new_def = self._add_custom_symbol(module)
         else:
             new_def = self._add_rect_symbol(module)
         self.dwg.defs.add(new_def)
@@ -428,6 +431,57 @@ class FloorPlanViz:
                                   class_=f"module_boundary {module.name}"))
         if not self.skip_pins:
             self._add_rect_linear_symbol_pins(module, new_def)
+        return new_def
+
+    def _add_custom_symbol(self, module: sdn.Definition) -> None:
+        '''
+        Format = [<start_dir> 0 0 L1 L2 L3 L4 Z]
+        '''
+        path = module.data[PROP].get("POINTS", "v 0 0 10 10 -10 -10").split()
+        start_dir = path[0]
+        origin = path[1:3]
+        path = list(map(int, path[3:]))
+        print(start_dir, origin, list(path))
+        COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
+
+        minY = min(np.cumsum(path[::2]))
+        minX = min(np.cumsum(path[1::2]))
+        HEIGHT = max(np.cumsum(path[::2]))-minY
+        WIDTH = max(np.cumsum(path[1::2]))-minX
+        if start_dir.lower() == "h":
+            WIDTH, HEIGHT = HEIGHT, WIDTH
+            minX, minY = minY, minX
+
+        svg_path = "m {} {} ".format(*origin)
+        for eachpt in zip(path[::2], path[1::2]):
+            svg_path += "v {} h {} ".format(*eachpt)
+        svg_path += " z"
+
+        new_def = self.dwg.symbol(id=module.name,
+                                  viewBox=f"{minX} {minY} {WIDTH} {HEIGHT} ")
+
+        # SVGwrite does not support addding width and height attribute to
+        # symbol element, tis is workaround
+        new_def._parameter.debug = False
+        new_def.attribs["width"] = WIDTH
+        new_def.attribs["height"] = HEIGHT
+
+        new_def.add(self.dwg.path(d=svg_path, fill=COLOR,
+                                  class_=f"module_boundary {module.name}"))
+
+        self.def_list[module.name] = {
+            "name": module.name,
+            "instance": new_def,
+            "shape": "custom",
+            "llx": origin[0],
+            "lly": origin[1],
+            "path": path,
+            "width": WIDTH,
+            "height": HEIGHT,
+        }
+        # TODO: Perform pin placement for the path shape
+        # if not self.skip_pins:
+        #     self._add_rect_linear_symbol_pins(module, new_def)
         return new_def
 
     def _add_rect_symbol_pins(self, module: sdn.Definition, new_def: Symbol) -> None:
