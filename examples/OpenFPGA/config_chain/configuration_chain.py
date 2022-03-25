@@ -21,7 +21,7 @@ from itertools import chain
 import spydrnet as sdn
 from spydrnet_physical.util import OpenFPGA
 from spydrnet_physical.util import config_chain_simple
-from spydrnet_physical.util.get_floorplan import FloorPlanViz
+from spydrnet_physical.util import FloorPlanViz
 from spydrnet_physical.util.shell import launch_shell
 
 logger = logging.getLogger('spydrnet_logs')

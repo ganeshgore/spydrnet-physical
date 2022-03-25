@@ -4,7 +4,7 @@ Demonstrate how to render basic floorplan
 =========================================
 
 
-.. include:: ../../../../spydrnet_physical/util/get_floorplan.py
+.. include:: ../../../../spydrnet_physical/util/FloorPlanViz.py
     :start-after: """
     :end-before: """
 
@@ -26,7 +26,7 @@ from pprint import pprint
 
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
-from spydrnet_physical.util.get_floorplan import FloorPlanViz
+from spydrnet_physical.util import FloorPlanViz
 
 PROPERTY = "VERILOG.InlineConstraints"
 

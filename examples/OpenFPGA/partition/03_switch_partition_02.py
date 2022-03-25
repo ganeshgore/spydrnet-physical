@@ -48,7 +48,7 @@ import spydrnet as sdn
 from networkx.drawing.nx_agraph import write_dot
 from networkx.drawing.nx_pydot import to_pydot
 from spydrnet_physical.util import OpenFPGA, config_chain_simple, get_names
-from spydrnet_physical.util.get_floorplan import FloorPlanViz
+from spydrnet_physical.util import FloorPlanViz
 from spydrnet_physical.util.shell import launch_shell
 from spydrnet_physical.util import write_metis_graph, run_metis
 from spydrnet_physical.util import RoutingRender

@@ -22,7 +22,7 @@ import tempfile
 
 import spydrnet as sdn
 from spydrnet_physical.util import OpenFPGA, initial_placement
-from spydrnet_physical.util.get_floorplan import FloorPlanViz
+from spydrnet_physical.util import FloorPlanViz
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')

@@ -26,7 +26,7 @@ import spydrnet_physical as sdnphy
 from spydrnet_physical.ir.definition import Definition
 from pprint import pp, pprint
 import yaml
-from spydrnet_physical.util.get_floorplan import FloorPlanViz
+from spydrnet_physical.util import FloorPlanViz
 
 
 # Verilog netlist
