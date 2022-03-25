@@ -80,7 +80,7 @@ module module1
 
 endmodule
 
-(* WIDTH = 50, HEIGHT = 40, in0_X = 2, in0_Y = 10, in1_X = 2, in1_Y = 30, out_X = 49, out_Y = 20 *)
+(* WIDTH = 50, HEIGHT = 40, SHAPE = custom, POINTS = V 0 0 10 -10 10 30 -20 -20 *)
 module module2
 (
     in0,

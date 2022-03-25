@@ -306,12 +306,13 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
-
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir</span> <span class="kn">import</span> <span class="n">Definition</span> <span class="k">as</span> <span class="n">DefinitionBase</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir.innerpin</span> <span class="kn">import</span> <span class="n">InnerPin</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir.outerpin</span> <span class="kn">import</span> <span class="n">OuterPin</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir.port</span> <span class="kn">import</span> <span class="n">Port</span>
+
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 <span class="k">try</span><span class="p">:</span>
@@ -339,6 +340,31 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"WIDTH"</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_custom_boundary</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">origin</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">boundary</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">3</span><span class="p">:])):</span>
+            <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">'v'</span><span class="p">:</span>
+                <span class="c1"># print("v")</span>
+                <span class="n">boundary</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">boundary</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">boundary</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">pt</span><span class="p">])</span>
+                <span class="n">direction</span> <span class="o">=</span> <span class="s1">'h'</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># print("h")</span>
+                <span class="n">boundary</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">boundary</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">pt</span><span class="p">,</span> <span class="n">boundary</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+                <span class="n">direction</span> <span class="o">=</span> <span class="s1">'v'</span>
+            <span class="c1"># print(boundary)</span>
+        <span class="k">return</span> <span class="n">boundary</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">PolyArea2D</span><span class="p">(</span><span class="n">pts</span><span class="p">):</span>
+        <span class="n">pts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pts</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">pts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)])</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">x1</span><span class="o">*</span><span class="n">y2</span><span class="o">-</span><span class="n">x2</span><span class="o">*</span><span class="n">y1</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">area</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"VERILOG.InlineConstraints"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"SHAPE"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -347,6 +373,11 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"VERILOG.InlineConstraints"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                     <span class="s2">"POINTS"</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
             <span class="k">return</span> <span class="p">((</span><span class="n">a</span><span class="o">+</span><span class="n">f</span><span class="o">+</span><span class="n">c</span><span class="p">)</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">b</span><span class="o">+</span><span class="n">d</span><span class="o">+</span><span class="n">e</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">d</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">shape</span> <span class="o">==</span> <span class="s2">"custom"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">PolyArea2D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_custom_boundary</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"VERILOG.InlineConstraints"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"POINTS"</span><span class="p">,</span>
+                                                           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"VERILOG.InlineConstraints"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"VERILOG.InlineConstraints"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"HEIGHT"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>

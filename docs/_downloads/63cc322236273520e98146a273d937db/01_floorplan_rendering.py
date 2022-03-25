@@ -4,7 +4,7 @@ Demonstrate how to render basic floorplan
 =========================================
 
 
-.. include:: ../../../../spydrnet_physical/util/get_floorplan.py
+.. include:: ../../../../spydrnet_physical/util/FloorPlanViz.py
     :start-after: """
     :end-before: """
 
@@ -26,7 +26,7 @@ from pprint import pprint
 
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
-from spydrnet_physical.util.get_floorplan import FloorPlanViz
+from spydrnet_physical.util import FloorPlanViz
 
 PROPERTY = "VERILOG.InlineConstraints"
 
@@ -62,6 +62,9 @@ module2.properties["HEIGHT"] = "40"
 
 module1.properties["SHAPE"] = "cross"  # cross Shape
 module1.properties["POINTS"] = [25, 25, 25, 25, 25, 25]  # A, B, C, D , E, F
+
+module2.properties["SHAPE"] = "custom"  # cross Shape
+module2.properties["POINTS"] = "V 0 0 10 -10 10 30 -20 -20"
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 #         Set the Pin locations on the Modules

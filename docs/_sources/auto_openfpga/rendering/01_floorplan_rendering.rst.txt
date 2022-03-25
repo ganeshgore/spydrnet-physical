@@ -23,7 +23,7 @@ Demonstrate how to render basic floorplan
 =========================================
 
 
-.. include:: ../../../../spydrnet_physical/util/get_floorplan.py
+.. include:: ../../../../spydrnet_physical/util/FloorPlanViz.py
     :start-after: """
     :end-before: """
 
@@ -36,7 +36,7 @@ Download final annotated verilog netlist:
 .. image:: ../../../../examples/OpenFPGA/rendering/_basic_hierarchy_floorplan.svg
     :width: 500px
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-127
+.. GENERATED FROM PYTHON SOURCE LINES 21-130
 
 
 
@@ -54,7 +54,7 @@ Download final annotated verilog netlist:
 
     import spydrnet as sdn
     import spydrnet_physical as sdnphy
-    from spydrnet_physical.util.get_floorplan import FloorPlanViz
+    from spydrnet_physical.util import FloorPlanViz
 
     PROPERTY = "VERILOG.InlineConstraints"
 
@@ -90,6 +90,9 @@ Download final annotated verilog netlist:
 
     module1.properties["SHAPE"] = "cross"  # cross Shape
     module1.properties["POINTS"] = [25, 25, 25, 25, 25, 25]  # A, B, C, D , E, F
+
+    module2.properties["SHAPE"] = "custom"  # cross Shape
+    module2.properties["POINTS"] = "V 0 0 10 -10 10 30 -20 -20"
 
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #         Set the Pin locations on the Modules
@@ -156,7 +159,7 @@ Download final annotated verilog netlist:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.015 seconds)
+   **Total running time of the script:** ( 0 minutes  0.016 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_rendering_01_floorplan_rendering.py:

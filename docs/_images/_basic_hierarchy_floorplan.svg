@@ -23,14 +23,8 @@
             <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="73.0" y="43.0"/>
             <text class="pin right_pin center_pin" x="73.0" y="-43.0">out</text>
         </symbol>
-        <symbol id="module2">
-            <rect class="module_boundary module2" fill="#f4f0e6" height="39" width="49" x="1" y="1"/>
-            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="8.0"/>
-            <text class="pin left_pin" x="0.0" y="-8.0">in0</text>
-            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in1');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="0.0" y="28.0"/>
-            <text class="pin left_pin" x="0.0" y="-28.0">in1</text>
-            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="47.0" y="18.0"/>
-            <text class="pin right_pin" x="47.0" y="-18.0">out</text>
+        <symbol height="20" id="module2" viewBox="-10 0 30 20 " width="30">
+            <path class="module_boundary module2" d="m 0 0 v 10 h -10 v 10 h 30 v -20 h -20  z" fill="#f4f0e6"/>
         </symbol>
         <style type="text/css"><![CDATA[
             .origin{fill:black}
@@ -81,23 +75,23 @@
                 inst_1_1
                 <tspan dy="1.2em" x="87.5" y="-187.5">[module1]</tspan>
             </text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-70.0">
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="165.0" y="-60.0">
                 inst_2_0
-                <tspan dy="1.2em" x="175.0" y="-70.0">[module2]</tspan>
+                <tspan dy="1.2em" x="165.0" y="-60.0">[module2]</tspan>
             </text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="175.0" y="-170.0">
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="165.0" y="-160.0">
                 inst_2_1
-                <tspan dy="1.2em" x="175.0" y="-170.0">[module2]</tspan>
+                <tspan dy="1.2em" x="165.0" y="-160.0">[module2]</tspan>
             </text>
         </g>
         <g id="edges" transform="scale(1,-1)">
-            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" points="2,10 100,110 50,185 152,60" stroke="black" stroke-width="1"/>
-            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'in1');" onmouseout="hideTooltip();" points="2,30 50,85 152,60" stroke="black" stroke-width="1"/>
-            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'bus_in');" onmouseout="hideTooltip();" points="2,50 152,80" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" points="2,10 100,110 50,185 150,50" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'in1');" onmouseout="hideTooltip();" points="2,30 50,85 150,50" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'bus_in');" onmouseout="hideTooltip();" points="2,50 150,50" stroke="black" stroke-width="1"/>
             <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'out0');" onmouseout="hideTooltip();" points="249,230 125,195" stroke="black" stroke-width="1"/>
-            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'bus_out');" onmouseout="hideTooltip();" points="249,210 199,170" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'bus_out');" onmouseout="hideTooltip();" points="249,210 150,150" stroke="black" stroke-width="1"/>
             <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'wire0');" onmouseout="hideTooltip();" points="125,95 100,210" stroke="black" stroke-width="1"/>
-            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'wire_bus');" onmouseout="hideTooltip();" points="199,70 152,160 152,180" stroke="black" stroke-width="1"/>
+            <polyline class="edge" fill="none" onmousemove="showTooltip(evt, 'wire_bus');" onmouseout="hideTooltip();" points="150,50 150,150 150,150" stroke="black" stroke-width="1"/>
         </g>
     </g>
     <rect class="origin" height="10" width="10" x="0" y="0"/>

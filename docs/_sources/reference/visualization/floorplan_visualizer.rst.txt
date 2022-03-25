@@ -6,7 +6,7 @@ FloorPlan Visualizer
 
 .. Include docstring from the file
 
-.. include:: ../../../../spydrnet_physical/util/get_floorplan.py
+.. include:: ../../../../spydrnet_physical/util/FloorPlanViz.py
     :start-after: """
     :end-before: """
 
