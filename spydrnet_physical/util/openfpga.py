@@ -185,6 +185,7 @@ class OpenFPGA:
 
     def show_placement_data(self, pattern="*", filename=None):
         output = []
+        output.append(" = ="*30)
         output.append("%20s %20s %5s %5s %5s %5s %8s %20s" % ("INSTANCE", "MODULE", "LOC_X", "LOC_Y",
                                                               "WIDTH", "HEIGHT", "SHAPE", "POINTS"))
         output.append(" = ="*30)
@@ -198,6 +199,33 @@ class OpenFPGA:
                 instance.reference.properties.get("HEIGHT", 0),
                 instance.reference.properties.get("SHAPE", "--"),
             ))
+        print("\n".join(output))
+        if filename:
+            with open(filename, "w") as fp:
+                fp.write("\n".join(output))
+
+    def show_utilization_data(self, pattern="*", filename=None):
+        output = []
+        output.append(" = ="*30)
+        output.append("{:<20s} {:8s} {:6} {:>16} {:>16} {:>8} {:>8}      {}".format(
+            "INSTANCE", "SHAPE", "UTIL %", "AREA", "SC_AREA", "WIDTH", "HEIGHT", "POINTS"))
+        output.append(" = ="*30)
+        seen  = []
+        for instance in self.top_module.get_instances(pattern):
+            if instance.reference.name in seen:
+                continue
+            output.append("{:<20s} {:8s} {:.2%} {:16.2f} {:16.2f} {:8} {:8}      {}".format(
+                instance.reference.name,
+                instance.reference.properties.get("SHAPE", "--"),
+                instance.reference.properties.get(
+                    "AREA_UM", "--")/instance.reference.area,
+                instance.reference.area,
+                instance.reference.properties.get("AREA_UM", "--"),
+                instance.reference.properties.get("WIDTH", 0),
+                instance.reference.properties.get("HEIGHT", 0),
+                instance.reference.properties.get("POINTS", "--"),
+            ))
+            seen.append(instance.reference.name)
         print("\n".join(output))
         if filename:
             with open(filename, "w") as fp:
