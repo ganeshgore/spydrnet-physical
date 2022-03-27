@@ -335,6 +335,38 @@ class ConnectPointList:
         '''
         return "PlaceholderModule"
 
+    def print_port_stat(self, netlist, filename=None):
+        '''
+        This print ports generation statistics
+        '''
+        stat = self.show_stats(netlist)
+        output = []
+        format_str = "{:15s} | {:>3} {:>3} {:>3} {:>3} | {:>3} {:>3} {:>3} {:>3}"
+        default = {
+            "left": 0, "right": 0, "top": 0, "bottom": 0
+        }
+        output.append("= "*26)
+        output.append("{:15s} | {:^15} | {:^15}".format('Module', "In", "Out"))
+        output.append(format_str.format('Module',
+                                        "L", "R", "T", "B",
+                                        "L", "R", "T", "B"))
+        output.append("= "*26)
+        for module, mstat in stat.items():
+            output.append(format_str.format(
+                module,
+                mstat.get("in", default)["left"] or '-',
+                mstat.get("in", default)["right"] or '-',
+                mstat.get("in", default)["top"] or '-',
+                mstat.get("in", default)["bottom"] or '-',
+                mstat.get("out", default)["left"] or '-',
+                mstat.get("out", default)["right"] or '-',
+                mstat.get("out", default)["top"] or '-',
+                mstat.get("out", default)["bottom"] or '-'))
+        if filename:
+            with open(filename, "w") as fp:
+                fp.write("\n".join(output))
+        return output
+
     def show_stats(self, netlist):
         '''
         Extracts the connectivity statistics for port and connection creation
@@ -369,11 +401,14 @@ class ConnectPointList:
         for m_name, values in self.show_stats(netlist).items():
             if m_name == "top":
                 continue
+            # Get current module
             module: sdn.Definition = next(netlist.get_definitions(m_name))
+            # Get the signal port if it exist in the cirrect module
             port: sdn.Port = next(module.get_ports(port_name), None)
 
             # Create input ports on the module
             prev_cable = None
+            # rotate anti-clockwise and create input connections
             for inp in [k for k, v in values.get("in", {}).items() if v > 0]:
                 module.create_port(f"{port_name}_{inp}_in",
                                    pins=cable.size, direction=sdn.IN)
@@ -382,10 +417,16 @@ class ConnectPointList:
                 if prev_cable:
                     prev_cable.assign_cable(cable)
                 prev_cable = cable
+
+            # if the port exist (which means signal is used in this port)
+            # Create assignement statement fo the signal
+            signal_net = prev_cable
             if prev_cable and port:
                 prev_cable.assign_cable(next(port.get_cables()))
+                signal_net = next(port.get_cables())
 
             prev_cable = None
+            # rotate clockwise and create output connections
             for outp in [k for k, v in values.get("out", {}).items() if v > 0][::-1]:
                 module.create_port(f"{port_name}_{outp}_out",
                                    pins=cable.size, direction=sdn.OUT)
@@ -394,8 +435,8 @@ class ConnectPointList:
                 if prev_cable:
                     cable.assign_cable(prev_cable)
                 prev_cable = cable
-            if prev_cable and port:
-                next(port.get_cables()).assign_cable(prev_cable)
+            if prev_cable:
+                signal_net.assign_cable(prev_cable)
             if port:
                 module.remove_port(port)
 
