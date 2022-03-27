@@ -1132,8 +1132,7 @@
             <span class="k">if</span> <span class="n">pin</span><span class="o">.</span><span class="n">wire</span><span class="p">:</span>
                 <span class="n">pin</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">disconnect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
 
-
-<div class="viewcode-block" id="Definition.make_instance_unique"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.make_instance_unique">[docs]</a>    <span class="k">def</span> <span class="nf">make_instance_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">instance</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Definition.make_instance_unique"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.make_instance_unique">[docs]</a>    <span class="k">def</span> <span class="nf">make_instance_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">new_name</span><span class="p">):</span>
         <span class="sd">"""clone the definition and point the reference to the new definition"""</span>
         <span class="k">assert</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">,</span> \
             <span class="s2">"Isntance is not part of this definition"</span>
@@ -1143,11 +1142,11 @@
         <span class="n">new_def</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span>
-            <span class="n">new_def</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_name</span> <span class="ow">or</span> <span class="p">(</span><span class="n">name</span><span class="o">+</span> <span class="s1">'_new'</span><span class="p">)</span> 
+            <span class="n">new_def</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_name</span> <span class="ow">or</span> <span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s1">'_new'</span><span class="p">)</span>
         <span class="n">lib</span><span class="o">.</span><span class="n">add_definition</span><span class="p">(</span><span class="n">new_def</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">instance</span><span class="o">.</span><span class="n">reference</span> <span class="o">=</span> <span class="n">new_def</span>
         <span class="k">return</span> <span class="n">new_def</span></div></div>
-        
+
     <span class="c1"># def sanity_check_cables(self):</span>
     <span class="c1">#     allWires = list(self.get_wires())</span>
     <span class="c1">#     for eachCables in self.get_cables():</span>
