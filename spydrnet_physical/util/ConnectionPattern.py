@@ -127,7 +127,7 @@ class ConnectionPattern:
         # y_center = ((self.sizey+1)*0.5)
         # print(x_center, y_center)
 
-    def get_fishbone(self, x_margin=(0, 0), y_margin=(0, 0)):
+    def get_fishbone(self, width=None, height=None, steps=1, x_margin=(0, 0), y_margin=(0, 0)):
         '''
         Returns fishbone pattern for the given grid size
 
@@ -137,17 +137,19 @@ class ConnectionPattern:
         x_margin(tuple(int, int)): Skips the repective grid connectivity
         y_margin(tuple(int, int)): Skips the repective grid connectivity
         '''
+        width = width or self.sizex
+        height = height or self.sizey
         points = self._connect
-        x_center = ((self.sizex+1)*0.5)
+        x_center = ((width+1)*0.5)
         x_pt = math.ceil(x_center) if self.xbias else math.floor(x_center)
         y_pt = (1+y_margin[0])
         points.add_connection(x_pt, 0, x_pt, y_pt)
         points.cursor = (x_pt, y_pt)
-        for indx in range(self.sizey-y_margin[1]):
+        for indx in range(0, height-y_margin[1], steps):
             if not indx == 0:
-                points.move_y()
+                points.move_y(steps=steps)
             center = points.cursor
-            while points.get_x < (self.sizex-x_margin[1]):
+            while points.get_x < (width-x_margin[1]):
                 points.move_x()
             points.cursor = center
             while points.get_x > (1 + x_margin[0]):
