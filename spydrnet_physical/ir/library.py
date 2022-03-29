@@ -1,3 +1,4 @@
+from audioop import reverse
 import logging
 import typing
 
@@ -37,10 +38,17 @@ class Library(LibraryBase):
                                           reference=top_instance.reference)
 
         for each_port in top_instance.reference.ports:
+            old_cable = each_port.pins[0].wire.cable
             new_port = each_port.clone()
+            new_port.is_downto = old_cable.is_downto
+            new_port.is_scalar = old_cable.is_scalar
+            new_port.lower_index=old_cable.lower_index
             new_def.add_port(new_port)
-            cable = new_def.create_cable(
-                each_port.name, wires=each_port.size)
+            cable = new_def.create_cable(old_cable.name,
+                                         is_downto=old_cable.is_downto,
+                                         lower_index=old_cable.lower_index,
+                                         is_scalar=old_cable.is_scalar,
+                                         wires=old_cable.size)
             cable.connect_instance_port(child_inst, next(
                 top_instance.get_ports(each_port.name)))
             cable.connect_port(new_port)

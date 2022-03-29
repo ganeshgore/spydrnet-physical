@@ -49,10 +49,10 @@ class Cable(CableBase):
         assert port.size, "Port has no pins"
 
         for wire in self.wires:
-            if reverse:
-                wire.connect_pin(port.pins[wire.index()])
-            else:
+            if self.is_downto:
                 wire.connect_pin(port.pins[-(wire.index()+1)])
+            else:
+                wire.connect_pin(port.pins[wire.index()])
 
     def connect_instance_port(self, instance, port):
         '''
