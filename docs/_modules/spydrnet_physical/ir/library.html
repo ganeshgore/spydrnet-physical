@@ -302,7 +302,8 @@
         </div>
         <article role="main">
           <h1>Source code for spydrnet_physical.ir.library</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">from</span> <span class="nn">audioop</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
@@ -341,10 +342,17 @@
                                           <span class="n">reference</span><span class="o">=</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">each_port</span> <span class="ow">in</span> <span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">:</span>
+            <span class="n">old_cable</span> <span class="o">=</span> <span class="n">each_port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">cable</span>
             <span class="n">new_port</span> <span class="o">=</span> <span class="n">each_port</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+            <span class="n">new_port</span><span class="o">.</span><span class="n">is_downto</span> <span class="o">=</span> <span class="n">old_cable</span><span class="o">.</span><span class="n">is_downto</span>
+            <span class="n">new_port</span><span class="o">.</span><span class="n">is_scalar</span> <span class="o">=</span> <span class="n">old_cable</span><span class="o">.</span><span class="n">is_scalar</span>
+            <span class="n">new_port</span><span class="o">.</span><span class="n">lower_index</span><span class="o">=</span><span class="n">old_cable</span><span class="o">.</span><span class="n">lower_index</span>
             <span class="n">new_def</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">new_port</span><span class="p">)</span>
-            <span class="n">cable</span> <span class="o">=</span> <span class="n">new_def</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span>
-                <span class="n">each_port</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="n">each_port</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+            <span class="n">cable</span> <span class="o">=</span> <span class="n">new_def</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">old_cable</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                         <span class="n">is_downto</span><span class="o">=</span><span class="n">old_cable</span><span class="o">.</span><span class="n">is_downto</span><span class="p">,</span>
+                                         <span class="n">lower_index</span><span class="o">=</span><span class="n">old_cable</span><span class="o">.</span><span class="n">lower_index</span><span class="p">,</span>
+                                         <span class="n">is_scalar</span><span class="o">=</span><span class="n">old_cable</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">,</span>
+                                         <span class="n">wires</span><span class="o">=</span><span class="n">old_cable</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
             <span class="n">cable</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">child_inst</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span>
                 <span class="n">top_instance</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="n">each_port</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
             <span class="n">cable</span><span class="o">.</span><span class="n">connect_port</span><span class="p">(</span><span class="n">new_port</span><span class="p">)</span>
