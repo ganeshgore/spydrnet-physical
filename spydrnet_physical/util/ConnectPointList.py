@@ -293,6 +293,7 @@ class ConnectPointList:
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
                 .down{stroke-dasharray: 5;}
                 .up{stroke-dasharray: 5;}
+                .top{stroke-dasharray: 5;}
                 .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
                 """))
         DRMarker = dwg.marker(refX="30", refY="30",
@@ -461,14 +462,16 @@ class ConnectPointList:
             if point.level == "up":
                 continue
             w = cable.create_wire()
-            if (0 in point.from_connection) or \
+            if point.level == "top":
+                top_cable.assign_cable(cable, 
+                upper=len(cable.wires), 
+                lower=len(cable.wires)-1)
+            elif (0 in point.from_connection) or \
                 (self.sizex+1 == point.from_connection[0]) or \
                     (self.sizey+1 == point.from_connection[1]):
                 signal_cable.assign_cable(cable,
                                           upper=w.get_index,
                                           lower=w.get_index)
-            elif point.level == "top":
-                signal_cable.assign_cable(top_cable)
             else:
                 inst = self.get_top_instance(netlist, *point.from_connection)
                 port_name = f"{signal}_{point.from_dir}_out"
@@ -486,6 +489,8 @@ class ConnectPointList:
                     "top": f"{signal}_{point.to_dir}_in",
                     "down": f"{down_port}_{point.to_dir}_in"}[point.level]
                 w.connect_pin(next(inst.get_port_pins(port_name)))
+        if not len(cable.wires):
+            netlist.top_instance.reference.remove_cable(cable)
 
     def print_instance_grid_map(self):
         """ Prints mapping beetween grid cordinates and top level instances """

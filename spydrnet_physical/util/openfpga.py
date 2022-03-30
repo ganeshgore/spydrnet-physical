@@ -231,7 +231,7 @@ class OpenFPGA:
             with open(filename, "w") as fp:
                 fp.write("\n".join(output))
 
-    def design_top_stat(self, pattern="*", filename=None, function=[]):
+    def design_top_stat(self, pattern="*", quiet=False, filename=None, function=[]):
         '''
         Get statistics of the top module
 
@@ -264,7 +264,8 @@ class OpenFPGA:
                     def_ if len(def_) < 20 else f"...{def_[-17:]}", inst_cnt[def_]))
             for each in function:
                 output_str[-1] += each(next(design.get_definitions(def_)))
-        print("\n".join(output_str))
+        if not quiet:
+            print("\n".join(output_str))
         if filename:
             with open(filename, 'w') as fp:
                 fp.write("\n".join(output_str))
