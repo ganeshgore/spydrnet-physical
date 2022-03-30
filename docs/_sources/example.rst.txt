@@ -2,7 +2,9 @@ Examples
 --------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
+   :numbered:
+   :includehidden:
 
    auto_basic/index
    auto_openfpga/index
