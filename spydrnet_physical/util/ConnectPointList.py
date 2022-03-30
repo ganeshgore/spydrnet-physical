@@ -104,6 +104,12 @@ class ConnectPointList:
         point.level = "up"
         return point
 
+    def make_top_connection(self, point):
+        if isinstance(point, tuple):
+            point = self.search_from_point(point)
+        point.level = "top"
+        return point
+
     def reset_level(self, point):
         assert isinstance(point, ConnectPoint), \
             "point should be instance of ConnectPoint class not " + type(point)
@@ -380,7 +386,7 @@ class ConnectPointList:
                 mstat[from_conn]["out"] = mstat[from_conn].get(
                     "out", {"left": 0, "right": 0, "top": 0, "bottom": 0})
                 mstat[from_conn]["out"][point.direction(reverse=True)] += 1
-            if point.level in ["same", "up"]:
+            if point.level in ["same", "up", "top"]:
                 to_conn = self.get_reference(netlist, *point.to_connection)
                 mstat[to_conn] = mstat.get(to_conn, {})
                 mstat[to_conn]["in"] = mstat[to_conn].get(
@@ -441,7 +447,7 @@ class ConnectPointList:
                 module.remove_port(port)
 
     def create_ft_connection(self, netlist: sdn.Netlist, signal_cable: sdn.Instance,
-                             down_port=None, up_port=None):
+                             down_port=None, up_port=None, top_cable=None):
         ''' Performs top level connection using connection file
 
         Args:
@@ -455,22 +461,29 @@ class ConnectPointList:
             if point.level == "up":
                 continue
             w = cable.create_wire()
-            if 0 in point.from_connection:
+            if (0 in point.from_connection) or \
+                (self.sizex+1 == point.from_connection[0]) or \
+                    (self.sizey+1 == point.from_connection[1]):
                 signal_cable.assign_cable(cable,
                                           upper=w.get_index,
                                           lower=w.get_index)
+            elif point.level == "top":
+                signal_cable.assign_cable(top_cable)
             else:
                 inst = self.get_top_instance(netlist, *point.from_connection)
                 port_name = f"{signal}_{point.from_dir}_out"
                 w.connect_pin(next(inst.get_port_pins(port_name)))
 
-            if 0 in point.to_connection:
+            if 0 in point.to_connection or \
+                    (self.sizex+1 == point.to_connection[0]) or \
+                    (self.sizey+1 == point.to_connection[1]):
                 signal_cable.assign_cable(
                     cable, upper=w.get_index, lower=w.get_index)
             else:
                 inst = self.get_top_instance(netlist, *point.to_connection)
                 port_name = {
                     "same": f"{signal}_{point.to_dir}_in",
+                    "top": f"{signal}_{point.to_dir}_in",
                     "down": f"{down_port}_{point.to_dir}_in"}[point.level]
                 w.connect_pin(next(inst.get_port_pins(port_name)))
 
