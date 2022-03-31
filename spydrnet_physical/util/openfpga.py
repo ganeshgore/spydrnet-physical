@@ -435,7 +435,7 @@ class OpenFPGA:
             self._convert_to_bus(grid_clb, f"{side}*_pin_O_*",
                                  f"grid_{side}_out")
 
-    def create_sb_bus(self):
+    def create_sb_bus(self, pins=[]):
         """
         Convert `sb` Input pins to bus structure
         ::
@@ -451,16 +451,15 @@ class OpenFPGA:
           right_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_    -> sb_right_b_in
 
         """
-
+        pins = pins + [("O", "in"), ("inpad", "inpad")]
         sides = ("top", "right", "bottom", "left")
         for sb in self._library.get_definitions("sb_*"):
             for s1 in sides:
                 for s2 in sides:
                     # input pins from each corner
-                    self._convert_to_bus(sb, f"{s1}_{s2}_grid_*_pin_O_*",
-                                         f"grid_{s1}_{s2[0]}_in")
-                    self._convert_to_bus(sb, f"*{s1}_{s2}_grid_*__pin_inpad_*",
-                                         f"grid_{s1}_{s2[0]}_inpad")
+                    for pin in pins:
+                        self._convert_to_bus(sb, f"{s1}_{s2}_grid_*_pin_{pin[0]}_*",
+                                            f"grid_{s1}_{s2[0]}_{pin[1]}")
 
     def create_cb_bus(self, pins=[]):
         """
