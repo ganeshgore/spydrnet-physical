@@ -650,9 +650,13 @@ class Definition(DefinitionBase):
             assert self == p.definition, \
                 f"all ports to combine should belong to same definition"
 
-        new_port = self.create_port(port_name, direction=direction)
-        new_cable = self.create_cable(port_name, is_scalar=new_port.is_scalar)
+        new_port = self.create_port(port_name, direction=direction,
+                                    is_downto=False)
+        new_cable = self.create_cable(port_name, is_scalar=new_port.is_scalar,
+                                      is_downto=False)
+        port_list = []
         for p in ports:
+            port_list.append(p.name)
             newPin = new_port.create_pin()
             pp = p.pins[0]
             ppWire = pp.wire
@@ -670,6 +674,7 @@ class Definition(DefinitionBase):
             self.remove_port(p)
         logger.debug(f"Combined with {new_port.name} " +
                      f"created cable {new_cable.name}")
+        logger.debug(f"{new_port.name} <- {port_list}")
         return new_port, new_cable
 
     def create_unconn_wires(self):

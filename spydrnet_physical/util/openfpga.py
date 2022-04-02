@@ -41,6 +41,7 @@ class OpenFPGA:
         self._top_module = next(self._library.get_definitions(top_module))
         netlist.top_instance = self._top_module
         self.written_modules = []  # Stores written definitions names
+        self.write_modules_paths = []  # Stores written definitions names
         self.tile_creator = None
         self.config_creator = None
         if arch_xml:
@@ -231,6 +232,20 @@ class OpenFPGA:
             with open(filename, "w") as fp:
                 fp.write("\n".join(output))
 
+    def design_instance_map(self, pattern="*", quiet=False):
+        design = self._top_module
+        inst_cnt = {}
+        for inst in design.children:
+            if "ASSIG" in inst.reference.library.name:
+                continue
+            if not inst.reference.name in inst_cnt.keys():
+                inst_cnt[inst.reference.name] = []
+            inst_cnt[inst.reference.name].append(inst.name)
+        return OrderedDict(sorted(inst_cnt.items(),
+                                      reverse=True,
+                                      key=lambda t: t[1]))
+        
+
     def design_top_stat(self, pattern="*", quiet=False, filename=None, function=[]):
         '''
         Get statistics of the top module
@@ -364,6 +379,23 @@ class OpenFPGA:
             self._top_module.remove_cable(cable)
         return removed_cables
 
+    # def _convert_to_bus(self, module: sdn.Definition, in_patt: str,
+    #                     out_patt: str, sort_pins: (Callable) = None):
+    #     """
+    #     Convertes matching `in_patt` pins to bus with `out_patt` name
+    #     """
+    #     def get_pins(x): return fnmatch(x.name, in_patt)
+    #     ports = list(module.get_ports(filter=get_pins))
+    #     port_names = [port.name for port in ports]
+    #     suffix = os.path.commonprefix(port_names)
+    #     pre_fix = os.path.commonprefix([each[::-1] for each in port_names])
+    #     port_names = [each.replace(suffix,"") for each in port_names]
+    #     port_names = [each.replace(pre_fix, "") for each in port_names]
+    #     def sort_pins(x): return int(port_names[ports.index(x)])
+    #     if ports:
+    #         ports = sorted(ports, key=sort_pins)
+    #         return module.combine_ports(out_patt, ports)
+
     def _convert_to_bus(self, module: sdn.Definition, in_patt: str,
                         out_patt: str, sort_pins: (Callable) = None):
         """
@@ -372,10 +404,10 @@ class OpenFPGA:
         def get_pins(x): return fnmatch(x.name, in_patt)
         ports = list(module.get_ports(filter=get_pins))
         if ports:
-            ports = sorted(ports, key=sort_pins or (lambda x: x.name))
+            # ports = sorted(ports, key=sort_pins or (lambda x: x.name))
             module.combine_ports(out_patt, ports)
 
-    def create_grid_io_bus(self, inpad="inpad", outpad="outpad"):
+    def create_grid_io_bus(self, inpad="inpad", outpad="outpad", sort_pins=None):
         """
         Convert `grid_io` Input/Output pins to bus structure
         ::
@@ -399,9 +431,9 @@ class OpenFPGA:
             for side in sides:
                 #  Input pins
                 self._convert_to_bus(grid_io, f"{side}*_pin_{inpad}_*",
-                                     f"io_{side}_in")
+                                     f"io_{side}_in", sort_pins=sort_pins)
                 self._convert_to_bus(grid_io, f"{side}*_pin_{outpad}_*",
-                                     f"io_{side}_out")
+                                     f"io_{side}_out", sort_pins=sort_pins)
 
     def create_grid_clb_bus(self):
         '''
@@ -572,6 +604,15 @@ class OpenFPGA:
     def clear_written_modules(self):
         while self.written_modules:
             self.written_modules.pop()
+        while self.write_modules_paths:
+            self.write_modules_paths.pop()
+
+    def write_include_file(self, filename, relative_from=None):
+        relative_from = relative_from or os.environ.get('VERILOG_PROJ_DIR', "")
+        with open(filename, "w") as fp:
+            for filepath in  self.write_modules_paths:
+                filepath = str(filepath).replace(relative_from, ".")
+                fp.write(f'`include "{filepath}"' + '\n') 
 
     def save_netlist(self, patten="*",  location=".", sort_print=False,
                      skip_constraints=True, sort_cables=False,
@@ -591,13 +632,14 @@ class OpenFPGA:
                 definition._children.sort(key=lambda x: x.name)
             logger.debug("Writing %s", definition.name)
             Path(location).mkdir(parents=True, exist_ok=True)
+            filepath = os.path.join(location, f"{definition.name}.v")
             sdn.compose(self._netlist,
-                        filename=os.path.join(
-                            location, f"{definition.name}.v"),
+                        filename=filepath,
                         sort_all=sort_print,
                         skip_constraints=skip_constraints,
                         definition_list=[definition.name],
                         write_blackbox=True)
+            self.write_modules_paths.append(filepath)
             self.written_modules.append(definition.name)
         return self.written_modules
 

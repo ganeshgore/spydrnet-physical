@@ -1,5 +1,6 @@
 
 import typing
+import logging
 from collections.abc import Iterable
 from spydrnet.ir.instance import Instance as InstanceBase
 
@@ -9,6 +10,8 @@ if typing.TYPE_CHECKING:
     from spydrnet_physical.ir.first_class_element import FirstClassElement as FirstClassElementPhy
     InstanceBase = type(
         "InstanceBase", (InstanceSDN, FirstClassElementPhy), {})
+
+logger = logging.getLogger('spydrnet_logs')
 
 
 class Instance(InstanceBase):
