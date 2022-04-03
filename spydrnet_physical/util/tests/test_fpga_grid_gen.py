@@ -88,8 +88,6 @@ class FpgaGridGen(unittest.TestCase):
         # self.assertEqual(self.fpga_grid_gen.get_block(0,0), (1,0,0))
 
     # workinprogress
-
-
     def test_add_col(self):
         assert(True) 
 
