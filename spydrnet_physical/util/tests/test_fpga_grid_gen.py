@@ -94,9 +94,9 @@ class FpgaGridGen(unittest.TestCase):
     def test_add_region(self):
         assert(True) 
 
-    def test_enumerate_grid(self):
-        list2=[
-            []
-        ]
-        assert(True)
+    # def test_enumerate_grid(self):
+    #     list2=[
+    #         []
+    #     ]
+    #     assert(True)
         # self.assertListEqual(self.fpga_grid_gen.enumerate_grid(), list2)
