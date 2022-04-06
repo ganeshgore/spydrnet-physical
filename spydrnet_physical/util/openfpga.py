@@ -163,6 +163,8 @@ class OpenFPGA:
             "INSTANCE", "MODULE", "LOC_X", "LOC_Y", "SHAPE", "BBOX_PT", "POINTS"))
         output.append(" = ="*30)
         for instance in self.top_module.get_instances(pattern):
+            if "ASSIG" in instance.reference.name:
+                continue
             S = instance.reference.properties.get("SHAPE", "rect")
             W = instance.reference.properties.get("WIDTH", 0)
             H = instance.reference.properties.get("HEIGHT", 0)
@@ -211,9 +213,11 @@ class OpenFPGA:
         output.append("{:<20s} {:8s} {:6} {:>16} {:>16} {:>8} {:>8}      {}".format(
             "INSTANCE", "SHAPE", "UTIL %", "AREA", "SC_AREA", "WIDTH", "HEIGHT", "POINTS"))
         output.append(" = ="*30)
-        seen  = []
+        seen = []
         for instance in self.top_module.get_instances(pattern):
             if instance.reference.name in seen:
+                continue
+            if "ASSIG" in instance.reference.name:
                 continue
             output.append("{:<20s} {:8s} {:.2%} {:16.2f} {:16.2f} {:8} {:8}      {}".format(
                 instance.reference.name,
@@ -242,9 +246,8 @@ class OpenFPGA:
                 inst_cnt[inst.reference.name] = []
             inst_cnt[inst.reference.name].append(inst.name)
         return OrderedDict(sorted(inst_cnt.items(),
-                                      reverse=True,
-                                      key=lambda t: t[1]))
-        
+                                  reverse=True,
+                                  key=lambda t: t[1]))
 
     def design_top_stat(self, pattern="*", quiet=False, filename=None, function=[]):
         '''
@@ -341,16 +344,21 @@ class OpenFPGA:
             merge_list[lbl] = merge_list.get(lbl, [])
             merge_list[lbl] += [((io, cb), cb.name+"_new")]
 
+        new_defs = []
         for _, instance_list in merge_list.items():
             new_module_name = instance_list[0][0][1].reference.name+"_new"
             mainDef, instance_list = self.top_module.merge_multiple_instance(
                 instance_list,
                 new_definition_name=new_module_name)
+            new_defs.append(
+                next(self.library.get_definitions(new_module_name)))
+            new_defs[-1].OptPins()
             next(self.library.get_definitions(
                 mainDef.name[:-4])).name += "_old"
             mainDef.name = mainDef.name[:-4]
             for inst in instance_list:
                 inst.name = inst.name[:-4]
+        return new_defs
 
     def remove_config_chain(self, name="ccff_"):
         """ Remove configuration chain from design """
@@ -464,8 +472,8 @@ class OpenFPGA:
             #  Input pins
             self._convert_to_bus(grid_clb, f"{side}*_pin_I_*",
                                  f"grid_{side}_in")
-            self._convert_to_bus(grid_clb, f"{side}*_pin_O_*",
-                                 f"grid_{side}_out")
+            # self._convert_to_bus(grid_clb, f"{side}*_pin_O_*",
+            #                      f"grid_{side}_out")
 
     def create_sb_bus(self, pins=[]):
         """
@@ -491,7 +499,7 @@ class OpenFPGA:
                     # input pins from each corner
                     for pin in pins:
                         self._convert_to_bus(sb, f"{s1}_{s2}_grid_*_pin_{pin[0]}_*",
-                                            f"grid_{s1}_{s2[0]}_{pin[1]}")
+                                             f"grid_{s1}_{s2[0]}_{pin[1]}")
 
     def create_cb_bus(self, pins=[]):
         """
@@ -610,9 +618,9 @@ class OpenFPGA:
     def write_include_file(self, filename, relative_from=None):
         relative_from = relative_from or os.environ.get('VERILOG_PROJ_DIR', "")
         with open(filename, "w") as fp:
-            for filepath in  self.write_modules_paths:
+            for filepath in self.write_modules_paths:
                 filepath = str(filepath).replace(relative_from, ".")
-                fp.write(f'`include "{filepath}"' + '\n') 
+                fp.write(f'`include "{filepath}"' + '\n')
 
     def save_netlist(self, patten="*",  location=".", sort_print=False,
                      skip_constraints=True, sort_cables=False,
@@ -679,7 +687,7 @@ class OpenFPGA:
                 return "%s_%d__%d_" % grid_lbl
         return f"{module}_{int(x/2)}__{int(y/2)}_"
 
-    def fix_grid_pin_names(self, regex=r".*__pin_(.*)_0_", 
+    def fix_grid_pin_names(self, regex=r".*__pin_(.*)_0_",
                            module="grid_*", name_map=None):
         '''
         This method is used to fix the pin names on the grid modules
