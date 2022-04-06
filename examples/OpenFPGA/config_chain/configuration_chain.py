@@ -71,7 +71,7 @@ def main():
                 fpga.top_module.combine_cables(
                     f"{i.name}_{p.name}", cable_list)
 
-    fpga.create_grid_clb_feedthroughs()
+    # fpga.create_grid_clb_feedthroughs()
 
     # ===============================
     # Add configuration chain
