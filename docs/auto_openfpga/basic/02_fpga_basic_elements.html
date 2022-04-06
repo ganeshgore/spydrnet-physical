@@ -263,6 +263,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/04_create_clock_tree.html">2.2.4. Create Clock Tree Embedding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/05_clock_tree_insertion.html">2.2.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../clock_tree/06_reset_feedthrough.html">2.2.6. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/07_clock_tree_example1.html">2.2.7. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/08_clock_tree_example2.html">2.2.8. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/09_clock_tree_example3.html">2.2.9. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clock_tree/09_clock_tree_example4.html">2.2.10. Clock tree insertion Example Architecture 3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/01_floorplan_rendering.html">2.3.1. Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/02_render_routing_box.html">2.3.2. Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../rendering/03_render_edge_routing_box.html">2.3.3. Rendering Switch and Connection Boxes</a></li>
@@ -373,7 +377,7 @@ This sexample also demonstrates the use of <code class="docutils literal notrans
                 <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">combine_cables</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">cable_list</span><span class="p">)</span>
 
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_feedthroughs</span><span class="p">()</span>
+    <span class="c1"># fpga.create_grid_clb_feedthroughs()</span>
 
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="c1">#                   Start rendering CBX11</span>
@@ -403,7 +407,7 @@ This sexample also demonstrates the use of <code class="docutils literal notrans
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.481 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.368 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-02-fpga-basic-elements-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d752c58609f3b7cf6d4dcf1f6eae7bf7/02_fpga_basic_elements.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_fpga_basic_elements.py</span></code></a></p>

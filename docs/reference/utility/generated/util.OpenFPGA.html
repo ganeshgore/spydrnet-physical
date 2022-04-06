@@ -263,6 +263,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/04_create_clock_tree.html">2.2.4. Create Clock Tree Embedding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/05_clock_tree_insertion.html">2.2.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/06_reset_feedthrough.html">2.2.6. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/07_clock_tree_example1.html">2.2.7. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/08_clock_tree_example2.html">2.2.8. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/09_clock_tree_example3.html">2.2.9. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/09_clock_tree_example4.html">2.2.10. Clock tree insertion Example Architecture 3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/01_floorplan_rendering.html">2.3.1. Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/02_render_routing_box.html">2.3.2. Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/03_render_edge_routing_box.html">2.3.3. Rendering Switch and Connection Boxes</a></li>
@@ -349,7 +353,7 @@ different generic netlist restructuring</p>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_clb_feedthroughs</span></code>()</p></td>
 <td><p>Creates feedthrough for <code class="docutils literal notranslate"><span class="pre">grid_clb</span></code> outputs, to convert digonal connections to horizontal and vertical</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_io_bus</span></code>([inpad, outpad])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_io_bus</span></code>([inpad, outpad, sort_pins])</p></td>
 <td><p>Convert <cite>grid_io</cite> Input/Output pins to bus structure</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_placement</span></code>(*args, **kwargs)</p></td>
@@ -361,61 +365,67 @@ different generic netlist restructuring</p>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_tiles</span></code>()</p></td>
 <td><p>proxy function to create_tiles method of  tile_creator class</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">design_top_stat</span></code>([pattern, quiet, filename, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">design_instance_map</span></code>([pattern, quiet])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">design_top_stat</span></code>([pattern, quiet, filename, ...])</p></td>
 <td><p>Get statistics of the top module</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_grid_pin_names</span></code>([regex, module, name_map])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_grid_pin_names</span></code>([regex, module, name_map])</p></td>
 <td><p>This method is used to fix the pin names on the grid modules</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cross_shape_boundary</span></code>(points)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cross_shape_boundary</span></code>(points)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_custom_boundary</span></code>(points)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_custom_boundary</span></code>(points)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code>(x, y)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code>(x, y)</p></td>
 <td><p>This method generates the grid instance information given the cordinate points</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_grid</span></code>(pickle_path)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_grid</span></code>(pickle_path)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_all_grid_ios</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_all_grid_ios</span></code>()</p></td>
 <td><p>This method creates the group of <code class="docutils literal notranslate"><span class="pre">grid_io</span></code> and neighbouring <code class="docutils literal notranslate"><span class="pre">connection_box</span></code> whichcna be merge.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_pins</span></code>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_pins</span></code>()</p></td>
 <td><p>This adds pin placment nforamtion to tile instances</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_config_generator</span></code>(cls, *args, **kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_config_generator</span></code>(cls, *args, **kwargs)</p></td>
 <td><p>This registers the tile generator class to OpenFPGA base class</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_placement_creator</span></code>(cls, *args, **kwargs)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_placement_creator</span></code>(cls, *args, **kwargs)</p></td>
 <td><p>This registers the tile generator class to OpenFPGA base class</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_tile_generator</span></code>(cls, *args, **kwargs)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_tile_generator</span></code>(cls, *args, **kwargs)</p></td>
 <td><p>This registers the tile generator class to OpenFPGA base class</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_config_chain</span></code>([name])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_config_chain</span></code>([name])</p></td>
 <td><p>Remove configuration chain from design</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_direct_interc</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_direct_interc</span></code>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_undriven_nets</span></code>([pattern])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_undriven_nets</span></code>([pattern])</p></td>
 <td><p>Removes undriven/floating nets from the top level</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_floorplan</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_floorplan</span></code>()</p></td>
 <td><p>This method runs the fpga render class to assign shape and location to each module instance</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_netlist</span></code>([patten, location, sort_print, ...])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_netlist</span></code>([patten, location, sort_print, ...])</p></td>
 <td><p>Save verilog files</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_shaping_data</span></code>([pattern, scale, filename])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_shaping_data</span></code>([pattern, scale, filename])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_placement_data</span></code>([pattern, filename])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_placement_data</span></code>([pattern, filename])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_utilization_data</span></code>([pattern, filename])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_utilization_data</span></code>([pattern, filename])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_include_file</span></code>(filename[, relative_from])</p></td>
 <td><p></p></td>
 </tr>
 </tbody>

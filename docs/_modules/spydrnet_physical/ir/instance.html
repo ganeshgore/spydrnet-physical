@@ -262,6 +262,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/04_create_clock_tree.html">2.2.4. Create Clock Tree Embedding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/05_clock_tree_insertion.html">2.2.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/06_reset_feedthrough.html">2.2.6. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/07_clock_tree_example1.html">2.2.7. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/08_clock_tree_example2.html">2.2.8. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/09_clock_tree_example3.html">2.2.9. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/09_clock_tree_example4.html">2.2.10. Clock tree insertion Example Architecture 3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/01_floorplan_rendering.html">2.3.1. Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/02_render_routing_box.html">2.3.2. Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/03_render_edge_routing_box.html">2.3.3. Rendering Switch and Connection Boxes</a></li>
@@ -304,6 +308,7 @@
           <h1>Source code for spydrnet_physical.ir.instance</h1><div class="highlight"><pre>
 <span></span>
 <span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">spydrnet.ir.instance</span> <span class="kn">import</span> <span class="n">Instance</span> <span class="k">as</span> <span class="n">InstanceBase</span>
 
@@ -313,6 +318,8 @@
     <span class="kn">from</span> <span class="nn">spydrnet_physical.ir.first_class_element</span> <span class="kn">import</span> <span class="n">FirstClassElement</span> <span class="k">as</span> <span class="n">FirstClassElementPhy</span>
     <span class="n">InstanceBase</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
         <span class="s2">"InstanceBase"</span><span class="p">,</span> <span class="p">(</span><span class="n">InstanceSDN</span><span class="p">,</span> <span class="n">FirstClassElementPhy</span><span class="p">),</span> <span class="p">{})</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Instance"><a class="viewcode-back" href="../../../reference/classes/instance.html#spydrnet_physical.ir.instance.Instance">[docs]</a><span class="k">class</span> <span class="nc">Instance</span><span class="p">(</span><span class="n">InstanceBase</span><span class="p">):</span>

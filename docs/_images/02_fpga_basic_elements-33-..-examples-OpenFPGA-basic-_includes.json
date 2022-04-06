@@ -97,7 +97,7 @@
       "attributes": {
         "hdlname": "\\cbx_1__1_",
         "top": 1,
-        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:3.1-303.10"
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:3.1-281.10"
       },
       "ports": {
         "cfg_done": {
@@ -142,35 +142,13 @@
         },
         "grid_top_out": {
           "direction": "output",
+          "upto": 1,
           "bits": [ 47, 48, 49, 50, 51, 52, 53, 54, 55, 56 ]
         },
         "grid_bottom_out": {
           "direction": "output",
+          "upto": 1,
           "bits": [ 57, 58, 59, 60, 61, 62, 63, 64, 65, 66 ]
-        },
-        "grid_bottom_in": {
-          "direction": "input",
-          "bits": [ 67, 68, 69 ]
-        },
-        "grid_left_t_out": {
-          "direction": "output",
-          "bits": [ 67, 68, 69 ]
-        },
-        "grid_right_t_out": {
-          "direction": "output",
-          "bits": [ 67, 68, 69 ]
-        },
-        "grid_top_in": {
-          "direction": "input",
-          "bits": [ 70, 71 ]
-        },
-        "grid_left_b_out": {
-          "direction": "output",
-          "bits": [ 70, 71 ]
-        },
-        "grid_right_b_out": {
-          "direction": "output",
-          "bits": [ 70, 71 ]
         }
       },
       "cells": {
@@ -181,7 +159,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:163.16-169.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:141.16-147.6"
           },
           "port_directions": {
             "in": "input",
@@ -191,9 +169,9 @@
           },
           "connections": {
             "in": [ 26, 6, 32, 12, 38, 18, 44, 24 ],
-            "out": [ 52 ],
-            "sram": [ 72, 73, 74, 75 ],
-            "sram_inv": [ 76, 77, 78, 79 ]
+            "out": [ 56 ],
+            "sram": [ 67, 68, 69, 70 ],
+            "sram_inv": [ 71, 72, 73, 74 ]
           }
         },
         "mux_bottom_ipin_1": {
@@ -203,7 +181,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:170.16-176.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:148.16-154.6"
           },
           "port_directions": {
             "in": "input",
@@ -213,9 +191,9 @@
           },
           "connections": {
             "in": [ 25, 5, 31, 11, 37, 17, 43, 23 ],
-            "out": [ 56 ],
-            "sram": [ 80, 81, 82, 83 ],
-            "sram_inv": [ 84, 85, 86, 87 ]
+            "out": [ 55 ],
+            "sram": [ 75, 76, 77, 78 ],
+            "sram_inv": [ 79, 80, 81, 82 ]
           }
         },
         "mux_bottom_ipin_2": {
@@ -225,7 +203,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:177.16-183.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:155.16-161.6"
           },
           "port_directions": {
             "in": "input",
@@ -235,9 +213,9 @@
           },
           "connections": {
             "in": [ 30, 10, 36, 16, 42, 22, 44, 24 ],
-            "out": [ 47 ],
-            "sram": [ 88, 89, 90, 91 ],
-            "sram_inv": [ 92, 93, 94, 95 ]
+            "out": [ 54 ],
+            "sram": [ 83, 84, 85, 86 ],
+            "sram_inv": [ 87, 88, 89, 90 ]
           }
         },
         "mux_bottom_ipin_3": {
@@ -247,7 +225,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:184.16-190.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:162.16-168.6"
           },
           "port_directions": {
             "in": "input",
@@ -257,9 +235,9 @@
           },
           "connections": {
             "in": [ 29, 9, 35, 15, 41, 21, 43, 23 ],
-            "out": [ 48 ],
-            "sram": [ 96, 97, 98, 99 ],
-            "sram_inv": [ 100, 101, 102, 103 ]
+            "out": [ 53 ],
+            "sram": [ 91, 92, 93, 94 ],
+            "sram_inv": [ 95, 96, 97, 98 ]
           }
         },
         "mux_bottom_ipin_4": {
@@ -269,7 +247,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:191.16-197.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:169.16-175.6"
           },
           "port_directions": {
             "in": "input",
@@ -279,9 +257,9 @@
           },
           "connections": {
             "in": [ 28, 8, 34, 14, 40, 20, 42, 22 ],
-            "out": [ 49 ],
-            "sram": [ 104, 105, 106, 107 ],
-            "sram_inv": [ 108, 109, 110, 111 ]
+            "out": [ 52 ],
+            "sram": [ 99, 100, 101, 102 ],
+            "sram_inv": [ 103, 104, 105, 106 ]
           }
         },
         "mux_bottom_ipin_5": {
@@ -291,7 +269,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:198.16-204.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:176.16-182.6"
           },
           "port_directions": {
             "in": "input",
@@ -301,9 +279,9 @@
           },
           "connections": {
             "in": [ 27, 7, 33, 13, 39, 19, 41, 21 ],
-            "out": [ 50 ],
-            "sram": [ 112, 113, 114, 115 ],
-            "sram_inv": [ 116, 117, 118, 119 ]
+            "out": [ 51 ],
+            "sram": [ 107, 108, 109, 110 ],
+            "sram_inv": [ 111, 112, 113, 114 ]
           }
         },
         "mux_bottom_ipin_6": {
@@ -313,7 +291,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:205.16-211.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:183.16-189.6"
           },
           "port_directions": {
             "in": "input",
@@ -323,9 +301,9 @@
           },
           "connections": {
             "in": [ 26, 6, 32, 12, 38, 18, 40, 20 ],
-            "out": [ 51 ],
-            "sram": [ 120, 121, 122, 123 ],
-            "sram_inv": [ 124, 125, 126, 127 ]
+            "out": [ 50 ],
+            "sram": [ 115, 116, 117, 118 ],
+            "sram_inv": [ 119, 120, 121, 122 ]
           }
         },
         "mux_bottom_ipin_7": {
@@ -335,7 +313,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:212.16-218.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:190.16-196.6"
           },
           "port_directions": {
             "in": "input",
@@ -345,9 +323,9 @@
           },
           "connections": {
             "in": [ 25, 5, 31, 11, 37, 17, 39, 19 ],
-            "out": [ 53 ],
-            "sram": [ 128, 129, 130, 131 ],
-            "sram_inv": [ 132, 133, 134, 135 ]
+            "out": [ 49 ],
+            "sram": [ 123, 124, 125, 126 ],
+            "sram_inv": [ 127, 128, 129, 130 ]
           }
         },
         "mux_bottom_ipin_8": {
@@ -357,7 +335,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:219.16-225.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:197.16-203.6"
           },
           "port_directions": {
             "in": "input",
@@ -367,9 +345,9 @@
           },
           "connections": {
             "in": [ 30, 10, 36, 16, 38, 18, 44, 24 ],
-            "out": [ 54 ],
-            "sram": [ 136, 137, 138, 139 ],
-            "sram_inv": [ 140, 141, 142, 143 ]
+            "out": [ 48 ],
+            "sram": [ 131, 132, 133, 134 ],
+            "sram_inv": [ 135, 136, 137, 138 ]
           }
         },
         "mux_bottom_ipin_9": {
@@ -379,7 +357,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:226.16-232.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:204.16-210.6"
           },
           "port_directions": {
             "in": "input",
@@ -389,9 +367,9 @@
           },
           "connections": {
             "in": [ 29, 9, 35, 15, 37, 17, 43, 23 ],
-            "out": [ 55 ],
-            "sram": [ 144, 145, 146, 147 ],
-            "sram_inv": [ 148, 149, 150, 151 ]
+            "out": [ 47 ],
+            "sram": [ 139, 140, 141, 142 ],
+            "sram_inv": [ 143, 144, 145, 146 ]
           }
         },
         "mux_top_ipin_0": {
@@ -401,7 +379,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:233.16-239.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:211.16-217.6"
           },
           "port_directions": {
             "in": "input",
@@ -411,9 +389,9 @@
           },
           "connections": {
             "in": [ 28, 8, 34, 14, 36, 16, 42, 22 ],
-            "out": [ 57 ],
-            "sram": [ 152, 153, 154, 155 ],
-            "sram_inv": [ 156, 157, 158, 159 ]
+            "out": [ 66 ],
+            "sram": [ 147, 148, 149, 150 ],
+            "sram_inv": [ 151, 152, 153, 154 ]
           }
         },
         "mux_top_ipin_1": {
@@ -423,7 +401,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:240.16-246.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:218.16-224.6"
           },
           "port_directions": {
             "in": "input",
@@ -434,8 +412,8 @@
           "connections": {
             "in": [ 27, 7, 33, 13, 35, 15, 41, 21 ],
             "out": [ 65 ],
-            "sram": [ 160, 161, 162, 163 ],
-            "sram_inv": [ 164, 165, 166, 167 ]
+            "sram": [ 155, 156, 157, 158 ],
+            "sram_inv": [ 159, 160, 161, 162 ]
           }
         },
         "mux_top_ipin_2": {
@@ -445,7 +423,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:247.16-253.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:225.16-231.6"
           },
           "port_directions": {
             "in": "input",
@@ -455,9 +433,9 @@
           },
           "connections": {
             "in": [ 26, 6, 32, 12, 34, 14, 40, 20 ],
-            "out": [ 66 ],
-            "sram": [ 168, 169, 170, 171 ],
-            "sram_inv": [ 172, 173, 174, 175 ]
+            "out": [ 64 ],
+            "sram": [ 163, 164, 165, 166 ],
+            "sram_inv": [ 167, 168, 169, 170 ]
           }
         },
         "mux_top_ipin_3": {
@@ -467,7 +445,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:254.16-260.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:232.16-238.6"
           },
           "port_directions": {
             "in": "input",
@@ -477,9 +455,9 @@
           },
           "connections": {
             "in": [ 25, 5, 31, 11, 33, 13, 39, 19 ],
-            "out": [ 58 ],
-            "sram": [ 176, 177, 178, 179 ],
-            "sram_inv": [ 180, 181, 182, 183 ]
+            "out": [ 63 ],
+            "sram": [ 171, 172, 173, 174 ],
+            "sram_inv": [ 175, 176, 177, 178 ]
           }
         },
         "mux_top_ipin_4": {
@@ -489,7 +467,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:261.16-267.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:239.16-245.6"
           },
           "port_directions": {
             "in": "input",
@@ -499,9 +477,9 @@
           },
           "connections": {
             "in": [ 30, 10, 32, 12, 38, 18, 44, 24 ],
-            "out": [ 59 ],
-            "sram": [ 184, 185, 186, 187 ],
-            "sram_inv": [ 188, 189, 190, 191 ]
+            "out": [ 62 ],
+            "sram": [ 179, 180, 181, 182 ],
+            "sram_inv": [ 183, 184, 185, 186 ]
           }
         },
         "mux_top_ipin_5": {
@@ -511,7 +489,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:268.16-274.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:246.16-252.6"
           },
           "port_directions": {
             "in": "input",
@@ -521,9 +499,9 @@
           },
           "connections": {
             "in": [ 29, 9, 31, 11, 37, 17, 43, 23 ],
-            "out": [ 60 ],
-            "sram": [ 192, 193, 194, 195 ],
-            "sram_inv": [ 196, 197, 198, 199 ]
+            "out": [ 61 ],
+            "sram": [ 187, 188, 189, 190 ],
+            "sram_inv": [ 191, 192, 193, 194 ]
           }
         },
         "mux_top_ipin_6": {
@@ -533,7 +511,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:275.16-281.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:253.16-259.6"
           },
           "port_directions": {
             "in": "input",
@@ -543,9 +521,9 @@
           },
           "connections": {
             "in": [ 28, 8, 30, 10, 36, 16, 42, 22 ],
-            "out": [ 61 ],
-            "sram": [ 200, 201, 202, 203 ],
-            "sram_inv": [ 204, 205, 206, 207 ]
+            "out": [ 60 ],
+            "sram": [ 195, 196, 197, 198 ],
+            "sram_inv": [ 199, 200, 201, 202 ]
           }
         },
         "mux_top_ipin_7": {
@@ -555,7 +533,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:282.16-288.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:260.16-266.6"
           },
           "port_directions": {
             "in": "input",
@@ -565,9 +543,9 @@
           },
           "connections": {
             "in": [ 27, 7, 29, 9, 35, 15, 41, 21 ],
-            "out": [ 62 ],
-            "sram": [ 208, 209, 210, 211 ],
-            "sram_inv": [ 212, 213, 214, 215 ]
+            "out": [ 59 ],
+            "sram": [ 203, 204, 205, 206 ],
+            "sram_inv": [ 207, 208, 209, 210 ]
           }
         },
         "mux_top_ipin_8": {
@@ -577,7 +555,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:289.16-295.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:267.16-273.6"
           },
           "port_directions": {
             "in": "input",
@@ -587,9 +565,9 @@
           },
           "connections": {
             "in": [ 26, 6, 28, 8, 34, 14, 40, 20 ],
-            "out": [ 63 ],
-            "sram": [ 216, 217, 218, 219 ],
-            "sram_inv": [ 220, 221, 222, 223 ]
+            "out": [ 58 ],
+            "sram": [ 211, 212, 213, 214 ],
+            "sram_inv": [ 215, 216, 217, 218 ]
           }
         },
         "mux_top_ipin_9": {
@@ -599,7 +577,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:296.16-302.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:274.16-280.6"
           },
           "port_directions": {
             "in": "input",
@@ -609,9 +587,9 @@
           },
           "connections": {
             "in": [ 25, 5, 27, 7, 33, 13, 39, 19 ],
-            "out": [ 64 ],
-            "sram": [ 224, 225, 226, 227 ],
-            "sram_inv": [ 228, 229, 230, 231 ]
+            "out": [ 57 ],
+            "sram": [ 219, 220, 221, 222 ],
+            "sram_inv": [ 223, 224, 225, 226 ]
           }
         }
       },
@@ -620,21 +598,21 @@
           "hide_name": 0,
           "bits": [ 45 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:29.11-29.20"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:23.11-23.20"
           }
         },
         "ccff_tail": {
           "hide_name": 0,
           "bits": [ 46 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:32.12-32.21"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:26.12-26.21"
           }
         },
         "cfg_done": {
           "hide_name": 0,
           "bits": [ 2 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:24.11-24.19"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:18.11-18.19"
           }
         },
         "chanx_left_in": {
@@ -642,7 +620,7 @@
           "bits": [ 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:27.17-27.30"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:21.17-21.30"
           }
         },
         "chanx_left_out": {
@@ -650,7 +628,7 @@
           "bits": [ 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:30.18-30.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:24.18-24.32"
           }
         },
         "chanx_right_in": {
@@ -658,7 +636,7 @@
           "bits": [ 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:28.17-28.31"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:22.17-22.31"
           }
         },
         "chanx_right_out": {
@@ -666,397 +644,357 @@
           "bits": [ 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:31.18-31.33"
-          }
-        },
-        "grid_bottom_in": {
-          "hide_name": 0,
-          "bits": [ 67, 68, 69 ],
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:35.16-35.30"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:25.18-25.33"
           }
         },
         "grid_bottom_out": {
           "hide_name": 0,
           "bits": [ 57, 58, 59, 60, 61, 62, 63, 64, 65, 66 ],
+          "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:34.17-34.32"
-          }
-        },
-        "grid_left_b_out": {
-          "hide_name": 0,
-          "bits": [ 70, 71 ],
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:39.17-39.32"
-          }
-        },
-        "grid_left_t_out": {
-          "hide_name": 0,
-          "bits": [ 67, 68, 69 ],
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:36.17-36.32"
-          }
-        },
-        "grid_right_b_out": {
-          "hide_name": 0,
-          "bits": [ 70, 71 ],
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:40.17-40.33"
-          }
-        },
-        "grid_right_t_out": {
-          "hide_name": 0,
-          "bits": [ 67, 68, 69 ],
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:37.17-37.33"
-          }
-        },
-        "grid_top_in": {
-          "hide_name": 0,
-          "bits": [ 70, 71 ],
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:38.16-38.27"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:28.17-28.32"
           }
         },
         "grid_top_out": {
           "hide_name": 0,
           "bits": [ 47, 48, 49, 50, 51, 52, 53, 54, 55, 56 ],
+          "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:33.17-33.29"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:27.17-27.29"
           }
         },
         "mux2_size8_0_sram": {
           "hide_name": 0,
-          "bits": [ 72, 73, 74, 75 ],
+          "bits": [ 67, 68, 69, 70 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:51.15-51.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:39.15-39.32"
           }
         },
         "mux2_size8_0_sram_inv": {
           "hide_name": 0,
-          "bits": [ 76, 77, 78, 79 ],
+          "bits": [ 71, 72, 73, 74 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:52.15-52.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:40.15-40.36"
           }
         },
         "mux2_size8_10_sram": {
           "hide_name": 0,
-          "bits": [ 152, 153, 154, 155 ],
+          "bits": [ 147, 148, 149, 150 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:41.15-41.33"
+          }
+        },
+        "mux2_size8_10_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 151, 152, 153, 154 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:42.15-42.37"
+          }
+        },
+        "mux2_size8_11_sram": {
+          "hide_name": 0,
+          "bits": [ 155, 156, 157, 158 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:43.15-43.33"
+          }
+        },
+        "mux2_size8_11_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 159, 160, 161, 162 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:44.15-44.37"
+          }
+        },
+        "mux2_size8_12_sram": {
+          "hide_name": 0,
+          "bits": [ 163, 164, 165, 166 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:45.15-45.33"
+          }
+        },
+        "mux2_size8_12_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 167, 168, 169, 170 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:46.15-46.37"
+          }
+        },
+        "mux2_size8_13_sram": {
+          "hide_name": 0,
+          "bits": [ 171, 172, 173, 174 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:47.15-47.33"
+          }
+        },
+        "mux2_size8_13_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 175, 176, 177, 178 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:48.15-48.37"
+          }
+        },
+        "mux2_size8_14_sram": {
+          "hide_name": 0,
+          "bits": [ 179, 180, 181, 182 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:49.15-49.33"
+          }
+        },
+        "mux2_size8_14_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 183, 184, 185, 186 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:50.15-50.37"
+          }
+        },
+        "mux2_size8_15_sram": {
+          "hide_name": 0,
+          "bits": [ 187, 188, 189, 190 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:51.15-51.33"
+          }
+        },
+        "mux2_size8_15_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 191, 192, 193, 194 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:52.15-52.37"
+          }
+        },
+        "mux2_size8_16_sram": {
+          "hide_name": 0,
+          "bits": [ 195, 196, 197, 198 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:53.15-53.33"
           }
         },
-        "mux2_size8_10_sram_inv": {
+        "mux2_size8_16_sram_inv": {
           "hide_name": 0,
-          "bits": [ 156, 157, 158, 159 ],
+          "bits": [ 199, 200, 201, 202 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:54.15-54.37"
           }
         },
-        "mux2_size8_11_sram": {
+        "mux2_size8_17_sram": {
           "hide_name": 0,
-          "bits": [ 160, 161, 162, 163 ],
+          "bits": [ 203, 204, 205, 206 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:55.15-55.33"
           }
         },
-        "mux2_size8_11_sram_inv": {
+        "mux2_size8_17_sram_inv": {
           "hide_name": 0,
-          "bits": [ 164, 165, 166, 167 ],
+          "bits": [ 207, 208, 209, 210 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:56.15-56.37"
           }
         },
-        "mux2_size8_12_sram": {
+        "mux2_size8_18_sram": {
           "hide_name": 0,
-          "bits": [ 168, 169, 170, 171 ],
+          "bits": [ 211, 212, 213, 214 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:57.15-57.33"
           }
         },
-        "mux2_size8_12_sram_inv": {
+        "mux2_size8_18_sram_inv": {
           "hide_name": 0,
-          "bits": [ 172, 173, 174, 175 ],
+          "bits": [ 215, 216, 217, 218 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:58.15-58.37"
           }
         },
-        "mux2_size8_13_sram": {
+        "mux2_size8_19_sram": {
           "hide_name": 0,
-          "bits": [ 176, 177, 178, 179 ],
+          "bits": [ 219, 220, 221, 222 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:59.15-59.33"
           }
         },
-        "mux2_size8_13_sram_inv": {
+        "mux2_size8_19_sram_inv": {
           "hide_name": 0,
-          "bits": [ 180, 181, 182, 183 ],
+          "bits": [ 223, 224, 225, 226 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:60.15-60.37"
           }
         },
-        "mux2_size8_14_sram": {
-          "hide_name": 0,
-          "bits": [ 184, 185, 186, 187 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:61.15-61.33"
-          }
-        },
-        "mux2_size8_14_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 188, 189, 190, 191 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:62.15-62.37"
-          }
-        },
-        "mux2_size8_15_sram": {
-          "hide_name": 0,
-          "bits": [ 192, 193, 194, 195 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:63.15-63.33"
-          }
-        },
-        "mux2_size8_15_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 196, 197, 198, 199 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:64.15-64.37"
-          }
-        },
-        "mux2_size8_16_sram": {
-          "hide_name": 0,
-          "bits": [ 200, 201, 202, 203 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:65.15-65.33"
-          }
-        },
-        "mux2_size8_16_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 204, 205, 206, 207 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:66.15-66.37"
-          }
-        },
-        "mux2_size8_17_sram": {
-          "hide_name": 0,
-          "bits": [ 208, 209, 210, 211 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:67.15-67.33"
-          }
-        },
-        "mux2_size8_17_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 212, 213, 214, 215 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:68.15-68.37"
-          }
-        },
-        "mux2_size8_18_sram": {
-          "hide_name": 0,
-          "bits": [ 216, 217, 218, 219 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:69.15-69.33"
-          }
-        },
-        "mux2_size8_18_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 220, 221, 222, 223 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:70.15-70.37"
-          }
-        },
-        "mux2_size8_19_sram": {
-          "hide_name": 0,
-          "bits": [ 224, 225, 226, 227 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:71.15-71.33"
-          }
-        },
-        "mux2_size8_19_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 228, 229, 230, 231 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:72.15-72.37"
-          }
-        },
         "mux2_size8_1_sram": {
           "hide_name": 0,
-          "bits": [ 80, 81, 82, 83 ],
+          "bits": [ 75, 76, 77, 78 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:61.15-61.32"
+          }
+        },
+        "mux2_size8_1_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 79, 80, 81, 82 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:62.15-62.36"
+          }
+        },
+        "mux2_size8_2_sram": {
+          "hide_name": 0,
+          "bits": [ 83, 84, 85, 86 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:63.15-63.32"
+          }
+        },
+        "mux2_size8_2_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 87, 88, 89, 90 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:64.15-64.36"
+          }
+        },
+        "mux2_size8_3_sram": {
+          "hide_name": 0,
+          "bits": [ 91, 92, 93, 94 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:65.15-65.32"
+          }
+        },
+        "mux2_size8_3_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 95, 96, 97, 98 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:66.15-66.36"
+          }
+        },
+        "mux2_size8_4_sram": {
+          "hide_name": 0,
+          "bits": [ 99, 100, 101, 102 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:67.15-67.32"
+          }
+        },
+        "mux2_size8_4_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 103, 104, 105, 106 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:68.15-68.36"
+          }
+        },
+        "mux2_size8_5_sram": {
+          "hide_name": 0,
+          "bits": [ 107, 108, 109, 110 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:69.15-69.32"
+          }
+        },
+        "mux2_size8_5_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 111, 112, 113, 114 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:70.15-70.36"
+          }
+        },
+        "mux2_size8_6_sram": {
+          "hide_name": 0,
+          "bits": [ 115, 116, 117, 118 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:71.15-71.32"
+          }
+        },
+        "mux2_size8_6_sram_inv": {
+          "hide_name": 0,
+          "bits": [ 119, 120, 121, 122 ],
+          "upto": 1,
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:72.15-72.36"
+          }
+        },
+        "mux2_size8_7_sram": {
+          "hide_name": 0,
+          "bits": [ 123, 124, 125, 126 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:73.15-73.32"
           }
         },
-        "mux2_size8_1_sram_inv": {
+        "mux2_size8_7_sram_inv": {
           "hide_name": 0,
-          "bits": [ 84, 85, 86, 87 ],
+          "bits": [ 127, 128, 129, 130 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:74.15-74.36"
           }
         },
-        "mux2_size8_2_sram": {
+        "mux2_size8_8_sram": {
           "hide_name": 0,
-          "bits": [ 88, 89, 90, 91 ],
+          "bits": [ 131, 132, 133, 134 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:75.15-75.32"
           }
         },
-        "mux2_size8_2_sram_inv": {
+        "mux2_size8_8_sram_inv": {
           "hide_name": 0,
-          "bits": [ 92, 93, 94, 95 ],
+          "bits": [ 135, 136, 137, 138 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:76.15-76.36"
           }
         },
-        "mux2_size8_3_sram": {
+        "mux2_size8_9_sram": {
           "hide_name": 0,
-          "bits": [ 96, 97, 98, 99 ],
+          "bits": [ 139, 140, 141, 142 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:77.15-77.32"
           }
         },
-        "mux2_size8_3_sram_inv": {
+        "mux2_size8_9_sram_inv": {
           "hide_name": 0,
-          "bits": [ 100, 101, 102, 103 ],
+          "bits": [ 143, 144, 145, 146 ],
           "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:78.15-78.36"
-          }
-        },
-        "mux2_size8_4_sram": {
-          "hide_name": 0,
-          "bits": [ 104, 105, 106, 107 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:79.15-79.32"
-          }
-        },
-        "mux2_size8_4_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 108, 109, 110, 111 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:80.15-80.36"
-          }
-        },
-        "mux2_size8_5_sram": {
-          "hide_name": 0,
-          "bits": [ 112, 113, 114, 115 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:81.15-81.32"
-          }
-        },
-        "mux2_size8_5_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 116, 117, 118, 119 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:82.15-82.36"
-          }
-        },
-        "mux2_size8_6_sram": {
-          "hide_name": 0,
-          "bits": [ 120, 121, 122, 123 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:83.15-83.32"
-          }
-        },
-        "mux2_size8_6_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 124, 125, 126, 127 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:84.15-84.36"
-          }
-        },
-        "mux2_size8_7_sram": {
-          "hide_name": 0,
-          "bits": [ 128, 129, 130, 131 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:85.15-85.32"
-          }
-        },
-        "mux2_size8_7_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 132, 133, 134, 135 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:86.15-86.36"
-          }
-        },
-        "mux2_size8_8_sram": {
-          "hide_name": 0,
-          "bits": [ 136, 137, 138, 139 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:87.15-87.32"
-          }
-        },
-        "mux2_size8_8_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 140, 141, 142, 143 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:88.15-88.36"
-          }
-        },
-        "mux2_size8_9_sram": {
-          "hide_name": 0,
-          "bits": [ 144, 145, 146, 147 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:89.15-89.32"
-          }
-        },
-        "mux2_size8_9_sram_inv": {
-          "hide_name": 0,
-          "bits": [ 148, 149, 150, 151 ],
-          "upto": 1,
-          "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:90.15-90.36"
           }
         },
         "prog_clk": {
           "hide_name": 0,
           "bits": [ 4 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:26.11-26.19"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:20.11-20.19"
           }
         },
         "prog_reset": {
           "hide_name": 0,
           "bits": [ 3 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:25.11-25.21"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA/basic/./_tmp/cbx_1__1_.v:19.11-19.21"
           }
         }
       }

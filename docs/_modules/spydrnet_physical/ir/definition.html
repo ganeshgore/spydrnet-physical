@@ -262,6 +262,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/04_create_clock_tree.html">2.2.4. Create Clock Tree Embedding</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/05_clock_tree_insertion.html">2.2.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/06_reset_feedthrough.html">2.2.6. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/07_clock_tree_example1.html">2.2.7. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/08_clock_tree_example2.html">2.2.8. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/09_clock_tree_example3.html">2.2.9. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/clock_tree/09_clock_tree_example4.html">2.2.10. Clock tree insertion Example Architecture 3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/01_floorplan_rendering.html">2.3.1. Demonstrate how to render basic floorplan</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/02_render_routing_box.html">2.3.2. Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga/rendering/03_render_edge_routing_box.html">2.3.3. Rendering Switch and Connection Boxes</a></li>
@@ -954,9 +958,13 @@
             <span class="k">assert</span> <span class="bp">self</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="n">definition</span><span class="p">,</span> \
                 <span class="sa">f</span><span class="s2">"all ports to combine should belong to same definition"</span>
 
-        <span class="n">new_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">)</span>
-        <span class="n">new_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">is_scalar</span><span class="o">=</span><span class="n">new_port</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">)</span>
+        <span class="n">new_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">,</span>
+                                    <span class="n">is_downto</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">new_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">is_scalar</span><span class="o">=</span><span class="n">new_port</span><span class="o">.</span><span class="n">is_scalar</span><span class="p">,</span>
+                                      <span class="n">is_downto</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">port_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ports</span><span class="p">:</span>
+            <span class="n">port_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="n">newPin</span> <span class="o">=</span> <span class="n">new_port</span><span class="o">.</span><span class="n">create_pin</span><span class="p">()</span>
             <span class="n">pp</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">ppWire</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">wire</span>
@@ -974,6 +982,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Combined with </span><span class="si">{</span><span class="n">new_port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> "</span> <span class="o">+</span>
                      <span class="sa">f</span><span class="s2">"created cable </span><span class="si">{</span><span class="n">new_cable</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">new_port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &lt;- </span><span class="si">{</span><span class="n">port_list</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">new_port</span><span class="p">,</span> <span class="n">new_cable</span></div>
 
     <span class="k">def</span> <span class="nf">create_unconn_wires</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
