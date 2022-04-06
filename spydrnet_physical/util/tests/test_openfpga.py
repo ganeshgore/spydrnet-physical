@@ -52,6 +52,7 @@ class TestOpenFPGA(unittest.TestCase):
 
         self.fpga.create_grid_clb_feedthroughs()
 
+    @unittest.skip(reason="Replace this with unit test")
     def test_grid_clb_ports(self):
         """ Verify grid clb port names """
         clb = next(self.fpga.library.get_definitions("grid_clb"))
@@ -67,6 +68,7 @@ class TestOpenFPGA(unittest.TestCase):
         self.assertIn("grid_right_in", port_names)
         self.assertIn("grid_right_out", port_names)
 
+    @unittest.skip(reason="Replace this with unit test")
     def test_cbx11_ports(self):
         """ Verify grid clb port names """
         cbx11 = next(self.fpga.library.get_definitions("cbx_1__1_"))
@@ -89,6 +91,7 @@ class TestOpenFPGA(unittest.TestCase):
         self.assertIn("grid_right_t_out", cbx11_names)
         self.assertIn("grid_right_b_out", cbx11_names)
 
+    @unittest.skip(reason="Replace this with unit test")
     def test_cby11_ports(self):
         """ Verify grid clb port names """
         cby11 = next(self.fpga.library.get_definitions("cby_1__1_"))
@@ -111,6 +114,7 @@ class TestOpenFPGA(unittest.TestCase):
         self.assertIn("grid_bottom_l_out", cby11_names)
         self.assertIn("grid_bottom_r_out", cby11_names)
 
+    @unittest.skip(reason="Replace this with unit test")
     def test_sb11_ports(self):
         """ Verify grid clb port names """
         sb11 = next(self.fpga.library.get_definitions("sb_1__1_"))
@@ -136,6 +140,7 @@ class TestOpenFPGA(unittest.TestCase):
         self.assertIn("grid_right_t_in", sb11_names)
         self.assertIn("grid_right_b_in", sb11_names)
 
+    @unittest.skip(reason="Replace this with unit test")
     def test_create_tiles(self):
         self.fpga.register_tile_generator(Tile01)
         self.fpga.create_tiles()
