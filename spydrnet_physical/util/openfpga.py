@@ -246,8 +246,7 @@ class OpenFPGA:
                 inst_cnt[inst.reference.name] = []
             inst_cnt[inst.reference.name].append(inst.name)
         return OrderedDict(sorted(inst_cnt.items(),
-                                  reverse=True,
-                                  key=lambda t: t[1]))
+                                  reverse=True))
 
     def design_top_stat(self, pattern="*", quiet=False, filename=None, function=[]):
         '''
