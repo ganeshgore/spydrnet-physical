@@ -94,8 +94,7 @@ class FPGAGridGen():
         self.fpga_arch = OpenFPGA_Arch(arch_file, None, layout=layout)
         # Parse values
         self.clb = None
-        self.arch_tree = ET.parse(arch_file)
-        self.root = self.arch_tree.getroot()
+        self.root = self.fpga_arch.vpr_arch
         self.layout = self.root.find(f".//fixed_layout[@name='{layout}']")
         assert layout, "Specified layout not found in the architecture file"
         self.width = self.fpga_arch.width
@@ -128,11 +127,22 @@ class FPGAGridGen():
                 print(f"{y:^10}", end=" ")
             print("")
 
+    def validate_grid(self):
+        '''
+        Checks for the correctness of the grid
+            - if right and up arrows are placed correctly in the grid 
+            - if the boundry blocks has correct grid value
+        '''
+        pass
+
     def get_block(self, x, y):
         '''
         This method returns the module present in specific x and y
         cordinate. The return value contains module name and 
         adjusted X and Y cordianates
+
+        the cordiante origin starts from the first element of top most list 
+        and first element of the first element of list of list
         '''
         value = self.grid[y][x]
         while value in [self.RIGHT_ARROW, self.UP_ARROW]:
@@ -140,7 +150,8 @@ class FPGAGridGen():
                 y -= 1
             if value == self.RIGHT_ARROW:
                 x -= 1
-            if x < 1 and y < 1:
+            if x < 0 and y < 0:
+                x, y = 0, 0
                 break
             value = self.grid[y][x]
         return value, x, y
