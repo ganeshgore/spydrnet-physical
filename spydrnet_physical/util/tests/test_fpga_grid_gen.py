@@ -68,8 +68,8 @@ class TestFpgaGridGen(unittest.TestCase):
         self.assertIs(len(grid_gen.grid), 20)
         self.assertIs(len(grid_gen.grid[0]), 16)
 
-        self.assertIs(grid_gen.get_width, 20, "Width property is invalid")
-        self.assertIs(grid_gen.get_height, 16, "Height property is invalid")
+        self.assertIs(grid_gen.get_width(), 14, "Width property is invalid")
+        self.assertIs(grid_gen.get_height(), 18, "Height property is invalid")
 
     def test_get_blocks(self):
         '''
