@@ -271,6 +271,8 @@ def CollectRst():
                 # print()
                 with open(os.path.join(out_dir, basename+".rst"), "w") as fp:
                     fp.write(
+                        f'.. _sample_verilog_{basename.replace(" ","_")}:\n' +
+                        f'\n' +
                         f'{basename}\n' +
                         f'=================\n\n' +
                         f'.. hdl-diagram:: ../{filename}\n' +

@@ -28,12 +28,14 @@ reload:
 	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
 
 generate_schematics:
+	mkdir -p source/auto_sample_verilog
 	find ../spydrnet_physical/support_files/sample_verilog/ -type f -name "*.v" | \
 	parallel -j 4  'filename={}; \
 	topmodule=$$(sed -n "s/module \(.*\)(.*/\1/p" $${filename} | head -1); \
 	echo "Generating schematic for [$$topmodule]  $$filename"; \
 	yosys -p "prep -top $$topmodule; write_json $${filename%.*}.json;" {} > $${filename%.*}.log; \
-	netlistsvg $${filename%.*}.json -o $${filename%.*}.svg'
+	netlistsvg $${filename%.*}.json -o $${filename%.*}.svg; \
+	cp $${filename%.*}.svg source/auto_sample_verilog/'
 
 run_examples: generate_schematics
 	find ../examples -type f -name "*.py" | \
