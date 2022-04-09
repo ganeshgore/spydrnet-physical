@@ -27,7 +27,15 @@ reload:
 	--watch "../spydrnet_physical/support_files/**" \
 	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
 
-run_examples:
+generate_schematics:
+	find ../spydrnet_physical/support_files/sample_verilog/ -type f -name "*.v" | \
+	parallel -j 4  'filename={}; \
+	topmodule=$$(sed -n "s/module \(.*\)(.*/\1/p" $${filename} | head -1); \
+	echo "Generating schematic for [$$topmodule]  $$filename"; \
+	yosys -p "prep -top $$topmodule; write_json $${filename%.*}.json;" {} > $${filename%.*}.log; \
+	netlistsvg $${filename%.*}.json -o $${filename%.*}.svg'
+
+run_examples: generate_schematics
 	find ../examples -type f -name "*.py" | \
 	parallel -j 4 'cd $$(dirname {}) ; \
 	${PYTHON_EXEC} $$(basename {}) &> /dev/null; \
