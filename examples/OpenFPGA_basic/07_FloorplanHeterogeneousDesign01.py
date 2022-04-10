@@ -9,7 +9,7 @@ based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. image:: ../../../../examples/OpenFPGA/basic/_hetero_design_floorplan.svg
+.. image:: ../../../examples/OpenFPGA/basic/_hetero_design_floorplan.svg
    :width: 70%
    :align: center
 
@@ -25,7 +25,8 @@ from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen,
                                     initial_placement)
 
 logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='INFO')
+sdn.enable_file_logging(LOG_LEVEL='INFO', filename="floorplan_heterpgeneous")
+
 
 PROP = "VERILOG.InlineConstraints"
 
@@ -221,3 +222,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# %%
+# Output
+# ------
+#
+# .. literalinclude:: ../../../examples/OpenFPGA_basic/_floorplan_heterpgeneous_spydrnet.log
+#
+#

@@ -234,21 +234,21 @@ sphinx_gallery_conf = {
     # path to your example scripts
     'examples_dirs': [
         os.path.join('..', '..', 'examples', 'basic'),
-        os.path.join('..', '..', 'examples', 'OpenFPGA')
+        os.path.join('..', '..', 'examples', 'OpenFPGA_basic')
     ],
     # path to where to save gallery generated output
-    'gallery_dirs': ['auto_basic', "auto_openfpga"],
+    'gallery_dirs': ['auto_basic', "auto_openfpga_basic"],
     'remove_config_comments': True,
     'filename_pattern': '/*.py',
     'capture_repr': (),
     'within_subsection_order': FileNameSortKey,
-    'subsection_order': ExplicitOrder(['../../examples/basic',
-                                       '../../examples/OpenFPGA',
-                                       '../../examples/OpenFPGA/basic',
-                                       '../../examples/OpenFPGA/clock_tree',
-                                       '../../examples/OpenFPGA/config_chain',
-                                       '../../examples/OpenFPGA/rendering',
-                                       '../../examples/OpenFPGA/partition']),
+    # 'subsection_order': ExplicitOrder(['../../examples/basic',
+    #                                    '../../examples/OpenFPGA',
+    #                                    '../../examples/OpenFPGA/basic',
+    #                                    '../../examples/OpenFPGA/clock_tree',
+    #                                    '../../examples/OpenFPGA/config_chain',
+    #                                    '../../examples/OpenFPGA/rendering',
+    #                                    '../../examples/OpenFPGA/partition']),
 }
 
 

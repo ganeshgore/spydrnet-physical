@@ -7,7 +7,7 @@ This example demonstates, how to render primitive FPGA elements using yosys
 and `netlistSVG <https://github.com/nturley/netlistsvg>`_ program.
 This sexample also demonstrates the use of ``OpenFPGA`` class.
 
-.. hdl-diagram:: ../../../../examples/OpenFPGA/basic/_includes.v
+.. hdl-diagram:: ../../../examples/OpenFPGA_basic/_includes.v
    :type: netlistsvg
    :align: center
    :module: cbx_1__1_

@@ -30,6 +30,6 @@ logger.info(fpga_arch.pb_types)
 # Output
 # ------
 #
-# .. literalinclude:: ../../../../examples/OpenFPGA/basic/_01_fpga_arch_parse_spydrnet.log
+# .. literalinclude:: ../../../examples/OpenFPGA_basic/_01_fpga_arch_parse_spydrnet.log
 #
 #

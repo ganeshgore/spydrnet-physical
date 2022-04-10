@@ -7,7 +7,7 @@ This example demostrates how the grided floorplan is generated using
 ``GridFloorplanGen`` class 
 
 
-.. image:: ../../../../examples/OpenFPGA/basic/_grid_floorplan.svg
+.. image:: ../../../examples/OpenFPGA_basic/_grid_floorplan.svg
    :width: 70%
    :align: center
 
