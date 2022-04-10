@@ -48,7 +48,7 @@ Table of Contents
    introduction/install
    introduction/tutorial
    reference/index
-   auto_sample_verilog/index
+   sample_netlist
    developers/index 
    example
 

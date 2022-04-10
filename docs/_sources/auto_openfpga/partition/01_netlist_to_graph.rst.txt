@@ -72,24 +72,25 @@ with weight equal to length of bus is assigned.
      ========== Nodes ==========
      0 in0             {'label': 'in0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in0'}
      1 in1             {'label': 'in1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in1'}
-     2 bus_in          {'label': 'bus_in', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
-     3 out0            {'label': 'out0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'out0'}
-     4 bus_out         {'label': 'bus_out', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
-     5 inst_1_0        {'port': False, 'weight': 1, 'node_name': 'inst_1_0', 'label': 'inst_1_0'}
-     6 inst_1_1        {'port': False, 'weight': 1, 'node_name': 'inst_1_1', 'label': 'inst_1_1'}
-     7 inst_2_0        {'port': False, 'weight': 1, 'node_name': 'inst_2_0', 'label': 'inst_2_0'}
-     8 inst_2_1        {'port': False, 'weight': 1, 'node_name': 'inst_2_1', 'label': 'inst_2_1'}
+     2 in3             {'label': 'in3', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in3'}
+     3 bus_in          {'label': 'bus_in', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
+     4 out0            {'label': 'out0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'out0'}
+     5 bus_out         {'label': 'bus_out', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
+     6 inst_1_0        {'port': False, 'weight': 1, 'node_name': 'inst_1_0', 'label': 'inst_1_0'}
+     7 inst_1_1        {'port': False, 'weight': 1, 'node_name': 'inst_1_1', 'label': 'inst_1_1'}
+     8 inst_2_0        {'port': False, 'weight': 1, 'node_name': 'inst_2_0', 'label': 'inst_2_0'}
+     9 inst_2_1        {'port': False, 'weight': 1, 'node_name': 'inst_2_1', 'label': 'inst_2_1'}
      ========== Edges ==========
-    0 7 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
     0 6 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
-    0 5 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
-    1 5 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
-    1 7 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
-    2 7 {'label': '[2]', 'edge_name': 'bus_in_1', 'weight': 2.0}
-    5 6 {'label': '[1]', 'edge_name': 'wire0_0', 'weight': 1.0}
-    6 3 {'label': '[1]', 'edge_name': 'out0_0', 'weight': 1.0}
-    7 8 {'label': '[4]', 'edge_name': 'wire_bus_1', 'weight': 4.0}
-    8 4 {'label': '[2]', 'edge_name': 'bus_out_1', 'weight': 2.0}
+    0 8 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
+    1 8 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
+    1 6 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
+    2 7 {'label': '[1]', 'edge_name': 'in3_0', 'weight': 1.0}
+    3 8 {'label': '[2]', 'edge_name': 'bus_in_1', 'weight': 2.0}
+    6 7 {'label': '[1]', 'edge_name': 'wire0_0', 'weight': 1.0}
+    7 4 {'label': '[1]', 'edge_name': 'out0_0', 'weight': 1.0}
+    8 9 {'label': '[4]', 'edge_name': 'wire_bus_1', 'weight': 4.0}
+    9 5 {'label': '[2]', 'edge_name': 'bus_out_1', 'weight': 2.0}
 
 
 
@@ -130,28 +131,29 @@ with weight equal to length of bus is assigned.
      ========== Nodes ==========
      0 in0             {'label': 'in0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in0'}
      1 in1             {'label': 'in1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in1'}
-     2 bus_in_1        {'label': 'bus_in_1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
-     3 bus_in_0        {'label': 'bus_in_0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
-     4 out0            {'label': 'out0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'out0'}
-     5 bus_out_1       {'label': 'bus_out_1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
-     6 bus_out_0       {'label': 'bus_out_0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
-     7 inst_1_0        {'port': False, 'weight': 1, 'node_name': 'inst_1_0', 'label': 'inst_1_0'}
-     8 inst_1_1        {'port': False, 'weight': 1, 'node_name': 'inst_1_1', 'label': 'inst_1_1'}
-     9 inst_2_0        {'port': False, 'weight': 1, 'node_name': 'inst_2_0', 'label': 'inst_2_0'}
-    10 inst_2_1        {'port': False, 'weight': 1, 'node_name': 'inst_2_1', 'label': 'inst_2_1'}
+     2 in3             {'label': 'in3', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in3'}
+     3 bus_in_1        {'label': 'bus_in_1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
+     4 bus_in_0        {'label': 'bus_in_0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
+     5 out0            {'label': 'out0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'out0'}
+     6 bus_out_1       {'label': 'bus_out_1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
+     7 bus_out_0       {'label': 'bus_out_0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
+     8 inst_1_0        {'port': False, 'weight': 1, 'node_name': 'inst_1_0', 'label': 'inst_1_0'}
+     9 inst_1_1        {'port': False, 'weight': 1, 'node_name': 'inst_1_1', 'label': 'inst_1_1'}
+    10 inst_2_0        {'port': False, 'weight': 1, 'node_name': 'inst_2_0', 'label': 'inst_2_0'}
+    11 inst_2_1        {'port': False, 'weight': 1, 'node_name': 'inst_2_1', 'label': 'inst_2_1'}
      ========== Edges ==========
-    0 7 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
-    0 9 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
+    0 10 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
     0 8 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
-    1 7 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
-    1 9 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
-    2 9 {'label': '[1]', 'edge_name': 'bus_in_1', 'weight': 1.0}
-    3 9 {'label': '[1]', 'edge_name': 'bus_in_0', 'weight': 1.0}
-    7 8 {'label': '[1]', 'edge_name': 'wire0_0', 'weight': 1.0}
-    8 4 {'label': '[1]', 'edge_name': 'out0_0', 'weight': 1.0}
-    9 10 {'label': '[4]', 'edge_name': 'wire_bus_1', 'weight': 4.0}
-    10 5 {'label': '[1]', 'edge_name': 'bus_out_1', 'weight': 1.0}
-    10 6 {'label': '[1]', 'edge_name': 'bus_out_0', 'weight': 1.0}
+    1 8 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
+    1 10 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
+    2 9 {'label': '[1]', 'edge_name': 'in3_0', 'weight': 1.0}
+    3 10 {'label': '[1]', 'edge_name': 'bus_in_1', 'weight': 1.0}
+    4 10 {'label': '[1]', 'edge_name': 'bus_in_0', 'weight': 1.0}
+    8 9 {'label': '[1]', 'edge_name': 'wire0_0', 'weight': 1.0}
+    9 5 {'label': '[1]', 'edge_name': 'out0_0', 'weight': 1.0}
+    10 11 {'label': '[4]', 'edge_name': 'wire_bus_1', 'weight': 4.0}
+    11 7 {'label': '[1]', 'edge_name': 'bus_out_0', 'weight': 1.0}
+    11 6 {'label': '[1]', 'edge_name': 'bus_out_1', 'weight': 1.0}
 
 
 
@@ -159,7 +161,7 @@ with weight equal to length of bus is assigned.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.063 seconds)
+   **Total running time of the script:** ( 0 minutes  0.067 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_partition_01_netlist_to_graph.py:

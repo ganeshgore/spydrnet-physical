@@ -1,10 +1,11 @@
 //Generated from netlist by SpyDrNet
 //netlist name: SDN_VERILOG_NETLIST_top
-(* WIDTH = 250, HEIGHT = 250, in0_X = 2, in0_Y = 10, in1_X = 2, in1_Y = 30, bus_in_X = 2, bus_in_Y = 50, out0_X = 249, out0_Y = 230, bus_out_X = 249, bus_out_Y = 210 *)
+(* WIDTH = 250, HEIGHT = 250, in0_X = 2, in0_Y = 10, in1_X = 2, in1_Y = 30, in3_X = 125.0, in3_Y = 125.0, bus_in_X = 2, bus_in_Y = 50, out0_X = 249, out0_Y = 230, bus_out_X = 249, bus_out_Y = 210 *)
 module top
 (
     in0,
     in1,
+    in3,
     bus_in,
     out0,
     bus_out
@@ -14,6 +15,8 @@ module top
     input in0;
 (* SIDE = left, OFFSET = 30 *)
     input in1;
+(* SIDE = center, OFFSET = 0 *)
+    input in3;
 (* SIDE = left, OFFSET = 50 *)
     input [1:0]bus_in;
 (* SIDE = right, OFFSET = 20 *)
@@ -23,6 +26,7 @@ module top
 
     wire in0;
     wire in1;
+    wire in3;
     wire [1:0]bus_in;
     wire out0;
     wire [1:0]bus_out;
@@ -40,7 +44,7 @@ module top
     module1 inst_1_1
     (
         .in0(wire0),
-        .in1(in0),
+        .in1(in3),
         .out(out0)
     );
 (* LOC_X = 150, LOC_Y = 50 *)

@@ -87,6 +87,11 @@ hwSchematic.bindData(
           "hwMeta": { "name": "in1"},
           "properties": { "index": 1, "side": "WEST"}},
         {
+          "id": "top_top/in3",
+          "direction": "INPUT",
+          "hwMeta": { "name": "in3"},
+          "properties": { "index": 1, "side": "WEST"}},
+        {
           "id": "top_top/bus_in",
           "direction": "INPUT",
           "hwMeta": { "name": "bus_in"},
@@ -290,10 +295,6 @@ hwSchematic.bindData(
               "inst_1_0/in0"
             ],
             [
-              "inst_1_1",
-              "inst_1_1/in1"
-            ],
-            [
               "inst_2_0",
               "inst_2_0/in0"
             ]
@@ -319,6 +320,21 @@ hwSchematic.bindData(
           ]},
         {
           "id": 9,
+          "hwMeta": { "name": "in3", "cssClass": "link-style0"},
+          "sources": [
+            [
+              "top_top",
+              "top_top/in3"
+            ]
+          ],
+          "targets": [
+            [
+              "inst_1_1",
+              "inst_1_1/in1"
+            ]
+          ]},
+        {
+          "id": 10,
           "hwMeta": { "name": "out0", "cssClass": "link-style0"},
           "sources": [
             [
@@ -333,7 +349,7 @@ hwSchematic.bindData(
             ]
           ]},
         {
-          "id": 10,
+          "id": 11,
           "hwMeta": { "name": "wire0", "cssClass": "link-style0"},
           "sources": [
             [
@@ -383,6 +399,23 @@ hwSchematic.bindData(
       "_children": [],
       "_edges": [],
       "hwMeta": { "bodyText": "in1", "cls": "Process", "isExternalPort": true},
+      "properties": {
+        "org.eclipse.elk.layered.mergeEdges": 1,
+        "org.eclipse.elk.portConstraints": "FIXED_SIDE"
+      }
+    },
+    {
+      "id": "in3_port",
+      "ports": [
+        {
+          "id": "in3",
+          "direction": "OUTPUT",
+          "hwMeta": { "name": ""},
+          "properties": { "index": 1, "side": "EAST"}}
+      ],
+      "_children": [],
+      "_edges": [],
+      "hwMeta": { "bodyText": "in3", "cls": "Process", "isExternalPort": true},
       "properties": {
         "org.eclipse.elk.layered.mergeEdges": 1,
         "org.eclipse.elk.portConstraints": "FIXED_SIDE"
@@ -472,6 +505,21 @@ hwSchematic.bindData(
         ]
       ]},
     {
+      "id": "in3_conn",
+      "hwMeta": { "name": "in3_conn", "cssClass": "link-style0"},
+      "sources": [
+        [
+          "top_top",
+          "top_top/in3"
+        ]
+      ],
+      "targets": [
+        [
+          "in3_port",
+          "in3"
+        ]
+      ]},
+    {
       "id": "bus_in_conn",
       "hwMeta": { "name": "bus_in_conn", "cssClass": "link-style0"},
       "sources": [
@@ -517,7 +565,7 @@ hwSchematic.bindData(
         ]
       ]}
   ],
-  "hwMeta": { "maxId": 11},
+  "hwMeta": { "maxId": 12},
   "properties": {
     "org.eclipse.elk.layered.mergeEdges": 1,
     "org.eclipse.elk.portConstraints": "FIXED_SIDE"

@@ -228,26 +228,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../auto_sample_verilog/index.html">Sample Verilog Netlists</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/basic_hierarchy.html">basic_hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/grid_example.html">grid_example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/nested_hierarchy.html">nested_hierarchy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_sample_verilog/square_grid.html">square_grid</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developers Guidelines</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">1.2. Display Netlist Information Functions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/group_ungroup_cells.html">1.3. Grouping ungrouping cells</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">1.4. Merging two instances in the design</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_multiple_instances.html">1.5. Merging group of instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/partitioning_experiments.html">1.6. Partitions Experimentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">1.7. Genrating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">1.7. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga/index.html">2. OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga/index.html">2. OpenFPGA Related Restructuring</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/basic/01_fpga_arch_parse.html">2.1.1. OpenFPGA Architecture Parsing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/basic/02_fpga_basic_elements.html">2.1.2. Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga/basic/03_initial_placement.html">2.1.3. Render Placement information from Verilog netlist</a></li>
@@ -308,17 +302,111 @@
         <article role="main">
           <section id="tutorial">
 <h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
-<p>To get complete detail of the data structure and base classes used in <code class="docutils literal notranslate"><span class="pre">SpyDrNet</span></code> please refer
-<a class="reference external" href="https://byuccl.github.io/spydrnet/docs/stable/index.html">byuccl/SpyDrNet Documentation</a>
-This page provides brief information of different classes concerning
-<code class="docutils literal notranslate"><span class="pre">SpyDrNet-Physical</span></code> library.</p>
+<p>This tutorial focuses on hierarchical physical restructuring using <code class="docutils literal notranslate"><span class="pre">spydrnet-physical</span></code> plugin.
+If you are starting with a <code class="docutils literal notranslate"><span class="pre">spydrnet</span></code> project and looking for complete detail
+of the data structure and base classes of <code class="docutils literal notranslate"><span class="pre">SpyDrNet</span></code> please refer
+<a class="reference external" href="https://byuccl.github.io/spydrnet/docs/stable/index.html">byuccl/SpyDrNet Documentation</a>.
+This tutorial focuses mainly on reading the existing Verilog netlist in spydrnet
+project and performing a series of netlist manipulation (which are correct by construction) to
+achieve the intended netlist structure.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SpyDeNet focuses only on restructural Verilog netlist, netlists containing
+always and initial blocks are not valid structure netlists.</p>
+</div>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The following example shows how you can perform a netlist manipulation.
+In this example, we are going to generate feedthrough for a single wire
+connected between <cite>in0</cite> input port and <cite>in1</cite> port of instance <cite>inst_1__1</cite>.
+The cable/net name of this connection is <cite>wire0</cite>, which is obtained from the
+the Verilog netlist <a class="reference internal" href="../auto_sample_verilog/basic_hierarchy.html#sample-verilog-basic-hierarchy"><span class="std std-ref">basic_hierarchy</span></a>
+(<cite>wire name is not annotated in the following schematic</cite>).</p>
+<img alt="auto_sample_verilog/basic_hierarchy.svg" class="align-center" src="auto_sample_verilog/basic_hierarchy.svg"/><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'basic_hierarchy'</span><span class="p">)</span>
+
+<span class="c1"># Read example netlist</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
+
+<span class="c1"># get instance of wire0 and inst_2_0</span>
+<span class="n">cable0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"wire0"</span><span class="p">))</span>
+<span class="n">inst2</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_1_0"</span><span class="p">))</span>
+<span class="n">top</span><span class="o">.</span><span class="n">create_feedthrough</span><span class="p">(</span><span class="n">inst2</span><span class="p">,</span> <span class="n">cable0</span><span class="p">)</span>
+
+<span class="c1"># Add dummy unconnected wire</span>
+<span class="n">top</span><span class="o">.</span><span class="n">create_unconn_wires</span><span class="p">()</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_output_wire.v'</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_wire.v" src="../_images/tutorial-58-..-examples-basic-_output_wire.svg"/>
+</div>
+<p><em>For more detail of spydrnet-physical features and examples, please check</em> <a class="reference external" href="examples">examples</a> <em>section</em></p>
+</section>
+</section>
 <section id="shell-interface">
 <h2>Shell Interface<a class="headerlink" href="#shell-interface" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">SpyDrNet-Physical</span></code> allows you to load a python shell-like interface after
-installation with the command <code class="docutils literal notranslate"><span class="pre">sdnphy</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SpyDrNet-Physical</span></code> allows you to load a shell-like interface after
+to perform live modifications and debugging of the Script.</p>
+<p>A shell like interactive interface can be involked by running <code class="docutils literal notranslate"><span class="pre">sdnphy</span></code> command
+which opens interactive shell enviroment as shown below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash&gt;&gt;&gt; sdnphy
+
+ ___           ___      _  _     _       ___ _           _         _
+/ __|_ __ _  _|   \ _ _| \| |___| |_ ___| _ \ |_ _  _ __(_)__ __ _| |
+\__ \ '_ \ || | |) | '_| .` / -_)  _|___|  _/ ' \ || (_-&lt; / _/ _` | |
+|___/ .__/\_, |___/|_| |_|\_\___|\__|   |_| |_||_\_, /__/_\__\__,_|_|
+    |_|   |__/                                   |__/
+
+Launching SpyDrNet-Physical interactive mode
+
+spydrnet &gt;&gt;&gt;
+</pre></div>
+</div>
+<section id="in-script-debugging">
+<h3>In-script debugging<a class="headerlink" href="#in-script-debugging" title="Permalink to this headline">¶</a></h3>
+<p>A shell-like interface can also be invoked from the python script. Use the
+following command to import shell and launch.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">spydrnet_physical.utils.shell</span> <span class="kn">import</span> <span class="n">launch_shell</span>
+
+<span class="c1">#</span>
+<span class="c1"># script before launching the shell</span>
+<span class="c1">#</span>
+<span class="n">launch_shell</span><span class="p">()</span>
+<span class="c1">#</span>
+<span class="c1"># script after exiting the shell</span>
+<span class="c1">#</span>
+</pre></div>
+</div>
+<p>For more information related to shell interface and shortcuts, please read
+<span class="xref std std-ref">sdnphy Shell</span> section.</p>
+</section>
 </section>
 <section id="visualization">
 <h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<p>Spydrnet-physical also provides a basic hierarchical visualizer based on
+project project <a class="reference external" href="https://github.com/Nic30/d3-hwschematic">Nic30/d3-hwschematic</a>.
+The following example script can be used to export an HTML file to visualize live
+on the web browser.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.composers.html.composer</span> <span class="kn">import</span> <span class="n">HTMLComposer</span>
+
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'basic_hierarchy'</span><span class="p">)</span>
+
+<span class="n">composer</span> <span class="o">=</span> <span class="n">HTMLComposer</span><span class="p">()</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_initial_design.html"</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to the Cross-Origin Resource Sharing policy, the HTML page can not be embedded
+on this page. To visualize the netlist, please click on the following link.</p>
+</div>
+<p><a class="reference external" href="/_images/_initial_design.html">Open schematic in separate window</a></p>
 </section>
 </section>
 
@@ -376,7 +464,14 @@ installation with the command <code class="docutils literal notranslate"><span c
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Tutorial</a><ul>
-<li><a class="reference internal" href="#shell-interface">Shell Interface</a></li>
+<li><a class="reference internal" href="#example">Example</a><ul>
+<li><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#shell-interface">Shell Interface</a><ul>
+<li><a class="reference internal" href="#in-script-debugging">In-script debugging</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#visualization">Visualization</a></li>
 </ul>
 </li>

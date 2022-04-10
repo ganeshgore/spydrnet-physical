@@ -4,7 +4,7 @@
     "module1": {
       "attributes": {
         "hdlname": "\\module1",
-        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:52.1-67.10"
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:61.1-76.10"
       },
       "ports": {
         "in0": {
@@ -27,21 +27,21 @@
           "hide_name": 0,
           "bits": [ 2 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:59.11-59.14"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:68.11-68.14"
           }
         },
         "in1": {
           "hide_name": 0,
           "bits": [ 3 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:60.11-60.14"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:69.11-69.14"
           }
         },
         "out": {
           "hide_name": 0,
           "bits": [ 4 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:61.12-61.15"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:70.12-70.15"
           }
         }
       }
@@ -49,7 +49,7 @@
     "module2": {
       "attributes": {
         "hdlname": "\\module2",
-        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:69.1-84.10"
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:78.1-100.10"
       },
       "ports": {
         "in0": {
@@ -63,30 +63,52 @@
         "out": {
           "direction": "output",
           "bits": [ 6, 7 ]
+        },
+        "bus_in_ft_in": {
+          "direction": "input",
+          "bits": [ 8, 9 ]
+        },
+        "bus_in_ft_out": {
+          "direction": "output",
+          "bits": [ 8, 9 ]
         }
       },
       "cells": {
       },
       "netnames": {
+        "bus_in_ft_in": {
+          "hide_name": 0,
+          "bits": [ 8, 9 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:90.16-90.28"
+          }
+        },
+        "bus_in_ft_out": {
+          "hide_name": 0,
+          "bits": [ 8, 9 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:91.17-91.30"
+          }
+        },
         "in0": {
           "hide_name": 0,
           "bits": [ 2, 3 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:76.16-76.19"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:87.16-87.19"
           }
         },
         "in1": {
           "hide_name": 0,
           "bits": [ 4, 5 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:77.16-77.19"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:88.16-88.19"
           }
         },
         "out": {
           "hide_name": 0,
           "bits": [ 6, 7 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:78.17-78.20"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:89.17-89.20"
           }
         }
       }
@@ -95,7 +117,7 @@
       "attributes": {
         "hdlname": "\\top",
         "top": 1,
-        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:3.1-50.10"
+        "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:3.1-59.10"
       },
       "ports": {
         "in0": {
@@ -106,17 +128,21 @@
           "direction": "input",
           "bits": [ 3 ]
         },
+        "in3": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
         "bus_in": {
           "direction": "input",
-          "bits": [ 4, 5 ]
+          "bits": [ 5, 6 ]
         },
         "out0": {
           "direction": "output",
-          "bits": [ 6 ]
+          "bits": [ 7 ]
         },
         "bus_out": {
           "direction": "output",
-          "bits": [ 7, 8 ]
+          "bits": [ 8, 9 ]
         }
       },
       "cells": {
@@ -127,7 +153,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:26.13-31.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:31.13-36.6"
           },
           "port_directions": {
             "in0": "input",
@@ -137,7 +163,7 @@
           "connections": {
             "in0": [ 2 ],
             "in1": [ 3 ],
-            "out": [ 9 ]
+            "out": [ 10 ]
           }
         },
         "inst_1_1": {
@@ -147,7 +173,7 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:32.13-37.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:37.13-42.6"
           },
           "port_directions": {
             "in0": "input",
@@ -155,9 +181,9 @@
             "out": "output"
           },
           "connections": {
-            "in0": [ 9 ],
-            "in1": [ 2 ],
-            "out": [ 6 ]
+            "in0": [ 10 ],
+            "in1": [ 4 ],
+            "out": [ 7 ]
           }
         },
         "inst_2_0": {
@@ -167,17 +193,21 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:38.13-43.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:43.13-50.6"
           },
           "port_directions": {
+            "bus_in_ft_in": "input",
+            "bus_in_ft_out": "output",
             "in0": "input",
             "in1": "input",
             "out": "output"
           },
           "connections": {
+            "bus_in_ft_in": [ 5, 6 ],
+            "bus_in_ft_out": [ 11, 12 ],
             "in0": [ 3, 2 ],
-            "in1": [ 4, 5 ],
-            "out": [ 10, 11 ]
+            "in1": [ 11, 12 ],
+            "out": [ 13, 14 ]
           }
         },
         "inst_2_1": {
@@ -187,68 +217,94 @@
           },
           "attributes": {
             "module_not_derived": 1,
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:44.13-49.6"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:51.13-58.6"
           },
           "port_directions": {
+            "bus_in_ft_in": "input",
+            "bus_in_ft_out": "output",
             "in0": "input",
             "in1": "input",
             "out": "output"
           },
           "connections": {
-            "in0": [ 10, 11 ],
-            "in1": [ 10, 11 ],
-            "out": [ 7, 8 ]
+            "bus_in_ft_in": [ 15, 16 ],
+            "bus_in_ft_out": [ 17, 18 ],
+            "in0": [ 13, 14 ],
+            "in1": [ 13, 14 ],
+            "out": [ 8, 9 ]
           }
         }
       },
       "netnames": {
         "bus_in": {
           "hide_name": 0,
-          "bits": [ 4, 5 ],
+          "bits": [ 5, 6 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:14.16-14.22"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:16.16-16.22"
+          }
+        },
+        "bus_in_ft_in_0": {
+          "hide_name": 0,
+          "bits": [ 11, 12 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:28.15-28.29"
           }
         },
         "bus_out": {
           "hide_name": 0,
-          "bits": [ 7, 8 ],
+          "bits": [ 8, 9 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:16.17-16.24"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:18.17-18.24"
           }
         },
         "in0": {
           "hide_name": 0,
           "bits": [ 2 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:12.11-12.14"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:13.11-13.14"
           }
         },
         "in1": {
           "hide_name": 0,
           "bits": [ 3 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:13.11-13.14"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:14.11-14.14"
+          }
+        },
+        "in3": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:15.11-15.14"
           }
         },
         "out0": {
           "hide_name": 0,
-          "bits": [ 6 ],
+          "bits": [ 7 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:15.12-15.16"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:17.12-17.16"
+          }
+        },
+        "unconn": {
+          "hide_name": 0,
+          "bits": [ 19, 15, 16, 17, 18 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:29.15-29.21",
+            "unused_bits": "0 3 4"
           }
         },
         "wire0": {
           "hide_name": 0,
-          "bits": [ 9 ],
+          "bits": [ 10 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:23.10-23.15"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:26.10-26.15"
           }
         },
         "wire_bus": {
           "hide_name": 0,
-          "bits": [ 10, 11 ],
+          "bits": [ 13, 14 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_initial_design.v:24.15-24.23"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:27.15-27.23"
           }
         }
       }

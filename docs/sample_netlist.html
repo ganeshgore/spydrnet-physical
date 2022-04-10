@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Install" href="introduction/install.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Developers Guidelines" href="developers/index.html" /><link rel="prev" title="Bottom-Right-Tile" href="reference/openfpga/Tile01/bottom-right-tile.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>SpyDrNet-Physical alpha documentation</title>
+        <title>Sample verilog netlist - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -129,7 +129,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">SpyDrNet-Physical alpha documentation</div></a>
+      <a href="index.html"><div class="brand">SpyDrNet-Physical alpha documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -149,7 +149,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
   <span class="sidebar-brand-text">SpyDrNet-Physical alpha documentation</span>
@@ -160,7 +160,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
+  <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction/install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction/tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -228,7 +228,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="sample_netlist.html">Sample verilog netlist</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Sample verilog netlist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -300,49 +300,40 @@
           </label>
         </div>
         <article role="main">
-          <figure class="align-center">
-<a class="main-image reference internal image-reference" href="_images/spydrnet-physical-logo.svg"><img alt="_images/spydrnet-physical-logo.svg" class="main-image" src="_images/spydrnet-physical-logo.svg" width="50%"/></a>
+          <section id="sample-verilog-netlist">
+<span id="id1"></span><h1>Sample verilog netlist<a class="headerlink" href="#sample-verilog-netlist" title="Permalink to this headline">¶</a></h1>
+<section id="basic-netlist">
+<h2>Basic netlist<a class="headerlink" href="#basic-netlist" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="basic_hierarchy"><figure class="align-default" id="id2">
+<img alt="basic_hierarchy" src="auto_sample_verilog/basic_hierarchy.svg"/><figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text"><a class="reference internal" href="auto_sample_verilog/basic_hierarchy.html#sample-verilog-basic-hierarchy"><span class="std std-ref">basic_hierarchy</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
 </figure>
-<section id="spydrnet-physical-documentation">
-<h1>SpyDrNet-Physical Documentation<a class="headerlink" href="#spydrnet-physical-documentation" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://github.com/byuccl/spydrnet">SpyDrNet</a> is a flexible framework for
-analyzing and transforming structural Verilog netlists.
-It allows users to design a complete structural Verilog netlist
-using python scripting or parser an existing Verilog netlist.
-The structural Verilog netlist is represented as a python class
-that simplifies the netlist modification process.
-The <code class="docutils literal notranslate"><span class="pre">SpyDrNet</span></code> is purely designed as a python package, keeping scalability in mind.
-In <code class="docutils literal notranslate"><span class="pre">SpyDrNet-Physical</span></code> is an extension for <code class="docutils literal notranslate"><span class="pre">SpyDrNet</span></code> framework,
-which adds functionality to perform physical design-related
-netlist transformations.</p>
-<p>Essential characteristics of <code class="docutils literal notranslate"><span class="pre">SpyDrNet-Physical</span></code></p>
-<ul class="circlelist simple">
-<li><p>Appends features like <cite>create_feedthrough</cite>, <cite>create_feedthrough_multiple</cite>, <cite>merge_instance</cite>
-which are important during netlist restructuring for physical design</p></li>
-<li><p>Includes some <cite>html</cite> and <cite>graph-based</cite> visualization features</p></li>
-<li><p>Only supports Verilog netlist, no support for EDIF or any other formats</p></li>
-</ul>
-<section id="table-of-contents">
-<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction/install.html">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction/tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference/index.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample_netlist.html">Sample verilog netlist</a></li>
-<li class="toctree-l1"><a class="reference internal" href="developers/index.html">Developers Guidelines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-</ul>
-</div>
-<section id="indices-and-tables">
-<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
-</section>
-</section>
+</div><div class="sphx-glr-thumbcontainer" tooltip="nested_hierarchy"><figure class="align-default" id="id3">
+<img alt="nested_hierarchy" src="auto_sample_verilog/nested_hierarchy.svg"/><figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text"><a class="reference internal" href="auto_sample_verilog/nested_hierarchy.html#sample-verilog-nested-hierarchy"><span class="std std-ref">nested_hierarchy</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-clear"></div></section>
+<section id="multi-instantiated-design">
+<h2>Multi-instantiated design<a class="headerlink" href="#multi-instantiated-design" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="grid_example"><figure class="align-default" id="id4">
+<img alt="grid_example" src="auto_sample_verilog/grid_example.svg"/><figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text"><a class="reference internal" href="auto_sample_verilog/grid_example.html#sample-verilog-grid-example"><span class="std std-ref">grid_example</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="square_grid"><figure class="align-default" id="id5">
+<img alt="square_grid" src="auto_sample_verilog/square_grid.svg"/><figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text"><a class="reference internal" href="auto_sample_verilog/square_grid.html#sample-verilog-square-grid"><span class="std std-ref">square_grid</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-clear"></div></section>
+<section id="homogeneous-fpga-outline">
+<h2>Homogeneous FPGA outline<a class="headerlink" href="#homogeneous-fpga-outline" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-clear"></div></section>
+<section id="heterogeneous-fpga-outline">
+<h2>Heterogeneous FPGA outline<a class="headerlink" href="#heterogeneous-fpga-outline" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-clear"></div></section>
 </section>
 
         </article>
@@ -350,16 +341,26 @@ which are important during netlist restructuring for physical design</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="introduction/install.html">
+          <a class="next-page" href="developers/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Install</div>
+                <div class="title">Developers Guidelines</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          
+          <a class="prev-page" href="reference/openfpga/Tile01/bottom-right-tile.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Bottom-Right-Tile</div>
+                
+              </div>
+            </a>
         </div>
 
         <div class="related-information">
@@ -368,7 +369,7 @@ which are important during netlist restructuring for physical design</p></li>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="_sources/index.rst.txt"
+            <a class="muted-link" href="_sources/sample_netlist.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -388,11 +389,11 @@ which are important during netlist restructuring for physical design</p></li>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">SpyDrNet-Physical Documentation</a><ul>
-<li><a class="reference internal" href="#table-of-contents">Table of Contents</a><ul>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Sample verilog netlist</a><ul>
+<li><a class="reference internal" href="#basic-netlist">Basic netlist</a></li>
+<li><a class="reference internal" href="#multi-instantiated-design">Multi-instantiated design</a></li>
+<li><a class="reference internal" href="#homogeneous-fpga-outline">Homogeneous FPGA outline</a></li>
+<li><a class="reference internal" href="#heterogeneous-fpga-outline">Heterogeneous FPGA outline</a></li>
 </ul>
 </li>
 </ul>
