@@ -1,7 +1,7 @@
 .. _INSTALL.rst:
 
 Install
--------
+========
 
 Run one of the following commands to install the latest release of *SpyDrNet-Physical*.
 
@@ -18,7 +18,7 @@ Run one of the following commands to install the latest release of *SpyDrNet-Phy
 
 
 Development Version
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 To install a current bleeding edge (current;y under development) version directly from GitHub
 
@@ -33,7 +33,7 @@ To install a current bleeding edge (current;y under development) version directl
 
 
 Validate Installation
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 To enable plugins while using ``Spydrnet``, please create `.spydrnet` file 
 in your home directory. This file contains the list of plugins to load while 
@@ -55,7 +55,7 @@ To check if the ``spydrnet_physical`` plugin loads correctly, execute
 
 
 Dependencies
-^^^^^^^^^^^^
+------------
 
 `SpyDrNet-Physical` depends on the following packages for functionality like rendering in browser and exporting SVG file.
 
