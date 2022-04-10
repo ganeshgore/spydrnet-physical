@@ -140,7 +140,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -299,7 +299,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -314,27 +314,39 @@ to download the full example code</p>
 <span id="sphx-glr-auto-openfpga-basic-01-fpga-arch-parse-py"></span><h1><span class="section-number">2.1.1. </span>OpenFPGA Architecture Parsing<a class="headerlink" href="#openfpga-architecture-parsing" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrates the <code class="docutils literal notranslate"><span class="pre">OpenFPGA_Arch</span></code> class which parses the
 <cite>VPR</cite> and <cite>OpenFPGA</cite> Architecture file and provides logical information.</p>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{'4x4': (6, 6)}
-{'io': (1, 1), 'clb': (1, 1)}
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA_Arch</span>
 
+<span class="c1"># Enable output logging</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"01_fpga_arch_parse"</span><span class="p">)</span>
+
+<span class="c1"># Read OpenFPGA and VPR architectue file</span>
 <span class="n">task_dir</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'..'</span><span class="p">,</span> <span class="s1">'homogeneous_fabric'</span><span class="p">,</span> <span class="s1">'FPGA44_Task'</span><span class="p">)</span>
 <span class="n">vpr_arch</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">task_dir</span><span class="p">,</span> <span class="s1">'arch'</span><span class="p">,</span> <span class="s1">'k6_N10_tileable.xml'</span><span class="p">)</span>
 <span class="n">openfpga_arch</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">task_dir</span><span class="p">,</span> <span class="s1">'arch'</span><span class="p">,</span> <span class="s1">'k6_N10_openfpga.xml'</span><span class="p">)</span>
 <span class="n">fpga_arch</span> <span class="o">=</span> <span class="n">OpenFPGA_Arch</span><span class="p">(</span><span class="n">vpr_arch</span><span class="p">,</span> <span class="n">openfpga_arch</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"4x4"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">get_layouts</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">pb_types</span><span class="p">)</span>
+<span class="c1"># Print avaialble layouts and pb_types in the file</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">get_layouts</span><span class="p">())</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">pb_types</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.002 seconds)</p>
+<section id="output">
+<h2><span class="section-number">2.1.1.1. </span>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">INFO</span> <span class="mi">01</span><span class="n">_fpga_arch_parse</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">26</span> <span class="p">(</span><span class="n">MainThread</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s1">'4x4'</span><span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)}</span>
+ <span class="n">INFO</span> <span class="mi">01</span><span class="n">_fpga_arch_parse</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">27</span> <span class="p">(</span><span class="n">MainThread</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s1">'io'</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">'clb'</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+<span class="n">WARNING</span> <span class="n">FPGAGridGen</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">183</span> <span class="p">(</span><span class="n">MainThread</span><span class="p">)</span> <span class="o">-</span> <span class="n">Trying</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">grid</span> <span class="n">location</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<span class="n">WARNING</span> <span class="n">FPGAGridGen</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">183</span> <span class="p">(</span><span class="n">MainThread</span><span class="p">)</span> <span class="o">-</span> <span class="n">Trying</span> <span class="n">to</span> <span class="nb">set</span> <span class="n">grid</span> <span class="n">location</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+ <span class="n">INFO</span> <span class="n">definition</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">512</span> <span class="p">(</span><span class="n">MainThread</span><span class="p">)</span> <span class="o">-</span> <span class="n">Missing</span> <span class="n">SDN_VERILOG_ASSIGNMENT</span> <span class="n">libarary</span> <span class="n">Creating</span> <span class="n">new</span>
+ <span class="n">INFO</span> <span class="mi">04</span><span class="n">_switch_partition_03</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">71</span> <span class="p">(</span><span class="n">MainThread</span><span class="p">)</span> <span class="o">-</span> <span class="n">graph</span> <span class="mi">162</span>
+ <span class="n">INFO</span> <span class="mi">04</span><span class="n">_switch_partition_03</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">71</span> <span class="p">(</span><span class="n">MainThread</span><span class="p">)</span> <span class="o">-</span> <span class="n">graph</span> <span class="mi">162</span>
+ <span class="n">INFO</span> <span class="mi">05</span><span class="n">_module_partition</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">252</span> <span class="p">(</span><span class="n">MainThread</span><span class="p">)</span> <span class="o">-</span> <span class="n">Splitting</span> <span class="n">switch</span> <span class="n">box</span> <span class="n">structure</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.003 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-01-fpga-arch-parse-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b549ba825d52d469977d6b8dea131f3a/01_fpga_arch_parse.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_fpga_arch_parse.py</span></code></a></p>
@@ -344,6 +356,7 @@ to download the full example code</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
 </section>
 
         </article>
@@ -387,8 +400,27 @@ to download the full example code</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">2.1.1. OpenFPGA Architecture Parsing</a><ul>
+<li><a class="reference internal" href="#output">2.1.1.1. Output</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
