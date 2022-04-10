@@ -14,6 +14,14 @@ achieve the intended netlist structure.
         always and initial blocks are not valid structure netlists.
 
 
+.. toctree::
+    :hidden:
+
+    Example <?http://#example>
+    Shell Interface <?http://#shell-interface>
+    Visualization <?http://#visualization>
+
+
 Example
 -------
 
