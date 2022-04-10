@@ -9,9 +9,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Build Documentation
+      - name: Setup doc enviroment
         shell: bash
-        id: build
         run: |
           source /tmp/buildenv/bin/activate
           bash ./.github/build_env.sh
@@ -20,7 +19,17 @@ jobs:
             --no-cache-dir -r docs/requirements.txt
           fi
           export PYTHONPATH=$PYTHONPATH:${PWD}
-          cd docs && make run_examples html
+      - name: Build Examples
+        shell: bash
+        run: |
+          source /tmp/buildenv/bin/activate
+          cd docs && PYTHON_EXEC=/tmp/buildenv/bin/python3 make run_examples
+      - name: Build Documentation
+        shell: bash
+        id: build
+        run: |
+          source /tmp/buildenv/bin/activate
+          cd docs && PYTHON_EXEC=/tmp/buildenv/bin/python3 make html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore
       - name: Upload regression results
