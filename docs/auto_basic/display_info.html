@@ -328,116 +328,6 @@ to download the full example code</p>
 <div class="line-block">
 <div class="line">Also, JensRestemeier (not affiliated with BYU CCL) created a tool to generate images of netlists. See his <a class="reference external" href="https://github.com/JensRestemeier/EdifTests">github repository</a>.</div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>HIERARCHY:
- 0  fourBitCounter  --instance of fourBitCounter --
-      1  clk_IBUF_BUFG_inst  --instance of BUFG --
-      1  clk_IBUF_inst  --instance of IBUF --
-      1  enable_IBUF_inst  --instance of IBUF --
-      1  inc_dec_IBUF_inst  --instance of IBUF --
-      1  out[0]_i_1  --instance of LUT1 --
-      1  out[1]_i_1  --instance of LUT3 --
-      1  out[2]_i_1  --instance of LUT4 --
-      1  out[3]_i_1  --instance of LUT5 --
-      1  out_OBUF[0]_inst  --instance of OBUF --
-      1  out_OBUF[1]_inst  --instance of OBUF --
-      1  out_OBUF[2]_inst  --instance of OBUF --
-      1  out_OBUF[3]_inst  --instance of OBUF --
-      1  out_reg[0]  --instance of FDCE --
-      1  out_reg[1]  --instance of FDCE --
-      1  out_reg[2]  --instance of FDCE --
-      1  out_reg[3]  --instance of FDCE --
-      1  rst_IBUF_inst  --instance of IBUF --
-DEFINITIONS IN ' hdi_primitives ': ['BUFG', 'IBUF', 'LUT1', 'LUT3', 'LUT4', 'LUT5', 'OBUF', 'FDCE', 'INV']
-DEFINITIONS IN ' work ': ['fourBitCounter']
-CONNECTIONS:
-Instance name: clk_IBUF_BUFG_inst
-         Port O ----&gt; ['C of out_reg[3]', 'C of out_reg[2]', 'C of out_reg[1]', 'C of out_reg[0]']
-         ['O of clk_IBUF_inst'] ----&gt; Port I
-Instance name: clk_IBUF_inst
-         Port O ----&gt; ['I of clk_IBUF_BUFG_inst']
-         ['clk of fourBitCounter'] ----&gt; Port I
-Instance name: enable_IBUF_inst
-         Port O ----&gt; ['CE of out_reg[3]', 'CE of out_reg[2]', 'CE of out_reg[1]', 'CE of out_reg[0]']
-         ['enable of fourBitCounter'] ----&gt; Port I
-Instance name: inc_dec_IBUF_inst
-         Port O ----&gt; ['I1 of out[2]_i_1', 'I1 of out[1]_i_1', 'I0 of out[3]_i_1']
-         ['inc_dec of fourBitCounter'] ----&gt; Port I
-Instance name: out[0]_i_1
-         Port O ----&gt; ['D of out_reg[0]']
-         ['Q of out_reg[0]'] ----&gt; Port I0
-Instance name: out[1]_i_1
-         Port O ----&gt; ['D of out_reg[1]']
-         ['Q of out_reg[1]'] ----&gt; Port I2
-         ['O of inc_dec_IBUF_inst'] ----&gt; Port I1
-         ['Q of out_reg[0]'] ----&gt; Port I0
-Instance name: out[2]_i_1
-         Port O ----&gt; ['D of out_reg[2]']
-         ['Q of out_reg[1]'] ----&gt; Port I3
-         ['Q of out_reg[2]'] ----&gt; Port I2
-         ['O of inc_dec_IBUF_inst'] ----&gt; Port I1
-         ['Q of out_reg[0]'] ----&gt; Port I0
-Instance name: out[3]_i_1
-         Port O ----&gt; ['D of out_reg[3]']
-         ['Q of out_reg[2]'] ----&gt; Port I4
-         ['Q of out_reg[3]'] ----&gt; Port I3
-         ['Q of out_reg[1]'] ----&gt; Port I2
-         ['Q of out_reg[0]'] ----&gt; Port I1
-         ['O of inc_dec_IBUF_inst'] ----&gt; Port I0
-Instance name: out_OBUF[0]_inst
-         Port O ----&gt; ['out[3:0] of fourBitCounter']
-         ['Q of out_reg[0]'] ----&gt; Port I
-Instance name: out_OBUF[1]_inst
-         Port O ----&gt; ['out[3:0] of fourBitCounter']
-         ['Q of out_reg[1]'] ----&gt; Port I
-Instance name: out_OBUF[2]_inst
-         Port O ----&gt; ['out[3:0] of fourBitCounter']
-         ['Q of out_reg[2]'] ----&gt; Port I
-Instance name: out_OBUF[3]_inst
-         Port O ----&gt; ['out[3:0] of fourBitCounter']
-         ['Q of out_reg[3]'] ----&gt; Port I
-Instance name: out_reg[0]
-         Port Q ----&gt; ['I1 of out[3]_i_1', 'I0 of out[2]_i_1', 'I0 of out[1]_i_1', 'I0 of out[0]_i_1', 'I of out_OBUF[0]_inst']
-         ['O of out[0]_i_1'] ----&gt; Port D
-         ['O of rst_IBUF_inst'] ----&gt; Port CLR
-         ['O of enable_IBUF_inst'] ----&gt; Port CE
-         ['O of clk_IBUF_BUFG_inst'] ----&gt; Port C
-Instance name: out_reg[1]
-         Port Q ----&gt; ['I3 of out[2]_i_1', 'I2 of out[3]_i_1', 'I2 of out[1]_i_1', 'I of out_OBUF[1]_inst']
-         ['O of out[1]_i_1'] ----&gt; Port D
-         ['O of rst_IBUF_inst'] ----&gt; Port CLR
-         ['O of enable_IBUF_inst'] ----&gt; Port CE
-         ['O of clk_IBUF_BUFG_inst'] ----&gt; Port C
-Instance name: out_reg[2]
-         Port Q ----&gt; ['I4 of out[3]_i_1', 'I2 of out[2]_i_1', 'I of out_OBUF[2]_inst']
-         ['O of out[2]_i_1'] ----&gt; Port D
-         ['O of rst_IBUF_inst'] ----&gt; Port CLR
-         ['O of enable_IBUF_inst'] ----&gt; Port CE
-         ['O of clk_IBUF_BUFG_inst'] ----&gt; Port C
-Instance name: out_reg[3]
-         Port Q ----&gt; ['I3 of out[3]_i_1', 'I of out_OBUF[3]_inst']
-         ['O of out[3]_i_1'] ----&gt; Port D
-         ['O of rst_IBUF_inst'] ----&gt; Port CLR
-         ['O of enable_IBUF_inst'] ----&gt; Port CE
-         ['O of clk_IBUF_BUFG_inst'] ----&gt; Port C
-Instance name: rst_IBUF_inst
-         Port O ----&gt; ['CLR of out_reg[3]', 'CLR of out_reg[2]', 'CLR of out_reg[1]', 'CLR of out_reg[0]']
-         ['rst of fourBitCounter'] ----&gt; Port I
-Number of times each primitive is instanced:
-         BUFG :  1
-         IBUF :  4
-         LUT1 :  1
-         LUT3 :  1
-         LUT4 :  1
-         LUT5 :  1
-         OBUF :  4
-         FDCE :  4
-         INV :  0
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet.util.selection</span> <span class="kn">import</span> <span class="n">Selection</span>
 
@@ -490,7 +380,7 @@ Number of times each primitive is instanced:
 <span class="n">instance_count</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.033 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-basic-display-info-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/d9afab7626d86ddd48b8fad6aa2daa0c/display_info.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">display_info.py</span></code></a></p>

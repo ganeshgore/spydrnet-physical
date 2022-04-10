@@ -34,47 +34,6 @@ And partition modules are placed in ``cbx_1__1__0.v`` and ``cbx_1__1__1.v``
 
 .. GENERATED FROM PYTHON SOURCE LINES 17-379
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    Running [gpmetis -objtype cut -minconn -niter 10000 _module_experiments_cbx_1__1_.csr 2 > __module_experiments_cbx_1__1_.csr.log]
-    ============ Partition stats =============
-                     P1              P2             
-    ==========================================
-    mux              100             100            
-    mem              41              39             
-    CCDFF            41              39             
-    ASSIGN           20              20             
-    Running [gpmetis -objtype cut -minconn -niter 10000 _module_experiments_sb_1__1_.csr 4 > __module_experiments_sb_1__1_.csr.log]
-    ============ Partition stats =============
-                     P1              P2              P3              P4             
-    ==========================================
-    mux              74              72              71              63             
-    mem              22              19              20              19             
-    CCDFF            22              19              20              19             
-    ASSIGN           12              14              18              16             
-    Running [gpmetis -objtype cut -minconn -niter 10000 _module_experiments_cby_1__1_.csr 2 > __module_experiments_cby_1__1_.csr.log]
-    ============ Partition stats =============
-                     P1              P2             
-    ==========================================
-    mux              100             100            
-    mem              41              39             
-    CCDFF            41              39             
-    ASSIGN           20              20             
-
-
-
-
-
-
-|
-
 .. code-block:: default
 
 
@@ -443,7 +402,7 @@ And partition modules are placed in ``cbx_1__1__0.v`` and ``cbx_1__1__1.v``
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  14.664 seconds)
+   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_partition_05_module_partition.py:

@@ -322,38 +322,6 @@ auto_basic
 ...
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>nodes 162
-Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_cbx_1__1_.csr 2 &gt; __partition_experiments_cbx_1__1_.csr.log]
-============ Partition stats =============
-                P1              P2
-==========================================
-chanx_left      10              10
-chanx_right     9               11
-chany_top       0               0
-chany_bottom    0               0
-pin_I           0               0
-CCDFF           1               0
-top_grid        0               0
-bottom_grid     0               0
-nodes 162
-Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_cby_1__1_.csr 2 &gt; __partition_experiments_cby_1__1_.csr.log]
-============ Partition stats =============
-                P1              P2
-==========================================
-chanx_left      0               0
-chanx_right     0               0
-chany_top       9               11
-chany_bottom    10              10
-pin_I           0               0
-CCDFF           1               0
-top_grid        0               0
-bottom_grid     0               0
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
@@ -568,7 +536,7 @@ bottom_grid     0               0
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.953 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-04-switch-partition-03-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/4a0932fcd1843c5dd8c18260f5b99136/04_switch_partition_03.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_switch_partition_03.py</span></code></a></p>

@@ -41,49 +41,6 @@ This is simplified script Partition Conn Box 02
 
 .. GENERATED FROM PYTHON SOURCE LINES 24-237
 
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    nodes 162
-    Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_cbx_1__1_.csr 2 > __partition_experiments_cbx_1__1_.csr.log]
-    ============ Partition stats =============
-                    P1              P2             
-    ==========================================
-    chanx_left      10              10             
-    chanx_right     9               11             
-    chany_top       0               0              
-    chany_bottom    0               0              
-    pin_I           0               0              
-    CCDFF           1               0              
-    top_grid        0               0              
-    bottom_grid     0               0              
-    nodes 162
-    Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_cby_1__1_.csr 2 > __partition_experiments_cby_1__1_.csr.log]
-    ============ Partition stats =============
-                    P1              P2             
-    ==========================================
-    chanx_left      0               0              
-    chanx_right     0               0              
-    chany_top       9               11             
-    chany_bottom    10              10             
-    pin_I           0               0              
-    CCDFF           1               0              
-    top_grid        0               0              
-    bottom_grid     0               0              
-
-
-
-
-
-
-|
-
 .. code-block:: default
 
 
@@ -303,7 +260,7 @@ This is simplified script Partition Conn Box 02
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.953 seconds)
+   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_partition_04_switch_partition_03.py:

@@ -6,10 +6,8 @@ Grouping ungrouping cells
 This example demostrates how to generate a feedthrough wire connection for
 a given scalar or vector wires.
 
-.. hdl-diagram:: ../../../examples/basic/_initial_design.v
-   :type: netlistsvg
-   :align: center
-   :module: top
+.. image:: ../auto_sample_verilog/nested_hierarchy.svg
+    :align: center
 
 
 **Output1** ungrouped module
@@ -30,7 +28,6 @@ logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 netlist = sdnphy.load_netlist_by_name('nested_hierarchy')
-sdn.compose(netlist, '_initial_design.v', skip_constraints=True)
 
 netlist = sdnphy.load_netlist_by_name('nested_hierarchy')
 top = netlist.top_instance.reference

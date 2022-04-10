@@ -339,31 +339,6 @@ with weight equal to length of bus is assigned.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">generate_edgelist</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span> ========== Nodes ==========
- 0 in0             {'label': 'in0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in0'}
- 1 in1             {'label': 'in1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in1'}
- 2 in3             {'label': 'in3', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in3'}
- 3 bus_in          {'label': 'bus_in', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
- 4 out0            {'label': 'out0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'out0'}
- 5 bus_out         {'label': 'bus_out', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
- 6 inst_1_0        {'port': False, 'weight': 1, 'node_name': 'inst_1_0', 'label': 'inst_1_0'}
- 7 inst_1_1        {'port': False, 'weight': 1, 'node_name': 'inst_1_1', 'label': 'inst_1_1'}
- 8 inst_2_0        {'port': False, 'weight': 1, 'node_name': 'inst_2_0', 'label': 'inst_2_0'}
- 9 inst_2_1        {'port': False, 'weight': 1, 'node_name': 'inst_2_1', 'label': 'inst_2_1'}
- ========== Edges ==========
-0 6 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
-0 8 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
-1 8 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
-1 6 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
-2 7 {'label': '[1]', 'edge_name': 'in3_0', 'weight': 1.0}
-3 8 {'label': '[2]', 'edge_name': 'bus_in_1', 'weight': 2.0}
-6 7 {'label': '[1]', 'edge_name': 'wire0_0', 'weight': 1.0}
-7 4 {'label': '[1]', 'edge_name': 'out0_0', 'weight': 1.0}
-8 9 {'label': '[4]', 'edge_name': 'wire_bus_1', 'weight': 4.0}
-9 5 {'label': '[2]', 'edge_name': 'bus_out_1', 'weight': 2.0}
-</pre></div>
-</div>
 <p><strong>Regenerated graph with ports splits into individual nodes</strong></p>
 <a class="reference internal image-reference" href="../../_images/_nx_graph_split.svg"><img alt="../../_images/_nx_graph_split.svg" class="align-center" src="../../_images/_nx_graph_split.svg" width="50%"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">get_connectivity_network</span><span class="p">(</span><span class="n">split_ports</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -378,36 +353,7 @@ with weight equal to length of bus is assigned.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">generate_edgelist</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span> ========== Nodes ==========
- 0 in0             {'label': 'in0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in0'}
- 1 in1             {'label': 'in1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in1'}
- 2 in3             {'label': 'in3', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'in3'}
- 3 bus_in_1        {'label': 'bus_in_1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
- 4 bus_in_0        {'label': 'bus_in_0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_in'}
- 5 out0            {'label': 'out0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'out0'}
- 6 bus_out_1       {'label': 'bus_out_1', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
- 7 bus_out_0       {'label': 'bus_out_0', 'weight': 1, 'shape': 'rect', 'port': True, 'node_name': 'bus_out'}
- 8 inst_1_0        {'port': False, 'weight': 1, 'node_name': 'inst_1_0', 'label': 'inst_1_0'}
- 9 inst_1_1        {'port': False, 'weight': 1, 'node_name': 'inst_1_1', 'label': 'inst_1_1'}
-10 inst_2_0        {'port': False, 'weight': 1, 'node_name': 'inst_2_0', 'label': 'inst_2_0'}
-11 inst_2_1        {'port': False, 'weight': 1, 'node_name': 'inst_2_1', 'label': 'inst_2_1'}
- ========== Edges ==========
-0 10 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
-0 8 {'label': '[1]', 'edge_name': 'in0_0', 'weight': 1.0}
-1 8 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
-1 10 {'label': '[1]', 'edge_name': 'in1_0', 'weight': 1.0}
-2 9 {'label': '[1]', 'edge_name': 'in3_0', 'weight': 1.0}
-3 10 {'label': '[1]', 'edge_name': 'bus_in_1', 'weight': 1.0}
-4 10 {'label': '[1]', 'edge_name': 'bus_in_0', 'weight': 1.0}
-8 9 {'label': '[1]', 'edge_name': 'wire0_0', 'weight': 1.0}
-9 5 {'label': '[1]', 'edge_name': 'out0_0', 'weight': 1.0}
-10 11 {'label': '[4]', 'edge_name': 'wire_bus_1', 'weight': 4.0}
-11 7 {'label': '[1]', 'edge_name': 'bus_out_0', 'weight': 1.0}
-11 6 {'label': '[1]', 'edge_name': 'bus_out_1', 'weight': 1.0}
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.083 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-01-netlist-to-graph-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a3bf5918ec2426b5cbe823e7adae863a/01_netlist_to_graph.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_netlist_to_graph.py</span></code></a></p>

@@ -25,10 +25,8 @@ Grouping ungrouping cells
 This example demostrates how to generate a feedthrough wire connection for
 a given scalar or vector wires.
 
-.. hdl-diagram:: ../../../examples/basic/_initial_design.v
-   :type: netlistsvg
-   :align: center
-   :module: top
+.. image:: ../auto_sample_verilog/nested_hierarchy.svg
+    :align: center
 
 
 **Output1** ungrouped module
@@ -38,28 +36,7 @@ a given scalar or vector wires.
    :align: center
    :module: top
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-43
-
-
-
-
-.. rst-class:: sphx-glr-script-out
-
- Out:
-
- .. code-block:: none
-
-    <class 'spydrnet.ir.Instance'; name 'inst_1_0_module2_0'; parent definition.name 'top'; reference definition.name 'module2'>
-    <class 'spydrnet.ir.Instance'; name 'inst_1_0_module2_1'; parent definition.name 'top'; reference definition.name 'module2'>
-    <class 'spydrnet.ir.Instance'; name 'inst_1_1_module2_0'; parent definition.name 'top'; reference definition.name 'module2'>
-    <class 'spydrnet.ir.Instance'; name 'inst_1_1_module2_1'; parent definition.name 'top'; reference definition.name 'module2'>
-
-
-
-
-
-
-|
+.. GENERATED FROM PYTHON SOURCE LINES 21-40
 
 .. code-block:: default
 
@@ -73,7 +50,6 @@ a given scalar or vector wires.
     sdn.enable_file_logging(LOG_LEVEL='INFO')
 
     netlist = sdnphy.load_netlist_by_name('nested_hierarchy')
-    sdn.compose(netlist, '_initial_design.v', skip_constraints=True)
 
     netlist = sdnphy.load_netlist_by_name('nested_hierarchy')
     top = netlist.top_instance.reference
@@ -87,7 +63,7 @@ a given scalar or vector wires.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.014 seconds)
+   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_basic_group_ungroup_cells.py:

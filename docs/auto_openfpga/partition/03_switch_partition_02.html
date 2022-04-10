@@ -322,54 +322,6 @@ which performs the partitioning based on assigned weigts.</p>
 before converting netlist to a graph (including connections beetween
 shift registers chain).</p>
 <p><strong>Horizontal Connection Box</strong></p>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Running [gpmetis -objtype cut -minconn -niter 100 -ncuts 3  _partition_experiments_02.csr 2 &gt; __partition_experiments_02.csr.log]
-============ Partition stats =============
-                P1              P2
-==========================================
-chanx_left      11              9
-chanx_right     9               11
-pin_I           1               1
-CCDFF           0               0
-top_grid        0               0
-bottom_grid     0               0
-top_ipin_0      1-1-0-0 [2]     0-3-2-1 [6]
-top_ipin_1      1-2-0-0 [3]     0-2-2-1 [5]
-top_ipin_2      0-3-2-1 [6]     1-1-0-0 [2]
-top_ipin_3      1-3-1-0 [5]     0-1-1-1 [3]
-top_ipin_4      0-0-0-0 [0]     1-4-2-1 [8]
-top_ipin_5      1-1-0-0 [2]     0-3-2-1 [6]
-top_ipin_6      0-2-1-1 [4]     1-2-1-0 [4]
-top_ipin_7      1-3-1-0 [5]     0-1-1-1 [3]
-top_ipin_8      0-0-0-0 [0]     1-4-2-1 [8]
-top_ipin_9      0-0-0-0 [0]     1-4-2-1 [8]
-bottom_ipin_0   0-0-1-1 [2]     1-4-1-0 [6]
-bottom_ipin_1   1-2-0-0 [3]     0-2-2-1 [5]
-bottom_ipin_2   0-2-2-1 [5]     1-2-0-0 [3]
-bottom_ipin_3   1-4-2-1 [8]     0-0-0-0 [0]
-bottom_ipin_4   0-0-0-0 [0]     1-4-2-1 [8]
-bottom_ipin_5   1-3-1-1 [6]     0-1-1-0 [2]
-bottom_ipin_6   0-1-1-1 [3]     1-3-1-0 [5]
-bottom_ipin_7   1-4-2-1 [8]     0-0-0-0 [0]
-bottom_ipin_8   0-2-2-1 [5]     1-2-0-0 [3]
-bottom_ipin_9   1-4-2-1 [8]     0-0-0-0 [0]
-========================================================
-INDX   MUX                  CONNECTIONS
-========================================================
-              0   |5   |10  |15  |20  |25  |30  |35  |
-====================================
-INDX   MUX        CONNECTIONS
-====================================
-              0   |5   |10  |15  |
-====================================
-INDX   MUX        CONNECTIONS
-====================================
-              0   |5   |10  |15  |
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -583,7 +535,7 @@ INDX   MUX        CONNECTIONS
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.531 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-partition-03-switch-partition-02-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/82416d3fe42a41669ed322594d96242b/03_switch_partition_02.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_switch_partition_02.py</span></code></a></p>
