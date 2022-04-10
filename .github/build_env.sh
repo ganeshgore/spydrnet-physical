@@ -1,6 +1,6 @@
 pip install --upgrade pip
 pip install --upgrade Cython
-apt-get -y install metis 
+apt-get -y install metis parallel
 
 if [ -f "requirements.txt" ]; then
     python3 -m pip install --upgrade \
