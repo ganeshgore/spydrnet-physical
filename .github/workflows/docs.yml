@@ -20,7 +20,7 @@ jobs:
             --no-cache-dir -r docs/requirements.txt
           fi
           export PYTHONPATH=$PYTHONPATH:${PWD}
-          cd docs && make html
+          cd docs && make generate_schematics html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore
       - name: Upload regression results
