@@ -29,7 +29,7 @@ reload:
 
 generate_schematics:
 	mkdir -p source/auto_sample_verilog
-	cp ../spydrnet_physical/support_files/sample_verilog/*.svg source/auto_sample_verilog
+	cp ../spydrnet_physical/support_files/sample_verilog/*.svg source/auto_sample_verilog 2>/dev/null
 	find ../spydrnet_physical/support_files/sample_verilog/ -type f -name "*.v" | \
 	parallel -j 4  'filename={}; \
 	topmodule=$$(sed -n "s/module \(.*\)(.*/\1/p" $${filename} | head -1); \
