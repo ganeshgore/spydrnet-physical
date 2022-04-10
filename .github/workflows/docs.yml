@@ -20,7 +20,7 @@ jobs:
             --no-cache-dir -r docs/requirements.txt
           fi
           export PYTHONPATH=$PYTHONPATH:${PWD}
-          cd docs && make generate_schematics html
+          cd docs && make run_examples html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore
       - name: Upload regression results
@@ -30,6 +30,7 @@ jobs:
           name: docs_build
           retention-days: 2
           path: |
+            /tmp/sphinx-err*
             docs/**/*
             examples/**/*
       - name: Prepare pre_release documentation

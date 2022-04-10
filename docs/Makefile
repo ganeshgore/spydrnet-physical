@@ -3,14 +3,15 @@
 
 # You can set these variables from the command line.
 SHELL             = bash
-SPHINXOPTS        =
-SPHINXRELOADOPTS  =
+SPHINXOPTS        = -D plot_gallery=0
+SPHINXRELOADOPTS  = 
 SPHINXBUILD       = sphinx-build
 SPHINXRELOAD      ?= sphinx-autobuild
 SOURCEDIR         = source
 BUILDDIR          = build
 AUTO_BUILD_DIR    = "auto_.*\/.*"
 PYTHON_EXEC       ?= "python3.8"
+RUN_EXAMPLE_WC    ?= 
 
 .SILENT:
 
