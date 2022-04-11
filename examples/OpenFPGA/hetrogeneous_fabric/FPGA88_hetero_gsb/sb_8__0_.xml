@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
-<rr_gsb x="4" y="0" num_sides="4" type="SB">
-  <CHANY side="top" index="0" segment_name="L4" mux_size="3">
+<rr_gsb x="8" y="0" num_sides="4" type="SB">
+  <CHANY side="top" index="0" segment_name="L4" mux_size="2">
     <driver_node type="OPIN" side="top" index="0" grid_side="right"/>
-    <driver_node type="OPIN" side="top" index="10" grid_side="left"/>
     <driver_node type="CHANX" side="left" index="0" segment_name="L4"/>
   </CHANY>
   <CHANY side="top" index="2" segment_name="L4" mux_size="2">
@@ -10,7 +9,7 @@
     <driver_node type="CHANX" side="left" index="38" segment_name="L4"/>
   </CHANY>
   <CHANY side="top" index="4" segment_name="L4" mux_size="2">
-    <driver_node type="OPIN" side="top" index="2" grid_side="right"/>
+    <driver_node type="OPIN" side="top" index="2" grid_side="left"/>
     <driver_node type="CHANX" side="left" index="36" segment_name="L4"/>
   </CHANY>
   <CHANY side="top" index="6" segment_name="L4" mux_size="2">
@@ -41,9 +40,8 @@
     <driver_node type="OPIN" side="top" index="9" grid_side="left"/>
     <driver_node type="CHANX" side="left" index="22" segment_name="L4"/>
   </CHANY>
-  <CHANY side="top" index="20" segment_name="L4" mux_size="3">
+  <CHANY side="top" index="20" segment_name="L4" mux_size="2">
     <driver_node type="OPIN" side="top" index="0" grid_side="right"/>
-    <driver_node type="OPIN" side="top" index="10" grid_side="left"/>
     <driver_node type="CHANX" side="left" index="20" segment_name="L4"/>
   </CHANY>
   <CHANY side="top" index="22" segment_name="L4" mux_size="2">
@@ -51,7 +49,7 @@
     <driver_node type="CHANX" side="left" index="18" segment_name="L4"/>
   </CHANY>
   <CHANY side="top" index="24" segment_name="L4" mux_size="2">
-    <driver_node type="OPIN" side="top" index="2" grid_side="right"/>
+    <driver_node type="OPIN" side="top" index="2" grid_side="left"/>
     <driver_node type="CHANX" side="left" index="16" segment_name="L4"/>
   </CHANY>
   <CHANY side="top" index="26" segment_name="L4" mux_size="2">
@@ -220,8 +218,7 @@
       <driver_node type="OPIN" side="left" index="9" grid_side="top" connections="2"/>
       <driver_node type="OPIN" side="top" index="0" grid_side="right" connections="2"/>
       <driver_node type="OPIN" side="top" index="1" grid_side="right" connections="2"/>
-      <driver_node type="OPIN" side="top" index="10" grid_side="left" connections="2"/>
-      <driver_node type="OPIN" side="top" index="2" grid_side="right" connections="2"/>
+      <driver_node type="OPIN" side="top" index="2" grid_side="left" connections="2"/>
       <driver_node type="OPIN" side="top" index="3" grid_side="left" connections="2"/>
       <driver_node type="OPIN" side="top" index="4" grid_side="left" connections="2"/>
       <driver_node type="OPIN" side="top" index="5" grid_side="left" connections="2"/>

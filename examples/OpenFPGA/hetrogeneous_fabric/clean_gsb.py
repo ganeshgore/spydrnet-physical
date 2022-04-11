@@ -33,6 +33,8 @@ def clean_tags(root):
     for ele in root.findall("*") + root.findall(".//driver_node"):
         if 'segment_id' in ele.attrib.keys():
             ele.attrib.pop("segment_id")
+        if 'sb_module_pin_name' in ele.attrib.keys():
+            ele.attrib.pop("sb_module_pin_name")
         ele.attrib.pop("node_id")
 
 
@@ -40,8 +42,8 @@ def main():
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # Read FPGA Netlist
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    proj = 'FPGA44_Verilog'
-    gsb = 'FPGA44_gsb'
+    proj = 'FPGA88_hetero_Verilog'
+    gsb = 'FPGA88_hetero_gsb'
     source_files = []
     source_files += glob.glob(f'{proj}/fpga_top.v')
 

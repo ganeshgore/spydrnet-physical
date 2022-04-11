@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<rr_gsb x="1" y="1" num_sides="4" type="SB">
+<rr_gsb x="1" y="2" num_sides="4" type="SB">
   <CHANY side="top" index="0" segment_name="L4" mux_size="12">
     <driver_node type="OPIN" side="top" index="0" grid_side="right"/>
     <driver_node type="CHANX" side="right" index="3" segment_name="L4"/>
@@ -207,12 +207,11 @@
   <CHANX side="right" index="30" segment_name="L4" mux_size="0">
     <driver_node type="CHANX" side="left" index="28" segment_name="L4"/>
   </CHANX>
-  <CHANX side="right" index="32" segment_name="L4" mux_size="12">
+  <CHANX side="right" index="32" segment_name="L4" mux_size="11">
     <driver_node type="CHANY" side="top" index="9" segment_name="L4"/>
     <driver_node type="CHANY" side="top" index="21" segment_name="L4"/>
     <driver_node type="CHANY" side="top" index="31" segment_name="L4"/>
     <driver_node type="CHANY" side="top" index="35" segment_name="L4"/>
-    <driver_node type="OPIN" side="right" index="4" grid_side="top"/>
     <driver_node type="CHANY" side="bottom" index="10" segment_name="L4"/>
     <driver_node type="CHANY" side="bottom" index="24" segment_name="L4"/>
     <driver_node type="CHANY" side="bottom" index="36" segment_name="L4"/>
@@ -560,7 +559,6 @@
       <driver_node type="OPIN" side="right" index="1" grid_side="bottom" connections="1"/>
       <driver_node type="OPIN" side="right" index="2" grid_side="top" connections="1"/>
       <driver_node type="OPIN" side="right" index="3" grid_side="top" connections="1"/>
-      <driver_node type="OPIN" side="right" index="4" grid_side="top" connections="1"/>
       <driver_node type="OPIN" side="top" index="0" grid_side="right" connections="1"/>
       <driver_node type="OPIN" side="top" index="1" grid_side="right" connections="1"/>
       <driver_node type="OPIN" side="top" index="2" grid_side="right" connections="1"/>
