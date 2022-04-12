@@ -34,12 +34,16 @@ def extract_input(root):
     # Add input connection details
     for chan in ["CHANX", "CHANY", "OPIN"]:
         channel = ET.Element(chan)
-        for each in sorted(set([f"{ele.attrib['side']}_{ele.attrib['index']}" for ele in root.findall(f".//driver_node[@type='{chan}']")])):
+        for each in sorted(set([f"{ele.attrib['side']}_{int(ele.attrib['index']):03}" for ele in root.findall(f".//driver_node[@type='{chan}']")])):
             each = each.split("_")
             elements = root.findall(
-                f".//driver_node[@type='{chan}'][@side='{each[0]}'][@index='{each[1]}']")
+                f".//driver_node[@type='{chan}'][@side='{each[0]}'][@index='{int(each[1])}']")
             element = deepcopy(elements[0])
             element.attrib["connections"] = str(len(elements))
+            elements = root.findall(
+                f".//driver_node[@type='{chan}'][@side='{each[0]}'][@index='{int(each[1])}']/..")
+            element.attrib["out_driver"] = str(
+                len([e for e in elements if e.attrib['mux_size'] == "0"]))
             channel.append(element)
         input_conn.append(channel)
     return input_conn
