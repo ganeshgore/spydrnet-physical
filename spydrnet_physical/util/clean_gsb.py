@@ -3,12 +3,29 @@ This script translates the GSB data exported from OpnFPGA engine to the desired
 format
 """
 
+import argparse
 import glob
+import json
 import os
-from copy import deepcopy
 import tempfile
-import spydrnet as sdn
 import xml.etree.ElementTree as ET
+from copy import deepcopy
+
+import spydrnet as sdn
+
+
+def formatter(prog): return argparse.HelpFormatter(prog, max_help_position=60)
+
+
+def parse_argument() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(formatter_class=formatter)
+    parser.add_argument('--instance_map',
+                        help="jsonfile_containing instace map")
+    parser.add_argument('--top_level_design',
+                        help="Design name")
+    parser.add_argument('--gsb_dir', type=str,
+                        help="General switch box dir")
+    return parser.parse_args()
 
 
 def extract_input(root):
@@ -38,31 +55,28 @@ def clean_tags(root):
         ele.attrib.pop("node_id")
 
 
-def main():
-    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    # Read FPGA Netlist
-    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    proj = 'FPGA88_hetero_Verilog'
-    gsb = 'FPGA88_hetero_gsb'
-    source_files = []
-    source_files += glob.glob(f'{proj}/fpga_top.v')
+def clean_gsb():
+    args = parse_argument()
+    gsb = args.gsb_dir
 
-    # Temporary fix to read multiple verilog files
-    with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-        for eachV in source_files:
-            with open(eachV, "r") as fpv:
-                fp.write(str.encode(" ".join(fpv.readlines())))
-        fp.seek(0)
-        netlist = sdn.parse(fp.name)
+    if args.instance_map:
+        instance_list = json.loads(open(args.instance_map, "r"))
+    elif args.top_level_design:
+        # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+        # Read FPGA Netlist
+        # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+        netlist = sdn.parse(args.top_level_design)
 
-    # Create instance and reference mapping
-    instance_list = {}
-    for each in netlist.get_instances("*__*"):
-        if not each.reference.name in instance_list.keys():
-            instance_list[each.reference.name] = []
-        instance_list[each.reference.name].append(each.name)
+        # Create instance and reference mapping
+        instance_list = {}
+        for each in netlist.get_instances("*__*"):
+            if not each.reference.name in instance_list.keys():
+                instance_list[each.reference.name] = []
+            instance_list[each.reference.name].append(each.name)
+    else:
+        return
 
-    for indx, file in enumerate(sorted(glob.glob(f'{gsb}/_*.xml'))):
+    for _, file in enumerate(sorted(glob.glob(f'{gsb}/_*.xml'))):
         module = os.path.splitext(os.path.basename(file))[0]
         # =====================================================================
         # Extract Switch Box information
@@ -116,4 +130,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    clean_gsb()
