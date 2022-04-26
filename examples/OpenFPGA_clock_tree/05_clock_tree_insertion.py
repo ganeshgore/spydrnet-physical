@@ -13,13 +13,13 @@ the clock tree, and then embed these pattern using ``create_ft_ports`` and
 .. Note: the dotted line indicates that the connection is either coming from 
    upper layer or going to lower layer.
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_clock_tree_connections_l0.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_clock_tree_connections_l0.svg
     :width: 220px
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_clock_tree_connections_l1.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_clock_tree_connections_l1.svg
     :width: 220px
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_clock_tree_connections.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_clock_tree_connections.svg
     :width: 220px
 
 """

@@ -12,7 +12,7 @@ usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``,
 
 **Output**
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_htree_pattern.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_htree_pattern.svg
     :width: 500px
     :align: center
 

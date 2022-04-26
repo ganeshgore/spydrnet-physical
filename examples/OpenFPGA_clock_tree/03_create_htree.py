@@ -9,11 +9,11 @@ arbitrary (non square ) tiles.
 
 **Output**
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_hybrid_connectivity_pattern.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_hybrid_connectivity_pattern.svg
     :width: 500px
     :align: center
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_hybrid_connectivity_pattern_graph.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_hybrid_connectivity_pattern_graph.svg
     :height: 500px
     :align: center
 

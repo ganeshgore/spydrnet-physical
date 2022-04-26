@@ -12,25 +12,25 @@ usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``,
 
 **Output**
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_fishbone_pattern.svg
     :width: 200px
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern_90.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_fishbone_pattern_90.svg
     :width: 200px
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern_margin.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_fishbone_pattern_margin.svg
     :width: 200px
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern_merging.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_fishbone_pattern_merging.svg
     :width: 200px
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern_scaling1.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_fishbone_pattern_scaling1.svg
     :width: 200px
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern_scaling2.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_fishbone_pattern_scaling2.svg
     :width: 200px
 
-.. image:: ../../../../examples/OpenFPGA/clock_tree/_fishbone_pattern_sampling.svg
+.. image:: ../../../examples/OpenFPGA_clock_tree/_fishbone_pattern_sampling.svg
     :width: 200px
 
 """
