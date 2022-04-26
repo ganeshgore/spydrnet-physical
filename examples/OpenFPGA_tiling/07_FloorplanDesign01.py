@@ -1,7 +1,7 @@
 """
-=================================================
-Render Placement information from Verilog netlist
-=================================================
+===========================
+Floorplanning Classic Tiles
+===========================
 
 This example demonstate how to render FPGA Tile using ``FloorPlanViz`` class
 User can provide external script to render tiles, by default the rendering is
@@ -9,7 +9,7 @@ based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. image:: ../../../examples/OpenFPGA_basic/_design_floorplan.svg
+.. image:: ../../../examples/OpenFPGA_tiling/_classic_tile_floorplan.svg
    :width: 70%
    :align: center
 
@@ -61,6 +61,19 @@ def main():
     fpga.create_cb_bus()
     fpga.merge_all_grid_ios()
 
+    # Convert top level independent nets to bus
+    for i in chain(fpga.top_module.get_instances("grid_clb*"),
+                   fpga.top_module.get_instances("grid_io*"),
+                   fpga.top_module.get_instances("sb_*")):
+        for p in filter(lambda x: True, i.reference.ports):
+            if p.size > 1 and (i.check_all_scalar_connections(p)):
+                cable_list = []
+                for pin in p.pins[::-1]:
+                    cable_list.append(i.pins[pin].wire.cable)
+                cable = fpga.top_module.combine_cables(
+                    f"{i.name}_{p.name}", cable_list)
+                cable.is_downto = False
+
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #           Floorplan visualization
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -77,6 +90,10 @@ def main():
 
     # Create grid plan
     grid_plan = GridFloorplanGen(9, 9, grid_x=200, grid_y=180)
+
+    grid_plan.offset_x = 10
+    grid_plan.offset_y = 10
+
     for i in range(2, 9+1, 2):
         grid_plan.set_column_width(i, p.CLB_W*4)
 
@@ -108,6 +125,8 @@ def main():
             inst.data[PROP]['LOC_X'] = points[0] + X_OFFSET
             inst.data[PROP]['LOC_Y'] = points[1] + Y_OFFSET
 
+    fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
+    fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #           Adjust Floorplan
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -131,7 +150,7 @@ def main():
     fp.compose(skip_connections=True, skip_pins=True)
     dwg = fp.get_svg()
     dwg.add(grid_plan.render_grid(return_group=True))
-    dwg.saveas("_design_floorplan.svg", pretty=True, indent=4)
+    dwg.saveas("_classic_tile_floorplan.svg", pretty=True, indent=4)
 
 
 if __name__ == "__main__":
