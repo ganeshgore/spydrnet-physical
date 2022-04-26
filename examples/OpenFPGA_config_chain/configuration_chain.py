@@ -27,6 +27,8 @@ from spydrnet_physical.util.shell import launch_shell
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
 
+PROP = "VERILOG.InlineConstraints"
+
 
 def main():
     # Read verilog sources
@@ -86,10 +88,13 @@ def main():
     # Simple Florrplan
     # ===============================
     next(fpga.top_module.get_ports("ccff_head")).properties["SIDE"] = "right"
-    next(fpga.top_module.get_ports("ccff_head")).properties["OFFSET"] = 50
+    next(fpga.top_module.get_ports("ccff_head")).properties["OFFSET"] = 100
 
     next(fpga.top_module.get_ports("ccff_tail")).properties["SIDE"] = "right"
-    next(fpga.top_module.get_ports("ccff_tail")).properties["OFFSET"] = 1750
+    next(fpga.top_module.get_ports("ccff_tail")).properties["OFFSET"] = 1250
+
+    fpga.top_module.data[PROP]["WIDTH"] = 1500
+    fpga.top_module.data[PROP]["HEIGHT"] = 1500
 
     # ===============================
     # Visualise configuration chain
