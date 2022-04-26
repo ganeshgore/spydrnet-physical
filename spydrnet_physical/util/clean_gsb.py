@@ -56,7 +56,8 @@ def clean_tags(root):
             ele.attrib.pop("segment_id")
         if 'sb_module_pin_name' in ele.attrib.keys():
             ele.attrib.pop("sb_module_pin_name")
-        ele.attrib.pop("node_id")
+        if 'node_id' in ele.attrib.keys():
+            ele.attrib.pop("node_id")
 
 
 def clean_gsb():
@@ -64,7 +65,7 @@ def clean_gsb():
     gsb = args.gsb_dir
 
     if args.instance_map:
-        instance_list = json.loads(open(args.instance_map, "r"))
+        instance_list = json.load(open(args.instance_map, "r"))
     elif args.top_level_design:
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         # Read FPGA Netlist
@@ -94,7 +95,8 @@ def clean_gsb():
         root.append(extract_input(root))
         root.attrib["type"] = "SB"
         tree.write(f"{gsb}/{module[1:]}.xml", encoding="utf-8")
-
+        print(f"Writing {file}")
+        continue
         # =====================================================================
         # Extract Connection Box horizontal information
         # =====================================================================

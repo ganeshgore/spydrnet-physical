@@ -47,7 +47,8 @@ class Port(PortBase):
         for indx, pin in enumerate(self._pins[::-1]):
             new_port = self.definition.create_port(get_name(indx),
                                                    direction=self.direction)
-            self.remove_pin(pin)
+            self._pins.remove(pin)
+            pin._port = None
             new_port.add_pin(pin)
 
         self.definition.remove_port(self)
