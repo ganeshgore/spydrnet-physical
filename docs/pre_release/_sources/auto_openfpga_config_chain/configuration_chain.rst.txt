@@ -29,7 +29,7 @@ Verilog netlist obtained from OpenFPGA
     :width: 500px
     :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-120
+.. GENERATED FROM PYTHON SOURCE LINES 14-125
 
 .. code-block:: default
 
@@ -48,6 +48,8 @@ Verilog netlist obtained from OpenFPGA
 
     logger = logging.getLogger('spydrnet_logs')
     sdn.enable_file_logging(LOG_LEVEL='INFO')
+
+    PROP = "VERILOG.InlineConstraints"
 
 
     def main():
@@ -108,10 +110,13 @@ Verilog netlist obtained from OpenFPGA
         # Simple Florrplan
         # ===============================
         next(fpga.top_module.get_ports("ccff_head")).properties["SIDE"] = "right"
-        next(fpga.top_module.get_ports("ccff_head")).properties["OFFSET"] = 50
+        next(fpga.top_module.get_ports("ccff_head")).properties["OFFSET"] = 100
 
         next(fpga.top_module.get_ports("ccff_tail")).properties["SIDE"] = "right"
-        next(fpga.top_module.get_ports("ccff_tail")).properties["OFFSET"] = 1750
+        next(fpga.top_module.get_ports("ccff_tail")).properties["OFFSET"] = 1250
+
+        fpga.top_module.data[PROP]["WIDTH"] = 1500
+        fpga.top_module.data[PROP]["HEIGHT"] = 1500
 
         # ===============================
         # Visualise configuration chain
