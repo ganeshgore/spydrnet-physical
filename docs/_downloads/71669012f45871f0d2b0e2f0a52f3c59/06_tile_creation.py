@@ -53,7 +53,7 @@ def main():
     fpga.remove_undriven_nets()
     fpga.remove_config_chain()
 
-    # Top level nets to bus
+    # Convert top level independent nets to bus
     for i in chain(fpga.top_module.get_instances("grid_clb*"),
                    fpga.top_module.get_instances("grid_io*"),
                    fpga.top_module.get_instances("sb_*")):
@@ -62,16 +62,15 @@ def main():
                 cable_list = []
                 for pin in p.pins[::-1]:
                     cable_list.append(i.pins[pin].wire.cable)
-                fpga.top_module.combine_cables(
+                cable = fpga.top_module.combine_cables(
                     f"{i.name}_{p.name}", cable_list)
+                cable.is_downto = False
 
     # fpga.create_grid_clb_feedthroughs()
 
     # Before Creating Tiles
     fpga.design_top_stat()
 
-    # fpga.register_tile_generator(Tile02)
-    # fpga.create_tiles()
     for module in list(netlist.get_definitions("*b_1__1*")):
         # Flatten the netlist
         for instance in list(module.get_instances('*_ipin_*')):

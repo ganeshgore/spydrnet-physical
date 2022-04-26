@@ -38,12 +38,12 @@ A collection of examples to introduce the functionality, features, and uses of S
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how pre-tech mapped netlist of connection box  can be partition based ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates partitioning based on logical connectivity. This example partitions a...">
 
 .. only:: html
 
  .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_02_switch_partition_01_thumb.png
-     :alt: Partition Conn Box 01
+     :alt: Logical/Pre-techmapped Partition Conn Box 01
 
      :ref:`sphx_glr_auto_openfpga_tiling_02_switch_partition_01.py`
 
@@ -59,12 +59,12 @@ A collection of examples to introduce the functionality, features, and uses of S
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate, how a techmapped connection box can be split into  two parts.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates partitioning a tech-mapped connection box based on the mapped gates.">
 
 .. only:: html
 
  .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_03_switch_partition_02_thumb.png
-     :alt: Partition Conn Box 02
+     :alt: Physical/Techmapped Partition Conn Box 02
 
      :ref:`sphx_glr_auto_openfpga_tiling_03_switch_partition_02.py`
 
@@ -143,12 +143,33 @@ A collection of examples to introduce the functionality, features, and uses of S
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
+
+.. only:: html
+
+ .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_07_FloorplanDesign01_thumb.png
+     :alt: Floorplanning Classic Tiles
+
+     :ref:`sphx_glr_auto_openfpga_tiling_07_FloorplanDesign01.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_openfpga_tiling/07_FloorplanDesign01
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
 
 .. only:: html
 
  .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_08_area_opimized_tiles_thumb.png
-     :alt: Creating area optimized FPGA tiles
+     :alt: Generating and Floorplanning Area-optimized FPGA Tiles
 
      :ref:`sphx_glr_auto_openfpga_tiling_08_area_opimized_tiles.py`
 

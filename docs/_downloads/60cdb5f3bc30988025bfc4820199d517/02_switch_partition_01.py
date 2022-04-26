@@ -1,17 +1,18 @@
 """
-=====================
-Partition Conn Box 01
-=====================
+============================================
+Logical/Pre-techmapped Partition Conn Box 01
+============================================
 
-This example demonstrate how pre-tech mapped netlist of connection box 
-can be partition based on mux connection patterns. 
+This example demonstrates partitioning based on logical connectivity.
+This example partitions a pre-tech mapped netlist of the connection box based on mux connection patterns. 
 
-1. Calculate difference beetween top and bottom switches on each channels 
-2. Sort each channel based on difference beetween opposite connections
+1. Calculate the difference between top and bottom switches on each channel 
+2. Sort each channel based on the difference between opposite connections
 3. Partition channels where difference crosses 0
-4. In case of multiple point with 0 difference split them equally in both 
+4. In case of multiple points with 0 difference, split them equally in both 
 partition
 
+**Broken while updatating GSB File structure**
 
 **Vertical Connection Box**
 

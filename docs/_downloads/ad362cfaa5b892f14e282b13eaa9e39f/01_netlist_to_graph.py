@@ -39,7 +39,7 @@ print("\n".join(nx.generate_edgelist(graph, data=True)))
 # %%
 # **Regenerated graph with ports splits into individual nodes**
 #
-# .. image:: ../../../../examples/OpenFPGA/partition/_nx_graph_split.svg
+# .. image:: ../../../examples/OpenFPGA_tiling/_nx_graph_split.svg
 #     :align: center
 #     :width: 50%
 
