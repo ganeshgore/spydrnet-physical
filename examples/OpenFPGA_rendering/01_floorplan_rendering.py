@@ -4,7 +4,7 @@ Demonstrate how to render basic floorplan
 =========================================
 
 
-.. include:: ../../../../spydrnet_physical/util/FloorPlanViz.py
+.. include:: ../../../spydrnet_physical/util/FloorPlanViz.py
     :start-after: """
     :end-before: """
 
@@ -12,9 +12,9 @@ Output
 ======
 
 Download final annotated verilog netlist:
-:download:`_annotate_netlist.v <../../../../examples/OpenFPGA/rendering/_annotate_netlist.v>`
+:download:`_annotate_netlist.v <../../../examples/OpenFPGA_rendering/_annotate_netlist.v>`
 
-.. image:: ../../../../examples/OpenFPGA/rendering/_basic_hierarchy_floorplan.svg
+.. image:: ../../../examples/OpenFPGA_rendering/_basic_hierarchy_floorplan.svg
     :width: 500px
 
 '''

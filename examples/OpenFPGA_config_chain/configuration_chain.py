@@ -6,7 +6,7 @@ Adding configuration chain to the fabric
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
 
-.. image:: ../../../../examples/OpenFPGA/_fpga_configuration_chain.svg
+.. image:: ../../../examples/OpenFPGA_config_chain/_fpga_configuration_chain.svg
     :width: 500px
     :align: center
 
@@ -60,6 +60,7 @@ def main():
     fpga.remove_config_chain()
     fpga.remove_undriven_nets()
 
+    # Convert top level independent nets to bus
     for i in chain(fpga.top_module.get_instances("grid_clb*"),
                    fpga.top_module.get_instances("grid_io*"),
                    fpga.top_module.get_instances("sb_*")):
@@ -68,8 +69,9 @@ def main():
                 cable_list = []
                 for pin in p.pins[::-1]:
                     cable_list.append(i.pins[pin].wire.cable)
-                fpga.top_module.combine_cables(
+                cable = fpga.top_module.combine_cables(
                     f"{i.name}_{p.name}", cable_list)
+                cable.is_downto = False
 
     # fpga.create_grid_clb_feedthroughs()
 

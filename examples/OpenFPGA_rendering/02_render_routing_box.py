@@ -8,25 +8,25 @@ can be rendered in a SVG format.
 
 **Full Switch Box [ SB_1__1_ ]**
 
-.. image:: ../../../../examples/OpenFPGA/rendering/_sb_1__1_.svg
+.. image:: ../../../examples/OpenFPGA_rendering/_sb_1__1_.svg
     :width: 500px
     :align: center
 
 **Horizontal Connection Box**
 
-.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_.svg
+.. image:: ../../../examples/OpenFPGA_rendering/_cbx_1__1_.svg
     :width: 150px
     :align: center
 
 **Vertical Connection Box**
 
-.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__2_.svg
+.. image:: ../../../examples/OpenFPGA_rendering/_cbx_1__2_.svg
     :width: 800px
     :align: center
 
 **Arbitrary arrangement of vertical connection box channels and pins**
 
-.. image:: ../../../../examples/OpenFPGA/rendering/_cbx_1__1_arrangement.svg
+.. image:: ../../../examples/OpenFPGA_rendering/_cbx_1__1_arrangement.svg
     :width: 800px
     :align: center
 
