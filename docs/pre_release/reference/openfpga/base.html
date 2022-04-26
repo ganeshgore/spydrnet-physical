@@ -1,0 +1,612 @@
+<!doctype html>
+<html class="no-js">
+  <head><base href="pre_release"><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Routing Render" href="routing_render.html" /><link rel="prev" title="OpenFPGA Transformations" href="index.html" />
+
+    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+        <title>OpenFPGA Base - SpyDrNet-Physical alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">SpyDrNet-Physical alpha documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">SpyDrNet-Physical alpha documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction/install.html">Install</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
+<li class="toctree-l2"><a class="reference external" href="?http://#shell-interface">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference external" href="?http://#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../classes/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/element.html">Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/definition.html">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/instance.html">Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/cable.html">Cable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/wire.html">Wire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/innerpin.html">InnerPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/outerpin.html">OuterPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/pin.html">Pin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes/port.html">Port</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../utility/index.html">Utility Functions</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.get_names.html">util.get_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.get_attr.html">util.get_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.GridFloorplanGen.html">util.GridFloorplanGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.ConnectPoint.html">util.ConnectPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.ConnectPointList.html">util.ConnectPointList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.ConnectionPattern.html">util.ConnectionPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA.html">util.OpenFPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.FPGAGridGen.html">util.FPGAGridGen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.initial_placement.html">util.initial_placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA_Config_Generator.html">util.OpenFPGA_Config_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA_Placement_Generator.html">util.OpenFPGA_Placement_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA_Tile_Generator.html">util.OpenFPGA_Tile_Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.FloorPlanViz.html">util.FloorPlanViz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.RoutingRender.html">util.RoutingRender</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.cb_renderer.html">util.cb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.sb_renderer.html">util.sb_renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.prepare_graph_from_nx.html">util.prepare_graph_from_nx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.write_metis_graph.html">util.write_metis_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.run_metis.html">util.run_metis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.OpenFPGA_Arch.html">util.OpenFPGA_Arch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.Tile01.html">util.Tile01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.config_chain_01.html">util.config_chain_01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utility/generated/util.config_chain_simple.html">util.config_chain_simple</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../visualization/floorplan_visualizer.html">FloorPlan Visualizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../visualization/architecture_visualizer.html">Architecture Visualisation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">OpenFPGA Transformations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">OpenFPGA Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="routing_render.html">Routing Render</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="tile01.html">Tile-01</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/tile.html">Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/left-tile.html">Left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/right-tile.html">Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/top-tile.html">Top-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/bottom-tile.html">Bottom-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/top-left-tile.html">Top-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/top-right-tile.html">Top-Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/bottom-left-tile.html">Bottom-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Tile01/bottom-right-tile.html">Bottom-Right-Tile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../sample_netlist.html">Sample verilog netlist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_info.html">1.2. Display Netlist Information Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.3. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.4. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_multiple_instances.html">1.5. Merging group of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/partitioning_experiments.html">1.6. Partitions Experimentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.7. Generating feedthrough from single instance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/01_fpga_arch_parse.html">2.1. OpenFPGA Architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/03_initial_placement.html">2.3. Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/04_fpga_grid_generation.html">2.4. FPGA Layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/06_FloorplanDesign01.html">2.6. Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/07_FloorplanHeterogeneousDesign01.html">2.7. Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.8. Grid Floorplan Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_rendering/01_floorplan_rendering.html">3.1. Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_rendering/02_render_routing_box.html">3.2. Rendering Switch and Connection Boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_rendering/03_render_edge_routing_box.html">3.3. Rendering Switch and Connection Boxes</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">4. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/01_connection_patterns.html">4.1. Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/02_create_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/03_create_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/04_create_clock_tree.html">4.4. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/05_clock_tree_insertion.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/06_reset_feedthrough.html">4.6. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/07_clock_tree_example1.html">4.7. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/08_clock_tree_example2.html">4.8. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/09_clock_tree_example3.html">4.9. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_clock_tree/09_clock_tree_example4.html">4.10. Clock tree insertion Example Architecture 3</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_tiling/index.html">5. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/01_netlist_to_graph.html">5.1. Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/02_switch_partition_01.html">5.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/03_switch_partition_02.html">5.3. Physical/Tefchmapped Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/04_switch_partition_03.html">5.4. Partition Conn Box 02 - Simplified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/05_module_partition.html">5.5. Split CBs and SBs across fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/06_tile_creation.html">5.6. FPGA Tiles from OpenFPGA Verilog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/08_area_opimized_tiles.html">5.7. Creating area optimized FPGA tiles</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_config_chain/index.html">6. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_config_chain/configuration_chain.html">6.1. Adding configuration chain to the fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_config_chain/extract_configuration_order.html">6.2. Extract configuration chain order</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="openfpga-base">
+<span id="id1"></span><h1>OpenFPGA Base<a class="headerlink" href="#openfpga-base" title="Permalink to this headline">¶</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.util.</span></span><span class="sig-name descname"><span class="pre">OpenFPGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'work'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fpga_top'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch_xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is top-level clas of OpenFPGa which provides methods for
+different generic netlist restructuring</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.netlist">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">netlist</span></span><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.netlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns library</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.library">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">library</span></span><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.library" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns library</p>
+</dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.top_module">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">top_module</span></span><em class="property"><span class="pre">:</span> <span class="pre">spydrnet.ir.Definition</span></em><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.top_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns top_module</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.register_tile_generator">
+<span class="sig-name descname"><span class="pre">register_tile_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.register_tile_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.register_tile_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This registers the tile generator class to OpenFPGA base class</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.register_config_generator">
+<span class="sig-name descname"><span class="pre">register_config_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.register_config_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.register_config_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This registers the tile generator class to OpenFPGA base class</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.register_placement_creator">
+<span class="sig-name descname"><span class="pre">register_placement_creator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.register_placement_creator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.register_placement_creator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This registers the tile generator class to OpenFPGA base class</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_tiles">
+<span class="sig-name descname"><span class="pre">create_tiles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_tiles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_tiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>proxy function to create_tiles method of  tile_creator class</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.add_configuration_scheme">
+<span class="sig-name descname"><span class="pre">add_configuration_scheme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.add_configuration_scheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.add_configuration_scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>proxy function to create_tiles method of tile_creator class</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_placement">
+<span class="sig-name descname"><span class="pre">create_placement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_placement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Proxy fucntion to add placement and shaping information to each instance</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.place_pins">
+<span class="sig-name descname"><span class="pre">place_pins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.place_pins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.place_pins" title="Permalink to this definition">¶</a></dt>
+<dd><p>This adds pin placment nforamtion to tile instances</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.render_floorplan">
+<span class="sig-name descname"><span class="pre">render_floorplan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.render_floorplan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.render_floorplan" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method runs the fpga render class to assign
+shape and location to each module instance</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.design_top_stat">
+<span class="sig-name descname"><span class="pre">design_top_stat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.design_top_stat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.design_top_stat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get statistics of the top module</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.merge_all_grid_ios">
+<span class="sig-name descname"><span class="pre">merge_all_grid_ios</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.merge_all_grid_ios"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.merge_all_grid_ios" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates the group of <code class="docutils literal notranslate"><span class="pre">grid_io</span></code> and neighbouring <code class="docutils literal notranslate"><span class="pre">connection_box</span></code>
+whichcna be merge.</p>
+<p>Variable <code class="docutils literal notranslate"><span class="pre">cb_list</span></code>, <code class="docutils literal notranslate"><span class="pre">grid_io_list</span></code> first creates the list of instances on
+the periphery of the FPGA, starting from the left bottom corner and going clockwise</p>
+<p><code class="docutils literal notranslate"><span class="pre">merge_list</span></code> is a dictionary which creates the group of instances for
+different unique pairs of the IO and CB blocks</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.remove_config_chain">
+<span class="sig-name descname"><span class="pre">remove_config_chain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ccff_'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.remove_config_chain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.remove_config_chain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove configuration chain from design</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.remove_undriven_nets">
+<span class="sig-name descname"><span class="pre">remove_undriven_nets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.remove_undriven_nets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.remove_undriven_nets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes undriven/floating nets from the top level</p>
+<p>the net name with undriven keyword in the name is considered as floating nets</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_grid_io_bus">
+<span class="sig-name descname"><span class="pre">create_grid_io_bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inpad'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outpad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'outpad'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_pins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_grid_io_bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_grid_io_bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <cite>grid_io</cite> Input/Output pins to bus structure</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Input Pins</span>
+<span class="n">right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_inpad_0_</span>    <span class="o">-&gt;</span> <span class="n">io_right_in</span>
+<span class="n">left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_inpad_0_</span>     <span class="o">-&gt;</span> <span class="n">io_left_in</span>
+<span class="n">top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_inpad_0_</span>      <span class="o">-&gt;</span> <span class="n">io_top_in</span>
+<span class="n">bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_inpad_0_</span>   <span class="o">-&gt;</span> <span class="n">io_bottom_in</span>
+
+<span class="c1"># Output Pins</span>
+<span class="n">right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_0_</span>   <span class="o">-&gt;</span> <span class="n">io_right_out</span>
+<span class="n">left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_0_</span>    <span class="o">-&gt;</span> <span class="n">io_left_out</span>
+<span class="n">top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_0_</span>     <span class="o">-&gt;</span> <span class="n">io_top_out</span>
+<span class="n">bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_0_</span>  <span class="o">-&gt;</span> <span class="n">io_bottom_out</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_grid_clb_bus">
+<span class="sig-name descname"><span class="pre">create_grid_clb_bus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_grid_clb_bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_grid_clb_bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <cite>grid_clb</cite> Input/Output pins to bus structure</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Input Pins</span>
+<span class="n">right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_I_0_</span>    <span class="o">-&gt;</span> <span class="n">grid_right_in</span>
+<span class="n">left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_I_0_</span>     <span class="o">-&gt;</span> <span class="n">grid_left_in</span>
+<span class="n">top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_I_0_</span>      <span class="o">-&gt;</span> <span class="n">grid_top_in</span>
+<span class="n">bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_I_0_</span>   <span class="o">-&gt;</span> <span class="n">grid_bottom_in</span>
+
+<span class="c1"># Output Pins</span>
+<span class="n">right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_0_</span>    <span class="o">-&gt;</span> <span class="n">grid_right_out</span>
+<span class="n">left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_0_</span>     <span class="o">-&gt;</span> <span class="n">grid_left_out</span>
+<span class="n">top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_0_</span>      <span class="o">-&gt;</span> <span class="n">grid_top_out</span>
+<span class="n">bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_0_</span>   <span class="o">-&gt;</span> <span class="n">grid_bottom_out</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_sb_bus">
+<span class="sig-name descname"><span class="pre">create_sb_bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_sb_bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_sb_bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <cite>sb</cite> Input pins to bus structure</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Input Pins</span>
+<span class="n">top_left_grid_right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_</span><span class="o">*</span><span class="n">_</span>      <span class="o">-&gt;</span> <span class="n">sb_top_l_in</span>
+<span class="n">top_right_grid_left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_</span><span class="o">*</span><span class="n">_</span>      <span class="o">-&gt;</span> <span class="n">sb_top_r_in</span>
+<span class="n">bottom_left_grid_right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_</span><span class="o">*</span><span class="n">_</span>   <span class="o">-&gt;</span> <span class="n">sb_bottom_l_in</span>
+<span class="n">bottom_right_grid_left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_</span><span class="o">*</span><span class="n">_</span>   <span class="o">-&gt;</span> <span class="n">sb_bottom_r_in</span>
+
+<span class="n">left_top_grid_bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_</span><span class="o">*</span><span class="n">_</span>     <span class="o">-&gt;</span> <span class="n">sb_left_t_in</span>
+<span class="n">left_bottom_grid_top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_</span><span class="o">*</span><span class="n">_</span>     <span class="o">-&gt;</span> <span class="n">sb_left_b_in</span>
+<span class="n">right_top_grid_bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_</span><span class="o">*</span><span class="n">_</span>    <span class="o">-&gt;</span> <span class="n">sb_right_t_in</span>
+<span class="n">right_bottom_grid_top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_O_</span><span class="o">*</span><span class="n">_</span>    <span class="o">-&gt;</span> <span class="n">sb_right_b_in</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_cb_bus">
+<span class="sig-name descname"><span class="pre">create_cb_bus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_cb_bus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_cb_bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <cite>cb</cite> Input pins to bus structure</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">right_grid_left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_I_</span><span class="o">*</span><span class="n">_</span>      <span class="o">-&gt;</span> <span class="n">grid_right_in</span>
+<span class="n">left_grid_right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_I_</span><span class="o">*</span><span class="n">_</span>      <span class="o">-&gt;</span> <span class="n">grid_left_in</span>
+<span class="n">top_grid_bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_I_</span><span class="o">*</span><span class="n">_</span>      <span class="o">-&gt;</span> <span class="n">grid_top_in</span>
+<span class="n">bottom_grid_top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_I_</span><span class="o">*</span><span class="n">_</span>      <span class="o">-&gt;</span> <span class="n">grid_bottom_in</span>
+
+<span class="n">right_grid_left_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_</span><span class="o">*</span><span class="n">_</span> <span class="o">-&gt;</span> <span class="n">grid_right_in</span>
+<span class="n">left_grid_right_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_</span><span class="o">*</span><span class="n">_</span> <span class="o">-&gt;</span> <span class="n">grid_left_in</span>
+<span class="n">top_grid_bottom_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_</span><span class="o">*</span><span class="n">_</span> <span class="o">-&gt;</span> <span class="n">grid_top_in</span>
+<span class="n">bottom_grid_top_width_0_height_0_subtile_</span><span class="o">*</span><span class="n">__pin_outpad_</span><span class="o">*</span><span class="n">_</span> <span class="o">-&gt;</span> <span class="n">grid_bottom_in</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.create_grid_clb_feedthroughs">
+<span class="sig-name descname"><span class="pre">create_grid_clb_feedthroughs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.create_grid_clb_feedthroughs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.create_grid_clb_feedthroughs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates feedthrough for <code class="docutils literal notranslate"><span class="pre">grid_clb</span></code> outputs, to convert digonal
+connections to horizontal and vertical</p>
+<p><cite>grid_clb</cite> output on each side is feedthrough from connection box as
+shown in the following example (onle left side feedthroughs are shown)</p>
+<div class="ascii highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+-----+</span>                       <span class="o">+-----+</span>
+<span class="o">|</span>     <span class="o">|</span>                       <span class="o">|</span>     <span class="o">|</span>
+<span class="o">|</span>     <span class="o">+--+</span>                    <span class="o">|</span>     <span class="o">+--+</span>
+<span class="o">|</span> <span class="n">SB</span>     <span class="o">|</span>                    <span class="o">|</span> <span class="n">SB</span>     <span class="o">|</span>
+<span class="o">|</span>     <span class="o">+-++</span>                    <span class="o">|</span>     <span class="o">+--+</span>
+<span class="o">|</span>     <span class="o">|</span> <span class="o">|</span>                     <span class="o">|</span>     <span class="o">|</span>
+<span class="o">+-----+</span> <span class="o">|</span>                     <span class="o">+--+--+</span>
+        <span class="o">|</span>  <span class="o">+------</span>               <span class="o">|</span>       <span class="o">+------</span>
+<span class="o">+-----+</span> <span class="o">|</span>  <span class="o">|</span>                  <span class="o">+-----+</span>    <span class="o">|</span>
+<span class="o">|</span>     <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span>                  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>
+<span class="o">|</span>     <span class="o">|</span> <span class="o">+--+</span> <span class="n">CLB</span>              <span class="o">|</span>  <span class="o">+-------+</span> <span class="n">CLB</span>
+<span class="o">|</span> <span class="n">CBX</span> <span class="o">|</span> <span class="o">|</span>  <span class="o">|</span>                  <span class="o">|</span>  <span class="o">|</span>  <span class="o">|</span>    <span class="o">|</span>
+<span class="o">+-----+</span> <span class="o">|</span>  <span class="o">|</span>                  <span class="o">+-----+</span>    <span class="o">|</span>
+        <span class="o">|</span>  <span class="o">|</span>                     <span class="o">|</span>       <span class="o">|</span>
+<span class="o">+-----+</span> <span class="o">|</span>  <span class="o">+------</span>            <span class="o">+--+--+</span>    <span class="o">+------</span>
+<span class="o">|</span>     <span class="o">|</span> <span class="o">|</span>                     <span class="o">|</span>     <span class="o">|</span>
+<span class="o">|</span>     <span class="o">+-++</span>                    <span class="o">|</span>     <span class="o">+--+</span>
+<span class="o">|</span> <span class="n">SB</span>     <span class="o">|</span>                    <span class="o">|</span> <span class="n">SB</span>     <span class="o">|</span>
+<span class="o">|</span>     <span class="o">+--+</span>                    <span class="o">|</span>     <span class="o">+--+</span>
+<span class="o">|</span>     <span class="o">|</span>                       <span class="o">|</span>     <span class="o">|</span>
+<span class="o">+-----+</span>                       <span class="o">+-----+</span>
+<span class="n">Before</span>                <span class="n">After</span> <span class="n">feedthrough</span> <span class="n">creations</span>
+</pre></div>
+</div>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.save_netlist">
+<span class="sig-name descname"><span class="pre">save_netlist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_constraints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_cables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_instances</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.save_netlist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.save_netlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save verilog files</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.get_top_instance">
+<span class="sig-name descname"><span class="pre">get_top_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.get_top_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.get_top_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method generates the grid instance information given the
+cordinate points</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.fix_grid_pin_names">
+<span class="sig-name descname"><span class="pre">fix_grid_pin_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.*__pin_(.*)_0_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grid_*'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.fix_grid_pin_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.fix_grid_pin_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to fix the pin names on the grid modules</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>regex</strong> (<em>str</em>) – Regex string used to extract the name of the port</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="routing_render.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Routing Render</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">OpenFPGA Transformations</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, University of Utah |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
+            <a class="muted-link" href="../../_sources/reference/openfpga/base.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">OpenFPGA Base</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/main.js"></script>
+    </body>
+</html>
