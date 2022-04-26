@@ -1,7 +1,7 @@
 """
-===================================
-Creating area optimized FPGA tiles
-===================================
+======================================================
+Generating and Floorplanning Area-optimized FPGA Tiles
+======================================================
 
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
