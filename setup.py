@@ -75,6 +75,7 @@ if __name__ == "__main__":
         entry_points={
             'console_scripts': [
                 'sdnphy = spydrnet_physical.util.shell:launch_shell',
+                'clean_gsb = spydrnet_physical.util.clean_gsb:clean_gsb',
             ],
         },
     )

@@ -10,6 +10,7 @@ from collections import OrderedDict
 from fnmatch import fnmatch
 from pathlib import Path
 from typing import Callable
+from itertools import chain
 
 import spydrnet as sdn
 from spydrnet_physical.util import FPGAGridGen, initial_placement
@@ -165,6 +166,8 @@ class OpenFPGA:
         for instance in self.top_module.get_instances(pattern):
             if "ASSIG" in instance.reference.name:
                 continue
+            if instance.reference.name.startswith("const"):
+                continue
             S = instance.reference.properties.get("SHAPE", "rect")
             W = instance.reference.properties.get("WIDTH", 0)
             H = instance.reference.properties.get("HEIGHT", 0)
@@ -182,6 +185,13 @@ class OpenFPGA:
                 S,
                 4 if S == "rect" else int(len(points)/2),
                 " ".join(map(lambda x: f"{x*scale: 6.3f}", points))))
+        
+        W = self.top_module.properties.get("WIDTH", 1000)
+        H = self.top_module.properties.get("HEIGHT", 1000)
+        output.append("{:^20} {:^20} {: 10.2f} {: 10.2f} {:^8} {:^5} {:20}\n".format(
+            self.top_module.name, self.top_module.name, 0, 0,  'rect', 4, 
+            " ".join(map(lambda x: f"{x*scale: 6.3f}", (0, 0, 0, H, W, H, W, 0)))
+        ))
         if filename:
             with open(filename, "w") as fp:
                 fp.write("\n".join(output))
@@ -219,6 +229,8 @@ class OpenFPGA:
                 continue
             if "ASSIG" in instance.reference.name:
                 continue
+            if instance.reference.name.startswith("const"):
+                continue
             output.append("{:<20s} {:8s} {:.2%} {:16.2f} {:16.2f} {:8} {:8}      {}".format(
                 instance.reference.name,
                 instance.reference.properties.get("SHAPE", "--"),
@@ -242,6 +254,8 @@ class OpenFPGA:
         for inst in design.children:
             if "ASSIG" in inst.reference.library.name:
                 continue
+            if inst.reference.name.startswith("const"):
+                continue
             if not inst.reference.name in inst_cnt.keys():
                 inst_cnt[inst.reference.name] = []
             inst_cnt[inst.reference.name].append(inst.name)
@@ -260,6 +274,8 @@ class OpenFPGA:
         inst_cnt = {}
         for inst in design.children:
             if "ASSIG" in inst.reference.library.name:
+                continue
+            if inst.reference.name.startswith("const"):
                 continue
             inst_cnt[inst.reference.name] = 1 + \
                 inst_cnt.get(inst.reference.name, 0)

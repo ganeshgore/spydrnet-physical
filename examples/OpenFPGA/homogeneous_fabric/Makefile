@@ -21,7 +21,7 @@ runOpenFPGA:
 	find ./FPGA44_Verilog -name "*.v" -exec sed -i "s/.*default_nettype/\/\/ \`default_nettype/g" '{}' \;
 	find ./FPGA44_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Date.*/d"
 	find ./FPGA44_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Author.*/d"
-	${PYTHON_EXEC} clean_gsb.py
+	clean_gsb --top_level_design FPGA44_Verilog/fpga_top.v --gsb_dir FPGA44_gsb/
 	find ./FPGA44_gsb -name "*.xml" -type f -exec xmllint --output '{}' --format '{}' \;
 	duration=$$SECONDS
 	echo "$$(($$duration / 60)) minutes and $$(($$duration % 60)) seconds elapsed." >> runOpenFPGA
