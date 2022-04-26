@@ -19,6 +19,7 @@ import glob
 import logging
 import os
 import tempfile
+from itertools import chain
 
 import spydrnet as sdn
 from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen,
