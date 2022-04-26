@@ -1,6 +1,6 @@
 """
 ==========================================
-Physical/Tefchmapped Partition Conn Box 02
+Physical/Techmapped Partition Conn Box 02
 ==========================================
 
 This example demonstrates partitioning a tech-mapped connection box based on the mapped gates.
