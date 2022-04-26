@@ -1,19 +1,19 @@
 """
-=====================
-Partition Conn Box 02
-=====================
+==========================================
+Physical/Tefchmapped Partition Conn Box 02
+==========================================
 
-This example demonstrate, how a techmapped connection box can be split into 
-two parts.
+This example demonstrates partitioning a tech-mapped connection box based on the mapped gates.
 
-It first converts a tech-mapped connection box netlist to a networkX graph. 
-The graph is converted to a two dimentional array and passed to metis library 
-which performs the partitioning based on assigned weigts.
+We first convert a tech-mapped connection box netlist to a NetworkX graph. 
+The graph is converted to a two-dimensional array and passed to the metis library 
+which performs the partitioning based on assigned weights.
 
 The partitioned graph is rendered in the following SVG.
 
-To simplify the partitioning, all the global signals are stripped down
-before converting netlist to a graph (including connections beetween
+.. note:
+	All the global signals are stripped down
+before converting netlist to a graph (including connections between
 shift registers chain).
 
 **Horizontal Connection Box**
