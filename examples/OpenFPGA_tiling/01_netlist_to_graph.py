@@ -11,7 +11,7 @@ with weight equal to length of bus is assigned.
 
 **Graph representation**
 
-.. image:: ../../../../examples/OpenFPGA/partition/_nx_graph.svg
+.. image:: ../../../examples/OpenFPGA_tiling/_nx_graph.svg
     :align: center
     :width: 40% 
 """

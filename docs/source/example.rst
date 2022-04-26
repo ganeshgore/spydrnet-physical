@@ -10,3 +10,4 @@ Examples
 
    auto_basic/index
    auto_openfpga_basic/index
+   auto_openfpga_tiling/index

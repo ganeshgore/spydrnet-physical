@@ -13,7 +13,7 @@ This is simplified script Partition Conn Box 02
 
 **cby_1__1_ Split**
 
-.. image:: ../../../../examples/OpenFPGA/partition/_cby_1__1__nx_graph.svg
+.. image:: ../../../../examples/OpenFPGA_tiling/_cby_1__1__nx_graph.svg
     :align: center
     :width: 50% 
 
