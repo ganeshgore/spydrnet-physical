@@ -316,18 +316,145 @@ to download the full example code</p>
 <a class="reference internal image-reference" href="../../_images/_clock_tree_example_arch_04.svg"><img alt="../../_images/_clock_tree_example_arch_04.svg" src="../../_images/_clock_tree_example_arch_04.svg" width="220px"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">svgwrite.container</span> <span class="kn">import</span> <span class="n">Group</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span><span class="p">,</span> <span class="n">ConnectPoint</span><span class="p">,</span> <span class="n">ConnectPointList</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 
-
-<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">33</span>
-<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">33</span>
-<span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">)</span>
-<span class="n">combine_pattern</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
-<span class="n">combine_pattern</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">combine_pattern</span><span class="o">.</span><span class="n">move_y</span><span class="p">()</span>
+<span class="c1">#WIDTH = 33</span>
+<span class="c1">#HEIGHT = 33</span>
+<span class="c1">#p_manager = ConnectionPattern(WIDTH, HEIGHT)</span>
+<span class="c1">#combine_pattern = p_manager.connections</span>
+<span class="c1">#combine_pattern.cursor = (int(WIDTH/2), 0)</span>
+<span class="c1">#combine_pattern.move_y()</span>
 <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
 <span class="c1">#  Create clock connectivity pattern</span>
 <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">33</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">33</span>
+<span class="n">WIDTH_F</span> <span class="o">=</span> <span class="mi">33</span>
+
+<span class="n">level0_pmanager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span><span class="n">HEIGHT</span><span class="p">)</span>
+<span class="n">level0_patt</span> <span class="o">=</span> <span class="n">level0_pmanager</span><span class="o">.</span><span class="n">connections</span>
+<span class="n">level1_pmanager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span><span class="n">HEIGHT</span><span class="p">)</span>
+<span class="n">level1_patt</span> <span class="o">=</span> <span class="n">level1_pmanager</span><span class="o">.</span><span class="n">connections</span>
+<span class="n">level2_pmanager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span><span class="n">HEIGHT</span><span class="p">)</span>
+<span class="n">level2_patt</span> <span class="o">=</span> <span class="n">level2_pmanager</span><span class="o">.</span><span class="n">connections</span>
+<span class="n">level3_pmanager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span><span class="n">HEIGHT</span><span class="p">)</span>
+<span class="n">level3_patt</span> <span class="o">=</span> <span class="n">level3_pmanager</span><span class="o">.</span><span class="n">connections</span>
+
+<span class="n">p_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">)</span>
+<span class="n">hyb_pat</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
+
+<span class="n">level3_patt</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">level3_patt</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">level3_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p_manager</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">))</span>
+<span class="n">level3_patt</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">'red'</span><span class="p">)</span>
+<span class="c1">#combine_pattern.translate(1, 1)</span>
+
+<span class="c1">#combine_pattern.rotate (90)</span>
+<span class="n">level3_patt</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">level3_patt</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">while</span> <span class="n">WIDTH_F</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">:</span>
+    <span class="n">tree_manager</span> <span class="o">=</span> <span class="n">ConnectionPattern</span> <span class="p">(</span><span class="n">WIDTH</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">)</span>
+    <span class="n">tree_patt</span> <span class="o">=</span> <span class="n">tree_manager</span><span class="o">.</span><span class="n">connections</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH_F</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">WIDTH_F</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span><span class="c1">#(5, 33, 9)</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH_F</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">WIDTH_F</span><span class="o">/</span><span class="mi">2</span><span class="p">)):</span>
+            <span class="n">tree_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">p_manager</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH_F</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span>
+            <span class="n">translate</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH_F</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="n">y</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH_F</span><span class="o">/</span><span class="mi">4</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">WIDTH_F</span> <span class="o">==</span> <span class="mi">33</span><span class="p">:</span>
+        <span class="n">tree_patt</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">'black'</span><span class="p">)</span>
+        <span class="n">level2_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">tree_patt</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">WIDTH_F</span> <span class="o">==</span> <span class="mi">17</span><span class="p">:</span>
+        <span class="n">tree_patt</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">'blue'</span><span class="p">)</span>
+        <span class="n">level1_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">tree_patt</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tree_patt</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">'green'</span><span class="p">)</span>
+        <span class="n">level0_patt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">tree_patt</span><span class="p">)</span>
+    <span class="n">WIDTH_F</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">WIDTH_F</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">level0_patt</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">level0_patt</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'orange'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">level0_patt</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">level0_patt</span><span class="o">.</span><span class="n">move_x</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'orange'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">level0_patt</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+    <span class="n">level0_patt</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'orange'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="n">level0_patt</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">level0_patt</span><span class="o">.</span><span class="n">move_x</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">'orange'</span><span class="p">)</span>
+
+
+<span class="n">short_points</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="mi">12</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="n">short_points</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">short_points</span><span class="p">:</span>
+    <span class="n">to_point</span> <span class="o">=</span> <span class="n">level0_patt</span><span class="o">.</span><span class="n">search_to_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+    <span class="n">from_point</span> <span class="o">=</span> <span class="n">level0_patt</span><span class="o">.</span><span class="n">search_from_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">to_point</span> <span class="ow">and</span> <span class="n">from_point</span><span class="p">:</span>
+        <span class="n">level0_patt</span><span class="o">.</span><span class="n">short_through</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+
+<span class="n">remove_points</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="mi">12</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">remove_points</span><span class="o">.</span><span class="n">append</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">remove_points</span><span class="p">:</span>
+            <span class="n">point</span> <span class="o">=</span> <span class="n">level0_patt</span><span class="o">.</span><span class="n">search_to_point</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">point</span><span class="p">:</span>
+                <span class="n">level0_patt</span><span class="o">.</span><span class="n">_points</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+
+<span class="c1">#    for x in list(range(3,GRID_W,4)): #+ [1,GRID_W]:</span>
+<span class="c1">#        for y in list(range(3,GRID_H,4)): # + [1,GRID_H]:</span>
+<span class="c1">#            pt = level1_patt.search_to_point((x,y))</span>
+<span class="c1">#            if pt:</span>
+<span class="c1">#                level1_patt.push_connection_down(pt)</span>
+<span class="c1">#                level0_patt.points.append(deepcopy(pt))</span>
+<span class="c1">#                level0_patt.pull_connection_up(level0_patt.points[-1])</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">level1_patt</span><span class="o">.</span><span class="n">search_to_point</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">pt</span><span class="p">:</span>
+            <span class="n">level1_patt</span><span class="o">.</span><span class="n">push_connection_down</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+            <span class="n">level0_patt</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pt</span><span class="p">))</span>
+            <span class="n">level0_patt</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">level0_patt</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">level2_patt</span><span class="o">.</span><span class="n">search_to_point</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">pt</span><span class="p">:</span>
+            <span class="n">level2_patt</span><span class="o">.</span><span class="n">push_connection_down</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+            <span class="n">level1_patt</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pt</span><span class="p">))</span>
+            <span class="n">level1_patt</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">level1_patt</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">WIDTH</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">HEIGHT</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">level3_patt</span><span class="o">.</span><span class="n">search_to_point</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">pt</span><span class="p">:</span>
+            <span class="n">level3_patt</span><span class="o">.</span><span class="n">push_connection_down</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
+            <span class="n">level2_patt</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pt</span><span class="p">))</span>
+            <span class="n">level2_patt</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">level2_patt</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">level3_patt</span><span class="o">.</span><span class="n">crop_edges</span><span class="p">()</span>
+<span class="n">level2_patt</span><span class="o">.</span><span class="n">crop_edges</span><span class="p">()</span>
+<span class="n">level1_patt</span><span class="o">.</span><span class="n">crop_edges</span><span class="p">()</span>
+<span class="n">level0_patt</span><span class="o">.</span><span class="n">crop_edges</span><span class="p">()</span>
+
+<span class="n">level3_patt</span><span class="o">.</span><span class="n">trim_borders</span><span class="p">()</span>
+<span class="n">level2_patt</span><span class="o">.</span><span class="n">trim_borders</span><span class="p">()</span>
+<span class="n">level1_patt</span><span class="o">.</span><span class="n">trim_borders</span><span class="p">()</span>
+<span class="n">level0_patt</span><span class="o">.</span><span class="n">trim_borders</span><span class="p">()</span>
+
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span> <span class="p">(</span><span class="n">level0_patt</span><span class="p">)</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span> <span class="p">(</span><span class="n">level1_patt</span><span class="p">)</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span> <span class="p">(</span><span class="n">level2_patt</span><span class="p">)</span>
+<span class="n">hyb_pat</span><span class="o">.</span><span class="n">merge</span> <span class="p">(</span><span class="n">level3_patt</span><span class="p">)</span>
+
 
 
 <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
