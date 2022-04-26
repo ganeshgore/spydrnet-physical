@@ -56,7 +56,7 @@ def main():
     #           Floorplan visualization
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     fpga.register_placement_creator(initial_placement,
-                                    areaFile='area_info.txt')
+                                    areaFile=f"{proj}/area_info.txt")
     fpga.create_placement()
     fpga.show_placement_data("*_0__*")
     fpga.design_top_stat()

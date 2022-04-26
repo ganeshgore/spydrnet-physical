@@ -79,7 +79,7 @@ def main():
     #           Floorplan visualization
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     fpga.register_placement_creator(initial_placement,
-                                    areaFile='area_info.txt')
+                                    areaFile=f"{proj}/area_info.txt")
     fpga_grid = FPGAGridGen(design_name='FPGA4x4', layout="4x4",
                             arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
                             release_root=None)
