@@ -22,12 +22,12 @@ using python scripting or parser an existing Verilog netlist.
 The structural Verilog netlist is represented as a python class
 that simplifies the netlist modification process.
 The ``SpyDrNet`` is purely designed as a python package, keeping scalability in mind.
-In ``SpyDrNet-Physical`` is an extension for ``SpyDrNet`` framework,
+In ``SpyDrNet-Physical`` is an extension for a ``SpyDrNet`` framework,
 which adds functionality to perform physical design-related
 netlist transformations.
 
 
-Essential characteristics of ``SpyDrNet-Physical``
+Essential characteristics of a ``SpyDrNet-Physical``
 
 
 .. rst-class:: circlelist
@@ -50,6 +50,7 @@ Table of Contents
    reference/index
    sample_netlist
    developers/index 
+   fpga44/index
    example
 
 .. .. toctree::
