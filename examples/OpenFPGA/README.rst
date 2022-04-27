@@ -1,2 +1,0 @@
-OpenFPGA Related Restructuring
-------------------------------

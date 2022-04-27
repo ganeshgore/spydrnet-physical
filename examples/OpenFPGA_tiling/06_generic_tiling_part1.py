@@ -1,20 +1,21 @@
 """
-================================
-FPGA Tiles from OpenFPGA Verilog
-================================
+=====================================
+Generic Tiling Part02 - Creating tile
+=====================================
 
-This example demonstate how to create a tile strcuture from
-Verilog netlist obtained from OpenFPGA
+This example creates the CB and  SB subtiles based on the partition
+data obtained after ``metis`` partitioning.
 
 """
 
 import glob
-import json
+
 import logging
 from pathlib import Path
 import tempfile
 from itertools import chain
 from os import path
+from pprint import pprint
 
 import spydrnet as sdn
 from spydrnet_physical.util import OpenFPGA
@@ -48,6 +49,7 @@ def main():
     fpga.create_grid_io_bus()
     fpga.create_sb_bus()
     fpga.create_cb_bus()
+    fpga.merge_all_grid_ios()
 
     # Remove undriven nets
     fpga.remove_undriven_nets()
@@ -66,46 +68,66 @@ def main():
                     f"{i.name}_{p.name}", cable_list)
                 cable.is_downto = False
 
-    # fpga.create_grid_clb_feedthroughs()
-
     # Before Creating Tiles
     fpga.design_top_stat()
 
-    for module in list(netlist.get_definitions("*b_1__1*")):
-        # Flatten the netlist
-        for instance in list(module.get_instances('*_ipin_*')):
-            module.flatten_instance(instance)
-        for instance in list(module.get_instances('*_track_*')):
-            module.flatten_instance(instance)
+    merge_routing_modules(fpga)
 
-        parts_files = glob.glob(f"./tiles_data/{module.name}_part_*.json")
-        for part, each_file in enumerate(parts_files):
-            instance_list = json.load(open(each_file))
-            module.merge_instance([next(module.get_instances(i)) for i in instance_list],
-                                  new_definition_name=f'{module.name}_{part}',
-                                  new_instance_name=f'{module.name}_{part}_1')
+    # for module in list(netlist.get_definitions("*b_1__1*")):
+    #     # Flatten the netlist
+    #     for instance in list(module.get_instances('*_ipin_*')):
+    #         module.flatten_instance(instance)
+    #     for instance in list(module.get_instances('*_track_*')):
+    #         module.flatten_instance(instance)
 
-        for eachInst in module.references:
-            print(f"Flatterning {eachInst.name}")
-            fpga.top_module.flatten_instance(eachInst)
+    #     parts_files = glob.glob(f"./tiles_data/{module.name}_part_*.json")
+    #     for part, each_file in enumerate(parts_files):
+    #         instance_list = json.load(open(each_file))
+    #         module.merge_instance([next(module.get_instances(i)) for i in instance_list],
+    #                               new_definition_name=f'{module.name}_{part}',
+    #                               new_instance_name=f'{module.name}_{part}_1')
 
-    for module in list(netlist.get_definitions("cbx_1__0_")):
-        # Flatten the netlist
-        for instance in list(module.get_instances('*_ipin_*')):
-            module.flatten_instance(instance)
-        print(get_names(module.get_instances()))
+    #     for eachInst in module.references:
+    #         print(f"Flatterning {eachInst.name}")
+    #         fpga.top_module.flatten_instance(eachInst)
+
+    # for module in list(netlist.get_definitions("cbx_1__0_")):
+    #     # Flatten the netlist
+    #     for instance in list(module.get_instances('*_ipin_*')):
+    #         module.flatten_instance(instance)
+    #     print(get_names(module.get_instances()))
 
     # After Tile creation
     fpga.design_top_stat()
 
     # Save netlist
-    base_dir = "_output_tile02"
+    base_dir = "_output_generic_tiles"
     Path(base_dir).mkdir(parents=True, exist_ok=True)
     fpga.save_netlist("sb*", path.join(base_dir, "routing"))
     fpga.save_netlist("cb*", path.join(base_dir, "routing"))
     fpga.save_netlist("grid*", path.join(base_dir, "lb"))
     fpga.save_netlist("*tile*", path.join(base_dir, "tiles"))
     fpga.save_netlist("fpga_top", path.join(base_dir))
+
+
+def merge_routing_modules(fpga: OpenFPGA):
+    instance_list = []
+    for each in fpga.top_module.get_instances("sb*"):
+        if each.reference.name == "sb_1__1_":
+            x, y = each.name.replace("_", " ").split()[-2:]
+            i_list = [each, ]
+            try:
+                i_list.append(
+                    next(fpga.top_module.get_instances(f"cbx_{x}__{y}_")))
+                i_list.append(
+                    next(fpga.top_module.get_instances(f"cby_{x}__{y}_")))
+            except:
+                continue
+            instance_list.append((i_list, "new" + each.name))
+    fpga._top_module.merge_multiple_instance(instance_list,
+                                             new_definition_name="sb_1__1_new")
+    tile = next(fpga._library.get_definitions("sb_1__1_new"))
+    tile.OptPins()
 
 
 if __name__ == "__main__":
