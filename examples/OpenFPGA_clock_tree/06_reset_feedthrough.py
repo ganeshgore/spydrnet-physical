@@ -3,6 +3,10 @@
 Create Reset Feedthrough in fpga_top
 =====================================
 
+.. image:: ../../../examples/OpenFPGA_clock_tree/_reset_connections.svg
+    :width: 220px
+    :align: center
+
 """
 import glob
 import logging
@@ -70,7 +74,7 @@ top_definition = fpga.top_module
 # 4x4 FPGA grid is considered as a 9x9 grid during pattern generation
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 p_manager = ConnectionPattern(9, 9)
-reset_conn_patt = p_manager.get_fishbone()
+reset_conn_patt = p_manager.get_fishbone(steps=2)
 svg = p_manager.render_pattern(title="Merging option")
 svg.saveas("_reset_connections.svg", pretty=True, indent=4)
 

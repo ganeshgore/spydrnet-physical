@@ -681,7 +681,6 @@ class Definition(DefinitionBase):
         unconn_cable = self.create_cable("unconn")
         w = unconn_cable.create_wire()  # dummy wire
         for instance in self.children:
-            print(instance)
             for pin in instance.get_port_pins(instance.reference.ports):
                 if not pin.wire:
                     w = unconn_cable.create_wire()

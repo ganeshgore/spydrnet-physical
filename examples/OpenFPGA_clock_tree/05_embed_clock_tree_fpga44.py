@@ -135,7 +135,7 @@ fpga.create_cb_bus()
 fpga.remove_config_chain()
 fpga.remove_undriven_nets()
 
-# Top level nets to bus
+# Convert top level independent nets to bus
 for i in chain(fpga.top_module.get_instances("grid_clb*"),
                fpga.top_module.get_instances("grid_io*"),
                fpga.top_module.get_instances("sb_*")):
@@ -144,8 +144,11 @@ for i in chain(fpga.top_module.get_instances("grid_clb*"),
             cable_list = []
             for pin in p.pins[::-1]:
                 cable_list.append(i.pins[pin].wire.cable)
-            fpga.top_module.combine_cables(
+            cable = fpga.top_module.combine_cables(
                 f"{i.name}_{p.name}", cable_list)
+            cable.is_downto = False
+
+
 fpga.merge_all_grid_ios()
 fpga.remove_direct_interc()
 

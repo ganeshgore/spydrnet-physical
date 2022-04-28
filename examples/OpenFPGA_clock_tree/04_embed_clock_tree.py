@@ -3,19 +3,33 @@
 Create Clock Tree Embedding
 ============================
 
+**Original grided netlist**
 
 .. hdl-diagram:: ../../../examples/OpenFPGA_clock_tree/_square_grid_design.v
    :type: netlistsvg
    :align: center
    :module: top
 
+**Connection pattern**
+
 .. image:: ../../../examples/OpenFPGA_clock_tree/_fishbone_pattern_0.svg
     :width: 300px
     :align: center
 
+**Schematic after embedding clock tree**
+
+.. hdl-diagram:: ../../../examples/OpenFPGA_clock_tree/_post_clock_embedding.v
+   :type: netlistsvg
+   :align: center
+   :module: top
+
+
+**Floorplan after embedding clock tree**
+
 .. image:: ../../../examples/OpenFPGA_clock_tree/_clock_tree_floorplan.svg
     :width: 500px
     :align: center
+
 
 '''
 
@@ -23,9 +37,7 @@ from os import path
 import spydrnet as sdn
 from spydrnet_physical.util import ConnectionPattern
 import spydrnet_physical as sdnphy
-from spydrnet_physical.ir.definition import Definition
-from pprint import pp, pprint
-import yaml
+from pprint import pprint
 from spydrnet_physical.util import FloorPlanViz
 
 
@@ -65,7 +77,7 @@ fishbone_pattern.print_reference_grid_map(netlist)
 top_definition.split_port("in")
 top_definition.split_port("out")
 top_definition.create_unconn_wires()
-sdn.compose(netlist, '_feedthrough_design.v',
+sdn.compose(netlist, '_post_clock_embedding.v',
             skip_constraints=True, write_blackbox=True)
 
 # following section is just dummy it needs to simplify more
