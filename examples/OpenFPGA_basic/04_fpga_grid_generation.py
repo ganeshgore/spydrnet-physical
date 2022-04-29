@@ -9,31 +9,28 @@ This class generates the 2D matrix of the FPGA grid.
 **layout section of Architecture file**
 
 
-    .. program-output:: bash -c "xmllint --format --xpath '//layout' ../examples/OpenFPGA/basic/support_files/vpr_arch_render_demo.xml > ./auto_prog_output/arch_layout_snnipet.xml"
+.. program-output:: bash -c "mkdir -p auto_prog_output && xmllint --format --xpath '//layout' ../../examples/OpenFPGA_basic/support_files/vpr_arch_render_demo.xml > ./auto_prog_output/arch_layout_snnipet.xml"
 
 
-    .. literalinclude:: ../../auto_prog_output/arch_layout_snnipet.xml
+.. literalinclude:: ../../auto_prog_output/arch_layout_snnipet.xml
     :language: xml
 
 
 **Expected Output**:
 
-.. code-block:: text
+**_complete_fpga_grid**
+This prints complete logic block grid, if the logic block has width or height larger than
+a unit LB width it is represeted by arrows (left and top arrows only)
 
-    EMPTY     io_top     io_top     io_top     io_top     io_top     io_top     EMPTY
-    io_left     clb        clb        clb        clb        clb        clb      io_right
-    io_left     clb        clb        clb        clb        clb        clb      io_right
-    io_left    ram9k                 ram9k                 ram9k                io_right
-    io_left     clb        clb        clb        clb        clb        clb      io_right
-    io_left     dsp                   dsp                   dsp                 io_right
-    io_left     clb        clb        clb        clb        clb        clb      io_right
-    EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
+.. literalinclude:: ../../../examples/OpenFPGA_basic/_fpga_grid.txt
 
+**_complete_grid_metrics**
 
-.. literalinclude:: ../../../../examples/OpenFPGA/basic/_complete_grid_metrics.txt
+.. literalinclude:: ../../../examples/OpenFPGA_basic/_complete_grid_metrics.txt
 
+**_complete_metrics**
 
-.. literalinclude:: ../../../../examples/OpenFPGA/basic/_complete_metrics.txt
+.. literalinclude:: ../../../examples/OpenFPGA_basic/_complete_metrics.txt
 
 
 """
@@ -54,7 +51,11 @@ def main():
                        layout="dp")
     fpga.enumerate_grid()
     # Print CLB Grid
-    fpga.print_grid()
+    output = fpga.print_grid()
+
+    # grid_output
+    with open("_fpga_grid.txt", "w") as fp:
+        fp.write(output)
 
     # Complete Matrics
     with open("_complete_grid_metrics.txt", "w") as fp:

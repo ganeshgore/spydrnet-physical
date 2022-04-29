@@ -22,10 +22,16 @@ The following figure illustrates the structure of an FPGA tile.
 Generating Netlist from OpenFPGA
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-OpenFPGA works based on the task-based structure, which means for generating a netlist, 
-you need to create a task and configure all the required parameters. 
+OpenFPGA works based on the project structure (which is referred to as a task in OpenFPGA),
+which means for generating a netlist, 
+you need to create a task and configure all the required parameters. Q
 A sample task is provided in the ``${REPOSITORY_ROOT}/examples/homogeneous_fabric`` directory.
-Some of the important files are described below
+Some of the essential files are described below
+
+- **FPGA44_Task/arch/k6_N10_tileable.xml**: VPR architecture XML file, this describes the FPGA architecture
+- **FPGA44_Task/arch/k6_N10_openfpga.xml**: OpenFPGA architecture XML file maps various physical cells to the described FPGA architecture 
+- **FPGA44_Task/config/task_generation.conf**: OpenFPGA task file, it consists of various variable assignement
+- **FPGA44_Task/generate_fabric.openfpga**: OpenFPGA script file, which lists the sequence of commands to generate FPGA fabric (Please read comments in the file for more information)
 
 
 Rendering the FPGA View

@@ -122,10 +122,13 @@ class FPGAGridGen():
         Prints the 2D FPGA grid on console
 
         """
+        output = ""
         for row in self.grid[::-1]:
             for y in row:
-                print(f"{y:^10}", end=" ")
-            print("")
+                output += f"{y:^10} "
+            output += "\n"
+        print(output)
+        return output
 
     def validate_grid(self):
         '''
@@ -280,12 +283,13 @@ class FPGAGridGen():
             (x % 2 == 0) and (y % 2 == 1): "cbx"}[True]
         xi, yi = int(x/2), int(y/2)
         # TODO : Square modules are not supported yet
-        # if module == "sb":
-        #     if self.grid[yi+1][xi+1] == self.UP_ARROW:
-        #         grid_lbl = self.get_block(xi, yi)
-        #         return "%s_%d__%d_" % grid_lbl
+        if module == "sb":
+            if (self.get_block(xi+1, yi+1) == self.get_block(xi+1, yi)) and \
+                    (self.get_block(xi+1, yi+1) == self.get_block(xi, yi+1)):
+                grid_lbl = self.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
         if module == "cby":
-            if self.grid[yi][xi+1] in [self.RIGHT_ARROW]:
+            if self.get_block(xi, yi) == self.get_block(xi+1, yi):
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
         if module == "cbx":
