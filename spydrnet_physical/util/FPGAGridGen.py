@@ -24,8 +24,8 @@ help_msg = {
 }
 
 
-UP_ARROW = chr(8593)
-RIGHT_ARROW = chr(8594)
+UP_ARROW = chr(8593)     # ↑
+RIGHT_ARROW = chr(8594)  # →
 
 
 def main() -> None:
@@ -57,14 +57,22 @@ def parse_argument() -> argparse.Namespace:
 
 
 class FPGAGridGen():
-    '''
-    This class generates the 2D matrix of the FPGA grid.
+    '''This class generates the 2D lsit of the FPGA grid, 
+    based on the provided VPR architecture file. 
+    This class generate two grid 
 
-    **Example**:
+    **self.grid** : This is only logic blocks grid (NxM)
 
-        python3.8 FPGAGridGen.py **--design_name** FPGA66_flex
-        **--layout** dp
-        **--arch_file** example_files/vpr_arch_render_demo.xml
+    **self.full_grid** : This is complete grid with a logic and routing blocks (N+1)x(M+1)
+
+    Where NxM is width and height of the FPGA
+
+    **Example execution**:
+
+    .. code-block:: bash
+
+        python FPGAGridGen.py --design_name FPGA66_flex --layout dp 
+                --arch_file example_files/vpr_arch_render_demo.xml
 
     **Expected Output**:
 
@@ -73,9 +81,9 @@ class FPGAGridGen():
           EMPTY     io_top     io_top     io_top     io_top     io_top     io_top     EMPTY
          io_left     clb        clb        clb        clb        clb        clb      io_right
          io_left     clb        clb        clb        clb        clb        clb      io_right
-         io_left    ram9k                 ram9k                 ram9k                io_right
+         io_left    ram9k        →        ram9k        →        ram9k        →       io_right
          io_left     clb        clb        clb        clb        clb        clb      io_right
-         io_left     dsp                   dsp                   dsp                 io_right
+         io_left     dsp         →         dsp         →         dsp         →       io_right
          io_left     clb        clb        clb        clb        clb        clb      io_right
           EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
 
@@ -83,11 +91,13 @@ class FPGAGridGen():
 
     def __init__(self, design_name, arch_file, layout, release_root) -> None:
         '''
+        Initiliaze the FPGA grid generator class
+
         args:
             design_name  (str): Design name
             arch_file    (str): Path to architecture file
             layout       (str): Fixed layout selection from architecture file 
-            release_root (str): Directory to output bianries
+            release_root (str): Directory to output binaries
         '''
         self.design_name = design_name
         self.release_root = release_root
@@ -114,13 +124,24 @@ class FPGAGridGen():
         return self.height-2
 
     def get_block_size(self, block):
-        ''' Get width of FPGA '''
+        ''' Get size of the specific pb_type '''
         return self.pb_type[block]
 
     def print_grid(self):
         """
-        Prints the 2D FPGA grid on console
+        Prints logic block grid
+        """
+        output = ""
+        for row in self.grid[::-1]:
+            for y in row:
+                output += f"{y:^10} "
+            output += "\n"
+        print(output)
+        return output
 
+    def print_full_grid(self):
+        """
+        Print routing grid
         """
         output = ""
         for row in self.grid[::-1]:
@@ -136,7 +157,7 @@ class FPGAGridGen():
             - if right and up arrows are placed correctly in the grid 
             - if the boundry blocks has correct grid value
         '''
-        pass
+        raise NotImplementedError
 
     def get_block(self, x, y):
         '''

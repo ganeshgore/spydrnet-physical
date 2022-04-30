@@ -48,6 +48,7 @@ Table of Contents
    introduction/install
    introduction/tutorial
    reference/index
+   reference/verilog_support 
    sample_netlist
    developers/index 
    fpga44/index

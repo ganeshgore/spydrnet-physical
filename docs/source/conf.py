@@ -226,8 +226,8 @@ epub_title = project
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
-rst_epilog = """
-.. |sdphy| replace:: SpyDrNet-Physical
+rst_epilog = f"""
+.. |sdnphy| replace:: SpyDrNet-Physical
 """
 
 sphinx_gallery_conf = {
@@ -286,5 +286,12 @@ def CollectRst():
                     )
     index_fp.close()
 
+
+SDN_DOC_SOURCE = os.path.dirname(sdn.__file__)+"/../docs/source/"
+try:
+    os.symlink(SDN_DOC_SOURCE, "_SDN_DOC_SOURCE")
+except:
+    pass
+exclude_patterns.append("_SDN_DOC_SOURCE/**")
 
 CollectRst()
