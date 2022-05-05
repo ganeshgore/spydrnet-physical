@@ -8,3 +8,4 @@ InnerPin
 .. autoclass:: InnerPin
    :show-inheritance:
    :members:
+   :undoc-members:

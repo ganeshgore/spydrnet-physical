@@ -8,3 +8,4 @@ Wire
 .. autoclass:: Wire
    :show-inheritance:
    :members:
+   :undoc-members:

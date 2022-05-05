@@ -9,6 +9,9 @@ from spydrnet_physical.util import FPGAGridGen, OpenFPGA_Arch, FPGAGridGen
 
 
 class TestFpgaGridGen(unittest.TestCase):
+    """
+    """
+
     def setUp(self):
         self.design_name = "example_design"
         self.openfpga_arch = '''

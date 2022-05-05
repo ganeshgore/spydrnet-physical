@@ -8,3 +8,4 @@ Definition
 .. autoclass:: Definition
    :show-inheritance:
    :members:
+   :undoc-members:

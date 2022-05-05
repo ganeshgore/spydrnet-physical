@@ -66,6 +66,8 @@ Output
 
 *For more detail of spydrnet-physical features and examples, please check* `<examples>`_ *section*
 
+
+.. sdn_phy_shell::
 Shell Interface
 ---------------
 
@@ -75,7 +77,7 @@ to perform live modifications and debugging of the Script.
 A shell like interactive interface can be involked by running ``sdnphy`` command
 which opens interactive shell enviroment as shown below.
 
-.. code-block:: bash 
+.. code-block:: 
 
     bash>>> sdnphy
 

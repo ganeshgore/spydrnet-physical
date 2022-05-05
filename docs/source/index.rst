@@ -44,26 +44,29 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 1
+   :caption: Users Content
 
    introduction/install
    introduction/tutorial
    reference/index
    reference/verilog_support 
    sample_netlist
-   developers/index 
    fpga44/index
    example
 
-.. .. toctree::
-..    :maxdepth: 1
+.. toctree::
+   :maxdepth: 1
+   :caption: Developeres Content
+
+   developers/index 
+   tests/index
 
 ..    introduction/install
 ..    introduction.rst
-..    tests/index
 
 
 Indices and tables
-=================
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`

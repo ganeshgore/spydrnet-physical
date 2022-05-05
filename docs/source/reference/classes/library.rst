@@ -8,3 +8,4 @@ Library
 .. autoclass:: Library
    :show-inheritance:
    :members:
+   :undoc-members:

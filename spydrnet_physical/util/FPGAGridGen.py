@@ -12,7 +12,6 @@ create a 2D matrix of the FPGA grid.
 
 import argparse
 import logging
-import xml.etree.ElementTree as ET
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
 
 logger = logging.getLogger('spydrnet_logs')
@@ -40,9 +39,8 @@ def main() -> None:
 
 
 def parse_argument() -> argparse.Namespace:
-    f"""
+    """
     Parse commnad line arguement
-    {help_msg['design_name']}
     """
     parser = argparse.ArgumentParser(formatter_class=formatter)
     parser.add_argument('--design_name',
@@ -61,11 +59,11 @@ class FPGAGridGen():
     based on the provided VPR architecture file. 
     This class generate two grid 
 
-    **self.grid** : This is only logic blocks grid (NxM)
+    **self.grid** : This is logic blocks grid including IOs (NxM)
 
-    **self.full_grid** : This is complete grid with a logic and routing blocks (N+1)x(M+1)
+    **self.full_grid** : This is complete grid with a logic and routing blocks (N-1)x(M-1)
 
-    Where NxM is width and height of the FPGA
+    Where NxM is width and height of the FPGA, including IO
 
     **Example execution**:
 
@@ -110,8 +108,10 @@ class FPGAGridGen():
         self.width = self.fpga_arch.width
         self.height = self.fpga_arch.height
         self.pb_type = {}
-        self.grid = [[0 for x in range(self.width)]
-                     for y in range(self.height)]
+        self.grid = [[0 for _ in range(self.width)]
+                     for _ in range(self.height)]
+        self.full_grid = [[0 for _ in range(2*(self.width)-1)]
+                          for _ in range(2*(self.height)-1)]
         self.RIGHT_ARROW = RIGHT_ARROW
         self.UP_ARROW = UP_ARROW
 
@@ -203,7 +203,7 @@ class FPGAGridGen():
                     self.grid[y+yi][x+xi] = value if(xi, yi) == (0, 0) else \
                         RIGHT_ARROW if yi == 0 else UP_ARROW
             return 1
-        except:
+        except IndexError:
             logger.warning(f"Trying to set grid location {(x, y)}")
             return 0
 
@@ -328,7 +328,6 @@ class FPGAGridGen():
         '''
         for element in sorted(self.layout, key=lambda x: int(x.attrib["priority"])):
             tag = element.tag.lower()
-            ele_type = element.attrib["type"].lower()
             if tag == "fill":
                 logger.debug("Adding Fill")
                 self.add_fill(element)

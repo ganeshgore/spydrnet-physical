@@ -18,6 +18,7 @@ import sys
 import pathlib
 sys.path.insert(0, os.path.abspath('../..'))  # nopep8
 sys.path.insert(0, os.path.abspath('../../spydrnet_physical'))  # nopep8
+sys.path.insert(0, os.path.abspath('./extensions'))  # nopep8
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from sphinx_gallery.sorting import ExplicitOrder
@@ -62,6 +63,10 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinxcontrib_hdl_diagrams',
     'sphinx_gallery.gen_gallery',
+    'sphinxcontrib.needs',
+    'helloworld',
+    # 'sphinxcontrib.test_reports',
+    # 'sphinxcontrib.plantuml',
 ]
 
 
