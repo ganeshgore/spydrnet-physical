@@ -4,8 +4,6 @@
 Cable
 ========
 
-Overview
-========
 .. currentmodule:: spydrnet_physical.ir.cable
 .. autoclass:: Cable
    :show-inheritance:

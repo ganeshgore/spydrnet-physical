@@ -233,8 +233,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sample_netlist.html">Sample verilog netlist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../developers/index.html">Developers Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
@@ -265,15 +267,16 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_clock_tree/index.html">4. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/01_connection_patterns.html">4.1. Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/02_create_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/03_create_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/04_create_clock_tree.html">4.4. Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/05_clock_tree_insertion.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/06_reset_feedthrough.html">4.6. Create Reset Feedthrough in fpga_top</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/07_clock_tree_example1.html">4.7. Clock tree insertion Example Architecture 1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/08_clock_tree_example2.html">4.8. Clock tree insertion Example Architecture 2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/09_clock_tree_example3.html">4.9. Clock tree insertion Example Architecture 3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/09_clock_tree_example4.html">4.10. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/02_create_simple_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/03_create_hybrid_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/04_embed_clock_tree.html">4.4. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/05_embed_clock_tree_fpga44.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/06_connection_pattern_tie_cell.html">4.6. Adding Tie Cells on Floating Pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/06_reset_feedthrough.html">4.7. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/07_clock_tree_example1.html">4.8. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/08_clock_tree_example2.html">4.9. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/09_clock_tree_example3.html">4.10. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_clock_tree/09_clock_tree_example4.html">4.11. Clock tree insertion Example Architecture 3</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_tiling/index.html">5. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -326,20 +329,24 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="util.FPGAGridGen">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">FPGAGridGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">design_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">release_root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#util.FPGAGridGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class generates the 2D matrix of the FPGA grid.</p>
-<p><strong>Example</strong>:</p>
-<blockquote>
-<div><p>python3.8 FPGAGridGen.py <strong>–design_name</strong> FPGA66_flex
-<strong>–layout</strong> dp
-<strong>–arch_file</strong> example_files/vpr_arch_render_demo.xml</p>
-</div></blockquote>
+<dd><p>This class generates the 2D lsit of the FPGA grid,
+based on the provided VPR architecture file.
+This class generate two grid</p>
+<p><strong>self.grid</strong> : This is only logic blocks grid (NxM)</p>
+<p><strong>self.full_grid</strong> : This is complete grid with a logic and routing blocks (N+1)x(M+1)</p>
+<p>Where NxM is width and height of the FPGA</p>
+<p><strong>Example execution</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python FPGAGridGen.py --design_name FPGA66_flex --layout dp
+        --arch_file example_files/vpr_arch_render_demo.xml
+</pre></div>
+</div>
 <p><strong>Expected Output</strong>:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span> EMPTY     io_top     io_top     io_top     io_top     io_top     io_top     EMPTY
 io_left     clb        clb        clb        clb        clb        clb      io_right
 io_left     clb        clb        clb        clb        clb        clb      io_right
-io_left    ram9k                 ram9k                 ram9k                io_right
+io_left    ram9k        →        ram9k        →        ram9k        →       io_right
 io_left     clb        clb        clb        clb        clb        clb      io_right
-io_left     dsp                   dsp                   dsp                 io_right
+io_left     dsp         →         dsp         →         dsp         →       io_right
 io_left     clb        clb        clb        clb        clb        clb      io_right
  EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
 </pre></div>
@@ -347,13 +354,14 @@ io_left     clb        clb        clb        clb        clb        clb      io_r
 <dl class="py method">
 <dt class="sig sig-object py" id="util.FPGAGridGen.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">design_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">release_root</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#util.FPGAGridGen.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Initiliaze the FPGA grid generator class</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>design_name</strong> (<em>str</em>) – Design name</p></li>
 <li><p><strong>arch_file</strong> (<em>str</em>) – Path to architecture file</p></li>
 <li><p><strong>layout</strong> (<em>str</em>) – Fixed layout selection from architecture file</p></li>
-<li><p><strong>release_root</strong> (<em>str</em>) – Directory to output bianries</p></li>
+<li><p><strong>release_root</strong> (<em>str</em>) – Directory to output binaries</p></li>
 </ul>
 </dd>
 </dl>
@@ -366,14 +374,7 @@ io_left     clb        clb        clb        clb        clb        clb      io_r
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code>(design_name, arch_file, layout, ...)</p></td>
-<td><p><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>design_name</strong> (<em>str</em>) -- Design name</p></li>
-</ul>
-</dd>
-</dl>
-</p></td>
+<td><p>Initiliaze the FPGA grid generator class</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_col</span></code>(ele)</p></td>
 <td><p></p></td>
@@ -403,7 +404,7 @@ io_left     clb        clb        clb        clb        clb        clb      io_r
 <td><p>This method returns the module present in specific x and y cordinate.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_block_size</span></code>(block)</p></td>
-<td><p>Get width of FPGA</p></td>
+<td><p>Get size of the specific pb_type</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_height</span></code>()</p></td>
 <td><p>Get height of FPGA</p></td>
@@ -414,10 +415,13 @@ io_left     clb        clb        clb        clb        clb        clb      io_r
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_width</span></code>()</p></td>
 <td><p>Get width of FPGA</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_grid</span></code>()</p></td>
-<td><p>Prints the 2D FPGA grid on console</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_full_grid</span></code>()</p></td>
+<td><p>Print routing grid</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_grid</span></code>()</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_grid</span></code>()</p></td>
+<td><p>Prints logic block grid</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_grid</span></code>()</p></td>
 <td><p>Checks for the correctness of the grid</p></td>
 </tr>
 </tbody>

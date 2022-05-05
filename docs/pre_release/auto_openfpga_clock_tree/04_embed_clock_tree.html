@@ -3,7 +3,7 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4.5. Two layer H-Tree insertion in 4x4 FPGA" href="05_clock_tree_insertion.html" /><link rel="prev" title="4.3. Create Hybrid Connectivity Pattern" href="03_create_htree.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4.5. Two layer H-Tree insertion in 4x4 FPGA" href="05_embed_clock_tree_fpga44.html" /><link rel="prev" title="4.3. Create Hybrid Connectivity Pattern" href="03_create_hybrid_htree.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>4.4. Create Clock Tree Embedding - SpyDrNet-Physical alpha documentation</title>
@@ -233,8 +233,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developers Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
@@ -265,15 +267,16 @@
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">4. Clock Tree Embedding</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="01_connection_patterns.html">4.1. Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_create_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03_create_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_create_simple_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_create_hybrid_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">4.4. Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_clock_tree_insertion.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_reset_feedthrough.html">4.6. Create Reset Feedthrough in fpga_top</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_clock_tree_example1.html">4.7. Clock tree insertion Example Architecture 1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_clock_tree_example2.html">4.8. Clock tree insertion Example Architecture 2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_clock_tree_example3.html">4.9. Clock tree insertion Example Architecture 3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_clock_tree_example4.html">4.10. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_embed_clock_tree_fpga44.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_connection_pattern_tie_cell.html">4.6. Adding Tie Cells on Floating Pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_reset_feedthrough.html">4.7. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_clock_tree_example1.html">4.8. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_clock_tree_example2.html">4.9. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_clock_tree_example3.html">4.10. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_clock_tree_example4.html">4.11. Clock tree insertion Example Architecture 3</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">5. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -323,22 +326,26 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-clock-tree-04-create-clock-tree-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-clock-tree-04-embed-clock-tree-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="create-clock-tree-embedding">
-<span id="sphx-glr-auto-openfpga-clock-tree-04-create-clock-tree-py"></span><h1><span class="section-number">4.4. </span>Create Clock Tree Embedding<a class="headerlink" href="#create-clock-tree-embedding" title="Permalink to this headline">¶</a></h1>
-<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_square_grid_design.v" src="../_images/04_create_clock_tree-30-..-examples-OpenFPGA_clock_tree-_square_grid_design.svg"/>
+<span id="sphx-glr-auto-openfpga-clock-tree-04-embed-clock-tree-py"></span><h1><span class="section-number">4.4. </span>Create Clock Tree Embedding<a class="headerlink" href="#create-clock-tree-embedding" title="Permalink to this headline">¶</a></h1>
+<p><strong>Original grided netlist</strong></p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_square_grid_design.v" src="../_images/04_embed_clock_tree-31-..-examples-OpenFPGA_clock_tree-_square_grid_design.svg"/>
 </div>
+<p><strong>Connection pattern</strong></p>
 <a class="reference internal image-reference" href="../_images/_fishbone_pattern_0.svg"><img alt="../_images/_fishbone_pattern_0.svg" class="align-center" src="../_images/_fishbone_pattern_0.svg" width="300px"/></a>
+<p><strong>Schematic after embedding clock tree</strong></p>
+<div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v" src="../_images/04_embed_clock_tree-45-..-examples-OpenFPGA_clock_tree-_post_clock_embedding.svg"/>
+</div>
+<p><strong>Floorplan after embedding clock tree</strong></p>
 <a class="reference internal image-reference" href="../_images/_clock_tree_floorplan.svg"><img alt="../_images/_clock_tree_floorplan.svg" class="align-center" src="../_images/_clock_tree_floorplan.svg" width="500px"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">ConnectionPattern</span>
 <span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.ir.definition</span> <span class="kn">import</span> <span class="n">Definition</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pp</span><span class="p">,</span> <span class="n">pprint</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FloorPlanViz</span>
 
 
@@ -378,7 +385,7 @@ to download the full example code</p>
 <span class="n">top_definition</span><span class="o">.</span><span class="n">split_port</span><span class="p">(</span><span class="s2">"in"</span><span class="p">)</span>
 <span class="n">top_definition</span><span class="o">.</span><span class="n">split_port</span><span class="p">(</span><span class="s2">"out"</span><span class="p">)</span>
 <span class="n">top_definition</span><span class="o">.</span><span class="n">create_unconn_wires</span><span class="p">()</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_feedthrough_design.v'</span><span class="p">,</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_post_clock_embedding.v'</span><span class="p">,</span>
             <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># following section is just dummy it needs to simplify more</span>
@@ -449,12 +456,12 @@ to download the full example code</p>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-04-create-clock-tree-py">
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-clock-tree-04-embed-clock-tree-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/3666072649cea993b242c1737880b884/04_create_clock_tree.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_create_clock_tree.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/24f9349cfa250d2b7736ab75e6bcc6a5/04_embed_clock_tree.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">04_embed_clock_tree.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/bfc2a42a2e78482c5271629f6ddf0380/04_create_clock_tree.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_create_clock_tree.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/5dcc0305867c3255bb49f226f88c64e0/04_embed_clock_tree.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_embed_clock_tree.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -465,7 +472,7 @@ to download the full example code</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="05_clock_tree_insertion.html">
+          <a class="next-page" href="05_embed_clock_tree_fpga44.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
@@ -474,7 +481,7 @@ to download the full example code</p>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="03_create_htree.html">
+          <a class="prev-page" href="03_create_hybrid_htree.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
@@ -493,7 +500,7 @@ to download the full example code</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_openfpga_clock_tree/04_create_clock_tree.rst.txt"
+            <a class="muted-link" href="../_sources/auto_openfpga_clock_tree/04_embed_clock_tree.rst.txt"
                rel="nofollow">
               Show Source
             </a>
