@@ -12,6 +12,7 @@ create a 2D matrix of the FPGA grid.
 
 import argparse
 import logging
+import xml.etree.ElementTree as ET
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
 
 logger = logging.getLogger('spydrnet_logs')
@@ -204,10 +205,17 @@ class FPGAGridGen():
                         RIGHT_ARROW if yi == 0 else UP_ARROW
             return 1
         except IndexError:
-            logger.warning(f"Trying to set grid location {(x, y)}")
+            logger.warning("Trying to set grid location (%s %s)" % (x, y))
             return 0
 
     def add_fill(self, ele):
+        """
+        Fill the grid with given element
+
+        Attributes:
+            ele (ET): Accepts Element Tree (element) as a input 
+
+        """
         ele_type = ele.attrib['type']
         self.clb = ele_type
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
@@ -216,6 +224,13 @@ class FPGAGridGen():
                 self._set_value(x, y, ele_type, ele_w, ele_h)
 
     def add_perimeter(self, ele):
+        """
+        Add given element on the periphery of the grid
+
+        Attributes:
+            ele (ET): Accepts Element Tree (element) as a input 
+
+        """
         ele_type = ele.attrib['type']
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
 
@@ -227,6 +242,13 @@ class FPGAGridGen():
                 self._set_value(x, y, ele_type, ele_w, ele_h)
 
     def add_corners(self, ele):
+        """
+        Add given element on the corners of the grid
+
+        Attributes:
+            ele (ET): Accepts Element Tree (element) as a input 
+
+        """
         ele_type = ele.attrib['type']
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
         self._set_value(0, 0, ele_type)
@@ -235,6 +257,15 @@ class FPGAGridGen():
         self._set_value(self.width-1, self.height-1, ele_type, ele_w, ele_h)
 
     def add_single(self, ele):
+        """
+        Add given element to the specifica location of the grid
+
+        Attributes:
+            ele (ET): Accepts Element Tree (element) as a input
+            ele.x (int): x locations to insert
+            ele.y (int): y locations to insert
+
+        """
         ele_type = ele.attrib['type']
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
         x = int(ele.attrib['x'])
