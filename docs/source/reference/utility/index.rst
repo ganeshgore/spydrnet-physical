@@ -20,7 +20,6 @@ Helper methods
 
     get_names
     get_attr
-    GridFloorplanGen
 
 Connectivity Pattern Generation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,6 +61,7 @@ Rendering and Visualization
    :toctree: generated
     
     FloorPlanViz
+    GridFloorplanGen
     RoutingRender
     cb_renderer
     sb_renderer
