@@ -4,10 +4,11 @@
 OpenFPGA Base
 =============
 
-Overview
-========
-.. currentmodule:: spydrnet_physical.util
 
-.. autoclass:: OpenFPGA
-   :members:
-   :member-order: bysource
+.. autoclass:: spydrnet_physical.util.OpenFPGA
+    :members:
+    :autosummary:
+    :autosummary-nosignatures:
+    :autosummary-undoc-members:
+    :member-order: bysource
+    :special-members: __init__
