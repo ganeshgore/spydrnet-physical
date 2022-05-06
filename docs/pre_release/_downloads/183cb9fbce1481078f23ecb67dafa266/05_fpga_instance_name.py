@@ -39,8 +39,8 @@ def main():
     fpga_grid.enumerate_grid()
     fpga.load_grid(fpga_grid)
 
-    for y in range(9, 0, -1):
-        for x in range(1, 9+1):
+    for y in range(10, -1, -1):
+        for x in range(0, 11):
             print(f"{fpga.get_top_instance(x, y):10}", end="")
         print("")
 

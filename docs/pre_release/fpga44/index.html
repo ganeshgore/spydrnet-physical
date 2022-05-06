@@ -315,11 +315,17 @@
         <article role="main">
           <section id="physical-design-for-4x4-fpga">
 <h1>Physical Design for 4x4 FPGA<a class="headerlink" href="#physical-design-for-4x4-fpga" title="Permalink to this headline">¶</a></h1>
-<p>This tutorial explains a simple 4x4 FPGA design using OpenFPGA and a <code class="docutils literal notranslate"><span class="pre">SpyDrNet-Physical</span></code> design flow.</p>
+<p>This tutorial explains a simple 4x4 homogeneous FPGA design using OpenFPGA and
+a <code class="docutils literal notranslate"><span class="pre">OpenFPGA-Physical</span></code> design flow.</p>
+<section id="directory-structure">
+<h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h2>
+<p>We will use the following directory structure as a part of this project
+<a class="reference external" href="https://github.com/ganeshgore/openfpga-physical">Openfpga-Physical</a></p>
+</section>
 <section id="architecture-detail">
 <h2>Architecture detail<a class="headerlink" href="#architecture-detail" title="Permalink to this headline">¶</a></h2>
-<p>We will consider a 4x4 Homogeneous FPGA with a 4-input LUT and a single FlipFlop as
-a logic element and eight logic elements per logic block.
+<p>In this tutorial, we will consider a 4x4 Homogeneous FPGA with a 4-input LUT and a single FlipFlop as
+a logic element and eight logic elements per logic block (AKA K4N8 architecture).
 Input to every logic element is passed through a fully populated crossbar,
 which can reroute any incoming CLB signal to any logic element port.
 The following figure illustrates the structure of an FPGA tile.</p>
@@ -329,12 +335,13 @@ The following figure illustrates the structure of an FPGA tile.</p>
 <h2>Generating Netlist from OpenFPGA<a class="headerlink" href="#generating-netlist-from-openfpga" title="Permalink to this headline">¶</a></h2>
 <p>OpenFPGA works based on the project structure (which is referred to as a task in OpenFPGA),
 which means for generating a netlist,
-you need to create a task and configure all the required parameters. Q
+you need to create a task and configure all the required parameters.
+Please refer to the OpenFPGA documenation <a class="reference external" href="https://openfpga.readthedocs.io/en/latest/tutorials/getting_started/">Getting Started</a> and <a class="reference external" href="https://openfpga.readthedocs.io/en/latest/tutorials/getting_started/shell_shortcuts/">OpenFPGA Shortcuts</a> for more detail.
 A sample task is provided in the <code class="docutils literal notranslate"><span class="pre">${REPOSITORY_ROOT}/examples/homogeneous_fabric</span></code> directory.
-Some of the essential files are described below</p>
+Some of the essential files provided in this directory are:</p>
 <ul class="simple">
-<li><p><strong>FPGA44_Task/arch/k6_N10_tileable.xml</strong>: VPR architecture XML file, this describes the FPGA architecture</p></li>
-<li><p><strong>FPGA44_Task/arch/k6_N10_openfpga.xml</strong>: OpenFPGA architecture XML file maps various physical cells to the described FPGA architecture</p></li>
+<li><p><strong>FPGA44_Task/arch/k4_N8_tileable.xml</strong>: VPR architecture XML file, this describes the FPGA architecture</p></li>
+<li><p><strong>FPGA44_Task/arch/k4_N8_openfpga.xml</strong>: OpenFPGA architecture XML file maps various physical cells to the described FPGA architecture</p></li>
 <li><p><strong>FPGA44_Task/config/task_generation.conf</strong>: OpenFPGA task file, it consists of various variable assignement</p></li>
 <li><p><strong>FPGA44_Task/generate_fabric.openfpga</strong>: OpenFPGA script file, which lists the sequence of commands to generate FPGA fabric (Please read comments in the file for more information)</p></li>
 </ul>
@@ -351,8 +358,9 @@ Some of the essential files are described below</p>
 <section id="floorplan-and-shape-the-fpga">
 <h2>Floorplan and Shape the FPGA<a class="headerlink" href="#floorplan-and-shape-the-fpga" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="physical-desing-flow">
-<h2>Physical Desing Flow<a class="headerlink" href="#physical-desing-flow" title="Permalink to this headline">¶</a></h2>
+<section id="physical-design-flow">
+<h2>Physical Design Flow<a class="headerlink" href="#physical-design-flow" title="Permalink to this headline">¶</a></h2>
+<p>Yet to finish</p>
 </section>
 </section>
 
@@ -410,13 +418,14 @@ Some of the essential files are described below</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Physical Design for 4x4 FPGA</a><ul>
+<li><a class="reference internal" href="#directory-structure">Directory Structure</a></li>
 <li><a class="reference internal" href="#architecture-detail">Architecture detail</a></li>
 <li><a class="reference internal" href="#generating-netlist-from-openfpga">Generating Netlist from OpenFPGA</a></li>
 <li><a class="reference internal" href="#rendering-the-fpga-view">Rendering the FPGA View</a></li>
 <li><a class="reference internal" href="#planning-global-and-clock-signals">Planning Global and Clock signals</a></li>
 <li><a class="reference internal" href="#restructuring-netlist">Restructuring Netlist</a></li>
 <li><a class="reference internal" href="#floorplan-and-shape-the-fpga">Floorplan and Shape the FPGA</a></li>
-<li><a class="reference internal" href="#physical-desing-flow">Physical Desing Flow</a></li>
+<li><a class="reference internal" href="#physical-design-flow">Physical Design Flow</a></li>
 </ul>
 </li>
 </ul>
