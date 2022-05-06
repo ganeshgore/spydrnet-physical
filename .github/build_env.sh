@@ -1,6 +1,6 @@
 pip install --upgrade pip
 pip install --upgrade Cython
-apt-get -y install metis parallel
+apt-get -y install metis parallel libxml2-utils
 
 if [ -f "requirements.txt" ]; then
     python3 -m pip install --upgrade \
