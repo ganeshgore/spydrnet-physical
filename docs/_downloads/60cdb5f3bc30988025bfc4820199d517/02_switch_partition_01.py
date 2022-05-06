@@ -14,23 +14,22 @@ partition
 
 **Broken while updatating GSB File structure**
 
-**Vertical Connection Box**
-
-.. image:: ../../../examples/OpenFPGA_tiling/_cbx_1__2_0.svg
-    :width: 800px
-
-.. image:: ../../../examples/OpenFPGA_tiling/_cbx_1__2_1.svg
-    :width: 800px
-
-**Horizontal Connection Box**
-
-.. image:: ../../../examples/OpenFPGA_tiling/_cbx_1__1_0.svg
-    :width: 150px
-
-.. image:: ../../../examples/OpenFPGA_tiling/_cbx_1__1_1.svg
-    :width: 150px
-
 """
+# **Vertical Connection Box**
+
+# .. image:: ../../../examples/OpenFPGA_tiling/_cbx_1__2_0.svg
+#     :width: 800px
+
+# .. image:: ../../../examples/OpenFPGA_tiling/_cbx_1__2_1.svg
+#     :width: 800px
+
+# **Horizontal Connection Box**
+
+# .. image:: ../../../examples/OpenFPGA_tiling/_cbx_1__1_0.svg
+#     :width: 150px
+
+# .. image:: ../../../examples/OpenFPGA_tiling/_cbx_1__1_1.svg
+#     :width: 150px
 
 import glob
 import logging

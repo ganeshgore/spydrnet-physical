@@ -3,6 +3,12 @@
 FPGA Instance to Layout mapping 
 ================================
 
+
+**_complete_metrics**
+
+.. literalinclude:: ../../../examples/OpenFPGA_basic/_complete_metrics_dp.txt
+
+
 """
 
 import glob
@@ -39,10 +45,11 @@ def main():
     fpga_grid.enumerate_grid()
     fpga.load_grid(fpga_grid)
 
-    for y in range(9, 0, -1):
-        for x in range(1, 9+1):
-            print(f"{fpga.get_top_instance(x, y):10}", end="")
-        print("")
+    with open("_complete_metrics_dp.txt", "w") as fpw:
+        for indx_y in range(10, -1, -1):
+            for index_x in range(0, 11):
+                fpw.write(f"{fpga.get_top_instance(index_x, indx_y):10}")
+            fpw.write("\n")
 
 
 if __name__ == "__main__":

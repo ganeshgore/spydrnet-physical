@@ -1,7 +1,7 @@
 """
-=================================================
-Render Placement information from Verilog netlist
-=================================================
+===============================
+Heterogeneous Design Placement 
+===============================
 
 This example demonstate how to render FPGA Tile using ``FloorPlanViz`` class
 User can provide external script to render tiles, by default the rendering is
@@ -9,7 +9,7 @@ based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. image:: ../../../examples/OpenFPGA/basic/_hetero_design_floorplan.svg
+.. image:: ../../../examples/OpenFPGA_basic/_hetero_design_floorplan.svg
    :width: 70%
    :align: center
 

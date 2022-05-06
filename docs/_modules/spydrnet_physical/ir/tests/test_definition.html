@@ -1,0 +1,520 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+        <title>spydrnet_physical.ir.tests.test_definition - SpyDrNet-Physical alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../index.html"><div class="brand">SpyDrNet-Physical alpha documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../index.html">
+  
+  
+  <span class="sidebar-brand-text">SpyDrNet-Physical alpha documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction/install.html">Install</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
+<li class="toctree-l2"><a class="reference external" href="?http://#shell-interface">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference external" href="?http://#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/element.html">Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/definition.html">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/instance.html">Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/cable.html">Cable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/wire.html">Wire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/innerpin.html">InnerPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/outerpin.html">OuterPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/pin.html">Pin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/classes/port.html">Port</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/openfpga/base.html">OpenFPGA Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../reference/openfpga/routing_render.html">Routing Render</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../reference/openfpga/tile01.html">Tile-01</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/tile.html">Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/left-tile.html">Left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/right-tile.html">Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/top-tile.html">Top-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/bottom-tile.html">Bottom-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/top-left-tile.html">Top-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/top-right-tile.html">Top-Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/bottom-left-tile.html">Bottom-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/openfpga/Tile01/bottom-right-tile.html">Bottom-Right-Tile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reference/utility/index.html">Utility Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sample_netlist.html">Sample verilog netlist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_basic/display_info.html">1.2. Display Netlist Information Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_basic/group_ungroup_cells.html">1.3. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_basic/merge_instance.html">1.4. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_basic/merge_multiple_instances.html">1.5. Merging group of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_basic/partitioning_experiments.html">1.6. Partitions Experimentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_basic/wire_feedthrough.html">1.7. Generating feedthrough from single instance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_basic/01_fpga_arch_parse.html">2.1. OpenFPGA Architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_basic/02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_basic/03_initial_placement.html">2.3. Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_basic/04_fpga_grid_generation.html">2.4. FPGA Layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_basic/07_FloorplanHeterogeneousDesign01.html">2.6. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.7. Grid Floorplan Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_basic/rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_rendering/01_floorplan_rendering.html">3.1. Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_rendering/02_render_routing_box.html">3.2. Rendering Switch and Connection Boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_rendering/03_render_edge_routing_box.html">3.3. Rendering Switch and Connection Boxes</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/index.html">4. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/01_connection_patterns.html">4.1. Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/02_create_simple_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/03_create_hybrid_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/04_embed_clock_tree.html">4.4. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/05_embed_clock_tree_fpga44.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/06_connection_pattern_tie_cell.html">4.6. Adding Tie Cells on Floating Pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/06_reset_feedthrough.html">4.7. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/07_clock_tree_example1.html">4.8. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/08_clock_tree_example2.html">4.9. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/09_clock_tree_example3.html">4.10. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_clock_tree/09_clock_tree_example4.html">4.11. Clock tree insertion Example Architecture 3</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../auto_openfpga_tiling/index.html">5. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/01_netlist_to_graph.html">5.1. Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/02_switch_partition_01.html">5.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/03_switch_partition_02.html">5.3. Physical/Techmapped Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/04_switch_partition_03.html">5.4. Partition Conn Box 02 - Simplified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/05_module_partition.html">5.5. Split CBs and SBs across fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/06_generic_tiling_part1.html">5.6. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/06_generic_tiling_part2.html">5.7. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/07_FloorplanDesign01.html">5.8. Floorplanning Classic Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_tiling/08_area_optimized_tiles.html">5.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../auto_openfpga_config_chain/index.html">6. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_config_chain/configuration_chain.html">6.1. Adding configuration chain to the fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../auto_openfpga_config_chain/extract_configuration_order.html">6.2. Extract configuration chain order</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developeres Content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developers/index.html">Developers Guidelines</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/element.html">Element - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/definition.html">Definition - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/instance.html">Instance - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/cable.html">Cable - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/wire.html">Wire - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/port.html">Port - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/pin.html">Pin - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/outerpin.html">OuterPin - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../tests/innerpin.html">InnerPin - Unit tests</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <h1>Source code for spydrnet_physical.ir.tests.test_definition</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">from</span> <span class="nn">unittest.case</span> <span class="kn">import</span> <span class="n">expectedFailure</span>
+
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util.get_names</span> <span class="kn">import</span> <span class="n">get_names</span>
+
+
+<div class="viewcode-block" id="TestDefinition"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition">[docs]</a><span class="k">class</span> <span class="nc">TestDefinition</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<div class="viewcode-block" id="TestDefinition.setUp"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">(</span><span class="s2">"test_netlist"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">library</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="o">.</span><span class="n">create_library</span><span class="p">(</span><span class="s2">"test_lib"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">definition</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">create_definition</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TestDefinition.test_create_feedthroughs_ports"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthroughs_ports">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_feedthroughs_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Test feedthrough port creation '''</span>
+        <span class="n">cable</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">(</span><span class="s2">"cable1"</span><span class="p">)</span>
+        <span class="n">cable</span><span class="o">.</span><span class="n">create_wires</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="n">port1</span><span class="p">,</span> <span class="n">port2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_feedthroughs_ports</span><span class="p">(</span><span class="n">cable</span><span class="p">,</span> <span class="s2">"feed"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">port1</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">port2</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">get_ports</span><span class="p">())),</span>
+                            <span class="p">{</span><span class="s2">"cable1_feed_in"</span><span class="p">,</span> <span class="s2">"cable1_feed_out"</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">get_cables</span><span class="p">())),</span>
+                            <span class="p">{</span><span class="s1">'cable1_feed_in'</span><span class="p">,</span> <span class="s1">'cable1_feed_out'</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="TestDefinition.test_create_feedthroughs_ports_2"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthroughs_ports_2">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_feedthroughs_ports_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Test feedthrough port creation with lambda naming '''</span>
+        <span class="n">cable</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">(</span><span class="s2">"cable1"</span><span class="p">)</span>
+        <span class="n">cable</span><span class="o">.</span><span class="n">create_wires</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">get_port_name</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="s2">"inport"</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">IN</span> <span class="k">else</span> <span class="s2">"outport"</span>
+        <span class="n">port1</span><span class="p">,</span> <span class="n">port2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_feedthroughs_ports</span><span class="p">(</span>
+            <span class="n">cable</span><span class="p">,</span>
+            <span class="n">get_port_names</span><span class="o">=</span><span class="n">get_port_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">port1</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">port2</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">get_ports</span><span class="p">())),</span>
+                            <span class="p">{</span><span class="s2">"inport"</span><span class="p">,</span> <span class="s2">"outport"</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="TestDefinition.test_create_feedthrough"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough">[docs]</a>    <span class="k">def</span> <span class="nf">test_create_feedthrough</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' This checks bus feedthrough from single instance '''</span>
+
+        <span class="n">module1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">create_definition</span><span class="p">(</span><span class="s2">"module1"</span><span class="p">)</span>
+        <span class="n">module2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">create_definition</span><span class="p">(</span><span class="s2">"module2"</span><span class="p">)</span>
+        <span class="n">driver_port</span> <span class="o">=</span> <span class="n">module1</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"driver"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">load_port</span> <span class="o">=</span> <span class="n">module1</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"load"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="c1"># Create instances</span>
+        <span class="n">inst0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="s2">"inst0"</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">module1</span><span class="p">)</span>
+        <span class="n">inst1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="s2">"inst1"</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">module1</span><span class="p">)</span>
+        <span class="n">ft_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="s2">"ft_inst"</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">module2</span><span class="p">)</span>
+
+        <span class="c1"># Create cable</span>
+        <span class="n">cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"cable"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">cable</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">inst0</span><span class="p">,</span> <span class="n">driver_port</span><span class="p">)</span>
+        <span class="n">cable</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">inst1</span><span class="p">,</span> <span class="n">load_port</span><span class="p">)</span>
+
+        <span class="c1"># Create Feedthrough</span>
+        <span class="n">new_cables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_feedthrough</span><span class="p">(</span><span class="n">ft_inst</span><span class="p">,</span> <span class="n">cable</span><span class="p">)</span>
+
+        <span class="c1"># Check correctness of connections</span>
+        <span class="k">for</span> <span class="n">new_cable</span> <span class="ow">in</span> <span class="n">new_cables</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">new_cable</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">),</span>
+                            <span class="s2">"Return value should be cable"</span><span class="p">)</span>
+        <span class="n">new_cables</span> <span class="o">=</span> <span class="n">new_cables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_cables</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>
+                         <span class="s2">"New cable should have same dimensions"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">module2</span><span class="o">.</span><span class="n">ports</span><span class="p">)),</span>
+                            <span class="p">{</span><span class="s2">"cable_ft_out"</span><span class="p">,</span> <span class="s2">"cable_ft_in"</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">get_cables</span><span class="p">())),</span>
+                            <span class="p">{</span><span class="s2">"cable"</span><span class="p">,</span> <span class="s2">"cable_ft_in_0"</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">((</span><span class="s1">'cable_ft_in_0'</span><span class="p">,</span> <span class="s1">'cable'</span><span class="p">)),</span>
+                            <span class="nb">set</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="n">ft_inst</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="s2">"OUTSIDE"</span><span class="p">))),</span>
+                            <span class="s2">"Checks if both the cable are connected to feedthoguh instance"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">((</span><span class="s1">'cable'</span><span class="p">,)),</span>
+                            <span class="nb">set</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="n">inst0</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="s2">"OUTSIDE"</span><span class="p">))),</span>
+                            <span class="s2">"Checks if original wire name is still same "</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertSetEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">((</span><span class="s1">'cable_ft_in_0'</span><span class="p">,)),</span>
+                            <span class="nb">set</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="n">inst1</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="s2">"OUTSIDE"</span><span class="p">))),</span>
+                            <span class="s2">"Checks if feethrough wire name is as expected "</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDefinition.test_combine_ports"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports">[docs]</a>    <span class="k">def</span> <span class="nf">test_combine_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Creates 3 port on the given definition and combines them '''</span>
+        <span class="n">port1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">port2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">port3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">cable1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cable1</span><span class="o">.</span><span class="n">connect_port</span><span class="p">(</span><span class="n">port1</span><span class="p">)</span>
+        <span class="n">wire1</span> <span class="o">=</span> <span class="n">cable1</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">cable2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cable2</span><span class="o">.</span><span class="n">connect_port</span><span class="p">(</span><span class="n">port2</span><span class="p">)</span>
+        <span class="n">wire2</span> <span class="o">=</span> <span class="n">cable2</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">cable3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">cable3</span><span class="o">.</span><span class="n">connect_port</span><span class="p">(</span><span class="n">port3</span><span class="p">)</span>
+        <span class="n">wire3</span> <span class="o">=</span> <span class="n">cable3</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">new_port</span><span class="p">,</span> <span class="n">new_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">combine_ports</span><span class="p">(</span>
+            <span class="s2">"merged_port"</span><span class="p">,</span> <span class="p">[</span><span class="n">port1</span><span class="p">,</span> <span class="n">port2</span><span class="p">,</span> <span class="n">port3</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">new_port</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_port</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIsInstance</span><span class="p">(</span><span class="n">new_cable</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_cable</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">ports</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="p">,</span> <span class="n">wire1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="p">,</span> <span class="n">wire2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">new_port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="p">,</span> <span class="n">wire3</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDefinition.test_merge_instance"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_instance">[docs]</a>    <span class="k">def</span> <span class="nf">test_merge_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">def2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">create_definition</span><span class="p">(</span><span class="s2">"def2"</span><span class="p">)</span>
+        <span class="n">def3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">create_definition</span><span class="p">(</span><span class="s2">"def3"</span><span class="p">)</span>
+        <span class="n">inst2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="s2">"inst2"</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">def2</span><span class="p">)</span>
+        <span class="n">inst3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="s2">"inst3"</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">def3</span><span class="p">)</span>
+        <span class="n">new_m</span><span class="p">,</span> <span class="n">inst</span><span class="p">,</span> <span class="n">pin_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">merge_instance</span><span class="p">([</span><span class="n">inst2</span><span class="p">,</span> <span class="n">inst3</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">new_m</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">"def2_def3_merged"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">"def2_def3_merged_1"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="p">,</span> <span class="n">new_m</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">get_instances</span><span class="p">())),</span>
+                         <span class="p">{</span><span class="s2">"def2_def3_merged_1"</span><span class="p">,</span> <span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="n">new_m</span><span class="o">.</span><span class="n">get_instances</span><span class="p">())),</span>
+                         <span class="p">{</span><span class="s2">"inst2"</span><span class="p">,</span> <span class="s2">"inst3"</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="TestDefinition.test_flatten_instance"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_flatten_instance">[docs]</a>    <span class="k">def</span> <span class="nf">test_flatten_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">submodule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">create_definition</span><span class="p">(</span><span class="s2">"submodule"</span><span class="p">)</span>
+        <span class="n">sm_in1</span> <span class="o">=</span> <span class="n">submodule</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"sm_in1"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">sm_in2</span> <span class="o">=</span> <span class="n">submodule</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"sm_in2"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">sm_out1</span> <span class="o">=</span> <span class="n">submodule</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"sm_out1"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span>  <span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">sm_out2</span> <span class="o">=</span> <span class="n">submodule</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"sm_out2"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span>  <span class="n">pins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="n">module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">create_definition</span><span class="p">(</span><span class="s2">"module"</span><span class="p">)</span>
+        <span class="n">in1</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"in1"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">in2</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"in2"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">out1</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"out1"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span>  <span class="n">pins</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">out2</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="s2">"out2"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span>  <span class="n">pins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">sm_inst</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="s2">"submodule_inst"</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">submodule</span><span class="p">)</span>
+
+        <span class="n">in1_c</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"in1"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">in1_c</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">sm_inst</span><span class="p">,</span> <span class="n">sm_in1</span><span class="p">)</span>
+        <span class="n">in2_c</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"in2"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">in2_c</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">sm_inst</span><span class="p">,</span> <span class="n">sm_in2</span><span class="p">)</span>
+        <span class="n">out1_c</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"out1"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">out1_c</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">sm_inst</span><span class="p">,</span> <span class="n">sm_out1</span><span class="p">)</span>
+        <span class="n">out2_c</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"out2"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">out2_c</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">sm_inst</span><span class="p">,</span> <span class="n">sm_out2</span><span class="p">)</span>
+
+        <span class="n">inst1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_child</span><span class="p">(</span><span class="s2">"inst1"</span><span class="p">,</span> <span class="n">reference</span><span class="o">=</span><span class="n">module</span><span class="p">)</span>
+        <span class="n">win1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"win1"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">win1</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">inst1</span><span class="p">,</span> <span class="n">in1</span><span class="p">)</span>
+        <span class="n">win2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"win2"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">win2</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">inst1</span><span class="p">,</span> <span class="n">in2</span><span class="p">)</span>
+        <span class="n">wout1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"wout1"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">wout1</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">inst1</span><span class="p">,</span> <span class="n">out1</span><span class="p">)</span>
+        <span class="n">wout2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"wout2"</span><span class="p">,</span> <span class="n">wires</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">wout2</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">inst1</span><span class="p">,</span> <span class="n">out2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">flatten_instance</span><span class="p">(</span><span class="n">inst1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">children</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                         <span class="s2">"inst1_submodule_inst"</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TestDefinition.test_get_connectivity_network"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_get_connectivity_network">[docs]</a>    <span class="nd">@expectedFailure</span>
+    <span class="k">def</span> <span class="nf">test_get_connectivity_network</span><span class="p">():</span>
+        <span class="k">assert</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span></div>
+
+<div class="viewcode-block" id="TestDefinition.test_merge_multiple_instance"><a class="viewcode-back" href="../../../../tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_multiple_instance">[docs]</a>    <span class="nd">@expectedFailure</span>
+    <span class="k">def</span> <span class="nf">test_merge_multiple_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: Wrte test for checking merge multiple instances</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">()</span></div></div>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, University of Utah |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/scripts/main.js"></script>
+    </body>
+</html>
