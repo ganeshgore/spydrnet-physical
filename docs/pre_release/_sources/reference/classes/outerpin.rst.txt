@@ -8,3 +8,4 @@ OuterPin
 .. autoclass:: OuterPin
    :show-inheritance:
    :members:
+   :undoc-members:

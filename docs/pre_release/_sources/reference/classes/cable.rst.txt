@@ -8,6 +8,8 @@ Cable
 .. autoclass:: Cable
    :show-inheritance:
    :members:
+   :undoc-members:
+
 
 
 

@@ -8,3 +8,4 @@ Port
 .. autoclass:: Port
    :show-inheritance:
    :members:
+   :undoc-members:

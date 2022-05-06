@@ -1,90 +1,63 @@
 .. _utility_functions:
 
-=================
-Utility Functions
-=================
+===============
+Utility Classes
+===============
 
+Helper Functions
+''''''''''''''''
 
-Overview
-^^^^^^^^
+:doc:`Helper Functions <utils_helper_functions>`
+................................................
 
-.. currentmodule:: util
-
-
-Helper methods
-~~~~~~~~~~~~~~
-
-
-.. autosummary::
-   :toctree: generated
-
-    get_names
-    get_attr
-    GridFloorplanGen
 
 Connectivity Pattern Generation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+''''''''''''''''''''''''''''''''
 
-.. autosummary::
-   :toctree: generated
+:doc:`ConnectionPattern <ConnectionPattern>`
+................................................
 
-    ConnectPoint
-    ConnectPointList
-    ConnectionPattern
+:doc:`ConnectPointList <ConnectPointList>`
+................................................
+
+:doc:`ConnectPoint <ConnectPoint>`
+................................................
 
 
 OpenFPGA Helper Classes
-~~~~~~~~~~~~~~~~~~~~~~~
+'''''''''''''''''''''''
 
-.. autosummary::
-   :toctree: generated
+:doc:`OpenFPGA <OpenFPGA>`
+................................................
 
-    OpenFPGA
-    FPGAGridGen
-    initial_placement
+:doc:`FPGAGridGen <FPGAGridGen>`
+................................................
+
+This class generates the a 2-dimensional list from the VPR architecture file
+It maps the coordinates to the top-level instances of the classic FPGA.
 
 
 OpenFPGA Class Templates
-~~~~~~~~~~~~~~~~~~~~~~~~
+''''''''''''''''''''''''
 
-.. autosummary::
-   :toctree: generated
-
-    OpenFPGA_Config_Generator
-    OpenFPGA_Placement_Generator
-    OpenFPGA_Tile_Generator
+:doc:`initial_placement <initial_placement>`
+................................................
 
 
-Rendering and Visualization 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. autosummary::
-   :toctree: generated
-    
-    FloorPlanViz
-    RoutingRender
-    cb_renderer
-    sb_renderer
+:doc:`OpenFPGA_Config_Generator <openfpga_config_generator>`
+..................................................................
 
 
-Graph Generation and Partitioning
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. autosummary::
-   :toctree: generated
-
-    prepare_graph_from_nx
-    write_metis_graph
-    run_metis
+:doc:`OpenFPGA_Placement_Generator <openfpga_placement_generator>`
+..................................................................
 
 
-FPGA Tiling Related
-~~~~~~~~~~~~~~~~~~~
+:doc:`OpenFPGA_Tile_Generator <openfpga_tile_generator>`
+..................................................................
 
-.. autosummary::
-   :toctree: generated
+:doc:`config_chain_01 <config_chain_01>`
+..................................................................
 
-    OpenFPGA_Arch
-    Tile01
-    config_chain_01
-    config_chain_simple
+
+:doc:`config_chain_simple <config_chain_simple>`
+..................................................................

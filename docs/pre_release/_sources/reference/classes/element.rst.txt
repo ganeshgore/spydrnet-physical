@@ -8,3 +8,4 @@ Element
 .. autoclass:: Element
    :show-inheritance:
    :members:
+   :undoc-members:

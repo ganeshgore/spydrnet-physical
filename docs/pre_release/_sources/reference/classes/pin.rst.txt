@@ -8,3 +8,4 @@ Pin
 .. autoclass:: Pin
    :show-inheritance:
    :members:
+   :undoc-members:

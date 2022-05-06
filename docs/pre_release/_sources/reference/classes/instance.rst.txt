@@ -8,3 +8,4 @@ Instance
 .. autoclass:: Instance
    :show-inheritance:
    :members:
+   :undoc-members:

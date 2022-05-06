@@ -8,3 +8,5 @@ Bundle
 .. autoclass:: Bundle
    :show-inheritance:
    :members:
+   :undoc-members:
+
