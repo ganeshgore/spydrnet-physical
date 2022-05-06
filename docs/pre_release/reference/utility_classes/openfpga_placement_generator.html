@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>FPGAGridGen - SpyDrNet-Physical alpha documentation</title>
+        <title>OpenFPGA_Placement_Generator - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -184,8 +184,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/routing_render.html">Routing Render</a></li>
@@ -203,6 +203,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -274,6 +275,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -310,33 +312,12 @@
           </label>
         </div>
         <article role="main">
-          <section id="fpgagridgen">
-<span id="id1"></span><h1>FPGAGridGen<a class="headerlink" href="#fpgagridgen" title="Permalink to this headline">¶</a></h1>
+          <section id="openfpga-placement-generator">
+<span id="id1"></span><h1>OpenFPGA_Placement_Generator<a class="headerlink" href="#openfpga-placement-generator" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.FPGAGridGen.</span></span><span class="sig-name descname"><span class="pre">FPGAGridGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">design_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">release_root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class generates the 2D lsit of the FPGA grid,
-based on the provided VPR architecture file.
-This class generate two grid</p>
-<p><strong>self.grid</strong> : This is logic blocks grid including IOs (NxM)</p>
-<p><strong>self.full_grid</strong> : This is complete grid with a logic and routing blocks (N-1)x(M-1)</p>
-<p>Where NxM is width and height of the FPGA, including IO</p>
-<p><strong>Example execution</strong>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python FPGAGridGen.py --design_name FPGA66_flex --layout dp
-        --arch_file example_files/vpr_arch_render_demo.xml
-</pre></div>
-</div>
-<p><strong>Expected Output</strong>:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> EMPTY     io_top     io_top     io_top     io_top     io_top     io_top     EMPTY
-io_left     clb        clb        clb        clb        clb        clb      io_right
-io_left     clb        clb        clb        clb        clb        clb      io_right
-io_left    ram9k        →        ram9k        →        ram9k        →       io_right
-io_left     clb        clb        clb        clb        clb        clb      io_right
-io_left     dsp         →         dsp         →         dsp         →       io_right
-io_left     clb        clb        clb        clb        clb        clb      io_right
- EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
-</pre></div>
-</div>
+<dt class="sig sig-object py" id="util.base_class.OpenFPGA_Placement_Generator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.base_class.</span></span><span class="sig-name descname"><span class="pre">OpenFPGA_Placement_Generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spydrnet.ir.Netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/base_class.html#OpenFPGA_Placement_Generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.base_class.OpenFPGA_Placement_Generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Template class to create OpenFPGA Placement generator</p>
 <p><strong>Methods:</strong></p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
 <colgroup>
@@ -344,188 +325,15 @@ io_left     clb        clb        clb        clb        clb        clb      io_r
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.add_corners" title="util.FPGAGridGen.FPGAGridGen.add_corners"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_corners</span></code></a>(ele)</p></td>
-<td><p>Add given element on the corners of the grid</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.add_fill" title="util.FPGAGridGen.FPGAGridGen.add_fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_fill</span></code></a>(ele)</p></td>
-<td><p>Fill the grid with given element</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.add_perimeter" title="util.FPGAGridGen.FPGAGridGen.add_perimeter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_perimeter</span></code></a>(ele)</p></td>
-<td><p>Add given element on the periphery of the grid</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.add_single" title="util.FPGAGridGen.FPGAGridGen.add_single"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_single</span></code></a>(ele)</p></td>
-<td><p>Add given element to the specifica location of the grid</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.enumerate_grid" title="util.FPGAGridGen.FPGAGridGen.enumerate_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enumerate_grid</span></code></a>()</p></td>
-<td><p>Enumerates the FPGA grid</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.get_block" title="util.FPGAGridGen.FPGAGridGen.get_block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_block</span></code></a>(x, y)</p></td>
-<td><p>This method returns the module present in specific x and y cordinate.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.get_block_size" title="util.FPGAGridGen.FPGAGridGen.get_block_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_block_size</span></code></a>(block)</p></td>
-<td><p>Get size of the specific pb_type</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.get_height" title="util.FPGAGridGen.FPGAGridGen.get_height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_height</span></code></a>()</p></td>
-<td><p>Get height of FPGA</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.get_top_instance" title="util.FPGAGridGen.FPGAGridGen.get_top_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code></a>(x, y)</p></td>
-<td><p>This method generates the grid instance information given the cordinate points</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.get_width" title="util.FPGAGridGen.FPGAGridGen.get_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_width</span></code></a>()</p></td>
-<td><p>Get width of FPGA</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.print_full_grid" title="util.FPGAGridGen.FPGAGridGen.print_full_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_full_grid</span></code></a>()</p></td>
-<td><p>Print routing grid</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.print_grid" title="util.FPGAGridGen.FPGAGridGen.print_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_grid</span></code></a>()</p></td>
-<td><p>Prints logic block grid</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.validate_grid" title="util.FPGAGridGen.FPGAGridGen.validate_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_grid</span></code></a>()</p></td>
-<td><p>Checks for the correctness of the grid</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.base_class.OpenFPGA_Placement_Generator.create_placement" title="util.base_class.OpenFPGA_Placement_Generator.create_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_placement</span></code></a>()</p></td>
+<td><p>This will be extendned in the class</p></td>
 </tr>
 </tbody>
 </table></div>
 <dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.add_corners">
-<span class="sig-name descname"><span class="pre">add_corners</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ele</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.add_corners"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.add_corners" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add given element on the corners of the grid</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.ele">
-<span class="sig-name descname"><span class="pre">ele</span></span><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.ele" title="Permalink to this definition">¶</a></dt>
-<dd><p>Accepts Element Tree (element) as a input</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>ET</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.add_fill">
-<span class="sig-name descname"><span class="pre">add_fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ele</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.add_fill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.add_fill" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill the grid with given element</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">ele</span></span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Accepts Element Tree (element) as a input</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>ET</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.add_perimeter">
-<span class="sig-name descname"><span class="pre">add_perimeter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ele</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.add_perimeter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.add_perimeter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add given element on the periphery of the grid</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">ele</span></span><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Accepts Element Tree (element) as a input</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>ET</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.add_single">
-<span class="sig-name descname"><span class="pre">add_single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ele</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.add_single"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.add_single" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add given element to the specifica location of the grid</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">ele</span></span><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
-<dd><p>Accepts Element Tree (element) as a input</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>ET</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.ele.x">
-<span class="sig-prename descclassname"><span class="pre">ele.</span></span><span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.ele.x" title="Permalink to this definition">¶</a></dt>
-<dd><p>x locations to insert</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.ele.y">
-<span class="sig-prename descclassname"><span class="pre">ele.</span></span><span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.ele.y" title="Permalink to this definition">¶</a></dt>
-<dd><p>y locations to insert</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.enumerate_grid">
-<span class="sig-name descname"><span class="pre">enumerate_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.enumerate_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.enumerate_grid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enumerates the FPGA grid</p>
-<blockquote>
-<div><dl class="simple">
-<dt>Returns:</dt><dd><p>(list(list(str))): Returns 2D grid</p>
-</dd>
-</dl>
-</div></blockquote>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.get_block">
-<span class="sig-name descname"><span class="pre">get_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.get_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.get_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns the module present in specific x and y
-cordinate. The return value contains module name and
-adjusted X and Y cordianates</p>
-<p>the cordiante origin starts from the first element of top most list
-and first element of the first element of list of list</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.get_block_size">
-<span class="sig-name descname"><span class="pre">get_block_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.get_block_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.get_block_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get size of the specific pb_type</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.get_height">
-<span class="sig-name descname"><span class="pre">get_height</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.get_height"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.get_height" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get height of FPGA</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.get_top_instance">
-<span class="sig-name descname"><span class="pre">get_top_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.get_top_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.get_top_instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method generates the grid instance information given the
-cordinate points</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.get_width">
-<span class="sig-name descname"><span class="pre">get_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.get_width"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.get_width" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get width of FPGA</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.print_full_grid">
-<span class="sig-name descname"><span class="pre">print_full_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.print_full_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.print_full_grid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print routing grid</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.print_grid">
-<span class="sig-name descname"><span class="pre">print_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.print_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.print_grid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prints logic block grid</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.validate_grid">
-<span class="sig-name descname"><span class="pre">validate_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.validate_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.validate_grid" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Checks for the correctness of the grid</dt><dd><ul class="simple">
-<li><p>if right and up arrows are placed correctly in the grid</p></li>
-<li><p>if the boundry blocks has correct grid value</p></li>
-</ul>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="util.base_class.OpenFPGA_Placement_Generator.create_placement">
+<span class="sig-name descname"><span class="pre">create_placement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/base_class.html#OpenFPGA_Placement_Generator.create_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.base_class.OpenFPGA_Placement_Generator.create_placement" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will be extendned in the class</p>
 </dd></dl>
 </dd></dl>
 </section>
@@ -545,7 +353,7 @@ cordinate points</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/reference/utility/FPGAGridGen.rst.txt"
+            <a class="muted-link" href="../../_sources/reference/utility_classes/openfpga_placement_generator.rst.txt"
                rel="nofollow">
               Show Source
             </a>

@@ -184,8 +184,8 @@
 <li class="toctree-l3"><a class="reference internal" href="port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/routing_render.html">Routing Render</a></li>
@@ -203,6 +203,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -274,6 +275,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -317,30 +319,6 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.ir.cable.</span></span><span class="sig-name descname"><span class="pre">Cable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_downto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_scalar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spydrnet.ir.cable.Cable</span></code></p>
 <p>This class extends the default Cable class</p>
-<p><strong>Methods:</strong></p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.assign_cable" title="spydrnet_physical.ir.cable.Cable.assign_cable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_cable</span></code></a>(cable[, upper, lower])</p></td>
-<td><p>Create assignment beetween self and provided cable</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.check_concat" title="spydrnet_physical.ir.cable.Cable.check_concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_concat</span></code></a>()</p></td>
-<td><p>This fucntion check if the cable is concatenated while connecting to other ports</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.connect_instance_port" title="spydrnet_physical.ir.cable.Cable.connect_instance_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_instance_port</span></code></a>(instance, port)</p></td>
-<td><p>Connects cable to the port of the given instance.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.connect_port" title="spydrnet_physical.ir.cable.Cable.connect_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_port</span></code></a>(port[, reverse])</p></td>
-<td><p>Connects cable to the port of definition.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.split" title="spydrnet_physical.ir.cable.Cable.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a>([get_name])</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table></div>
 <p><strong>Attributes:</strong></p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
 <colgroup>
@@ -348,46 +326,48 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.is_port_cable" title="spydrnet_physical.ir.cable.Cable.is_port_cable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_port_cable</span></code></a></p></td>
-<td><p>Checks if the wire is connected to any definition port (InnerConnection)</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.size" title="spydrnet_physical.ir.cable.Cable.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.size" title="spydrnet_physical.ir.cable.Cable.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a></p></td>
 <td><p>Returns number of wires in the cable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.is_port_cable" title="spydrnet_physical.ir.cable.Cable.is_port_cable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_port_cable</span></code></a></p></td>
+<td><p>Checks if the wire is connected to any definition port (InnerConnection)</p></td>
 </tr>
 </tbody>
 </table></div>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.assign_cable">
-<span class="sig-name descname"><span class="pre">assign_cable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable" title="spydrnet_physical.ir.cable.Cable"><span class="pre">spydrnet_physical.ir.cable.Cable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.assign_cable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.assign_cable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create assignment beetween self and provided cable</p>
-<p>assign self = cable[upper:lower]</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.check_concat">
-<span class="sig-name descname"><span class="pre">check_concat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.check_concat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.check_concat" title="Permalink to this definition">¶</a></dt>
-<dd><p>This fucntion check if the cable is concatenated while connecting to other ports</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.connect_instance_port">
-<span class="sig-name descname"><span class="pre">connect_instance_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.connect_instance_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.connect_instance_port" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connects cable to the port of the given instance.</p>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.connect_port" title="spydrnet_physical.ir.cable.Cable.connect_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_port</span></code></a>(port[, reverse])</p></td>
+<td><p>Connects cable to the port of definition.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.connect_instance_port" title="spydrnet_physical.ir.cable.Cable.connect_instance_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_instance_port</span></code></a>(instance, port)</p></td>
+<td><p>Connects cable to the port of the given instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.assign_cable" title="spydrnet_physical.ir.cable.Cable.assign_cable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_cable</span></code></a>(cable[, upper, lower])</p></td>
+<td><p>Create assignment beetween self and provided cable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.split" title="spydrnet_physical.ir.cable.Cable.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a>([get_name])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.check_concat" title="spydrnet_physical.ir.cable.Cable.check_concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_concat</span></code></a>()</p></td>
+<td><p>This fucntion check if the cable is concatenated while connecting to other ports</p></td>
+</tr>
+</tbody>
+</table></div>
+<dl class="py property">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.size">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of wires in the cable</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>instance</strong> (<em>Instance</em>) – Instance to consider</p></li>
-<li><p><strong>port</strong> (<em>Port</em>) – Port to connect</p></li>
-</ul>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Returns size of cable</p>
 </dd>
-</dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.connect_port">
-<span class="sig-name descname"><span class="pre">connect_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.connect_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.connect_port" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connects cable to the port of definition.</p>
-<p>This is internal connection to the InnerPins of the definition</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to connect</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -404,23 +384,45 @@
 </dd>
 </dl>
 </dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.size">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns number of wires in the cable</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.connect_port">
+<span class="sig-name descname"><span class="pre">connect_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.connect_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.connect_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects cable to the port of definition.</p>
+<p>This is internal connection to the InnerPins of the definition</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Returns size of cable</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>Port</em>) – Port to connect</p>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.connect_instance_port">
+<span class="sig-name descname"><span class="pre">connect_instance_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.connect_instance_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.connect_instance_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects cable to the port of the given instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> (<em>Instance</em>) – Instance to consider</p></li>
+<li><p><strong>port</strong> (<em>Port</em>) – Port to connect</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.assign_cable">
+<span class="sig-name descname"><span class="pre">assign_cable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cable</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable" title="spydrnet_physical.ir.cable.Cable"><span class="pre">spydrnet_physical.ir.cable.Cable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.assign_cable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.assign_cable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create assignment beetween self and provided cable</p>
+<p>assign self = cable[upper:lower]</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.split">
 <span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.split" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.check_concat">
+<span class="sig-name descname"><span class="pre">check_concat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.check_concat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.check_concat" title="Permalink to this definition">¶</a></dt>
+<dd><p>This fucntion check if the cable is concatenated while connecting to other ports</p>
+</dd></dl>
 </dd></dl>
 </section>
 

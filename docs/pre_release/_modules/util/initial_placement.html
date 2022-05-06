@@ -183,8 +183,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../reference/classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/routing_render.html">Routing Render</a></li>
@@ -202,6 +202,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -273,6 +274,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -426,7 +428,7 @@
 <span class="n">SC_HEIGHT</span> <span class="o">=</span> <span class="mi">4</span>
 
 
-<div class="viewcode-block" id="initial_placement"><a class="viewcode-back" href="../../reference/utility/initial_placement.html#util.initial_placement.initial_placement">[docs]</a><span class="k">class</span> <span class="nc">initial_placement</span><span class="p">(</span><span class="n">OpenFPGA_Placement_Generator</span><span class="p">):</span>
+<div class="viewcode-block" id="initial_placement"><a class="viewcode-back" href="../../reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement">[docs]</a><span class="k">class</span> <span class="nc">initial_placement</span><span class="p">(</span><span class="n">OpenFPGA_Placement_Generator</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">fpga_grid</span><span class="p">:</span> <span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">areaFile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">padFile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gridIO</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shapingConf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -463,7 +465,7 @@
         <span class="k">if</span> <span class="n">shapingConf</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">update_default_configuration</span><span class="p">(</span><span class="n">shapingConf</span><span class="p">)</span>
 
-<div class="viewcode-block" id="initial_placement.create_placement"><a class="viewcode-back" href="../../reference/utility/initial_placement.html#util.initial_placement.initial_placement.create_placement">[docs]</a>    <span class="k">def</span> <span class="nf">create_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="initial_placement.create_placement"><a class="viewcode-back" href="../../reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement.create_placement">[docs]</a>    <span class="k">def</span> <span class="nf">create_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Overrides the base method to create placement information</span>
 <span class="sd">        """</span>
@@ -778,7 +780,7 @@
         <span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">seen</span> <span class="ow">or</span> <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">u</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
 
-<div class="viewcode-block" id="initial_placement.add_sb"><a class="viewcode-back" href="../../reference/utility/initial_placement.html#util.initial_placement.initial_placement.add_sb">[docs]</a>    <span class="k">def</span> <span class="nf">add_sb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">):</span>
+<div class="viewcode-block" id="initial_placement.add_sb"><a class="viewcode-back" href="../../reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement.add_sb">[docs]</a>    <span class="k">def</span> <span class="nf">add_sb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">                   d</span>
 <span class="sd">                 +----+</span>

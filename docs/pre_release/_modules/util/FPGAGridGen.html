@@ -183,8 +183,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../reference/classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/routing_render.html">Routing Render</a></li>
@@ -202,6 +202,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -273,6 +274,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -367,7 +369,7 @@
     <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="FPGAGridGen"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen">[docs]</a><span class="k">class</span> <span class="nc">FPGAGridGen</span><span class="p">():</span>
+<div class="viewcode-block" id="FPGAGridGen"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen">[docs]</a><span class="k">class</span> <span class="nc">FPGAGridGen</span><span class="p">():</span>
     <span class="sd">'''This class generates the 2D lsit of the FPGA grid, </span>
 <span class="sd">    based on the provided VPR architecture file. </span>
 <span class="sd">    This class generate two grid </span>
@@ -428,19 +430,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">RIGHT_ARROW</span> <span class="o">=</span> <span class="n">RIGHT_ARROW</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">UP_ARROW</span> <span class="o">=</span> <span class="n">UP_ARROW</span>
 
-<div class="viewcode-block" id="FPGAGridGen.get_width"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.get_width"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Get width of FPGA '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">-</span><span class="mi">2</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.get_height"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.get_height"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Get height of FPGA '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="o">-</span><span class="mi">2</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.get_block_size"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_block_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_block_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.get_block_size"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_block_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_block_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
         <span class="sd">''' Get size of the specific pb_type '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pb_type</span><span class="p">[</span><span class="n">block</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.print_grid"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.print_grid">[docs]</a>    <span class="k">def</span> <span class="nf">print_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.print_grid"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.print_grid">[docs]</a>    <span class="k">def</span> <span class="nf">print_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Prints logic block grid</span>
 <span class="sd">        """</span>
@@ -452,7 +454,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.print_full_grid"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.print_full_grid">[docs]</a>    <span class="k">def</span> <span class="nf">print_full_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.print_full_grid"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.print_full_grid">[docs]</a>    <span class="k">def</span> <span class="nf">print_full_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Print routing grid</span>
 <span class="sd">        """</span>
@@ -464,7 +466,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.validate_grid"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.validate_grid">[docs]</a>    <span class="k">def</span> <span class="nf">validate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.validate_grid"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.validate_grid">[docs]</a>    <span class="k">def</span> <span class="nf">validate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Checks for the correctness of the grid</span>
 <span class="sd">            - if right and up arrows are placed correctly in the grid </span>
@@ -472,7 +474,7 @@
 <span class="sd">        '''</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.get_block"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_block">[docs]</a>    <span class="k">def</span> <span class="nf">get_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.get_block"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_block">[docs]</a>    <span class="k">def</span> <span class="nf">get_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        This method returns the module present in specific x and y</span>
 <span class="sd">        cordinate. The return value contains module name and </span>
@@ -520,11 +522,11 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Trying to set grid location (</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">)"</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
             <span class="k">return</span> <span class="mi">0</span>
 
-<div class="viewcode-block" id="FPGAGridGen.add_fill"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_fill">[docs]</a>    <span class="k">def</span> <span class="nf">add_fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.add_fill"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_fill">[docs]</a>    <span class="k">def</span> <span class="nf">add_fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fill the grid with given element</span>
 
-<span class="sd">        Attributes:</span>
+<span class="sd">        Args:</span>
 <span class="sd">            ele (ET): Accepts Element Tree (element) as a input </span>
 
 <span class="sd">        """</span>
@@ -535,11 +537,11 @@
             <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.add_perimeter"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_perimeter">[docs]</a>    <span class="k">def</span> <span class="nf">add_perimeter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.add_perimeter"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_perimeter">[docs]</a>    <span class="k">def</span> <span class="nf">add_perimeter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Add given element on the periphery of the grid</span>
 
-<span class="sd">        Attributes:</span>
+<span class="sd">        Args:</span>
 <span class="sd">            ele (ET): Accepts Element Tree (element) as a input </span>
 
 <span class="sd">        """</span>
@@ -553,11 +555,11 @@
             <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">height</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.add_corners"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_corners">[docs]</a>    <span class="k">def</span> <span class="nf">add_corners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.add_corners"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_corners">[docs]</a>    <span class="k">def</span> <span class="nf">add_corners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Add given element on the corners of the grid</span>
 
-<span class="sd">        Attributes:</span>
+<span class="sd">        Args:</span>
 <span class="sd">            ele (ET): Accepts Element Tree (element) as a input </span>
 
 <span class="sd">        """</span>
@@ -568,11 +570,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.add_single"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_single">[docs]</a>    <span class="k">def</span> <span class="nf">add_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.add_single"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_single">[docs]</a>    <span class="k">def</span> <span class="nf">add_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Add given element to the specifica location of the grid</span>
 
-<span class="sd">        Attributes:</span>
+<span class="sd">        Args:</span>
 <span class="sd">            ele (ET): Accepts Element Tree (element) as a input</span>
 <span class="sd">            ele.x (int): x locations to insert</span>
 <span class="sd">            ele.y (int): y locations to insert</span>
@@ -631,7 +633,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="n">xstep</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">ystep</span><span class="o">+</span><span class="n">y</span><span class="p">,</span>
                                         <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FPGAGridGen.get_top_instance"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_top_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.get_top_instance"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_top_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        This method generates the grid instance information given the </span>
 <span class="sd">        cordinate points </span>
@@ -662,7 +664,7 @@
                 <span class="k">return</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">__</span><span class="si">%d</span><span class="s2">_"</span> <span class="o">%</span> <span class="n">grid_lbl</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">_"</span></div>
 
-<div class="viewcode-block" id="FPGAGridGen.enumerate_grid"><a class="viewcode-back" href="../../reference/utility/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.enumerate_grid">[docs]</a>    <span class="k">def</span> <span class="nf">enumerate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.enumerate_grid"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.enumerate_grid">[docs]</a>    <span class="k">def</span> <span class="nf">enumerate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Enumerates the FPGA grid</span>
 

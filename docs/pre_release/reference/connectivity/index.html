@@ -3,10 +3,10 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="OpenFPGA Transformations" href="../openfpga/index.html" /><link rel="prev" title="Visualization and Floorplanning" href="../visualization/index.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Initial Placement - SpyDrNet-Physical alpha documentation</title>
+        <title>Connectivity Pattern Generation - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -140,7 +140,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -161,7 +161,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../introduction/install.html">Install</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
@@ -169,7 +169,7 @@
 <li class="toctree-l2"><a class="reference external" href="?http://#visualization">Visualization</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../classes/library.html">Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../classes/bundle.html">Bundle</a></li>
@@ -184,8 +184,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/routing_render.html">Routing Render</a></li>
@@ -203,6 +203,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -274,6 +275,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -304,43 +306,63 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="initial-placement">
-<span id="openfpga-config-generator"></span><h1>Initial Placement<a class="headerlink" href="#initial-placement" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="util.base_class.OpenFPGA_Config_Generator">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.base_class.</span></span><span class="sig-name descname"><span class="pre">OpenFPGA_Config_Generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/base_class.html#OpenFPGA_Config_Generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.base_class.OpenFPGA_Config_Generator" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>Methods:</strong></p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.base_class.OpenFPGA_Config_Generator.add_configuration_scheme" title="util.base_class.OpenFPGA_Config_Generator.add_configuration_scheme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_configuration_scheme</span></code></a>()</p></td>
-<td><p>This will be extendned in the class</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.base_class.OpenFPGA_Config_Generator.write_fabric_key" title="util.base_class.OpenFPGA_Config_Generator.write_fabric_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_fabric_key</span></code></a>()</p></td>
-<td><p>This will be extendned in the class</p></td>
-</tr>
-</tbody>
-</table></div>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.base_class.OpenFPGA_Config_Generator.add_configuration_scheme">
-<span class="sig-name descname"><span class="pre">add_configuration_scheme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/base_class.html#OpenFPGA_Config_Generator.add_configuration_scheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.base_class.OpenFPGA_Config_Generator.add_configuration_scheme" title="Permalink to this definition">¶</a></dt>
-<dd><p>This will be extendned in the class</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.base_class.OpenFPGA_Config_Generator.write_fabric_key">
-<span class="sig-name descname"><span class="pre">write_fabric_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/base_class.html#OpenFPGA_Config_Generator.write_fabric_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.base_class.OpenFPGA_Config_Generator.write_fabric_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>This will be extendned in the class</p>
-</dd></dl>
-</dd></dl>
+          <section id="connectivity-pattern-generation">
+<h1>Connectivity Pattern Generation<a class="headerlink" href="#connectivity-pattern-generation" title="Permalink to this headline">¶</a></h1>
+<p>Floorplanning of a grid-based design requires careful planning of the
+global signal, as it significantly affects the physical design
+decisions such as the channel spacing, pin placement,
+pin placement congestion etc.
+The utility classes provided here provide a sophisticated way
+to design global signal connectivity.
+We make assumptions that a design can be represented as a grid,
+and each index on the top level can be mapped to each (x,y) coordinate,
+as shown in the following figure.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../../_images/clock_grid.svg"><img alt="../../_images/clock_grid.svg" src="../../_images/clock_grid.svg" width="300px"/></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Base Grid</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The connectivity pattern generated here creates
+a set of connection points (ConnectPointList)
+which indicates the top-level connections between top instances.
+For Example above figure shows that the global net is connected to
+the bottom port of the instance <cite>(3,1)</cite>. The feedthrough from the instance <cite>(3,1)</cite>
+outputs signal to top output port, which is connected to the bottom input of the
+instance <cite>(3,2)</cite>.</p>
+<p>The grid allowed to <cite>(1,1)</cite> coordinate,
+any incoming/outgoing connection outside the grid is considered as
+a top-level connection.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These classes only allow horizontal or vertical connection; a diagonal connection is not legal</p>
+</div>
+<section id="connectionpattern">
+<h2><a class="reference internal" href="../utility_classes/ConnectionPattern.html"><span class="doc">ConnectionPattern</span></a><a class="headerlink" href="#connectionpattern" title="Permalink to this headline">¶</a></h2>
+<p>This is a primary grid that creates different connection patterns
+like H-tree structure, fish-bone structure, etc.</p>
+</section>
+<section id="connectpointlist">
+<h2><a class="reference internal" href="../utility_classes/ConnectPointList.html"><span class="doc">ConnectPointList</span></a><a class="headerlink" href="#connectpointlist" title="Permalink to this headline">¶</a></h2>
+<p>This class holds the list of connection points (ConnectPoint)
+and enables matrix operations like rotate, move_x, move_y, etc.
+Creating multiple ConnectPointList and merging them allows
+for more complex pattern creation.</p>
+</section>
+<section id="connectpoint">
+<h2><a class="reference internal" href="../utility_classes/ConnectPoint.html"><span class="doc">ConnectPoint</span></a><a class="headerlink" href="#connectpoint" title="Permalink to this headline">¶</a></h2>
+<p>This class stores the properties of the connection between two instances.</p>
+</section>
+<section id="examples">
+<h2>Examples:<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Please refer <a class="reference external" href="sec:clock_tree_embedding">exmaples</a> section to learn more</p>
+</section>
 </section>
 
         </article>
@@ -348,8 +370,26 @@
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="../openfpga/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">OpenFPGA Transformations</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../visualization/index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Visualization and Floorplanning</div>
+                
+              </div>
+            </a>
         </div>
 
         <div class="related-information">
@@ -358,7 +398,7 @@
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/reference/utility/openfpga_config_generator.rst.txt"
+            <a class="muted-link" href="../../_sources/reference/connectivity/index.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -366,8 +406,30 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Connectivity Pattern Generation</a><ul>
+<li><a class="reference internal" href="#connectionpattern"><span class="xref std std-doc">ConnectionPattern</span></a></li>
+<li><a class="reference internal" href="#connectpointlist"><span class="xref std std-doc">ConnectPointList</span></a></li>
+<li><a class="reference internal" href="#connectpoint"><span class="xref std std-doc">ConnectPoint</span></a></li>
+<li><a class="reference internal" href="#examples">Examples:</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -183,8 +183,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../reference/classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/routing_render.html">Routing Render</a></li>
@@ -202,6 +202,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -273,6 +274,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -331,7 +333,7 @@
 <span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ConnectPointList"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList">[docs]</a><span class="k">class</span> <span class="nc">ConnectPointList</span><span class="p">:</span>
+<div class="viewcode-block" id="ConnectPointList"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList">[docs]</a><span class="k">class</span> <span class="nc">ConnectPointList</span><span class="p">:</span>
     <span class="sd">''' This stores list of connection points  '''</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sizex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -370,17 +372,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-<div class="viewcode-block" id="ConnectPointList.set_color"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.set_color">[docs]</a>    <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.set_color"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.set_color">[docs]</a>    <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
         <span class="sd">''' Set color to all the points in the connection list '''</span>
         <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="n">each</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.store_points"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.store_points">[docs]</a>    <span class="k">def</span> <span class="nf">store_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.store_points"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.store_points">[docs]</a>    <span class="k">def</span> <span class="nf">store_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">''' Stores all points and its attributes in csv format in the file '''</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.validate_connectivity"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.validate_connectivity">[docs]</a>    <span class="k">def</span> <span class="nf">validate_connectivity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.validate_connectivity"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.validate_connectivity">[docs]</a>    <span class="k">def</span> <span class="nf">validate_connectivity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        This fucntion checks following</span>
 
@@ -389,7 +391,7 @@
 <span class="sd">        """</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.load_points"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points">[docs]</a>    <span class="k">def</span> <span class="nf">load_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.load_points"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points">[docs]</a>    <span class="k">def</span> <span class="nf">load_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">''' Loads all points and its attributes from the given csv file </span>
 
 <span class="sd">        Format: from_x, from_y, to_x, to_y, level, color</span>
@@ -429,21 +431,21 @@
             <span class="s2">"point should be instance of ConnectPoint class not "</span> <span class="o">+</span> <span class="nb">type</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
         <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="s2">"same"</span>
 
-<div class="viewcode-block" id="ConnectPointList.hold_cursor"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.hold_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">hold_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.hold_cursor"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.hold_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">hold_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Holds the cursor at current position '''</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.release_cursor"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.release_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">release_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.release_cursor"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.release_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">release_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Rleases cursor and moves with each point addition '''</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.flip"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.flip">[docs]</a>    <span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"H"</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.flip"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.flip">[docs]</a>    <span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"H"</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">""" Flips all the points horizontally or vertically"""</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="n">point</span><span class="o">.</span><span class="n">flip_connection</span><span class="p">(</span><span class="n">orientation</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.sample_connections"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.sample_connections">[docs]</a>    <span class="k">def</span> <span class="nf">sample_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_distance</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.sample_connections"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.sample_connections">[docs]</a>    <span class="k">def</span> <span class="nf">sample_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_distance</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">''' This method splits all the connections longer that ``max_distance`` to</span>
 <span class="sd">        at max ``max_distance`` length</span>
 <span class="sd">        '''</span>
@@ -463,7 +465,7 @@
                 <span class="n">each</span><span class="o">.</span><span class="n">from_x</span><span class="p">,</span> <span class="n">each</span><span class="o">.</span><span class="n">from_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="n">cursor_backup</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.crop_edges"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.crop_edges">[docs]</a>    <span class="k">def</span> <span class="nf">crop_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.crop_edges"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.crop_edges">[docs]</a>    <span class="k">def</span> <span class="nf">crop_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Crops all the connections going out of grid '''</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">eachp</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'from_x'</span><span class="p">,</span> <span class="s1">'to_x'</span><span class="p">):</span>
@@ -532,7 +534,7 @@
     <span class="k">def</span> <span class="nf">move_cursor_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">value</span>
 
-<div class="viewcode-block" id="ConnectPointList.move_x"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.move_x">[docs]</a>    <span class="k">def</span> <span class="nf">move_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.move_x"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.move_x">[docs]</a>    <span class="k">def</span> <span class="nf">move_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
         <span class="sd">''' Moves cursor in x direction by specified steps times by specified value'''</span>
         <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
@@ -543,7 +545,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.move_y"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.move_y">[docs]</a>    <span class="k">def</span> <span class="nf">move_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.move_y"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.move_y">[docs]</a>    <span class="k">def</span> <span class="nf">move_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
         <span class="sd">''' Moves cursor in y direction by specified steps times by specified value'''</span>
         <span class="n">x_prev</span><span class="p">,</span> <span class="n">y_prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span>
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
@@ -578,7 +580,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_cursor</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">point</span>
 
-<div class="viewcode-block" id="ConnectPointList.render_pattern"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.render_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">render_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.render_pattern"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.render_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">render_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        This renderes connection points list in a SVG format</span>
 
@@ -625,14 +627,14 @@
                                  <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"connection </span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">dwg</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.get_reference"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_reference">[docs]</a>    <span class="k">def</span> <span class="nf">get_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.get_reference"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_reference">[docs]</a>    <span class="k">def</span> <span class="nf">get_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Return reference for the given tile location</span>
 <span class="sd">        '''</span>
         <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_top_instance</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">)</span> <span class="k">else</span> <span class="n">inst</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.get_top_instance"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_top_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.get_top_instance"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_top_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Return reference for the given tile location</span>
 
@@ -647,7 +649,7 @@
         <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">"Instance not found "</span> <span class="o">+</span> <span class="n">instance_name</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.get_top_instance_name"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_top_instance_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.get_top_instance_name"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_top_instance_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Returns the instance from top_level design</span>
 
@@ -656,7 +658,7 @@
 <span class="sd">        '''</span>
         <span class="k">return</span> <span class="s2">"PlaceholderModule"</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.print_port_stat"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_port_stat">[docs]</a>    <span class="k">def</span> <span class="nf">print_port_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.print_port_stat"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_port_stat">[docs]</a>    <span class="k">def</span> <span class="nf">print_port_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        This print ports generation statistics</span>
 <span class="sd">        '''</span>
@@ -688,7 +690,7 @@
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.show_stats"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.show_stats">[docs]</a>    <span class="k">def</span> <span class="nf">show_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.show_stats"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.show_stats">[docs]</a>    <span class="k">def</span> <span class="nf">show_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Extracts the connectivity statistics for port and connection creation</span>
 <span class="sd">        '''</span>
@@ -710,7 +712,7 @@
 
         <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">((</span><span class="n">module</span><span class="p">,</span> <span class="n">mstat</span><span class="p">[</span><span class="n">module</span><span class="p">])</span> <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mstat</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.create_ft_ports"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.create_ft_ports">[docs]</a>    <span class="k">def</span> <span class="nf">create_ft_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.create_ft_ports"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.create_ft_ports">[docs]</a>    <span class="k">def</span> <span class="nf">create_ft_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Create feedthrough port on the given module</span>
 
@@ -761,7 +763,7 @@
             <span class="k">if</span> <span class="n">port</span><span class="p">:</span>
                 <span class="n">module</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="n">port</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.create_ft_connection"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.create_ft_connection">[docs]</a>    <span class="k">def</span> <span class="nf">create_ft_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">signal_cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">,</span>
+<div class="viewcode-block" id="ConnectPointList.create_ft_connection"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.create_ft_connection">[docs]</a>    <span class="k">def</span> <span class="nf">create_ft_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">signal_cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">,</span>
                              <span class="n">down_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">up_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">top_cable</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">''' Performs top level connection using connection file</span>
 
@@ -806,14 +808,14 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">cable</span><span class="o">.</span><span class="n">wires</span><span class="p">):</span>
             <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.print_instance_grid_map"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_instance_grid_map">[docs]</a>    <span class="k">def</span> <span class="nf">print_instance_grid_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.print_instance_grid_map"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_instance_grid_map">[docs]</a>    <span class="k">def</span> <span class="nf">print_instance_grid_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">""" Prints mapping beetween grid cordinates and top level instances """</span>
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_top_instance_name</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.print_reference_grid_map"><a class="viewcode-back" href="../../reference/utility/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_reference_grid_map">[docs]</a>    <span class="k">def</span> <span class="nf">print_reference_grid_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.print_reference_grid_map"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_reference_grid_map">[docs]</a>    <span class="k">def</span> <span class="nf">print_reference_grid_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">):</span>
         <span class="sd">""" Prints mapping beetween grid cordinates and top level instance refereneces """</span>
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>

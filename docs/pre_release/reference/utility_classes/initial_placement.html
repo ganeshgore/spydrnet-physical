@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Configuration Chain Pattern 01 - SpyDrNet-Physical alpha documentation</title>
+        <title>Initial Placement - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -184,8 +184,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/routing_render.html">Routing Render</a></li>
@@ -203,6 +203,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -274,6 +275,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -310,40 +312,69 @@
           </label>
         </div>
         <article role="main">
-          <section id="configuration-chain-pattern-01">
-<span id="config-chain-01"></span><h1>Configuration Chain Pattern 01<a class="headerlink" href="#configuration-chain-pattern-01" title="Permalink to this headline">¶</a></h1>
+          <section id="initial-placement">
+<span id="id1"></span><h1>Initial Placement<a class="headerlink" href="#initial-placement" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="util.tile01.config_chain_01">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.tile01.</span></span><span class="sig-name descname"><span class="pre">config_chain_01</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/tile01.html#config_chain_01"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.tile01.config_chain_01" title="Permalink to this definition">¶</a></dt>
-<dd><p>This example demonstrate how configuration chain can be restructured after
-the tile tranformation. This method is better suited while creating
-a configuration after the physical tranformation. However mapping the
-sequence back to the original sequence could require complex scripting.
-# TODO : Need better explanation</p>
-<p><strong>Methods:</strong></p>
+<dt class="sig sig-object py" id="util.initial_placement.initial_placement">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.initial_placement.</span></span><span class="sig-name descname"><span class="pre">initial_placement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridIO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Methods:</strong></p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%"/>
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.tile01.config_chain_01.add_configuration_scheme" title="util.tile01.config_chain_01.add_configuration_scheme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_configuration_scheme</span></code></a>()</p></td>
-<td><p>Creates configuration chain</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.create_placement" title="util.initial_placement.initial_placement.create_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_placement</span></code></a>()</p></td>
+<td><p>Overrides the base method to create placement information</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.tile01.config_chain_01.write_fabric_key" title="util.tile01.config_chain_01.write_fabric_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_fabric_key</span></code></a>()</p></td>
-<td><p>This will be extendned in the class</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.add_sb" title="util.initial_placement.initial_placement.add_sb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_sb</span></code></a>(xi, yi)</p></td>
+<td><p>d</p></td>
 </tr>
 </tbody>
 </table></div>
 <dl class="py method">
-<dt class="sig sig-object py" id="util.tile01.config_chain_01.add_configuration_scheme">
-<span class="sig-name descname"><span class="pre">add_configuration_scheme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/tile01.html#config_chain_01.add_configuration_scheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.tile01.config_chain_01.add_configuration_scheme" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates configuration chain</p>
+<dt class="sig sig-object py" id="util.initial_placement.initial_placement.create_placement">
+<span class="sig-name descname"><span class="pre">create_placement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement.create_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement.create_placement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides the base method to create placement information</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="util.tile01.config_chain_01.write_fabric_key">
-<span class="sig-name descname"><span class="pre">write_fabric_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/tile01.html#config_chain_01.write_fabric_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.tile01.config_chain_01.write_fabric_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>This will be extendned in the class</p>
+<dt class="sig sig-object py" id="util.initial_placement.initial_placement.add_sb">
+<span class="sig-name descname"><span class="pre">add_sb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement.add_sb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement.add_sb" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>d</p>
+</div></blockquote>
+<div class="table-wrapper"><table class="docutils align-default">
+<tbody>
+</tbody>
+</table></div>
+</div></blockquote>
+<p>c |    |</p>
+</div></blockquote>
+<p>b   |    |   e</p>
+</div></blockquote>
+<p>+—-+    +—-+</p>
+</div></blockquote>
+<dl>
+<dt>a |              |           Cross Shape</dt><dd><div class="line-block">
+<div class="line">|           -lengths {a b c d e f}</div>
+</div>
+<dl>
+<dt>+—-+    +—-+</dt><dd><div class="line-block">
+<div class="line"><a href="#id2"><span class="problematic" id="id3">|</span></a></div>
+<div class="line">| f</div>
+</div>
+<div class="table-wrapper"><table class="docutils align-default">
+<tbody>
+</tbody>
+</table></div>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 </dd></dl>
 </section>
@@ -363,7 +394,7 @@ sequence back to the original sequence could require complex scripting.
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/reference/utility/config_chain_01.rst.txt"
+            <a class="muted-link" href="../../_sources/reference/utility_classes/initial_placement.rst.txt"
                rel="nofollow">
               Show Source
             </a>

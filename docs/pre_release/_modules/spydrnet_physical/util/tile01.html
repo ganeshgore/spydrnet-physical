@@ -183,8 +183,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/openfpga/routing_render.html">Routing Render</a></li>
@@ -202,6 +202,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -273,6 +274,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/cable.html">Cable - Unit tests</a></li>
@@ -533,6 +535,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_bottom_left_tile</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bottom_right_tile</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="Tile01.merge_and_update"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01.merge_and_update">[docs]</a>    <span class="k">def</span> <span class="nf">merge_and_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_list</span><span class="p">,</span> <span class="n">tile_name</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Merges given list of instances and updates width and height parameter</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span>
+                                                 <span class="n">new_definition_name</span><span class="o">=</span><span class="n">tile_name</span><span class="p">)</span>
+        <span class="n">tile</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">tile_name</span><span class="p">))</span>
+        <span class="n">tile</span><span class="o">.</span><span class="n">OptPins</span><span class="p">()</span>
+        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_width_height</span><span class="p">(</span><span class="n">instance_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_placement</span><span class="p">(</span><span class="n">instance_list</span><span class="p">)</span>
+        <span class="n">tile</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"WIDTH"</span><span class="p">],</span> <span class="n">tile</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span></div>
+
     <span class="k">def</span> <span class="nf">_get_width_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_list</span><span class="p">):</span>
         <span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"inf"</span><span class="p">)</span>
         <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
@@ -567,40 +581,33 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">new_name</span><span class="si">}</span><span class="s2"> assigned %d %d"</span> <span class="o">%</span>
                          <span class="p">(</span><span class="n">new_inst</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_X"</span><span class="p">],</span> <span class="n">new_inst</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_Y"</span><span class="p">]))</span>
 
-<div class="viewcode-block" id="Tile01.merge_and_update"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01.merge_and_update">[docs]</a>    <span class="k">def</span> <span class="nf">merge_and_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_list</span><span class="p">,</span> <span class="n">tile_name</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Merges given list of instances and updates width and height parameter</span>
-<span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span>
-                                                 <span class="n">new_definition_name</span><span class="o">=</span><span class="n">tile_name</span><span class="p">)</span>
-        <span class="n">tile</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">tile_name</span><span class="p">))</span>
-        <span class="n">tile</span><span class="o">.</span><span class="n">OptPins</span><span class="p">()</span>
-        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_width_height</span><span class="p">(</span><span class="n">instance_list</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_placement</span><span class="p">(</span><span class="n">instance_list</span><span class="p">)</span>
-        <span class="n">tile</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"WIDTH"</span><span class="p">],</span> <span class="n">tile</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span></div>
-
 <div class="viewcode-block" id="Tile01._main_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._main_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_main_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''Create main Tiles</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |                      +-----+</span>
-<span class="sd">        |                      |     |</span>
-<span class="sd">        |      +-------+ +----     ---+</span>
-<span class="sd">        |      |  CBY  | |     SB     |</span>
-<span class="sd">        |      +-------+ +----     ---+</span>
-<span class="sd">        |  +---------------+ |     |</span>
-<span class="sd">        |  |               | +-----+</span>
-<span class="sd">        |  |               | +-----+</span>
-<span class="sd">        |  |               | |     |</span>
-<span class="sd">        |  |      CLB      | | CBX |</span>
-<span class="sd">        |  |               | +-----+</span>
-<span class="sd">        |  |               |</span>
-<span class="sd">        |  +---------------+</span>
+
+<span class="sd">                             +-----+</span>
+<span class="sd">                             |     |</span>
+<span class="sd">               +-------+ +----     ---+</span>
+<span class="sd">               |  CBY  | |     SB     |</span>
+<span class="sd">               +-------+ +----     ---+</span>
+<span class="sd">           +---------------+ |     |</span>
+<span class="sd">           |               | +-----+</span>
+<span class="sd">           |               | +-----+</span>
+<span class="sd">           |               | |     |</span>
+<span class="sd">           |      CLB      | | CBX |</span>
+<span class="sd">           |               | +-----+</span>
+<span class="sd">           |               |</span>
+<span class="sd">           +---------------+</span>
 
 <span class="sd">      '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
             <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-                <span class="n">clb</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"grid_clb_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
+                <span class="n">clb</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"grid_clb_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
                 <span class="n">cbx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cbx_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
                 <span class="n">cby</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"cby_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
                 <span class="n">sb</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sb_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
@@ -609,21 +616,25 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile01._left_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._left_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_left_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''        Create Left Tiles</span>
+        <span class="sd">''' Create Left Tiles</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |   +-----+                  +-----+</span>
-<span class="sd">        |   |     |                  |     |</span>
-<span class="sd">        |   |     +--+ +-------+ +---+     +--+</span>
-<span class="sd">        |   | SB     | |  CBY  | |     SB     |</span>
-<span class="sd">        |   |     +--+ +-------+ +---+     +--+</span>
-<span class="sd">        |   |     | +--------------+ |     |</span>
-<span class="sd">        |   +-----+ |              | +-----+</span>
-<span class="sd">        |   +-----+ |              | +-----+</span>
-<span class="sd">        |   |     | |              | |     |</span>
-<span class="sd">        |   | CBX | |     CLB      | | CBX |</span>
-<span class="sd">        |   +-----+ |              | +-----+</span>
-<span class="sd">        |           |              |</span>
-<span class="sd">        |           +--------------+</span>
+
+<span class="sd">           +-----+                  +-----+</span>
+<span class="sd">           |     |                  |     |</span>
+<span class="sd">           |     +--+ +-------+ +---+     +--+</span>
+<span class="sd">           | SB     | |  CBY  | |     SB     |</span>
+<span class="sd">           |     +--+ +-------+ +---+     +--+</span>
+<span class="sd">           |     | +--------------+ |     |</span>
+<span class="sd">           +-----+ |              | +-----+</span>
+<span class="sd">           +-----+ |              | +-----+</span>
+<span class="sd">           |     | |              | |     |</span>
+<span class="sd">           | CBX | |     CLB      | | CBX |</span>
+<span class="sd">           +-----+ |              | +-----+</span>
+<span class="sd">                   |              |</span>
+<span class="sd">                   +--------------+</span>
 
 <span class="sd">        '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -643,20 +654,24 @@
 
 <div class="viewcode-block" id="Tile01._right_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._right_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_right_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''    Create Right Tiles</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |                    +-----+</span>
-<span class="sd">        |                    |     |</span>
-<span class="sd">        |       +-------+ +--+     |</span>
-<span class="sd">        |       |  CBY  | |    SB  |</span>
-<span class="sd">        |       +-------+ +--+     |</span>
-<span class="sd">        |   +--------------+ |     |</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              | |     |</span>
-<span class="sd">        |   |     CLB      | | CBX |</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              |</span>
-<span class="sd">        |   +--------------+</span>
+
+<span class="sd">                             +-----+</span>
+<span class="sd">                             |     |</span>
+<span class="sd">                +-------+ +--+     |</span>
+<span class="sd">                |  CBY  | |    SB  |</span>
+<span class="sd">                +-------+ +--+     |</span>
+<span class="sd">            +--------------+ |     |</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | |     |</span>
+<span class="sd">            |     CLB      | | CBX |</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              |</span>
+<span class="sd">            +--------------+</span>
 
 <span class="sd">        '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -678,18 +693,22 @@
 
 <div class="viewcode-block" id="Tile01._top_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._top_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_top_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''     Create Top Tiles</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |      +-------+ +------------+</span>
-<span class="sd">        |      |  CBY  | |     SB     |</span>
-<span class="sd">        |      +-------+ +---+     +--+</span>
-<span class="sd">        |   +--------------+ |     |</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              | |     |</span>
-<span class="sd">        |   |     CLB      | | CBX |</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              |</span>
-<span class="sd">        |   +--------------+</span>
+
+<span class="sd">               +-------+ +------------+</span>
+<span class="sd">               |  CBY  | |     SB     |</span>
+<span class="sd">               +-------+ +---+     +--+</span>
+<span class="sd">            +--------------+ |     |</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | |     |</span>
+<span class="sd">            |     CLB      | | CBX |</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              |</span>
+<span class="sd">            +--------------+</span>
 
 <span class="sd">        '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -711,23 +730,27 @@
 
 <div class="viewcode-block" id="Tile01._bottom_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_bottom_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''   Create Bottom Tiles</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |                    +-----+</span>
-<span class="sd">        |                    |     |</span>
-<span class="sd">        |      +-------+ +---+     +--+</span>
-<span class="sd">        |      |  CBY  | |     SB     |</span>
-<span class="sd">        |      +-------+ +---+     +--+</span>
-<span class="sd">        |   +--------------+ |     |</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              | |     |</span>
-<span class="sd">        |   |     CLB      | | CBX |</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   |              | +-----+</span>
-<span class="sd">        |   +--------------+ |     |</span>
-<span class="sd">        |      +-------+ +---+     +--+</span>
-<span class="sd">        |      |  CBY  | |     SB     |</span>
-<span class="sd">        |      +-------+ +------------+</span>
+
+<span class="sd">                             +-----+</span>
+<span class="sd">                             |     |</span>
+<span class="sd">               +-------+ +---+     +--+</span>
+<span class="sd">               |  CBY  | |     SB     |</span>
+<span class="sd">               +-------+ +---+     +--+</span>
+<span class="sd">            +--------------+ |     |</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | |     |</span>
+<span class="sd">            |     CLB      | | CBX |</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            +--------------+ |     |</span>
+<span class="sd">               +-------+ +---+     +--+</span>
+<span class="sd">               |  CBY  | |     SB     |</span>
+<span class="sd">               +-------+ +------------+</span>
 
 <span class="sd">        '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -747,18 +770,22 @@
 
 <div class="viewcode-block" id="Tile01._top_left_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._top_left_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_top_left_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''       Create top left tile</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |    +--------+ +-------+ +------------+</span>
-<span class="sd">        |    |  SB    | |  CBX  | |     SB     |</span>
-<span class="sd">        |    |     +--+ +-------+ +---+     +--+</span>
-<span class="sd">        |    |     | +--------------+ |     |</span>
-<span class="sd">        |    +-----+ |              | +-----+</span>
-<span class="sd">        |    +-----+ |              | +-----+</span>
-<span class="sd">        |    |     | |              | |     |</span>
-<span class="sd">        |    | CBY | |     CLB      | | CBY |</span>
-<span class="sd">        |    +-----+ |              | +-----+</span>
-<span class="sd">        |            |              |</span>
-<span class="sd">        |            +--------------+</span>
+
+<span class="sd">            +--------+ +-------+ +------------+</span>
+<span class="sd">            |  SB    | |  CBX  | |     SB     |</span>
+<span class="sd">            |     +--+ +-------+ +---+     +--+</span>
+<span class="sd">            |     | +--------------+ |     |</span>
+<span class="sd">            +-----+ |              | +-----+</span>
+<span class="sd">            +-----+ |              | +-----+</span>
+<span class="sd">            |     | |              | |     |</span>
+<span class="sd">            | CBY | |     CLB      | | CBY |</span>
+<span class="sd">            +-----+ |              | +-----+</span>
+<span class="sd">                    |              |</span>
+<span class="sd">                    +--------------+</span>
 
 <span class="sd">        '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -770,8 +797,10 @@
             <span class="sa">f</span><span class="s2">"cby_0__</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
         <span class="n">cby1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">"cby_1__</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
-        <span class="n">sb0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sb_0__</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
-        <span class="n">sb1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sb_1__</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
+        <span class="n">sb0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"sb_0__</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
+        <span class="n">sb1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"sb_1__</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">_"</span><span class="p">))</span>
         <span class="c1"># grid_io_0 = next(self._top_module.get_instances(</span>
         <span class="c1">#     f"grid_io_top_1__{self.fpga_size[1]+1}_"))</span>
         <span class="c1"># grid_io_1 = next(self._top_module.get_instances(</span>
@@ -782,18 +811,22 @@
 
 <div class="viewcode-block" id="Tile01._top_right_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._top_right_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_top_right_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''          Create top right tile</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |   +------------+ +-------+ +---------+</span>
-<span class="sd">        |   |     SB     | |  CBY  | |     SB  |</span>
-<span class="sd">        |   +---+     +--+ +-------+ +---+     |</span>
-<span class="sd">        |       |     | +--------------+ |     |</span>
-<span class="sd">        |       +-----+ |              | +-----+</span>
-<span class="sd">        |       +-----+ |              | +-----+</span>
-<span class="sd">        |       |     | |              | |     |</span>
-<span class="sd">        |       | CBX | |     CLB      | | CBX |</span>
-<span class="sd">        |       +-----+ |              | +-----+</span>
-<span class="sd">        |               |              |</span>
-<span class="sd">        |               +--------------+</span>
+
+<span class="sd">           +------------+ +-------+ +---------+</span>
+<span class="sd">           |     SB     | |  CBY  | |     SB  |</span>
+<span class="sd">           +---+     +--+ +-------+ +---+     |</span>
+<span class="sd">               |     | +--------------+ |     |</span>
+<span class="sd">               +-----+ |              | +-----+</span>
+<span class="sd">               +-----+ |              | +-----+</span>
+<span class="sd">               |     | |              | |     |</span>
+<span class="sd">               | CBX | |     CLB      | | CBX |</span>
+<span class="sd">               +-----+ |              | +-----+</span>
+<span class="sd">                       |              |</span>
+<span class="sd">                       +--------------+</span>
 
 <span class="sd">        '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -816,23 +849,27 @@
 
 <div class="viewcode-block" id="Tile01._bottom_left_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_left_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_bottom_left_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''      Create bottom left tile</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |    +-----+                  +-----+</span>
-<span class="sd">        |    |     |                  |     |</span>
-<span class="sd">        |    |     +--+ +-------+ +---+     +--+</span>
-<span class="sd">        |    | SB     | |  CBY  | |     SB  |  |</span>
-<span class="sd">        |    |     +--+ +-------+ +---+     +--+</span>
-<span class="sd">        |    |     | +--------------+ |     |</span>
-<span class="sd">        |    +-----+ |              | +-----+</span>
-<span class="sd">        |    +-----+ |              | +-----+</span>
-<span class="sd">        |    |     | |              | |     |</span>
-<span class="sd">        |    | CBX | |     CLB      | | CBX |</span>
-<span class="sd">        |    +-----+ |              | +-----+</span>
-<span class="sd">        |    +-----+ |              | +-----+</span>
-<span class="sd">        |    |     | +--------------+ |     |</span>
-<span class="sd">        |    |     +--+ +-------+ +---+     +--+</span>
-<span class="sd">        |    | SB     | |  CBY  | |     SB     |</span>
-<span class="sd">        |    +--------+ +-------+ +------------+</span>
+
+<span class="sd">             +-----+                  +-----+</span>
+<span class="sd">             |     |                  |     |</span>
+<span class="sd">             |     +--+ +-------+ +---+     +--+</span>
+<span class="sd">             | SB     | |  CBY  | |     SB  |  |</span>
+<span class="sd">             |     +--+ +-------+ +---+     +--+</span>
+<span class="sd">             |     | +--------------+ |     |</span>
+<span class="sd">             +-----+ |              | +-----+</span>
+<span class="sd">             +-----+ |              | +-----+</span>
+<span class="sd">             |     | |              | |     |</span>
+<span class="sd">             | CBX | |     CLB      | | CBX |</span>
+<span class="sd">             +-----+ |              | +-----+</span>
+<span class="sd">             +-----+ |              | +-----+</span>
+<span class="sd">             |     | +--------------+ |     |</span>
+<span class="sd">             |     +--+ +-------+ +---+     +--+</span>
+<span class="sd">             | SB     | |  CBY  | |     SB     |</span>
+<span class="sd">             +--------+ +-------+ +------------+</span>
 
 <span class="sd">        '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -854,23 +891,27 @@
 
 <div class="viewcode-block" id="Tile01._bottom_right_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_right_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_bottom_right_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Create bottom right tile</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
 <span class="sd">        ::</span>
-<span class="sd">        |                     +-----+</span>
-<span class="sd">        |                     |     |</span>
-<span class="sd">        |       +-------+ +---+     |</span>
-<span class="sd">        |       |  CBY  | |     SB  |</span>
-<span class="sd">        |       +-------+ +---+     |</span>
-<span class="sd">        |    +--------------+ |     |</span>
-<span class="sd">        |    |              | +-----+</span>
-<span class="sd">        |    |              | +-----+</span>
-<span class="sd">        |    |              | |     |</span>
-<span class="sd">        |    |     CLB      | | CBX |</span>
-<span class="sd">        |    |              | +-----+</span>
-<span class="sd">        |    |              | +-----+</span>
-<span class="sd">        |    +--------------+ |     |</span>
-<span class="sd">        |       +-------+ +---+     |</span>
-<span class="sd">        |       |  CBY  | |     SB  |</span>
-<span class="sd">        |       +-------+ +---------+</span>
+
+<span class="sd">                             +-----+</span>
+<span class="sd">                             |     |</span>
+<span class="sd">               +-------+ +---+     |</span>
+<span class="sd">               |  CBY  | |     SB  |</span>
+<span class="sd">               +-------+ +---+     |</span>
+<span class="sd">            +--------------+ |     |</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | |     |</span>
+<span class="sd">            |     CLB      | | CBX |</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            |              | +-----+</span>
+<span class="sd">            +--------------+ |     |</span>
+<span class="sd">               +-------+ +---+     |</span>
+<span class="sd">               |  CBY  | |     SB  |</span>
+<span class="sd">               +-------+ +---------+</span>
 
 <span class="sd">        '''</span>
         <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -882,8 +923,10 @@
             <span class="sa">f</span><span class="s2">"cbx_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">__1_"</span><span class="p">))</span>
         <span class="n">cby0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">"cby_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">__1_"</span><span class="p">))</span>
-        <span class="n">sb0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sb_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">__0_"</span><span class="p">))</span>
-        <span class="n">sb1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"sb_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">__1_"</span><span class="p">))</span>
+        <span class="n">sb0</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"sb_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">__0_"</span><span class="p">))</span>
+        <span class="n">sb1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"sb_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">__1_"</span><span class="p">))</span>
         <span class="c1"># grid_io_0 = next(self._top_module.get_instances(</span>
         <span class="c1">#     f"grid_io_bottom_{self.fpga_size[0]}__0_"))</span>
         <span class="c1"># grid_io_1 = next(self._top_module.get_instances(</span>

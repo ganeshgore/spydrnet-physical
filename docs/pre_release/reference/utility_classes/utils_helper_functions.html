@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>ConnectionPattern - SpyDrNet-Physical alpha documentation</title>
+        <title>Helper Functions - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -140,7 +140,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -184,8 +184,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/routing_render.html">Routing Render</a></li>
@@ -203,6 +203,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -274,6 +275,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -304,64 +306,64 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="connectionpattern">
-<span id="id1"></span><h1>ConnectionPattern<a class="headerlink" href="#connectionpattern" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="util.ConnectionPattern.ConnectionPattern">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.ConnectionPattern.</span></span><span class="sig-name descname"><span class="pre">ConnectionPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sizex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizey</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectionPattern.html#ConnectionPattern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectionPattern.ConnectionPattern" title="Permalink to this definition">¶</a></dt>
-<dd><p>This creates a connection patterns (<cite>ConnectPointList</cite>) based on pre-defined rule</p>
-<p><strong>Methods:</strong></p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectionPattern.ConnectionPattern.add_htree" title="util.ConnectionPattern.ConnectionPattern.add_htree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_htree</span></code></a>([n])</p></td>
-<td><p>Returns HTree pattern fo the given grid size</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectionPattern.ConnectionPattern.auto_select" title="util.ConnectionPattern.ConnectionPattern.auto_select"><code class="xref py py-obj docutils literal notranslate"><span class="pre">auto_select</span></code></a>()</p></td>
-<td><p>Auto implements the global tree with crop and scale operations</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectionPattern.ConnectionPattern.get_fishbone" title="util.ConnectionPattern.ConnectionPattern.get_fishbone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_fishbone</span></code></a>([width, height, steps, ...])</p></td>
-<td><p>Returns fishbone pattern for the given grid size</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectionPattern.ConnectionPattern.get_htree" title="util.ConnectionPattern.ConnectionPattern.get_htree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_htree</span></code></a>(size[, root, side, repeat])</p></td>
-<td><p>Returns H-Tree of specific size</p></td>
-</tr>
-</tbody>
-</table></div>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.ConnectionPattern.ConnectionPattern.add_htree">
-<span class="sig-name descname"><span class="pre">add_htree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectionPattern.html#ConnectionPattern.add_htree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectionPattern.ConnectionPattern.add_htree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns HTree pattern fo the given grid size</p>
+          <section id="helper-functions">
+<span id="id1"></span><h1>Helper Functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="util.get_attr">
+<span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">get_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_names.html#get_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.get_attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns specific attribute from the properties of the object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>object</strong> (<em>list[Cable, Port, Definition, Instance]</em>) – pass list of objects</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(list[str])</p>
+</dd>
+</dl>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.ConnectionPattern.ConnectionPattern.auto_select">
-<span class="sig-name descname"><span class="pre">auto_select</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectionPattern.html#ConnectionPattern.auto_select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectionPattern.ConnectionPattern.auto_select" title="Permalink to this definition">¶</a></dt>
-<dd><p>Auto implements the global tree with crop and scale operations</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="util.get_names">
+<span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">get_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/get_names.html#get_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.get_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns name name of the verilog object (if the it contains name property)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>object</strong> (<em>list[Cable, Port, Definition, Instance]</em>) – pass list of objects</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(list[str])</p>
+</dd>
+</dl>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.ConnectionPattern.ConnectionPattern.get_fishbone">
-<span class="sig-name descname"><span class="pre">get_fishbone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_margin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectionPattern.html#ConnectionPattern.get_fishbone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectionPattern.ConnectionPattern.get_fishbone" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns fishbone pattern for the given grid size</p>
-<p>Spine is created at the center of the grid, to change bias when grid
-is symetric change <code class="docutils literal notranslate"><span class="pre">xbias</span></code> and <code class="docutils literal notranslate"><span class="pre">ybias</span></code> parameter</p>
-<p>x_margin(tuple(int, int)): Skips the repective grid connectivity
-y_margin(tuple(int, int)): Skips the repective grid connectivity</p>
+</section>
+<section id="graph-generation-and-partitioning-related">
+<h1>Graph Generation and partitioning Related<a class="headerlink" href="#graph-generation-and-partitioning-related" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="util.prepare_graph_from_nx">
+<span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">prepare_graph_from_nx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/connectivity_graph.html#prepare_graph_from_nx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.prepare_graph_from_nx" title="Permalink to this definition">¶</a></dt>
+<dd><p>This definition converts networkx graph to xadj, adjncy, eweights
+data structures</p>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.ConnectionPattern.ConnectionPattern.get_htree">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">get_htree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">repeat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectionPattern.html#ConnectionPattern.get_htree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectionPattern.ConnectionPattern.get_htree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns H-Tree of specific size</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="util.write_metis_graph">
+<span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">write_metis_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eweights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vweights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/connectivity_graph.html#write_metis_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.write_metis_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>This definition write the given netowrkx graph in CSR format for metis</p>
 </dd></dl>
-</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="util.run_metis">
+<span class="sig-prename descclassname"><span class="pre">util.</span></span><span class="sig-name descname"><span class="pre">run_metis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cuts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/connectivity_graph.html#run_metis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.run_metis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 </section>
 
         </article>
@@ -379,7 +381,7 @@ y_margin(tuple(int, int)): Skips the repective grid connectivity</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/reference/utility/ConnectionPattern.rst.txt"
+            <a class="muted-link" href="../../_sources/reference/utility_classes/utils_helper_functions.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -387,8 +389,25 @@ y_margin(tuple(int, int)): Skips the repective grid connectivity</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Helper Functions</a></li>
+<li><a class="reference internal" href="#graph-generation-and-partitioning-related">Graph Generation and partitioning Related</a></li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

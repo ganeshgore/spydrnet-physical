@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>OpenFPGA - SpyDrNet-Physical alpha documentation</title>
+        <title>Configuration Chain Pattern 01 - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -184,8 +184,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/routing_render.html">Routing Render</a></li>
@@ -203,6 +203,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -274,6 +275,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -310,8 +312,42 @@
           </label>
         </div>
         <article role="main">
-          <section id="openfpga">
-<span id="id1"></span><h1>OpenFPGA<a class="headerlink" href="#openfpga" title="Permalink to this headline">¶</a></h1>
+          <section id="configuration-chain-pattern-01">
+<span id="config-chain-01"></span><h1>Configuration Chain Pattern 01<a class="headerlink" href="#configuration-chain-pattern-01" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="util.tile01.config_chain_01">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.tile01.</span></span><span class="sig-name descname"><span class="pre">config_chain_01</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/tile01.html#config_chain_01"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.tile01.config_chain_01" title="Permalink to this definition">¶</a></dt>
+<dd><p>This example demonstrate how configuration chain can be restructured after
+the tile tranformation. This method is better suited while creating
+a configuration after the physical tranformation. However mapping the
+sequence back to the original sequence could require complex scripting.
+# TODO : Need better explanation</p>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.tile01.config_chain_01.write_fabric_key" title="util.tile01.config_chain_01.write_fabric_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_fabric_key</span></code></a>()</p></td>
+<td><p>This will be extendned in the class</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.tile01.config_chain_01.add_configuration_scheme" title="util.tile01.config_chain_01.add_configuration_scheme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_configuration_scheme</span></code></a>()</p></td>
+<td><p>Creates configuration chain</p></td>
+</tr>
+</tbody>
+</table></div>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.tile01.config_chain_01.write_fabric_key">
+<span class="sig-name descname"><span class="pre">write_fabric_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/tile01.html#config_chain_01.write_fabric_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.tile01.config_chain_01.write_fabric_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will be extendned in the class</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.tile01.config_chain_01.add_configuration_scheme">
+<span class="sig-name descname"><span class="pre">add_configuration_scheme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/tile01.html#config_chain_01.add_configuration_scheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.tile01.config_chain_01.add_configuration_scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates configuration chain</p>
+</dd></dl>
+</dd></dl>
 </section>
 
         </article>
@@ -329,7 +365,7 @@
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/reference/utility/OpenFPGA.rst.txt"
+            <a class="muted-link" href="../../_sources/reference/utility_classes/config_chain_01.rst.txt"
                rel="nofollow">
               Show Source
             </a>

@@ -3,7 +3,7 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Instance - Unit tests" href="instance.html" /><link rel="prev" title="Regression Tests" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Instance - Unit tests" href="instance.html" /><link rel="prev" title="Library - Unit tests" href="library.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Definition - Unit tests - SpyDrNet-Physical alpha documentation</title>
@@ -184,8 +184,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../reference/classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../reference/utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/routing_render.html">Routing Render</a></li>
@@ -203,6 +203,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -274,6 +275,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Regression Tests</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="library.html">Library - Unit tests</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cable.html">Cable - Unit tests</a></li>
@@ -326,25 +328,25 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.setUp" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.setUp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setUp</span></code></a>()</p></td>
 <td><p>Hook method for setting up the test fixture before exercising it.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_combine_ports</span></code></a>()</p></td>
-<td><p>Creates 3 port on the given definition and combines them</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_create_feedthrough</span></code></a>()</p></td>
-<td><p>This checks bus feedthrough from single instance</p></td>
-</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthroughs_ports" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthroughs_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_create_feedthroughs_ports</span></code></a>()</p></td>
 <td><p>Test feedthrough port creation</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthroughs_ports_2" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthroughs_ports_2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_create_feedthroughs_ports_2</span></code></a>()</p></td>
 <td><p>Test feedthrough port creation with lambda naming</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_flatten_instance" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_flatten_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_flatten_instance</span></code></a>()</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_create_feedthrough</span></code></a>()</p></td>
+<td><p>This checks bus feedthrough from single instance</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_get_connectivity_network" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_get_connectivity_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_get_connectivity_network</span></code></a>()</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_combine_ports</span></code></a>()</p></td>
+<td><p>Creates 3 port on the given definition and combines them</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_instance" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_merge_instance</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_flatten_instance" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_flatten_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_flatten_instance</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_get_connectivity_network" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_get_connectivity_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_get_connectivity_network</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_multiple_instance" title="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_multiple_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_merge_multiple_instance</span></code></a>()</p></td>
@@ -358,16 +360,6 @@
 <dd><p>Hook method for setting up the test fixture before exercising it.</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports">
-<span class="sig-name descname"><span class="pre">test_combine_ports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_combine_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates 3 port on the given definition and combines them</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough">
-<span class="sig-name descname"><span class="pre">test_create_feedthrough</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_create_feedthrough"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough" title="Permalink to this definition">¶</a></dt>
-<dd><p>This checks bus feedthrough from single instance</p>
-</dd></dl>
-<dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthroughs_ports">
 <span class="sig-name descname"><span class="pre">test_create_feedthroughs_ports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_create_feedthroughs_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthroughs_ports" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test feedthrough port creation</p>
@@ -378,16 +370,26 @@
 <dd><p>Test feedthrough port creation with lambda naming</p>
 </dd></dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough">
+<span class="sig-name descname"><span class="pre">test_create_feedthrough</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_create_feedthrough"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_create_feedthrough" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks bus feedthrough from single instance</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports">
+<span class="sig-name descname"><span class="pre">test_combine_ports</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_combine_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_combine_ports" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates 3 port on the given definition and combines them</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_instance">
+<span class="sig-name descname"><span class="pre">test_merge_instance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_merge_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_flatten_instance">
 <span class="sig-name descname"><span class="pre">test_flatten_instance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_flatten_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_flatten_instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_get_connectivity_network">
 <span class="sig-name descname"><span class="pre">test_get_connectivity_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_get_connectivity_network"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_get_connectivity_network" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_instance">
-<span class="sig-name descname"><span class="pre">test_merge_instance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_definition.html#TestDefinition.test_merge_instance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_definition.TestDefinition.test_merge_multiple_instance">
@@ -410,14 +412,14 @@
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="library.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Regression Tests</div>
+                <div class="title">Library - Unit tests</div>
                 
               </div>
             </a>

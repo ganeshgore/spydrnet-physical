@@ -3,7 +3,7 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Utility Classes" href="../utility/index.html" /><link rel="prev" title="Pin" href="pin.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Visualization and Floorplanning" href="../visualization/index.html" /><link rel="prev" title="Pin" href="pin.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Port - SpyDrNet-Physical alpha documentation</title>
@@ -184,8 +184,8 @@
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/routing_render.html">Routing Render</a></li>
@@ -203,6 +203,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -274,6 +275,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -317,21 +319,6 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.ir.port.</span></span><span class="sig-name descname"><span class="pre">Port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_downto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_scalar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/port.html#Port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.port.Port" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spydrnet.ir.port.Port</span></code></p>
 <p>This class extends the default Port class</p>
-<p><strong>Methods:</strong></p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.change_name" title="spydrnet_physical.ir.port.Port.change_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_name</span></code></a>(name)</p></td>
-<td><p>Change name of the port and corrosponding cable</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.split" title="spydrnet_physical.ir.port.Port.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a>([get_name])</p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table></div>
 <p><strong>Attributes:</strong></p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
 <colgroup>
@@ -339,13 +326,13 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.is_input" title="spydrnet_physical.ir.port.Port.is_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_input</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.is_output" title="spydrnet_physical.ir.port.Port.is_output"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_output</span></code></a></p></td>
+<td><p></p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.is_inout" title="spydrnet_physical.ir.port.Port.is_inout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_inout</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.is_input" title="spydrnet_physical.ir.port.Port.is_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_input</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.is_output" title="spydrnet_physical.ir.port.Port.is_output"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_output</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.size" title="spydrnet_physical.ir.port.Port.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></a></p></td>
@@ -353,20 +340,21 @@
 </tr>
 </tbody>
 </table></div>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.port.Port.change_name">
-<span class="sig-name descname"><span class="pre">change_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/port.html#Port.change_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.port.Port.change_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Change name of the port and corrosponding cable</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name of the ports</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.port.Port.is_inout">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_inout</span></span><a class="headerlink" href="#spydrnet_physical.ir.port.Port.is_inout" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.split" title="spydrnet_physical.ir.port.Port.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a>([get_name])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.port.Port.change_name" title="spydrnet_physical.ir.port.Port.change_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_name</span></code></a>(name)</p></td>
+<td><p>Change name of the port and corrosponding cable</p></td>
+</tr>
+</tbody>
+</table></div>
 <dl class="py property">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.port.Port.is_input">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_input</span></span><a class="headerlink" href="#spydrnet_physical.ir.port.Port.is_input" title="Permalink to this definition">¶</a></dt>
@@ -374,6 +362,10 @@
 <dl class="py property">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.port.Port.is_output">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_output</span></span><a class="headerlink" href="#spydrnet_physical.ir.port.Port.is_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.port.Port.is_inout">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_inout</span></span><a class="headerlink" href="#spydrnet_physical.ir.port.Port.is_inout" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.port.Port.size">
@@ -392,6 +384,16 @@
 <dt class="sig sig-object py" id="spydrnet_physical.ir.port.Port.split">
 <span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/port.html#Port.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.port.Port.split" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.port.Port.change_name">
+<span class="sig-name descname"><span class="pre">change_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/port.html#Port.change_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.port.Port.change_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change name of the port and corrosponding cable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – Name of the ports</p>
+</dd>
+</dl>
+</dd></dl>
 </dd></dl>
 </section>
 
@@ -400,12 +402,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../utility/index.html">
+          <a class="next-page" href="../visualization/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Utility Classes</div>
+                <div class="title">Visualization and Floorplanning</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

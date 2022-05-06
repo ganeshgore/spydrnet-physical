@@ -183,8 +183,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../reference/classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/routing_render.html">Routing Render</a></li>
@@ -202,6 +202,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -273,6 +274,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -325,26 +327,20 @@
 <span class="sd">0, None : Top</span>
 <span class="sd">'''</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">move</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">import</span> <span class="nn">svgwrite</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">ConnectPoint</span><span class="p">,</span> <span class="n">ConnectPointList</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">ConnectPointList</span>
 <span class="kn">from</span> <span class="nn">svgwrite.container</span> <span class="kn">import</span> <span class="n">Group</span>
 
 <span class="n">DEFAULT_COLOR</span> <span class="o">=</span> <span class="s2">" black"</span>
 
 
-<div class="viewcode-block" id="ConnectionPattern"><a class="viewcode-back" href="../../reference/utility/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern">[docs]</a><span class="k">class</span> <span class="nc">ConnectionPattern</span><span class="p">:</span>
+<div class="viewcode-block" id="ConnectionPattern"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern">[docs]</a><span class="k">class</span> <span class="nc">ConnectionPattern</span><span class="p">:</span>
     <span class="sd">'''</span>
 <span class="sd">    This creates a connection patterns (`ConnectPointList`) based on pre-defined rule</span>
 
 <span class="sd">    '''</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sizex</span><span class="p">,</span> <span class="n">sizey</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPattern.__init__"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sizex</span><span class="p">,</span> <span class="n">sizey</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Initialise FPGA parameters</span>
 
@@ -357,24 +353,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">xbias</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ybias</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg_main</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="n">sizex</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="n">sizey</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="n">sizex</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="n">sizey</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">svg_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">""" Returns the svgwrite drawing object, </span>
+<span class="sd">        call after running ``render_pattern`` """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg_main</span>
 
     <span class="o">@</span> <span class="nb">property</span>
     <span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">""" Returns the ConnectPointList in current pattern """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span>
 
     <span class="o">@</span> <span class="n">connections</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span>
-
-    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">,</span>
-                                         <span class="n">sizey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">)</span>
 
     <span class="o">@</span> <span class="nb">staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_prime_factors</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
@@ -391,15 +386,34 @@
             <span class="n">prime_factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">number</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">prime_factors</span>
 
-<div class="viewcode-block" id="ConnectionPattern.auto_select"><a class="viewcode-back" href="../../reference/utility/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.auto_select">[docs]</a>    <span class="k">def</span> <span class="nf">auto_select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
-<span class="sd">        Auto implements the global tree with crop and scale operations</span>
-<span class="sd">        '''</span>
-        <span class="ne">NotImplementedError</span></div>
-
-<div class="viewcode-block" id="ConnectionPattern.get_htree"><a class="viewcode-back" href="../../reference/utility/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.get_htree">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ConnectionPattern.get_htree"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.get_htree">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_htree</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">''' Returns H-Tree of specific size '''</span>
+        <span class="sd">'''</span>
+<span class="sd">        Returns H-Tree of specific size</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            root(int): Extension in the root connection (Default=0)</span>
+<span class="sd">            side(int): Extension in the side connection (Default=0)</span>
+<span class="sd">            repeat(int): NUmber of sides on each direction (Default=1)</span>
+
+<span class="sd">        .. rst-class:: ascii</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            ^    ^         ^     ^</span>
+<span class="sd">            |    |         |     |</span>
+<span class="sd">            |    | root    |     |</span>
+<span class="sd">            +---------+----------+</span>
+<span class="sd">            |    |    |    |     | ^</span>
+<span class="sd">            |    |    |    |     | |  SIDE</span>
+<span class="sd">            v    v    |    v     v v</span>
+<span class="sd">                      |</span>
+<span class="sd">            ^    ^    |</span>
+<span class="sd">            +-+--+    |</span>
+<span class="sd">              +       |</span>
+<span class="sd">            REPEAT    +</span>
+
+<span class="sd">        '''</span>
         <span class="n">points</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
         <span class="n">size</span> <span class="o">=</span> <span class="n">size</span> <span class="k">if</span> <span class="n">size</span> <span class="o">%</span> <span class="mi">2</span> <span class="k">else</span> <span class="p">(</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
@@ -420,9 +434,23 @@
             <span class="n">points</span><span class="o">.</span><span class="n">move_y</span><span class="p">(</span><span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mid</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="n">side</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">points</span></div>
 
-<div class="viewcode-block" id="ConnectionPattern.add_htree"><a class="viewcode-back" href="../../reference/utility/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.add_htree">[docs]</a>    <span class="k">def</span> <span class="nf">add_htree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPattern.auto_select"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.auto_select">[docs]</a>    <span class="k">def</span> <span class="nf">auto_select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Auto implements the global tree with crop and scale operations</span>
+
+<span class="sd">        TODO: NotImplemented</span>
+<span class="sd">        '''</span>
+        <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="ConnectionPattern.add_htree"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.add_htree">[docs]</a>    <span class="k">def</span> <span class="nf">add_htree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Returns HTree pattern fo the given grid size</span>
+
+<span class="sd">        This method auto creates multiple levels of HTree from the given grid size.</span>
+<span class="sd">        Minimum size H-Tree is 5x5</span>
+
+<span class="sd">        args:</span>
+<span class="sd">            n (int): 2^n, Number representng size of the grid</span>
 <span class="sd">        '''</span>
         <span class="k">assert</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"Support only (2^n)+1 width"</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_htree</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
@@ -439,7 +467,12 @@
         <span class="c1"># y_center = ((self.sizey+1)*0.5)</span>
         <span class="c1"># print(x_center, y_center)</span>
 
-<div class="viewcode-block" id="ConnectionPattern.get_fishbone"><a class="viewcode-back" href="../../reference/utility/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.get_fishbone">[docs]</a>    <span class="k">def</span> <span class="nf">get_fishbone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">y_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+<div class="viewcode-block" id="ConnectionPattern.reset"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">""" Removes all the ConnectionPoints from the pattern """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">,</span>
+                                         <span class="n">sizey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConnectionPattern.get_fishbone"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.get_fishbone">[docs]</a>    <span class="k">def</span> <span class="nf">get_fishbone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">y_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
         <span class="sd">'''</span>
 <span class="sd">        Returns fishbone pattern for the given grid size</span>
 
@@ -469,7 +502,11 @@
             <span class="n">points</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="n">center</span>
         <span class="k">return</span> <span class="n">points</span></div>
 
-    <span class="k">def</span> <span class="nf">render_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_module_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectionPattern.render_pattern"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.render_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">render_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_module_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Renders the connection points</span>
+
+<span class="sd">        """</span>
         <span class="n">dwg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg_main</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">dwg</span><span class="o">.</span><span class="n">elements</span> <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"main"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -527,7 +564,7 @@
         <span class="n">dwg</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="n">x_offset</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">dwg</span></div>
+        <span class="k">return</span> <span class="n">dwg</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>

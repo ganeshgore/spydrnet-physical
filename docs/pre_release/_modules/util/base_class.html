@@ -183,8 +183,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../reference/classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../reference/openfpga/routing_render.html">Routing Render</a></li>
@@ -202,6 +202,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -273,6 +274,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -317,7 +319,7 @@
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FPGAGridGen</span>
 
 
-<div class="viewcode-block" id="OpenFPGA_Tile_Generator"><a class="viewcode-back" href="../../reference/utility/openfpga_tile_generator.html#util.base_class.OpenFPGA_Tile_Generator">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA_Tile_Generator</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenFPGA_Tile_Generator"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_tile_generator.html#util.base_class.OpenFPGA_Tile_Generator">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA_Tile_Generator</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">top_module</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span> <span class="o">=</span> <span class="n">grid</span>
@@ -325,14 +327,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_library</span> <span class="o">=</span> <span class="n">library</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span> <span class="o">=</span> <span class="n">top_module</span>
 
-<div class="viewcode-block" id="OpenFPGA_Tile_Generator.create_tiles"><a class="viewcode-back" href="../../reference/utility/openfpga_tile_generator.html#util.base_class.OpenFPGA_Tile_Generator.create_tiles">[docs]</a>    <span class="k">def</span> <span class="nf">create_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenFPGA_Tile_Generator.create_tiles"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_tile_generator.html#util.base_class.OpenFPGA_Tile_Generator.create_tiles">[docs]</a>    <span class="k">def</span> <span class="nf">create_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        This will be extendned in the class</span>
 <span class="sd">        '''</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
 
 
-<div class="viewcode-block" id="OpenFPGA_Placement_Generator"><a class="viewcode-back" href="../../reference/utility/openfpga_placement_generator.html#util.base_class.OpenFPGA_Placement_Generator">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA_Placement_Generator</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenFPGA_Placement_Generator"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_placement_generator.html#util.base_class.OpenFPGA_Placement_Generator">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA_Placement_Generator</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Template class to create OpenFPGA Placement generator</span>
 <span class="sd">    """</span>
@@ -345,14 +347,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fpga_grid</span> <span class="o">=</span> <span class="n">fpga_grid</span>
 
-<div class="viewcode-block" id="OpenFPGA_Placement_Generator.create_placement"><a class="viewcode-back" href="../../reference/utility/openfpga_placement_generator.html#util.base_class.OpenFPGA_Placement_Generator.create_placement">[docs]</a>    <span class="k">def</span> <span class="nf">create_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenFPGA_Placement_Generator.create_placement"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_placement_generator.html#util.base_class.OpenFPGA_Placement_Generator.create_placement">[docs]</a>    <span class="k">def</span> <span class="nf">create_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        This will be extendned in the class</span>
 <span class="sd">        '''</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
 
 
-<div class="viewcode-block" id="OpenFPGA_Config_Generator"><a class="viewcode-back" href="../../reference/utility/openfpga_config_generator.html#util.base_class.OpenFPGA_Config_Generator">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA_Config_Generator</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenFPGA_Config_Generator"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_config_generator.html#util.base_class.OpenFPGA_Config_Generator">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA_Config_Generator</span><span class="p">:</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">top_module</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span> <span class="o">=</span> <span class="n">grid</span>
@@ -363,13 +365,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_tail</span> <span class="o">=</span> <span class="s2">"ccff_tail"</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cable_name</span> <span class="o">=</span> <span class="s2">"ccff_wire"</span>
 
-<div class="viewcode-block" id="OpenFPGA_Config_Generator.add_configuration_scheme"><a class="viewcode-back" href="../../reference/utility/openfpga_config_generator.html#util.base_class.OpenFPGA_Config_Generator.add_configuration_scheme">[docs]</a>    <span class="k">def</span> <span class="nf">add_configuration_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenFPGA_Config_Generator.add_configuration_scheme"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_config_generator.html#util.base_class.OpenFPGA_Config_Generator.add_configuration_scheme">[docs]</a>    <span class="k">def</span> <span class="nf">add_configuration_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        This will be extendned in the class</span>
 <span class="sd">        '''</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-<div class="viewcode-block" id="OpenFPGA_Config_Generator.write_fabric_key"><a class="viewcode-back" href="../../reference/utility/openfpga_config_generator.html#util.base_class.OpenFPGA_Config_Generator.write_fabric_key">[docs]</a>    <span class="k">def</span> <span class="nf">write_fabric_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenFPGA_Config_Generator.write_fabric_key"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_config_generator.html#util.base_class.OpenFPGA_Config_Generator.write_fabric_key">[docs]</a>    <span class="k">def</span> <span class="nf">write_fabric_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        This will be extendned in the class</span>
 <span class="sd">        '''</span>

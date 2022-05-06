@@ -183,8 +183,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/classes/port.html">Port</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reference/utility/index.html">Utility Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../reference/openfpga/routing_render.html">Routing Render</a></li>
@@ -202,6 +202,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reference/utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
@@ -273,6 +274,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/cable.html">Cable - Unit tests</a></li>
@@ -350,12 +352,14 @@
                                           <span class="n">reference</span><span class="o">=</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">each_port</span> <span class="ow">in</span> <span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">:</span>
-            <span class="n">old_cable</span> <span class="o">=</span> <span class="n">each_port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">cable</span>
             <span class="n">new_port</span> <span class="o">=</span> <span class="n">each_port</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+            <span class="n">old_cable</span> <span class="o">=</span> <span class="n">each_port</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">cable</span>
             <span class="n">new_port</span><span class="o">.</span><span class="n">is_downto</span> <span class="o">=</span> <span class="n">old_cable</span><span class="o">.</span><span class="n">is_downto</span>
             <span class="n">new_port</span><span class="o">.</span><span class="n">is_scalar</span> <span class="o">=</span> <span class="n">old_cable</span><span class="o">.</span><span class="n">is_scalar</span>
-            <span class="n">new_port</span><span class="o">.</span><span class="n">lower_index</span><span class="o">=</span><span class="n">old_cable</span><span class="o">.</span><span class="n">lower_index</span>
+            <span class="n">new_port</span><span class="o">.</span><span class="n">lower_index</span> <span class="o">=</span> <span class="n">old_cable</span><span class="o">.</span><span class="n">lower_index</span>
             <span class="n">new_def</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">new_port</span><span class="p">)</span>
+            <span class="c1"># TODO: Derive the parameters used for this cable generation  from port name</span>
+            <span class="c1"># TODO: instead of internal cable</span>
             <span class="n">cable</span> <span class="o">=</span> <span class="n">new_def</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">old_cable</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                                          <span class="n">is_downto</span><span class="o">=</span><span class="n">old_cable</span><span class="o">.</span><span class="n">is_downto</span><span class="p">,</span>
                                          <span class="n">lower_index</span><span class="o">=</span><span class="n">old_cable</span><span class="o">.</span><span class="n">lower_index</span><span class="p">,</span>

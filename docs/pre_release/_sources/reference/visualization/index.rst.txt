@@ -24,6 +24,3 @@ Visualization and Floorplanning
 :doc:`OpenFPGA_Arch <architecture_visualizer>`
 ..................................................................
 
-:doc:`Tile01 <tile01>`
-..................................................................
-
