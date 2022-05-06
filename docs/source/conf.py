@@ -18,6 +18,7 @@ import sys
 import pathlib
 sys.path.insert(0, os.path.abspath('../..'))  # nopep8
 sys.path.insert(0, os.path.abspath('../../spydrnet_physical'))  # nopep8
+sys.path.insert(0, os.path.abspath('./extensions'))  # nopep8
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from sphinx_gallery.sorting import ExplicitOrder
@@ -62,16 +63,25 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinxcontrib_hdl_diagrams',
     'sphinx_gallery.gen_gallery',
+    'autodocsumm',
+    # 'helloworld',
+    # 'sphinxcontrib.needs',
+    # 'sphinxcontrib.test_reports',
+    # 'sphinxcontrib.plantuml',
 ]
 
 
 # generate autosummary pages
 autosummary_generate = True
+autodoc_member_order = "bysource"
+autodoc_default_options = {
+    'autosummary': True,
+}
 
 graphviz_output_format = "svg"
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ['templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -226,8 +236,8 @@ epub_title = project
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
-rst_epilog = """
-.. |sdphy| replace:: SpyDrNet-Physical
+rst_epilog = f"""
+.. |sdnphy| replace:: SpyDrNet-Physical
 """
 
 sphinx_gallery_conf = {
@@ -286,5 +296,12 @@ def CollectRst():
                     )
     index_fp.close()
 
+
+SDN_DOC_SOURCE = os.path.dirname(sdn.__file__)+"/../docs/source/"
+try:
+    os.symlink(SDN_DOC_SOURCE, "_SDN_DOC_SOURCE")
+except:
+    pass
+exclude_patterns.append("_SDN_DOC_SOURCE/**")
 
 CollectRst()

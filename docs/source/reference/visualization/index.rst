@@ -5,14 +5,22 @@ Visualization and Floorplanning
 ===============================
 
 
-Outline
-""""""""""""""""""""
-.. toctree::
-   :maxdepth: 1
+:doc:`FloorPlanViz <floorplan_visualizer>`
+..................................................................
 
 
-   floorplan_visualizer
+:doc:`RoutingRender <routingrender>`
+..................................................................
 
-   openfpga_floorplan
 
-   architecture_visualizer
+:doc:`cb_renderer <cb_renderer>`
+..................................................................
+
+
+:doc:`sb_renderer <sb_renderer>`
+..................................................................
+
+
+:doc:`OpenFPGA_Arch <architecture_visualizer>`
+..................................................................
+

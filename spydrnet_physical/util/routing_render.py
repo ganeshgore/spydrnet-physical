@@ -299,7 +299,7 @@ class RoutingRender:
 
     **General Variables**
 
-    Attributes:
+    Args:
         self.name: Name of the module
         self.scale: General scale for rendering connectivity
         self.spacing: Margin beetween each section

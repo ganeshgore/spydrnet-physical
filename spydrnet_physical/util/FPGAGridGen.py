@@ -24,8 +24,8 @@ help_msg = {
 }
 
 
-UP_ARROW = chr(8593)
-RIGHT_ARROW = chr(8594)
+UP_ARROW = chr(8593)     # ↑
+RIGHT_ARROW = chr(8594)  # →
 
 
 def main() -> None:
@@ -40,9 +40,8 @@ def main() -> None:
 
 
 def parse_argument() -> argparse.Namespace:
-    f"""
+    """
     Parse commnad line arguement
-    {help_msg['design_name']}
     """
     parser = argparse.ArgumentParser(formatter_class=formatter)
     parser.add_argument('--design_name',
@@ -57,14 +56,22 @@ def parse_argument() -> argparse.Namespace:
 
 
 class FPGAGridGen():
-    '''
-    This class generates the 2D matrix of the FPGA grid.
+    '''This class generates the 2D lsit of the FPGA grid, 
+    based on the provided VPR architecture file. 
+    This class generate two grid 
 
-    **Example**:
+    **self.grid** : This is logic blocks grid including IOs (NxM)
 
-        python3.8 FPGAGridGen.py **--design_name** FPGA66_flex
-        **--layout** dp
-        **--arch_file** example_files/vpr_arch_render_demo.xml
+    **self.full_grid** : This is complete grid with a logic and routing blocks (N-1)x(M-1)
+
+    Where NxM is width and height of the FPGA, including IO
+
+    **Example execution**:
+
+    .. code-block:: bash
+
+        python FPGAGridGen.py --design_name FPGA66_flex --layout dp 
+                --arch_file example_files/vpr_arch_render_demo.xml
 
     **Expected Output**:
 
@@ -73,9 +80,9 @@ class FPGAGridGen():
           EMPTY     io_top     io_top     io_top     io_top     io_top     io_top     EMPTY
          io_left     clb        clb        clb        clb        clb        clb      io_right
          io_left     clb        clb        clb        clb        clb        clb      io_right
-         io_left    ram9k                 ram9k                 ram9k                io_right
+         io_left    ram9k        →        ram9k        →        ram9k        →       io_right
          io_left     clb        clb        clb        clb        clb        clb      io_right
-         io_left     dsp                   dsp                   dsp                 io_right
+         io_left     dsp         →         dsp         →         dsp         →       io_right
          io_left     clb        clb        clb        clb        clb        clb      io_right
           EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
 
@@ -83,11 +90,13 @@ class FPGAGridGen():
 
     def __init__(self, design_name, arch_file, layout, release_root) -> None:
         '''
+        Initiliaze the FPGA grid generator class
+
         args:
             design_name  (str): Design name
             arch_file    (str): Path to architecture file
             layout       (str): Fixed layout selection from architecture file 
-            release_root (str): Directory to output bianries
+            release_root (str): Directory to output binaries
         '''
         self.design_name = design_name
         self.release_root = release_root
@@ -100,8 +109,10 @@ class FPGAGridGen():
         self.width = self.fpga_arch.width
         self.height = self.fpga_arch.height
         self.pb_type = {}
-        self.grid = [[0 for x in range(self.width)]
-                     for y in range(self.height)]
+        self.grid = [[0 for _ in range(self.width)]
+                     for _ in range(self.height)]
+        self.full_grid = [[0 for _ in range(2*(self.width)-1)]
+                          for _ in range(2*(self.height)-1)]
         self.RIGHT_ARROW = RIGHT_ARROW
         self.UP_ARROW = UP_ARROW
 
@@ -114,18 +125,32 @@ class FPGAGridGen():
         return self.height-2
 
     def get_block_size(self, block):
-        ''' Get width of FPGA '''
+        ''' Get size of the specific pb_type '''
         return self.pb_type[block]
 
     def print_grid(self):
         """
-        Prints the 2D FPGA grid on console
-
+        Prints logic block grid
         """
+        output = ""
         for row in self.grid[::-1]:
             for y in row:
-                print(f"{y:^10}", end=" ")
-            print("")
+                output += f"{y:^10} "
+            output += "\n"
+        print(output)
+        return output
+
+    def print_full_grid(self):
+        """
+        Print routing grid
+        """
+        output = ""
+        for row in self.grid[::-1]:
+            for y in row:
+                output += f"{y:^10} "
+            output += "\n"
+        print(output)
+        return output
 
     def validate_grid(self):
         '''
@@ -133,7 +158,7 @@ class FPGAGridGen():
             - if right and up arrows are placed correctly in the grid 
             - if the boundry blocks has correct grid value
         '''
-        pass
+        raise NotImplementedError
 
     def get_block(self, x, y):
         '''
@@ -179,11 +204,18 @@ class FPGAGridGen():
                     self.grid[y+yi][x+xi] = value if(xi, yi) == (0, 0) else \
                         RIGHT_ARROW if yi == 0 else UP_ARROW
             return 1
-        except:
-            logger.warning(f"Trying to set grid location {(x, y)}")
+        except IndexError:
+            logger.warning("Trying to set grid location (%s %s)" % (x, y))
             return 0
 
     def add_fill(self, ele):
+        """
+        Fill the grid with given element
+
+        Args:
+            ele (ET): Accepts Element Tree (element) as a input 
+
+        """
         ele_type = ele.attrib['type']
         self.clb = ele_type
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
@@ -192,6 +224,13 @@ class FPGAGridGen():
                 self._set_value(x, y, ele_type, ele_w, ele_h)
 
     def add_perimeter(self, ele):
+        """
+        Add given element on the periphery of the grid
+
+        Args:
+            ele (ET): Accepts Element Tree (element) as a input 
+
+        """
         ele_type = ele.attrib['type']
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
 
@@ -203,6 +242,13 @@ class FPGAGridGen():
                 self._set_value(x, y, ele_type, ele_w, ele_h)
 
     def add_corners(self, ele):
+        """
+        Add given element on the corners of the grid
+
+        Args:
+            ele (ET): Accepts Element Tree (element) as a input 
+
+        """
         ele_type = ele.attrib['type']
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
         self._set_value(0, 0, ele_type)
@@ -211,6 +257,15 @@ class FPGAGridGen():
         self._set_value(self.width-1, self.height-1, ele_type, ele_w, ele_h)
 
     def add_single(self, ele):
+        """
+        Add given element to the specifica location of the grid
+
+        Args:
+            ele (ET): Accepts Element Tree (element) as a input
+            ele.x (int): x locations to insert
+            ele.y (int): y locations to insert
+
+        """
         ele_type = ele.attrib['type']
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
         x = int(ele.attrib['x'])
@@ -269,10 +324,12 @@ class FPGAGridGen():
         This method generates the grid instance information given the 
         cordinate points 
         """
-        if 0 in (x, y) or ((self.height*2)-2 == y) or ((self.width*2)-2 == x):
-            return "top"
+        grid_lbl = self.get_block(int(x/2), int(y/2))
+        if y == 0 or ((self.height*2)-2 == y):
+            return "EMPTY" if ((x % 2) or grid_lbl[0] == "EMPTY") else ("%s_%d__%d_" % grid_lbl)
+        if x == 0 or ((self.width*2)-2 == x):
+            return "EMPTY" if ((y % 2) or grid_lbl[0] == "EMPTY") else ("%s_%d__%d_" % grid_lbl)
         if (x % 2 == 0) and (y % 2 == 0):
-            grid_lbl = self.get_block(int(x/2), int(y/2))
             return "%s_%d__%d_" % grid_lbl
         module = {
             True: "sb",
@@ -280,12 +337,13 @@ class FPGAGridGen():
             (x % 2 == 0) and (y % 2 == 1): "cbx"}[True]
         xi, yi = int(x/2), int(y/2)
         # TODO : Square modules are not supported yet
-        # if module == "sb":
-        #     if self.grid[yi+1][xi+1] == self.UP_ARROW:
-        #         grid_lbl = self.get_block(xi, yi)
-        #         return "%s_%d__%d_" % grid_lbl
+        if module == "sb":
+            if (self.get_block(xi+1, yi+1) == self.get_block(xi+1, yi)) and \
+                    (self.get_block(xi+1, yi+1) == self.get_block(xi, yi+1)):
+                grid_lbl = self.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
         if module == "cby":
-            if self.grid[yi][xi+1] in [self.RIGHT_ARROW]:
+            if self.get_block(xi, yi) == self.get_block(xi+1, yi):
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
         if module == "cbx":
@@ -303,7 +361,6 @@ class FPGAGridGen():
         '''
         for element in sorted(self.layout, key=lambda x: int(x.attrib["priority"])):
             tag = element.tag.lower()
-            ele_type = element.attrib["type"].lower()
             if tag == "fill":
                 logger.debug("Adding Fill")
                 self.add_fill(element)

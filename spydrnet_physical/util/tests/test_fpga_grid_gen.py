@@ -9,6 +9,9 @@ from spydrnet_physical.util import FPGAGridGen, OpenFPGA_Arch, FPGAGridGen
 
 
 class TestFpgaGridGen(unittest.TestCase):
+    """
+    """
+
     def setUp(self):
         self.design_name = "example_design"
         self.openfpga_arch = '''
@@ -33,10 +36,27 @@ class TestFpgaGridGen(unittest.TestCase):
                     <row type="io_bottom" starty="0" priority="100"/>
                     <col type="io_left" startx="0" priority="100"/>
                     <col type="io_right" startx="W-1" priority="100"/>
-                    <corners type="clb" priority="101"/>
+                    <corners type="EMPTY" priority="101"/>
                     <fill type="clb" priority="10"/>
                     <region type="dsp" startx="3" endx="W-3" starty="H/2" incry="H" priority="30"/>
                     <region type="ram9k" startx="3" endx="W-3" starty="5" incry="5" priority="20"/>
+                </fixed_layout>
+                <fixed_layout name="smallLayout" width="4" height="4">
+                    <row type="io_top" starty="H-1" priority="100"/>
+                    <row type="io_bottom" starty="0" priority="100"/>
+                    <col type="io_left" startx="0" priority="100"/>
+                    <col type="io_right" startx="W-1" priority="100"/>
+                    <corners type="EMPTY" priority="101"/>
+                    <fill type="clb" priority="10"/>
+                </fixed_layout>
+                <fixed_layout name="smallHetroLayout" width="4" height="4">
+                    <row type="io_top" starty="H-1" priority="100"/>
+                    <row type="io_bottom" starty="0" priority="100"/>
+                    <col type="io_left" startx="0" priority="100"/>
+                    <col type="io_right" startx="W-1" priority="100"/>
+                    <corners type="EMPTY" priority="101"/>
+                    <fill type="clb" priority="10"/>
+                    <single type="dsp" x="1" y="1" priority="10"/>
                 </fixed_layout>
             </layout>
         </architecture>
@@ -48,8 +68,6 @@ class TestFpgaGridGen(unittest.TestCase):
             self.vpr_arch_et, self.ofpga_et, "basicLayout")
         self.vprArchTree = ET.ElementTree(
             ET.fromstring(self.vpr_arch)).getroot()
-        # self.fpga_grid_gen = FPGAGridGen(
-        #     self.design_name, "./_fpga_grid_gen_arch.xml", "basicLayout", "./")
         self.layout_str = "basicLayout"
         self.element = Element()
 
@@ -70,6 +88,53 @@ class TestFpgaGridGen(unittest.TestCase):
 
         self.assertIs(grid_gen.get_width(), 14, "Width property is invalid")
         self.assertIs(grid_gen.get_height(), 18, "Height property is invalid")
+
+    def test_get_top_instance(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallLayout', "")
+        grid_gen.enumerate_grid()
+        self.assertEqual(grid_gen.width, 4)
+        self.assertEqual(grid_gen.height, 4)
+
+        expected_full_grid = list(reversed([
+            ['top', 'top', 'top', 'top', 'top', 'top', 'top'],
+            ['top', 'sb_0__2_', 'cbx_1__2_', 'sb_1__2_',
+                'cbx_2__2_', 'sb_2__2_', 'top'],
+            ['top', 'cby_0__2_', 'clb_1__2_', 'cby_1__2_',
+                'clb_2__2_',  'cby_2__2_', 'top'],
+            ['top', 'sb_0__1_', 'cbx_1__1_', 'sb_1__1_',
+                'cbx_2__1_', 'sb_2__1_', 'top'],
+            ['top', 'cby_0__1_', 'clb_1__1_',  'cby_1__1_',
+                'clb_2__1_', 'cby_2__1_', 'top'],
+            ['top', 'sb_0__0_', 'cbx_1__0_', 'sb_1__0_',
+                'cbx_2__0_', 'sb_2__0_', 'top'],
+            ['top', 'top', 'top', 'top', 'top', 'top', 'top']
+        ]))
+        for yi in range(0, grid_gen.height):
+            for xi in range(0, grid_gen.width):
+                self.assertEqual(
+                    grid_gen.get_top_instance(xi, yi),
+                    expected_full_grid[yi][xi])
+
+    def test_get_block_size(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
+
+    def test_print_grid(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
+        grid_gen.grid = list(reversed([
+            ['alb', 'blb'],
+            ['clb', 'dlb']
+        ]))
+        self.assertEqual(grid_gen.print_grid(),
+                         f"{'alb':^10} {'blb':^10} \n" +
+                         f"{'clb':^10} {'dlb':^10} \n")
+
+        grid_gen.grid = list(reversed([
+            ['alb', 'blb'],
+            ['clb', '']
+        ]))
+        self.assertEqual(grid_gen.print_grid(),
+                         f"{'alb':^10} {'blb':^10} \n" +
+                         f"{'clb':^10} {'':^10} \n")
 
     def test_get_blocks(self):
         '''

@@ -1,14 +1,31 @@
 
-Unit Tests
-==========
+Regression Tests
+================
+
+Overview
+--------
+
+The regression test (``pytest``) is created for all the extended classes of |SDNPHY|.
+Following table details each test written
+
+.. toctree::
+   :maxdepth: 1
+
+   library
+   element
+   definition
+   instance
+   cable
+   wire
+   port
+   pin
+   outerpin
+   innerpin
 
 
-Create custom directive and log unit test results
+PyTest Statistics
+-----------------
 
-.. .. .. test-results:: ../../spydrnet_physical/ir/tests/_tests.xml
+.. .. my-test-summary:: _test_result/_pytest_results.xml
 
-
-.. .. currentmodule:: spydrnet_physical.ir
-.. .. autoclass:: tests
-..    :show-inheritance:
-..    :members:
+.. .. my-test-report:: _test_result/_pytest_results.xml
