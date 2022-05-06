@@ -67,7 +67,7 @@ Output
 *For more detail of spydrnet-physical features and examples, please check* `<examples>`_ *section*
 
 
-.. _sdn_phy_shell::
+.. _sdn_phy_shell:
 Shell Interface
 ---------------
 
