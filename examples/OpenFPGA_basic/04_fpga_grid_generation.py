@@ -8,6 +8,7 @@ This class generates the 2D matrix of the FPGA grid.
 
 **layout section of Architecture file**
 
+.. rst-class:: hidden
 
 .. program-output:: bash -c "mkdir -p auto_prog_output && xmllint --format --xpath '//layout' ../../examples/OpenFPGA_basic/support_files/vpr_arch_render_demo.xml > ./auto_prog_output/arch_layout_snnipet.xml"
 
