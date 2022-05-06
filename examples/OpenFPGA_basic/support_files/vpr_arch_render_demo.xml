@@ -37,5 +37,15 @@
             <region type="dsp" startx="3" endx="W-3" starty="H/2" incry="H" priority="30"/>
             <region type="ram9k" startx="3" endx="W-3" starty="5" incry="5" priority="20"/>
         </fixed_layout>
+        <fixed_layout name="small" width="6" height="6">
+            <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
+            <row type="io_top" starty="H-1" priority="100"/>
+            <row type="io_bottom" starty="0" priority="100"/>
+            <col type="io_left" startx="0" priority="100"/>
+            <col type="io_right" startx="W-1" priority="100"/>
+            <corners type="EMPTY" priority="101"/>
+            <fill type="clb" priority="10"/>
+            <single type="mcu" x="2" y="2" priority="20"/>
+        </fixed_layout>
     </layout>
 </architecture>

@@ -324,10 +324,12 @@ class FPGAGridGen():
         This method generates the grid instance information given the 
         cordinate points 
         """
-        if 0 in (x, y) or ((self.height*2)-2 == y) or ((self.width*2)-2 == x):
-            return "top"
+        grid_lbl = self.get_block(int(x/2), int(y/2))
+        if y == 0 or ((self.height*2)-2 == y):
+            return "EMPTY" if ((x % 2) or grid_lbl[0] == "EMPTY") else ("%s_%d__%d_" % grid_lbl)
+        if x == 0 or ((self.width*2)-2 == x):
+            return "EMPTY" if ((y % 2) or grid_lbl[0] == "EMPTY") else ("%s_%d__%d_" % grid_lbl)
         if (x % 2 == 0) and (y % 2 == 0):
-            grid_lbl = self.get_block(int(x/2), int(y/2))
             return "%s_%d__%d_" % grid_lbl
         module = {
             True: "sb",

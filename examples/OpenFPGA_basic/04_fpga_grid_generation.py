@@ -49,7 +49,7 @@ def main():
     fpga = FPGAGridGen(design_name="example_design",
                        arch_file="./support_files/vpr_arch_render_demo.xml",
                        release_root="_release",
-                       layout="dp")
+                       layout="small")
     fpga.enumerate_grid()
     # Print CLB Grid
     output = fpga.print_grid()
