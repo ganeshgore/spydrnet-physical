@@ -63,9 +63,9 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinxcontrib_hdl_diagrams',
     'sphinx_gallery.gen_gallery',
-    'sphinxcontrib.needs',
-    'helloworld',
     'autodocsumm',
+    # 'helloworld',
+    # 'sphinxcontrib.needs',
     # 'sphinxcontrib.test_reports',
     # 'sphinxcontrib.plantuml',
 ]
