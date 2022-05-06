@@ -63,6 +63,8 @@ run_examples: generate_schematics
 clean:
 	rm -rf build source/auto_*
 	find . -type d -name "generated" -exec rm -rf "{}" \; || true
+
+clean_all: clean
 	find ../examples -type f -name "_*.*" -exec rm -rf "{}" \; || true
 	find ../examples -type f -name "*.log" -exec rm -rf "{}" \; || true
 
