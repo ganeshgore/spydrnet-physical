@@ -221,6 +221,18 @@ class Tile01(OpenFPGA_Tile_Generator):
         self._bottom_left_tile()
         self._bottom_right_tile()
 
+    def merge_and_update(self, instance_list, tile_name):
+        """
+        Merges given list of instances and updates width and height parameter
+        """
+        self._top_module.merge_multiple_instance(instance_list,
+                                                 new_definition_name=tile_name)
+        tile = next(self._library.get_definitions(tile_name))
+        tile.OptPins()
+        width, height = self._get_width_height(instance_list)
+        self._update_placement(instance_list)
+        tile.properties["WIDTH"], tile.properties["HEIGHT"] = width, height
+
     def _get_width_height(self, instance_list):
         x_min, y_min = float("inf"), float("inf")
         x_max, y_max = 0, 0
@@ -255,40 +267,33 @@ class Tile01(OpenFPGA_Tile_Generator):
             logger.debug(f"{new_name} assigned %d %d" %
                          (new_inst.properties["LOC_X"], new_inst.properties["LOC_Y"]))
 
-    def merge_and_update(self, instance_list, tile_name):
-        """
-        Merges given list of instances and updates width and height parameter
-        """
-        self._top_module.merge_multiple_instance(instance_list,
-                                                 new_definition_name=tile_name)
-        tile = next(self._library.get_definitions(tile_name))
-        tile.OptPins()
-        width, height = self._get_width_height(instance_list)
-        self._update_placement(instance_list)
-        tile.properties["WIDTH"], tile.properties["HEIGHT"] = width, height
-
     def _main_tile(self):
         '''Create main Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |                      +-----+
-        |                      |     |
-        |      +-------+ +----     ---+
-        |      |  CBY  | |     SB     |
-        |      +-------+ +----     ---+
-        |  +---------------+ |     |
-        |  |               | +-----+
-        |  |               | +-----+
-        |  |               | |     |
-        |  |      CLB      | | CBX |
-        |  |               | +-----+
-        |  |               |
-        |  +---------------+
+
+                             +-----+
+                             |     |
+               +-------+ +----     ---+
+               |  CBY  | |     SB     |
+               +-------+ +----     ---+
+           +---------------+ |     |
+           |               | +-----+
+           |               | +-----+
+           |               | |     |
+           |      CLB      | | CBX |
+           |               | +-----+
+           |               |
+           +---------------+
 
       '''
         instance_list = []
         for x in range(2, self.fpga_size[0]):
             for y in range(2, self.fpga_size[1]):
-                clb = next(self._top_module.get_instances(f"grid_clb_{x}__{y}_"))
+                clb = next(self._top_module.get_instances(
+                    f"grid_clb_{x}__{y}_"))
                 cbx = next(self._top_module.get_instances(f"cbx_{x}__{y}_"))
                 cby = next(self._top_module.get_instances(f"cby_{x}__{y}_"))
                 sb = next(self._top_module.get_instances(f"sb_{x}__{y}_"))
@@ -297,21 +302,25 @@ class Tile01(OpenFPGA_Tile_Generator):
         self.merge_and_update(instance_list, "tile")
 
     def _left_tile(self):
-        '''        Create Left Tiles
+        ''' Create Left Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |   +-----+                  +-----+
-        |   |     |                  |     |
-        |   |     +--+ +-------+ +---+     +--+
-        |   | SB     | |  CBY  | |     SB     |
-        |   |     +--+ +-------+ +---+     +--+
-        |   |     | +--------------+ |     |
-        |   +-----+ |              | +-----+
-        |   +-----+ |              | +-----+
-        |   |     | |              | |     |
-        |   | CBX | |     CLB      | | CBX |
-        |   +-----+ |              | +-----+
-        |           |              |
-        |           +--------------+
+
+           +-----+                  +-----+
+           |     |                  |     |
+           |     +--+ +-------+ +---+     +--+
+           | SB     | |  CBY  | |     SB     |
+           |     +--+ +-------+ +---+     +--+
+           |     | +--------------+ |     |
+           +-----+ |              | +-----+
+           +-----+ |              | +-----+
+           |     | |              | |     |
+           | CBX | |     CLB      | | CBX |
+           +-----+ |              | +-----+
+                   |              |
+                   +--------------+
 
         '''
         instance_list = []
@@ -331,20 +340,24 @@ class Tile01(OpenFPGA_Tile_Generator):
 
     def _right_tile(self):
         '''    Create Right Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |                    +-----+
-        |                    |     |
-        |       +-------+ +--+     |
-        |       |  CBY  | |    SB  |
-        |       +-------+ +--+     |
-        |   +--------------+ |     |
-        |   |              | +-----+
-        |   |              | +-----+
-        |   |              | |     |
-        |   |     CLB      | | CBX |
-        |   |              | +-----+
-        |   |              |
-        |   +--------------+
+
+                             +-----+
+                             |     |
+                +-------+ +--+     |
+                |  CBY  | |    SB  |
+                +-------+ +--+     |
+            +--------------+ |     |
+            |              | +-----+
+            |              | +-----+
+            |              | |     |
+            |     CLB      | | CBX |
+            |              | +-----+
+            |              |
+            +--------------+
 
         '''
         instance_list = []
@@ -366,18 +379,22 @@ class Tile01(OpenFPGA_Tile_Generator):
 
     def _top_tile(self):
         '''     Create Top Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |      +-------+ +------------+
-        |      |  CBY  | |     SB     |
-        |      +-------+ +---+     +--+
-        |   +--------------+ |     |
-        |   |              | +-----+
-        |   |              | +-----+
-        |   |              | |     |
-        |   |     CLB      | | CBX |
-        |   |              | +-----+
-        |   |              |
-        |   +--------------+
+
+               +-------+ +------------+
+               |  CBY  | |     SB     |
+               +-------+ +---+     +--+
+            +--------------+ |     |
+            |              | +-----+
+            |              | +-----+
+            |              | |     |
+            |     CLB      | | CBX |
+            |              | +-----+
+            |              |
+            +--------------+
 
         '''
         instance_list = []
@@ -399,23 +416,27 @@ class Tile01(OpenFPGA_Tile_Generator):
 
     def _bottom_tile(self):
         '''   Create Bottom Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |                    +-----+
-        |                    |     |
-        |      +-------+ +---+     +--+
-        |      |  CBY  | |     SB     |
-        |      +-------+ +---+     +--+
-        |   +--------------+ |     |
-        |   |              | +-----+
-        |   |              | +-----+
-        |   |              | |     |
-        |   |     CLB      | | CBX |
-        |   |              | +-----+
-        |   |              | +-----+
-        |   +--------------+ |     |
-        |      +-------+ +---+     +--+
-        |      |  CBY  | |     SB     |
-        |      +-------+ +------------+
+
+                             +-----+
+                             |     |
+               +-------+ +---+     +--+
+               |  CBY  | |     SB     |
+               +-------+ +---+     +--+
+            +--------------+ |     |
+            |              | +-----+
+            |              | +-----+
+            |              | |     |
+            |     CLB      | | CBX |
+            |              | +-----+
+            |              | +-----+
+            +--------------+ |     |
+               +-------+ +---+     +--+
+               |  CBY  | |     SB     |
+               +-------+ +------------+
 
         '''
         instance_list = []
@@ -435,18 +456,22 @@ class Tile01(OpenFPGA_Tile_Generator):
 
     def _top_left_tile(self):
         '''       Create top left tile
+
+        .. rst-class:: ascii
+
         ::
-        |    +--------+ +-------+ +------------+
-        |    |  SB    | |  CBX  | |     SB     |
-        |    |     +--+ +-------+ +---+     +--+
-        |    |     | +--------------+ |     |
-        |    +-----+ |              | +-----+
-        |    +-----+ |              | +-----+
-        |    |     | |              | |     |
-        |    | CBY | |     CLB      | | CBY |
-        |    +-----+ |              | +-----+
-        |            |              |
-        |            +--------------+
+
+            +--------+ +-------+ +------------+
+            |  SB    | |  CBX  | |     SB     |
+            |     +--+ +-------+ +---+     +--+
+            |     | +--------------+ |     |
+            +-----+ |              | +-----+
+            +-----+ |              | +-----+
+            |     | |              | |     |
+            | CBY | |     CLB      | | CBY |
+            +-----+ |              | +-----+
+                    |              |
+                    +--------------+
 
         '''
         instance_list = []
@@ -458,8 +483,10 @@ class Tile01(OpenFPGA_Tile_Generator):
             f"cby_0__{self.fpga_size[1]}_"))
         cby1 = next(self._top_module.get_instances(
             f"cby_1__{self.fpga_size[1]}_"))
-        sb0 = next(self._top_module.get_instances(f"sb_0__{self.fpga_size[1]}_"))
-        sb1 = next(self._top_module.get_instances(f"sb_1__{self.fpga_size[1]}_"))
+        sb0 = next(self._top_module.get_instances(
+            f"sb_0__{self.fpga_size[1]}_"))
+        sb1 = next(self._top_module.get_instances(
+            f"sb_1__{self.fpga_size[1]}_"))
         # grid_io_0 = next(self._top_module.get_instances(
         #     f"grid_io_top_1__{self.fpga_size[1]+1}_"))
         # grid_io_1 = next(self._top_module.get_instances(
@@ -470,18 +497,22 @@ class Tile01(OpenFPGA_Tile_Generator):
 
     def _top_right_tile(self):
         '''          Create top right tile
+
+        .. rst-class:: ascii
+
         ::
-        |   +------------+ +-------+ +---------+
-        |   |     SB     | |  CBY  | |     SB  |
-        |   +---+     +--+ +-------+ +---+     |
-        |       |     | +--------------+ |     |
-        |       +-----+ |              | +-----+
-        |       +-----+ |              | +-----+
-        |       |     | |              | |     |
-        |       | CBX | |     CLB      | | CBX |
-        |       +-----+ |              | +-----+
-        |               |              |
-        |               +--------------+
+
+           +------------+ +-------+ +---------+
+           |     SB     | |  CBY  | |     SB  |
+           +---+     +--+ +-------+ +---+     |
+               |     | +--------------+ |     |
+               +-----+ |              | +-----+
+               +-----+ |              | +-----+
+               |     | |              | |     |
+               | CBX | |     CLB      | | CBX |
+               +-----+ |              | +-----+
+                       |              |
+                       +--------------+
 
         '''
         instance_list = []
@@ -504,23 +535,27 @@ class Tile01(OpenFPGA_Tile_Generator):
 
     def _bottom_left_tile(self):
         '''      Create bottom left tile
+
+        .. rst-class:: ascii
+
         ::
-        |    +-----+                  +-----+
-        |    |     |                  |     |
-        |    |     +--+ +-------+ +---+     +--+
-        |    | SB     | |  CBY  | |     SB  |  |
-        |    |     +--+ +-------+ +---+     +--+
-        |    |     | +--------------+ |     |
-        |    +-----+ |              | +-----+
-        |    +-----+ |              | +-----+
-        |    |     | |              | |     |
-        |    | CBX | |     CLB      | | CBX |
-        |    +-----+ |              | +-----+
-        |    +-----+ |              | +-----+
-        |    |     | +--------------+ |     |
-        |    |     +--+ +-------+ +---+     +--+
-        |    | SB     | |  CBY  | |     SB     |
-        |    +--------+ +-------+ +------------+
+
+             +-----+                  +-----+
+             |     |                  |     |
+             |     +--+ +-------+ +---+     +--+
+             | SB     | |  CBY  | |     SB  |  |
+             |     +--+ +-------+ +---+     +--+
+             |     | +--------------+ |     |
+             +-----+ |              | +-----+
+             +-----+ |              | +-----+
+             |     | |              | |     |
+             | CBX | |     CLB      | | CBX |
+             +-----+ |              | +-----+
+             +-----+ |              | +-----+
+             |     | +--------------+ |     |
+             |     +--+ +-------+ +---+     +--+
+             | SB     | |  CBY  | |     SB     |
+             +--------+ +-------+ +------------+
 
         '''
         instance_list = []
@@ -542,23 +577,27 @@ class Tile01(OpenFPGA_Tile_Generator):
 
     def _bottom_right_tile(self):
         ''' Create bottom right tile
+
+        .. rst-class:: ascii
+
         ::
-        |                     +-----+
-        |                     |     |
-        |       +-------+ +---+     |
-        |       |  CBY  | |     SB  |
-        |       +-------+ +---+     |
-        |    +--------------+ |     |
-        |    |              | +-----+
-        |    |              | +-----+
-        |    |              | |     |
-        |    |     CLB      | | CBX |
-        |    |              | +-----+
-        |    |              | +-----+
-        |    +--------------+ |     |
-        |       +-------+ +---+     |
-        |       |  CBY  | |     SB  |
-        |       +-------+ +---------+
+
+                             +-----+
+                             |     |
+               +-------+ +---+     |
+               |  CBY  | |     SB  |
+               +-------+ +---+     |
+            +--------------+ |     |
+            |              | +-----+
+            |              | +-----+
+            |              | |     |
+            |     CLB      | | CBX |
+            |              | +-----+
+            |              | +-----+
+            +--------------+ |     |
+               +-------+ +---+     |
+               |  CBY  | |     SB  |
+               +-------+ +---------+
 
         '''
         instance_list = []
@@ -570,8 +609,10 @@ class Tile01(OpenFPGA_Tile_Generator):
             f"cbx_{self.fpga_size[0]}__1_"))
         cby0 = next(self._top_module.get_instances(
             f"cby_{self.fpga_size[0]}__1_"))
-        sb0 = next(self._top_module.get_instances(f"sb_{self.fpga_size[0]}__0_"))
-        sb1 = next(self._top_module.get_instances(f"sb_{self.fpga_size[0]}__1_"))
+        sb0 = next(self._top_module.get_instances(
+            f"sb_{self.fpga_size[0]}__0_"))
+        sb1 = next(self._top_module.get_instances(
+            f"sb_{self.fpga_size[0]}__1_"))
         # grid_io_0 = next(self._top_module.get_instances(
         #     f"grid_io_bottom_{self.fpga_size[0]}__0_"))
         # grid_io_1 = next(self._top_module.get_instances(

@@ -212,7 +212,7 @@ class FPGAGridGen():
         """
         Fill the grid with given element
 
-        Attributes:
+        Args:
             ele (ET): Accepts Element Tree (element) as a input 
 
         """
@@ -227,7 +227,7 @@ class FPGAGridGen():
         """
         Add given element on the periphery of the grid
 
-        Attributes:
+        Args:
             ele (ET): Accepts Element Tree (element) as a input 
 
         """
@@ -245,7 +245,7 @@ class FPGAGridGen():
         """
         Add given element on the corners of the grid
 
-        Attributes:
+        Args:
             ele (ET): Accepts Element Tree (element) as a input 
 
         """
@@ -260,7 +260,7 @@ class FPGAGridGen():
         """
         Add given element to the specifica location of the grid
 
-        Attributes:
+        Args:
             ele (ET): Accepts Element Tree (element) as a input
             ele.x (int): x locations to insert
             ele.y (int): y locations to insert
