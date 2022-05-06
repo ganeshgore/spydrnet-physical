@@ -276,6 +276,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -326,17 +327,129 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.instance.Instance.check_all_scalar_connections" title="spydrnet_physical.ir.instance.Instance.check_all_scalar_connections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_all_scalar_connections</span></code></a>(port)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.instance.Instance.__init__" title="spydrnet_physical.ir.instance.Instance.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<td><p>Creates an empty object of type instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.instance.Instance.check_all_scalar_connections" title="spydrnet_physical.ir.instance.Instance.check_all_scalar_connections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_all_scalar_connections</span></code></a></p></td>
 <td><p>Check if each wire connected to this port are single wire</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.instance.Instance.get_port_pins" title="spydrnet_physical.ir.instance.Instance.get_port_pins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_port_pins</span></code></a>(ports)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.instance.Instance.get_port_pins" title="spydrnet_physical.ir.instance.Instance.get_port_pins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_port_pins</span></code></a></p></td>
 <td><p>Returns all the outerpins of this port on this instance</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.instance.Instance.get_port_cables" title="spydrnet_physical.ir.instance.Instance.get_port_cables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_port_cables</span></code></a>(ports)</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code></p></td>
+<td><p>Clone the instance in an api safe way.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
+<td><p>get the item from the data structure</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cables</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_cables()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_definitions</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_definitions()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hcables</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hcables()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hinstances</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hinstances()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hpins</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hpins()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hports</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hports()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hwires</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hwires()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instances</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_instances()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_libraries</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_libraries()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_netlists</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_netlists()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pins</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_pins()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.instance.Instance.get_port_cables" title="spydrnet_physical.ir.instance.Instance.get_port_cables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_port_cables</span></code></a></p></td>
 <td><p>Return all outer cables connected to this port</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ports</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_ports()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_wires</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_wires()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_leaf</span></code></p></td>
+<td><p>Check to see if the definition that this instance contains represents a leaf cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_unique</span></code></p></td>
+<td><p>Check to see if the instance is unique</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></p></td>
+<td><p>pop the object from the data structure</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">somhing</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">test</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table></div>
+<p><strong>Attributes:</strong></p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p></td>
+<td><p>Data stores information about the element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_index</span></code></p></td>
+<td><p>Returns python index of element</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_verilog_index</span></code></p></td>
+<td><p>Returns verilog index of element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_top_instance</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>The name of this element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">parent</span></code></p></td>
+<td><p>Get the definition that contains this instance</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pins</span></code></p></td>
+<td><p>Get the pins on this instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties</span></code></p></td>
+<td><p>Returns properties of the object</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">reference</span></code></p></td>
+<td><p>Get the definition that this instance is instantiating</p></td>
+</tr>
+</tbody>
+</table></div>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.instance.Instance.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/instance.html#Instance.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.instance.Instance.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an empty object of type instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name - (str) the name of this instance</strong></p></li>
+<li><p><strong>properties - (dict) the dictionary which holds the properties</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.instance.Instance.check_all_scalar_connections">
 <span class="sig-name descname"><span class="pre">check_all_scalar_connections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/instance.html#Instance.check_all_scalar_connections"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.instance.Instance.check_all_scalar_connections" title="Permalink to this definition">¶</a></dt>

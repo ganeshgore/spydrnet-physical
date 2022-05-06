@@ -3,10 +3,10 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4.1. Connection Pattern Generation" href="01_connection_patterns.html" /><link rel="prev" title="3.3. Rendering Switch and Connection Boxes" href="../auto_openfpga_rendering/03_render_edge_routing_box.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Definition - Unit tests" href="definition.html" /><link rel="prev" title="Library - Unit tests" href="library.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>4. Clock Tree Embedding - SpyDrNet-Physical alpha documentation</title>
+        <title>Element - Unit tests - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -161,7 +161,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction/install.html">Install</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
@@ -209,7 +209,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/verilog_support.html">Following features are supported by the SpyDrNet-Physical Extension</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">1.2. Display Netlist Information Functions</a></li>
@@ -237,18 +237,18 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/03_render_edge_routing_box.html">3.3. Rendering Switch and Connection Boxes</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">4. Clock Tree Embedding</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="01_connection_patterns.html">4.1. Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_create_simple_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03_create_hybrid_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_embed_clock_tree.html">4.4. Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_embed_clock_tree_fpga44.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_connection_pattern_tie_cell.html">4.6. Adding Tie Cells on Floating Pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_reset_feedthrough.html">4.7. Create Reset Feedthrough in fpga_top</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_clock_tree_example1.html">4.8. Clock tree insertion Example Architecture 1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_clock_tree_example2.html">4.9. Clock tree insertion Example Architecture 2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_clock_tree_example3.html">4.10. Clock tree insertion Example Architecture 3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_clock_tree_example4.html">4.11. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">4. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/01_connection_patterns.html">4.1. Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/02_create_simple_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/03_create_hybrid_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/04_embed_clock_tree.html">4.4. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/05_embed_clock_tree_fpga44.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_connection_pattern_tie_cell.html">4.6. Adding Tie Cells on Floating Pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_reset_feedthrough.html">4.7. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/07_clock_tree_example1.html">4.8. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/08_clock_tree_example2.html">4.9. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example3.html">4.10. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example4.html">4.11. Clock tree insertion Example Architecture 3</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">5. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -272,19 +272,19 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developeres Content</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developers Guidelines</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tests/library.html">Library - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/element.html">Element - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/definition.html">Definition - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/instance.html">Instance - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/cable.html">Cable - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/wire.html">Wire - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/port.html">Port - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/pin.html">Pin - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/outerpin.html">OuterPin - Unit tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tests/innerpin.html">InnerPin - Unit tests</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Regression Tests</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="library.html">Library - Unit tests</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Element - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="definition.html">Definition - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instance.html">Instance - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cable.html">Cable - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wire.html">Wire - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="port.html">Port - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pin.html">Pin - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outerpin.html">OuterPin - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="innerpin.html">InnerPin - Unit tests</a></li>
 </ul>
 </li>
 </ul>
@@ -313,107 +313,38 @@
           </label>
         </div>
         <article role="main">
-          <section id="clock-tree-embedding">
-<span id="sec-clock-tree-embedding"></span><span id="sphx-glr-auto-openfpga-clock-tree"></span><h1><span class="section-number">4. </span>Clock Tree Embedding<a class="headerlink" href="#clock-tree-embedding" title="Permalink to this headline">¶</a></h1>
-<p>A collection of examples to introduce the functionality,
-features, and uses of SpyDrNet.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to genrate different connection pattern for routing global signals..."><figure class="align-default" id="id1">
-<img alt="Connection Pattern Generation" src="../_images/sphx_glr_01_connection_patterns_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text"><a class="reference internal" href="01_connection_patterns.html#sphx-glr-auto-openfpga-clock-tree-01-connection-patterns-py"><span class="std std-ref">Connection Pattern Generation</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to genrate different connection pattern for routing global signals..."><figure class="align-default" id="id2">
-<img alt="Create H-Tree Connectivity pattern" src="../_images/sphx_glr_02_create_simple_htree_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.2 </span><span class="caption-text"><a class="reference internal" href="02_create_simple_htree.html#sphx-glr-auto-openfpga-clock-tree-02-create-simple-htree-py"><span class="std std-ref">Create H-Tree Connectivity pattern</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how to create hybrid connetivity pattern for any  arbitrary (non square..."><figure class="align-default" id="id3">
-<img alt="Create Hybrid Connectivity Pattern" src="../_images/sphx_glr_03_create_hybrid_htree_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.3 </span><span class="caption-text"><a class="reference internal" href="03_create_hybrid_htree.html#sphx-glr-auto-openfpga-clock-tree-03-create-hybrid-htree-py"><span class="std std-ref">Create Hybrid Connectivity Pattern</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="**Original grided netlist**"><figure class="align-default" id="id4">
-<img alt="Create Clock Tree Embedding" src="../_images/sphx_glr_04_embed_clock_tree_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.4 </span><span class="caption-text"><a class="reference internal" href="04_embed_clock_tree.html#sphx-glr-auto-openfpga-clock-tree-04-embed-clock-tree-py"><span class="std std-ref">Create Clock Tree Embedding</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to insert H-Tree in tileable FPGA grid."><figure class="align-default" id="id5">
-<img alt="Two layer H-Tree insertion in 4x4 FPGA" src="../_images/sphx_glr_05_embed_clock_tree_fpga44_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.5 </span><span class="caption-text"><a class="reference internal" href="05_embed_clock_tree_fpga44.html#sphx-glr-auto-openfpga-clock-tree-05-embed-clock-tree-fpga44-py"><span class="std std-ref">Two layer H-Tree insertion in 4x4 FPGA</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="THis example "><figure class="align-default" id="id6">
-<img alt="Adding Tie Cells on Floating Pins" src="../_images/sphx_glr_06_connection_pattern_tie_cell_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.6 </span><span class="caption-text"><a class="reference internal" href="06_connection_pattern_tie_cell.html#sphx-glr-auto-openfpga-clock-tree-06-connection-pattern-tie-cell-py"><span class="std std-ref">Adding Tie Cells on Floating Pins</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Create Reset Feedthrough in fpga_top"><figure class="align-default" id="id7">
-<img alt="Create Reset Feedthrough in fpga_top" src="../_images/sphx_glr_06_reset_feedthrough_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.7 </span><span class="caption-text"><a class="reference internal" href="06_reset_feedthrough.html#sphx-glr-auto-openfpga-clock-tree-06-reset-feedthrough-py"><span class="std std-ref">Create Reset Feedthrough in fpga_top</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="16x16 Square homogeneous fabric design"><figure class="align-default" id="id8">
-<img alt="Clock tree insertion Example Architecture 1" src="../_images/sphx_glr_07_clock_tree_example1_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.8 </span><span class="caption-text"><a class="reference internal" href="07_clock_tree_example1.html#sphx-glr-auto-openfpga-clock-tree-07-clock-tree-example1-py"><span class="std std-ref">Clock tree insertion Example Architecture 1</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="16x24 rectangular homogeneous fabric design"><figure class="align-default" id="id9">
-<img alt="Clock tree insertion Example Architecture 2" src="../_images/sphx_glr_08_clock_tree_example2_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.9 </span><span class="caption-text"><a class="reference internal" href="08_clock_tree_example2.html#sphx-glr-auto-openfpga-clock-tree-08-clock-tree-example2-py"><span class="std std-ref">Clock tree insertion Example Architecture 2</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="9x12 odd row/column homogeneous fabric design"><figure class="align-default" id="id10">
-<img alt="Clock tree insertion Example Architecture 3" src="../_images/sphx_glr_09_clock_tree_example3_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.10 </span><span class="caption-text"><a class="reference internal" href="09_clock_tree_example3.html#sphx-glr-auto-openfpga-clock-tree-09-clock-tree-example3-py"><span class="std std-ref">Clock tree insertion Example Architecture 3</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Square heterogenous design"><figure class="align-default" id="id11">
-<img alt="Clock tree insertion Example Architecture 3" src="../_images/sphx_glr_09_clock_tree_example4_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 4.11 </span><span class="caption-text"><a class="reference internal" href="09_clock_tree_example4.html#sphx-glr-auto-openfpga-clock-tree-09-clock-tree-example4-py"><span class="std std-ref">Clock tree insertion Example Architecture 3</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div><div class="sphx-glr-footer class sphx-glr-footer-gallery docutils container">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/808c44422d732c95c0db296c2d8199ec/auto_openfpga_clock_tree_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">auto_openfpga_clock_tree_python.zip</span></code></a></p>
-</div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/c2cab9b4697330d43cb15e262eb62102/auto_openfpga_clock_tree_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">auto_openfpga_clock_tree_jupyter.zip</span></code></a></p>
-</div>
-</div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+          <section id="element-unit-tests">
+<span id="id1"></span><h1>Element - Unit tests<a class="headerlink" href="#element-unit-tests" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_element.TestElement">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.ir.tests.test_element.</span></span><span class="sig-name descname"><span class="pre">TestElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_element.html#TestElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_element.TestElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_element.TestElement.setUp" title="spydrnet_physical.ir.tests.test_element.TestElement.setUp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setUp</span></code></a>()</p></td>
+<td><p>Test setup</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.tests.test_element.TestElement.test_index" title="spydrnet_physical.ir.tests.test_element.TestElement.test_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_index</span></code></a>()</p></td>
+<td><p>test get_index and get_verilog_index methods</p></td>
+</tr>
+</tbody>
+</table></div>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_element.TestElement.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_element.html#TestElement.setUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_element.TestElement.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test setup</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.tests.test_element.TestElement.test_index">
+<span class="sig-name descname"><span class="pre">test_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/spydrnet_physical/ir/tests/test_element.html#TestElement.test_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.tests.test_element.TestElement.test_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>test get_index and get_verilog_index methods</p>
+</dd></dl>
+</dd></dl>
 </section>
 
         </article>
@@ -421,23 +352,23 @@ features, and uses of SpyDrNet.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="01_connection_patterns.html">
+          <a class="next-page" href="definition.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">4.1. </span>Connection Pattern Generation</div>
+                <div class="title">Definition - Unit tests</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../auto_openfpga_rendering/03_render_edge_routing_box.html">
+          <a class="prev-page" href="library.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">3.3. </span>Rendering Switch and Connection Boxes</div>
+                <div class="title">Library - Unit tests</div>
                 
               </div>
             </a>
@@ -449,7 +380,7 @@ features, and uses of SpyDrNet.</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_openfpga_clock_tree/index.rst.txt"
+            <a class="muted-link" href="../_sources/tests/element.rst.txt"
                rel="nofollow">
               Show Source
             </a>

@@ -275,6 +275,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/cable.html">Cable - Unit tests</a></li>
@@ -414,13 +415,13 @@
                         <span class="p">]</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">instance</span></div>
 
-<div class="viewcode-block" id="Cable.split"><a class="viewcode-back" href="../../../reference/classes/cable.html#spydrnet_physical.ir.cable.Cable.split">[docs]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">get_name</span> <span class="o">=</span> <span class="n">get_name</span> <span class="ow">or</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">wire</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wires</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">new_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">get_name</span><span class="p">(</span><span class="n">indx</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">remove_wire</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
             <span class="n">new_cable</span><span class="o">.</span><span class="n">add_wire</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">definition</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Cable.check_concat"><a class="viewcode-back" href="../../../reference/classes/cable.html#spydrnet_physical.ir.cable.Cable.check_concat">[docs]</a>    <span class="k">def</span> <span class="nf">check_concat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">""" This fucntion check if the cable is concatenated while connecting to other ports</span>

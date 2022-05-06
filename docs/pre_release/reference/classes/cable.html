@@ -276,6 +276,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -332,6 +333,33 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.is_port_cable" title="spydrnet_physical.ir.cable.Cable.is_port_cable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_port_cable</span></code></a></p></td>
 <td><p>Checks if the wire is connected to any definition port (InnerConnection)</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p></td>
+<td><p>Data stores information about the element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">definition</span></code></p></td>
+<td><p>Get the definition that this bundle belongs to.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_array</span></code></p></td>
+<td><p>This is the logical inverse of is_scalar.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_downto</span></code></p></td>
+<td><p>Get the downto status of the bundle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_scalar</span></code></p></td>
+<td><p>Return True if the item is a scalar False otherwise.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">lower_index</span></code></p></td>
+<td><p>Get the value of the lower index of the array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>The name of this element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties</span></code></p></td>
+<td><p>Returns properties of the object</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wires</span></code></p></td>
+<td><p>Gets a list of wires that are in this cable</p></td>
+</tr>
 </tbody>
 </table></div>
 <p><strong>Methods:</strong></p>
@@ -341,20 +369,95 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.connect_port" title="spydrnet_physical.ir.cable.Cable.connect_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_port</span></code></a>(port[, reverse])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.connect_port" title="spydrnet_physical.ir.cable.Cable.connect_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_port</span></code></a></p></td>
 <td><p>Connects cable to the port of definition.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.connect_instance_port" title="spydrnet_physical.ir.cable.Cable.connect_instance_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_instance_port</span></code></a>(instance, port)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.connect_instance_port" title="spydrnet_physical.ir.cable.Cable.connect_instance_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect_instance_port</span></code></a></p></td>
 <td><p>Connects cable to the port of the given instance.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.assign_cable" title="spydrnet_physical.ir.cable.Cable.assign_cable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_cable</span></code></a>(cable[, upper, lower])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.assign_cable" title="spydrnet_physical.ir.cable.Cable.assign_cable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_cable</span></code></a></p></td>
 <td><p>Create assignment beetween self and provided cable</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.split" title="spydrnet_physical.ir.cable.Cable.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a>([get_name])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.check_concat" title="spydrnet_physical.ir.cable.Cable.check_concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_concat</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></p></td>
+<td><p>Create a cable with no wires and default values for a bundle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_wire</span></code></p></td>
+<td><p>Adds a wire to the cable at the given position.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.cable.Cable.check_concat" title="spydrnet_physical.ir.cable.Cable.check_concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_concat</span></code></a></p></td>
 <td><p>This fucntion check if the cable is concatenated while connecting to other ports</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code></p></td>
+<td><p>Clone the Cable and all of its wires in an api safe way the following will be true of the returned cable</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_wire</span></code></p></td>
+<td><p>Creates a wire and adds it to the cable.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_wires</span></code></p></td>
+<td><p>Creates wire_count wires for this cable and adds them to it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
+<td><p>get the item from the data structure</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cables</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_cables()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_definitions</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_definitions()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hcables</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hcables()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hinstances</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hinstances()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hpins</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hpins()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hports</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hports()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hwires</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hwires()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_index</span></code></p></td>
+<td><p>Returns the python index of element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instances</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_instances()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_libraries</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_libraries()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_netlists</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_netlists()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pins</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_pins()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ports</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_ports()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_verilog_index</span></code></p></td>
+<td><p>Returns the verilog index of element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_wires</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_wires()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></p></td>
+<td><p>pop the object from the data structure</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_wire</span></code></p></td>
+<td><p>removes the given wire from the cable and return it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_wires_from</span></code></p></td>
+<td><p>Remove all wires given from the cable.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">somhing</span></code></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table></div>
@@ -414,10 +517,6 @@
 <dd><p>Create assignment beetween self and provided cable</p>
 <p>assign self = cable[upper:lower]</p>
 </dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.split">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.split" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.cable.Cable.check_concat">
 <span class="sig-name descname"><span class="pre">check_concat</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/cable.html#Cable.check_concat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.cable.Cable.check_concat" title="Permalink to this definition">¶</a></dt>

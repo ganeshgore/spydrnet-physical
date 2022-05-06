@@ -276,6 +276,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -325,8 +326,104 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.library.Library.create_top_wrapper" title="spydrnet_physical.ir.library.Library.create_top_wrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_top_wrapper</span></code></a>([name, inst_name, port_map])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></p></td>
+<td><p>creates an empty object of type Library</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_definition</span></code></p></td>
+<td><p>Add an existing definition to the library.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code></p></td>
+<td><p>Clone the library in an API safe manner.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_definition</span></code></p></td>
+<td><p>Create a definition, add it to the library, and return the definition</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.library.Library.create_top_wrapper" title="spydrnet_physical.ir.library.Library.create_top_wrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_top_wrapper</span></code></a></p></td>
 <td><p>Creates 1-to-1 wrapper on top of current top_instance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
+<td><p>get the item from the data structure</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cables</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_cables()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_definitions</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_definitions()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hcables</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hcables()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hinstances</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hinstances()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hpins</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hpins()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hports</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hports()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hwires</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hwires()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instances</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_instances()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_libraries</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_libraries()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_netlists</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_netlists()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pins</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_pins()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ports</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_ports()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_wires</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_wires()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></p></td>
+<td><p>pop the object from the data structure</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_definition</span></code></p></td>
+<td><p>Remove the given definition from the library.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_definitions_from</span></code></p></td>
+<td><p>Remove a set of definitions from the library.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">somhing</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Attributes:</strong></p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p></td>
+<td><p>Data stores information about the element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">definitions</span></code></p></td>
+<td><p>Return a list of all the definitions that are included in this library</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_index</span></code></p></td>
+<td><p>Returns python index of element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_verilog_index</span></code></p></td>
+<td><p>Returns verilog index of element</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>The name of this element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">netlist</span></code></p></td>
+<td><p>Get the netlist that contains this library</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">properties</span></code></p></td>
+<td><p>Returns properties of the object</p></td>
 </tr>
 </tbody>
 </table></div>

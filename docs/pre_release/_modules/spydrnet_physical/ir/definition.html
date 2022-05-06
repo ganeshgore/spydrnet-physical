@@ -275,6 +275,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../tests/cable.html">Cable - Unit tests</a></li>
@@ -344,13 +345,13 @@
 <span class="sd">    Extending the definitions representation</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Definition.__init__"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">)</span>
         <span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span> <span class="ow">or</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"WIDTH"</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Definition.get_custom_boundary"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.get_custom_boundary">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_custom_boundary</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
         <span class="n">direction</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -366,14 +367,14 @@
                 <span class="n">boundary</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">boundary</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">pt</span><span class="p">,</span> <span class="n">boundary</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
                 <span class="n">direction</span> <span class="o">=</span> <span class="s1">'v'</span>
             <span class="c1"># print(boundary)</span>
-        <span class="k">return</span> <span class="n">boundary</span></div>
+        <span class="k">return</span> <span class="n">boundary</span>
 
-<div class="viewcode-block" id="Definition.PolyArea2D"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.PolyArea2D">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">PolyArea2D</span><span class="p">(</span><span class="n">pts</span><span class="p">):</span>
         <span class="n">pts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">pts</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]))</span>
         <span class="n">lines</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">pts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)])</span>
         <span class="n">area</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">x1</span><span class="o">*</span><span class="n">y2</span><span class="o">-</span><span class="n">x2</span><span class="o">*</span><span class="n">y1</span> <span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">area</span></div>
+        <span class="k">return</span> <span class="n">area</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -991,16 +992,16 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">new_port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &lt;- </span><span class="si">{</span><span class="n">port_list</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">new_port</span><span class="p">,</span> <span class="n">new_cable</span></div>
 
-<div class="viewcode-block" id="Definition.create_unconn_wires"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.create_unconn_wires">[docs]</a>    <span class="k">def</span> <span class="nf">create_unconn_wires</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create_unconn_wires</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">unconn_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="s2">"unconn"</span><span class="p">)</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">unconn_cable</span><span class="o">.</span><span class="n">create_wire</span><span class="p">()</span>  <span class="c1"># dummy wire</span>
         <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">):</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">pin</span><span class="o">.</span><span class="n">wire</span><span class="p">:</span>
                     <span class="n">w</span> <span class="o">=</span> <span class="n">unconn_cable</span><span class="o">.</span><span class="n">create_wire</span><span class="p">()</span>
-                    <span class="n">w</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span></div>
+                    <span class="n">w</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Definition.split_port"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.split_port">[docs]</a>    <span class="k">def</span> <span class="nf">split_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">split_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">port</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">port</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
 
@@ -1015,7 +1016,7 @@
             <span class="n">new_port</span><span class="o">.</span><span class="n">add_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Definition.flatten_instance"><a class="viewcode-back" href="../../../reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.flatten_instance">[docs]</a>    <span class="k">def</span> <span class="nf">flatten_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
         <span class="sd">""" Flatterns single instance in the given definition """</span>

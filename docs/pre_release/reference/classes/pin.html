@@ -276,6 +276,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tests/cable.html">Cable - Unit tests</a></li>
@@ -319,6 +320,57 @@
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.ir.pin.</span></span><span class="sig-name descname"><span class="pre">Pin</span></span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/pin.html#Pin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.pin.Pin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">spydrnet.ir.pin.Pin</span></code></p>
 <p>This class extends the default Pin class</p>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cables</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_cables()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_definitions</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_definitions()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hcables</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hcables()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hinstances</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hinstances()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hpins</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hpins()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hports</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hports()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hwires</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_hwires()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instances</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_instances()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_libraries</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_libraries()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_netlists</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_netlists()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pins</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_pins()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ports</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_ports()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_wires</span></code></p></td>
+<td><p>Shortcut to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_wires()</span></code>.</p></td>
+</tr>
+</tbody>
+</table></div>
 <p><strong>Attributes:</strong></p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
 <colgroup>
@@ -326,8 +378,17 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_index</span></code></p></td>
+<td><p>Returns python index of element</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_verilog_index</span></code></p></td>
+<td><p>Returns verilog index of element</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.pin.Pin.is_connected" title="spydrnet_physical.ir.pin.Pin.is_connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_connected</span></code></a></p></td>
 <td><p>Checks if this pin is connected to any wire</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wire</span></code></p></td>
+<td><p>Get the wire the pin is connected to.</p></td>
 </tr>
 </tbody>
 </table></div>

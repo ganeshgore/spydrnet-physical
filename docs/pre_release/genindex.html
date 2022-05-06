@@ -274,6 +274,7 @@
 <li class="toctree-l1"><a class="reference internal" href="developers/index.html">Developers Guidelines</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests/definition.html">Definition - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests/instance.html">Instance - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tests/cable.html">Cable - Unit tests</a></li>
@@ -319,9 +320,15 @@
   <h2>_</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.__init__">__init__() (spydrnet_physical.util.FloorPlanViz method)</a>
+        <li><a href="reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.__init__">__init__() (spydrnet_physical.ir.definition.Definition method)</a>
 
         <ul>
+          <li><a href="reference/classes/instance.html#spydrnet_physical.ir.instance.Instance.__init__">(spydrnet_physical.ir.instance.Instance method)</a>
+</li>
+          <li><a href="reference/classes/port.html#spydrnet_physical.ir.port.Port.__init__">(spydrnet_physical.ir.port.Port method)</a>
+</li>
+          <li><a href="reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.__init__">(spydrnet_physical.util.FloorPlanViz method)</a>
+</li>
           <li><a href="reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.__init__">(spydrnet_physical.util.OpenFPGA method)</a>
 </li>
           <li><a href="reference/openfpga/routing_render.html#spydrnet_physical.util.RoutingRender.__init__">(spydrnet_physical.util.RoutingRender method)</a>
@@ -331,10 +338,10 @@
         </ul></li>
         <li><a href="reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_left_tile">_bottom_left_tile() (spydrnet_physical.util.Tile01 method)</a>
 </li>
-        <li><a href="reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_right_tile">_bottom_right_tile() (spydrnet_physical.util.Tile01 method)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_right_tile">_bottom_right_tile() (spydrnet_physical.util.Tile01 method)</a>
+</li>
         <li><a href="reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_tile">_bottom_tile() (spydrnet_physical.util.Tile01 method)</a>
 </li>
         <li><a href="reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._left_tile">_left_tile() (spydrnet_physical.util.Tile01 method)</a>
@@ -375,10 +382,10 @@
 </li>
         <li><a href="reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.add_htree">add_htree() (util.ConnectionPattern.ConnectionPattern method)</a>
 </li>
-        <li><a href="reference/openfpga/routing_render.html#spydrnet_physical.util.RoutingRender.add_partitions">add_partitions() (spydrnet_physical.util.RoutingRender method)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="reference/openfpga/routing_render.html#spydrnet_physical.util.RoutingRender.add_partitions">add_partitions() (spydrnet_physical.util.RoutingRender method)</a>
+</li>
         <li><a href="reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_perimeter">add_perimeter() (util.FPGAGridGen.FPGAGridGen method)</a>
 </li>
         <li><a href="reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement.add_sb">add_sb() (util.initial_placement.initial_placement method)</a>
@@ -390,8 +397,6 @@
         <li><a href="reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.add_symbol">add_symbol() (spydrnet_physical.util.FloorPlanViz method)</a>
 </li>
         <li><a href="reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.add_top_block">add_top_block() (spydrnet_physical.util.FloorPlanViz method)</a>
-</li>
-        <li><a href="reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.area">area (spydrnet_physical.ir.definition.Definition property)</a>
 </li>
         <li><a href="reference/classes/cable.html#spydrnet_physical.ir.cable.Cable.assign_cable">assign_cable() (spydrnet_physical.ir.cable.Cable method)</a>
 </li>
@@ -491,8 +496,6 @@
         </ul></li>
         <li><a href="reference/classes/library.html#spydrnet_physical.ir.library.Library.create_top_wrapper">create_top_wrapper() (spydrnet_physical.ir.library.Library method)</a>
 </li>
-        <li><a href="reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.create_unconn_wires">create_unconn_wires() (spydrnet_physical.ir.definition.Definition method)</a>
-</li>
         <li><a href="reference/utility_classes/ConnectPoint.html#util.ConnectPointList.ConnectPointList.crop_edges">crop_edges() (util.ConnectPointList.ConnectPointList method)</a>, <a href="reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.crop_edges">[1]</a>
 </li>
         <li><a href="reference/visualization/floorplan_visualizer.html#spydrnet_physical.util.FloorPlanViz.custom_style_sheet">custom_style_sheet (spydrnet_physical.util.FloorPlanViz property)</a>
@@ -570,8 +573,6 @@
         <li><a href="reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_block_size">get_block_size() (util.FPGAGridGen.FPGAGridGen method)</a>
 </li>
         <li><a href="reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.get_connectivity_network">get_connectivity_network() (spydrnet_physical.ir.definition.Definition method)</a>
-</li>
-        <li><a href="reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.get_custom_boundary">get_custom_boundary() (spydrnet_physical.ir.definition.Definition static method)</a>
 </li>
         <li><a href="reference/classes/wire.html#spydrnet_physical.ir.wire.Wire.get_driver">get_driver() (spydrnet_physical.ir.wire.Wire method)</a>
 </li>
@@ -651,19 +652,13 @@
         </ul></li>
         <li><a href="reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement">initial_placement (class in util.initial_placement)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/classes/innerpin.html#spydrnet_physical.ir.innerpin.InnerPin">InnerPin (class in spydrnet_physical.ir.innerpin)</a>
 </li>
         <li><a href="reference/classes/instance.html#spydrnet_physical.ir.instance.Instance">Instance (class in spydrnet_physical.ir.instance)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/classes/pin.html#spydrnet_physical.ir.pin.Pin.is_connected">is_connected (spydrnet_physical.ir.pin.Pin property)</a>
-</li>
-        <li><a href="reference/classes/port.html#spydrnet_physical.ir.port.Port.is_inout">is_inout (spydrnet_physical.ir.port.Port property)</a>
-</li>
-        <li><a href="reference/classes/port.html#spydrnet_physical.ir.port.Port.is_input">is_input (spydrnet_physical.ir.port.Port property)</a>
-</li>
-        <li><a href="reference/classes/port.html#spydrnet_physical.ir.port.Port.is_output">is_output (spydrnet_physical.ir.port.Port property)</a>
 </li>
         <li><a href="reference/classes/cable.html#spydrnet_physical.ir.cable.Cable.is_port_cable">is_port_cable (spydrnet_physical.ir.cable.Cable property)</a>
 </li>
@@ -753,16 +748,14 @@
 </li>
         <li><a href="reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.place_pins">place_pins() (spydrnet_physical.util.OpenFPGA method)</a>
 </li>
-        <li><a href="reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.PolyArea2D">PolyArea2D() (spydrnet_physical.ir.definition.Definition static method)</a>
-</li>
         <li><a href="reference/classes/port.html#spydrnet_physical.ir.port.Port">Port (class in spydrnet_physical.ir.port)</a>
 </li>
         <li><a href="reference/classes/outerpin.html#spydrnet_physical.ir.outerpin.OuterPin.port">port (spydrnet_physical.ir.outerpin.OuterPin property)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/utility_classes/utils_helper_functions.html#util.prepare_graph_from_nx">prepare_graph_from_nx() (in module util)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.print_full_grid">print_full_grid() (util.FPGAGridGen.FPGAGridGen method)</a>
 </li>
         <li><a href="reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.print_grid">print_grid() (util.FPGAGridGen.FPGAGridGen method)</a>
@@ -846,6 +839,8 @@
         <ul>
           <li><a href="tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition.setUp">(spydrnet_physical.ir.tests.test_definition.TestDefinition method)</a>
 </li>
+          <li><a href="tests/element.html#spydrnet_physical.ir.tests.test_element.TestElement.setUp">(spydrnet_physical.ir.tests.test_element.TestElement method)</a>
+</li>
           <li><a href="tests/innerpin.html#spydrnet_physical.ir.tests.test_innerpin.TestInnerPin.setUp">(spydrnet_physical.ir.tests.test_innerpin.TestInnerPin method)</a>
 </li>
           <li><a href="tests/library.html#spydrnet_physical.ir.tests.test_library.TestLibrary.setUp">(spydrnet_physical.ir.tests.test_library.TestLibrary method)</a>
@@ -871,14 +866,6 @@
           <li><a href="reference/classes/port.html#spydrnet_physical.ir.port.Port.size">(spydrnet_physical.ir.port.Port property)</a>
 </li>
         </ul></li>
-        <li><a href="reference/classes/cable.html#spydrnet_physical.ir.cable.Cable.split">split() (spydrnet_physical.ir.cable.Cable method)</a>
-
-        <ul>
-          <li><a href="reference/classes/port.html#spydrnet_physical.ir.port.Port.split">(spydrnet_physical.ir.port.Port method)</a>
-</li>
-        </ul></li>
-        <li><a href="reference/classes/definition.html#spydrnet_physical.ir.definition.Definition.split_port">split_port() (spydrnet_physical.ir.definition.Definition method)</a>
-</li>
         <li><a href="reference/utility_classes/ConnectPoint.html#util.ConnectPointList.ConnectPointList.store_points">store_points() (util.ConnectPointList.ConnectPointList method)</a>, <a href="reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.store_points">[1]</a>
 </li>
         <li><a href="reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.svg_main">svg_main (util.ConnectionPattern.ConnectionPattern property)</a>
@@ -917,6 +904,8 @@
 </li>
         <li><a href="tests/outerpin.html#spydrnet_physical.ir.tests.test_outerpin.TestOuterPin.test_get_index">test_get_index() (spydrnet_physical.ir.tests.test_outerpin.TestOuterPin method)</a>
 </li>
+        <li><a href="tests/element.html#spydrnet_physical.ir.tests.test_element.TestElement.test_index">test_index() (spydrnet_physical.ir.tests.test_element.TestElement method)</a>
+</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="tests/cable.html#spydrnet_physical.ir.tests.test_cable.TestCable.test_is_port_cable">test_is_port_cable() (spydrnet_physical.ir.tests.test_cable.TestCable method)</a>
@@ -928,6 +917,8 @@
         <li><a href="tests/cable.html#spydrnet_physical.ir.tests.test_cable.TestCable">TestCable (class in spydrnet_physical.ir.tests.test_cable)</a>
 </li>
         <li><a href="tests/definition.html#spydrnet_physical.ir.tests.test_definition.TestDefinition">TestDefinition (class in spydrnet_physical.ir.tests.test_definition)</a>
+</li>
+        <li><a href="tests/element.html#spydrnet_physical.ir.tests.test_element.TestElement">TestElement (class in spydrnet_physical.ir.tests.test_element)</a>
 </li>
         <li><a href="tests/innerpin.html#spydrnet_physical.ir.tests.test_innerpin.TestInnerPin">TestInnerPin (class in spydrnet_physical.ir.tests.test_innerpin)</a>
 </li>
