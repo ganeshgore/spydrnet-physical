@@ -96,18 +96,20 @@ class TestFpgaGridGen(unittest.TestCase):
         self.assertEqual(grid_gen.height, 4)
 
         expected_full_grid = list(reversed([
-            ['top', 'top', 'top', 'top', 'top', 'top', 'top'],
-            ['top', 'sb_0__2_', 'cbx_1__2_', 'sb_1__2_',
-                'cbx_2__2_', 'sb_2__2_', 'top'],
-            ['top', 'cby_0__2_', 'clb_1__2_', 'cby_1__2_',
-                'clb_2__2_',  'cby_2__2_', 'top'],
-            ['top', 'sb_0__1_', 'cbx_1__1_', 'sb_1__1_',
-                'cbx_2__1_', 'sb_2__1_', 'top'],
-            ['top', 'cby_0__1_', 'clb_1__1_',  'cby_1__1_',
-                'clb_2__1_', 'cby_2__1_', 'top'],
-            ['top', 'sb_0__0_', 'cbx_1__0_', 'sb_1__0_',
-                'cbx_2__0_', 'sb_2__0_', 'top'],
-            ['top', 'top', 'top', 'top', 'top', 'top', 'top']
+            ['EMPTY', 'EMPTY', 'io_top_1__2_', 'top',
+                'io_top_2__2_', 'EMPTY', 'EMPTY'],
+            ['EMPTY', 'sb_0__2_', 'cbx_1__2_', 'sb_1__2_',
+                'cbx_2__2_', 'sb_2__2_', 'EMPTY'],
+            ['io_left_0__2_', 'cby_0__2_', 'clb_1__2_', 'cby_1__2_',
+                'clb_2__2_',  'cby_2__2_', 'io_right_2__2_'],
+            ['EMPTY', 'sb_0__1_', 'cbx_1__1_', 'sb_1__1_',
+                'cbx_2__1_', 'sb_2__1_', 'EMPTY'],
+            ['io_left_0__1_', 'cby_0__1_', 'clb_1__1_',  'cby_1__1_',
+                'clb_2__1_', 'cby_2__1_', 'io_right_2__1_'],
+            ['EMPTY', 'sb_0__0_', 'cbx_1__0_', 'sb_1__0_',
+                'cbx_2__0_', 'sb_2__0_', 'EMPTY'],
+            ['EMPTY', 'EMPTY', 'io_bottom_1__0_', 'EMPTY',
+                'io_bottom_2__0_', 'EMPTY', 'EMPTY']
         ]))
         for yi in range(0, grid_gen.height):
             for xi in range(0, grid_gen.width):
