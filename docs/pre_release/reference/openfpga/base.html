@@ -140,7 +140,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -306,7 +306,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -314,13 +314,113 @@
         <article role="main">
           <section id="openfpga-base">
 <span id="id1"></span><h1>OpenFPGA Base<a class="headerlink" href="#openfpga-base" title="Permalink to this headline">¶</a></h1>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">spydrnet_physical.util.</span></span><span class="sig-name descname"><span class="pre">OpenFPGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'work'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fpga_top'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch_xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is top-level clas of OpenFPGa which provides methods for
 different generic netlist restructuring</p>
+<p><strong>Methods:</strong></p>
+<div class="table-wrapper"><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%"/>
+<col style="width: 90%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.__init__" title="spydrnet_physical.util.OpenFPGA.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<td><p>Init class with OpenFPGA netlist</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.register_tile_generator" title="spydrnet_physical.util.OpenFPGA.register_tile_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_tile_generator</span></code></a></p></td>
+<td><p>This registers the tile generator class to OpenFPGA base class</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.register_config_generator" title="spydrnet_physical.util.OpenFPGA.register_config_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_config_generator</span></code></a></p></td>
+<td><p>This registers the tile generator class to OpenFPGA base class</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.register_placement_creator" title="spydrnet_physical.util.OpenFPGA.register_placement_creator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_placement_creator</span></code></a></p></td>
+<td><p>This registers the tile generator class to OpenFPGA base class</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_tiles" title="spydrnet_physical.util.OpenFPGA.create_tiles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_tiles</span></code></a></p></td>
+<td><p>proxy function to create_tiles method of  tile_creator class</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.add_configuration_scheme" title="spydrnet_physical.util.OpenFPGA.add_configuration_scheme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_configuration_scheme</span></code></a></p></td>
+<td><p>proxy function to create_tiles method of tile_creator class</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_placement" title="spydrnet_physical.util.OpenFPGA.create_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_placement</span></code></a></p></td>
+<td><p>Proxy fucntion to add placement and shaping information to each instance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.place_pins" title="spydrnet_physical.util.OpenFPGA.place_pins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_pins</span></code></a></p></td>
+<td><p>This adds pin placment nforamtion to tile instances</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.render_floorplan" title="spydrnet_physical.util.OpenFPGA.render_floorplan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_floorplan</span></code></a></p></td>
+<td><p>This method runs the fpga render class to assign shape and location to each module instance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_custom_boundary</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cross_shape_boundary</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_shaping_data</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_placement_data</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_utilization_data</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">design_instance_map</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.design_top_stat" title="spydrnet_physical.util.OpenFPGA.design_top_stat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">design_top_stat</span></code></a></p></td>
+<td><p>Get statistics of the top module</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_direct_interc</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.merge_all_grid_ios" title="spydrnet_physical.util.OpenFPGA.merge_all_grid_ios"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_all_grid_ios</span></code></a></p></td>
+<td><p>This method creates the group of <code class="docutils literal notranslate"><span class="pre">grid_io</span></code> and neighbouring <code class="docutils literal notranslate"><span class="pre">connection_box</span></code> whichcna be merge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.remove_config_chain" title="spydrnet_physical.util.OpenFPGA.remove_config_chain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_config_chain</span></code></a></p></td>
+<td><p>Remove configuration chain from design</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.remove_undriven_nets" title="spydrnet_physical.util.OpenFPGA.remove_undriven_nets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_undriven_nets</span></code></a></p></td>
+<td><p>Removes undriven/floating nets from the top level</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_grid_io_bus" title="spydrnet_physical.util.OpenFPGA.create_grid_io_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_io_bus</span></code></a></p></td>
+<td><p>Convert <cite>grid_io</cite> Input/Output pins to bus structure</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_grid_clb_bus" title="spydrnet_physical.util.OpenFPGA.create_grid_clb_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_clb_bus</span></code></a></p></td>
+<td><p>Convert <cite>grid_clb</cite> Input/Output pins to bus structure</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_sb_bus" title="spydrnet_physical.util.OpenFPGA.create_sb_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_sb_bus</span></code></a></p></td>
+<td><p>Convert <cite>sb</cite> Input pins to bus structure</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_cb_bus" title="spydrnet_physical.util.OpenFPGA.create_cb_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_cb_bus</span></code></a></p></td>
+<td><p>Convert <cite>cb</cite> Input pins to bus structure</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_grid_clb_feedthroughs" title="spydrnet_physical.util.OpenFPGA.create_grid_clb_feedthroughs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_clb_feedthroughs</span></code></a></p></td>
+<td><p>Creates feedthrough for <code class="docutils literal notranslate"><span class="pre">grid_clb</span></code> outputs, to convert digonal connections to horizontal and vertical</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_written_modules</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_include_file</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.save_netlist" title="spydrnet_physical.util.OpenFPGA.save_netlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_netlist</span></code></a></p></td>
+<td><p>Save verilog files</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_grid</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.get_top_instance" title="spydrnet_physical.util.OpenFPGA.get_top_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code></a></p></td>
+<td><p>This method generates the grid instance information given the cordinate points</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.fix_grid_pin_names" title="spydrnet_physical.util.OpenFPGA.fix_grid_pin_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_grid_pin_names</span></code></a></p></td>
+<td><p>This method is used to fix the pin names on the grid modules</p></td>
+</tr>
+</tbody>
+</table></div>
 <p><strong>Attributes:</strong></p>
 <div class="table-wrapper"><table class="longtable docutils align-default">
 <colgroup>
@@ -339,75 +439,21 @@ different generic netlist restructuring</p>
 </tr>
 </tbody>
 </table></div>
-<p><strong>Methods:</strong></p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.register_tile_generator" title="spydrnet_physical.util.OpenFPGA.register_tile_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_tile_generator</span></code></a>(cls, *args, **kwargs)</p></td>
-<td><p>This registers the tile generator class to OpenFPGA base class</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.register_config_generator" title="spydrnet_physical.util.OpenFPGA.register_config_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_config_generator</span></code></a>(cls, *args, **kwargs)</p></td>
-<td><p>This registers the tile generator class to OpenFPGA base class</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.register_placement_creator" title="spydrnet_physical.util.OpenFPGA.register_placement_creator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_placement_creator</span></code></a>(cls, *args, **kwargs)</p></td>
-<td><p>This registers the tile generator class to OpenFPGA base class</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_tiles" title="spydrnet_physical.util.OpenFPGA.create_tiles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_tiles</span></code></a>()</p></td>
-<td><p>proxy function to create_tiles method of  tile_creator class</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.add_configuration_scheme" title="spydrnet_physical.util.OpenFPGA.add_configuration_scheme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_configuration_scheme</span></code></a>()</p></td>
-<td><p>proxy function to create_tiles method of tile_creator class</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_placement" title="spydrnet_physical.util.OpenFPGA.create_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_placement</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Proxy fucntion to add placement and shaping information to each instance</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.place_pins" title="spydrnet_physical.util.OpenFPGA.place_pins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">place_pins</span></code></a>()</p></td>
-<td><p>This adds pin placment nforamtion to tile instances</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.render_floorplan" title="spydrnet_physical.util.OpenFPGA.render_floorplan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_floorplan</span></code></a>()</p></td>
-<td><p>This method runs the fpga render class to assign shape and location to each module instance</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.design_top_stat" title="spydrnet_physical.util.OpenFPGA.design_top_stat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">design_top_stat</span></code></a>([pattern, quiet, filename, ...])</p></td>
-<td><p>Get statistics of the top module</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.merge_all_grid_ios" title="spydrnet_physical.util.OpenFPGA.merge_all_grid_ios"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_all_grid_ios</span></code></a>()</p></td>
-<td><p>This method creates the group of <code class="docutils literal notranslate"><span class="pre">grid_io</span></code> and neighbouring <code class="docutils literal notranslate"><span class="pre">connection_box</span></code> whichcna be merge.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.remove_config_chain" title="spydrnet_physical.util.OpenFPGA.remove_config_chain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_config_chain</span></code></a>([name])</p></td>
-<td><p>Remove configuration chain from design</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.remove_undriven_nets" title="spydrnet_physical.util.OpenFPGA.remove_undriven_nets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_undriven_nets</span></code></a>([pattern])</p></td>
-<td><p>Removes undriven/floating nets from the top level</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_grid_io_bus" title="spydrnet_physical.util.OpenFPGA.create_grid_io_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_io_bus</span></code></a>([inpad, outpad, sort_pins])</p></td>
-<td><p>Convert <cite>grid_io</cite> Input/Output pins to bus structure</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_grid_clb_bus" title="spydrnet_physical.util.OpenFPGA.create_grid_clb_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_clb_bus</span></code></a>()</p></td>
-<td><p>Convert <cite>grid_clb</cite> Input/Output pins to bus structure</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_sb_bus" title="spydrnet_physical.util.OpenFPGA.create_sb_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_sb_bus</span></code></a>([pins])</p></td>
-<td><p>Convert <cite>sb</cite> Input pins to bus structure</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_cb_bus" title="spydrnet_physical.util.OpenFPGA.create_cb_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_cb_bus</span></code></a>([pins])</p></td>
-<td><p>Convert <cite>cb</cite> Input pins to bus structure</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.create_grid_clb_feedthroughs" title="spydrnet_physical.util.OpenFPGA.create_grid_clb_feedthroughs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_grid_clb_feedthroughs</span></code></a>()</p></td>
-<td><p>Creates feedthrough for <code class="docutils literal notranslate"><span class="pre">grid_clb</span></code> outputs, to convert digonal connections to horizontal and vertical</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.save_netlist" title="spydrnet_physical.util.OpenFPGA.save_netlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_netlist</span></code></a>([patten, location, sort_print, ...])</p></td>
-<td><p>Save verilog files</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.get_top_instance" title="spydrnet_physical.util.OpenFPGA.get_top_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code></a>(x, y)</p></td>
-<td><p>This method generates the grid instance information given the cordinate points</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.fix_grid_pin_names" title="spydrnet_physical.util.OpenFPGA.fix_grid_pin_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_grid_pin_names</span></code></a>([regex, module, name_map])</p></td>
-<td><p>This method is used to fix the pin names on the grid modules</p></td>
-</tr>
-</tbody>
-</table></div>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'work'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fpga_top'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch_xml</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init class with OpenFPGA netlist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<em>int, int</em>) – Size of the FPGA grid</p></li>
+<li><p><strong>netlist</strong> (<em>sdn.netlist</em>) – Pass OpenFPGA core netlist</p></li>
+<li><p><strong>library</strong> (<em>str</em>) – library name</p></li>
+<li><p><strong>top_module</strong> (<em>str</em>) – top_module name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.netlist">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">netlist</span></span><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.netlist" title="Permalink to this definition">¶</a></dt>
@@ -614,7 +660,6 @@ cordinate points</p>
 </dd></dl>
 </dd></dl>
 </section>
-</section>
 
         </article>
       </div>
@@ -657,27 +702,8 @@ cordinate points</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            Contents
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">OpenFPGA Base</a><ul>
-<li><a class="reference internal" href="#overview">Overview</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

@@ -339,7 +339,7 @@
 
 <span class="sd">    '''</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="s2">"work"</span><span class="p">,</span> <span class="n">top_module</span><span class="o">=</span><span class="s2">"fpga_top"</span><span class="p">,</span>
+<div class="viewcode-block" id="OpenFPGA.__init__"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="s2">"work"</span><span class="p">,</span> <span class="n">top_module</span><span class="o">=</span><span class="s2">"fpga_top"</span><span class="p">,</span>
                  <span class="n">arch_xml</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Init class with OpenFPGA netlist</span>
@@ -363,7 +363,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">load_grid</span><span class="p">(</span><span class="n">arch_xml</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fpga_grid</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">initial_placement</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">initial_placement</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">netlist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
