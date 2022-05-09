@@ -2,6 +2,7 @@
 import logging
 import typing
 from itertools import combinations
+from spydrnet_physical.global_state import global_callback as sdnphy_global_callback
 import numpy as np
 import spydrnet as sdn
 from spydrnet.ir import Definition as DefinitionBase
@@ -248,7 +249,7 @@ class Definition(DefinitionBase):
         for indx2, instances_list in enumerate(instances_list):
             for indx, inst in enumerate(instances_list[1][::-1]):
                 cable = instances_list[0]
-                logger.debug(f"Iterating {cable.name} for inst {inst.name}")
+                logger.debug("Iterating %s for inst %s", cable.name, inst.name)
 
                 new_cable = self.create_cable(f"{cable.name}_ft_{indx}")
                 new_cable.create_wires(cable.size)
@@ -279,21 +280,23 @@ class Definition(DefinitionBase):
             new_definition_name (str) = Name for the new definition
             pin_map (Callable)          = Function of dictionary to rename pins
         """
-        mainDef = None
+        main_def = None
         instance_list = []
         for instances_list, instance_name in instances_list_tuple:
-            newDef, newInst, _ = self.merge_instance(instances_list,
-                                                     new_definition_name=f"{new_definition_name}_{instance_name}",
-                                                     new_instance_name=instance_name,
-                                                     pin_map=pin_map)
-            instance_list.append(newInst)
-            if not mainDef:
-                mainDef = newDef
-                mainDef.name = new_definition_name
+            new_def, new_inst, _ = self.merge_instance(
+                instances_list,
+                new_definition_name=f"{new_definition_name}_{instance_name}",
+                new_instance_name=instance_name,
+                pin_map=pin_map)
+            instance_list.append(new_inst)
+            if not main_def:
+                # If this is first merge copy the newly created definition
+                main_def = new_def
+                main_def.name = new_definition_name
             else:
-                newInst.reference = mainDef
-                self.library.remove_definition(newDef)
-        return mainDef, instance_list
+                new_inst.reference = main_def
+                self.library.remove_definition(new_def)
+        return main_def, instance_list
 
     # TODO: Try to break this method
     def merge_instance(self, instances_list,
@@ -314,20 +317,21 @@ class Definition(DefinitionBase):
         returns:
             (Definition, Instance, Dict)
         """
-        RenameMap = {}  # Stores the final rename map
+        rename_map = {}  # Stores the final rename map
 
         # ====== Input Sanity checks
-        for i, eachModule in enumerate(instances_list):
-            assert isinstance(
-                eachModule, sdn.Instance), "Modulelist contains none non-intance object [%s] at location %d " % (type(eachModule), i)
+        for i, each_module in enumerate(instances_list):
+            assert isinstance(each_module, sdn.Instance), \
+                "Modulelist contains none non-intance object " + \
+                "[%s] at location %d " % (type(each_module), i)
 
         if pin_map:
             if isinstance(pin_map, dict):
                 pin_map_copy = pin_map
                 def pin_map(x, y, _): return pin_map_copy.get(x, {}).get(y, {})
             if not callable(pin_map):
-                print(
-                    "pin_map argument should be dictionary or function, received {type(pin_map)}")
+                print("pin_map argument should be dictionary or function, " +
+                      f"received {type(pin_map)}")
 
         # ====== Create a new definition
         if not new_definition_name:
@@ -336,30 +340,30 @@ class Definition(DefinitionBase):
             print(f"Inferred definition name {new_def_name} ")
         else:
             new_def_name = new_definition_name
-        newMod = self.library.create_definition(name=new_def_name)
+        new_mod = self.library.create_definition(name=new_def_name)
 
         # ===== Create instance of the definition
         if not new_instance_name:
             new_instance_name = f"{new_def_name}_1"
-        MergedModule = self.create_child(name=new_instance_name,
-                                         reference=newMod)
+        merged_module = self.create_child(name=new_instance_name,
+                                          reference=new_mod)
 
         # ===== Interate over each module and create new module
         for index, eachM in enumerate(instances_list):
 
-            RenameMap[eachM.reference.name] = {}
-            RenameMap[eachM.reference.name][index] = {}
-            currMap = RenameMap[eachM.reference.name][index]
-            IntInst = newMod.create_child(name=eachM.name,
-                                          reference=eachM.reference)
+            rename_map[eachM.reference.name] = {}
+            rename_map[eachM.reference.name][index] = {}
+            currMap = rename_map[eachM.reference.name][index]
+            IntInst = new_mod.create_child(name=eachM.name,
+                                           reference=eachM.reference)
             # Iterate over each port of current instance
             for p in eachM.get_ports():
                 pClone = p.clone()  # It copied all pins, wires and cables
                 for eachSuffix in [""]+[f"_{i}" for i in range(1000)]:
                     newName = pClone.name + eachSuffix
-                    if not len(list(newMod.get_ports(newName))):
+                    if not len(list(new_mod.get_ports(newName))):
                         break
-                newCable = newMod.create_cable(
+                newCable = new_mod.create_cable(
                     name=newName,
                     is_downto=pClone.is_downto,
                     is_scalar=pClone.is_scalar,
@@ -372,21 +376,23 @@ class Definition(DefinitionBase):
                     w.connect_pin(eachPClone)
                     w.connect_pin(IntInst.pins[eachP])
                 pClone.change_name(newName)
-                newMod.add_port(pClone)
+                new_mod.add_port(pClone)
 
                 currMap[p.name] = newName
 
                 for eachPin in p.pins:
-                    instOutPin = eachM.pins[eachPin]
-                    conWire = instOutPin.wire
-                    instPin = MergedModule.pins[pClone.pins[eachPin.index()]]
+                    inst_out_pin = eachM.pins[eachPin]
+                    conWire = inst_out_pin.wire
+                    instPin = merged_module.pins[pClone.pins[eachPin.index()]]
                     if conWire:
                         conWire.connect_pin(instPin)
-                        conWire.disconnect_pin(instOutPin)
-                    newCable.wires[eachPin.index()].connect_pin(instOutPin)
+                        conWire.disconnect_pin(inst_out_pin)
+                    newCable.wires[eachPin.index()].connect_pin(inst_out_pin)
 
             self.remove_child(eachM)
-        return newMod, MergedModule, RenameMap
+        sdnphy_global_callback._call_merged_instance(
+            new_mod, merged_module, instances_list)
+        return new_mod, merged_module, rename_map
 
     def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True):
         """
@@ -748,7 +754,7 @@ class Definition(DefinitionBase):
         each cell is represented as as node and nets are represented as edges
 
         - Netowrkx should be installed
-        - Higher fanout nets are represented with independent edge from driver 
+        - Higher fanout nets are represented with independent edge from driver
         to each load
 
         """
