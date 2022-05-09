@@ -139,13 +139,11 @@ def main():
             next(fpga.netlist.get_definitions(module))[PROP]["POINTS"]
         next(tp.get_definitions(module_name))[PROP]["SHAPE"] = \
             next(fpga.netlist.get_definitions(module))[PROP]["SHAPE"]
-        next(tp.get_definitions(module_name))[PROP]["COLOR"] = SB_COLOR
         # next(tp.get_definitions(module_name))[PROP]["POINTS"][1] += 145
         # next(tp.get_definitions(module_name))[PROP]["POINTS"][2] += 145
 
     list(next(fpga.netlist.get_definitions("sb_0__4_")).references)[0].name = \
         "rb_0__4_"
-    next(fpga.netlist.get_definitions("sb_0__4_"))[PROP]["COLOR"] = SB_COLOR
     next(fpga.netlist.get_definitions("sb_0__4_")).name = "rb_0__4_"
     fpga.design_top_stat()
 
@@ -171,20 +169,14 @@ def main():
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #           Adjust Floorplan
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    for cbx in fpga.top_module.get_definitions("cbx_*"):
-        cbx.data[PROP]["COLOR"] = CBX_COLOR
-
-    for cby in fpga.top_module.get_definitions("cby_*"):
-        cby.data[PROP]["COLOR"] = CBY_COLOR
-
-    for sb in fpga.top_module.get_definitions("sb_*"):
+    for sb in fpga.top_module.get_definitions("rb_*"):
         sb.data[PROP]["COLOR"] = SB_COLOR
 
     clb: sdn.Definition = next(fpga.top_module.get_definitions("grid_clb"))
     clb.data[PROP]["COLOR"] = GRID_COLOR
 
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    fpga.show_placement_data("sb_*")
+    fpga.show_placement_data("rb_*")
     # fpga.design_top_stat()
 
     fp = FloorPlanViz(fpga.top_module)
