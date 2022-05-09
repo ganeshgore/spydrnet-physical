@@ -13,6 +13,8 @@ Base Transformations
    :maxdepth: 1
 
    base
+
+   ../utility_classes/openfpga_arch
    
    routing_render
 

@@ -9,6 +9,16 @@ from spydrnet_physical.util.shell import launch_shell
 
 
 class OpenFPGA_Arch:
+    """
+    This is an architecture parser which parses the VPR and OpenFPGA XML files
+    and provides easy interface APIs
+
+
+    .. note:: The idea here is not to parse complete architecture and
+      rebuild the openfpga and VPR mapping
+
+
+    """
 
     def __init__(self, vpr_arch, openfpga_arch, layout) -> None:
         self.vpr_arch = vpr_arch if isinstance(
@@ -23,24 +33,19 @@ class OpenFPGA_Arch:
         self.grid = [[0 for x in range(self.width)]
                      for y in range(self.height)]
 
-    def get_width(self):
-        ''' Get width of FPGA '''
-        return self.width-2
-
-    def get_height(self):
-        ''' Get height of FPGA '''
-        return self.height-2
-
     @property
     def pb_types(self):
+        ''' Returns list of pb_types in the architecture '''
         return self._pb_types
 
     @property
     def tiles(self):
+        ''' Returns list of tiles in the architecture '''
         return self._tiles
 
     @property
     def layout(self):
+        """ Returns selected layout name """
         return self._layout
 
     def _get_pb_types(self):
@@ -51,10 +56,21 @@ class OpenFPGA_Arch:
         return {tile.get('name'): (int(tile.get('width', 1)), int(tile.get('height', 1)))
                 for tile in self.vpr_arch.findall("./tiles/tile")}
 
+    def get_width(self):
+        ''' Return width of selected layout '''
+        return self.width-2
+
+    def get_height(self):
+        ''' Return height of selected layout '''
+        return self.height-2
+
     def get_layouts(self):
-        '''
-        Returns available layouts in the architecture
-        '''
+        """
+        Returns the dictionary of avaialble layouts in the architecture
+
+        Returns:
+            dict: Available layouts as a key and (width, height) as a value of each key
+        """
         layout = {}
         for each in self.vpr_arch.find("layout").findall("fixed_layout"):
             layout[each.get("name")] = (int(each.get("width")),
@@ -75,8 +91,11 @@ class OpenFPGA_Arch:
         """
         Checks if the device is homogeneous device or heterogenous
 
-        if layout section contains anything other than `corner`, `periphery` and 
-        `fill` the device is consider as a homogeneous 
+        if layout section contains anything other than `corner`, `periphery` and
+        `fill` the device is consider as a homogeneous
         """
         layout = self.vpr_arch.find("layout").findall("fixed_layout")[0]
         print(layout.findall("clb"))
+
+    def is_homogeneous(self):
+        pass
