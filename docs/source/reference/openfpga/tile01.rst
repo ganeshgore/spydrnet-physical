@@ -34,8 +34,11 @@ Detail of each Tile
 
 Methods
 =======
-.. currentmodule:: spydrnet_physical.util
-.. autoclass:: Tile01
-   :private-members:
-   :members:
-   :member-order: bysource
+.. autoclass:: spydrnet_physical.util.Tile01
+    :members:
+    :autosummary:
+    :private-members:
+    :autosummary-nosignatures:
+    :autosummary-undoc-members:
+    :member-order: bysource
+    :special-members: __init__

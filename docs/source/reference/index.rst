@@ -7,9 +7,11 @@ API Reference
    :maxdepth: 1
 
    classes/index
-   
-   utility/index
-   
+
    visualization/index
-   
+
+   connectivity/index
+
    openfpga/index
+
+   utility/index

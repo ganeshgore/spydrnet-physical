@@ -18,6 +18,7 @@ import sys
 import pathlib
 sys.path.insert(0, os.path.abspath('../..'))  # nopep8
 sys.path.insert(0, os.path.abspath('../../spydrnet_physical'))  # nopep8
+sys.path.insert(0, os.path.abspath('./extensions'))  # nopep8
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from sphinx_gallery.sorting import ExplicitOrder
@@ -62,16 +63,25 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinxcontrib_hdl_diagrams',
     'sphinx_gallery.gen_gallery',
+    'autodocsumm',
+    # 'helloworld',
+    # 'sphinxcontrib.needs',
+    # 'sphinxcontrib.test_reports',
+    # 'sphinxcontrib.plantuml',
 ]
 
 
 # generate autosummary pages
 autosummary_generate = True
+autodoc_member_order = "bysource"
+autodoc_default_options = {
+    'autosummary': True,
+}
 
 graphviz_output_format = "svg"
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ['templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -125,6 +135,9 @@ html_css_files = [
 # documentation.
 #
 # html_theme_options = {}
+html_theme_options = {
+    "navigation_with_keys": True,
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -223,29 +236,28 @@ epub_title = project
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
-rst_epilog = """
-.. |sdphy| replace:: SpyDrNet-Physical
+rst_epilog = f"""
+.. |sdnphy| replace:: SpyDrNet-Physical
 """
 
 sphinx_gallery_conf = {
     # path to your example scripts
     'examples_dirs': [
         os.path.join('..', '..', 'examples', 'basic'),
-        os.path.join('..', '..', 'examples', 'OpenFPGA')
+        os.path.join('..', '..', 'examples', 'OpenFPGA_basic'),
+        os.path.join('..', '..', 'examples', 'OpenFPGA_clock_tree'),
+        os.path.join('..', '..', 'examples', 'OpenFPGA_tiling'),
+        os.path.join('..', '..', 'examples', 'OpenFPGA_rendering'),
+        os.path.join('..', '..', 'examples', 'OpenFPGA_config_chain')
     ],
     # path to where to save gallery generated output
-    'gallery_dirs': ['auto_basic', "auto_openfpga"],
+    'gallery_dirs': ['auto_basic', "auto_openfpga_basic",
+                     "auto_openfpga_clock_tree", "auto_openfpga_tiling",
+                     "auto_openfpga_rendering", "auto_openfpga_config_chain"],
     'remove_config_comments': True,
     'filename_pattern': '/*.py',
     'capture_repr': (),
-    'within_subsection_order': FileNameSortKey,
-    'subsection_order': ExplicitOrder(['../../examples/basic',
-                                       '../../examples/OpenFPGA',
-                                       '../../examples/OpenFPGA/basic',
-                                       '../../examples/OpenFPGA/clock_tree',
-                                       '../../examples/OpenFPGA/config_chain',
-                                       '../../examples/OpenFPGA/rendering',
-                                       '../../examples/OpenFPGA/partition']),
+    'within_subsection_order': FileNameSortKey
 }
 
 
@@ -271,6 +283,8 @@ def CollectRst():
                 # print()
                 with open(os.path.join(out_dir, basename+".rst"), "w") as fp:
                     fp.write(
+                        f'.. _sample_verilog_{basename.replace(" ","_")}:\n' +
+                        f'\n' +
                         f'{basename}\n' +
                         f'=================\n\n' +
                         f'.. hdl-diagram:: ../{filename}\n' +
@@ -282,5 +296,12 @@ def CollectRst():
                     )
     index_fp.close()
 
+
+SDN_DOC_SOURCE = os.path.dirname(sdn.__file__)+"/../docs/source/"
+try:
+    os.symlink(SDN_DOC_SOURCE, "_SDN_DOC_SOURCE")
+except:
+    pass
+exclude_patterns.append("_SDN_DOC_SOURCE/**")
 
 CollectRst()

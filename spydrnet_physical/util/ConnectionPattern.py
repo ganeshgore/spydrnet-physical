@@ -13,14 +13,8 @@ None, None : Right
 0, None : Top
 '''
 import math
-from copy import deepcopy
-from shutil import move
-from typing import List
 
-import networkx as nx
-import spydrnet as sdn
-import svgwrite
-from spydrnet_physical.util import (ConnectPoint, ConnectPointList)
+from spydrnet_physical.util import ConnectPointList
 from svgwrite.container import Group
 
 DEFAULT_COLOR = " black"
@@ -49,20 +43,19 @@ class ConnectionPattern:
 
     @property
     def svg_main(self):
+        """ Returns the svgwrite drawing object, 
+        call after running ``render_pattern`` """
         return self.dwg_main
 
     @ property
     def connections(self):
+        """ Returns the ConnectPointList in current pattern """
         return self._connect
 
     @ connections.setter
     def connections(self, value):
         self._connect = value
         return self._connect
-
-    def reset(self):
-        self._connect = ConnectPointList(sizex=self.sizex,
-                                         sizey=self.sizey)
 
     @ staticmethod
     def _get_prime_factors(number):
@@ -79,15 +72,34 @@ class ConnectionPattern:
             prime_factors.append(int(number))
         return prime_factors
 
-    def auto_select(self):
-        '''
-        Auto implements the global tree with crop and scale operations
-        '''
-        NotImplementedError
-
     @staticmethod
     def get_htree(size, root=0, side=0, repeat=1):
-        ''' Returns H-Tree of specific size '''
+        '''
+        Returns H-Tree of specific size
+
+        Args:
+            root(int): Extension in the root connection (Default=0)
+            side(int): Extension in the side connection (Default=0)
+            repeat(int): NUmber of sides on each direction (Default=1)
+
+        .. rst-class:: ascii
+
+        ::
+
+            ^    ^         ^     ^
+            |    |         |     |
+            |    | root    |     |
+            +---------+----------+
+            |    |    |    |     | ^
+            |    |    |    |     | |  SIDE
+            v    v    |    v     v v
+                      |
+            ^    ^    |
+            +-+--+    |
+              +       |
+            REPEAT    +
+
+        '''
         points = ConnectPointList(sizex=size, sizey=size)
         size = size if size % 2 else (size-1)
         mid = (size+1)/2
@@ -108,9 +120,23 @@ class ConnectionPattern:
             points.move_y(value=-1, steps=int(mid/2)+side)
         return points
 
+    def auto_select(self):
+        '''
+        Auto implements the global tree with crop and scale operations
+
+        TODO: NotImplemented
+        '''
+        NotImplementedError
+
     def add_htree(self, n=3):
         '''
         Returns HTree pattern fo the given grid size
+
+        This method auto creates multiple levels of HTree from the given grid size.
+        Minimum size H-Tree is 5x5
+
+        args:
+            n (int): 2^n, Number representng size of the grid
         '''
         assert (math.log2(n-1) % 1) == 0, "Support only (2^n)+1 width"
         self._connect.merge(self.get_htree(n))
@@ -126,6 +152,11 @@ class ConnectionPattern:
         # x_center = ((self.sizex+1)*0.5)
         # y_center = ((self.sizey+1)*0.5)
         # print(x_center, y_center)
+
+    def reset(self):
+        """ Removes all the ConnectionPoints from the pattern """
+        self._connect = ConnectPointList(sizex=self.sizex,
+                                         sizey=self.sizey)
 
     def get_fishbone(self, width=None, height=None, steps=1, x_margin=(0, 0), y_margin=(0, 0)):
         '''
@@ -158,6 +189,10 @@ class ConnectionPattern:
         return points
 
     def render_pattern(self, scale=20, title=None, add_module_labels=False):
+        """
+        Renders the connection points
+
+        """
         dwg = self._connect.render_pattern(scale)
 
         self.dwg_main = [e for e in dwg.elements if e.get_id() == "main"][0]

@@ -262,7 +262,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
             for eachLine in open(self.areaFile, "r"):
                 module, dims = eachLine.split(" ", 1)
                 BlockArea[module] = list(map(float, list(dims.split())))
-            self.CLB_DIM = BlockArea["grid_clb_1__1_"]
+            self.CLB_DIM = BlockArea["grid_clb"]
             self.CB_DIM = BlockArea["cbx_1__1_"]
         else:
             self.CLB_DIM = [2500, 24*8, 24]

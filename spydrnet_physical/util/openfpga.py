@@ -10,6 +10,7 @@ from collections import OrderedDict
 from fnmatch import fnmatch
 from pathlib import Path
 from typing import Callable
+from itertools import chain
 
 import spydrnet as sdn
 from spydrnet_physical.util import FPGAGridGen, initial_placement
@@ -165,6 +166,8 @@ class OpenFPGA:
         for instance in self.top_module.get_instances(pattern):
             if "ASSIG" in instance.reference.name:
                 continue
+            if instance.reference.name.startswith("const"):
+                continue
             S = instance.reference.properties.get("SHAPE", "rect")
             W = instance.reference.properties.get("WIDTH", 0)
             H = instance.reference.properties.get("HEIGHT", 0)
@@ -182,6 +185,14 @@ class OpenFPGA:
                 S,
                 4 if S == "rect" else int(len(points)/2),
                 " ".join(map(lambda x: f"{x*scale: 6.3f}", points))))
+
+        W = self.top_module.properties.get("WIDTH", 1000)
+        H = self.top_module.properties.get("HEIGHT", 1000)
+        output.append("{:^20} {:^20} {: 10.2f} {: 10.2f} {:^8} {:^5} {:20}\n".format(
+            self.top_module.name, self.top_module.name, 0, 0,  'rect', 4,
+            " ".join(map(lambda x: f"{x*scale: 6.3f}",
+                         (0, 0, 0, H, W, H, W, 0)))
+        ))
         if filename:
             with open(filename, "w") as fp:
                 fp.write("\n".join(output))
@@ -219,6 +230,8 @@ class OpenFPGA:
                 continue
             if "ASSIG" in instance.reference.name:
                 continue
+            if instance.reference.name.startswith("const"):
+                continue
             output.append("{:<20s} {:8s} {:.2%} {:16.2f} {:16.2f} {:8} {:8}      {}".format(
                 instance.reference.name,
                 instance.reference.properties.get("SHAPE", "--"),
@@ -242,12 +255,13 @@ class OpenFPGA:
         for inst in design.children:
             if "ASSIG" in inst.reference.library.name:
                 continue
+            if inst.reference.name.startswith("const"):
+                continue
             if not inst.reference.name in inst_cnt.keys():
                 inst_cnt[inst.reference.name] = []
             inst_cnt[inst.reference.name].append(inst.name)
         return OrderedDict(sorted(inst_cnt.items(),
-                                  reverse=True,
-                                  key=lambda t: t[1]))
+                                  reverse=True))
 
     def design_top_stat(self, pattern="*", quiet=False, filename=None, function=[]):
         '''
@@ -261,6 +275,8 @@ class OpenFPGA:
         inst_cnt = {}
         for inst in design.children:
             if "ASSIG" in inst.reference.library.name:
+                continue
+            if inst.reference.name.startswith("const"):
                 continue
             inst_cnt[inst.reference.name] = 1 + \
                 inst_cnt.get(inst.reference.name, 0)
@@ -663,29 +679,7 @@ class OpenFPGA:
         This method generates the grid instance information given the 
         cordinate points 
         """
-        if 0 in (x, y):
-            return "top"
-        if (x % 2 == 0) and (y % 2 == 0):
-            grid_lbl = self.fpga_grid.get_block(int(x/2), int(y/2))
-            return "%s_%d__%d_" % grid_lbl
-        module = {
-            True: "sb",
-            (x % 2 == 1) and (y % 2 == 0): "cby",
-            (x % 2 == 0) and (y % 2 == 1): "cbx"}[True]
-        xi, yi = int(x/2), int(y/2)
-        if module == "sb":
-            if self.fpga_grid.grid[yi+1][xi+1] == self.fpga_grid.UP_ARROW:
-                grid_lbl = self.fpga_grid.get_block(xi, yi)
-                return "%s_%d__%d_" % grid_lbl
-        elif module == "cby":
-            if self.fpga_grid.grid[yi][xi+1] in [self.fpga_grid.UP_ARROW, self.fpga_grid.RIGHT_ARROW]:
-                grid_lbl = self.fpga_grid.get_block(xi, yi)
-                return "%s_%d__%d_" % grid_lbl
-        elif module == "cbx":
-            if self.fpga_grid.grid[yi+1][xi] in [self.fpga_grid.UP_ARROW]:
-                grid_lbl = self.fpga_grid.get_block(xi, yi)
-                return "%s_%d__%d_" % grid_lbl
-        return f"{module}_{int(x/2)}__{int(y/2)}_"
+        return self.fpga_grid.get_top_instance(x, y)
 
     def fix_grid_pin_names(self, regex=r".*__pin_(.*)_0_",
                            module="grid_*", name_map=None):

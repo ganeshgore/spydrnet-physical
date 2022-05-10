@@ -91,6 +91,13 @@ class ConnectPoint:
         self._level = value
         return self._level
 
+    def move(self, x=0, y=0):
+        self.from_x += x
+        self.from_y += y
+        self.to_x += x
+        self.to_y += y
+        return self
+
     def flip_connection(self, orientation):
         '''Flips the connection vertically or horizontally '''
         if orientation.lower() == "v":

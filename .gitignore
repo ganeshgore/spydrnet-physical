@@ -123,11 +123,15 @@ docs/source/auto_examples/
 # unzipped netlist files
 spydrnet/support_files/EDIF_netlists/*.edf
 spydrnet/support_files/verilog_netlists/*.v
+spydrnet_physical/support_files/sample_verilog/*.json
+spydrnet_physical/support_files/sample_verilog/*.svg
 
 .vscode/settings.json
 _*.*
+!__*.py
 examples/**/_*
 
 FM_WORK*
 *.lck
 runOpenFPGA
+docs/source/_SDN_DOC_SOURCE

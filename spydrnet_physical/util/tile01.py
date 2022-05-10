@@ -221,6 +221,18 @@ class Tile01(OpenFPGA_Tile_Generator):
         self._bottom_left_tile()
         self._bottom_right_tile()
 
+    def merge_and_update(self, instance_list, tile_name):
+        """
+        Merges given list of instances and updates width and height parameter
+        """
+        self._top_module.merge_multiple_instance(instance_list,
+                                                 new_definition_name=tile_name)
+        tile = next(self._library.get_definitions(tile_name))
+        tile.OptPins()
+        width, height = self._get_width_height(instance_list)
+        self._update_placement(instance_list)
+        tile.properties["WIDTH"], tile.properties["HEIGHT"] = width, height
+
     def _get_width_height(self, instance_list):
         x_min, y_min = float("inf"), float("inf")
         x_max, y_max = 0, 0
@@ -255,328 +267,357 @@ class Tile01(OpenFPGA_Tile_Generator):
             logger.debug(f"{new_name} assigned %d %d" %
                          (new_inst.properties["LOC_X"], new_inst.properties["LOC_Y"]))
 
-    def merge_and_update(self, instance_list, tile_name):
-        """
-        Merges given list of instances and updates width and height parameter
-        """
-        self._top_module.merge_multiple_instance(instance_list,
-                                                 new_definition_name=tile_name)
-        tile = next(self._library.get_definitions(tile_name))
-        tile.OptPins()
-        width, height = self._get_width_height(instance_list)
-        self._update_placement(instance_list)
-        tile.properties["WIDTH"], tile.properties["HEIGHT"] = width, height
-
     def _main_tile(self):
         '''Create main Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |                      +-----+
-        |                      |     |
-        |      +-------+ +----     ---+
-        |      |  CBY  | |     SB     |
-        |      +-------+ +----     ---+
-        |  +---------------+ |     |
-        |  |               | +-----+
-        |  |               | +-----+
-        |  |               | |     |
-        |  |      CLB      | | CBX |
-        |  |               | +-----+
-        |  |               |
-        |  +---------------+
+
+                             +-----+
+                             |     |
+               +-------+ +----     ---+
+               |  CBY  | |     SB     |
+               +-------+ +----     ---+
+           +---------------+ |     |
+           |               | +-----+
+           |               | +-----+
+           |               | |     |
+           |      CLB      | | CBX |
+           |               | +-----+
+           |               |
+           +---------------+
 
       '''
         instance_list = []
         for x in range(2, self.fpga_size[0]):
             for y in range(2, self.fpga_size[1]):
-                clb = next(self._library.get_instances(f"grid_clb_{x}__{y}_"))
-                cbx = next(self._library.get_instances(f"cbx_{x}__{y}_"))
-                cby = next(self._library.get_instances(f"cby_{x}__{y}_"))
-                sb = next(self._library.get_instances(f"sb_{x}__{y}_"))
+                clb = next(self._top_module.get_instances(
+                    f"grid_clb_{x}__{y}_"))
+                cbx = next(self._top_module.get_instances(f"cbx_{x}__{y}_"))
+                cby = next(self._top_module.get_instances(f"cby_{x}__{y}_"))
+                sb = next(self._top_module.get_instances(f"sb_{x}__{y}_"))
                 instance_list.append(((clb, cbx, cby, sb),
                                       f"tile_{x}__{y}_"))
         self.merge_and_update(instance_list, "tile")
 
     def _left_tile(self):
-        '''        Create Left Tiles
+        ''' Create Left Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |   +-----+                  +-----+
-        |   |     |                  |     |
-        |   |     +--+ +-------+ +---+     +--+
-        |   | SB     | |  CBY  | |     SB     |
-        |   |     +--+ +-------+ +---+     +--+
-        |   |     | +--------------+ |     |
-        |   +-----+ |              | +-----+
-        |   +-----+ |              | +-----+
-        |   |     | |              | |     |
-        |   | CBX | |     CLB      | | CBX |
-        |   +-----+ |              | +-----+
-        |           |              |
-        |           +--------------+
+
+           +-----+                  +-----+
+           |     |                  |     |
+           |     +--+ +-------+ +---+     +--+
+           | SB     | |  CBY  | |     SB     |
+           |     +--+ +-------+ +---+     +--+
+           |     | +--------------+ |     |
+           +-----+ |              | +-----+
+           +-----+ |              | +-----+
+           |     | |              | |     |
+           | CBX | |     CLB      | | CBX |
+           +-----+ |              | +-----+
+                   |              |
+                   +--------------+
 
         '''
         instance_list = []
         for i in range(2, self.fpga_size[0]):
-            clb = next(self._library.get_instances(f"grid_clb_1__{i}_"))
-            cby0 = next(self._library.get_instances(f"cby_0__{i}_"))
-            cby1 = next(self._library.get_instances(f"cby_1__{i}_"))
-            cbx1 = next(self._library.get_instances(f"cbx_1__{i}_"))
-            sb0 = next(self._library.get_instances(f"sb_0__{i}_"))
-            sb1 = next(self._library.get_instances(f"sb_1__{i}_"))
-            grid_io = next(self._library.get_instances(
-                f"grid_io_left_0__{i}_"))
-            instance_list.append(((clb, cby0, cby1, cbx1, sb0, sb1, grid_io),
+            clb = next(self._top_module.get_instances(f"grid_clb_1__{i}_"))
+            cby0 = next(self._top_module.get_instances(f"cby_0__{i}_"))
+            cby1 = next(self._top_module.get_instances(f"cby_1__{i}_"))
+            cbx1 = next(self._top_module.get_instances(f"cbx_1__{i}_"))
+            sb0 = next(self._top_module.get_instances(f"sb_0__{i}_"))
+            sb1 = next(self._top_module.get_instances(f"sb_1__{i}_"))
+            # grid_io = next(self._top_module.get_instances(
+            #     f"grid_io_left_0__{i}_"))
+            instance_list.append(((clb, cby0, cby1, cbx1, sb0, sb1),
                                   f"tile_1__{i}_"))
 
         self.merge_and_update(instance_list, "left_tile")
 
     def _right_tile(self):
         '''    Create Right Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |                    +-----+
-        |                    |     |
-        |       +-------+ +--+     |
-        |       |  CBY  | |    SB  |
-        |       +-------+ +--+     |
-        |   +--------------+ |     |
-        |   |              | +-----+
-        |   |              | +-----+
-        |   |              | |     |
-        |   |     CLB      | | CBX |
-        |   |              | +-----+
-        |   |              |
-        |   +--------------+
+
+                             +-----+
+                             |     |
+                +-------+ +--+     |
+                |  CBY  | |    SB  |
+                +-------+ +--+     |
+            +--------------+ |     |
+            |              | +-----+
+            |              | +-----+
+            |              | |     |
+            |     CLB      | | CBX |
+            |              | +-----+
+            |              |
+            +--------------+
 
         '''
         instance_list = []
         for i in range(2, self.fpga_size[0]):
-            clb = next(self._library.get_instances(
+            clb = next(self._top_module.get_instances(
                 f"grid_clb_{self.fpga_size[0]}__{i}_"))
-            cbx1 = next(self._library.get_instances(
+            cbx1 = next(self._top_module.get_instances(
                 f"cbx_{self.fpga_size[0]}__{i}_"))
-            cby0 = next(self._library.get_instances(
+            cby0 = next(self._top_module.get_instances(
                 f"cby_{self.fpga_size[0]}__{i}_"))
-            sb0 = next(self._library.get_instances(
+            sb0 = next(self._top_module.get_instances(
                 f"sb_{self.fpga_size[0]}__{i}_"))
-            grid_io = next(self._library.get_instances(
-                f"grid_io_right_{self.fpga_size[0]+1}__{i}_"))
-            instance_list.append(((clb, cbx1, cby0, sb0, grid_io),
+            # grid_io = next(self._top_module.get_instances(
+            #     f"grid_io_right_{self.fpga_size[0]+1}__{i}_"))
+            instance_list.append(((clb, cbx1, cby0, sb0),
                                   f"tile_{self.fpga_size[0]}__{i}_"))
 
         self.merge_and_update(instance_list, "right_tile")
 
     def _top_tile(self):
         '''     Create Top Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |      +-------+ +------------+
-        |      |  CBY  | |     SB     |
-        |      +-------+ +---+     +--+
-        |   +--------------+ |     |
-        |   |              | +-----+
-        |   |              | +-----+
-        |   |              | |     |
-        |   |     CLB      | | CBX |
-        |   |              | +-----+
-        |   |              |
-        |   +--------------+
+
+               +-------+ +------------+
+               |  CBY  | |     SB     |
+               +-------+ +---+     +--+
+            +--------------+ |     |
+            |              | +-----+
+            |              | +-----+
+            |              | |     |
+            |     CLB      | | CBX |
+            |              | +-----+
+            |              |
+            +--------------+
 
         '''
         instance_list = []
         for i in range(2, self.fpga_size[1]):
-            clb = next(self._library.get_instances(
+            clb = next(self._top_module.get_instances(
                 f"grid_clb_{i}__{self.fpga_size[1]}_"))
-            cbx = next(self._library.get_instances(
+            cbx = next(self._top_module.get_instances(
                 f"cbx_{i}__{self.fpga_size[1]}_"))
-            cby = next(self._library.get_instances(
+            cby = next(self._top_module.get_instances(
                 f"cby_{i}__{self.fpga_size[1]}_"))
-            sb = next(self._library.get_instances(
+            sb = next(self._top_module.get_instances(
                 f"sb_{i}__{self.fpga_size[1]}_"))
-            grid_io = next(self._library.get_instances(
-                f"grid_io_top_{i}__{self.fpga_size[1]+1}_"))
-            instance_list.append(((clb, cbx, cby, sb, grid_io),
+            # grid_io = next(self._top_module.get_instances(
+            #     f"grid_io_top_{i}__{self.fpga_size[1]+1}_"))
+            instance_list.append(((clb, cbx, cby, sb),
                                   f"tile_{i}__{self.fpga_size[1]}_"))
 
         self.merge_and_update(instance_list, "top_tile")
 
     def _bottom_tile(self):
         '''   Create Bottom Tiles
+
+        .. rst-class:: ascii
+
         ::
-        |                    +-----+
-        |                    |     |
-        |      +-------+ +---+     +--+
-        |      |  CBY  | |     SB     |
-        |      +-------+ +---+     +--+
-        |   +--------------+ |     |
-        |   |              | +-----+
-        |   |              | +-----+
-        |   |              | |     |
-        |   |     CLB      | | CBX |
-        |   |              | +-----+
-        |   |              | +-----+
-        |   +--------------+ |     |
-        |      +-------+ +---+     +--+
-        |      |  CBY  | |     SB     |
-        |      +-------+ +------------+
+
+                             +-----+
+                             |     |
+               +-------+ +---+     +--+
+               |  CBY  | |     SB     |
+               +-------+ +---+     +--+
+            +--------------+ |     |
+            |              | +-----+
+            |              | +-----+
+            |              | |     |
+            |     CLB      | | CBX |
+            |              | +-----+
+            |              | +-----+
+            +--------------+ |     |
+               +-------+ +---+     +--+
+               |  CBY  | |     SB     |
+               +-------+ +------------+
 
         '''
         instance_list = []
         for i in range(2, self.fpga_size[1]):
-            clb = next(self._library.get_instances(f"grid_clb_{i}__1_"))
-            cbx0 = next(self._library.get_instances(f"cbx_{i}__0_"))
-            cbx1 = next(self._library.get_instances(f"cbx_{i}__1_"))
-            cby1 = next(self._library.get_instances(f"cby_{i}__1_"))
-            sb0 = next(self._library.get_instances(f"sb_{i}__0_"))
-            sb1 = next(self._library.get_instances(f"sb_{i}__1_"))
-            grid_io = next(self._library.get_instances(
-                f"grid_io_bottom_{i}__0_"))
-            instance_list.append(((clb, cbx0, cbx1, cby1, sb0, sb1, grid_io),
+            clb = next(self._top_module.get_instances(f"grid_clb_{i}__1_"))
+            cbx0 = next(self._top_module.get_instances(f"cbx_{i}__0_"))
+            cbx1 = next(self._top_module.get_instances(f"cbx_{i}__1_"))
+            cby1 = next(self._top_module.get_instances(f"cby_{i}__1_"))
+            sb0 = next(self._top_module.get_instances(f"sb_{i}__0_"))
+            sb1 = next(self._top_module.get_instances(f"sb_{i}__1_"))
+            # grid_io = next(self._top_module.get_instances(
+            #     f"grid_io_bottom_{i}__0_"))
+            instance_list.append(((clb, cbx0, cbx1, cby1, sb0, sb1),
                                   f"tile_{i}__1_"))
 
         self.merge_and_update(instance_list, "bottom_tile")
 
     def _top_left_tile(self):
         '''       Create top left tile
+
+        .. rst-class:: ascii
+
         ::
-        |    +--------+ +-------+ +------------+
-        |    |  SB    | |  CBY  | |     SB     |
-        |    |     +--+ +-------+ +---+     +--+
-        |    |     | +--------------+ |     |
-        |    +-----+ |              | +-----+
-        |    +-----+ |              | +-----+
-        |    |     | |              | |     |
-        |    | CBX | |     CLB      | | CBX |
-        |    +-----+ |              | +-----+
-        |            |              |
-        |            +--------------+
+
+            +--------+ +-------+ +------------+
+            |  SB    | |  CBX  | |     SB     |
+            |     +--+ +-------+ +---+     +--+
+            |     | +--------------+ |     |
+            +-----+ |              | +-----+
+            +-----+ |              | +-----+
+            |     | |              | |     |
+            | CBY | |     CLB      | | CBY |
+            +-----+ |              | +-----+
+                    |              |
+                    +--------------+
 
         '''
         instance_list = []
-        clb = next(self._library.get_instances(
+        clb = next(self._top_module.get_instances(
             f"grid_clb_1__{self.fpga_size[1]}_"))
-        cbx0 = next(self._library.get_instances(
+        cbx0 = next(self._top_module.get_instances(
             f"cbx_1__{self.fpga_size[1]}_"))
-        cby0 = next(self._library.get_instances(
+        cby0 = next(self._top_module.get_instances(
             f"cby_0__{self.fpga_size[1]}_"))
-        cby1 = next(self._library.get_instances(
+        cby1 = next(self._top_module.get_instances(
             f"cby_1__{self.fpga_size[1]}_"))
-        sb0 = next(self._library.get_instances(f"sb_0__{self.fpga_size[1]}_"))
-        sb1 = next(self._library.get_instances(f"sb_1__{self.fpga_size[1]}_"))
-        grid_io_0 = next(self._library.get_instances(
-            f"grid_io_top_1__{self.fpga_size[1]+1}_"))
-        grid_io_1 = next(self._library.get_instances(
-            f"grid_io_left_0__{self.fpga_size[1]}_"))
-        instance_list.append(((clb, cbx0, cby0, cby1, sb0, sb1, grid_io_0, grid_io_1),
+        sb0 = next(self._top_module.get_instances(
+            f"sb_0__{self.fpga_size[1]}_"))
+        sb1 = next(self._top_module.get_instances(
+            f"sb_1__{self.fpga_size[1]}_"))
+        # grid_io_0 = next(self._top_module.get_instances(
+        #     f"grid_io_top_1__{self.fpga_size[1]+1}_"))
+        # grid_io_1 = next(self._top_module.get_instances(
+        #     f"grid_io_left_0__{self.fpga_size[1]}_"))
+        instance_list.append(((clb, cbx0, cby0, cby1, sb0, sb1),
                               f"tile_1__{self.fpga_size[1]}_"))
         self.merge_and_update(instance_list, "top_left_tile")
 
     def _top_right_tile(self):
         '''          Create top right tile
+
+        .. rst-class:: ascii
+
         ::
-        |   +------------+ +-------+ +---------+
-        |   |     SB     | |  CBY  | |     SB  |
-        |   +---+     +--+ +-------+ +---+     |
-        |       |     | +--------------+ |     |
-        |       +-----+ |              | +-----+
-        |       +-----+ |              | +-----+
-        |       |     | |              | |     |
-        |       | CBX | |     CLB      | | CBX |
-        |       +-----+ |              | +-----+
-        |               |              |
-        |               +--------------+
+
+           +------------+ +-------+ +---------+
+           |     SB     | |  CBY  | |     SB  |
+           +---+     +--+ +-------+ +---+     |
+               |     | +--------------+ |     |
+               +-----+ |              | +-----+
+               +-----+ |              | +-----+
+               |     | |              | |     |
+               | CBX | |     CLB      | | CBX |
+               +-----+ |              | +-----+
+                       |              |
+                       +--------------+
 
         '''
         instance_list = []
-        clb = next(self._library.get_instances(
+        clb = next(self._top_module.get_instances(
             f"grid_clb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        cbx0 = next(self._library.get_instances(
+        cbx0 = next(self._top_module.get_instances(
             f"cbx_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        cby0 = next(self._library.get_instances(
+        cby0 = next(self._top_module.get_instances(
             f"cby_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        sb0 = next(self._library.get_instances(
+        sb0 = next(self._top_module.get_instances(
             f"sb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        grid_io_0 = next(self._library.get_instances(
-            f"grid_io_right_{self.fpga_size[0]+1}__{self.fpga_size[1]}_"))
-        grid_io_1 = next(self._library.get_instances(
-            f"grid_io_top_{self.fpga_size[0]}__{self.fpga_size[1]+1}_"))
-        instance_list.append(((clb, cbx0, cby0, sb0, grid_io_0, grid_io_1),
+        # grid_io_0 = next(self._top_module.get_instances(
+        #     f"grid_io_right_{self.fpga_size[0]+1}__{self.fpga_size[1]}_"))
+        # grid_io_1 = next(self._top_module.get_instances(
+        #     f"grid_io_top_{self.fpga_size[0]}__{self.fpga_size[1]+1}_"))
+        instance_list.append(((clb, cbx0, cby0, sb0),
                               f"tile_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
 
         self.merge_and_update(instance_list, "top_right_tile")
 
     def _bottom_left_tile(self):
         '''      Create bottom left tile
+
+        .. rst-class:: ascii
+
         ::
-        |    +-----+                  +-----+
-        |    |     |                  |     |
-        |    |     +--+ +-------+ +---+     +--+
-        |    | SB     | |  CBY  | |     SB  |  |
-        |    |     +--+ +-------+ +---+     +--+
-        |    |     | +--------------+ |     |
-        |    +-----+ |              | +-----+
-        |    +-----+ |              | +-----+
-        |    |     | |              | |     |
-        |    | CBX | |     CLB      | | CBX |
-        |    +-----+ |              | +-----+
-        |    +-----+ |              | +-----+
-        |    |     | +--------------+ |     |
-        |    |     +--+ +-------+ +---+     +--+
-        |    | SB     | |  CBY  | |     SB     |
-        |    +--------+ +-------+ +------------+
+
+             +-----+                  +-----+
+             |     |                  |     |
+             |     +--+ +-------+ +---+     +--+
+             | SB     | |  CBY  | |     SB  |  |
+             |     +--+ +-------+ +---+     +--+
+             |     | +--------------+ |     |
+             +-----+ |              | +-----+
+             +-----+ |              | +-----+
+             |     | |              | |     |
+             | CBX | |     CLB      | | CBX |
+             +-----+ |              | +-----+
+             +-----+ |              | +-----+
+             |     | +--------------+ |     |
+             |     +--+ +-------+ +---+     +--+
+             | SB     | |  CBY  | |     SB     |
+             +--------+ +-------+ +------------+
 
         '''
         instance_list = []
-        clb = next(self._library.get_instances("grid_clb_1__1_"))
-        cbx0 = next(self._library.get_instances("cbx_1__0_"))
-        cbx1 = next(self._library.get_instances("cbx_1__1_"))
-        cby0 = next(self._library.get_instances("cby_0__1_"))
-        cby1 = next(self._library.get_instances("cby_1__1_"))
-        sb0 = next(self._library.get_instances("sb_0__0_"))
-        sb1 = next(self._library.get_instances("sb_0__1_"))
-        sb2 = next(self._library.get_instances("sb_1__0_"))
-        sb3 = next(self._library.get_instances("sb_1__1_"))
-        grid_io_0 = next(self._library.get_instances("grid_io_left_0__1_"))
-        grid_io_1 = next(self._library.get_instances("grid_io_bottom_1__0_"))
+        clb = next(self._top_module.get_instances("grid_clb_1__1_"))
+        cbx0 = next(self._top_module.get_instances("cbx_1__0_"))
+        cbx1 = next(self._top_module.get_instances("cbx_1__1_"))
+        cby0 = next(self._top_module.get_instances("cby_0__1_"))
+        cby1 = next(self._top_module.get_instances("cby_1__1_"))
+        sb0 = next(self._top_module.get_instances("sb_0__0_"))
+        sb1 = next(self._top_module.get_instances("sb_0__1_"))
+        sb2 = next(self._top_module.get_instances("sb_1__0_"))
+        sb3 = next(self._top_module.get_instances("sb_1__1_"))
+        # grid_io_0 = next(self._top_module.get_instances("grid_io_left_0__1_"))
+        # grid_io_1 = next(self._top_module.get_instances("grid_io_bottom_1__0_"))
         instance_list.append(((clb, cbx0, cbx1, cby0, cby1, sb0, sb1,
-                               sb2, sb3, grid_io_0, grid_io_1),
+                               sb2, sb3),
                               "tile_1__1_"))
         self.merge_and_update(instance_list, "bottom_left_tile")
 
     def _bottom_right_tile(self):
         ''' Create bottom right tile
+
+        .. rst-class:: ascii
+
         ::
-        |                     +-----+
-        |                     |     |
-        |       +-------+ +---+     |
-        |       |  CBY  | |     SB  |
-        |       +-------+ +---+     |
-        |    +--------------+ |     |
-        |    |              | +-----+
-        |    |              | +-----+
-        |    |              | |     |
-        |    |     CLB      | | CBX |
-        |    |              | +-----+
-        |    |              | +-----+
-        |    +--------------+ |     |
-        |       +-------+ +---+     |
-        |       |  CBY  | |     SB  |
-        |       +-------+ +---------+
+
+                             +-----+
+                             |     |
+               +-------+ +---+     |
+               |  CBY  | |     SB  |
+               +-------+ +---+     |
+            +--------------+ |     |
+            |              | +-----+
+            |              | +-----+
+            |              | |     |
+            |     CLB      | | CBX |
+            |              | +-----+
+            |              | +-----+
+            +--------------+ |     |
+               +-------+ +---+     |
+               |  CBY  | |     SB  |
+               +-------+ +---------+
 
         '''
         instance_list = []
-        clb = next(self._library.get_instances(
+        clb = next(self._top_module.get_instances(
             f"grid_clb_{self.fpga_size[0]}__1_"))
-        cbx0 = next(self._library.get_instances(
+        cbx0 = next(self._top_module.get_instances(
             f"cbx_{self.fpga_size[0]}__0_"))
-        cbx1 = next(self._library.get_instances(
+        cbx1 = next(self._top_module.get_instances(
             f"cbx_{self.fpga_size[0]}__1_"))
-        cby0 = next(self._library.get_instances(
+        cby0 = next(self._top_module.get_instances(
             f"cby_{self.fpga_size[0]}__1_"))
-        sb0 = next(self._library.get_instances(f"sb_{self.fpga_size[0]}__0_"))
-        sb1 = next(self._library.get_instances(f"sb_{self.fpga_size[0]}__1_"))
-        grid_io_0 = next(self._library.get_instances(
-            f"grid_io_bottom_{self.fpga_size[0]}__0_"))
-        grid_io_1 = next(self._library.get_instances(
-            f"grid_io_right_{self.fpga_size[0]+1}__1_"))
-        instance_list.append(((clb, cbx0, cbx1, cby0, sb0, sb1, grid_io_0, grid_io_1),
+        sb0 = next(self._top_module.get_instances(
+            f"sb_{self.fpga_size[0]}__0_"))
+        sb1 = next(self._top_module.get_instances(
+            f"sb_{self.fpga_size[0]}__1_"))
+        # grid_io_0 = next(self._top_module.get_instances(
+        #     f"grid_io_bottom_{self.fpga_size[0]}__0_"))
+        # grid_io_1 = next(self._top_module.get_instances(
+        #     f"grid_io_right_{self.fpga_size[0]+1}__1_"))
+        instance_list.append(((clb, cbx0, cbx1, cby0, sb0, sb1),
                               f"tile_{self.fpga_size[0]}__1_"))
 
         self.merge_and_update(instance_list, "bottom_right_tile")

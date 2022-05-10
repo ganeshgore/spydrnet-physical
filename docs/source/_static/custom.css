@@ -5,6 +5,22 @@ img.main-image{
 
 body[data-theme=dark] img {
     filter: invert(1);
+    font-family: Lato;
+    font-size: 14px;
+}
+
+dl.py.class {
+    line-height: 1.25;
+}
+
+dl.py.method {
+    padding-bottom: 12px;
+}
+
+span.descname {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2962ff;
 }
 
 dl.field-list {
@@ -12,7 +28,7 @@ dl.field-list {
     grid-template-columns: max-content auto;
 }
 
-.hidden { display: none }
+.hidden { display: none !important }
 
 .ascii pre {
     line-height: 1.05;
@@ -25,6 +41,12 @@ dl.field-list {
     margin: auto;
     width: auto;
 }
+
+
+/* .table-wrapper {
+    font-size: 12px;
+} */
+
 
 /* 
 .sphx-glr-thumbcontainer {
@@ -47,4 +69,12 @@ dl.field-list {
 
 ul.circlelist {
     list-style-type: circle;
+}
+
+.sphx-glr-thumbcontainer {
+    min-height: 150px;
+}
+
+.sidebar-tree .reference.external:after {
+    content: none !important;
 }

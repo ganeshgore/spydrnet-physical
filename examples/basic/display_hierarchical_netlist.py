@@ -7,9 +7,8 @@ This example demostrates how to generate a feedthrough wire connection for
 a given scalar or vector wires.
 
 
-.. image:: ../../../examples/basic/_initial_design.html
-   :width: 0px
-   :class: hidden
+.. image:: ../auto_sample_verilog/basic_hierarchy.svg
+    :align: center
 
 .. raw:: html
 
@@ -30,7 +29,7 @@ from spydrnet_physical.composers.html.composer import HTMLComposer
 netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
 
 top = netlist.top_instance.reference
-sdn.compose(netlist, '_initial_design.v', skip_constraints=True)
+
 
 composer = HTMLComposer()
 composer.run(netlist, file_out="_initial_design.html")
