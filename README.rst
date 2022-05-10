@@ -1,4 +1,4 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ganeshgore/spydrnet-physical/main?urlpath=vscode)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ganeshgore/spydrnet-physical/main)
 
 
 ## SpyDrNet-Physical (WIP)

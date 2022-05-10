@@ -20,7 +20,7 @@ RUN adduser --disabled-password \
 
 USER root
 RUN chown -R ${NB_UID} ${HOME}
-RUN chown -R ${NB_UID} /opt/openfpga
+RUN chown -R ${NB_UID} /home/docs
 USER ${NB_USER}
 
 ENV PATH $PATH:/home/${NB_USER}/.local/bin
