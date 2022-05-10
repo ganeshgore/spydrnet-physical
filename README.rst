@@ -1,5 +1,8 @@
-SpyDrNet-Physical (WIP)
------------------------
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ganeshgore/spydrnet-physical/main?urlpath=vscode)
+
+
+## SpyDrNet-Physical (WIP)
+--------------------------
 
 A SpyDrNet Plugin for physical design-related transformations
 
