@@ -6,7 +6,7 @@ The connection pattern format
 # FROM_X, FROM_Y, TO_X, TO_Y
 
 
-for external connections (its 45 degree clock wise ratation)
+for external connections (its 45 degree clock wise rotation)
 0, 0 : Left
 None, 0 : bottom
 None, None : Right

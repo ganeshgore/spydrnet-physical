@@ -67,7 +67,7 @@ class ConnectPoint:
 
     @property
     def color(self):
-        ''' return color of conneton '''
+        ''' return color of connection '''
         return self._color
 
     @from_connection.setter
@@ -92,6 +92,7 @@ class ConnectPoint:
         return self._level
 
     def flip_connection(self, orientation):
+        '''Flips the connection vertically or horizontally '''
         if orientation.lower() == "v":
             self.from_y *= -1
             self.to_y *= -1
@@ -111,11 +112,14 @@ class ConnectPoint:
         self._update_direction()
 
     def translate_connection(self, x, y):
+        "translates the connection by the given coordinates"
         self.from_x, self.from_y = self.from_x + x, self.from_y+y
         self.to_x, self.to_y = self.to_x + x, self.to_y+y
         self._update_direction()
 
     def scale_connection(self, scale, anchor=(0, 0)):
+        """Scale up the connection by multipying the connection_from
+        and connection_to coordinates with the scaling factor"""
         self.translate_connection(-1*anchor[0], -1*anchor[1])
         self.from_x, self.from_y = self.from_x * scale, self.from_y * scale
         self.to_x, self.to_y = self.to_x * scale, self.to_y * scale
@@ -127,6 +131,8 @@ class ConnectPoint:
         self.from_dir = self.direction(reverse=True)
 
     def direction(self, reverse=False):
+        ''' Returns the original and reversed (if reverse = True) 
+        direction of the connect point'''
         dx, dy = tuple(x-y for x, y in
                        zip(self.to_connection, self.from_connection))
         if dx == 0 and dy > 0:
@@ -164,13 +170,21 @@ class ConnectPoint:
         return "%5d %5d %5d %5d [%s]" % (self.from_x, self.from_y, self.to_x, self.to_y, self._level)
 
     def __mul__(self, scale):
+        '''Returns to and from coordinates after multipluing them with the scaling factor
+        '''
+        # But why not changing the original connectpoint
         pt = deepcopy(self)
         pt.from_connection = (scale*self.from_x, scale*self.from_y)
         pt.to_connection = (scale*self.to_x, scale*self.to_y)
         return pt
 
     def __rmul__(self, scale):
+        # reason for this method? Same code as __mul__ 
         pt = deepcopy(self)
         pt.from_connection = (scale*self.from_x, scale*self.from_y)
         pt.to_connection = (scale*self.to_x, scale*self.to_y)
         return pt
+
+
+
+

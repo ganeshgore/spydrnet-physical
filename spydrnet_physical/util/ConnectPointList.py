@@ -39,6 +39,7 @@ class ConnectPointList:
 
     @cursor.setter
     def cursor(self, point):
+        '''cursor is placed at the specified point'''
         self._cursor = point
         return self._cursor
 
@@ -53,6 +54,7 @@ class ConnectPointList:
         return self._cursor[1]
 
     def set_cursor(self, x, y):
+        '''cursor is placed on the x, y coordinates'''
         self._cursor = (x, y)
         return self
 
@@ -83,34 +85,40 @@ class ConnectPointList:
         raise NotImplementedError
 
     def search_from_point(self, point):
+        '''search for connections going out of this point'''
         for pt in self._points:
             if (pt.from_connection == point):
                 return pt
 
     def search_to_point(self, point):
+        '''search for connections coming into this point'''
         for pt in self._points:
             if (pt.to_connection == point):
                 return pt
 
     def push_connection_down(self, point):
+        '''push all connections one-level down'''
         if isinstance(point, tuple):
             point = self.search_to_point(point)
         point.level = "down"
         return point
 
     def pull_connection_up(self, point):
+        '''pull all connections one-level up'''        
         if isinstance(point, tuple):
             point = self.search_from_point(point)
         point.level = "up"
         return point
 
     def make_top_connection(self, point):
+        '''make connection with the top layer'''
         if isinstance(point, tuple):
             point = self.search_from_point(point)
         point.level = "top"
         return point
 
     def reset_level(self, point):
+        '''resets the level of the connections'''
         assert isinstance(point, ConnectPoint), \
             "point should be instance of ConnectPoint class not " + type(point)
         point.level = "same"
@@ -120,7 +128,7 @@ class ConnectPointList:
         self._cursor_state = False
 
     def release_cursor(self):
-        ''' Rleases cursor and moves with each point addition '''
+        ''' Releases cursor and moves with each point addition '''
         self._cursor_state = True
 
     def flip(self, orientation="H", base=None):
@@ -185,27 +193,32 @@ class ConnectPointList:
         return graph
 
     def merge(self, connectlist):
+        '''merges different connect points together into one Connect Point List '''
         self._points.extend(connectlist._points)
         return self
 
     def scale(self, scale, anchor=(0, 0)):
+        '''scales the connect point list from an anchor position'''
         for point in self._points:
             point.scale_connection(scale, anchor)
         return self
 
     def translate(self, x, y):
+        '''moves the connect point list in x y coordinates'''
         for point in self._points:
             point.translate_connection(x, y)
         return self
 
     def rotate(self, angle=0):
+        '''rotates the connect point list at right angles'''
         angles = (0, 90, 180, 270, -90, -180, -270, 'CW', 'ACW')
-        assert angle in angles, "Supports only %s degree ratations" % angles
+        assert angle in angles, "Supports only %s degree rotations" % angles
         for point in self._points:
             point.rotate_connection(angle, sizex=self.sizex, sizey=self.sizey)
         return self
 
     def add_next_point(self, x, y):
+        '''adds the next point in the connect point list'''
         x_prev, y_prev = self._cursor
         point = ConnectPoint(x_prev, y_prev, x, y)
         self.add_connect_point(point)
@@ -213,9 +226,11 @@ class ConnectPointList:
         return point
 
     def move_cursor_x(self, value=1):
+        '''places the cursor on the specified x coordinate without connection'''
         self._cursor = self._cursor[0]+value, self._cursor[1]
 
     def move_cursor_y(self, value=1):
+        '''places the cursor on the specified y coordinate without connection'''
         self._cursor = self._cursor[0], self._cursor[1]+value
 
     def move_x(self, value=1, steps=1, color=DEFAULT_COLOR):
@@ -253,12 +268,14 @@ class ConnectPointList:
         return lines
 
     def add_connect_point(self, point):
+        '''adds a connect point in the connect point list'''
         assert isinstance(point, ConnectPoint)
         self._points.append(point)
         self._update_cursor()
         return point
 
     def add_connection(self, from_x, from_y, to_x, to_y):
+        '''creates a new connection at the given from and to points and add it to the connect point list'''
         point = ConnectPoint(from_x, from_y, to_x, to_y)
         self._points.append(point)
         self._update_cursor()
@@ -510,6 +527,7 @@ class ConnectPointList:
         yield from self._points
 
     def short_through(self, through_point):
+        '''short all the connections at the given point'''
         incoming = None
         outgoing = None
         for point in self._points:
