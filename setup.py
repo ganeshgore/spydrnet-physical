@@ -22,8 +22,8 @@ import release
 version = release.update_versionfile()
 sys.path.pop(0)
 
-with open("README.rst", "r") as fh:
-    long_description = fh.read().replace(':ref:', '')
+
+long_description = "WIP"
 
 example_verilog_netlist = list()
 folder_path = path.normpath(
