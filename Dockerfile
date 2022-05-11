@@ -21,6 +21,8 @@ RUN adduser --disabled-password \
 USER root
 RUN chown -R ${NB_UID} ${HOME}
 RUN chown -R ${NB_UID} /home/docs
+RUN git clone https://github.com/ganeshgore/spydrnet-physical
+RUN chown -R ${NB_UID} /home/docs/spydrnet-physical
 USER ${NB_USER}
 
 ENV PATH $PATH:/home/${NB_USER}/.local/bin
@@ -35,9 +37,9 @@ RUN npm install @jupyterlab/server-proxy
 RUN jupyter serverextension enable --py jupyter_server_proxy
 RUN jupyter labextension install @jupyterlab/server-proxy
 RUN jupyter lab build
-RUN git reset --hard HEAD
 
+WORKDIR /home/docs/spydrnet-physical
 # Set up terminal
 RUN echo 'export PS1="\[$(tput bold)\]\[\033[38;5;220m\]\u\[$(tput sgr0)\]:\[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;14m\]\W\[$(tput sgr0)\]\\$\[$(tput sgr0) \]"' >> ~/.bashrc
 RUN echo 'alias codeopen="code-server -r "' >> ~/.bashrc
-RUN mkdir -p .vscode && echo '{"files.associations": {"*.openfpga": "shellscript"},"workbench.colorTheme": "Monokai"}' > .vscode/settings.json
+RUN mkdir -p .vscode && echo '{"workbench.colorTheme": "Monokai"}' > .vscode/settings.json
