@@ -1,4 +1,3 @@
-
 name: Docker Docs Image
 
 on:
@@ -34,3 +33,10 @@ jobs:
           file: .github/dockerfile
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/sdpphy-docs-image:latest
+      - name: Build binder image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: .github/dockerfile_binder
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/sdpphy-binder-image:latest
