@@ -17,6 +17,18 @@ class test_Connection_Pattern(unittest.TestCase):
         (7, 6, 8, 6), (8, 6, 9, 6), (9, 6, 9, 7), (9, 7, 9, 8), (9, 8, 9, 9), (9, 6, 9, 5), (9, 5, 9, 4), (9, 4, 9, 3), 
         (6, 6, 5, 6), (5, 6, 4, 6), (4, 6, 3, 6), (3, 6, 3, 7), (3, 7, 3, 8), (3, 8, 3, 9), (3, 6, 3, 5), (3, 5, 3, 4), 
         (3, 4, 3, 3)]
+        Width = 10
+        Height = 10
+        conn_manager = ConnectionPattern(Width, Height)
+        conn_patt = self.conn_manager.connections
+        conn_patt.cursor = (6, 0)
+        conn_patt.move_y(steps=6)
+        htree = conn_patt.merge (conn_manager.get_htree(Width))
+        htree_points = [points.connection for points in htree]
+        self.assertListEqual (point_list, htree_points)
+
+    def test_get_htree_2n(self):
+        point_list = [(6, 0, 6, 1), (6, 1, 6, 2), (6, 2, 6, 3), (6, 3, 6, 4), (6, 4, 6, 5), (6, 5, 6, 6), (5, 5, 6, 5), (6, 5, 7, 5), (7, 5, 7, 6), (7, 6, 7, 7), (7, 5, 7, 4), (7, 4, 7, 3), (5, 5, 4, 5), (4, 5, 3, 5), (3, 5, 3, 6), (3, 6, 3, 7), (3, 5, 3, 4), (3, 4, 3, 3)]
         htree = self.conn_patt.merge (self.conn_manager.get_htree(self.width))
         htree_points = [points.connection for points in htree]
         self.assertListEqual (point_list, htree_points)

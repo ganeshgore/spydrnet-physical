@@ -161,12 +161,18 @@ class ConnectPoint:
     @staticmethod
     def _rotate_point(point, angle, sizex=None, sizey=None):
         x, y = point
-        if angle in (90, ):
+        if angle in (90, -270):
             return(sizex-y+1, x)
-        elif angle in (180, ):
+        elif angle in (180, -180):
             return(sizex-x+1, sizey-y+1)
-        elif angle in (270, ):
+        elif angle in (270, -90):
             return(y, sizey-x+1)
+        #elif angle in (-90, ):
+        #    return(y, sizey-x+1)
+        #elif angle in (-180, ):
+        #    return(sizex-x+1, sizey-y+1)
+        #elif angle in (-270, ):
+        #    return(sizex-y+1, x)    
         else:
             return point
 
@@ -179,7 +185,6 @@ class ConnectPoint:
     def __mul__(self, scale):
         '''Returns to and from coordinates after multipluing them with the scaling factor
         '''
-        # But why not changing the original connectpoint
         pt = deepcopy(self)
         pt.from_connection = (scale*self.from_x, scale*self.from_y)
         pt.to_connection = (scale*self.to_x, scale*self.to_y)

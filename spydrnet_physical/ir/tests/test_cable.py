@@ -11,7 +11,7 @@ class TestCable(unittest.TestCase):
         self.definition = self.library.create_definition()
         self.module1 = self.library.create_definition()
         self.cable = self.definition.create_cable()
- 
+
     def test_connect_port(self):
         ''' Checks connection sequence to port '''
         port = self.definition.create_port(name="p0", direction=sdn.IN, pins=4)

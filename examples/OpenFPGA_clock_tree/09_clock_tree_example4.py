@@ -137,21 +137,11 @@ for x in range(9, WIDTH, 16):
             level2_patt.pull_connection_up(level2_patt.points[-1])
 
 
-<<<<<<< HEAD:examples/OpenFPGA/clock_tree/09_clock_tree_example4.py
 hyb_pat.merge (level0_patt)
 hyb_pat.merge (level1_patt)
 hyb_pat.merge (level2_patt)
 hyb_pat.merge (level3_patt)
 
-hyb_pat.crop_edges()
-hyb_pat.trim_borders()
-=======
-hyb_pat.merge(level0_patt)
-hyb_pat.merge(level1_patt)
-hyb_pat.merge(level2_patt)
-hyb_pat.merge(level3_patt)
-
->>>>>>> 2c066c8bcf1ddc39a8d5a5ea056b52d9e0adae2f:examples/OpenFPGA_clock_tree/09_clock_tree_example4.py
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 svg = p_manager.render_pattern(title=f"{WIDTH}x{HEIGHT} design")
