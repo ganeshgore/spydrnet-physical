@@ -1,4 +1,3 @@
-import release
 import sys
 import setuptools
 import glob
@@ -19,6 +18,7 @@ if sys.version_info[:2] < (3, 5):
 
 # Write the version information.
 sys.path.insert(0, 'spydrnet_physical')
+import release  # nopep8
 version = release.update_versionfile()
 sys.path.pop(0)
 
