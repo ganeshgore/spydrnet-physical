@@ -69,8 +69,9 @@ jobs:
           destination_dir: docs
           exclude_assets: "doctrees"
       - name: Workflow Dispatch Notification
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.PAT_TOKEN }}
           script: |
             await github.rest.actions.createWorkflowDispatch({
               "event_type": "build_application"
