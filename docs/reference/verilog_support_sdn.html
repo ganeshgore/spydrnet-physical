@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Sample verilog netlist" href="../sample_netlist.html" /><link rel="prev" title="Utility Classes" href="utility/index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
         <title>Verilog Language Support - SpyDrNet-Physical alpha documentation</title>
@@ -161,7 +161,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction/install.html">Install</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
@@ -207,7 +207,7 @@
 <li class="toctree-l2"><a class="reference internal" href="utility/index.html">Utility Classes</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Verilog Language Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verilog_support.html">Verilog Language Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -329,7 +329,7 @@
 <p>Sturctural verilog and SpyDrNet have a similar structure. The following table is intended to help draw parallels between the two formats and let users get an idea of how they can expect their verilog netlists to show up in SpyDrNet</p>
 <p>See the additional sections in the Supported Constructs for more information about how these are represented and maintained in SpyDrNet.</p>
 <div class="table-wrapper"><table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-number">Table 4 </span><span class="caption-text">Verilog vs SpyDrNet naming convention</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Verilog vs SpyDrNet naming convention</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%"/>
 <col style="width: 50%"/>
@@ -448,9 +448,6 @@ and the instances have the same name as the definitions with a <cite>“_” + s
 <p><strong>Note to developers about macro handling :</strong>
 The tokenizer splits tokens beginning with ` into only two tokens even if the line has whitespace. example `timescale 1 ps / 1 ps is split into a token of “`timescale” and one of “1 ps / 1 ps” looking for the endline to end the second token. Single word directives will be one token.</p>
 </section>
-<section id="the-following-features-are-supported-by-the-spydrnet-physical-extension">
-<h3>The following features are supported by the SpyDrNet-Physical Extension<a class="headerlink" href="#the-following-features-are-supported-by-the-spydrnet-physical-extension" title="Permalink to this headline">¶</a></h3>
-</section>
 </section>
 </section>
 
@@ -459,26 +456,8 @@ The tokenizer splits tokens beginning with ` into only two tokens even if the li
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../sample_netlist.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Sample verilog netlist</div>
-              </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="utility/index.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">Utility Classes</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
 
         <div class="related-information">
@@ -487,7 +466,7 @@ The tokenizer splits tokens beginning with ` into only two tokens even if the li
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/reference/verilog_support.rst.txt"
+            <a class="muted-link" href="../_sources/reference/verilog_support_sdn.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -520,7 +499,6 @@ The tokenizer splits tokens beginning with ` into only two tokens even if the li
 <li><a class="reference internal" href="#inline-constraints">Inline Constraints</a></li>
 <li><a class="reference internal" href="#escaped-identifiers">Escaped Identifiers</a></li>
 <li><a class="reference internal" href="#preprocessor-macros">Preprocessor Macros</a></li>
-<li><a class="reference internal" href="#the-following-features-are-supported-by-the-spydrnet-physical-extension">The following features are supported by the SpyDrNet-Physical Extension</a></li>
 </ul>
 </li>
 </ul>
