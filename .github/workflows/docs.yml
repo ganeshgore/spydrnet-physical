@@ -68,3 +68,10 @@ jobs:
           publish_dir: docs/build/html
           destination_dir: docs
           exclude_assets: "doctrees"
+      - name: Workflow Dispatch Notification
+        uses: actions/github-script@v5
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              "event_type": "build_application"
+            });
