@@ -99,7 +99,10 @@ class ConnectPoint:
         return self
 
     def flip_connection(self, orientation):
-        '''Flips the connection vertically or horizontally '''
+        '''This methods flips the connection depending upon the orientation
+        Args:
+            orientation: The orientation can be Vertical or Horizontal
+         '''
         if orientation.lower() == "v":
             self.from_y *= -1
             self.to_y *= -1
@@ -138,8 +141,13 @@ class ConnectPoint:
         self.from_dir = self.direction(reverse=True)
 
     def direction(self, reverse=False):
-        ''' Returns the original and reversed (if reverse = True) 
-        direction of the connect point'''
+        ''' This method extracts the direction by subtracting the x and y coordinates of the to and from connection and if the value of X is 0 and the value of Y is:
+        >1 direction = Top 
+        <1 direction = Bottom
+        and if the value of Y is 0 and X is
+        >1 direction = Right
+        <1 direction = Left
+        It returns the actual and reversed (if reverse = True) direction of the connect point.'''
         dx, dy = tuple(x-y for x, y in
                        zip(self.to_connection, self.from_connection))
         if dx == 0 and dy > 0:

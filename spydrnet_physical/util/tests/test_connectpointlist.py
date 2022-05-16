@@ -42,7 +42,7 @@ class test_connectpointlist(unittest.TestCase):
 		self.pts.move_x(1)
 		self.pts.move_y(1)
 		point = self.pts.search_from_point((3,3))
-		self.assertEqual(point.connection,(3,3,3,4))
+		self.assertTupleEqual(point.connection,(3,3,3,4))
 
 	def test_search_to_point(self):
 		'''This test checks whether the search to point correctly returns connection coming into the given coordinate'''
@@ -85,13 +85,16 @@ class test_connectpointlist(unittest.TestCase):
 		self.pts.hold_cursor()
 		self.pts.move_x(3)
 		self.assertEqual(self.pts.cursor,(2,3))
-
+		self.assertEqual(self.pts._cursor_state,False)
+    
 	def test_release_cursor(self):
 		'''This test checks whether the cursor also moves its position when a connection is made in any coordonate'''
 		self.pts.set_cursor(2,3)
 		self.pts.hold_cursor()
+		self.assertEqual(self.pts._cursor_state,False)
 		self.pts.move_x(3)
 		self.pts.release_cursor()
+		self.assertEqual(self.pts._cursor_state,True)
 		self.pts.move_x(2).move_y(4)
 		self.assertEqual(self.pts.cursor,(4,7))
 

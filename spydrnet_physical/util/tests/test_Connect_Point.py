@@ -29,7 +29,7 @@ class test_ConnectPoint(unittest.TestCase):
         self.assertEqual (self.pt.to_connection, (2, 3))   
 
     def test_distance(self):
-        '''Test Correctness of distanve between points'''
+        '''Test Correctness of distance between points'''
         self.assertEqual (self.pt.distance, 1)
 
     def test_color(self):
