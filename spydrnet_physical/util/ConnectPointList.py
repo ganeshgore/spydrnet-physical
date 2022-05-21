@@ -1,7 +1,5 @@
-
-import math
-from copy import deepcopy
-from shutil import move
+'''
+'''
 from typing import List
 import logging
 
@@ -11,7 +9,6 @@ import svgwrite
 from spydrnet_physical.util import ConnectPoint
 from svgwrite.container import Group
 from collections import OrderedDict
-
 
 DEFAULT_COLOR = " black"
 
@@ -33,20 +30,28 @@ class ConnectPointList:
 
     @property
     def points(self):
+        "Returns list of ConnectionPoints"
         return self._points
 
     @property
     def cursor(self):
+        "Returns current location of cursor"
         return self._cursor
 
     @cursor.setter
     def cursor(self, point):
+        '''
+        Cursor is placed at the specified point
+
+        Args:
+            point (int, int): (x,y) coordinates where cursor is to be placed
+        '''
         self._cursor = point
         return self._cursor
 
     @property
     def get_x(self):
-        ''' returns x location of cursor '''
+        " Returns location of cursor "
         return self._cursor[0]
 
     @property
@@ -55,11 +60,27 @@ class ConnectPointList:
         return self._cursor[1]
 
     def set_cursor(self, x, y):
+        '''
+        Sets cursor at given x, y coordinate
+
+        Args:
+            x (int): point on the x-axis where cursor is to be placed
+            y (int): point on the y-axis where cursor is to be placed
+
+        Returns:
+            self: self ConnectionPointList object
+        '''
         self._cursor = (x, y)
         return self
 
     def set_color(self, color):
-        ''' Set color to all the points in the connection list '''
+        '''
+        Set color to all the points in the connection list
+
+        Args:
+            color (str): Specify a color for connect point list e.g 'red', 'blue', 'green', etc.
+
+        '''
         for each in self._points:
             each.color = color
         return self
@@ -78,41 +99,102 @@ class ConnectPointList:
         raise NotImplementedError
 
     def load_points(self, filename):
-        ''' Loads all points and its attributes from the given csv file 
+        '''
+        Loads all points and its attributes from the given csv file
 
         Format: from_x, from_y, to_x, to_y, level, color
         '''
         raise NotImplementedError
 
     def search_from_point(self, point):
-        for pt in self._points:
-            if (pt.from_connection == point):
-                return pt
+        '''
+        Search for connection going out of this point
+
+        Note: Returns the first point
+
+        Args:
+            point (tuple): Point to search
+
+        Returns:
+            ConnectionPoint:
+        '''
+        for pts in self._points:
+            if (pts.from_connection == point):
+                return pts
+        return None
 
     def search_to_point(self, point):
-        for pt in self._points:
-            if (pt.to_connection == point):
-                return pt
+        '''
+        Search for connection coming into this point
+
+        Note: Returns the first point
+
+        Args:
+            point (tuple): Point to search
+
+        Returns:
+            ConnectionPoint:
+        '''
+        for pts in self._points:
+            if (pts.to_connection == point):
+                return pts
+        return None
 
     def push_connection_down(self, point):
+        '''
+        Push given connection one-level down
+
+        'Push down' connection indicates that this connection is going down from
+        the current level
+
+        Args:
+            point (tuple): Connetion point to push down
+
+        Returns:
+            ConnectionPoint:
+        '''
         if isinstance(point, tuple):
             point = self.search_to_point(point)
         point.level = "down"
         return point
 
     def pull_connection_up(self, point):
+        '''
+        Pull given connections one-level up
+
+        'Pull up' connection indicates that this connection is coming from
+        one level above this level
+
+        Args:
+            point (tuple): Connetion point to pull up
+        '''
         if isinstance(point, tuple):
             point = self.search_from_point(point)
         point.level = "up"
         return point
 
     def make_top_connection(self, point):
+        '''
+        Make connection with the top layer
+
+        Args:
+            point (tuple): Connetion point to push down
+
+        Returns:
+            ConnectionPoint:
+        '''
         if isinstance(point, tuple):
             point = self.search_from_point(point)
         point.level = "top"
         return point
 
     def reset_level(self, point):
+        '''
+        Resets the level of the connections
+
+        Args:
+            point (ConnectPoint): It is a ConnectPoint object
+        '''
         assert isinstance(point, ConnectPoint), \
             "point should be instance of ConnectPoint class not " + type(point)
         point.level = "same"
@@ -122,21 +204,30 @@ class ConnectPointList:
         self._cursor_state = False
 
     def release_cursor(self):
-        ''' Rleases cursor and moves with each point addition '''
+        ''' Releases cursor and moves with each point addition '''
         self._cursor_state = True
 
-    def flip(self, orientation="H", base=None):
-        """ Flips all the points horizontally or vertically"""
+    def flip(self, orientation="H"):
+        '''
+        Flips all the points horizontally or vertically
+
+        Args:
+            orientation: "H" or "V" (default="H")
+        '''
         for point in self._points:
             point.flip_connection(orientation)
         return self
 
     def sample_connections(self, max_distance=1):
-        ''' This method splits all the connections longer that ``max_distance`` to
+        '''
+        This method splits all the connections longer that ``max_distance`` to
         at max ``max_distance`` length
+
+        Args:
+            max_distance (int): int to sample the connection at this value
         '''
         cursor_backup = self._cursor
-        for indx, each in enumerate(self._points):
+        for _, each in enumerate(self._points):
             if each.distance > max_distance:
                 self._cursor = (each.from_x, each.from_y)
                 for i in range(max_distance, each.distance, max_distance):
@@ -178,36 +269,87 @@ class ConnectPointList:
         return self
 
     def create_graph(self):
+        """
+        Returns networksx object of the given connection point list
+
+        Returns:
+            nx.DiGraph:  Returns networkx object of the given ConnectionPointList
+
+        """
         graph = nx.DiGraph(directed=True)
-        node = 0
         for conn in self._points:
-            from_node = f"_%d_%d_" % conn.from_connection
-            to_node = f"_%d_%d_" % conn.to_connection
+            from_node = "_%d_%d_" % conn.from_connection
+            to_node = "_%d_%d_" % conn.to_connection
             graph.add_edge(from_node, to_node)
         return graph
 
     def merge(self, connectlist):
+        '''
+        Merges different ConnectPointList together into one Connect Point List
+
+        Args:
+            connectlist (ConnectPointList): provide with a ConnectPointList
+
+        Returns:
+            ConnectPointList: Return self object
+        '''
         self._points.extend(connectlist._points)
         return self
 
     def scale(self, scale, anchor=(0, 0)):
+        '''
+        Scales the connect point list from an anchor position
+
+        Args:
+            scale: scale at which ConnectPointList is expanded
+            anchor: (x,y) coordinates of an anchor point
+
+        Returns:
+            ConnectPointList: Return self object
+        '''
         for point in self._points:
             point.scale_connection(scale, anchor)
         return self
 
     def translate(self, x, y):
+        '''
+        Moves the connect point list in x y coordinates
+
+        Args:
+            x(int): Steps in x-axis
+            y(int): Steps in y-axis
+        '''
         for point in self._points:
             point.translate_connection(x, y)
         return self
 
     def rotate(self, angle=0):
+        '''
+        Rotates the connect point list at right angles
+
+        Args:
+            angle (int): degree of rotations (0, 90, 180, 270, -90, -180, -270)
+
+        Returns:
+            ConnectPointList: Return self object
+        '''
         angles = (0, 90, 180, 270, -90, -180, -270, 'CW', 'ACW')
-        assert angle in angles, "Supports only %s degree ratations" % angles
+        assert angle in angles, "Supports only %s degree rotations" % angles
         for point in self._points:
             point.rotate_connection(angle, sizex=self.sizex, sizey=self.sizey)
         return self
 
     def add_next_point(self, x, y):
+        '''
+        Adds the next point in the connect point list
+
+        Args:
+            x: next point x-axis coordinate
+            y: next point y-axis coordinate
+
+        Returns:
+            ConnectPoint: Return new added point
+        '''
         x_prev, y_prev = self._cursor
         point = ConnectPoint(x_prev, y_prev, x, y)
         self.add_connect_point(point)
@@ -215,13 +357,34 @@ class ConnectPointList:
         return point
 
     def move_cursor_x(self, value=1):
+        '''
+        Places the cursor on the specified x coordinate without connection
+
+        Args:
+            value: steps cursor moves in the x-axis
+        '''
         self._cursor = self._cursor[0]+value, self._cursor[1]
 
     def move_cursor_y(self, value=1):
+        '''
+        Places the cursor on the specified y coordinate without connection
+
+        Args:
+            value: steps cursor moves in the y-axis
+        '''
         self._cursor = self._cursor[0], self._cursor[1]+value
 
     def move_x(self, value=1, steps=1, color=DEFAULT_COLOR):
-        ''' Moves cursor in x direction by specified steps times by specified value'''
+        ''' Moves cursor in x direction by specified steps times by specified value
+
+        Args:
+            value: specified value by which cursor moves in the x-axis
+            steps: times cursor is moved
+            color: specify the color of this connection e.g red, blue, green, etc.
+
+        Returns:
+            ConnectPointList: Return self object
+        '''
         x_prev, y_prev = self._cursor
         for _ in range(steps):
             point = ConnectPoint(x_prev, y_prev, x_prev+value, y_prev)
@@ -232,7 +395,17 @@ class ConnectPointList:
         return self
 
     def move_y(self, value=1, steps=1, color=DEFAULT_COLOR):
-        ''' Moves cursor in y direction by specified steps times by specified value'''
+        '''
+        Moves cursor in y direction by specified steps times by specified value
+
+        Args:
+            value: specified value by which cursor moves in the y-axis
+            steps: times cursor is moved
+            color: specify the color of this connection e.g red, blue, green, etc.
+
+        Returns:
+            self: return self object
+        '''
         x_prev, y_prev = self._cursor
         for _ in range(steps):
             point = ConnectPoint(x_prev, y_prev, x_prev, y_prev+value)
@@ -255,12 +428,35 @@ class ConnectPointList:
         return lines
 
     def add_connect_point(self, point):
+        '''
+        Adds a connect point in the connect point list
+
+        Args:
+            point (ConnectPoint): It is a cConnectPoint object
+
+        Returns:
+            ConnectPoint: Returns new ConnectPoint
+        '''
+
         assert isinstance(point, ConnectPoint)
         self._points.append(point)
         self._update_cursor()
         return point
 
     def add_connection(self, from_x, from_y, to_x, to_y):
+        '''
+        Creates a new connection at the given from and to points
+        and add it to the connect point list
+
+        Args:
+            from_x (int): point on x coordinate from which connection starts
+            from_y (int): point on y coordinate from which connection starts
+            to_x (int): point on x coordinate where connection ends
+            to_y (int): point on y coordinate where connection ends
+
+        Returns:
+            ConnectionPoint: New ConnectionPoint object
+        '''
         point = ConnectPoint(from_x, from_y, to_x, to_y)
         self._points.append(point)
         self._update_cursor()
@@ -270,7 +466,7 @@ class ConnectPointList:
         '''
         This renderes connection points list in a SVG format
 
-        args:
+        Args:
             connect (list): collection connection pattern
 
         returns:
@@ -325,7 +521,7 @@ class ConnectPointList:
         Return reference for the given tile location
 
         Returns:
-            sdn.Instance: Returns SpyDrNet instance 
+            sdn.Instance: Returns SpyDrNet instance
         '''
         if 0 in (x, y):
             return "top"
@@ -402,7 +598,7 @@ class ConnectPointList:
         '''
         Create feedthrough port on the given module
 
-        args:
+        Args:
             netlist (Netlist): netlist
             port (str): port name on each module
         '''
@@ -456,7 +652,7 @@ class ConnectPointList:
         Args:
             netlist(sdn.Netlist): Top level netlist
             signal_cable(str): Current level signal port
-            down_port(str) : Name of down level port 
+            down_port(str) : Name of down level port
         '''
         signal = signal_cable.name
         cable = netlist.top_instance.reference.create_cable(signal+"_ft")
@@ -465,9 +661,9 @@ class ConnectPointList:
                 continue
             w = cable.create_wire()
             if point.level == "top":
-                top_cable.assign_cable(cable, 
-                upper=len(cable.wires), 
-                lower=len(cable.wires)-1)
+                top_cable.assign_cable(cable,
+                                       upper=len(cable.wires),
+                                       lower=len(cable.wires)-1)
             elif (0 in point.from_connection) or \
                 (self.sizex+1 == point.from_connection[0]) or \
                     (self.sizey+1 == point.from_connection[1]):
@@ -512,6 +708,14 @@ class ConnectPointList:
         yield from self._points
 
     def short_through(self, through_point):
+        '''
+        Short all the incoming connections to this point with outgoing connections
+
+        Note: Connects the last found incoming and outgoing point in the list
+
+        Args:
+            through_point (tuple): point to short through
+        '''
         incoming = None
         outgoing = None
         for point in self._points:
