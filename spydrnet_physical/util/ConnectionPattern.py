@@ -1,4 +1,3 @@
-
 '''
 This file creates different connection patterns for connectivity
 
