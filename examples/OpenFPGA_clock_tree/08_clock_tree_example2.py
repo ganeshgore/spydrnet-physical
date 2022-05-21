@@ -128,14 +128,6 @@ for x in range(4, WIDTH, 6):
             level1_patt.push_connection_down(pt)
             level0_patt.points.append(deepcopy(pt))
             level0_patt.pull_connection_up(level0_patt.points[-1])
-# for x in list(range(13,WIDTH,16)):
-#        for y in list(range(1,GRID_H+1,16)):
-#            ydir = -1 if y==17 or y==49 else 1
-#            pt = ConnectPoint(x,y+ydir,x,y )
-#            level3_patt.points.append(deepcopy(pt))
-#            level3_patt.push_connection_down(level3_patt.points[-1])
-#            level2_patt.points.append(deepcopy(pt))
-#            level2_patt.pull_connection_up(level2_patt.points[-1])
 
 level0_patt.set_color('brown')
 level1_patt.set_color('blue')
@@ -145,14 +137,7 @@ level3_patt.merge(level0_patt)
 level3_patt.merge(level1_patt)
 level3_patt.merge(level2_patt)
 
-
-level0_patt.crop_edges()
-level1_patt.crop_edges()
-level2_patt.crop_edges()
 level3_patt.crop_edges()
-level0_patt.trim_borders()
-level1_patt.trim_borders()
-level2_patt.trim_borders()
 level3_patt.trim_borders()
 
 svg = level3_pmanager.render_pattern(title="-")
