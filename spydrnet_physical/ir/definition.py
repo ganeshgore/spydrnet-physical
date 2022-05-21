@@ -25,6 +25,8 @@ if typing.TYPE_CHECKING:
     DefinitionBase = type(
         "DefinitionBase", (DefinitionSDN, FirstClassElementPhy), {})
 
+PROP = "VERILOG.InlineConstraints"
+
 
 class Definition(DefinitionBase):
     """
@@ -298,6 +300,70 @@ class Definition(DefinitionBase):
                 self.library.remove_definition(new_def)
         return main_def, instance_list
 
+    @staticmethod
+    def _convert_rect_to_pt(inst):
+        """
+        Returns the absolute points of the instance with rect shape
+        """
+        LOC_X = inst.data[PROP].get("LOC_X", 0)
+        LOC_Y = inst.data[PROP].get("LOC_Y", 0)
+        WIDTH = inst.reference.data[PROP].get("WIDTH", 0)
+        HEIGHT = inst.reference.data[PROP].get("HEIGHT", 0)
+        return [(LOC_X, LOC_Y),
+                (LOC_X, LOC_Y+HEIGHT),
+                (LOC_X+WIDTH, LOC_Y+HEIGHT),
+                (LOC_X+WIDTH, LOC_Y)]
+
+    @staticmethod
+    def _convert_cross_to_pt(inst):
+        """
+        Returns the absolute points of the instance with cross shape
+        """
+        loc_x = inst.data[PROP].get("LOC_X", 0)
+        loc_y = inst.data[PROP].get("LOC_Y", 0)
+        a, b, c, d, e, f = inst.reference.data[PROP].get("POINTS",
+                                                         [10, 10, 10, 10, 10, 10])
+        return [(loc_x+b, loc_y),
+                (loc_x+b, loc_y+f),
+                (loc_x, loc_y+f),
+                (loc_x, loc_y+f+a),
+                (loc_x+b, loc_y+f+a),
+                (loc_x+b, loc_y+a+f+c),
+                (loc_x+b+d, loc_y+a+f+c),
+                (loc_x+b+d, loc_y+a+f),
+                (loc_x+b+d+e, loc_y+a+f),
+                (loc_x+b+d+e, loc_y+f),
+                (loc_x+b+d, loc_y+f),
+                (loc_x+b+d, loc_y)]
+
+    @staticmethod
+    def _get_outline(points):
+        """
+        """
+        min_x = min([x for x, _ in points])
+        min_y = min([y for _, y in points])
+        print(min_x, min_y)
+        return points
+
+    @staticmethod
+    def _call_merged_instance(new_mod, new_instance, instances_list):
+        # def_data = instances_list[0].data["VERILOG.InlineConstraints"]
+        # if def_data:
+        outline = []
+        for each in instances_list:
+            shape = each.reference.data[PROP].get("SHAPE", None)
+            if shape == "rect":
+                outline.extend(Definition._convert_rect_to_pt(each))
+            if shape == "cross":
+                outline.extend(Definition._convert_cross_to_pt(each))
+        print(f"outline {len(outline)}")
+        LOC_X = min([each.data[PROP].get("LOC_X", 0)
+                     for each in instances_list])
+        LOC_Y = min([each.data[PROP].get("LOC_Y", 0)
+                     for each in instances_list])
+        new_instance.data[PROP]["LOC_X"] = LOC_X
+        new_instance.data[PROP]["LOC_Y"] = LOC_Y
+
     # TODO: Try to break this method
     def merge_instance(self, instances_list,
                        new_definition_name="",
@@ -392,6 +458,7 @@ class Definition(DefinitionBase):
             self.remove_child(eachM)
         sdnphy_global_callback._call_merged_instance(
             new_mod, merged_module, instances_list)
+        self._call_merged_instance(new_mod, merged_module, instances_list)
         return new_mod, merged_module, rename_map
 
     def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True):
