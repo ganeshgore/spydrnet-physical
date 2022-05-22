@@ -135,7 +135,7 @@ class GridFloorplanGen:
         return " ".join(map(str, self.grid_x_points)) + \
             "\n" + " ".join(map(str, self.grid_y_points))
 
-    def render_grid(self, return_group=False, filename=None) -> Drawing:
+    def render_grid(self, return_group=False, filename=None):
         # Default margin for the render
         margin_x = 100
         margin_y = 100
@@ -145,7 +145,8 @@ class GridFloorplanGen:
                             self.height+(2*margin_y)),
                       style="background:#F0F0F0")
         t_prop = {"transform": "scale(1,-1)"}
-        dwgShapes = dwg.add(Group(id="mainShapes", **t_prop))
+        dwg_bg = dwg.add(Group(id="background", **t_prop))
+        dwg_shapes = dwg.add(Group(id="mainShapes", **t_prop))
         dwg.defs.add(dwg.style(STYLE_SHEET))
         dwg.viewbox(self.grid_x_points[0]-margin_x,
                     -1*(self.grid_y_points[0]+margin_y+self.height),
@@ -153,22 +154,22 @@ class GridFloorplanGen:
                     self.height+(margin_y*2))
 
         # Add main frame
-        dwg.add(dwg.rect(
+        dwg_bg.add(dwg.rect(
             insert=(self.offset_x, self.offset_y),
             size=(self.width, self.height), **t_prop,
             class_="grid_boundary"))
+        dwg_bg.add(dwg.rect(insert=(0, 0), size=(10, 10), class_="origin"))
 
         # Add horizontal lines
         for eachrow in self.grid_y_points:
-            dwgShapes.add(dwg.line(start=(self.offset_x, eachrow),
-                                   end=(self.offset_x+self.width, eachrow),
-                                   stroke_width=1, stroke='red'))
+            dwg_shapes.add(dwg.line(start=(self.offset_x, eachrow),
+                                    end=(self.offset_x+self.width, eachrow),
+                                    stroke_width=1, stroke='red'))
         # Add vertical lines
         for eachcol in self.grid_x_points:
-            dwgShapes.add(dwg.line(start=(eachcol, self.offset_y),
-                                   end=(eachcol, self.offset_y+self.height),
-                                   stroke_width=1, stroke='red'))
-        dwg.add(dwg.rect(insert=(0, 0), size=(10, 10), class_="origin"))
+            dwg_shapes.add(dwg.line(start=(eachcol, self.offset_y),
+                                    end=(eachcol, self.offset_y+self.height),
+                                    stroke_width=1, stroke='red'))
         if return_group:
-            return dwgShapes
+            return dwg_shapes
         return dwg
