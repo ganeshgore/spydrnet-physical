@@ -346,6 +346,59 @@ class Definition(DefinitionBase):
         return points
 
     @staticmethod
+    def _convert_to_shape(points):
+        outline = [t for t in (set(tuple(i) for i in points))]
+        x_levels = sorted(set([pt for pt, _ in outline]))
+        y_levels = sorted(set([pt for _, pt in outline]))
+        top = max(y_levels)
+        bottom = min(y_levels)
+        right = max(x_levels)
+        left = min(x_levels)
+
+        top_left = min([pt for pt in outline if pt[1] == top])
+        top_right = max([pt for pt in outline if pt[1] == top])
+        bottom_left = min([pt for pt in outline if pt[1] == bottom])
+        bottom_right = max([pt for pt in outline if pt[1] == bottom])
+
+        right_bottom = min([pt for pt in outline if pt[0] == right])
+        right_top = max([pt for pt in outline if pt[0] == right])
+        left_bottom = min([pt for pt in outline if pt[0] == left])
+        left_top = max([pt for pt in outline if pt[0] == left])
+
+        a = max(abs(left_top[1]-left_bottom[1]),
+                abs(right_top[1]-right_bottom[1]))
+        b = max(abs(left_top[0]-top_left[0]),
+                abs(left_bottom[0]-bottom_left[0]))
+        c = max(abs(left_top[1]-top_left[1]),
+                abs(right_top[1]-top_right[1]))
+        d = max(abs(top_left[0]-top_right[0]),
+                abs(bottom_left[0]-bottom_right[0]))
+        e = max(abs(right_top[0]-top_right[0]),
+                abs(right_bottom[0]-bottom_right[0]))
+        f = max(abs(bottom_left[1]-left_bottom[1]),
+                abs(bottom_right[1]-right_bottom[1]))
+
+        logger.info(f"a {a}, b {b}, c {c}, d {d}, e {e}, f {f},")
+
+        logger.info(f"outline        {outline}")
+        logger.info(f"top            {top}")
+        logger.info(f"bottom         {bottom}")
+        logger.info(f"right          {right}")
+        logger.info(f"left           {left}")
+        logger.info(f"top_left       {top_left}")
+        logger.info(f"top_right      {top_right}")
+        logger.info(f"bottom_left    {bottom_left}")
+        logger.info(f"bottom_right   {bottom_right}")
+        logger.info(f"right_bottom   {right_bottom}")
+        logger.info(f"right_top      {right_top}")
+        logger.info(f"left_bottom    {left_bottom}")
+        logger.info(f"left_top       {left_top}")
+
+        if (f == 0) and (b == 0) and (c == 0) and (e == 0):
+            return "rect", [a, d]
+        return "cross", [a, b, c, d, e, f]
+
+    @staticmethod
     def _call_merged_instance(new_mod, new_instance, instances_list):
         # def_data = instances_list[0].data["VERILOG.InlineConstraints"]
         # if def_data:
@@ -356,13 +409,24 @@ class Definition(DefinitionBase):
                 outline.extend(Definition._convert_rect_to_pt(each))
             if shape == "cross":
                 outline.extend(Definition._convert_cross_to_pt(each))
-        print(f"outline {len(outline)}")
+
         LOC_X = min([each.data[PROP].get("LOC_X", 0)
                      for each in instances_list])
         LOC_Y = min([each.data[PROP].get("LOC_Y", 0)
                      for each in instances_list])
         new_instance.data[PROP]["LOC_X"] = LOC_X
         new_instance.data[PROP]["LOC_Y"] = LOC_Y
+        if outline:
+            shape, points = Definition._convert_to_shape(outline)
+            new_instance.reference.properties["SHAPE"] = shape
+            if shape == "cross":
+                new_instance.reference.properties["POINTS"] = points
+            if shape == "rect":
+                new_instance.reference.properties["WIDTH"] = points[0]
+                new_instance.reference.properties["HEIGHT"] = points[1]
+
+            print(f"{new_instance.name} [{new_instance.reference.name:15}]" +
+                  f" {shape} {points}")
 
     # TODO: Try to break this method
     def merge_instance(self, instances_list,
