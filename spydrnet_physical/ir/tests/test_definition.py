@@ -177,7 +177,8 @@ class TestDefinition(unittest.TestCase):
         '''
         points = [(90, 210), (130, 170), (50, 170), (170, 170), (50, 250),
                   (90, 170), (90, 250), (130, 210), (50, 210), (170, 210)]
-        outline = sdn.Definition._get_shapes_outline(points)
+        shape, outline = sdn.Definition._get_shapes_outline(points)
+        self.assertEqual(shape, "custom")
         self.assertListEqual(outline, [(50, 170), (170, 170), (170, 210),
                                        (90, 210), (90, 250), (50, 250),
                                        (50, 170)])
