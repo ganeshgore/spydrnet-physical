@@ -187,4 +187,4 @@ class TestDefinition(unittest.TestCase):
                   (90, 210), (90, 250), (50, 250),
                   (50, 170)]
         path = sdn.Definition._points_to_path(points)
-        self.assertEqual(path, "V 50 170 120 160 80 120 80")
+        self.assertEqual(path, "H 0 0 120 40 -80 40 -40 -80")
