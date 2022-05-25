@@ -169,6 +169,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
             if len(instance_info["shape"]) == 1:
                 if not module.name in visited:
                     llx, lly, w, h = instance_info["shape"][0]
+                    module.properties["SHAPE"] = "rect"
                     module.properties["WIDTH"] = float(w)*CPP
                     module.properties["HEIGHT"] = float(h)*SC_HEIGHT
                 instance.properties["LOC_X"] = bbox[0]*CPP

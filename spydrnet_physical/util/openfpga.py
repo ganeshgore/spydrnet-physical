@@ -196,6 +196,7 @@ class OpenFPGA:
         if filename:
             with open(filename, "w") as fp:
                 fp.write("\n".join(output))
+        return output
 
     def show_placement_data(self, pattern="*", filename=None):
         output = []

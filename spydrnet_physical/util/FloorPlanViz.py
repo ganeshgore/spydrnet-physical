@@ -441,21 +441,25 @@ class FloorPlanViz:
         path = module.data[PROP].get("POINTS", "v 0 0 10 10 -10 -10").split()
         start_dir = path[0]
         origin = path[1:3]
-        path = list(map(int, map(float,path[3:])))
+        path = list(map(int, map(float, path[3:])))
         COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
 
         minY = min(np.cumsum(path[::2]))
         minX = min(np.cumsum(path[1::2]))
         HEIGHT = max(np.cumsum(path[::2]))-minY
         WIDTH = max(np.cumsum(path[1::2]))-minX
-        if start_dir.lower() == "h":
-            WIDTH, HEIGHT = HEIGHT, WIDTH
-            minX, minY = minY, minX
 
         svg_path = "m {} {} ".format(*origin)
         for eachpt in zip(path[::2], path[1::2]):
             svg_path += "v {} h {} ".format(*eachpt)
         svg_path += " z"
+
+        if start_dir.lower() == "h":
+            WIDTH, HEIGHT = HEIGHT, WIDTH
+            minX, minY = minY, minX
+            svg_path = svg_path.replace("v", "vv")
+            svg_path = svg_path.replace("h", "v")
+            svg_path = svg_path.replace("vv", "h")
 
         new_def = self.dwg.symbol(id=module.name,
                                   viewBox=f"{minX} {minY} {WIDTH} {HEIGHT} ")

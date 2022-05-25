@@ -342,61 +342,108 @@ class Definition(DefinitionBase):
         """
         min_x = min([x for x, _ in points])
         min_y = min([y for _, y in points])
-        print(min_x, min_y)
         return points
 
     @staticmethod
-    def _convert_to_shape(points):
-        outline = [t for t in (set(tuple(i) for i in points))]
-        x_levels = sorted(set([pt for pt, _ in outline]))
-        y_levels = sorted(set([pt for _, pt in outline]))
-        top = max(y_levels)
-        bottom = min(y_levels)
-        right = max(x_levels)
-        left = min(x_levels)
+    def _get_orientation(origin, p1, p2):
+        difference = (
+            ((p2[0] - origin[0]) * (p1[1] - origin[1]))
+            - ((p1[0] - origin[0]) * (p2[1] - origin[1])))
+        return difference
 
-        top_left = min([pt for pt in outline if pt[1] == top])
-        top_right = max([pt for pt in outline if pt[1] == top])
-        bottom_left = min([pt for pt in outline if pt[1] == bottom])
-        bottom_right = max([pt for pt in outline if pt[1] == bottom])
+    @staticmethod
+    def _points_to_path(points):
+        """
+        Converts the list of outline points to strin representing custom shape
 
-        right_bottom = min([pt for pt in outline if pt[0] == right])
-        right_top = max([pt for pt in outline if pt[0] == right])
-        left_bottom = min([pt for pt in outline if pt[0] == left])
-        left_top = max([pt for pt in outline if pt[0] == left])
+        .. note:: Points should be in the correct order to obtain string
 
-        a = max(abs(left_top[1]-left_bottom[1]),
-                abs(right_top[1]-right_bottom[1]))
-        b = max(abs(left_top[0]-top_left[0]),
-                abs(left_bottom[0]-bottom_left[0]))
-        c = max(abs(left_top[1]-top_left[1]),
-                abs(right_top[1]-top_right[1]))
-        d = max(abs(top_left[0]-top_right[0]),
-                abs(bottom_left[0]-bottom_right[0]))
-        e = max(abs(right_top[0]-top_right[0]),
-                abs(right_bottom[0]-bottom_right[0]))
-        f = max(abs(bottom_left[1]-left_bottom[1]),
-                abs(bottom_right[1]-right_bottom[1]))
+        Args:
+            points list((float, float)) : list of x and y points
 
-        logger.info(f"a {a}, b {b}, c {c}, d {d}, e {e}, f {f},")
+        """
+        sequence_string = ""
+        sequence_string += "V" if points[0][0] == points[1][0] else "H"
+        sequence_string += " %d %d" % (0, 0)
+        pt1 = points[0]
+        for pt2 in points[1:]:
+            dx = pt2[0] - pt1[0]
+            dy = pt2[1] - pt1[1]
+            pt1 = pt2
+            sequence_string += " %d" % (dx+dy)
+        return sequence_string
 
-        logger.info(f"outline        {outline}")
-        logger.info(f"top            {top}")
-        logger.info(f"bottom         {bottom}")
-        logger.info(f"right          {right}")
-        logger.info(f"left           {left}")
-        logger.info(f"top_left       {top_left}")
-        logger.info(f"top_right      {top_right}")
-        logger.info(f"bottom_left    {bottom_left}")
-        logger.info(f"bottom_right   {bottom_right}")
-        logger.info(f"right_bottom   {right_bottom}")
-        logger.info(f"right_top      {right_top}")
-        logger.info(f"left_bottom    {left_bottom}")
-        logger.info(f"left_top       {left_top}")
+    @staticmethod
+    def _orientation(origin, p1, p2):
+        difference = (((p2[0] - origin[0]) * (p1[1] - origin[1]))
+                      - ((p1[0] - origin[0]) * (p2[1] - origin[1])))
+        return difference
 
-        if (f == 0) and (b == 0) and (c == 0) and (e == 0):
-            return "rect", [a, d]
-        return "cross", [a, b, c, d, e, f]
+    @staticmethod
+    def _get_shapes_outline(array):
+        """
+        Traces the outline of the given object
+
+        While tracing the outline it enforces rectilinear conenctions
+
+        Args:
+            points list((float, float)) : list of x and y points
+
+        """
+        points = []
+        [points.append(x) for x in array if x not in points]
+        _hull_points = []
+
+        start = [pt for pt in points if pt[0]
+                 == min([x for x, _ in points])][0]
+        point = start
+        _hull_points.append(start)
+
+        far_point = None
+        while (far_point is not start):
+
+            # get the first point (initial max) to use to compare with others
+            p1 = None
+            for p in points:
+                if not p is point:
+                    p1 = p
+                    break
+
+            far_point = p1
+
+            for p2 in points:
+                # Ensure we aren't comparing to self or pivot point
+                if not (p2 is point or p2 is p1):
+                    direction = Definition._orientation(point, far_point, p2)
+                    if direction > 0:
+                        far_point = p2
+            # Get delta_x and delta_y of current point with previous
+            delta_x = far_point[0] - point[0]
+            delta_y = far_point[1] - point[1]
+            # Check if its not horizontal or vertical connection
+            # force it to be horizontal or vertical connetion
+            if (delta_x*delta_y):
+                delta_x = delta_x/abs(delta_x) if delta_x else 0
+                delta_y = delta_y/abs(delta_y) if delta_y else 0
+                # Find new intermediate point
+                new_pt = \
+                    (far_point[0], point[1]) if (delta_x, delta_y) == (-1, 1) else \
+                    (far_point[0], point[1]) if (delta_x, delta_y) == (1, -1) else \
+                    (point[0], far_point[1]) if (delta_x, delta_y) == (1, 1) else \
+                    (point[0], far_point[1]) if (delta_x, delta_y) == (-1, -1) else \
+                    (None, None)
+                # Add intermediate point and current point
+                _hull_points.append(new_pt)
+                _hull_points.append(far_point)
+            else:
+                _hull_points.append(far_point)
+            if len(_hull_points) > 2:
+                # IF three points in line remove middle point
+                pt1, pt, pt2 = _hull_points[-3:]
+                if (pt1[0] == pt[0] == pt2[0]) or (pt1[1] == pt[1] == pt2[1]):
+                    _hull_points.remove(pt)
+            point = far_point
+        return "custom", _hull_points
 
     @staticmethod
     def _call_merged_instance(new_mod, new_instance, instances_list):
@@ -409,7 +456,6 @@ class Definition(DefinitionBase):
                 outline.extend(Definition._convert_rect_to_pt(each))
             if shape == "cross":
                 outline.extend(Definition._convert_cross_to_pt(each))
-
         LOC_X = min([each.data[PROP].get("LOC_X", 0)
                      for each in instances_list])
         LOC_Y = min([each.data[PROP].get("LOC_Y", 0)
@@ -417,16 +463,20 @@ class Definition(DefinitionBase):
         new_instance.data[PROP]["LOC_X"] = LOC_X
         new_instance.data[PROP]["LOC_Y"] = LOC_Y
         if outline:
-            shape, points = Definition._convert_to_shape(outline)
+            shape, points = Definition._get_shapes_outline(outline)
             new_instance.reference.properties["SHAPE"] = shape
             if shape == "cross":
                 new_instance.reference.properties["POINTS"] = points
+            if shape == "custom":
+                new_instance.reference.properties["POINTS"] = \
+                    Definition._points_to_path(points)
             if shape == "rect":
                 new_instance.reference.properties["WIDTH"] = points[0]
                 new_instance.reference.properties["HEIGHT"] = points[1]
 
-            print(f"{new_instance.name} [{new_instance.reference.name:15}]" +
-                  f" {shape} {points}")
+            logger.debug(f"{new_instance.name} " +
+                         f"[{new_instance.reference.name:15}]" +
+                         f" {shape} {points}")
 
     # TODO: Try to break this method
     def merge_instance(self, instances_list,

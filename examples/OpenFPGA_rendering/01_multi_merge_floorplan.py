@@ -48,10 +48,10 @@ top.properties["WIDTH"] = 250
 top.properties["HEIGHT"] = 300
 
 module1.properties["SHAPE"] = "cross"  # cross Shape
-module1.properties["POINTS"] = [40, 40, 10, 40, 40, 40]  # A, B, C, D , E, F
+module1.properties["POINTS"] = [40, 0, 40, 40, 40, 0]  # A, B, C, D , E, F
 
 module2.properties["SHAPE"] = "rect"
-module2.properties["WIDTH"] = 40
+module2.properties["WIDTH"] = 60
 module2.properties["HEIGHT"] = 40
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -61,14 +61,14 @@ module2.properties["HEIGHT"] = 40
 inst_1_0.properties["LOC_X"] = 50
 inst_1_0.properties["LOC_Y"] = 20
 
-inst_2_0.properties["LOC_X"] = 170
-inst_2_0.properties["LOC_Y"] = 60
+inst_2_0.properties["LOC_X"] = 130
+inst_2_0.properties["LOC_Y"] = 20
 
 inst_1_1.properties["LOC_X"] = 50
 inst_1_1.properties["LOC_Y"] = 170
 
-inst_2_1.properties["LOC_X"] = 170
-inst_2_1.properties["LOC_Y"] = 210
+inst_2_1.properties["LOC_X"] = 130
+inst_2_1.properties["LOC_Y"] = 170
 
 
 fp = FloorPlanViz(top)
@@ -76,9 +76,10 @@ fp.compose(skip_connections=True)
 dwg = fp.get_svg()
 dwg.saveas("_merge_multiple_floorplan_before.svg", pretty=True, indent=4)
 
-top.merge_multiple_instance([((inst_1_0, inst_2_0), 'merged_inst_2_0'),
-                             ((inst_1_1, inst_2_1), 'merged_inst_2_1')],
-                            new_definition_name="NewModule")
+
+main_def, instance_list = top.merge_multiple_instance([((inst_1_0, inst_2_0), 'merged_inst_2_0'),
+                                                       ((inst_1_1, inst_2_1), 'merged_inst_2_1')],
+                                                      new_definition_name="NewModule")
 
 fp = FloorPlanViz(top)
 fp.compose(skip_connections=True)

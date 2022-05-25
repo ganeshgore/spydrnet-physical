@@ -356,8 +356,8 @@ class FPGAGridGen():
         '''
         Enumerates the FPGA grid
 
-         Returns:
-            (list(list(str))): Returns 2D grid
+        Returns:
+           (list(list(str))): Returns 2D grid
         '''
         for element in sorted(self.layout, key=lambda x: int(x.attrib["priority"])):
             tag = element.tag.lower()
