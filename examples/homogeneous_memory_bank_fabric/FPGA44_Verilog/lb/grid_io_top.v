@@ -11,10 +11,7 @@
 // `default_nettype wire
 
 // ----- Verilog module for grid_io_top -----
-module grid_io_top(cfg_done,
-                   prog_reset,
-                   prog_clk,
-                   gfpga_pad_GPIO_PAD,
+module grid_io_top(gfpga_pad_GPIO_PAD,
                    bottom_width_0_height_0_subtile_0__pin_outpad_0_,
                    bottom_width_0_height_0_subtile_1__pin_outpad_0_,
                    bottom_width_0_height_0_subtile_2__pin_outpad_0_,
@@ -23,7 +20,8 @@ module grid_io_top(cfg_done,
                    bottom_width_0_height_0_subtile_5__pin_outpad_0_,
                    bottom_width_0_height_0_subtile_6__pin_outpad_0_,
                    bottom_width_0_height_0_subtile_7__pin_outpad_0_,
-                   ccff_head,
+                   bl,
+                   wl,
                    bottom_width_0_height_0_subtile_0__pin_inpad_0_,
                    bottom_width_0_height_0_subtile_1__pin_inpad_0_,
                    bottom_width_0_height_0_subtile_2__pin_inpad_0_,
@@ -31,14 +29,7 @@ module grid_io_top(cfg_done,
                    bottom_width_0_height_0_subtile_4__pin_inpad_0_,
                    bottom_width_0_height_0_subtile_5__pin_inpad_0_,
                    bottom_width_0_height_0_subtile_6__pin_inpad_0_,
-                   bottom_width_0_height_0_subtile_7__pin_inpad_0_,
-                   ccff_tail);
-//----- GLOBAL PORTS -----
-input [0:0] cfg_done;
-//----- GLOBAL PORTS -----
-input [0:0] prog_reset;
-//----- GLOBAL PORTS -----
-input [0:0] prog_clk;
+                   bottom_width_0_height_0_subtile_7__pin_inpad_0_);
 //----- GPIO PORTS -----
 inout [0:7] gfpga_pad_GPIO_PAD;
 //----- INPUT PORTS -----
@@ -58,7 +49,9 @@ input [0:0] bottom_width_0_height_0_subtile_6__pin_outpad_0_;
 //----- INPUT PORTS -----
 input [0:0] bottom_width_0_height_0_subtile_7__pin_outpad_0_;
 //----- INPUT PORTS -----
-input [0:0] ccff_head;
+input [0:2] bl;
+//----- INPUT PORTS -----
+input [0:2] wl;
 //----- OUTPUT PORTS -----
 output [0:0] bottom_width_0_height_0_subtile_0__pin_inpad_0_;
 //----- OUTPUT PORTS -----
@@ -75,8 +68,6 @@ output [0:0] bottom_width_0_height_0_subtile_5__pin_inpad_0_;
 output [0:0] bottom_width_0_height_0_subtile_6__pin_inpad_0_;
 //----- OUTPUT PORTS -----
 output [0:0] bottom_width_0_height_0_subtile_7__pin_inpad_0_;
-//----- OUTPUT PORTS -----
-output [0:0] ccff_tail;
 
 //----- BEGIN Registered ports -----
 //----- END Registered ports -----
@@ -89,84 +80,60 @@ output [0:0] ccff_tail;
 // ----- END Local output short connections -----
 
 	logical_tile_io_mode_io_ logical_tile_io_mode_io__0 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
 		.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[0]),
 		.io_outpad(bottom_width_0_height_0_subtile_0__pin_outpad_0_),
-		.ccff_head(ccff_head),
-		.io_inpad(bottom_width_0_height_0_subtile_0__pin_inpad_0_),
-		.ccff_tail(logical_tile_io_mode_io__0_ccff_tail));
+		.bl(bl[0]),
+		.wl(wl[0]),
+		.io_inpad(bottom_width_0_height_0_subtile_0__pin_inpad_0_));
 
 	logical_tile_io_mode_io_ logical_tile_io_mode_io__1 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
 		.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[1]),
 		.io_outpad(bottom_width_0_height_0_subtile_1__pin_outpad_0_),
-		.ccff_head(logical_tile_io_mode_io__0_ccff_tail),
-		.io_inpad(bottom_width_0_height_0_subtile_1__pin_inpad_0_),
-		.ccff_tail(logical_tile_io_mode_io__1_ccff_tail));
+		.bl(bl[1]),
+		.wl(wl[0]),
+		.io_inpad(bottom_width_0_height_0_subtile_1__pin_inpad_0_));
 
 	logical_tile_io_mode_io_ logical_tile_io_mode_io__2 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
 		.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[2]),
 		.io_outpad(bottom_width_0_height_0_subtile_2__pin_outpad_0_),
-		.ccff_head(logical_tile_io_mode_io__1_ccff_tail),
-		.io_inpad(bottom_width_0_height_0_subtile_2__pin_inpad_0_),
-		.ccff_tail(logical_tile_io_mode_io__2_ccff_tail));
+		.bl(bl[2]),
+		.wl(wl[0]),
+		.io_inpad(bottom_width_0_height_0_subtile_2__pin_inpad_0_));
 
 	logical_tile_io_mode_io_ logical_tile_io_mode_io__3 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
 		.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[3]),
 		.io_outpad(bottom_width_0_height_0_subtile_3__pin_outpad_0_),
-		.ccff_head(logical_tile_io_mode_io__2_ccff_tail),
-		.io_inpad(bottom_width_0_height_0_subtile_3__pin_inpad_0_),
-		.ccff_tail(logical_tile_io_mode_io__3_ccff_tail));
+		.bl(bl[0]),
+		.wl(wl[1]),
+		.io_inpad(bottom_width_0_height_0_subtile_3__pin_inpad_0_));
 
 	logical_tile_io_mode_io_ logical_tile_io_mode_io__4 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
 		.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[4]),
 		.io_outpad(bottom_width_0_height_0_subtile_4__pin_outpad_0_),
-		.ccff_head(logical_tile_io_mode_io__3_ccff_tail),
-		.io_inpad(bottom_width_0_height_0_subtile_4__pin_inpad_0_),
-		.ccff_tail(logical_tile_io_mode_io__4_ccff_tail));
+		.bl(bl[1]),
+		.wl(wl[1]),
+		.io_inpad(bottom_width_0_height_0_subtile_4__pin_inpad_0_));
 
 	logical_tile_io_mode_io_ logical_tile_io_mode_io__5 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
 		.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[5]),
 		.io_outpad(bottom_width_0_height_0_subtile_5__pin_outpad_0_),
-		.ccff_head(logical_tile_io_mode_io__4_ccff_tail),
-		.io_inpad(bottom_width_0_height_0_subtile_5__pin_inpad_0_),
-		.ccff_tail(logical_tile_io_mode_io__5_ccff_tail));
+		.bl(bl[2]),
+		.wl(wl[1]),
+		.io_inpad(bottom_width_0_height_0_subtile_5__pin_inpad_0_));
 
 	logical_tile_io_mode_io_ logical_tile_io_mode_io__6 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
 		.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[6]),
 		.io_outpad(bottom_width_0_height_0_subtile_6__pin_outpad_0_),
-		.ccff_head(logical_tile_io_mode_io__5_ccff_tail),
-		.io_inpad(bottom_width_0_height_0_subtile_6__pin_inpad_0_),
-		.ccff_tail(logical_tile_io_mode_io__6_ccff_tail));
+		.bl(bl[0]),
+		.wl(wl[2]),
+		.io_inpad(bottom_width_0_height_0_subtile_6__pin_inpad_0_));
 
 	logical_tile_io_mode_io_ logical_tile_io_mode_io__7 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
 		.gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD[7]),
 		.io_outpad(bottom_width_0_height_0_subtile_7__pin_outpad_0_),
-		.ccff_head(logical_tile_io_mode_io__6_ccff_tail),
-		.io_inpad(bottom_width_0_height_0_subtile_7__pin_inpad_0_),
-		.ccff_tail(ccff_tail));
+		.bl(bl[1]),
+		.wl(wl[2]),
+		.io_inpad(bottom_width_0_height_0_subtile_7__pin_inpad_0_));
 
 endmodule
 // ----- END Verilog module for grid_io_top -----

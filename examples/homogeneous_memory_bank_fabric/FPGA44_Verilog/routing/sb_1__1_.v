@@ -10,10 +10,7 @@
 // `default_nettype wire
 
 // ----- Verilog module for sb_1__1_ -----
-module sb_1__1_(cfg_done,
-                prog_reset,
-                prog_clk,
-                chany_top_in,
+module sb_1__1_(chany_top_in,
                 top_left_grid_right_width_0_height_0_subtile_0__pin_O_1_,
                 top_left_grid_right_width_0_height_0_subtile_0__pin_O_5_,
                 top_left_grid_right_width_0_height_0_subtile_0__pin_O_9_,
@@ -37,18 +34,12 @@ module sb_1__1_(cfg_done,
                 left_bottom_grid_top_width_0_height_0_subtile_0__pin_O_0_,
                 left_bottom_grid_top_width_0_height_0_subtile_0__pin_O_4_,
                 left_bottom_grid_top_width_0_height_0_subtile_0__pin_O_8_,
-                ccff_head,
+                bl,
+                wl,
                 chany_top_out,
                 chanx_right_out,
                 chany_bottom_out,
-                chanx_left_out,
-                ccff_tail);
-//----- GLOBAL PORTS -----
-input [0:0] cfg_done;
-//----- GLOBAL PORTS -----
-input [0:0] prog_reset;
-//----- GLOBAL PORTS -----
-input [0:0] prog_clk;
+                chanx_left_out);
 //----- INPUT PORTS -----
 input [0:19] chany_top_in;
 //----- INPUT PORTS -----
@@ -98,7 +89,9 @@ input [0:0] left_bottom_grid_top_width_0_height_0_subtile_0__pin_O_4_;
 //----- INPUT PORTS -----
 input [0:0] left_bottom_grid_top_width_0_height_0_subtile_0__pin_O_8_;
 //----- INPUT PORTS -----
-input [0:0] ccff_head;
+input [0:8] bl;
+//----- INPUT PORTS -----
+input [0:8] wl;
 //----- OUTPUT PORTS -----
 output [0:19] chany_top_out;
 //----- OUTPUT PORTS -----
@@ -107,8 +100,6 @@ output [0:19] chanx_right_out;
 output [0:19] chany_bottom_out;
 //----- OUTPUT PORTS -----
 output [0:19] chanx_left_out;
-//----- OUTPUT PORTS -----
-output [0:0] ccff_tail;
 
 //----- BEGIN Registered ports -----
 //----- END Registered ports -----
@@ -521,182 +512,122 @@ wire [0:3] mux2_size12_9_sram_inv;
 		.out(chanx_left_out[16]));
 
 	mux2_size12_mem mem_top_track_0 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(ccff_head),
-		.ccff_tail(mux2_size12_mem_0_ccff_tail),
+		.bl(bl[0:3]),
+		.wl({wl[0], wl[0], wl[0], wl[0]}),
 		.mem_out(mux2_size12_0_sram[0:3]),
 		.mem_outb(mux2_size12_0_sram_inv[0:3]));
 
 	mux2_size12_mem mem_top_track_8 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_0_ccff_tail),
-		.ccff_tail(mux2_size12_mem_1_ccff_tail),
+		.bl(bl[4:7]),
+		.wl({wl[0], wl[0], wl[0], wl[0]}),
 		.mem_out(mux2_size12_1_sram[0:3]),
 		.mem_outb(mux2_size12_1_sram_inv[0:3]));
 
 	mux2_size12_mem mem_top_track_16 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_1_ccff_tail),
-		.ccff_tail(mux2_size12_mem_2_ccff_tail),
+		.bl({bl[8], bl[0:2]}),
+		.wl({wl[0:1], wl[1], wl[1]}),
 		.mem_out(mux2_size12_2_sram[0:3]),
 		.mem_outb(mux2_size12_2_sram_inv[0:3]));
 
 	mux2_size12_mem mem_top_track_24 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_2_ccff_tail),
-		.ccff_tail(mux2_size12_mem_3_ccff_tail),
+		.bl(bl[3:6]),
+		.wl({wl[1], wl[1], wl[1], wl[1]}),
 		.mem_out(mux2_size12_3_sram[0:3]),
 		.mem_outb(mux2_size12_3_sram_inv[0:3]));
 
 	mux2_size12_mem mem_top_track_32 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_3_ccff_tail),
-		.ccff_tail(mux2_size12_mem_4_ccff_tail),
+		.bl({bl[7:8], bl[0:1]}),
+		.wl({wl[1], wl[1:2], wl[2]}),
 		.mem_out(mux2_size12_4_sram[0:3]),
 		.mem_outb(mux2_size12_4_sram_inv[0:3]));
 
 	mux2_size12_mem mem_right_track_0 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_4_ccff_tail),
-		.ccff_tail(mux2_size12_mem_5_ccff_tail),
+		.bl(bl[2:5]),
+		.wl({wl[2], wl[2], wl[2], wl[2]}),
 		.mem_out(mux2_size12_5_sram[0:3]),
 		.mem_outb(mux2_size12_5_sram_inv[0:3]));
 
 	mux2_size12_mem mem_right_track_8 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_5_ccff_tail),
-		.ccff_tail(mux2_size12_mem_6_ccff_tail),
+		.bl({bl[6:8], bl[0]}),
+		.wl({wl[2], wl[2], wl[2:3]}),
 		.mem_out(mux2_size12_6_sram[0:3]),
 		.mem_outb(mux2_size12_6_sram_inv[0:3]));
 
 	mux2_size12_mem mem_right_track_16 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_6_ccff_tail),
-		.ccff_tail(mux2_size12_mem_7_ccff_tail),
+		.bl(bl[1:4]),
+		.wl({wl[3], wl[3], wl[3], wl[3]}),
 		.mem_out(mux2_size12_7_sram[0:3]),
 		.mem_outb(mux2_size12_7_sram_inv[0:3]));
 
 	mux2_size12_mem mem_right_track_24 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_7_ccff_tail),
-		.ccff_tail(mux2_size12_mem_8_ccff_tail),
+		.bl(bl[5:8]),
+		.wl({wl[3], wl[3], wl[3], wl[3]}),
 		.mem_out(mux2_size12_8_sram[0:3]),
 		.mem_outb(mux2_size12_8_sram_inv[0:3]));
 
 	mux2_size12_mem mem_right_track_32 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_8_ccff_tail),
-		.ccff_tail(mux2_size12_mem_9_ccff_tail),
+		.bl(bl[0:3]),
+		.wl({wl[4], wl[4], wl[4], wl[4]}),
 		.mem_out(mux2_size12_9_sram[0:3]),
 		.mem_outb(mux2_size12_9_sram_inv[0:3]));
 
 	mux2_size12_mem mem_bottom_track_1 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_9_ccff_tail),
-		.ccff_tail(mux2_size12_mem_10_ccff_tail),
+		.bl(bl[4:7]),
+		.wl({wl[4], wl[4], wl[4], wl[4]}),
 		.mem_out(mux2_size12_10_sram[0:3]),
 		.mem_outb(mux2_size12_10_sram_inv[0:3]));
 
 	mux2_size12_mem mem_bottom_track_9 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_10_ccff_tail),
-		.ccff_tail(mux2_size12_mem_11_ccff_tail),
+		.bl({bl[8], bl[0:2]}),
+		.wl({wl[4:5], wl[5], wl[5]}),
 		.mem_out(mux2_size12_11_sram[0:3]),
 		.mem_outb(mux2_size12_11_sram_inv[0:3]));
 
 	mux2_size12_mem mem_bottom_track_17 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_11_ccff_tail),
-		.ccff_tail(mux2_size12_mem_12_ccff_tail),
+		.bl(bl[3:6]),
+		.wl({wl[5], wl[5], wl[5], wl[5]}),
 		.mem_out(mux2_size12_12_sram[0:3]),
 		.mem_outb(mux2_size12_12_sram_inv[0:3]));
 
 	mux2_size12_mem mem_bottom_track_25 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_12_ccff_tail),
-		.ccff_tail(mux2_size12_mem_13_ccff_tail),
+		.bl({bl[7:8], bl[0:1]}),
+		.wl({wl[5], wl[5:6], wl[6]}),
 		.mem_out(mux2_size12_13_sram[0:3]),
 		.mem_outb(mux2_size12_13_sram_inv[0:3]));
 
 	mux2_size12_mem mem_bottom_track_33 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_13_ccff_tail),
-		.ccff_tail(mux2_size12_mem_14_ccff_tail),
+		.bl(bl[2:5]),
+		.wl({wl[6], wl[6], wl[6], wl[6]}),
 		.mem_out(mux2_size12_14_sram[0:3]),
 		.mem_outb(mux2_size12_14_sram_inv[0:3]));
 
 	mux2_size12_mem mem_left_track_1 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_14_ccff_tail),
-		.ccff_tail(mux2_size12_mem_15_ccff_tail),
+		.bl({bl[6:8], bl[0]}),
+		.wl({wl[6], wl[6], wl[6:7]}),
 		.mem_out(mux2_size12_15_sram[0:3]),
 		.mem_outb(mux2_size12_15_sram_inv[0:3]));
 
 	mux2_size12_mem mem_left_track_9 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_15_ccff_tail),
-		.ccff_tail(mux2_size12_mem_16_ccff_tail),
+		.bl(bl[1:4]),
+		.wl({wl[7], wl[7], wl[7], wl[7]}),
 		.mem_out(mux2_size12_16_sram[0:3]),
 		.mem_outb(mux2_size12_16_sram_inv[0:3]));
 
 	mux2_size12_mem mem_left_track_17 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_16_ccff_tail),
-		.ccff_tail(mux2_size12_mem_17_ccff_tail),
+		.bl(bl[5:8]),
+		.wl({wl[7], wl[7], wl[7], wl[7]}),
 		.mem_out(mux2_size12_17_sram[0:3]),
 		.mem_outb(mux2_size12_17_sram_inv[0:3]));
 
 	mux2_size12_mem mem_left_track_25 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_17_ccff_tail),
-		.ccff_tail(mux2_size12_mem_18_ccff_tail),
+		.bl(bl[0:3]),
+		.wl({wl[8], wl[8], wl[8], wl[8]}),
 		.mem_out(mux2_size12_18_sram[0:3]),
 		.mem_outb(mux2_size12_18_sram_inv[0:3]));
 
 	mux2_size12_mem mem_left_track_33 (
-		.cfg_done(cfg_done),
-		.prog_reset(prog_reset),
-		.prog_clk(prog_clk),
-		.ccff_head(mux2_size12_mem_18_ccff_tail),
-		.ccff_tail(ccff_tail),
+		.bl(bl[4:7]),
+		.wl({wl[8], wl[8], wl[8], wl[8]}),
 		.mem_out(mux2_size12_19_sram[0:3]),
 		.mem_outb(mux2_size12_19_sram_inv[0:3]));
 
