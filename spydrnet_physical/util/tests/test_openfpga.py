@@ -13,7 +13,7 @@ class TestOpenFPGA(unittest.TestCase):
     ''' Test case to cehck OpenFPGA '''
 
     def setUp(self) -> None:
-        self.source_dir = abspath("examples/OpenFPGA/homogeneous_fabric")
+        self.source_dir = abspath("examples/homogeneous_fabric")
         source_files = glob.glob(f'{self.source_dir}/*_Verilog/lb/*.v')
         source_files += glob.glob(f'{self.source_dir}/*_Verilog/routing/*.v')
         source_files += glob.glob(f'{self.source_dir}/*_Verilog/sub_module/*.v')
