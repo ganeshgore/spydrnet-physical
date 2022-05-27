@@ -7,23 +7,29 @@ This is dedicated OpenFPGA floorplaner which shape tiles in traditional structur
 as shown below. This placement class is not dependent iupon the architecture and always
 applied to homogeneous structure.
 
-There are two brod categories of inputs,
+There are total two ways
 
-**Paramater Based** (*Preferred*):
+.. toctree::
+   :maxdepth: 2
 
-Following figure details the various paramteres referred in this class
+   self
+
+Paramater Based (*Preferred*):
+------------------------------
+
+Following figure details the various paramteres referred in this type of floorplanning
 
 .. rst-class:: ascii
 
 ::
 
 
-                |<-----  GRID_X  ----->|
-                |                      |
+                  |<---------  GRID_X  --------->|
+                  |                              |
         ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐  ∧
         │           ││   CBX_TOP   ││              ││             ││           │  |
         │           ││   _WIDTH    ││              ││             ││           │  | CBX_TOP_HEIGHT
-        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ∨
+        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ⩒ 
         │        │┌───────────────────┐│        │┌───────────────────┐│        │
         └────────┘│   GRID_CLB_RATIO  │└────────┘│                   │└────────┘
         ┌────────┐│       W/H         │┌────────┐│                   │┌────────┐
@@ -53,8 +59,8 @@ Following figure details the various paramteres referred in this class
         │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │  ∧
         │           ││ CBX_BOTTOM_ ││              ││             ││           │  |
         │           ││   _WIDTH    ││              ││             ││           │  | CBX_BOTTOM_HEIGHT
-        └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘  ∨
-        <-------->                                                    <-------->
+        └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘  ⩒
+        <----------->                                               <--------->
         CBY_LEFT_WIDTH                                           CBY_RIGHT_WIDTH
 
 
@@ -90,6 +96,10 @@ Following figure details the various paramteres referred in this class
 * ``BOTTOM_CBX_WIDTH``
 * ``BOTTOM_CBX_HEIGHT``
 
+
+Utilization Based
+-----------------
+
 **Ideas**:
 
 * Optionally provide a method to apply shaping and placement to the netlist elements
@@ -111,10 +121,20 @@ logger = logging.getLogger('spydrnet_logs')
 
 AREA, WIDTH, HEIGHT = 0, 1, 2
 CPP = 4
+SCALE = 100
 SC_HEIGHT = 4
 
 
 class initial_placement(OpenFPGA_Placement_Generator):
+
+    CPP = 2
+    """int: ``Contated-poly-pitch`` (`default`=2) """
+
+    SC_HEIGHT = 10
+    """int: ``Standard cell height`` (`default`=10) """
+
+    SCALE = 100
+    """int: Module level variable documented inline. (`default`=100) """
 
     def __init__(self, grid, netlist, fpga_grid: FPGAGridGen, debug=False,
                  areaFile=None, padFile=None, gridIO=False, shapingConf=None):
@@ -155,8 +175,9 @@ class initial_placement(OpenFPGA_Placement_Generator):
         """
         Overrides the base method to create placement information
         """
-        self.ComputeGrid(skipChannels=False)
-        self.CreateDatabase()
+        if not self.PlacementDB:
+            self.ComputeGrid(skipChannels=False)
+            self.CreateDatabase()
         visited = []
         for instance_name, instance_info in self.PlacementDBKey.items():
             bbox = instance_info["bbox"]
@@ -270,7 +291,6 @@ class initial_placement(OpenFPGA_Placement_Generator):
                 BlockArea = self.areaFile
             self.CLB_DIM = BlockArea["grid_clb"]
             self.CB_DIM = BlockArea["cbx_1__1_"]
-            
 
         # Snap CLB Height and Width to next Multiple of 2
         self.CLB_UNIT = math.sqrt(
@@ -472,6 +492,11 @@ class initial_placement(OpenFPGA_Placement_Generator):
 
     def add_sb(self, xi, yi):
         '''
+        Adds switch-blocks in the placement database
+
+        .. rst-class:: ascii
+
+        ::
                    d
                  +----+
                c |    |
