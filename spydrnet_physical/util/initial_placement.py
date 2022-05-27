@@ -168,6 +168,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
         # Pads Related
         self.pad_w = 80
         self.pad_h = 10
+        self.SC_GRID = self.SC_HEIGHT*self.CPP
         if shapingConf:
             self.update_default_configuration(shapingConf)
 
@@ -731,6 +732,3 @@ class initial_placement(OpenFPGA_Placement_Generator):
                 "center": [pad_x, pad_y],
             }
         )
-
-    def moduleFmt(self, mod, X, Y):
-        return f"{mod}_{X}__{Y}_"
