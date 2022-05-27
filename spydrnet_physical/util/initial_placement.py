@@ -258,16 +258,19 @@ class initial_placement(OpenFPGA_Placement_Generator):
 
     def ComputeGrid(self, skipChannels=False):
         self.skipChannels = skipChannels
+        self.CLB_DIM = [2500, 24*8, 24]
+        self.CB_DIM = [2500*0.6, 0, 0]
         if self.areaFile:
-            BlockArea = {}
-            for eachLine in open(self.areaFile, "r"):
-                module, dims = eachLine.split(" ", 1)
-                BlockArea[module] = list(map(float, list(dims.split())))
+            if isinstance(self.areaFile, str):
+                BlockArea = {}
+                for eachLine in open(self.areaFile, "r"):
+                    module, dims = eachLine.split(" ", 1)
+                    BlockArea[module] = list(map(float, list(dims.split())))
+            if isinstance(self.areaFile, dict):
+                BlockArea = self.areaFile
             self.CLB_DIM = BlockArea["grid_clb"]
             self.CB_DIM = BlockArea["cbx_1__1_"]
-        else:
-            self.CLB_DIM = [2500, 24*8, 24]
-            self.CB_DIM = [2500*0.6, 0, 0]
+            
 
         # Snap CLB Height and Width to next Multiple of 2
         self.CLB_UNIT = math.sqrt(
