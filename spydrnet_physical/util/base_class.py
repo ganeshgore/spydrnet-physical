@@ -1,7 +1,8 @@
 import typing
 
+if typing.TYPE_CHECKING:
+    import spydrnet as sdn
 
-import spydrnet as sdn
 from spydrnet_physical.util import FPGAGridGen
 
 
@@ -25,9 +26,7 @@ class OpenFPGA_Placement_Generator:
     Template class to create OpenFPGA Placement generator
     """
 
-    def __init__(self, grid_size,
-                 netlist: sdn.Netlist,
-                 fpga_grid: FPGAGridGen):
+    def __init__(self, grid_size, netlist, fpga_grid):
         self.fpga_size = grid_size
         self._netlist = netlist
         self._top_module = netlist.top_instance.reference

@@ -170,22 +170,3 @@ class TestDefinition(unittest.TestCase):
     def test_merge_multiple_instance(self):
         # TODO: Wrte test for checking merge multiple instances
         self.definition.merge_multiple_instance()
-
-    def test_convert_to_shape(self):
-        '''
-        Check if two 
-        '''
-        points = [(90, 210), (130, 170), (50, 170), (170, 170), (50, 250),
-                  (90, 170), (90, 250), (130, 210), (50, 210), (170, 210)]
-        shape, outline = sdn.Definition._get_shapes_outline(points)
-        self.assertEqual(shape, "custom")
-        self.assertListEqual(outline, [(50, 170), (170, 170), (170, 210),
-                                       (90, 210), (90, 250), (50, 250),
-                                       (50, 170)])
-
-    def test_points_to_path(self):
-        points = [(50, 170), (170, 170), (170, 210),
-                  (90, 210), (90, 250), (50, 250),
-                  (50, 170)]
-        path = sdn.Definition._points_to_path(points)
-        self.assertEqual(path, "H 0 0 120 40 -80 40 -40 -80")
