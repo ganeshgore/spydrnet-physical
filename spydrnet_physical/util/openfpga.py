@@ -17,6 +17,7 @@ from spydrnet_physical.util import FPGAGridGen, initial_placement
 
 logger = logging.getLogger('spydrnet_logs')
 
+PROP = "VERILOG.InlineConstraints"
 
 class OpenFPGA:
     '''
@@ -24,6 +25,9 @@ class OpenFPGA:
     different generic netlist restructuring
 
     '''
+    SC_HEIGHT = 1
+    CPP = 0.2
+    GLOBAL_SCALE = 100
 
     def __init__(self, grid, netlist, library="work", top_module="fpga_top",
                  arch_xml=None):
@@ -701,3 +705,18 @@ class OpenFPGA:
                     pin_name = name_map(pin_name.groups()[0])
                     top_port.change_name(pin_name)
                     logger.debug(f"{top_port.name} =>> {pin_name}")
+    
+    def annotate_area_information(self, filename):
+        '''
+        This method annotated the area infomration on each 
+        definition of the top level module
+        '''
+        with open(filename, "r") as fp:
+            for line in fp.readlines():
+                if not(line):
+                    continue
+                instance, area = line.split()[:2]
+                area = int(float(area)*(self.GLOBAL_SCALE**2)/(self.SC_HEIGHT*self.CPP))
+                ref = next(self.top_module.get_definitions(instance))
+                logger.debug(f"{ref.name} [{instance}] area is set to {int(area)}")
+                ref.data[PROP]["AREA"] = int(area)
