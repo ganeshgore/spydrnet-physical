@@ -457,7 +457,6 @@ class Definition(DefinitionBase):
             return
         points = new_instance.reference.properties.get("POINTS", None)
         points = points.split()
-        print(points, len(points))
         if len(points) == 7:
             new_instance.reference.properties["SHAPE"] = "rect"
             new_instance.reference.properties["WIDTH"] = int(points[3])
