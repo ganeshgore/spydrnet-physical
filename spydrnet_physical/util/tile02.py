@@ -44,9 +44,7 @@ class Tile02(Tile01):
                                                  new_definition_name=tile_name)
         tile = next(self._library.get_definitions(tile_name))
         tile.OptPins()
-        width, height = self._get_width_height(instance_list)
         self._update_placement(instance_list)
-        tile.properties["WIDTH"], tile.properties["HEIGHT"] = width, height
 
     def _get_width_height(self, instance_list):
         x_min, y_min = float("inf"), float("inf")

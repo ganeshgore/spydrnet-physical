@@ -443,7 +443,25 @@ class Definition(DefinitionBase):
                 if (pt1[0] == pt[0] == pt2[0]) or (pt1[1] == pt[1] == pt2[1]):
                     _hull_points.remove(pt)
             point = far_point
+        # check if first point is co linear with second an last point
+        pt1, pt, pt2 = _hull_points[-2], _hull_points[0], _hull_points[1]
+        if (pt1[0] == pt[0] == pt2[0]) or (pt1[1] == pt[1] == pt2[1]):
+            _hull_points.remove(pt) 
+            _hull_points[-1] = _hull_points[0]
         return "custom", _hull_points
+
+    @staticmethod
+    def _interpret_custom_to_shape(new_instance):
+        shape = new_instance.reference.properties.get("SHAPE", None)
+        if not shape == "custom":
+            return
+        points = new_instance.reference.properties.get("POINTS", None)
+        points = points.split()
+        print(points, len(points))
+        if len(points) == 7:
+            new_instance.reference.properties["SHAPE"] = "rect"
+            new_instance.reference.properties["WIDTH"] = int(points[3])
+            new_instance.reference.properties["HEIGHT"] = int(points[4])
 
     @staticmethod
     def _call_merged_instance(new_mod, new_instance, instances_list):
@@ -476,10 +494,13 @@ class Definition(DefinitionBase):
             if shape == "rect":
                 new_instance.reference.properties["WIDTH"] = points[0]
                 new_instance.reference.properties["HEIGHT"] = points[1]
+            Definition._interpret_custom_to_shape(new_instance)
 
             logger.debug(f"{new_instance.name} " +
-                         f"[{new_instance.reference.name:15}]" +
-                         f" {shape} {points}")
+                  f"[{new_instance.reference.name:15}]" +
+                  f"[{new_instance.reference.properties['SHAPE']:15}]" +
+                  f"[{new_instance.reference.properties['WIDTH']:15}]" +
+                  f" {shape} {points}")
 
     # TODO: Try to break this method
     def merge_instance(self, instances_list,
