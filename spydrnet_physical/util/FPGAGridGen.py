@@ -438,10 +438,10 @@ class FPGAGridGen:
                     if (y+2) < self.height*2 else None
                 grid_lbl_b = self.grid[math.floor(y/2)][math.floor(x/2)] \
                     if y > 0 else None
-                print(
-                    f"{x:4} {y:4} {str(grid_lbl):10} " +
-                    f"{str(grid_lbl_t):10} {str(grid_lbl_b):10} " +
-                    f"{str(grid_lbl_l):10} {str(grid_lbl_r):10}")
+                # print(
+                #     f"{x:4} {y:4} {str(grid_lbl):10} " +
+                #     f"{str(grid_lbl_t):10} {str(grid_lbl_b):10} " +
+                #     f"{str(grid_lbl_l):10} {str(grid_lbl_r):10}")
                 module = {
                     True: self.UP_ARROW if ((grid_lbl_r in arrows) and (grid_lbl_t in arrows)) else "sb",
                     (x % 2 == 1) and (y % 2 == 0): grid_lbl_r if (grid_lbl_r == self.RIGHT_ARROW) else self.UP_ARROW
