@@ -12,6 +12,7 @@ create a 2D matrix of the FPGA grid.
 
 import argparse
 import logging
+import math
 
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
 
@@ -105,12 +106,15 @@ class FPGAGridGen:
     """str: Design name"""
 
     grid = None
-    """list(list): 2-Dimentional grid for logic blocks"""
+    """list(list): 2-Dimentional grid for logic blocks grid[0] bottom most row"""
 
     full_grid = None
     """list(list): 2-Dimentional grid for logic block and routing elements"""
 
-    def __init__(self, design_name, arch_file, layout, release_root) -> None:
+    fpga_arch = None
+    """OpenFPGA_Arch: Instance of OpenFPGA_Arch class"""
+
+    def __init__(self, design_name, arch_file, layout, release_root=None) -> None:
         """
         Initiliaze the FPGA grid generator class
 
@@ -130,7 +134,6 @@ class FPGAGridGen:
         assert layout, "Specified layout not found in the architecture file"
         self.width = self.fpga_arch.width
         self.height = self.fpga_arch.height
-        self.pb_type = {}
         self.grid = [[0 for _ in range(self.width)]
                      for _ in range(self.height)]
         self.full_grid = [
@@ -148,24 +151,13 @@ class FPGAGridGen:
         """Get height of FPGA"""
         return self.height - 2
 
-    def print_grid(self):
+    def print_grid(self, grid="grid"):
         """
         Prints logic block grid
         """
+        grid = self.grid if grid == "grid" else self.full_grid
         output = ""
-        for row in self.grid[::-1]:
-            for y in row:
-                output += f"{y:^10} "
-            output += "\n"
-        print(output)
-        return output
-
-    def print_full_grid(self):
-        """
-        Print routing grid
-        """
-        output = ""
-        for row in self.grid[::-1]:
+        for row in grid[::-1]:
             for y in row:
                 output += f"{y:^10} "
             output += "\n"
@@ -193,10 +185,56 @@ class FPGAGridGen:
             value = self.grid[y][x]
         return value, x, y
 
+    def get_top_instance(self, x, y):
+        """
+        This method generates the grid instance information given the
+        cordinate points
+        """
+        grid_lbl = self.get_block(int(x / 2), int(y / 2))
+        if y == 0 or ((self.height * 2) - 2 == y):
+            return (
+                "EMPTY"
+                if ((x % 2) or grid_lbl[0] == "EMPTY")
+                else ("%s_%d__%d_" % grid_lbl)
+            )
+        if x == 0 or ((self.width * 2) - 2 == x):
+            return (
+                "EMPTY"
+                if ((y % 2) or grid_lbl[0] == "EMPTY")
+                else ("%s_%d__%d_" % grid_lbl)
+            )
+        if (x % 2 == 0) and (y % 2 == 0):
+            return "%s_%d__%d_" % grid_lbl
+        module = {
+            True: "sb",
+            (x % 2 == 1) and (y % 2 == 0): "cbx",
+            (x % 2 == 0) and (y % 2 == 1): "cby",
+        }[True]
+        xi, yi = int(x / 2), int(y / 2)
+        # TODO : Square modules are not supported yet
+        if module == "sb":
+            if (self.get_block(xi + 1, yi + 1) == self.get_block(xi + 1, yi)) and (
+                self.get_block(xi + 1, yi + 1) == self.get_block(xi, yi + 1)
+            ):
+                grid_lbl = self.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        if module == "cbx":
+            if self.get_block(xi, yi) == self.get_block(xi + 1, yi):
+                grid_lbl = self.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        if module == "cby":
+            if self.grid[yi + 1][xi] in [self.UP_ARROW]:
+                grid_lbl = self.get_block(xi, yi)
+                return "%s_%d__%d_" % grid_lbl
+        return f"{module}_{int(x/2)}__{int(y/2)}_"
+
     @staticmethod
-    def _get_val(ele, param, default, vars={}):
+    def _resolve_string(ele, param, default, variables={}):
         """
         Parses the startx, starty, repeatx and repeaty variables to integer
+
+        Variables are passed in `variables` variable, 
+        generally ``W`` and ``H`` values
         """
         val = ele.attrib.get(param, str(default))
         if val.isnumeric():
@@ -204,7 +242,7 @@ class FPGAGridGen:
         else:
             val = val.replace("W", "{W}")
             val = val.replace("H", "{H}")
-            return int(eval(val.format(**vars)))
+            return int(eval(val.format(**variables)))
 
     def _set_value(self, x, y, value, width=1, height=1):
         """
@@ -222,7 +260,7 @@ class FPGAGridGen:
                     )
             return 1
         except IndexError:
-            logger.warning("Trying to set grid location (%s %s)" % (x, y))
+            logger.warning("Trying to set grid location (%s %s)", x, y)
             return 0
 
     def add_fill(self, ele):
@@ -299,10 +337,10 @@ class FPGAGridGen:
             "W": self.fpga_arch.width,
             "H": self.fpga_arch.height,
         }
-        startx = self._get_val(ele, "startx", ele_w, var)
-        incrx = self._get_val(ele, "incrx", ele_w, var)
-        starty = self._get_val(ele, "starty", 1, var)
-        repy = self._get_val(ele, "repeaty", self.fpga_arch.height, var)
+        startx = self._resolve_string(ele, "startx", ele_w, var)
+        incrx = self._resolve_string(ele, "incrx", ele_w, var)
+        starty = self._resolve_string(ele, "starty", 1, var)
+        repy = self._resolve_string(ele, "repeaty", self.fpga_arch.height, var)
         for x in range(startx, self.width, incrx):
             for y in range(starty, self.height, repy):
                 self._set_value(x, y, ele_type, ele_w, ele_h)
@@ -316,10 +354,11 @@ class FPGAGridGen:
             "W": self.fpga_arch.width,
             "H": self.fpga_arch.height,
         }
-        startx = self._get_val(ele, "startx", 0, var)
-        repeatx = self._get_val(ele, "repeatx", self.fpga_arch.width, var)
-        starty = self._get_val(ele, "starty", 1, var)
-        incry = self._get_val(ele, "incry", ele_h, var)
+        startx = self._resolve_string(ele, "startx", 0, var)
+        repeatx = self._resolve_string(
+            ele, "repeatx", self.fpga_arch.width, var)
+        starty = self._resolve_string(ele, "starty", 1, var)
+        incry = self._resolve_string(ele, "incry", ele_h, var)
         for x in range(startx, self.width, repeatx):
             for y in range(starty, self.height, incry):
                 self._set_value(x, y, ele_type, ele_w, ele_h)
@@ -333,14 +372,16 @@ class FPGAGridGen:
             "W": self.fpga_arch.width,
             "H": self.fpga_arch.height,
         }
-        startx = self._get_val(ele, "startx", 0, var)
-        endx = self._get_val(ele, "endx", self.fpga_arch.width, var)
-        incrx = self._get_val(ele, "incrx", ele_w, var)
-        repeatx = self._get_val(ele, "repeatx", self.fpga_arch.width, var)
-        starty = self._get_val(ele, "starty", 0, var)
-        endy = self._get_val(ele, "endy", self.fpga_arch.height, var)
-        incry = self._get_val(ele, "incry", ele_h, var)
-        repeaty = self._get_val(ele, "repeaty", self.fpga_arch.height, var)
+        startx = self._resolve_string(ele, "startx", 0, var)
+        endx = self._resolve_string(ele, "endx", self.fpga_arch.width, var)
+        incrx = self._resolve_string(ele, "incrx", ele_w, var)
+        repeatx = self._resolve_string(
+            ele, "repeatx", self.fpga_arch.width, var)
+        starty = self._resolve_string(ele, "starty", 0, var)
+        endy = self._resolve_string(ele, "endy", self.fpga_arch.height, var)
+        incry = self._resolve_string(ele, "incry", ele_h, var)
+        repeaty = self._resolve_string(
+            ele, "repeaty", self.fpga_arch.height, var)
 
         for xstep in range(0, self.width, repeatx):
             for ystep in range(0, self.height, repeaty):
@@ -348,49 +389,6 @@ class FPGAGridGen:
                     for y in range(starty, endy, incry):
                         self._set_value(xstep + x, ystep + y,
                                         ele_type, ele_w, ele_h)
-
-    def get_top_instance(self, x, y):
-        """
-        This method generates the grid instance information given the
-        cordinate points
-        """
-        grid_lbl = self.get_block(int(x / 2), int(y / 2))
-        if y == 0 or ((self.height * 2) - 2 == y):
-            return (
-                "EMPTY"
-                if ((x % 2) or grid_lbl[0] == "EMPTY")
-                else ("%s_%d__%d_" % grid_lbl)
-            )
-        if x == 0 or ((self.width * 2) - 2 == x):
-            return (
-                "EMPTY"
-                if ((y % 2) or grid_lbl[0] == "EMPTY")
-                else ("%s_%d__%d_" % grid_lbl)
-            )
-        if (x % 2 == 0) and (y % 2 == 0):
-            return "%s_%d__%d_" % grid_lbl
-        module = {
-            True: "sb",
-            (x % 2 == 1) and (y % 2 == 0): "cby",
-            (x % 2 == 0) and (y % 2 == 1): "cbx",
-        }[True]
-        xi, yi = int(x / 2), int(y / 2)
-        # TODO : Square modules are not supported yet
-        if module == "sb":
-            if (self.get_block(xi + 1, yi + 1) == self.get_block(xi + 1, yi)) and (
-                self.get_block(xi + 1, yi + 1) == self.get_block(xi, yi + 1)
-            ):
-                grid_lbl = self.get_block(xi, yi)
-                return "%s_%d__%d_" % grid_lbl
-        if module == "cby":
-            if self.get_block(xi, yi) == self.get_block(xi + 1, yi):
-                grid_lbl = self.get_block(xi, yi)
-                return "%s_%d__%d_" % grid_lbl
-        if module == "cbx":
-            if self.grid[yi + 1][xi] in [self.UP_ARROW]:
-                grid_lbl = self.get_block(xi, yi)
-                return "%s_%d__%d_" % grid_lbl
-        return f"{module}_{int(x/2)}__{int(y/2)}_"
 
     def enumerate_grid(self):
         """
@@ -424,7 +422,38 @@ class FPGAGridGen:
                 self.add_region(element)
             else:
                 continue
+        self._enumerate_full_grid()
         return self.grid
+
+    def _enumerate_full_grid(self):
+        arrows = (self.RIGHT_ARROW, self.UP_ARROW)
+        for y in range((self.height*2) - 1):
+            for x in range((self.width*2) - 1):
+                grid_lbl = self.grid[math.floor(y/2)][math.floor(x/2)]
+                grid_lbl_r = self.grid[math.floor(y/2)][math.floor(x/2)+1] \
+                    if (x+2) < self.width*2 else None
+                grid_lbl_l = self.grid[math.floor(y/2)][math.floor(x/2)] \
+                    if x > 0 else None
+                grid_lbl_t = self.grid[math.floor(y/2)+1][math.floor(x/2)] \
+                    if (y+2) < self.height*2 else None
+                grid_lbl_b = self.grid[math.floor(y/2)][math.floor(x/2)] \
+                    if y > 0 else None
+                print(
+                    f"{x:4} {y:4} {str(grid_lbl):10} " +
+                    f"{str(grid_lbl_t):10} {str(grid_lbl_b):10} " +
+                    f"{str(grid_lbl_l):10} {str(grid_lbl_r):10}")
+                module = {
+                    True: self.UP_ARROW if ((grid_lbl_r in arrows) and (grid_lbl_t in arrows)) else "sb",
+                    (x % 2 == 1) and (y % 2 == 0): grid_lbl_r if (grid_lbl_r == self.RIGHT_ARROW) else self.UP_ARROW
+                    if ((grid_lbl_l == self.UP_ARROW) and (grid_lbl_r == self.UP_ARROW)) else "cbx",
+                    (x % 2 == 0) and (y % 2 == 1): grid_lbl_t if (grid_lbl_t == self.UP_ARROW) else "cby",
+                    (x % 2 == 0) and (y % 2 == 0): grid_lbl,
+                    (x == 0) and (y % 2 == 1): "EMPTY",
+                    (x == ((self.width-1)*2)) and (y % 2 == 1): "EMPTY",
+                    (x % 2 == 1) and (y == 0): "EMPTY",
+                    (x % 2 == 1) and (y == ((self.height-1)*2)): "EMPTY",
+                }[True]
+                self.full_grid[y][x] = module
 
     def validate_grid(self):
         """
