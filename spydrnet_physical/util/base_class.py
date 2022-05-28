@@ -1,9 +1,10 @@
+"""
+"""
 import typing
+from spydrnet_physical.util import GridFloorplanGen
 
 if typing.TYPE_CHECKING:
     import spydrnet as sdn
-
-from spydrnet_physical.util import FPGAGridGen
 
 
 class OpenFPGA_Tile_Generator:
@@ -25,14 +26,33 @@ class OpenFPGA_Placement_Generator:
     """
     Template class to create OpenFPGA Placement generator
     """
+    fpga_size = (0, 0)
+    """ (int, int): Size of the FPGA """
+
+    netlist = (0, 0)
+    """ (sdn.netlist): Design netlist """
+
+    fpga_grid = (0, 0)
+    """ (list(list)): Two dimentional list of mapping instances to grid """
+
+    design_grid = None
+    """ (GridFloorplanGen): Design grid markers """
 
     def __init__(self, grid_size, netlist, fpga_grid):
         self.fpga_size = grid_size
         self._netlist = netlist
         self._top_module = netlist.top_instance.reference
-        self._fpga_grid = fpga_grid
+        self.fpga_grid = fpga_grid
+        self.design_grid = GridFloorplanGen(grid_size[0]*2 + 1, grid_size[1]*2 + 1,
+                                            grid_x=200, grid_y=200)
 
     def create_placement(self):
+        '''
+        This will be extendned in the class
+        '''
+        raise NotImplementedError
+
+    def update_placement(self):
         '''
         This will be extendned in the class
         '''
