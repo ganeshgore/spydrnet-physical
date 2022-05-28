@@ -308,7 +308,7 @@ class Definition(DefinitionBase):
             if shape == "rect":
                 new_instance.reference.properties["WIDTH"] = points[0]
                 new_instance.reference.properties["HEIGHT"] = points[1]
-            shaping_utils._interpret_custom_to_shape(new_instance)
+            shaping_utils._interpret_custom_to_shape(new_instance.reference)
 
             logger.debug(f"{new_instance.name} " +
                          f"[{new_instance.reference.name:15}]" +
