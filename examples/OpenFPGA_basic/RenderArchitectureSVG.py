@@ -15,7 +15,6 @@ python3.8 RenderArchitectureSVG.py \
     --design_name FPGA66_flex \
     --arch_file example_files/vpr_arch_render_demo.xml \
     --layout dp \
-    --skip_channels \
     --output_root _release
 
 '''
@@ -74,7 +73,6 @@ parser.add_argument('--output_root', type=str, default="_release")
 # Rendering Related Parameters
 parser.add_argument('--physical', action='store_true')
 parser.add_argument('--clear_color', action='store_true')
-parser.add_argument('--skip_channels', action='store_true')
 parser.add_argument('--add_pads', action='store_true')
 parser.add_argument('--cmap', action='store_true')
 parser.add_argument('--debug', action='store_true')
@@ -131,7 +129,7 @@ def main():
                             layout_name=args.layout,
                             padFile=None)
 
-    FPGAShape.ComputeGrid(skipChannels=True)
+    FPGAShape.ComputeGrid()
     FPGAShape.CreateDatabase()
     # = = = = = = = = Setting up SVG Canvas = = = = = = = = = = = = = = = = = =
     FPGA_SIZE = tuple([FPGAShape.sizeX, FPGAShape.sizeY])
@@ -397,8 +395,7 @@ class FPGAShaping():
     def setChannelSpacing(self, module, X, Y):
         raise NotImplementedError
 
-    def ComputeGrid(self, skipChannels=False):
-        self.skipChannels = skipChannels
+    def ComputeGrid(self):
         if self.areaFile:
             BlockArea = {}
             for eachLine in open(self.areaFile, "r"):
@@ -525,11 +522,6 @@ class FPGAShaping():
         initShape = [(llx, lly, W1, H1)]
         x += ((width-1) * self.CLB_GRID_X)*0.5
         y += ((height-1) * self.CLB_GRID_Y)*0.5
-        if not self.skipChannels:
-            llx += self.CLB_CHAN_L
-            lly += self.CLB_CHAN_B
-            W1 = self.CLB_W-self.CLB_CHAN_L-self.CLB_CHAN_R
-            H1 = self.CLB_H-self.CLB_CHAN_T-self.CLB_CHAN_B
         block_name = f"grid_{lbl}_{xi+1}__{yi+1}_"
         short_block_name = f"{lbl}_{xi+1}_{yi+1}"
         COLOR = self.CLB_COLOR
@@ -555,13 +547,6 @@ class FPGAShaping():
         W1 = self.CBX_W
         H1 = self.CBX_H
         initShape = [(llx, lly, W1, H1)]
-
-        if not self.skipChannels:
-            llx += self.CBX_CHAN_L
-            lly += self.CBX_CHAN_B
-            W1 = self.CBX_W-self.CBX_CHAN_L-self.CBX_CHAN_R
-            H1 = self.CBX_H-self.CBX_CHAN_T-self.CBX_CHAN_B
-
         block_name = f"cbx_{xi+1}__{yi}_"
         short_block_name = f"CX_{xi+1}_{yi}"
         points = [0, 0, 0, W1, H1, W1, H1, 0]
@@ -586,13 +571,6 @@ class FPGAShaping():
         W1 = self.CBY_W
         H1 = self.CBY_H
         initShape = [(llx, lly, W1, H1)]
-
-        if not self.skipChannels:
-            llx += self.CBY_CHAN_L
-            lly += self.CBY_CHAN_B
-            W1 = self.CBY_W-self.CBY_CHAN_L-self.CBY_CHAN_R
-            H1 = self.CBY_H-self.CBY_CHAN_T-self.CBY_CHAN_B
-
         block_name = f"cby_{xi}__{yi+1}_"
         short_block_name = f"CY_{xi}_{yi+1}"
         points = [0, 0, 0, W1, H1, W1, H1, 0]
@@ -804,12 +782,6 @@ class FPGAShaping():
         H1 = self.gridIO_HB
         initShape = [(llx, lly, W1, H1)]
 
-        if not self.skipChannels:
-            llx += self.CBX_CHAN_L
-            lly += 0 if side == "bottom" else self.gridIO_MT
-            W1 = self.GRID_IOH_W-self.CBX_CHAN_L-self.CBX_CHAN_R
-            H1 = self.gridIO_HB-self.gridIO_MB
-
         if side == "bottom":
             moduleName = "grid_io_bottom_bottom"
             block_name = f"grid_io_{side}_{side}_{xi+1}__{yi}_"
@@ -839,13 +811,6 @@ class FPGAShaping():
         W1 = self.gridIO_WL
         H1 = self.GRID_IOV_H
         initShape = [(llx, lly, W1, H1)]
-
-        if not self.skipChannels:
-            llx += self.CBY_CHAN_L
-            llx += (-1*self.gridIO_ML) if side == "left" else self.gridIO_MR
-            lly += self.CBY_CHAN_B
-            W1 = self.gridIO_WL-self.gridIO_ML
-            H1 = self.GRID_IOV_H-self.CBY_CHAN_T-self.CBY_CHAN_B
 
         if side == "left":
             block_name = f"grid_io_{side}_{side}_{xi}__{yi+1}_"
