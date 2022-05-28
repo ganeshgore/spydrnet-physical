@@ -38,7 +38,7 @@ import pandas as pd
 import svgwrite
 import yaml
 from svgwrite.container import Group
-from openfpga_physical import fpga_grid_gen
+from spydrnet_physical.util import FPGAGridGen
 if util.find_spec("coloredlogs"):
     import coloredlogs
 
@@ -90,13 +90,6 @@ LOGICAL = True
 
 
 def main():
-    grid = fpga_grid_gen(
-        design_name=args.design_name,
-        arch_file=args.arch_file,
-        layout=args.layout,
-        release_root="")
-    FPGA_SIZE = tuple([grid.get_width(), grid.get_height()])
-
     DESIGN_NAME = args.design_name
     SaveLocation = [args.output_root, ]
     for eachLoc in ["data", "pickle", "TCL", "SVG", "ConnectNets", "PNG"]:
@@ -130,8 +123,7 @@ def main():
                        "CBx_CHAN_Y": 0}, file)
 
     # = = = = = = Read Pinmap = = = = = = = = = = = = = = = = = = = = = = = =
-    FPGAShape = FPGAShaping(FPGA_SIZE[0], FPGA_SIZE[1],
-                            debug=args.debug,
+    FPGAShape = FPGAShaping(debug=args.debug,
                             areaFile=args.area_file,
                             shapingConf=args.shaping_conf_file,
                             gridIO=LOGICAL,
@@ -142,6 +134,7 @@ def main():
     FPGAShape.ComputeGrid(skipChannels=True)
     FPGAShape.CreateDatabase()
     # = = = = = = = = Setting up SVG Canvas = = = = = = = = = = = = = = = = = =
+    FPGA_SIZE = tuple([FPGAShape.sizeX, FPGAShape.sizeY])
     CoreBBox = (0, 0, int(FPGAShape.CLB_GRID_X*(FPGA_SIZE[0]+1))*CPP,
                 int(FPGAShape.CLB_GRID_Y*(FPGA_SIZE[1]+1))*SC_HEIGHT)
     svgFilepath = os.path.join(
@@ -158,7 +151,7 @@ def main():
                          fill="none",
                          stroke_width=2))
     dwg.defs.add(dwg.style("""
-    text{font-family: Verdana; }
+    text{font-family: Verdana; font-size: small; }
     .cbx_1__0__def{fill:#d9d9f3}
     .cbx_1__1__def{fill:#d9d9f3}
     .cbx_1__2__def{fill:#d9d9f3}
@@ -177,7 +170,7 @@ def main():
     .sb_2__1__def{fill:#ceefe4}
     .sb_2__2__def{fill:#ceefe4}
 
-    .grid_def{fill:#f4f0e6;}
+    .grid_def{fill:#f4f0e6; opacity: 0.5;}
     """))
     dwgShapes = dwgMain.add(Group(id="mainShapes"))
     dwgText = dwgMain.add(Group(id="mainText"))
@@ -246,10 +239,10 @@ def main():
                              (" grid_def" if "grid" in Module else ""),
                              insert=((x1*CPP), (y1*SC_HEIGHT))))
 
-        # Uncomment following lines to print center of module
-        dwgShapes.add(dwg.circle(
-            center=(mouleinfo['center'][0]*CPP,
-                    mouleinfo['center'][1]*SC_HEIGHT), r=2, fill="black"))
+        # # Uncomment following lines to print center of module
+        # dwgShapes.add(dwg.circle(
+        #     center=(mouleinfo['center'][0]*CPP,
+        #             mouleinfo['center'][1]*SC_HEIGHT), r=2, fill="black"))
 
         x1, y1 = mouleinfo["center"]
         textdwg = dwgGridText if "grid" in Module else dwgText
@@ -292,16 +285,14 @@ class FPGAShaping():
 
     """
 
-    def __init__(self, sizeX, sizeY,
-                 debug=False,
+    def __init__(self, debug=False,
                  areaFile=None,
                  padFile=None,
                  gridIO=False,
                  arch_file=None,
                  layout_name="",
                  shapingConf=None):
-        self.sizeX = sizeX
-        self.sizeY = sizeY
+
         self.PlacementDB = []
         self.PlacementDBKey = {}
         self.GPIOPlacmentKey = []
@@ -333,7 +324,9 @@ class FPGAShaping():
         if shapingConf:
             self.update_default_configuration(shapingConf)
 
-        self.grid = fpga_grid_gen("", arch_file, layout_name, "")
+        self.grid = FPGAGridGen("", arch_file, layout_name, "")
+        self.sizeX = self.grid.get_width()
+        self.sizeY = self.grid.get_height()
         self.fpga_grid = self.grid.enumerate_grid()
         self.grid.print_grid()
 
@@ -470,14 +463,31 @@ class FPGAShaping():
         # Create Blocks
         grid_ele_size = {}
 
+        arrows = ("EMPTY", self.grid.UP_ARROW, self.grid.RIGHT_ARROW)
         for x in range(self.sizeX+1):
             for y in range(self.sizeY+1):
+                module = self.grid.full_grid[(y*2)+1][(x*2)+1]
+                if not (module in (self.grid.UP_ARROW, self.grid.RIGHT_ARROW)):
+                    top = self.grid.full_grid[(y*2)+1+1][(x*2)+1]
+                    bottom = self.grid.full_grid[(y*2)][(x*2)+1]
+                    left = self.grid.full_grid[(y*2)+1][(x*2)]
+                    right = self.grid.full_grid[(y*2)+1][(x*2)+2]
 
-                self.add_sb(x, y)
+                    stype = None
+                    if (left in arrows) and (right in arrows):
+                        stype = 9
+                    if (top in arrows) and (bottom in arrows):
+                        stype = 10
+                    self.add_sb(x, y, Stype=stype)
+
                 if x < self.sizeX:
-                    self.add_cbx(x, y)
+                    module = self.grid.full_grid[(y*2)+1][(x*2)+2]
+                    if not (module in arrows):
+                        self.add_cbx(x, y)
                 if y < self.sizeY:
-                    self.add_cby(x, y)
+                    module = self.grid.full_grid[(y*2)+2][(x*2)+1]
+                    if not (module in arrows):
+                        self.add_cby(x, y)
                 if (x < self.sizeX) and (y < self.sizeY):
                     label = self.fpga_grid[y+1][x+1]
                     if not (label in [self.grid.RIGHT_ARROW, self.grid.UP_ARROW, "EMPTY"]):
@@ -488,16 +498,16 @@ class FPGAShaping():
                             ele_w, ele_h = grid_ele_size[label]
                         self.add_clb(x, y, width=ele_w,
                                      height=ele_h, lbl=label)
-                # Create gridIOs
-                if self.gridIO:
-                    if (y == self.sizeY) and (x < self.sizeX):
-                        self.add_gridIOH(x, y, side="top")
-                    if (y == 0) and (x < self.sizeX):
-                        self.add_gridIOH(x, y, side="bottom")
-                    if (x == 0) and (y < self.sizeY):
-                        self.add_gridIOV(x, y, side="left")
-                    if (x == self.sizeX) and (y < self.sizeY):
-                        self.add_gridIOV(x, y, side="right")
+                # # Create gridIOs
+                # if self.gridIO:
+                #     if (y == self.sizeY) and (x < self.sizeX):
+                #         self.add_gridIOH(x, y, side="top")
+                #     if (y == 0) and (x < self.sizeX):
+                #         self.add_gridIOH(x, y, side="bottom")
+                #     if (x == 0) and (y < self.sizeY):
+                #         self.add_gridIOV(x, y, side="left")
+                #     if (x == self.sizeX) and (y < self.sizeY):
+                #         self.add_gridIOV(x, y, side="right")
 
         # Create Pins
         if self.PadNames:
@@ -743,9 +753,11 @@ class FPGAShaping():
         elif Stype == 9:  # Vertical
             llxB2 += b
             WidthB2 -= b + e
+            b = e = 0
         elif Stype == 10:  # Horizontal
             llyB1 += f
             HeightB1 -= f + c
+            f = c = 0
 
         block_name = f"sb_{xi}__{yi}_"
         short_block_name = f"SB_{xi}_{yi}"
@@ -763,6 +775,7 @@ class FPGAShaping():
             "sb_1__1_", "sb_0__0_", "sb_0__1_",
             "sb_0__2_", "sb_1__2_", "sb_2__2_",
             "sb_2__1_", "sb_2__0_", "sb_1__0_",
+            "sb_v__v_", "sb_h__h_"
         ]
         # ┿ ┗ ┝ ┏ ┯ ┓ ┫ ┛ ┷ ┃ ━
         llx = min([i[0] for i in initShape])
