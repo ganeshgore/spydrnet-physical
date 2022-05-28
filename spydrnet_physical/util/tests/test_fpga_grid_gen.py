@@ -117,9 +117,6 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_top_instance(xi, yi),
                     expected_full_grid[yi][xi])
 
-    def test_get_block_size(self):
-        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
-
     def test_print_grid(self):
         grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
         grid_gen.grid = list(reversed([

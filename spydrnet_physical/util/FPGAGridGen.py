@@ -124,10 +124,6 @@ class FPGAGridGen():
         ''' Get height of FPGA '''
         return self.height-2
 
-    def get_block_size(self, block):
-        ''' Get size of the specific pb_type '''
-        return self.pb_type[block]
-
     def print_grid(self):
         """
         Prints logic block grid
