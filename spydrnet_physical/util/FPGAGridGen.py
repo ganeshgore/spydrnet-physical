@@ -2,29 +2,30 @@
 # Tool: OpenFPGA-Physical
 # Script: FPGAGridGen.py
 ################################################################################
-'''
+"""
 FPGAGridGen
 -------------
 
 This scripts read the layout section of the VPR architecture file and 
 create a 2D matrix of the FPGA grid.
-'''
+"""
 
 import argparse
 import logging
-import xml.etree.ElementTree as ET
+
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
 
-logger = logging.getLogger('spydrnet_logs')
-def formatter(prog): return argparse.HelpFormatter(prog, max_help_position=60)
+logger = logging.getLogger("spydrnet_logs")
 
 
-help_msg = {
-    "design_name": "Design name, Generally in FPGAxxxx_xxxx format"
-}
+def formatter(prog):
+    return argparse.HelpFormatter(prog, max_help_position=60)
 
 
-UP_ARROW = chr(8593)     # ↑
+help_msg = {"design_name": "Design name, Generally in FPGAxxxx_xxxx format"}
+
+
+UP_ARROW = chr(8593)  # ↑
 RIGHT_ARROW = chr(8594)  # →
 
 
@@ -44,21 +45,33 @@ def parse_argument() -> argparse.Namespace:
     Parse commnad line arguement
     """
     parser = argparse.ArgumentParser(formatter_class=formatter)
-    parser.add_argument('--design_name',
-                        help="Design name, Generally in FPGAxxxx_xxxx format")
-    parser.add_argument('--arch_file', type=str,
-                        help="VPR architecture file, It should atleast contain on fixed_layout")
-    parser.add_argument('--layout', type=str, default=None,
-                        help="Specific layout name to render from the provided XML file")
-    parser.add_argument('--release_root', type=str, default=None,
-                        help="Location to store pickled object of the 2D FPGA grid matrix")
+    parser.add_argument(
+        "--design_name", help="Design name, Generally in FPGAxxxx_xxxx format"
+    )
+    parser.add_argument(
+        "--arch_file",
+        type=str,
+        help="VPR architecture file, It should atleast contain on fixed_layout",
+    )
+    parser.add_argument(
+        "--layout",
+        type=str,
+        default=None,
+        help="Specific layout name to render from the provided XML file",
+    )
+    parser.add_argument(
+        "--release_root",
+        type=str,
+        default=None,
+        help="Location to store pickled object of the 2D FPGA grid matrix",
+    )
     return parser.parse_args()
 
 
-class FPGAGridGen():
-    '''This class generates the 2D lsit of the FPGA grid, 
-    based on the provided VPR architecture file. 
-    This class generate two grid 
+class FPGAGridGen:
+    """This class generates the 2D lsit of the FPGA grid,
+    based on the provided VPR architecture file.
+    This class generate two grid
 
     **self.grid** : This is logic blocks grid including IOs (NxM)
 
@@ -70,7 +83,7 @@ class FPGAGridGen():
 
     .. code-block:: bash
 
-        python FPGAGridGen.py --design_name FPGA66_flex --layout dp 
+        python FPGAGridGen.py --design_name FPGA66_flex --layout dp
                 --arch_file example_files/vpr_arch_render_demo.xml
 
     **Expected Output**:
@@ -86,18 +99,27 @@ class FPGAGridGen():
          io_left     clb        clb        clb        clb        clb        clb      io_right
           EMPTY   io_bottom  io_bottom  io_bottom  io_bottom  io_bottom  io_bottom    EMPTY
 
-    '''
+    """
+
+    design_name = ""
+    """str: Design name"""
+
+    grid = None
+    """list(list): 2-Dimentional grid for logic blocks"""
+
+    full_grid = None
+    """list(list): 2-Dimentional grid for logic block and routing elements"""
 
     def __init__(self, design_name, arch_file, layout, release_root) -> None:
-        '''
+        """
         Initiliaze the FPGA grid generator class
 
         args:
             design_name  (str): Design name
             arch_file    (str): Path to architecture file
-            layout       (str): Fixed layout selection from architecture file 
+            layout       (str): Fixed layout selection from architecture file
             release_root (str): Directory to output binaries
-        '''
+        """
         self.design_name = design_name
         self.release_root = release_root
         self.fpga_arch = OpenFPGA_Arch(arch_file, None, layout=layout)
@@ -111,18 +133,20 @@ class FPGAGridGen():
         self.pb_type = {}
         self.grid = [[0 for _ in range(self.width)]
                      for _ in range(self.height)]
-        self.full_grid = [[0 for _ in range(2*(self.width)-1)]
-                          for _ in range(2*(self.height)-1)]
+        self.full_grid = [
+            [0 for _ in range(2 * (self.width) - 1)]
+            for _ in range(2 * (self.height) - 1)
+        ]
         self.RIGHT_ARROW = RIGHT_ARROW
         self.UP_ARROW = UP_ARROW
 
     def get_width(self):
-        ''' Get width of FPGA '''
-        return self.width-2
+        """Get width of FPGA"""
+        return self.width - 2
 
     def get_height(self):
-        ''' Get height of FPGA '''
-        return self.height-2
+        """Get height of FPGA"""
+        return self.height - 2
 
     def print_grid(self):
         """
@@ -148,23 +172,15 @@ class FPGAGridGen():
         print(output)
         return output
 
-    def validate_grid(self):
-        '''
-        Checks for the correctness of the grid
-            - if right and up arrows are placed correctly in the grid 
-            - if the boundry blocks has correct grid value
-        '''
-        raise NotImplementedError
-
     def get_block(self, x, y):
-        '''
+        """
         This method returns the module present in specific x and y
-        cordinate. The return value contains module name and 
+        cordinate. The return value contains module name and
         adjusted X and Y cordianates
 
-        the cordiante origin starts from the first element of top most list 
+        the cordiante origin starts from the first element of top most list
         and first element of the first element of list of list
-        '''
+        """
         value = self.grid[y][x]
         while value in [self.RIGHT_ARROW, self.UP_ARROW]:
             if value == self.UP_ARROW:
@@ -197,8 +213,13 @@ class FPGAGridGen():
         try:
             for xi in range(0, width):
                 for yi in range(0, height):
-                    self.grid[y+yi][x+xi] = value if(xi, yi) == (0, 0) else \
-                        RIGHT_ARROW if yi == 0 else UP_ARROW
+                    self.grid[y + yi][x + xi] = (
+                        value
+                        if (xi, yi) == (0, 0)
+                        else RIGHT_ARROW
+                        if yi == 0
+                        else UP_ARROW
+                    )
             return 1
         except IndexError:
             logger.warning("Trying to set grid location (%s %s)" % (x, y))
@@ -209,10 +230,10 @@ class FPGAGridGen():
         Fill the grid with given element
 
         Args:
-            ele (ET): Accepts Element Tree (element) as a input 
+            ele (ET): Accepts Element Tree (element) as a input
 
         """
-        ele_type = ele.attrib['type']
+        ele_type = ele.attrib["type"]
         self.clb = ele_type
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
         for x in range(0, self.width, ele_w):
@@ -224,16 +245,16 @@ class FPGAGridGen():
         Add given element on the periphery of the grid
 
         Args:
-            ele (ET): Accepts Element Tree (element) as a input 
+            ele (ET): Accepts Element Tree (element) as a input
 
         """
-        ele_type = ele.attrib['type']
+        ele_type = ele.attrib["type"]
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
 
-        for y in [0, self.fpga_arch.height-1]:
+        for y in [0, self.fpga_arch.height - 1]:
             for x in range(0, self.fpga_arch.width):
                 self._set_value(x, y, ele_type, ele_w, ele_h)
-        for x in [0, self.fpga_arch.width-1]:
+        for x in [0, self.fpga_arch.width - 1]:
             for y in range(0, self.fpga_arch.height):
                 self._set_value(x, y, ele_type, ele_w, ele_h)
 
@@ -242,15 +263,16 @@ class FPGAGridGen():
         Add given element on the corners of the grid
 
         Args:
-            ele (ET): Accepts Element Tree (element) as a input 
+            ele (ET): Accepts Element Tree (element) as a input
 
         """
-        ele_type = ele.attrib['type']
+        ele_type = ele.attrib["type"]
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
         self._set_value(0, 0, ele_type)
-        self._set_value(0, self.height-1, ele_type)
-        self._set_value(self.width-1, 0, ele_type)
-        self._set_value(self.width-1, self.height-1, ele_type, ele_w, ele_h)
+        self._set_value(0, self.height - 1, ele_type)
+        self._set_value(self.width - 1, 0, ele_type)
+        self._set_value(self.width - 1, self.height -
+                        1, ele_type, ele_w, ele_h)
 
     def add_single(self, ele):
         """
@@ -262,43 +284,55 @@ class FPGAGridGen():
             ele.y (int): y locations to insert
 
         """
-        ele_type = ele.attrib['type']
+        ele_type = ele.attrib["type"]
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
-        x = int(ele.attrib['x'])
-        y = int(ele.attrib['y'])
-        self._set_value(x-1, y-1, ele_type, ele_w, ele_h)
+        x = int(ele.attrib["x"])
+        y = int(ele.attrib["y"])
+        self._set_value(x - 1, y - 1, ele_type, ele_w, ele_h)
 
     def add_row(self, ele):
-        ele_type = ele.attrib['type']
+        ele_type = ele.attrib["type"]
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
-        var = {'w': ele_w, 'h': ele_h,
-               'W': self.fpga_arch.width, 'H': self.fpga_arch.height}
-        startx = self._get_val(ele, 'startx', ele_w, var)
-        incrx = self._get_val(ele, 'incrx', ele_w, var)
-        starty = self._get_val(ele, 'starty', 1, var)
-        repy = self._get_val(ele, 'repeaty', self.fpga_arch.height, var)
+        var = {
+            "w": ele_w,
+            "h": ele_h,
+            "W": self.fpga_arch.width,
+            "H": self.fpga_arch.height,
+        }
+        startx = self._get_val(ele, "startx", ele_w, var)
+        incrx = self._get_val(ele, "incrx", ele_w, var)
+        starty = self._get_val(ele, "starty", 1, var)
+        repy = self._get_val(ele, "repeaty", self.fpga_arch.height, var)
         for x in range(startx, self.width, incrx):
             for y in range(starty, self.height, repy):
                 self._set_value(x, y, ele_type, ele_w, ele_h)
 
     def add_col(self, ele):
-        ele_type = ele.attrib['type']
+        ele_type = ele.attrib["type"]
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
-        var = {'w': ele_w, 'h': ele_h,
-               'W': self.fpga_arch.width, 'H': self.fpga_arch.height}
-        startx = self._get_val(ele, 'startx', 0, var)
-        repeatx = self._get_val(ele, 'repeatx', self.fpga_arch.width, var)
-        starty = self._get_val(ele, 'starty', 1, var)
-        incry = self._get_val(ele, 'incry', ele_h, var)
+        var = {
+            "w": ele_w,
+            "h": ele_h,
+            "W": self.fpga_arch.width,
+            "H": self.fpga_arch.height,
+        }
+        startx = self._get_val(ele, "startx", 0, var)
+        repeatx = self._get_val(ele, "repeatx", self.fpga_arch.width, var)
+        starty = self._get_val(ele, "starty", 1, var)
+        incry = self._get_val(ele, "incry", ele_h, var)
         for x in range(startx, self.width, repeatx):
             for y in range(starty, self.height, incry):
                 self._set_value(x, y, ele_type, ele_w, ele_h)
 
     def add_region(self, ele):
-        ele_type = ele.attrib['type']
+        ele_type = ele.attrib["type"]
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
-        var = {'w': ele_w, 'h': ele_h,
-               'W': self.fpga_arch.width, 'H': self.fpga_arch.height}
+        var = {
+            "w": ele_w,
+            "h": ele_h,
+            "W": self.fpga_arch.width,
+            "H": self.fpga_arch.height,
+        }
         startx = self._get_val(ele, "startx", 0, var)
         endx = self._get_val(ele, "endx", self.fpga_arch.width, var)
         incrx = self._get_val(ele, "incrx", ele_w, var)
@@ -312,49 +346,59 @@ class FPGAGridGen():
             for ystep in range(0, self.height, repeaty):
                 for x in range(startx, endx, incrx):
                     for y in range(starty, endy, incry):
-                        self._set_value(xstep+x, ystep+y,
+                        self._set_value(xstep + x, ystep + y,
                                         ele_type, ele_w, ele_h)
 
     def get_top_instance(self, x, y):
         """
-        This method generates the grid instance information given the 
-        cordinate points 
+        This method generates the grid instance information given the
+        cordinate points
         """
-        grid_lbl = self.get_block(int(x/2), int(y/2))
-        if y == 0 or ((self.height*2)-2 == y):
-            return "EMPTY" if ((x % 2) or grid_lbl[0] == "EMPTY") else ("%s_%d__%d_" % grid_lbl)
-        if x == 0 or ((self.width*2)-2 == x):
-            return "EMPTY" if ((y % 2) or grid_lbl[0] == "EMPTY") else ("%s_%d__%d_" % grid_lbl)
+        grid_lbl = self.get_block(int(x / 2), int(y / 2))
+        if y == 0 or ((self.height * 2) - 2 == y):
+            return (
+                "EMPTY"
+                if ((x % 2) or grid_lbl[0] == "EMPTY")
+                else ("%s_%d__%d_" % grid_lbl)
+            )
+        if x == 0 or ((self.width * 2) - 2 == x):
+            return (
+                "EMPTY"
+                if ((y % 2) or grid_lbl[0] == "EMPTY")
+                else ("%s_%d__%d_" % grid_lbl)
+            )
         if (x % 2 == 0) and (y % 2 == 0):
             return "%s_%d__%d_" % grid_lbl
         module = {
             True: "sb",
             (x % 2 == 1) and (y % 2 == 0): "cby",
-            (x % 2 == 0) and (y % 2 == 1): "cbx"}[True]
-        xi, yi = int(x/2), int(y/2)
+            (x % 2 == 0) and (y % 2 == 1): "cbx",
+        }[True]
+        xi, yi = int(x / 2), int(y / 2)
         # TODO : Square modules are not supported yet
         if module == "sb":
-            if (self.get_block(xi+1, yi+1) == self.get_block(xi+1, yi)) and \
-                    (self.get_block(xi+1, yi+1) == self.get_block(xi, yi+1)):
+            if (self.get_block(xi + 1, yi + 1) == self.get_block(xi + 1, yi)) and (
+                self.get_block(xi + 1, yi + 1) == self.get_block(xi, yi + 1)
+            ):
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
         if module == "cby":
-            if self.get_block(xi, yi) == self.get_block(xi+1, yi):
+            if self.get_block(xi, yi) == self.get_block(xi + 1, yi):
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
         if module == "cbx":
-            if self.grid[yi+1][xi] in [self.UP_ARROW]:
+            if self.grid[yi + 1][xi] in [self.UP_ARROW]:
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
         return f"{module}_{int(x/2)}__{int(y/2)}_"
 
     def enumerate_grid(self):
-        '''
+        """
         Enumerates the FPGA grid
 
         Returns:
            (list(list(str))): Returns 2D grid
-        '''
+        """
         for element in sorted(self.layout, key=lambda x: int(x.attrib["priority"])):
             tag = element.tag.lower()
             if tag == "fill":
@@ -382,6 +426,20 @@ class FPGAGridGen():
                 continue
         return self.grid
 
+    def validate_grid(self):
+        """
+        Checks for the correctness of the grid
+            - if right and up arrows are placed correctly in the grid
+            - if the boundry blocks has correct grid value
+        """
+        left_edge = [row[0] for row in self.grid]
+        bottom_edge = self.grid[0]
+        if RIGHT_ARROW in left_edge:
+            raise ValueError("Found right arrow on left edge")
 
-if __name__ == '__main__':
+        if UP_ARROW in bottom_edge:
+            raise ValueError("Found up arrow on bottom edge")
+
+
+if __name__ == "__main__":
     main()
