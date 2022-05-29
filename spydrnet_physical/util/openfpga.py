@@ -717,13 +717,16 @@ class OpenFPGA:
             for line in fp.readlines():
                 if not(line):
                     continue
-                instance, area = line.split()[:2]
+                module, area = line.split()[:2]
                 area = int(float(area)*(self.GLOBAL_SCALE**2) /
                            (self.SC_HEIGHT*self.CPP))
-                ref = next(self.top_module.get_definitions(instance))
-                logger.debug(
-                    f"{ref.name} [{instance}] area is set to {int(area)}")
-                ref.data[PROP]["AREA"] = int(area)
+                try:
+                    ref = next(self.top_module.get_definitions(module))
+                    logger.debug(
+                        f"{ref.name} [{module}] area is set to {int(area)}")
+                    ref.data[PROP]["AREA"] = int(area)
+                except StopIteration:
+                    logger.warning(f"{module} not found in the netlist")
 
     def update_module_label(self, get_label=None):
         '''

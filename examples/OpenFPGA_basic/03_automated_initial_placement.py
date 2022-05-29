@@ -10,7 +10,7 @@ based on ``initial_placement`` class.
 This script can be used for shaping and placement of the modules before place and route.
 
 .. image:: ../../../examples/OpenFPGA_basic/_fpga_auto_initial_placement.svg
-   :width: 70%
+   :width: 100%
    :align: center
 
 """
@@ -28,10 +28,10 @@ from spydrnet_physical import PROP
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
 
-CBX_COLOR = '#d9d9f3'
-CBY_COLOR = '#a8d0db'
-SB_COLOR = '#ceefe4'
-GRID_COLOR = '#ddd0b1'
+STYLE_SHEET = '''
+    .over_util {fill:#b22222 !important}
+    text{font-family: Lato;}
+'''
 
 
 def main():
@@ -50,6 +50,9 @@ def main():
         netlist = sdn.parse(fp.name)
 
     fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
+
+    # Convert wires to bus structure
+    fpga.annotate_area_information("./support_files/fpga_top_area.rpt")
 
     # Convert wires to bus structure
     fpga.create_grid_clb_bus()
@@ -75,20 +78,11 @@ def main():
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # #           Adjust Floorplan
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    for cbx in fpga.top_module.get_definitions("cbx_*"):
-        cbx.data[PROP]["COLOR"] = CBX_COLOR
-
-    for cby in fpga.top_module.get_definitions("cby_*"):
-        cby.data[PROP]["COLOR"] = CBY_COLOR
-
-    for sb in fpga.top_module.get_definitions("sb_*"):
-        sb.data[PROP]["COLOR"] = SB_COLOR
-
-    clb: sdn.Definition = next(fpga.top_module.get_definitions("grid_clb"))
-    clb.data[PROP]["COLOR"] = GRID_COLOR
+    fpga.update_module_label()
 
     fp = FloorPlanViz(fpga.top_module)
     fp.compose(skip_connections=True, skip_pins=True)
+    fp.custom_style_sheet = STYLE_SHEET
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
     dwg.saveas("_fpga_auto_initial_placement.svg", pretty=True, indent=4)
