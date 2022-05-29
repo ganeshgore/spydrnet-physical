@@ -116,7 +116,6 @@ from pprint import pformat, pprint
 from spydrnet_physical.util.shell import launch_shell
 from spydrnet_physical.util import GridFloorplanGen
 from spydrnet_physical import PROP
-from dataclasses import dataclass, make_dataclass
 
 import yaml
 from spydrnet_physical.util import OpenFPGA_Placement_Generator, FPGAGridGen
