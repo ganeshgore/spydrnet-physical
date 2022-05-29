@@ -166,3 +166,208 @@ class TestFpgaGridGen(unittest.TestCase):
         self.assertTupleEqual(grid_gen.get_block(1, 0), ("clb", 0, 0))
         self.assertTupleEqual(grid_gen.get_block(0, 1), ("clb", 0, 0))
         self.assertTupleEqual(grid_gen.get_block(1, 1), ("clb", 0, 0))
+
+
+    def test_enumurate_grid_basiclayout(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
+        expected_outcome = [['EMPTY', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'io_bottom', 'EMPTY'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'dsp', '→', 'dsp', '→', 'dsp', '→', 'dsp', '→', 'dsp', '→', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'ram9k', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'clb', 'io_right'], ['EMPTY', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'io_top', 'EMPTY']]
+        outcome = [ele for ele in grid_gen.enumerate_grid()]
+        self.assertEqual(outcome , expected_outcome)
+
+    def test_enumurate_grid_smallLayout(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallLayout', "")
+
+        expected_outcome = [['EMPTY', 'io_bottom', 'io_bottom', 'EMPTY'], ['io_left', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'io_right'], ['EMPTY', 'io_top', 'io_top', 'EMPTY']]
+
+        outcome = [ele for ele in grid_gen.enumerate_grid()]
+        self.assertEqual(outcome , expected_outcome)
+
+
+    def test_enumurate_grid_smallHetroLayout(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        expected_outcome = [['EMPTY', 'io_bottom', 'io_bottom', 'EMPTY'], ['io_left', 'clb', 'clb', 'io_right'], ['io_left', 'clb', 'clb', 'io_right'], ['EMPTY', 'io_top', 'io_top', 'EMPTY']]
+
+        outcome = [ele for ele in grid_gen.enumerate_grid()]
+        self.assertEqual(outcome , expected_outcome)   
+
+
+    def test_add_fill(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        tree = ET.Element ("fill", attrib={'type': "clb"})
+
+        grid_gen.add_fill(tree)
+
+        for yi in range(0, grid_gen.height):
+            for xi in range(0, grid_gen.width):
+                self.assertTupleEqual(grid_gen.get_block(yi, xi), ("clb", yi, xi))
+                              
+
+    def test_add_single(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("single", attrib={'type': "dsp", "x": 1, "y": 1 })
+        grid_gen.add_single(tree)
+
+        self.assertTupleEqual(grid_gen.get_block(0, 0), ("dsp", 0, 0))
+        self.assertTupleEqual(grid_gen.get_block(1, 0), ("dsp", 0, 0))
+
+
+    def test_add_corners(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("corners", attrib={'type': "clb"})
+        grid_gen.add_corners(tree)
+
+        for x in range(0, grid_gen.width, 3):
+            for y in range(0, grid_gen.height, 3):
+                self.assertTupleEqual(grid_gen.get_block(x, y), ("clb", x, y))
+
+    
+    def test_add_perimeter(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("perimeter", attrib={'type': "clb"})
+        grid_gen.add_perimeter(tree)
+
+        for yi in range(0, grid_gen.height):
+            for xi in range(0, grid_gen.width):
+                self.assertTupleEqual(grid_gen.get_block(yi, xi), ("clb", yi, xi)) 
+
+    def test_add_row(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("row", attrib={'type': "io_right","starty": "H-1",  "startx": "W-4"})
+        grid_gen.add_row(tree)
+
+        for x in range(grid_gen.width):
+            self.assertTupleEqual(grid_gen.get_block(x, 3), ("io_right", x, 3))
+
+
+    def test_add_row_repeat(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("row", attrib={'type': "io_right","starty": "H-4",  "startx": "W-4", "repeaty":"H-2"})
+        grid_gen.add_row(tree)
+
+        for x in range(grid_gen.width):
+            for y in [0, 2]:
+                self.assertTupleEqual(grid_gen.get_block(x, y), ("io_right", x, y))
+
+    def test_add_row_incr(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("row", attrib={'type': "io_right","starty": "H-4",  "startx": "W-4","incrx":"W-2", "repeaty":"H-2"})
+        grid_gen.add_row(tree)
+
+        for x in [0,2]:
+            for y in [0, 2]:
+                self.assertTupleEqual(grid_gen.get_block(x, y), ("io_right", x, y))
+    
+
+    def test_add_col(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("col", attrib={'type': "io_left", "startx": "W-1", "starty": "H-4"})
+        grid_gen.add_col(tree)
+
+        for y in range(grid_gen.height):
+            self.assertTupleEqual(grid_gen.get_block(3, y), ("io_left", 3, y))
+
+
+    def test_add_col_repeat(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("col", attrib={'type': "io_left", "startx": "W-4", "starty": "H-4", "repeatx": "W-2"})
+        grid_gen.add_col(tree)
+
+        for x in [0, 2]:
+            for y in range(grid_gen.height):
+                self.assertTupleEqual(grid_gen.get_block(x, y), ("io_left", x, y))
+
+
+    def test_add_col_incr(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element ("col", attrib={'type': "io_left", "startx": "W-4", "starty": "H-4", "incry": "H-2", "repeatx": "W-2"})
+
+        grid_gen.add_col(tree)
+
+        for x in [0, 2]:
+            for y in [0, 2]:
+                self.assertTupleEqual(grid_gen.get_block(x, y), ("io_left", x, y))
+
+    
+    def test_add_region_default(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element("region",  attrib = {"type":"dsp"})
+
+        grid_gen.add_region(tree)
+
+        for xi in range(0, grid_gen.width, 2):
+            for yi in range(0, grid_gen.height, 2):
+                self.assertTupleEqual(grid_gen.get_block(xi, yi), ("dsp", xi, yi))
+
+        for xi in range(1, grid_gen.width, 2):
+            for yi in range(1, grid_gen.height, 2):
+                self.assertTupleEqual(grid_gen.get_block(xi, yi), ("dsp", xi-1, yi))       
+    
+
+    def test_add_region_start_xy(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'smallHetroLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element("region",  attrib = {"type":"dsp", "startx": "W-(W-1)", "endx": "W-1", "starty":"H-(H-1)", "endy":"H-1"})
+
+        grid_gen.add_region(tree)
+
+        for xi in range(1, grid_gen.width-1, 2):
+            for yi in range(1, grid_gen.height-1, 2):
+                self.assertTupleEqual(grid_gen.get_block(xi, yi), ("dsp", xi, yi))
+
+        for xi in range(2, grid_gen.width-1, 2):
+            for yi in range(2, grid_gen.height-1, 2):
+                self.assertTupleEqual(grid_gen.get_block(xi, yi), ("dsp", xi-1, yi))    
+
+    def test_add_region_start_repeat(self):
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element("region",  attrib = {"type":"dsp", "startx": "W-(W-1)", "endx": "W-(W-4)", "repeatx": "W-6", "starty":"H-(H-1)", "endy":"H-(H-4)","repeaty": "H-5"})
+
+        grid_gen.add_region(tree)
+
+        for xi in [1, 3, 11, 13]:
+            for yi in [1, 2, 3, 16, 17, 18]:
+                self.assertTupleEqual(grid_gen.get_block(xi, yi), ("dsp", xi, yi))
+
+        for xi in [2, 4, 12, 14]:
+            for yi in [1, 2, 3, 16, 17, 18]:
+                self.assertTupleEqual(grid_gen.get_block(xi, yi), ("dsp", xi-1, yi))    
+
+
+
