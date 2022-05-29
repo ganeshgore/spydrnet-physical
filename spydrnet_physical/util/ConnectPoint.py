@@ -1,4 +1,5 @@
-
+'''
+'''
 
 from copy import deepcopy
 
@@ -7,11 +8,11 @@ DEFAULT_COLOR = " black"
 
 
 class ConnectPoint:
-    ''' 
+    '''
     This class stores information of each connection made in the grid.
 
-    Each connection is strictly either vertical or horizontal, 
-    the diagonal connections are invalid. Following properties 
+    Each connection is strictly either vertical or horizontal,
+    the diagonal connections are invalid. Following properties
     are store with each connection
     '''
 
@@ -41,7 +42,7 @@ class ConnectPoint:
 
     @property
     def connection(self):
-        ''' Return ``from`` and ``to`` connection points () 
+        ''' Return ``from`` and ``to`` connection points ()
         (``from_x``, ``from_y``, ``to_x``, ``to_y``)'''
         return (self.from_x, self.from_y, self.to_x, self.to_y)
 
@@ -99,10 +100,13 @@ class ConnectPoint:
         return self
 
     def flip_connection(self, orientation):
-        '''This methods flips the connection depending upon the orientation
+        '''
+        This methods flips the connection depending upon the orientation,
+        Valid arguments (V, H, v, h)
+
         Args:
-            orientation: The orientation can be Vertical or Horizontal
-         '''
+            orientation (str): The orientation can be vertical or horizontal
+        '''
         if orientation.lower() == "v":
             self.from_y *= -1
             self.to_y *= -1
@@ -110,7 +114,8 @@ class ConnectPoint:
             self.from_x *= -1
             self.to_x *= -1
         else:
-            raise Exception(orientation + " Orinetation is not supported")
+            raise Exception(orientation + " Orinetation is not supported" +
+                            "Supported arguments (V, H, v, h)")
 
     def rotate_connection(self, angle, sizex=None, sizey=None):
         self.from_x, self.from_y = self._rotate_point(
@@ -122,14 +127,27 @@ class ConnectPoint:
         self._update_direction()
 
     def translate_connection(self, x, y):
-        "translates the connection by the given coordinates"
+        '''
+        Translates the connection by given x and y value
+
+        Args:
+            x(int): Horizontal shift in the connection
+            y(int): Vertical shift in the connection
+        '''
         self.from_x, self.from_y = self.from_x + x, self.from_y+y
         self.to_x, self.to_y = self.to_x + x, self.to_y+y
         self._update_direction()
 
     def scale_connection(self, scale, anchor=(0, 0)):
-        """Scale up the connection by multipying the connection_from
-        and connection_to coordinates with the scaling factor"""
+        '''
+        Scale up the connection by multipying the connection_from
+        and connection_to coordinates with the scaling factor.
+
+        This methd used to expand the exiting conenction
+
+        Args:
+            scale(int): Scale by which connection will be enlarged
+        '''
         self.translate_connection(-1*anchor[0], -1*anchor[1])
         self.from_x, self.from_y = self.from_x * scale, self.from_y * scale
         self.to_x, self.to_y = self.to_x * scale, self.to_y * scale
@@ -141,13 +159,24 @@ class ConnectPoint:
         self.from_dir = self.direction(reverse=True)
 
     def direction(self, reverse=False):
-        ''' This method extracts the direction by subtracting the x and y coordinates of the to and from connection and if the value of X is 0 and the value of Y is:
-        >1 direction = Top 
-        <1 direction = Bottom
+        '''
+        This method extracts the direction of the connection.
+
+        Direction is derived by subtracting the x and y coordinates 
+        of the to and from connection and 
+        if the value of X is 0 and the value of Y is:
+        >1 direction = Top <1 direction = Bottom
         and if the value of Y is 0 and X is
-        >1 direction = Right
-        <1 direction = Left
-        It returns the actual and reversed (if reverse = True) direction of the connect point.'''
+        >1 direction = Right <1 direction = Left
+        It returns the actual and reversed (if reverse = True) direction of the connect point.
+
+        Args:
+            reverse(bool): Reverse the connection (default=false)
+
+        Returns:
+            str: Returns one of these strings ['right', 'left', 'bottom', 'top']
+
+        '''
         dx, dy = tuple(x-y for x, y in
                        zip(self.to_connection, self.from_connection))
         if dx == 0 and dy > 0:
@@ -168,30 +197,38 @@ class ConnectPoint:
 
     @staticmethod
     def _rotate_point(point, angle, sizex=None, sizey=None):
+        '''
+        Rotates the connection point by the given angle
+
+        Args:
+            angle (int): Valid angles are (0, 90, 180, 270, 360, -90, -180, -270, -360)
+
+        Returns:
+            tuple : (x, y) 
+
+        '''
         x, y = point
-        if angle in (90, -270):
+        angle = (360 + int(angle)) if int(angle) < 0 else int(angle)
+        if angle in (90, ):
             return(sizex-y+1, x)
-        elif angle in (180, -180):
+        elif angle in (180, ):
             return(sizex-x+1, sizey-y+1)
-        elif angle in (270, -90):
+        elif angle in (270, ):
             return(y, sizey-x+1)
-        #elif angle in (-90, ):
-        #    return(y, sizey-x+1)
-        #elif angle in (-180, ):
-        #    return(sizex-x+1, sizey-y+1)
-        #elif angle in (-270, ):
-        #    return(sizex-y+1, x)    
         else:
             return point
 
     def __iter__(self):
         yield from self.connection
 
-    def __str__(self) -> str:
-        return "%5d %5d %5d %5d [%s]" % (self.from_x, self.from_y, self.to_x, self.to_y, self._level)
+    def __str__(self):
+        return "%5d %5d %5d %5d [%s]" % \
+            (self.from_x, self.from_y, self.to_x, self.to_y, self._level)
 
     def __mul__(self, scale):
-        '''Returns to and from coordinates after multipluing them with the scaling factor
+        '''
+        Returns to and from coordinates after multipluing 
+        them with the scaling factor
         '''
         pt = deepcopy(self)
         pt.from_connection = (scale*self.from_x, scale*self.from_y)
@@ -199,12 +236,11 @@ class ConnectPoint:
         return pt
 
     def __rmul__(self, scale):
-        # reason for this method? Same code as __mul__ 
+        '''
+        Returns to and from coordinates after multipluing 
+        them with the scaling factor
+        '''
         pt = deepcopy(self)
         pt.from_connection = (scale*self.from_x, scale*self.from_y)
         pt.to_connection = (scale*self.to_x, scale*self.to_y)
         return pt
-
-
-
-

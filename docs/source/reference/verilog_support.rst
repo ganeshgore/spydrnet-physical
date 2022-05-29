@@ -1,8 +1,6 @@
 .. _reference: verilog_support
 
-.. include:: /_SDN_DOC_SOURCE/reference/verilog_support.rst
+.. include:: verilog_support_sdn.rst
 
-Following features are supported by the SpyDrNet-Physical Extension
-===================================================================
-
-TBW
+The following features are supported by the SpyDrNet-Physical Extension
+=======================================================================

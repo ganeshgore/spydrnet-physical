@@ -17,6 +17,8 @@ from spydrnet_physical.util import FPGAGridGen, initial_placement
 
 logger = logging.getLogger('spydrnet_logs')
 
+PROP = "VERILOG.InlineConstraints"
+
 
 class OpenFPGA:
     '''
@@ -24,6 +26,10 @@ class OpenFPGA:
     different generic netlist restructuring
 
     '''
+    SC_HEIGHT = 1
+    CPP = 0.2
+    GLOBAL_SCALE = 100
+    SC_GRID = SC_HEIGHT*CPP
 
     def __init__(self, grid, netlist, library="work", top_module="fpga_top",
                  arch_xml=None):
@@ -196,6 +202,7 @@ class OpenFPGA:
         if filename:
             with open(filename, "w") as fp:
                 fp.write("\n".join(output))
+        return output
 
     def show_placement_data(self, pattern="*", filename=None):
         output = []
@@ -700,3 +707,39 @@ class OpenFPGA:
                     pin_name = name_map(pin_name.groups()[0])
                     top_port.change_name(pin_name)
                     logger.debug(f"{top_port.name} =>> {pin_name}")
+
+    def annotate_area_information(self, filename):
+        '''
+        This method annotated the area infomration on each 
+        definition of the top level module
+        '''
+        with open(filename, "r") as fp:
+            for line in fp.readlines():
+                if not(line):
+                    continue
+                module, area = line.split()[:2]
+                area = int(float(area)*(self.GLOBAL_SCALE**2) /
+                           (self.SC_HEIGHT*self.CPP))
+                try:
+                    ref = next(self.top_module.get_definitions(module))
+                    logger.debug(
+                        f"{ref.name} [{module}] area is set to {int(area)}")
+                    ref.data[PROP]["AREA"] = int(area)
+                except StopIteration:
+                    logger.warning(f"{module} not found in the netlist")
+
+    def update_module_label(self, get_label=None):
+        '''
+        Adde area information to label
+        '''
+        def add_area_detail(ref):
+            area = ref.data[PROP].get("AREA", 0)
+            util = area/(ref.area/self.SC_GRID)
+            return f"[{util:.2%}]"
+        get_label = get_label or add_area_detail
+        for inst in self.top_module.get_instances("*"):
+            ref = inst.reference
+            ref.data[PROP]["LABEL"] = get_label(ref)
+            # if util > 0.9:
+            #     ADDITIONAL_STYLES += f".{ref.name}" + \
+            #         "{fill:#b22222 !important;}\n"

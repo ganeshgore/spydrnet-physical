@@ -1,4 +1,3 @@
-
 '''
 This file creates different connection patterns for connectivity
 
@@ -43,8 +42,10 @@ class ConnectionPattern:
 
     @property
     def svg_main(self):
-        """ Returns the svgwrite drawing object, 
-        call after running ``render_pattern`` """
+        """ 
+        Returns the svgwrite drawing object,
+        call after running ``render_pattern`` 
+        """
         return self.dwg_main
 
     @ property

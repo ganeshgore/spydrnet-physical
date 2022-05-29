@@ -16,7 +16,7 @@ __version__ = release.version
 __release__ = release.release
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-
+PROP = "VERILOG.InlineConstraints"
 if typing.TYPE_CHECKING:
     from spydrnet.ir import (Netlist, Library, Definition, Port,
                              Cable, Wire, Instance, InnerPin,

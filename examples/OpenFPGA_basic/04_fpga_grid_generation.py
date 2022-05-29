@@ -23,7 +23,13 @@ This class generates the 2D matrix of the FPGA grid.
 This prints complete logic block grid, if the logic block has width or height larger than
 a unit LB width it is represeted by arrows (left and top arrows only)
 
+**Grid**
+
 .. literalinclude:: ../../../examples/OpenFPGA_basic/_fpga_grid.txt
+
+**Full Grid**
+
+.. literalinclude:: ../../../examples/OpenFPGA_basic/_fpga_full_grid.txt
 
 **_complete_grid_metrics**
 
@@ -55,11 +61,16 @@ def main():
     output = fpga.print_grid()
 
     # grid_output
-    with open("_fpga_grid.txt", "w") as fp:
+    with open("_fpga_grid.txt", "w", encoding='UTF-8') as fp:
+        fp.write(output)
+
+    # full grid_output
+    output = fpga.print_grid(grid="full_grid")
+    with open("_fpga_full_grid.txt", "w", encoding='UTF-8') as fp:
         fp.write(output)
 
     # Complete Matrics
-    with open("_complete_grid_metrics.txt", "w") as fp:
+    with open("_complete_grid_metrics.txt", "w", encoding='UTF-8') as fp:
         for y in range(fpga.height-1, -1, -1):
             for x in range(fpga.width):
                 fp.write("{0:^18}".format("[%s]" % " ".join(
@@ -67,7 +78,7 @@ def main():
             fp.write("\n")
 
     # Complete metrics
-    with open("_complete_metrics.txt", "w") as fp:
+    with open("_complete_metrics.txt", "w", encoding='UTF-8') as fp:
         for y in range(2*(fpga.height-1), -1, -1):
             for x in range((fpga.width*2)-1):
                 fp.write(" {0:^12} ".format(fpga.get_top_instance(x, y)))

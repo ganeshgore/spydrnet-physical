@@ -18,16 +18,15 @@ if sys.version_info[:2] < (3, 5):
 
 # Write the version information.
 sys.path.insert(0, 'spydrnet_physical')
-import release
+import release  # nopep8
 version = release.update_versionfile()
 sys.path.pop(0)
 
-with open("README.rst", "r") as fh:
-    long_description = fh.read().replace(':ref:', '')
+long_description = "WIP"
 
 example_verilog_netlist = list()
 folder_path = path.normpath(
-    path.join( path.dirname(__file__), "spydrnet_physical", "support_files"))
+    path.join(path.dirname(__file__), "spydrnet_physical", "support_files"))
 for filename in glob.glob(path.join(folder_path, "**", "*"), recursive=True):
     if path.isfile(filename) and path.getsize(filename) < 1024 * 10:
         example_verilog_netlist.append(

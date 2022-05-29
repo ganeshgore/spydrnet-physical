@@ -7,23 +7,29 @@ This is dedicated OpenFPGA floorplaner which shape tiles in traditional structur
 as shown below. This placement class is not dependent iupon the architecture and always
 applied to homogeneous structure.
 
-There are two brod categories of inputs,
+There are total two ways
 
-**Paramater Based** (*Preferred*):
+.. toctree::
+   :maxdepth: 2
 
-Following figure details the various paramteres referred in this class
+   self
+
+Paramater Based (*Preferred*):
+------------------------------
+
+Following figure details the various paramteres referred in this type of floorplanning
 
 .. rst-class:: ascii
 
 ::
 
 
-                |<-----  GRID_X  ----->|
-                |                      |
+                  |<---------  GRID_X  --------->|
+                  |                              |
         ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐  ∧
         │           ││   CBX_TOP   ││              ││             ││           │  |
         │           ││   _WIDTH    ││              ││             ││           │  | CBX_TOP_HEIGHT
-        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ∨
+        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ⩒ 
         │        │┌───────────────────┐│        │┌───────────────────┐│        │
         └────────┘│   GRID_CLB_RATIO  │└────────┘│                   │└────────┘
         ┌────────┐│       W/H         │┌────────┐│                   │┌────────┐
@@ -53,8 +59,8 @@ Following figure details the various paramteres referred in this class
         │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │  ∧
         │           ││ CBX_BOTTOM_ ││              ││             ││           │  |
         │           ││   _WIDTH    ││              ││             ││           │  | CBX_BOTTOM_HEIGHT
-        └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘  ∨
-        <-------->                                                    <-------->
+        └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘  ⩒
+        <----------->                                               <--------->
         CBY_LEFT_WIDTH                                           CBY_RIGHT_WIDTH
 
 
@@ -90,6 +96,10 @@ Following figure details the various paramteres referred in this class
 * ``BOTTOM_CBX_WIDTH``
 * ``BOTTOM_CBX_HEIGHT``
 
+
+Utilization Based
+-----------------
+
 **Ideas**:
 
 * Optionally provide a method to apply shaping and placement to the netlist elements
@@ -100,6 +110,7 @@ Following figure details the various paramteres referred in this class
 import logging
 import math
 import os
+import json
 import pandas as pd
 from pprint import pformat, pprint
 from spydrnet_physical.util.shell import launch_shell
@@ -111,10 +122,28 @@ logger = logging.getLogger('spydrnet_logs')
 
 AREA, WIDTH, HEIGHT = 0, 1, 2
 CPP = 4
+SCALE = 100
 SC_HEIGHT = 4
 
 
 class initial_placement(OpenFPGA_Placement_Generator):
+
+    CPP = 2
+    """int: ``Contated-poly-pitch`` (`default`=2) """
+
+    SC_HEIGHT = 10
+    """int: ``Standard cell height`` (`default`=10) """
+
+    SCALE = 100
+    """int: Module level variable documented inline. (`default`=100) """
+
+    # TODO: Check if its correct
+    PlacementDB = []
+    """list: Stores list of modules i uppose"""
+
+    # TODO: Store paramters for each module
+    PlacementDBKey = {}
+    """dict: Module level variable documented inline. (`default`=100) """
 
     def __init__(self, grid, netlist, fpga_grid: FPGAGridGen, debug=False,
                  areaFile=None, padFile=None, gridIO=False, shapingConf=None):
@@ -122,8 +151,6 @@ class initial_placement(OpenFPGA_Placement_Generator):
 
         self.sizeX = grid[0]
         self.sizeY = grid[1]
-        self.PlacementDB = []
-        self.PlacementDBKey = {}
         self.GPIOPlacmentKey = []
         self.fpga_grid = fpga_grid
         self.debug = debug
@@ -148,15 +175,17 @@ class initial_placement(OpenFPGA_Placement_Generator):
         # Pads Related
         self.pad_w = 80
         self.pad_h = 10
+        self.SC_GRID = self.SC_HEIGHT*self.CPP
         if shapingConf:
-            self.update_default_configuration(shapingConf)
+            self.update_configuration(shapingConf)
 
     def create_placement(self):
         """
         Overrides the base method to create placement information
         """
-        self.ComputeGrid(skipChannels=False)
-        self.CreateDatabase()
+        if not self.PlacementDB:
+            self.ComputeGrid(skipChannels=False)
+            self.CreateDatabase()
         visited = []
         for instance_name, instance_info in self.PlacementDBKey.items():
             bbox = instance_info["bbox"]
@@ -169,6 +198,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
             if len(instance_info["shape"]) == 1:
                 if not module.name in visited:
                     llx, lly, w, h = instance_info["shape"][0]
+                    module.properties["SHAPE"] = "rect"
                     module.properties["WIDTH"] = float(w)*CPP
                     module.properties["HEIGHT"] = float(h)*SC_HEIGHT
                 instance.properties["LOC_X"] = bbox[0]*CPP
@@ -193,10 +223,26 @@ class initial_placement(OpenFPGA_Placement_Generator):
         self._top_module.properties["WIDTH"] = 500*CPP
         self._top_module.properties["HEIGHT"] = 500*SC_HEIGHT
 
-    def update_default_configuration(self, shapingConf):
-        with open(shapingConf, "r") as file:
-            for eachKey, eachValue in yaml.load(file, Loader=yaml.FullLoader).items():
-                setattr(self, eachKey, eachValue)
+    def update_configuration(self, shapingConf):
+        '''
+        Overwrite default configuration variables
+        '''
+        new_values = None
+        if isinstance(shapingConf, dict):
+            new_values = shapingConf
+        elif isinstance(shapingConf, str):
+            if ".yml" in shapingConf:
+                with open(shapingConf, "r") as file:
+                    new_values = yaml.load(
+                        file, Loader=yaml.FullLoader).items()
+            elif ".json" in shapingConf:
+                with open(shapingConf, "r") as file:
+                    new_values = json.load(file).items()
+        if not new_values:
+            Exception("wrogn shaping configuration")
+        for eachKey, eachValue in new_values:
+            setattr(self, eachKey, eachValue)
+            logger.debug(f"Updated {eachKey} -> {eachValue}")
 
     def get_default_configuration(self):
         # Grid clb shape
@@ -257,16 +303,18 @@ class initial_placement(OpenFPGA_Placement_Generator):
 
     def ComputeGrid(self, skipChannels=False):
         self.skipChannels = skipChannels
+        self.CLB_DIM = [2500, 24*8, 24]
+        self.CB_DIM = [2500*0.6, 0, 0]
         if self.areaFile:
-            BlockArea = {}
-            for eachLine in open(self.areaFile, "r"):
-                module, dims = eachLine.split(" ", 1)
-                BlockArea[module] = list(map(float, list(dims.split())))
+            if isinstance(self.areaFile, str):
+                BlockArea = {}
+                for eachLine in open(self.areaFile, "r"):
+                    module, dims = eachLine.split(" ", 1)
+                    BlockArea[module] = list(map(float, list(dims.split())))
+            if isinstance(self.areaFile, dict):
+                BlockArea = self.areaFile
             self.CLB_DIM = BlockArea["grid_clb"]
             self.CB_DIM = BlockArea["cbx_1__1_"]
-        else:
-            self.CLB_DIM = [2500, 24*8, 24]
-            self.CB_DIM = [2500*0.6, 0, 0]
 
         # Snap CLB Height and Width to next Multiple of 2
         self.CLB_UNIT = math.sqrt(
@@ -345,7 +393,7 @@ class initial_placement(OpenFPGA_Placement_Generator):
                     self.add_pad(side, i, self.PadNames[side][i])
         return self.PlacementDB
 
-    def add_clb(self, xi, yi, lbl=None):
+    def add_clb(self, xi, yi, lbl='grid_clb', shortlabel='LB'):
         x, y = (xi+1)*self.CLB_GRID_X, (yi+1)*self.CLB_GRID_Y
         llx = x-self.snapDims(self.CLB_W*0.5)
         lly = y-self.snapDims(self.CLB_H*0.5)
@@ -358,23 +406,24 @@ class initial_placement(OpenFPGA_Placement_Generator):
             lly += self.CLB_CHAN_B
             W1 = self.CLB_W-self.CLB_CHAN_L-self.CLB_CHAN_R
             H1 = self.CLB_H-self.CLB_CHAN_T-self.CLB_CHAN_B
-        block_name = f"grid_clb_{xi+1}__{yi+1}_"
-        short_block_name = f"LB_{xi+1}_{yi+1}"
+        block_name = f"{lbl}_{xi+1}__{yi+1}_"
+        short_block_name = f"{shortlabel}_{xi+1}_{yi+1}"
         COLOR = self.CLB_COLOR
         points = [0, 0, 0, self.CLB_H, self.CLB_W, self.CLB_H, self.CLB_W, 0]
         self.PlacementDB.append(block_name)
-        self.PlacementDBKey[block_name] = {"name": block_name,
-                                           "short_name": short_block_name,
-                                           "bbox": [llx, lly,
-                                                    llx+W1, lly+H1],
-                                           "points": points,
-                                           "module": "grid_clb_1__1_",
-                                           "center": [x, y],
-                                           "color": COLOR,
-                                           "shape": [(llx, lly, W1, H1)],
-                                           "initShape": initShape,
-                                           "xi": xi,
-                                           "yi": yi}
+        data = {"name": block_name,
+                "short_name": short_block_name,
+                "bbox": [llx, lly, llx+W1, lly+H1],
+                "points": points,
+                "module": "grid_clb_1__1_",
+                "center": [x, y],
+                "color": COLOR,
+                "shape": [(llx, lly, W1, H1)],
+                "initShape": initShape,
+                "xi": xi,
+                "yi": yi}
+        self.PlacementDBKey[block_name] = data
+        return data
 
     def add_cbx(self, xi, yi, lbl=None):
         x, y = (xi+1)*self.CLB_GRID_X, (yi+1)*self.CLB_GRID_Y
@@ -468,6 +517,11 @@ class initial_placement(OpenFPGA_Placement_Generator):
 
     def add_sb(self, xi, yi):
         '''
+        Adds switch-blocks in the placement database
+
+        .. rst-class:: ascii
+
+        ::
                    d
                  +----+
                c |    |
@@ -702,6 +756,3 @@ class initial_placement(OpenFPGA_Placement_Generator):
                 "center": [pad_x, pad_y],
             }
         )
-
-    def moduleFmt(self, mod, X, Y):
-        return f"{mod}_{X}__{Y}_"

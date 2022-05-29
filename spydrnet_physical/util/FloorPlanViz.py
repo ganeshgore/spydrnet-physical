@@ -1,21 +1,29 @@
 """
-This script implements simple floorplanning visualisation using SVG images.
+This script implements simple floorplanning visualization using SVG images.
 
-The visualizer uses the information stored in each verilog object (as a PROP)
+The visualizer uses the information stored in each Verilog object (as a PROP)
 to perform shaping and placement of each block.
 but there is no explicit routing performed,
 all the edges are connected from point to point.
 
-Detail of properties on different objects
+Detail of properties of different objects
 
 **On Definitions**
 
-``SHAPE`` =  Shape of the module [`Rect` (Default), `cross`]
+``SHAPE`` =  Shape of the module [`Rect` (Default), `cross`, `custom`]
 
-``WIDTH`` and ``HEIGHT`` = The rectangular dimension of the module (if Shape is `Rect`)
+- Parameters for ``Rect``
 
-``A``, ``B`` , ``C`` , ``D`` , ``E``, ``F``  =
-Dimensions of the rectilinear block (if shape is `cross`)
+  - ``WIDTH`` and ``HEIGHT`` = The rectangular dimension of the module
+
+- Parameters for ``cross``
+  
+  - ``A``, ``B`` , ``C`` , ``D`` , ``E``, ``F``  =  Dimensions of the rectilinear block (as show in figure below)
+
+- Parameters for ``custom``
+
+  - It is represented by a sequence of numbers `<Start_direction(V/H)> <FirstPoint (int int)> <Sequence of vertical and horizontal distance>`, and the last point connects to the start point automatically
+  - For example following example creates rectangle: `V 0 0 10 20 20`
 
 .. rst-class:: ascii
 
@@ -37,25 +45,22 @@ Dimensions of the rectilinear block (if shape is `cross`)
                 └──────────┘
                 cross Shape
 
-
-arbitary shape : Similar to path command is SVG
-
 **On Instances**
 
-``LOC_X`` and ``LOC_Y`` = Location of the component with respect to its parrent
+``LOC_X`` and ``LOC_Y`` = Location of the component with respect to its parent
 
 
-**On Ports**:
+**Ports Placement**:
 
 ``SIDE``:
-Shape sice where module port is placed [left/right/bottom/top]
+Shape size where module port is placed [left/right/bottom/top]
 
 ``SIDE2``:
 Optional and valid only when shape in cross [left/right/bottom/top]
 
 ``OFFSET``:
 Offset from the origin of that side
-First point on respective side in clockwise direction is considered as origin
+The first point on the respective side in a clockwise direction is considered as the origin
 
 
 .. rst-class:: ascii
@@ -82,11 +87,9 @@ First point on respective side in clockwise direction is considered as origin
 
 
 
-**TODO** Add Some sort of a cordinate transformation which scaleX and scaleY.
-All the inputs are in mutliple of SC_HEIGHT and SC_WIDTH, default value
+**TODO** Add Some sort of coordinate transformation which `scaleX` and `scaleY`.
+All the inputs are in multiple SC_HEIGHT and SC_WIDTH, a default value
 of these variables is set to 1
-
-
 
 """
 
@@ -438,21 +441,25 @@ class FloorPlanViz:
         path = module.data[PROP].get("POINTS", "v 0 0 10 10 -10 -10").split()
         start_dir = path[0]
         origin = path[1:3]
-        path = list(map(int, map(float,path[3:])))
+        path = list(map(int, map(float, path[3:])))
         COLOR = module.data[PROP].get("COLOR", "#f4f0e6")
 
         minY = min(np.cumsum(path[::2]))
         minX = min(np.cumsum(path[1::2]))
         HEIGHT = max(np.cumsum(path[::2]))-minY
         WIDTH = max(np.cumsum(path[1::2]))-minX
-        if start_dir.lower() == "h":
-            WIDTH, HEIGHT = HEIGHT, WIDTH
-            minX, minY = minY, minX
 
         svg_path = "m {} {} ".format(*origin)
         for eachpt in zip(path[::2], path[1::2]):
             svg_path += "v {} h {} ".format(*eachpt)
         svg_path += " z"
+
+        if start_dir.lower() == "h":
+            WIDTH, HEIGHT = HEIGHT, WIDTH
+            minX, minY = minY, minX
+            svg_path = svg_path.replace("v", "vv")
+            svg_path = svg_path.replace("h", "v")
+            svg_path = svg_path.replace("vv", "h")
 
         new_def = self.dwg.symbol(id=module.name,
                                   viewBox=f"{minX} {minY} {WIDTH} {HEIGHT} ")

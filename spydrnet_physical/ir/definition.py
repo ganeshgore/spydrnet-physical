@@ -2,14 +2,16 @@
 import logging
 import typing
 from itertools import combinations
-from spydrnet_physical.global_state import global_callback as sdnphy_global_callback
+
 import numpy as np
 import spydrnet as sdn
 from spydrnet.ir import Definition as DefinitionBase
 from spydrnet.ir.innerpin import InnerPin
 from spydrnet.ir.outerpin import OuterPin
 from spydrnet.ir.port import Port
-
+from spydrnet_physical.global_state import \
+    global_callback as sdnphy_global_callback
+from spydrnet_physical.ir.shaping_utils import shaping_utils
 
 logger = logging.getLogger('spydrnet_logs')
 try:
@@ -25,6 +27,8 @@ if typing.TYPE_CHECKING:
     DefinitionBase = type(
         "DefinitionBase", (DefinitionSDN, FirstClassElementPhy), {})
 
+PROP = "VERILOG.InlineConstraints"
+
 
 class Definition(DefinitionBase):
     """
@@ -37,31 +41,6 @@ class Definition(DefinitionBase):
         self.properties["WIDTH"] = properties.get("WIDTH", 50)
         self.properties["HEIGHT"] = properties.get("WIDTH", 50)
 
-    @staticmethod
-    def get_custom_boundary(points):
-        path = points.split()
-        direction = path[0].lower()
-        origin = path[1:3]
-        boundary = [int(origin[0]), int(origin[1])]
-        for pt in map(int, map(float, path[3:])):
-            if direction == 'v':
-                # print("v")
-                boundary.extend([boundary[-2], boundary[-1]+pt])
-                direction = 'h'
-            else:
-                # print("h")
-                boundary.extend([boundary[-2]+pt, boundary[-1]])
-                direction = 'v'
-            # print(boundary)
-        return boundary
-
-    @staticmethod
-    def PolyArea2D(pts):
-        pts = list(zip(pts[::2], pts[1::2]))
-        lines = np.hstack([pts, np.roll(pts, -1, axis=0)])
-        area = 0.5*abs(sum(x1*y2-x2*y1 for x1, y1, x2, y2 in lines))
-        return area
-
     @property
     def area(self):
         shape = self.data["VERILOG.InlineConstraints"].get("SHAPE", None)
@@ -71,7 +50,7 @@ class Definition(DefinitionBase):
                     "POINTS", [0, 0, 0, 0, 0, 0])
             return ((a+f+c) * d) + ((b+d+e) * a) - (d*a)
         elif shape == "custom":
-            return self.PolyArea2D(self.get_custom_boundary(
+            return shaping_utils.PolyArea2D(shaping_utils.get_custom_boundary(
                 self.data["VERILOG.InlineConstraints"].get("POINTS",
                                                            [0, 0, 0, 0, 0, 0])
             ))
@@ -298,6 +277,45 @@ class Definition(DefinitionBase):
                 self.library.remove_definition(new_def)
         return main_def, instance_list
 
+    @staticmethod
+    def _call_merged_instance(new_mod, new_instance, instances_list):
+        # def_data = instances_list[0].data["VERILOG.InlineConstraints"]
+        # if def_data:
+        outline = []
+        new_mod.data[PROP]["AREA"] = 0
+        for each in instances_list:
+            shape = each.reference.data[PROP].get("SHAPE", None)
+            if shape == "rect":
+                outline.extend(shaping_utils._convert_rect_to_pt(each))
+            if shape == "cross":
+                outline.extend(shaping_utils._convert_cross_to_pt(each))
+            new_mod.data[PROP]["AREA"] = each.reference.data[PROP].get(
+                "AREA", 0)
+        LOC_X = min([each.data[PROP].get("LOC_X", 0)
+                     for each in instances_list])
+        LOC_Y = min([each.data[PROP].get("LOC_Y", 0)
+                     for each in instances_list])
+        new_instance.data[PROP]["LOC_X"] = LOC_X
+        new_instance.data[PROP]["LOC_Y"] = LOC_Y
+        if outline:
+            shape, points = shaping_utils._get_shapes_outline(outline)
+            new_instance.reference.properties["SHAPE"] = shape
+            if shape == "cross":
+                new_instance.reference.properties["POINTS"] = points
+            if shape == "custom":
+                new_instance.reference.properties["POINTS"] = \
+                    shaping_utils._points_to_path(points)
+            if shape == "rect":
+                new_instance.reference.properties["WIDTH"] = points[0]
+                new_instance.reference.properties["HEIGHT"] = points[1]
+            shaping_utils._interpret_custom_to_shape(new_instance.reference)
+
+            logger.debug(f"{new_instance.name} " +
+                         f"[{new_instance.reference.name:15}]" +
+                         f"[{new_instance.reference.properties['SHAPE']:15}]" +
+                         f"[{new_instance.reference.properties['WIDTH']:15}]" +
+                         f" {shape} {points}")
+
     # TODO: Try to break this method
     def merge_instance(self, instances_list,
                        new_definition_name="",
@@ -392,6 +410,7 @@ class Definition(DefinitionBase):
             self.remove_child(eachM)
         sdnphy_global_callback._call_merged_instance(
             new_mod, merged_module, instances_list)
+        self._call_merged_instance(new_mod, merged_module, instances_list)
         return new_mod, merged_module, rename_map
 
     def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True):
