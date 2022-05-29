@@ -33,6 +33,9 @@ STYLE_SHEET = '''
     text{font-family: Lato;}
 '''
 
+CPP = 2
+SC_HEIGHT = 10
+
 
 def main():
     proj = "../homogeneous_fabric"
@@ -85,6 +88,14 @@ def main():
     fp.custom_style_sheet = STYLE_SHEET
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
+
+    pattern = dwg.pattern(size=(4*CPP, 2*SC_HEIGHT),
+                          patternUnits="userSpaceOnUse")
+    pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
+    pattern.add(dwg.circle(center=(2, SC_HEIGHT+2), r=1, fill="red"))
+    dwg.defs.add(pattern)
+    dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
+
     dwg.saveas("_fpga_auto_initial_placement.svg", pretty=True, indent=4)
 
 
