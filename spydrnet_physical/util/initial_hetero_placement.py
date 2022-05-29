@@ -110,7 +110,7 @@ import logging
 import math
 import os
 import json
-import pandas as pd
+from copy import deepcopy
 from typing import Callable
 from pprint import pformat, pprint
 from spydrnet_physical.util.shell import launch_shell
@@ -144,7 +144,7 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
     margins = {}
     """dict: Stores module database without any margin"""
 
-    module_shapes_base = {}
+    module_shapes_final = {}
     """dict: Stores module database without any margin"""
 
     module_final = {}
@@ -197,49 +197,48 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         # Set grid_clb column
         for i in range(2, (self.fpga_size[0]*2)+1, 2):
             self.design_grid.set_column_width(
-                i, self.module_shapes["grid_clb"]["POINTS"][0])
+                i, self.module_shapes["grid_clb"]["POINTS"][0]*self.CPP)
         # Set grid_clb row
         for i in range(2, (self.fpga_size[1]*2)+1, 2):
             self.design_grid.set_row_height(
-                i, self.module_shapes["grid_clb"]["POINTS"][1])
+                i, self.module_shapes["grid_clb"]["POINTS"][1]*self.SC_HEIGHT)
 
         for i in range(1, (self.fpga_size[0]*2)+2, 2):
             self.design_grid.set_column_width(
-                i, self.module_shapes["cby_1__1_"]["POINTS"][0])
+                i, self.module_shapes["cby_1__1_"]["POINTS"][0]*self.CPP)
 
         for i in range(1, (self.fpga_size[1]*2)+2, 2):
             self.design_grid.set_row_height(
-                i, self.module_shapes["cbx_1__1_"]["POINTS"][1])
+                i, self.module_shapes["cbx_1__1_"]["POINTS"][1]*self.SC_HEIGHT)
 
         self.design_grid.set_row_height(
-            1, self.module_shapes["cbx_1__0_"]["POINTS"][1])
+            1, self.module_shapes["cbx_1__0_"]["POINTS"][1]*self.SC_HEIGHT)
         self.design_grid.set_row_height(
-            -1, self.module_shapes[f"cbx_1__{H}_"]["POINTS"][1])
+            -1, self.module_shapes[f"cbx_1__{H}_"]["POINTS"][1]*self.SC_HEIGHT)
         self.design_grid.set_column_width(
-            1, self.module_shapes["cby_0__1_"]["POINTS"][0])
+            1, self.module_shapes["cby_0__1_"]["POINTS"][0]*self.CPP)
         self.design_grid.set_column_width(
-            -1, self.module_shapes[f"cby_{W}__1_"]["POINTS"][0])
+            -1, self.module_shapes[f"cby_{W}__1_"]["POINTS"][0]*self.CPP)
 
         # Perform placement
         top_module = self._top_module
         for x_indx in range((self.fpga_size[0]*2) + 1, 0, -1):
             for y_indx in range((self.fpga_size[0]*2) + 1, 0, -1):
-                x_offset, y_offset = 0, 0
+                x_off, y_off = 0, 0
                 inst_name = self.fpga_grid.get_top_instance(x_indx, y_indx)
-                points = self.design_grid.get_x_y(x_indx-1, y_indx-1)
+                anchor = self.design_grid.get_x_y(x_indx-1, y_indx-1)
                 try:
                     inst = next(top_module.get_instances(f"*{inst_name}"))
                 except StopIteration:
-                    logger.warning("Skipping placment : %s [Not found] ",
-                                   inst_name)
-
+                    logger.warning(
+                        "Skipping placment : %s [Not found]", inst_name)
                 module = self.module_shapes[inst.reference.name]
                 if isinstance(module["PLACEMENT"], Callable):
-                    x_offset, y_offset = module["PLACEMENT"](x_indx, y_indx)
+                    x_off, y_off = module["PLACEMENT"](x_indx, y_indx)
                 if isinstance(module["PLACEMENT"], tuple):
-                    x_offset, y_offset = module["PLACEMENT"]
-                inst.data[PROP]['LOC_X'] = points[0] + x_offset
-                inst.data[PROP]['LOC_Y'] = points[1] + y_offset
+                    x_off, y_off = module["PLACEMENT"]
+                inst.data[PROP]['LOC_X'] = anchor[0] + (x_off*self.CPP)
+                inst.data[PROP]['LOC_Y'] = anchor[1] + (y_off*self.SC_HEIGHT)
 
         top_module.data[PROP]["WIDTH"] = \
             self.design_grid.width + (40*self.CPP)
@@ -252,24 +251,36 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         s_params variable
         """
         for eachm, param in self.module_shapes.items():
-            if param:
-                try:
-                    module = next(self._top_module.get_definitions(eachm))
-                except StopIteration:
-                    logger.exception('Not found %s', eachm)
-                    return
-                shape = param.get("SHAPE", "rect")
-                if (shape == "cross") or (shape == "custom"):
-                    module.data[PROP]["SHAPE"] = param["SHAPE"]
-                    module.data[PROP]["POINTS"] = param["POINTS"]
-                    module.data[PROP]["WIDTH"] = \
-                        sum([param["POINTS"][i] for i in [1, 3, 4]])
-                    module.data[PROP]["HEIGHT"] = \
-                        sum([param["POINTS"][i] for i in [0, 2, 5]])
-                else:
-                    module.data[PROP]["SHAPE"] = 'rect'
-                    module.data[PROP]["WIDTH"] = param["POINTS"][0]
-                    module.data[PROP]["HEIGHT"] = param["POINTS"][1]
+            if not param:
+                continue
+            try:
+                module = next(self._top_module.get_definitions(eachm))
+            except StopIteration:
+                logger.exception('Not found %s', eachm)
+                return
+            shape = param.get("SHAPE", "rect")
+            if (shape == "cross") or (shape == "custom"):
+                points = self._scale_shape(shape, param["POINTS"])
+                module.data[PROP]["SHAPE"] = shape
+                module.data[PROP]["POINTS"] = points
+                module.data[PROP]["WIDTH"] = \
+                    sum([param["POINTS"][i] for i in [1, 3, 4]])
+                module.data[PROP]["HEIGHT"] = \
+                    sum([param["POINTS"][i] for i in [0, 2, 5]])
+            else:
+                module.data[PROP]["SHAPE"] = 'rect'
+                module.data[PROP]["WIDTH"] = param["POINTS"][0]*self.CPP
+                module.data[PROP]["HEIGHT"] = param["POINTS"][1] * \
+                    self.SC_HEIGHT
+
+    def _scale_shape(self, shape, points):
+        if shape == "cross":
+            points = [a*b for a, b in (zip(
+                points, (self.SC_HEIGHT, self.CPP, self.SC_HEIGHT,
+                         self.CPP, self.CPP, self.SC_HEIGHT)))]
+        if shape == "custom":
+            pass
+        return points
 
     def update_shaping_param(self, update_module_shapes):
         '''
@@ -344,18 +355,18 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         # m["tile_w"], m["tile_h"] = self._get_width_height(
         #     tile_area, m["TILE_ASPECT_RATIO"])
         # TODO : Need to genrate these parameters automatically
-        m["tile_width"], m["tile_h"] = 250, 250
-        m["left_tile_width"], m["left_tile_h"] = 300, 300
-        m["right_tile_width"], m["right_tile_h"] = 350, 350
-        m["clb_w"], m["clb_h"] = 100, 100
+        # m["tile_width"], m["tile_h"] = 250, 250
+        # m["left_tile_width"], m["left_tile_h"] = 300, 300
+        # m["right_tile_width"], m["right_tile_h"] = 350, 350
+        m["clb_w"], m["clb_h"] = 100, 20
 
-        m["cbx11_w"], m["cbx11_h"] = 60, 30
-        m["bottom_cbx_w"], m["bottom_cbx_h"] = 70, 50
-        m["top_cbx_w"], m["top_cbx_h"] = 70, 50
+        m["cbx11_w"], m["cbx11_h"] = 60, 6
+        m["bottom_cbx_w"], m["bottom_cbx_h"] = 70, 10
+        m["top_cbx_w"], m["top_cbx_h"] = 70, 10
 
-        m["cby11_w"], m["cby11_h"] = 30, 60
-        m["left_cby_w"], m["left_cby_h"] = 40, 80
-        m["right_cby_w"], m["right_cby_h"] = 40, 80
+        m["cby11_w"], m["cby11_h"] = 30, 12
+        m["left_cby_w"], m["left_cby_h"] = 40, 16
+        m["right_cby_w"], m["right_cby_h"] = 40, 16
 
         self.derive_sb_paramters()
 
@@ -406,9 +417,6 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         m["bd"] = m["cby11_w"]
         m["be"] = 0.5*(m["clb_w"]-m["bottom_cbx_w"])
         m["bf"] = 0
-
-    def apply_margins(self):
-        pass
 
     def create_shapes(self):
         m = self.s_param
