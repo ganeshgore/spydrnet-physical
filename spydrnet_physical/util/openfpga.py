@@ -42,7 +42,7 @@ class OpenFPGA:
             library (str): library name
             top_module (str): top_module name
         '''
-        self.fpga_size = grid
+        self.fpga_size = list(grid)
         self._netlist = netlist
         self._library = next(netlist.get_libraries(library))
         self._top_module = next(self._library.get_definitions(top_module))

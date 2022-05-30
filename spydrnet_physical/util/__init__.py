@@ -4,6 +4,7 @@ from spydrnet_physical.util.base_class import (OpenFPGA_Config_Generator,
                                                OpenFPGA_Tile_Generator)
 from spydrnet_physical.util.initial_placement import initial_placement
 from spydrnet_physical.util.initial_hetero_placement import initial_hetero_placement
+from spydrnet_physical.util.sram_configuration_protocol import sram_configuration
 
 from spydrnet_physical.util.get_names import get_attr, get_names
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch

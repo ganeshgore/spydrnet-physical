@@ -36,6 +36,9 @@ class Tile02(Tile01):
         self._left_tile()
         self._bottom_tile()
 
+        self.fpga_size[0] += 1
+        self.fpga_size[1] += 1
+
     def merge_and_update(self, instance_list, tile_name):
         """
         Merges given list of instances and updates width and height parameter
