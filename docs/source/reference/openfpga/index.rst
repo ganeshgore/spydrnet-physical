@@ -26,6 +26,7 @@ Tiling APIs
    :maxdepth: 1
 
    tile01
+   tile02
 
 
 Configuration APIs
