@@ -11,7 +11,11 @@ module bottom_left_tile
     grid_right_t_in,
     grid_right_b_inpad,
     bl,
-    wl
+    wl,
+    wl_in,
+    wl_out,
+    bl_in,
+    bl_out
 );
 
     input [19:0]chany_top_in;
@@ -24,6 +28,10 @@ module bottom_left_tile
     input [0:7]grid_right_b_inpad;
     input [0:79]bl;
     input [0:79]wl;
+    input [3:0]wl_in;
+    output [3:0]wl_out;
+    input [39:0]bl_in;
+    output [39:0]bl_out;
 
     wire [19:0]chany_top_in;
     wire [19:0]chanx_right_in;
@@ -35,7 +43,13 @@ module bottom_left_tile
     wire [0:7]grid_right_b_inpad;
     wire [0:79]bl;
     wire [0:79]wl;
+    wire [3:0]wl_in;
+    wire [3:0]wl_out;
+    wire [39:0]bl_in;
+    wire [39:0]bl_out;
 
+assign wl_out = wl_in;
+assign bl_out = bl_in;
     sb_0__0_ sb_0__0_
     (
         .chany_top_in(chany_top_in),

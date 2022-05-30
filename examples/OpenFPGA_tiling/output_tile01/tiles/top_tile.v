@@ -32,7 +32,11 @@ module top_tile
     grid_bottom_l_in,
     grid_left_b_in,
     bl,
-    wl
+    wl,
+    wl_in,
+    wl_out,
+    bl_in,
+    bl_out
 );
 
     input reset;
@@ -66,6 +70,10 @@ module top_tile
     input [0:2]grid_left_b_in;
     input [0:1259]bl;
     input [0:1259]wl;
+    input [3:0]wl_in;
+    output [3:0]wl_out;
+    input [314:0]bl_in;
+    output [314:0]bl_out;
 
     wire reset;
     wire clk;
@@ -104,7 +112,13 @@ module top_tile
     wire [0:2]grid_left_b_in;
     wire [0:1259]bl;
     wire [0:1259]wl;
+    wire [3:0]wl_in;
+    wire [3:0]wl_out;
+    wire [314:0]bl_in;
+    wire [314:0]bl_out;
 
+assign wl_out = wl_in;
+assign bl_out = bl_in;
     grid_clb grid_clb_1__4_
     (
         .reset(reset),

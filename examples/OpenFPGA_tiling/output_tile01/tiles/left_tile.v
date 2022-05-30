@@ -17,7 +17,11 @@ module left_tile
     grid_right_b_in,
     grid_bottom_r_in,
     bl,
-    wl
+    wl,
+    wl_in,
+    wl_out,
+    bl_in,
+    bl_out
 );
 
     inout [7:0]gfpga_pad_GPIO_PAD;
@@ -36,6 +40,10 @@ module left_tile
     input [0:1]grid_bottom_r_in;
     input [0:157]bl;
     input [0:157]wl;
+    input [3:0]wl_in;
+    output [3:0]wl_out;
+    input [39:0]bl_in;
+    output [39:0]bl_out;
 
     wire [7:0]gfpga_pad_GPIO_PAD;
     wire [0:7]io_right_in;
@@ -55,7 +63,13 @@ module left_tile
     wire [0:1]grid_bottom_r_in;
     wire [0:157]bl;
     wire [0:157]wl;
+    wire [3:0]wl_in;
+    wire [3:0]wl_out;
+    wire [39:0]bl_in;
+    wire [39:0]bl_out;
 
+assign wl_out = wl_in;
+assign bl_out = bl_in;
     cby_0__1_ cby_0__1_
     (
         .gfpga_pad_GPIO_PAD(gfpga_pad_GPIO_PAD),

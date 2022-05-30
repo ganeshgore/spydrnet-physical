@@ -13,7 +13,11 @@ module top_left_tile
     chany_bottom_out_0,
     grid_right_out,
     bl,
-    wl
+    wl,
+    wl_in,
+    wl_out,
+    bl_in,
+    bl_out
 );
 
     input [19:0]chanx_right_in;
@@ -28,6 +32,10 @@ module top_left_tile
     output [0:9]grid_right_out;
     input [0:159]bl;
     input [0:159]wl;
+    input [3:0]wl_in;
+    output [3:0]wl_out;
+    input [39:0]bl_in;
+    output [39:0]bl_out;
 
     wire [19:0]chanx_right_in;
     wire [19:0]chany_bottom_in;
@@ -43,7 +51,13 @@ module top_left_tile
     wire [0:9]grid_right_out;
     wire [0:159]bl;
     wire [0:159]wl;
+    wire [3:0]wl_in;
+    wire [3:0]wl_out;
+    wire [39:0]bl_in;
+    wire [39:0]bl_out;
 
+assign wl_out = wl_in;
+assign bl_out = bl_in;
     sb_0__4_ sb_0__4_
     (
         .chanx_right_in(chanx_right_in),

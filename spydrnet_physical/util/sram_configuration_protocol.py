@@ -102,9 +102,114 @@ class sram_configuration(OpenFPGA_Config_Generator):
     def add_configuration_scheme(self):
         ''' Creates configuration chain '''
         logger.debug("Adding memory configuration protocol")
-        # self._top_module.remove_port(next(self._top_module.get_ports("wl*")))
-        # self._top_module.remove_port(next(self._top_module.get_ports("bl*")))
+        self._top_module.remove_port(next(self._top_module.get_ports("wl*")))
+        self._top_module.remove_port(next(self._top_module.get_ports("bl*")))
+        # TODO This part should be copied to the remove_cables method
+        wl_cable = next(self._top_module.get_cables("wl*"))
+        for each_wire in wl_cable.wires:
+            for pins in each_wire.pins[::-1]:
+                each_wire.disconnect_pin(pins)
+        bl_cable = next(self._top_module.get_cables("wl*"))
+        for each_wire in bl_cable.wires:
+            for pins in each_wire.pins[::-1]:
+                each_wire.disconnect_pin(pins)
+        self._top_module.remove_cable(next(self._top_module.get_cables("wl*")))
+        self._top_module.remove_cable(next(self._top_module.get_cables("bl*")))
+
+        self._create_wl_ports()
+        self._create_bl_ports()
+
         logger.debug(self.fpga_size)
+
+    def _create_bl_ports(self):
+        """
+        Create WL lines in each row
+
+        TODO: Change method to identify the port size on eachmodule and then create
+        """
+        for x_pt in range(self.fpga_size[1]):
+            width = self.bit_line_cols[x_pt]
+            for y_pt in range(self.fpga_size[1]):
+                module = self.get_tile(x_pt+1, y_pt+1).reference
+                # Make sure bl_in port exist
+                bl_in = next(module.get_ports("bl_in"), None)
+                if not bl_in:
+                    module.create_port("bl_in", direction=sdn.IN, pins=width)
+                else:
+                    while bl_in.size < width:
+                        bl_in.create_pin()
+                # Make sure bl_out port exist
+                bl_out = next(module.get_ports("bl_out"), None)
+                if not bl_out:
+                    module.create_port("bl_out", direction=sdn.OUT, pins=width)
+                else:
+                    while bl_out.size < width:
+                        bl_out.create_pin()
+                # Make sure crosponding cable exists
+                bl_in_cables = next(module.get_cables("bl_in"), None)
+                if not bl_in_cables:
+                    bl_in_cables = module.create_cable("bl_in", wires=width)
+                else:
+                    while bl_in_cables.size < width:
+                        bl_in_cables.create_wire()
+                # Make sure crosponding cable exists
+                bl_out_cables = next(module.get_cables("bl_out"), None)
+                if not bl_out_cables:
+                    bl_out_cables = module.create_cable("bl_out", wires=width)
+                else:
+                    while bl_out_cables.size < width:
+                        bl_out_cables.create_wire()
+
+                assignement = next(module.get_instances(
+                    "bl_in_bl_out_assign"), None)
+                if assignement:
+                    module.remove_child(assignement)
+                bl_in_cables.assign_cable(bl_out_cables)
+
+    def _create_wl_ports(self):
+        """
+        Create WL lines in each row
+
+        TODO: Change method to identify the port size on eachmodule and then create
+        """
+        for y_pt in range(self.fpga_size[1]):
+            width = self.word_line_rows[y_pt]
+            for x_pt in range(self.fpga_size[1]):
+                module = self.get_tile(x_pt+1, y_pt+1).reference
+                # Make sure wl_in port exist
+                wl_in = next(module.get_ports("wl_in"), None)
+                if not wl_in:
+                    module.create_port("wl_in", direction=sdn.IN, pins=width)
+                else:
+                    while wl_in.size < width:
+                        wl_in.create_pin()
+                # Make sure wl_out port exist
+                wl_out = next(module.get_ports("wl_out"), None)
+                if not wl_out:
+                    module.create_port("wl_out", direction=sdn.OUT, pins=width)
+                else:
+                    while wl_out.size < width:
+                        wl_out.create_pin()
+                # Make sure crosponding cable exists
+                wl_in_cables = next(module.get_cables("wl_in"), None)
+                if not wl_in_cables:
+                    wl_in_cables = module.create_cable("wl_in", wires=width)
+                else:
+                    while wl_in_cables.size < width:
+                        wl_in_cables.create_wire()
+                # Make sure crosponding cable exists
+                wl_out_cables = next(module.get_cables("wl_out"), None)
+                if not wl_out_cables:
+                    wl_out_cables = module.create_cable("wl_out", wires=width)
+                else:
+                    while wl_out_cables.size < width:
+                        wl_out_cables.create_wire()
+
+                assignement = next(module.get_instances(
+                    "wl_in_wl_out_assign"), None)
+                if assignement:
+                    module.remove_child(assignement)
+                wl_in_cables.assign_cable(wl_out_cables)
 
     def set_wl_distribution(self, lines):
         """

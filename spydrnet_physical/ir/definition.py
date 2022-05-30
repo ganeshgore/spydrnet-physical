@@ -71,6 +71,24 @@ class Definition(DefinitionBase):
                 pin.wire.disconnect_pin(pin)
             del pin
 
+    def remove_cable(self, cable):
+        """Remove a cable from the definition.
+
+        The cable must be a member of the definition.
+
+        parameters
+        ----------
+
+        cable - (Cable) the cable to be removed from the definition
+        """
+        assert cable.definition == self, "Cable is not included in definition"
+        # Need to turn on this
+        # for each_wire in cable.wires:
+        #     for pins in each_wire.pins:
+        #         each_wire.disconnect_pin(pins)
+        self._remove_cable(cable)
+        self._cables.remove(cable)
+
     def remove_port(self, port):
         """
         Remove port from the definition. (Overrides the base method)
