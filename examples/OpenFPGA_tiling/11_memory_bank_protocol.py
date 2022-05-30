@@ -78,7 +78,7 @@ def main():
                 cable.is_downto = False
 
     # Before Creating Tiles
-    fpga.design_top_stat()
+    # fpga.design_top_stat()
 
     # Merge grid IOs
     fpga.merge_all_grid_ios()
@@ -90,12 +90,15 @@ def main():
     # Add configuration circuit
     logger.handlers[0].setLevel(logging.DEBUG)
     fpga.register_config_generator(sram_configuration)
-    fpga.config_creator._print_configuration_bit_matrix()
+    # fpga.config_creator.print_configuration_bit_matrix()
+    fpga.config_creator.set_wl_distribution([4, 4, 4, 4, 4])
+    print(f"word_line_rows = {fpga.config_creator.word_line_rows}")
+    print(f"bit_line_cols  = {fpga.config_creator.bit_line_cols}")
     fpga.add_configuration_scheme()
     logger.handlers[0].setLevel(logging.INFO)
 
     # After Creating Tiles
-    fpga.design_top_stat()
+    # fpga.design_top_stat()
 
     for each in fpga.top_module.get_definitions("*"):
         each.properties["LABEL"] = each.properties.get("CONFIG_BITS", 0)

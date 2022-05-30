@@ -27,6 +27,9 @@ Details the SRAM configuration protocol
 """
 
 import logging
+import math
+from copy import deepcopy
+
 import spydrnet as sdn
 from spydrnet_physical.util import OpenFPGA_Config_Generator
 
@@ -50,22 +53,26 @@ class sram_configuration(OpenFPGA_Config_Generator):
 
     def __init__(self, grid, netlist, library, top_module):
         super().__init__(grid, netlist, library, top_module)
-        self.w_lines = next(self._top_module.get_ports("wl*"))
-        self.b_lines = next(self._top_module.get_ports("bl*"))
-        logger.debug("Found total %d bits", self.w_lines.size)
-        assert self.w_lines.size == self.b_lines.size, "Mismatch WL and BL size"
+        w_lines = next(self._top_module.get_ports("wl*"))
+        b_lines = next(self._top_module.get_ports("bl*"))
+        logger.debug("Found total %d bits", w_lines.size)
+        assert w_lines.size == b_lines.size, "Mismatch WL and BL size"
         # self._config_bits_matrix = [[0]*self.fpga_size[0]]*self.fpga_size[0]
         self._config_bits_matrix = [[0 for _ in range(self.fpga_size[0])]
                                     for _ in range(self.fpga_size[1])]
+
+        self.word_line_rows = [0] * self.fpga_size[1]
+        self.bit_line_cols = [0] * self.fpga_size[0]
         self.annotate_configuration_bits()
 
-    def _print_configuration_bit_matrix(self):
+    def print_configuration_bit_matrix(self, matrix=None):
         """
         Print the configuration bits matrix extracted from the fabric 
         """
+        matrix = matrix or self._config_bits_matrix
         for y_pt in range(self.fpga_size[1]-1, -1, -1):
             for x_pt in range(self.fpga_size[0]):
-                bits = self._config_bits_matrix[y_pt][x_pt]
+                bits = matrix[y_pt][x_pt]
                 print(f"{bits:4}", end="  ")
             print()
 
@@ -98,7 +105,18 @@ class sram_configuration(OpenFPGA_Config_Generator):
         logger.debug(self.fpga_size)
 
     def set_wl_distribution(self, lines):
-        pass
+        """
+        Sets fixed number of word lines for each row of the FPGA grid.
+
+        Args:
+            lines (list): List of integer indicating lines in each row 
+        """
+        self.word_line_rows = lines
+        for x_pt in range(self.fpga_size[0]):
+            bits = [self._config_bits_matrix[i][x_pt]
+                    for i in range(self.fpga_size[1])]
+            self.bit_line_cols[x_pt] = math.ceil(max(bits)/lines[x_pt])
+        logger.debug(self.bit_line_cols)
 
     def set_bl_distribution(self, lines):
         pass
