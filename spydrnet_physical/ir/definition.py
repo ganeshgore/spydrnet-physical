@@ -712,6 +712,12 @@ class Definition(DefinitionBase):
                     w.connect_pin(pin)
 
     def split_port(self, port):
+        """
+        Split the given port
+
+        Args:
+            port (Port): Definition port to split into independent pins
+        """
         if isinstance(port, str):
             port = next(self.get_ports(port))
 
@@ -722,7 +728,8 @@ class Definition(DefinitionBase):
             new_cable = self.create_cable(f"{port.name}_{indx}")
             cable.remove_wire(pin.wire)
             new_cable.add_wire(pin.wire)
-            port.remove_pin(pin)
+            pin._port = None
+            port._pins.remove(pin)
             new_port.add_pin(pin)
 
         self.remove_port(port)

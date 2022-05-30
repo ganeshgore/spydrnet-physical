@@ -291,6 +291,7 @@ class FloorPlanViz:
 
         loc_x = int(instance.data[PROP].get("LOC_X", 0))
         loc_y = int(instance.data[PROP].get("LOC_Y", 0))
+        inst_label = instance.data[PROP].get("LABEL", "")
 
         self.dwgShapes.add(self.dwg.use(defDict["instance"],
                                         class_=f"{instance.name}",
@@ -312,7 +313,7 @@ class FloorPlanViz:
         if module_label:
             module_text.add(self.dwg.tspan(
                 insert=self._get_label_location(instance),
-                text=f"{module_label}",
+                text=f"{module_label} {inst_label}",
                 dy=["2.4em", ]))
 
         self.dwgText.add(module_text)
