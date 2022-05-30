@@ -102,6 +102,8 @@ class sram_configuration(OpenFPGA_Config_Generator):
     def add_configuration_scheme(self):
         ''' Creates configuration chain '''
         logger.debug("Adding memory configuration protocol")
+        # self._top_module.remove_port(next(self._top_module.get_ports("wl*")))
+        # self._top_module.remove_port(next(self._top_module.get_ports("bl*")))
         logger.debug(self.fpga_size)
 
     def set_wl_distribution(self, lines):

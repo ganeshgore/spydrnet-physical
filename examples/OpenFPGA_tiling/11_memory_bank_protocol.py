@@ -102,7 +102,7 @@ def main():
 
     for each in fpga.top_module.get_definitions("*"):
         each.properties["LABEL"] = each.properties.get("CONFIG_BITS", 0)
-    return
+
 # %%
 #
 # Following section is for rendering only
@@ -158,7 +158,7 @@ def main():
     dwg.saveas("_tile02_mb_floorplan.svg", pretty=True, indent=4)
 
     # Save netlist
-    base_dir = "_output_tile01"
+    base_dir = "output_tile01"
     Path(base_dir).mkdir(parents=True, exist_ok=True)
     fpga.save_netlist("sb*", path.join(base_dir, "routing"))
     fpga.save_netlist("cb*", path.join(base_dir, "routing"))
