@@ -35,8 +35,6 @@ module tile
     grid_bottom_l_in,
     grid_left_t_in,
     grid_left_b_in,
-    bl,
-    wl,
     wl_in,
     wl_out,
     bl_in,
@@ -76,8 +74,6 @@ module tile
     input [0:2]grid_bottom_l_in;
     input [0:1]grid_left_t_in;
     input [0:2]grid_left_b_in;
-    input [0:1259]bl;
-    input [0:1259]wl;
     input [3:0]wl_in;
     output [3:0]wl_out;
     input [314:0]bl_in;

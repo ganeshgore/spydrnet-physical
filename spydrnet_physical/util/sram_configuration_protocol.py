@@ -124,6 +124,15 @@ class sram_configuration(OpenFPGA_Config_Generator):
 
         logger.debug(self.fpga_size)
 
+    def remove_bl_wl_lines(self):
+        for module in self._top_module.get_definitions("*"):
+            wl_port = next(module.get_ports("wl"), None)
+            if wl_port:
+                module.remove_port(wl_port)
+            bl_port = next(module.get_ports("bl"), None)
+            if bl_port:
+                module.remove_port(bl_port)
+
     def _create_wl_connection(self):
         top = self._top_module
         bl_lines = top.create_cable(f"wl_in", wires=sum(self.word_line_rows))

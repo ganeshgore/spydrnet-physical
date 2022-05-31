@@ -92,8 +92,9 @@ def main():
     fpga.register_config_generator(sram_configuration)
     # fpga.config_creator.print_configuration_bit_matrix()
     fpga.config_creator.set_wl_distribution([4, 4, 4, 4, 4])
-    print(f"word_line_rows = {fpga.config_creator.word_line_rows}")
-    print(f"bit_line_cols  = {fpga.config_creator.bit_line_cols}")
+    logger.info("word_line_rows = %s", fpga.config_creator.word_line_rows)
+    logger.info("bit_line_cols  = %s", fpga.config_creator.bit_line_cols)
+    fpga.config_creator.remove_bl_wl_lines()
     fpga.add_configuration_scheme()
     logger.handlers[0].setLevel(logging.INFO)
 

@@ -12,8 +12,6 @@ module top_left_tile
     chany_bottom_in_0,
     chany_bottom_out_0,
     grid_right_out,
-    bl,
-    wl,
     wl_in,
     wl_out,
     bl_in,
@@ -30,8 +28,6 @@ module top_left_tile
     input [19:0]chany_bottom_in_0;
     output [19:0]chany_bottom_out_0;
     output [0:9]grid_right_out;
-    input [0:159]bl;
-    input [0:159]wl;
     input [3:0]wl_in;
     output [3:0]wl_out;
     input [39:0]bl_in;

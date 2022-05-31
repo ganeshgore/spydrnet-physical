@@ -16,8 +16,6 @@ module left_tile
     grid_right_t_in,
     grid_right_b_in,
     grid_bottom_r_in,
-    bl,
-    wl,
     wl_in,
     wl_out,
     bl_in,
@@ -38,8 +36,6 @@ module left_tile
     input [0:1]grid_right_t_in;
     input [0:2]grid_right_b_in;
     input [0:1]grid_bottom_r_in;
-    input [0:157]bl;
-    input [0:157]wl;
     input [3:0]wl_in;
     output [3:0]wl_out;
     input [39:0]bl_in;

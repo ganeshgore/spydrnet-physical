@@ -16,8 +16,6 @@ module bottom_tile
     grid_right_t_in,
     grid_right_b_inpad,
     grid_left_t_in,
-    bl,
-    wl,
     wl_in,
     wl_out,
     bl_in,
@@ -38,8 +36,6 @@ module bottom_tile
     input [0:1]grid_right_t_in;
     input [0:7]grid_right_b_inpad;
     input [0:1]grid_left_t_in;
-    input [0:157]bl;
-    input [0:157]wl;
     input [3:0]wl_in;
     output [3:0]wl_out;
     input [314:0]bl_in;
