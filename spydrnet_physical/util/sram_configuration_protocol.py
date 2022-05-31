@@ -135,7 +135,8 @@ class sram_configuration(OpenFPGA_Config_Generator):
 
     def _create_wl_connection(self):
         top = self._top_module
-        bl_lines = top.create_cable(f"wl_in", wires=sum(self.word_line_rows))
+        wl_lines = top.create_cable("wl_in", wires=sum(self.word_line_rows))
+        # wl_out = top.create_cable("wl_out", wires=sum(self.word_line_rows))
         for y_pt in range(self.fpga_size[1]):
             width = self.word_line_rows[y_pt]
             pre_instance = None
@@ -149,15 +150,19 @@ class sram_configuration(OpenFPGA_Config_Generator):
                     port = next(pre_instance.get_ports("wl_out"))
                     cable.connect_instance_port(pre_instance, port)
                 else:
-                    cable.assign_cable(bl_lines,
+                    cable.assign_cable(wl_lines,
                                        sum(self.word_line_rows[:y_pt+1]),
                                        sum(self.word_line_rows[:y_pt]),
                                        reverse=True)
                 pre_instance = instance
+            out_cable = top.create_cable(f"{iname}_wl_out", wires=width)
+            port = next(instance.get_ports("wl_out"))
+            out_cable.connect_instance_port(instance, port)
 
     def _create_bl_connection(self):
         top = self._top_module
-        wl_lines = top.create_cable(f"bl_in", wires=sum(self.bit_line_cols))
+        bl_lines = top.create_cable("bl_in", wires=sum(self.bit_line_cols))
+        # bl_out = top.create_cable("bl_out", wires=sum(self.bit_line_cols))
         for x_pt in range(self.fpga_size[1]):
             width = self.bit_line_cols[x_pt]
             pre_instance = None
@@ -171,11 +176,14 @@ class sram_configuration(OpenFPGA_Config_Generator):
                     port = next(pre_instance.get_ports("bl_out"))
                     cable.connect_instance_port(pre_instance, port)
                 else:
-                    cable.assign_cable(wl_lines,
+                    cable.assign_cable(bl_lines,
                                        sum(self.bit_line_cols[:x_pt+1]),
                                        sum(self.bit_line_cols[:x_pt]),
                                        reverse=True)
                 pre_instance = instance
+            out_cable = top.create_cable(f"{iname}_bl_out", wires=width)
+            port = next(instance.get_ports("bl_out"))
+            out_cable.connect_instance_port(instance, port)
 
     def _create_bl_ports(self):
         """

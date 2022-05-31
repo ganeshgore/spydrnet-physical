@@ -340,52 +340,62 @@ module fpga_top
     wire [3:0]tile_3__1__wl_in;
     wire [3:0]tile_4__1__wl_in;
     wire [3:0]tile_5__1__wl_in;
+    wire [3:0]tile_5__1__wl_out;
     wire [3:0]tile_1__2__wl_in;
     wire [3:0]tile_2__2__wl_in;
     wire [3:0]tile_3__2__wl_in;
     wire [3:0]tile_4__2__wl_in;
     wire [3:0]tile_5__2__wl_in;
+    wire [3:0]tile_5__2__wl_out;
     wire [3:0]tile_1__3__wl_in;
     wire [3:0]tile_2__3__wl_in;
     wire [3:0]tile_3__3__wl_in;
     wire [3:0]tile_4__3__wl_in;
     wire [3:0]tile_5__3__wl_in;
+    wire [3:0]tile_5__3__wl_out;
     wire [3:0]tile_1__4__wl_in;
     wire [3:0]tile_2__4__wl_in;
     wire [3:0]tile_3__4__wl_in;
     wire [3:0]tile_4__4__wl_in;
     wire [3:0]tile_5__4__wl_in;
+    wire [3:0]tile_5__4__wl_out;
     wire [3:0]tile_1__5__wl_in;
     wire [3:0]tile_2__5__wl_in;
     wire [3:0]tile_3__5__wl_in;
     wire [3:0]tile_4__5__wl_in;
     wire [3:0]tile_5__5__wl_in;
+    wire [3:0]tile_5__5__wl_out;
     wire [1299:0]bl_in;
     wire [39:0]tile_1__1__bl_in;
     wire [39:0]tile_1__2__bl_in;
     wire [39:0]tile_1__3__bl_in;
     wire [39:0]tile_1__4__bl_in;
     wire [39:0]tile_1__5__bl_in;
+    wire [39:0]tile_1__5__bl_out;
     wire [314:0]tile_2__1__bl_in;
     wire [314:0]tile_2__2__bl_in;
     wire [314:0]tile_2__3__bl_in;
     wire [314:0]tile_2__4__bl_in;
     wire [314:0]tile_2__5__bl_in;
+    wire [314:0]tile_2__5__bl_out;
     wire [314:0]tile_3__1__bl_in;
     wire [314:0]tile_3__2__bl_in;
     wire [314:0]tile_3__3__bl_in;
     wire [314:0]tile_3__4__bl_in;
     wire [314:0]tile_3__5__bl_in;
+    wire [314:0]tile_3__5__bl_out;
     wire [314:0]tile_4__1__bl_in;
     wire [314:0]tile_4__2__bl_in;
     wire [314:0]tile_4__3__bl_in;
     wire [314:0]tile_4__4__bl_in;
     wire [314:0]tile_4__5__bl_in;
+    wire [314:0]tile_4__5__bl_out;
     wire [314:0]tile_5__1__bl_in;
     wire [314:0]tile_5__2__bl_in;
     wire [314:0]tile_5__3__bl_in;
     wire [314:0]tile_5__4__bl_in;
     wire [314:0]tile_5__5__bl_in;
+    wire [314:0]tile_5__5__bl_out;
 
 assign tile_1__1__wl_in = wl_in[3:0];
 assign tile_1__2__wl_in = wl_in[7:4];
@@ -789,7 +799,7 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .grid_left_t_in(sb_3__1__grid_right_t_in),
         .grid_left_b_in(sb_3__1__grid_right_b_in),
         .wl_in(tile_5__2__wl_in),
-        .wl_out(),
+        .wl_out(tile_5__2__wl_out),
         .bl_in(tile_5__2__bl_in),
         .bl_out(tile_5__3__bl_in)
     );
@@ -825,7 +835,7 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .grid_left_t_in(sb_3__2__grid_right_t_in),
         .grid_left_b_in(sb_3__2__grid_right_b_in),
         .wl_in(tile_5__3__wl_in),
-        .wl_out(),
+        .wl_out(tile_5__3__wl_out),
         .bl_in(tile_5__3__bl_in),
         .bl_out(tile_5__4__bl_in)
     );
@@ -861,7 +871,7 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .grid_left_t_in(sb_3__3__grid_right_t_in),
         .grid_left_b_in(sb_3__3__grid_right_b_in),
         .wl_in(tile_5__4__wl_in),
-        .wl_out(),
+        .wl_out(tile_5__4__wl_out),
         .bl_in(tile_5__4__bl_in),
         .bl_out(tile_5__5__bl_in)
     );
@@ -899,7 +909,7 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .wl_in(tile_2__5__wl_in),
         .wl_out(tile_3__5__wl_in),
         .bl_in(tile_2__5__bl_in),
-        .bl_out()
+        .bl_out(tile_2__5__bl_out)
     );
     top_tile tile_3__5_
     (
@@ -935,7 +945,7 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .wl_in(tile_3__5__wl_in),
         .wl_out(tile_4__5__wl_in),
         .bl_in(tile_3__5__bl_in),
-        .bl_out()
+        .bl_out(tile_3__5__bl_out)
     );
     top_tile tile_4__5_
     (
@@ -971,7 +981,7 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .wl_in(tile_4__5__wl_in),
         .wl_out(tile_5__5__wl_in),
         .bl_in(tile_4__5__bl_in),
-        .bl_out()
+        .bl_out(tile_4__5__bl_out)
     );
     top_left_tile tile_1__5_
     (
@@ -988,7 +998,7 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .wl_in(tile_1__5__wl_in),
         .wl_out(tile_2__5__wl_in),
         .bl_in(tile_1__5__bl_in),
-        .bl_out()
+        .bl_out(tile_1__5__bl_out)
     );
     top_right_tile tile_5__5_
     (
@@ -1018,9 +1028,9 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .grid_bottom_l_in(sb_4__3__grid_top_l_in),
         .grid_left_b_in(sb_3__4__grid_right_b_in),
         .wl_in(tile_5__5__wl_in),
-        .wl_out(),
+        .wl_out(tile_5__5__wl_out),
         .bl_in(tile_5__5__bl_in),
-        .bl_out()
+        .bl_out(tile_5__5__bl_out)
     );
     bottom_left_tile tile_1__1_
     (
@@ -1050,7 +1060,7 @@ assign tile_5__1__bl_in = bl_in[1299:985];
         .grid_top_l_in(sb_4__0__grid_top_l_in),
         .grid_left_t_in(sb_3__0__grid_right_t_in),
         .wl_in(tile_5__1__wl_in),
-        .wl_out(),
+        .wl_out(tile_5__1__wl_out),
         .bl_in(tile_5__1__bl_in),
         .bl_out(tile_5__2__bl_in)
     );

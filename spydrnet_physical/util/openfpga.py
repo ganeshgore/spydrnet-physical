@@ -728,6 +728,26 @@ class OpenFPGA:
                 except StopIteration:
                     logger.warning(f"{module} not found in the netlist")
 
+    # print the hierarchy of a netlist
+    def hierarchy(self, current_instance, indentation="",
+                  level=0, max_depth=10, output=""):
+        if level > max_depth:
+            return output
+        reference = current_instance.reference if isinstance(
+            current_instance, sdn.Instance) else current_instance
+        inst_name = current_instance.name if isinstance(
+            current_instance, sdn.Instance) else ""
+        if not ("SDN_VERILOG" in reference.name):
+            line = f"{indentation} {level} {inst_name}" + \
+                f"[{reference.name}]\n"
+            output += line
+            print(line, end="")
+        for child in reference.children:
+            output = self.hierarchy(child, indentation+"     ",
+                                    level+1, max_depth=max_depth,
+                                    output=output)
+        return output
+
     def update_module_label(self, get_label=None):
         '''
         Adde area information to label

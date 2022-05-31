@@ -98,6 +98,11 @@ def main():
     fpga.add_configuration_scheme()
     logger.handlers[0].setLevel(logging.INFO)
 
+    with open("_instance_hierarchy.txt", "w", encoding="UTF-8") as fp:
+        fp.write(fpga.hierarchy(fpga.netlist.top_instance, max_depth=3))
+    with open("_instance_hierarchy.txt", "w", encoding="UTF-8") as fp:
+        fp.write(fpga.hierarchy(
+            next(fpga.top_module.get_definitions("tile")), max_depth=3))
     # After Creating Tiles
     # fpga.design_top_stat()
 
