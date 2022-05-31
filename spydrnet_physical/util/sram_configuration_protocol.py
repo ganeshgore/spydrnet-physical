@@ -31,6 +31,7 @@ import math
 from copy import deepcopy
 
 import spydrnet as sdn
+from spydrnet_physical.util.shell import launch_shell
 from spydrnet_physical.util import OpenFPGA_Config_Generator
 
 logger = logging.getLogger('spydrnet_logs')
@@ -109,21 +110,67 @@ class sram_configuration(OpenFPGA_Config_Generator):
         for each_wire in wl_cable.wires:
             for pins in each_wire.pins[::-1]:
                 each_wire.disconnect_pin(pins)
-        bl_cable = next(self._top_module.get_cables("wl*"))
+        bl_cable = next(self._top_module.get_cables("bl*"))
         for each_wire in bl_cable.wires:
             for pins in each_wire.pins[::-1]:
                 each_wire.disconnect_pin(pins)
-        self._top_module.remove_cable(next(self._top_module.get_cables("wl*")))
-        self._top_module.remove_cable(next(self._top_module.get_cables("bl*")))
+        self._top_module.remove_cable(next(self._top_module.get_cables("wl")))
+        self._top_module.remove_cable(next(self._top_module.get_cables("bl")))
 
         self._create_wl_ports()
         self._create_bl_ports()
+        self._create_wl_connection()
+        self._create_bl_connection()
 
         logger.debug(self.fpga_size)
 
+    def _create_wl_connection(self):
+        top = self._top_module
+        bl_lines = top.create_cable(f"wl_in", wires=sum(self.word_line_rows))
+        for y_pt in range(self.fpga_size[1]):
+            width = self.word_line_rows[y_pt]
+            pre_instance = None
+            for x_pt in range(self.fpga_size[1]):
+                instance = self.get_tile(x_pt+1, y_pt+1)
+                iname = instance.name
+                cable = top.create_cable(f"{iname}_wl_in", wires=width)
+                port = next(instance.get_ports("wl_in"))
+                cable.connect_instance_port(instance, port)
+                if pre_instance:
+                    port = next(pre_instance.get_ports("wl_out"))
+                    cable.connect_instance_port(pre_instance, port)
+                else:
+                    cable.assign_cable(bl_lines,
+                                       sum(self.word_line_rows[:y_pt+1]),
+                                       sum(self.word_line_rows[:y_pt]),
+                                       reverse=True)
+                pre_instance = instance
+
+    def _create_bl_connection(self):
+        top = self._top_module
+        wl_lines = top.create_cable(f"bl_in", wires=sum(self.bit_line_cols))
+        for x_pt in range(self.fpga_size[1]):
+            width = self.bit_line_cols[x_pt]
+            pre_instance = None
+            for y_pt in range(self.fpga_size[1]):
+                instance = self.get_tile(x_pt+1, y_pt+1)
+                iname = instance.name
+                cable = top.create_cable(f"{iname}_bl_in", wires=width)
+                port = next(instance.get_ports("bl_in"))
+                cable.connect_instance_port(instance, port)
+                if pre_instance:
+                    port = next(pre_instance.get_ports("bl_out"))
+                    cable.connect_instance_port(pre_instance, port)
+                else:
+                    cable.assign_cable(wl_lines,
+                                       sum(self.bit_line_cols[:x_pt+1]),
+                                       sum(self.bit_line_cols[:x_pt]),
+                                       reverse=True)
+                pre_instance = instance
+
     def _create_bl_ports(self):
         """
-        Create WL lines in each row
+        Create BL lines in each row
 
         TODO: Change method to identify the port size on eachmodule and then create
         """

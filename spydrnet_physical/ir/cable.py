@@ -72,7 +72,7 @@ class Cable(CableBase):
         for wire in self.wires:
             wire.connect_pin(instance.pins[port.pins[wire.get_index]])
 
-    def assign_cable(self, cable: 'Cable', upper=None, lower=None):
+    def assign_cable(self, cable: 'Cable', upper=None, lower=None, reverse=False):
         ''' Create assignment beetween self and provided cable
 
         assign self = cable[upper:lower]
@@ -92,10 +92,11 @@ class Cable(CableBase):
             assign_lib, self.size)
         instance = self.definition.create_child(f"{self.name}_{cable.name}_assign",
                                                 reference=assign_def)
+        in_port = next(assign_def.get_ports("o" if reverse else "i"))
+        self.connect_instance_port(instance, in_port)
 
-        self.connect_instance_port(instance, next(assign_def.get_ports("i")))
-
-        for indx, pin in enumerate(next(assign_def.get_ports("o")).pins):
+        out_port = next(assign_def.get_ports("i" if reverse else "o"))
+        for indx, pin in enumerate(out_port.pins):
             cable.wires[range(lower, upper+1)[indx]
                         ].connect_pin(instance.pins[pin])
         return instance
