@@ -233,7 +233,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/03_automated_initial_placement.html">2.3. Auto Floorplan homogeneous design</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/03_initial_placement.html">2.4. Render Placement information from Verilog netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/04_fpga_grid_generation.html">2.5. FPGA Layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/04_fpga_grid_generation.html">2.5. RenderFPGA Pre Generation Grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/05_fpga_instance_name.html">2.6. FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/07_FloorplanHeterogeneousDesign01.html">2.7. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.8. Grid Floorplan Generator</a></li>
@@ -335,7 +335,7 @@
 <span class="sd">FPGAGridGen</span>
 <span class="sd">-------------</span>
 
-<span class="sd">This scripts read the layout section of the VPR architecture file and </span>
+<span class="sd">This scripts read the layout section of the VPR architecture file and</span>
 <span class="sd">create a 2D matrix of the FPGA grid.</span>
 <span class="sd">"""</span>
 
@@ -343,6 +343,8 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
+<span class="kn">import</span> <span class="nn">svgwrite</span>
+<span class="kn">from</span> <span class="nn">svgwrite.container</span> <span class="kn">import</span> <span class="n">Group</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util.openfpga_arch</span> <span class="kn">import</span> <span class="n">OpenFPGA_Arch</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"spydrnet_logs"</span><span class="p">)</span>
@@ -396,6 +398,31 @@
         <span class="n">help</span><span class="o">=</span><span class="s2">"Location to store pickled object of the 2D FPGA grid matrix"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+
+<span class="n">CSS_STYLE</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="s1">.boundary{stroke:grey; fill:none; stroke_width:1}</span>
+<span class="s1">text{font-family: Lato;}</span>
+<span class="s1">.cbx_1__0__def{fill:#d9d9f3}</span>
+<span class="s1">.cbx_1__1__def{fill:#d9d9f3}</span>
+<span class="s1">.cbx_1__2__def{fill:#d9d9f3}</span>
+
+<span class="s1">.cby_0__1__def{fill:#a8d0db}</span>
+<span class="s1">.cby_1__1__def{fill:#a8d0db}</span>
+<span class="s1">.cby_2__1__def{fill:#a8d0db}</span>
+
+<span class="s1">.sb_0__0__def{fill:#ceefe4}</span>
+<span class="s1">.sb_0__1__def{fill:#ceefe4}</span>
+<span class="s1">.sb_0__2__def{fill:#ceefe4}</span>
+<span class="s1">.sb_1__0__def{fill:#ceefe4}</span>
+<span class="s1">.sb_1__1__def{fill:#ceefe4}</span>
+<span class="s1">.sb_1__2__def{fill:#ceefe4}</span>
+<span class="s1">.sb_2__0__def{fill:#ceefe4}</span>
+<span class="s1">.sb_2__1__def{fill:#ceefe4}</span>
+<span class="s1">.sb_2__2__def{fill:#ceefe4}</span>
+
+<span class="s1">.grid_def{fill:#f4f0e6;}</span>
+<span class="s1">'''</span>
 
 
 <div class="viewcode-block" id="FPGAGridGen"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen">[docs]</a><span class="k">class</span> <span class="nc">FPGAGridGen</span><span class="p">:</span>
@@ -562,7 +589,7 @@
         <span class="sd">"""</span>
 <span class="sd">        Parses the startx, starty, repeatx and repeaty variables to integer</span>
 
-<span class="sd">        Variables are passed in `variables` variable, </span>
+<span class="sd">        Variables are passed in `variables` variable,</span>
 <span class="sd">        generally ``W`` and ``H`` values</span>
 <span class="sd">        """</span>
         <span class="n">val</span> <span class="o">=</span> <span class="n">ele</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">default</span><span class="p">))</span>
@@ -796,7 +823,85 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Found right arrow on left edge"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">UP_ARROW</span> <span class="ow">in</span> <span class="n">bottom_edge</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Found up arrow on bottom edge"</span><span class="p">)</span></div></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Found up arrow on bottom edge"</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_default_shaping_param</span><span class="p">():</span>
+        <span class="sd">'''</span>
+<span class="sd">        Returns default shaping parameters for rendering</span>
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"grid"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="s2">"clb"</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+                <span class="s2">"cbx"</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="s2">"cby"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                <span class="s2">"sb"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}</span>
+
+    <span class="k">def</span> <span class="nf">add_render_symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dwg</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">sym_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">rect_symbols</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"clb"</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+            <span class="s2">"cbx"</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"cby"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">tile</span><span class="p">,</span> <span class="n">size</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">pb_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">rect_symbols</span><span class="p">[</span><span class="n">tile</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">6</span><span class="o">*</span><span class="n">pt</span> <span class="k">if</span> <span class="n">pt</span> <span class="o">==</span> <span class="mi">1</span>
+                                  <span class="k">else</span> <span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">pt</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">6</span><span class="p">))</span> <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">size</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">dims</span> <span class="ow">in</span> <span class="n">rect_symbols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">sym_map</span><span class="p">[</span><span class="s2">"symbol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">module</span><span class="p">)</span>
+            <span class="n">sym_map</span><span class="p">[</span><span class="s2">"symbol"</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span> <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sym_map</span><span class="p">[</span><span class="s2">"symbol"</span><span class="p">])</span>
+        <span class="n">cb_map</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1">#        a, b, c, d, e, f</span>
+            <span class="s2">"sb00"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb01"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="s2">"sb02"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb03"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb04"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb05"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb06"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb07"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb08"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb09"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s2">"sb10"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">dims</span> <span class="ow">in</span> <span class="n">cb_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">dims</span>
+            <span class="n">sym_map</span><span class="p">[</span><span class="s2">"symbol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">module</span><span class="p">)</span>
+            <span class="n">sym_map</span><span class="p">[</span><span class="s2">"symbol"</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="sa">f</span><span class="s2">"M </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> 0 "</span> <span class="o">+</span>
+                                           <span class="sa">f</span><span class="s2">"v </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">b</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span>
+                                           <span class="sa">f</span><span class="s2">"v </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span>
+                                           <span class="sa">f</span><span class="s2">"v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">c</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">a</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span>
+                                           <span class="sa">f</span><span class="s2">"v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">f</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span>
+                                           <span class="s2">" z"</span><span class="p">))</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sym_map</span><span class="p">[</span><span class="s2">"symbol"</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">sym_map</span>
+
+    <span class="k">def</span> <span class="nf">_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
+        <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">seen</span> <span class="ow">or</span> <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">u</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+
+<div class="viewcode-block" id="FPGAGridGen.render_layout"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.render_layout">[docs]</a>    <span class="k">def</span> <span class="nf">render_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        Renders the given layout</span>
+<span class="sd">        '''</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span> <span class="ow">or</span> <span class="s2">"_render.svg"</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_shaping_param</span><span class="p">()</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="mi">10</span><span class="o">*</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">dwg</span> <span class="o">=</span> <span class="n">svgwrite</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+        <span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="n">CSS_STYLE</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_render_symbols</span><span class="p">(</span><span class="n">dwg</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+        <span class="c1"># Createing instances</span>
+        <span class="n">dwg_main</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"main"</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">))</span>
+        <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span>
+                              <span class="nb">id</span><span class="o">=</span><span class="s2">"core_boundary"</span><span class="p">,</span>
+                              <span class="n">class_</span><span class="o">=</span><span class="s2">"boundary"</span><span class="p">))</span>
+        <span class="n">dwg_shapes</span> <span class="o">=</span> <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"main_shapes"</span><span class="p">))</span>
+        <span class="n">dwg_text</span> <span class="o">=</span> <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"main_text"</span><span class="p">))</span>
+
+        <span class="n">dwg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
