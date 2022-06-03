@@ -6,7 +6,7 @@
 FPGAGridGen
 -------------
 
-This scripts read the layout section of the VPR architecture file and 
+This scripts read the layout section of the VPR architecture file and
 create a 2D matrix of the FPGA grid.
 """
 
@@ -14,6 +14,8 @@ import argparse
 import logging
 import math
 
+import svgwrite
+from svgwrite.container import Group
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
 
 logger = logging.getLogger("spydrnet_logs")
@@ -67,6 +69,31 @@ def parse_argument() -> argparse.Namespace:
         help="Location to store pickled object of the 2D FPGA grid matrix",
     )
     return parser.parse_args()
+
+
+CSS_STYLE = '''
+.boundary{stroke:grey; fill:none; stroke_width:1}
+text{font-family: Lato;}
+.cbx_1__0__def{fill:#d9d9f3}
+.cbx_1__1__def{fill:#d9d9f3}
+.cbx_1__2__def{fill:#d9d9f3}
+
+.cby_0__1__def{fill:#a8d0db}
+.cby_1__1__def{fill:#a8d0db}
+.cby_2__1__def{fill:#a8d0db}
+
+.sb_0__0__def{fill:#ceefe4}
+.sb_0__1__def{fill:#ceefe4}
+.sb_0__2__def{fill:#ceefe4}
+.sb_1__0__def{fill:#ceefe4}
+.sb_1__1__def{fill:#ceefe4}
+.sb_1__2__def{fill:#ceefe4}
+.sb_2__0__def{fill:#ceefe4}
+.sb_2__1__def{fill:#ceefe4}
+.sb_2__2__def{fill:#ceefe4}
+
+.grid_def{fill:#f4f0e6;}
+'''
 
 
 class FPGAGridGen:
@@ -233,7 +260,7 @@ class FPGAGridGen:
         """
         Parses the startx, starty, repeatx and repeaty variables to integer
 
-        Variables are passed in `variables` variable, 
+        Variables are passed in `variables` variable,
         generally ``W`` and ``H`` values
         """
         val = ele.attrib.get(param, str(default))
@@ -468,6 +495,84 @@ class FPGAGridGen:
 
         if UP_ARROW in bottom_edge:
             raise ValueError("Found up arrow on bottom edge")
+
+    @staticmethod
+    def _default_shaping_param():
+        '''
+        Returns default shaping parameters for rendering
+        '''
+        return {"grid": 10,
+                "clb": [6, 6],
+                "cbx": [4, 2],
+                "cby": [2, 4],
+                "sb": [2, 2, 2, 2, 2, 2]}
+
+    def add_render_symbols(self, dwg, params):
+        sym_map = {}
+        rect_symbols = {
+            "clb": [6, 6],
+            "cbx": [4, 2],
+            "cby": [2, 4],
+        }
+        for tile, size in self.fpga_arch.pb_types.items():
+            rect_symbols[tile] = [(6*pt if pt == 1
+                                  else (10*(pt-1)+6)) for pt in size]
+        for module, dims in rect_symbols.items():
+            sym_map["symbol"] = dwg.symbol(id=module)
+            sym_map["symbol"].add(dwg.rect(size=dims, insert=(0, 0)))
+            dwg.defs.add(sym_map["symbol"])
+        cb_map = {
+            #        a, b, c, d, e, f
+            "sb00": [2, 2, 2, 2, 2, 2],
+            "sb01": [2, 0, 2, 2, 2, 0],
+            "sb02": [2, 0, 2, 2, 2, 2],
+            "sb03": [2, 0, 0, 2, 2, 2],
+            "sb04": [2, 2, 0, 2, 2, 2],
+            "sb05": [2, 2, 2, 2, 2, 2],
+            "sb06": [2, 2, 2, 2, 2, 2],
+            "sb07": [2, 2, 2, 2, 2, 2],
+            "sb08": [2, 2, 2, 2, 2, 2],
+            "sb09": [2, 2, 2, 2, 2, 2],
+            "sb10": [2, 2, 2, 2, 2, 2],
+        }
+        for module, dims in cb_map.items():
+            a, b, c, d, e, f = dims
+            sym_map["symbol"] = dwg.symbol(id=module)
+            sym_map["symbol"].add(dwg.path(d=f"M {b} 0 " +
+                                           f"v {f} h {-1*b}" +
+                                           f"v {a} h {b} v {c} h {d}" +
+                                           f"v {-1*c} h {e} v {-1*a} h {-1*e}" +
+                                           f"v {-1*f}" +
+                                           " z"))
+            dwg.defs.add(sym_map["symbol"])
+        return sym_map
+
+    def _unique(self, sequence):
+        seen = set()
+        u = [x for x in sequence if not (x in seen or seen.add(x))]
+        return [val for sublist in u for val in sublist]
+
+    def render_layout(self, filename=None):
+        '''
+        Renders the given layout
+        '''
+        filename = filename or "_render.svg"
+        params = self._default_shaping_param()
+        bbox = (0, 0, 10*((2*self.width)-2), 10*((2*self.height)-2))
+        dwg = svgwrite.Drawing(filename, bbox[2:])
+        dwg.viewbox(0, -1*bbox[3], bbox[2], bbox[3])
+        dwg.defs.add(dwg.style(CSS_STYLE))
+        self.add_render_symbols(dwg, params)
+
+        # Createing instances
+        dwg_main = dwg.add(Group(id="main", transform="scale(1,-1)"))
+        dwg_main.add(dwg.rect(size=bbox[2:],
+                              id="core_boundary",
+                              class_="boundary"))
+        dwg_shapes = dwg_main.add(Group(id="main_shapes"))
+        dwg_text = dwg_main.add(Group(id="main_text"))
+
+        dwg.save(pretty=True, indent=4)
 
 
 if __name__ == "__main__":

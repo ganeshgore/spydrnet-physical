@@ -50,7 +50,7 @@ class OpenFPGA_Arch:
 
     def _get_pb_types(self):
         return {pb.get('name'): (int(pb.get('width', 1)), int(pb.get('height', 1)))
-                for pb in self.vpr_arch.findall("./complexblocklist/pb_type")}
+                for pb in self.vpr_arch.findall("./tiles/tile")}
 
     def _get_tiles(self):
         return {tile.get('name'): (int(tile.get('width', 1)), int(tile.get('height', 1)))
@@ -96,6 +96,3 @@ class OpenFPGA_Arch:
         """
         layout = self.vpr_arch.find("layout").findall("fixed_layout")[0]
         print(layout.findall("clb"))
-
-    def is_homogeneous(self):
-        pass
