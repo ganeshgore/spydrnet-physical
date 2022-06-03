@@ -486,8 +486,7 @@ class FPGAGridGen:
         '''
         Returns default shaping parameters for rendering
         '''
-        return {"grid": 10,
-                "clb": [6, 6],
+        return {"clb": [6, 6],
                 "cbx": [4, 2],
                 "cby": [2, 4],
                 "sb": [2, 2, 2, 2, 2, 2]}
@@ -495,36 +494,38 @@ class FPGAGridGen:
     def add_render_symbols(self, dwg, params):
         sym_map = {}
         rect_symbols = {
-            "cbx": [4, 2],
-            "cby": [2, 4],
+            "cbx": [8.5, 2.5, 2, 0],
+            "cby": [2.5, 8.5, 0, 2],
         }
         for tile, size in self.fpga_arch.pb_types.items():
-            rect_symbols[tile] = [(12*pt if pt == 1
-                                  else (20*(pt-1)+12)) for pt in size]
+            rect_symbols[tile] = [(12.5*pt if pt == 1
+                                  else (15*(pt-1)+12.5)) for pt in size] + [0, 0]
         for module, dims in rect_symbols.items():
             sym_map[module] = dwg.symbol(id=module)
             class_tag = 'routing' if module in ('cbx', 'cby') else "lb"
-            sym_map[module].add(dwg.rect(size=dims, class_=class_tag,
-                                         insert=(0, 0)))
+            sym_map[module].add(dwg.rect(size=dims[:2], class_=class_tag,
+                                         insert=dims[2:]))
             dwg.defs.add(sym_map[module])
         cb_map = {
             #        a, b, c, d, e, f
-            "sb": [2, 2, 2, 2, 2, 2],
-            "sb00": [2, 2, 2, 2, 2, 2],  # ┿
-            "sb01": [2, 0, 2, 2, 2, 0],  # ┗
-            "sb02": [2, 0, 2, 2, 2, 2],  # ┝
-            "sb03": [2, 0, 0, 2, 2, 2],  # ┏
-            "sb04": [2, 2, 0, 2, 2, 2],  # ┯
-            "sb05": [2, 2, 0, 2, 0, 2],  # ┓
-            "sb06": [2, 2, 2, 2, 0, 2],  # ┫
-            "sb07": [2, 2, 2, 2, 0, 0],  # ┛
-            "sb08": [2, 2, 2, 2, 2, 0],  # ┷
-            "sb09": [2, 0, 2, 2, 0, 2],  # ┃
-            "sb10": [2, 2, 0, 2, 2, 0],  # ━
+            "sb":   [2.5, 2, 2, 2.5, 2, 2, 0, 0],
+            "sb00": [2.5, 2, 2, 2.5, 2, 2, -2, -2],  # ┿
+            "sb01": [2.5, 0, 2, 2.5, 2, 0, 0, 0],  # ┗
+            "sb02": [2.5, 0, 2, 2.5, 2, 2, 0, -2],  # ┝
+            "sb03": [2.5, 0, 0, 2.5, 2, 2, 0, -2],  # ┏
+            "sb04": [2.5, 2, 0, 2.5, 2, 2, -2, -2],  # ┯
+            "sb05": [2.5, 2, 0, 2.5, 0, 2, -2, -2],  # ┓
+            "sb06": [2.5, 2, 2, 2.5, 0, 2, -2, -2],  # ┫
+            "sb07": [2.5, 2, 2, 2.5, 0, 0, -2, 0],  # ┛
+            "sb08": [2.5, 2, 2, 2.5, 2, 0, -2, 0],  # ┷
+            "sb09": [2.5, 0, 2, 2.5, 0, 2, 0, -2],  # ┃
+            "sb10": [2.5, 2, 0, 2.5, 2, 0, -2, 0],  # ━
         }
         for module, dims in cb_map.items():
-            a, b, c, d, e, f = dims
+            a, b, c, d, e, f, x, y = dims
             sym_map[module] = dwg.symbol(id=module)
+            sym_map[module]["x"] = x
+            sym_map[module]["y"] = y
             sym_map[module].add(dwg.path(d=f"M {b} 0 " +
                                            f"v {f} h {-1*b}" +
                                            f"v {a} h {b} v {c} h {d}" +
@@ -545,8 +546,8 @@ class FPGAGridGen:
         '''
         filename = filename or "_render.svg"
         params = self._default_shaping_param()
-        bbox = (0, 0, 10*((2*self.width)-2), 10*((2*self.height)-2))
-        dwg = svgwrite.Drawing(filename, bbox[2:])
+        bbox = (0, 0, 15*(self.width)-5, 15*(self.height)-5)
+        dwg = svgwrite.Drawing(filename, bbox[2:], debug=False)
         dwg.viewbox(0, -1*bbox[3], bbox[2], bbox[3])
         dwg.defs.add(dwg.style(CSS_STYLE))
         symbol_map = self.add_render_symbols(dwg, params)
@@ -603,15 +604,17 @@ class FPGAGridGen:
                 else:
                     symbol = module
 
-                dwg_shapes.add(dwg.circle(r=0.1, stroke="red",
-                               center=(x_pt*10, y_pt*10)))
-                dwg_text.add(dwg.text(symbol, insert=(x_pt*10, y_pt*-10),
-                                      transform="scale(1,-1)",
-                                      alignment_baseline="middle",
-                                      text_anchor="middle"))
+                x_pt_new = (x_pt/2)*15 if (x_pt % 2) == 0 else (x_pt/2)*15 + 5
+                y_pt_new = (y_pt/2)*15 if (y_pt % 2) == 0 else (y_pt/2)*15 + 5
+                # dwg_shapes.add(dwg.circle(r=0.02, stroke="red",
+                #                center=(x_pt_new, y_pt_new)))
+                # dwg_text.add(dwg.text(symbol, insert=(x_pt_new*1, y_pt_new*-1),
+                #                       transform="scale(1,-1)",
+                #                       alignment_baseline="middle",
+                #                       text_anchor="middle"))
                 if symbol:
                     dwg_shapes.add(dwg.use(symbol_map[symbol],
-                                           insert=(x_pt*10, y_pt*10)))
+                                           insert=(x_pt_new, y_pt_new)))
                 else:
                     print(module)
         dwg.save(pretty=True, indent=4)
