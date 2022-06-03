@@ -26,6 +26,7 @@ Tiling APIs
    :maxdepth: 1
 
    tile01
+   tile02
 
 
 Configuration APIs
@@ -38,28 +39,28 @@ SDC APIs
 =========
 
 
+OpenFPGA Class Generators
+'''''''''''''''''''''''''
 
-OpenFPGA Class Templates
-''''''''''''''''''''''''
-
-:doc:`initial_placement <../utility_classes/initial_placement>`
-................................................
+:doc:`OpenFPGA_Tile_Generator <../utility_classes/openfpga_tile_generator>`
+..................................................................
 
 
 :doc:`OpenFPGA_Config_Generator <../utility_classes/openfpga_config_generator>`
 ..................................................................
 
+.. toctree::
+   :maxdepth: 1
+   
+   ../utility_classes/config_chain_01
+   ../utility_classes/config_chain_simple
+   ../utility_classes/sram_configuration
+
 
 :doc:`OpenFPGA_Placement_Generator <../utility_classes/openfpga_placement_generator>`
 ..................................................................
 
-
-:doc:`OpenFPGA_Tile_Generator <../utility_classes/openfpga_tile_generator>`
-..................................................................
-
-:doc:`config_chain_01 <../utility_classes/config_chain_01>`
-..................................................................
-
-
-:doc:`config_chain_simple <../utility_classes/config_chain_simple>`
-..................................................................
+.. toctree::
+   :maxdepth: 1
+   
+   ../utility_classes/initial_placement

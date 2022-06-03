@@ -21,8 +21,6 @@ Download final annotated verilog netlist:
 
 
 import logging
-from os import path
-from pprint import pprint
 
 import spydrnet as sdn
 import spydrnet_physical as sdnphy

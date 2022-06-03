@@ -126,16 +126,6 @@ for x in range(9, WIDTH, 16):
             level2_patt.points.append(deepcopy(pt))
             level2_patt.pull_connection_up(level2_patt.points[-1])
 
-#level1_patt.translate (-2,-2)
-level3_patt.crop_edges()
-level2_patt.crop_edges()
-level1_patt.crop_edges()
-level0_patt.crop_edges()
-
-level3_patt.trim_borders()
-level2_patt.trim_borders()
-level1_patt.trim_borders()
-level0_patt.trim_borders()
 
 hyb_pat.merge(level0_patt)
 hyb_pat.merge(level1_patt)

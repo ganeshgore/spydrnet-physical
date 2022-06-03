@@ -32,15 +32,13 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-191
+.. GENERATED FROM PYTHON SOURCE LINES 17-185
 
 .. code-block:: default
-
 
     import glob
     import logging
     import os
-    from pprint import pprint
     import tempfile
     from itertools import chain
 
@@ -133,6 +131,39 @@ This script can be used for shaping and placement of the modules before place an
         # dwg = grid_plan.render_grid()
         # dwg.saveas("_fpga_grid_floorplan.svg", pretty=True, indent=4)
 
+        for xi in range(1, 10):
+            for yi in range(1, 10):
+                X_OFFSET, Y_OFFSET = 0, 0
+                inst_name = fpga_grid.get_top_instance(xi, yi)
+                points = grid_plan.get_x_y(xi-1, yi-1)
+                inst = next(fpga.top_module.get_instances(f"*{inst_name}"))
+                if "cbx" in inst_name:
+                    X_OFFSET, Y_OFFSET = 2*(p.CLB_W-p.CBX_W), 0
+                elif "cby" in inst_name:
+                    X_OFFSET, Y_OFFSET = 0, 2*(p.CLB_H-p.CBY_H)
+                elif "sb" in inst_name:
+                    PTS = inst.reference.data[PROP]["POINTS"]
+                    X_OFFSET, Y_OFFSET = PTS[1]*-1, PTS[-1]*-1
+                inst.data[PROP]['LOC_X'] = points[0] + X_OFFSET
+                inst.data[PROP]['LOC_Y'] = points[1] + Y_OFFSET
+
+        fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
+        fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
+        # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+        #           Adjust Floorplan
+        # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+        for cbx in fpga.top_module.get_definitions("cbx_*"):
+            cbx.data[PROP]["COLOR"] = CBX_COLOR
+
+        for cby in fpga.top_module.get_definitions("cby_*"):
+            cby.data[PROP]["COLOR"] = CBY_COLOR
+
+        for sb in fpga.top_module.get_definitions("sb_*"):
+            sb.data[PROP]["COLOR"] = SB_COLOR
+
+        clb: sdn.Definition = next(fpga.top_module.get_definitions("grid_clb"))
+        clb.data[PROP]["COLOR"] = GRID_COLOR
+
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         #           Create Tiles
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -157,46 +188,9 @@ This script can be used for shaping and placement of the modules before place an
             module_name = module.replace("sb", "rb")
             fpga.top_module.merge_multiple_instance(
                 merge_inst, new_definition_name=module_name)
-            next(tp.get_definitions(module_name))[PROP]["POINTS"] = \
-                next(fpga.netlist.get_definitions(module))[PROP]["POINTS"]
-            next(tp.get_definitions(module_name))[PROP]["SHAPE"] = \
-                next(fpga.netlist.get_definitions(module))[PROP]["SHAPE"]
-            # next(tp.get_definitions(module_name))[PROP]["POINTS"][1] += 145
-            # next(tp.get_definitions(module_name))[PROP]["POINTS"][2] += 145
 
-        list(next(fpga.netlist.get_definitions("sb_0__4_")).references)[0].name = \
-            "rb_0__4_"
-        next(fpga.netlist.get_definitions("sb_0__4_")).name = "rb_0__4_"
-        fpga.design_top_stat()
-
-        for xi in range(1, 10):
-            for yi in range(1, 10):
-                X_OFFSET, Y_OFFSET = 0, 0
-                inst_name = fpga_grid.get_top_instance(xi, yi)
-                if "cb" in inst_name:
-                    continue
-                if "sb" in inst_name:
-                    inst_name = inst_name.replace("sb", "rb")
-
-                points = grid_plan.get_x_y(xi-1, yi-1)
-                inst = next(fpga.top_module.get_instances(f"*{inst_name}"))
-                if "rb" in inst_name:
-                    PTS = inst.reference.data[PROP]["POINTS"]
-                    X_OFFSET, Y_OFFSET = PTS[1]*-1, PTS[-1]*-1
-                inst.data[PROP]['LOC_X'] = points[0] + X_OFFSET
-                inst.data[PROP]['LOC_Y'] = points[1] + Y_OFFSET
-
-        fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
-        fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
-        # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        #           Adjust Floorplan
-        # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         for sb in fpga.top_module.get_definitions("rb_*"):
             sb.data[PROP]["COLOR"] = SB_COLOR
-
-        clb: sdn.Definition = next(fpga.top_module.get_definitions("grid_clb"))
-        clb.data[PROP]["COLOR"] = GRID_COLOR
-
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         fpga.show_placement_data("rb_*")
         # fpga.design_top_stat()

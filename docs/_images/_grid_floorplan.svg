@@ -6,6 +6,10 @@
             .grid_boundary{stroke-width: 1; stroke: grey; fill:lightgrey}
             ]]></style>
     </defs>
+    <g id="background" transform="scale(1,-1)">
+        <rect class="grid_boundary" height="1000" transform="scale(1,-1)" width="1000" x="50" y="50"/>
+        <rect class="origin" height="10" width="10" x="0" y="0"/>
+    </g>
     <g id="mainShapes" transform="scale(1,-1)">
         <line stroke="red" stroke-width="1" x1="50" x2="1050" y1="50" y2="50"/>
         <line stroke="red" stroke-width="1" x1="50" x2="1050" y1="250" y2="250"/>
@@ -26,6 +30,4 @@
         <line stroke="red" stroke-width="1" x1="850" x2="850" y1="50" y2="1050"/>
         <line stroke="red" stroke-width="1" x1="1050" x2="1050" y1="50" y2="1050"/>
     </g>
-    <rect class="grid_boundary" height="1000" transform="scale(1,-1)" width="1000" x="50" y="50"/>
-    <rect class="origin" height="10" width="10" x="0" y="0"/>
 </svg>
