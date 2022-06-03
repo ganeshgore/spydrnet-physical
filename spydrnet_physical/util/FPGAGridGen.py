@@ -73,7 +73,7 @@ def parse_argument() -> argparse.Namespace:
 
 CSS_STYLE = '''
 .boundary{stroke:grey; fill:none; stroke_width:1}
-text{font-family: Lato; font-size:2px;}
+text{font-family: Lato; font-size:1.7px;}
 symbol[id="cbx"] * { fill:#d9d9f3; stroke-width:0.1; stroke:black;}
 symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}
 symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}
@@ -501,11 +501,14 @@ class FPGAGridGen:
             rect_symbols[tile] = [(12.5*pt if pt == 1
                                   else (15*(pt-1)+12.5)) for pt in size] + [0, 0]
         for module, dims in rect_symbols.items():
-            sym_map[module] = dwg.symbol(id=module)
+            symbol = dwg.symbol(id=module)
             class_tag = 'routing' if module in ('cbx', 'cby') else "lb"
-            sym_map[module].add(dwg.rect(size=dims[:2], class_=class_tag,
-                                         insert=dims[2:]))
-            dwg.defs.add(sym_map[module])
+            symbol.add(dwg.rect(size=dims[:2], class_=class_tag,
+                                insert=dims[2:]))
+            dwg.defs.add(symbol)
+            sym_map[module] = {"symbol": symbol,
+                               "center": (dims[0]/2 + dims[2],
+                                          dims[1]/2 + dims[3])}
         cb_map = {
             #        a, b, c, d, e, f
             "sb":   [2.5, 2, 2, 2.5, 2, 2, 0, 0],
@@ -523,16 +526,18 @@ class FPGAGridGen:
         }
         for module, dims in cb_map.items():
             a, b, c, d, e, f, x, y = dims
-            sym_map[module] = dwg.symbol(id=module)
-            sym_map[module]["x"] = x
-            sym_map[module]["y"] = y
-            sym_map[module].add(dwg.path(d=f"M {b} 0 " +
-                                           f"v {f} h {-1*b}" +
-                                           f"v {a} h {b} v {c} h {d}" +
-                                           f"v {-1*c} h {e} v {-1*a} h {-1*e}" +
-                                           f"v {-1*f}" +
-                                           " z"))
-            dwg.defs.add(sym_map[module])
+            symbol = dwg.symbol(id=module)
+            symbol["x"] = x
+            symbol["y"] = y
+            symbol.add(dwg.path(d=f"M {b} 0 " +
+                                f"v {f} h {-1*b}" +
+                                f"v {a} h {b} v {c} h {d}" +
+                                f"v {-1*c} h {e} v {-1*a} h {-1*e}" +
+                                f"v {-1*f}" +
+                                " z"))
+            dwg.defs.add(symbol)
+            sym_map[module] = {"symbol": symbol,
+                               "center": ((d)/2, (a)/2)}
         return sym_map
 
     def _unique(self, sequence):
@@ -608,12 +613,13 @@ class FPGAGridGen:
                 y_pt_new = (y_pt/2)*15 if (y_pt % 2) == 0 else (y_pt/2)*15 + 5
                 # dwg_shapes.add(dwg.circle(r=0.02, stroke="red",
                 #                center=(x_pt_new, y_pt_new)))
-                # dwg_text.add(dwg.text(symbol, insert=(x_pt_new*1, y_pt_new*-1),
-                #                       transform="scale(1,-1)",
-                #                       alignment_baseline="middle",
-                #                       text_anchor="middle"))
+                xct, yct = symbol_map[symbol]["center"]
+                dwg_text.add(dwg.text(symbol, insert=(x_pt_new+xct, (y_pt_new+yct)*-1),
+                                      transform="scale(1,-1)",
+                                      alignment_baseline="middle",
+                                      text_anchor="middle"))
                 if symbol:
-                    dwg_shapes.add(dwg.use(symbol_map[symbol],
+                    dwg_shapes.add(dwg.use(symbol_map[symbol]["symbol"],
                                            insert=(x_pt_new, y_pt_new)))
                 else:
                     print(module)

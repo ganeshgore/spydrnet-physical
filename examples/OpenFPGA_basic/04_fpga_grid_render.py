@@ -9,7 +9,7 @@ This class generates the 2D matrix of the FPGA grid.
 **layout section of Architecture file**
 
 .. image:: ../../../examples/OpenFPGA_basic/_small_layout_render.svg
-   :width: 90%
+   :width: 60%
    :align: center
 
 .. image:: ../../../examples/OpenFPGA_basic/_ultimate_layout_render.svg
