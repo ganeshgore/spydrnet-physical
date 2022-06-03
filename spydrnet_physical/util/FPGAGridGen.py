@@ -73,26 +73,11 @@ def parse_argument() -> argparse.Namespace:
 
 CSS_STYLE = '''
 .boundary{stroke:grey; fill:none; stroke_width:1}
-text{font-family: Lato;}
-.cbx_1__0__def{fill:#d9d9f3}
-.cbx_1__1__def{fill:#d9d9f3}
-.cbx_1__2__def{fill:#d9d9f3}
-
-.cby_0__1__def{fill:#a8d0db}
-.cby_1__1__def{fill:#a8d0db}
-.cby_2__1__def{fill:#a8d0db}
-
-.sb_0__0__def{fill:#ceefe4}
-.sb_0__1__def{fill:#ceefe4}
-.sb_0__2__def{fill:#ceefe4}
-.sb_1__0__def{fill:#ceefe4}
-.sb_1__1__def{fill:#ceefe4}
-.sb_1__2__def{fill:#ceefe4}
-.sb_2__0__def{fill:#ceefe4}
-.sb_2__1__def{fill:#ceefe4}
-.sb_2__2__def{fill:#ceefe4}
-
-.grid_def{fill:#f4f0e6;}
+text{font-family: Lato; font-size:2px;}
+symbol[id="cbx"] * { fill:#d9d9f3; stroke-width:0.1; stroke:black;}
+symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}
+symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}
+rect[class="lb"] { fill:#f4f0e6; stroke-width:0.1; stroke:black; }
 '''
 
 
@@ -510,41 +495,43 @@ class FPGAGridGen:
     def add_render_symbols(self, dwg, params):
         sym_map = {}
         rect_symbols = {
-            "clb": [6, 6],
             "cbx": [4, 2],
             "cby": [2, 4],
         }
         for tile, size in self.fpga_arch.pb_types.items():
-            rect_symbols[tile] = [(6*pt if pt == 1
-                                  else (10*(pt-1)+6)) for pt in size]
+            rect_symbols[tile] = [(12*pt if pt == 1
+                                  else (20*(pt-1)+12)) for pt in size]
         for module, dims in rect_symbols.items():
-            sym_map["symbol"] = dwg.symbol(id=module)
-            sym_map["symbol"].add(dwg.rect(size=dims, insert=(0, 0)))
-            dwg.defs.add(sym_map["symbol"])
+            sym_map[module] = dwg.symbol(id=module)
+            class_tag = 'routing' if module in ('cbx', 'cby') else "lb"
+            sym_map[module].add(dwg.rect(size=dims, class_=class_tag,
+                                         insert=(0, 0)))
+            dwg.defs.add(sym_map[module])
         cb_map = {
             #        a, b, c, d, e, f
-            "sb00": [2, 2, 2, 2, 2, 2],
-            "sb01": [2, 0, 2, 2, 2, 0],
-            "sb02": [2, 0, 2, 2, 2, 2],
-            "sb03": [2, 0, 0, 2, 2, 2],
-            "sb04": [2, 2, 0, 2, 2, 2],
-            "sb05": [2, 2, 2, 2, 2, 2],
-            "sb06": [2, 2, 2, 2, 2, 2],
-            "sb07": [2, 2, 2, 2, 2, 2],
-            "sb08": [2, 2, 2, 2, 2, 2],
-            "sb09": [2, 2, 2, 2, 2, 2],
-            "sb10": [2, 2, 2, 2, 2, 2],
+            "sb": [2, 2, 2, 2, 2, 2],
+            "sb00": [2, 2, 2, 2, 2, 2],  # ┿
+            "sb01": [2, 0, 2, 2, 2, 0],  # ┗
+            "sb02": [2, 0, 2, 2, 2, 2],  # ┝
+            "sb03": [2, 0, 0, 2, 2, 2],  # ┏
+            "sb04": [2, 2, 0, 2, 2, 2],  # ┯
+            "sb05": [2, 2, 0, 2, 0, 2],  # ┓
+            "sb06": [2, 2, 2, 2, 0, 2],  # ┫
+            "sb07": [2, 2, 2, 2, 0, 0],  # ┛
+            "sb08": [2, 2, 2, 2, 2, 0],  # ┷
+            "sb09": [2, 0, 2, 2, 0, 2],  # ┃
+            "sb10": [2, 2, 0, 2, 2, 0],  # ━
         }
         for module, dims in cb_map.items():
             a, b, c, d, e, f = dims
-            sym_map["symbol"] = dwg.symbol(id=module)
-            sym_map["symbol"].add(dwg.path(d=f"M {b} 0 " +
+            sym_map[module] = dwg.symbol(id=module)
+            sym_map[module].add(dwg.path(d=f"M {b} 0 " +
                                            f"v {f} h {-1*b}" +
                                            f"v {a} h {b} v {c} h {d}" +
                                            f"v {-1*c} h {e} v {-1*a} h {-1*e}" +
                                            f"v {-1*f}" +
                                            " z"))
-            dwg.defs.add(sym_map["symbol"])
+            dwg.defs.add(sym_map[module])
         return sym_map
 
     def _unique(self, sequence):
@@ -562,7 +549,7 @@ class FPGAGridGen:
         dwg = svgwrite.Drawing(filename, bbox[2:])
         dwg.viewbox(0, -1*bbox[3], bbox[2], bbox[3])
         dwg.defs.add(dwg.style(CSS_STYLE))
-        self.add_render_symbols(dwg, params)
+        symbol_map = self.add_render_symbols(dwg, params)
 
         # Createing instances
         dwg_main = dwg.add(Group(id="main", transform="scale(1,-1)"))
@@ -572,6 +559,61 @@ class FPGAGridGen:
         dwg_shapes = dwg_main.add(Group(id="main_shapes"))
         dwg_text = dwg_main.add(Group(id="main_text"))
 
+        visited = []
+        for x_pt in range(1, (2*self.width)-2):
+            for y_pt in range(1, (2*self.height)-2):
+                module = self.get_top_instance(x_pt, y_pt)
+                if module in visited:
+                    continue
+                visited.append(module)
+                module = "_".join(module.split("_")[:-4])
+                if "sb" in module:
+                    left = self.get_top_instance(x_pt-1, y_pt).split("_")[0]
+                    right = self.get_top_instance(x_pt+1, y_pt).split("_")[0]
+                    bottom = self.get_top_instance(x_pt, y_pt-1).split("_")[0]
+                    top = self.get_top_instance(x_pt, y_pt+1).split("_")[0]
+                    left = left if left in ('cbx', 'cby') else "EMPTY"
+                    right = right if right in ('cbx', 'cby') else "EMPTY"
+                    bottom = bottom if bottom in ('cbx', 'cby') else "EMPTY"
+                    top = top if top in ('cbx', 'cby') else "EMPTY"
+                    if (left, right, bottom, top) == ("cbx", "cbx", "cby", "cby"):
+                        symbol = "sb00"
+                    elif (left, right, bottom, top) == ("EMPTY", "cbx", "cby", "cby"):
+                        symbol = "sb02"
+                    elif (left, right, bottom, top) == ("EMPTY", "EMPTY", "cby", "cby"):
+                        symbol = "sb09"
+                    elif (left, right, bottom, top) == ("cbx", "cbx", "EMPTY", "EMPTY"):
+                        symbol = "sb10"
+                    elif (left, right, bottom) == ("cbx", "cbx", "cby"):
+                        symbol = "sb04"
+                    elif (left, top, bottom) == ("cbx", "cby", "cby"):
+                        symbol = "sb06"
+                    elif (left, right, top) == ("cbx", "cbx", "cby"):
+                        symbol = "sb08"
+                    elif (left, top) == ("cbx", "cby"):
+                        symbol = "sb07"
+                    elif (left, bottom) == ("cbx", "cby"):
+                        symbol = "sb05"
+                    elif (right, top) == ("cbx",  "cby"):
+                        symbol = "sb01"
+                    elif (right, bottom) == ("cbx",  "cby"):
+                        symbol = "sb03"
+                    else:
+                        symbol = module
+                else:
+                    symbol = module
+
+                dwg_shapes.add(dwg.circle(r=0.1, stroke="red",
+                               center=(x_pt*10, y_pt*10)))
+                dwg_text.add(dwg.text(symbol, insert=(x_pt*10, y_pt*-10),
+                                      transform="scale(1,-1)",
+                                      alignment_baseline="middle",
+                                      text_anchor="middle"))
+                if symbol:
+                    dwg_shapes.add(dwg.use(symbol_map[symbol],
+                                           insert=(x_pt*10, y_pt*10)))
+                else:
+                    print(module)
         dwg.save(pretty=True, indent=4)
 
 
