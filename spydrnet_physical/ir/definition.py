@@ -316,13 +316,13 @@ class Definition(DefinitionBase):
         new_instance.data[PROP]["LOC_X"] = LOC_X
         new_instance.data[PROP]["LOC_Y"] = LOC_Y
         if outline:
-            shape, points = shaping_utils._get_shapes_outline(outline)
+            shape, points = shaping_utils.get_shapes_outline(outline)
             new_instance.reference.properties["SHAPE"] = shape
             if shape == "cross":
                 new_instance.reference.properties["POINTS"] = points
             if shape == "custom":
                 new_instance.reference.properties["POINTS"] = \
-                    shaping_utils._points_to_path(points)
+                    shaping_utils.points_to_path(points)
             if shape == "rect":
                 new_instance.reference.properties["WIDTH"] = points[0]
                 new_instance.reference.properties["HEIGHT"] = points[1]

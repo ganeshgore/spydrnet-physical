@@ -17,6 +17,7 @@ import math
 import svgwrite
 from svgwrite.container import Group
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
+from spydrnet_physical.ir.shaping_utils import shaping_utils
 
 logger = logging.getLogger("spydrnet_logs")
 
@@ -531,9 +532,9 @@ class FPGAGridGen:
             symbol["x"] = x
             symbol["y"] = y
             symbol.add(dwg.path(d=f"M {b} 0 " +
-                                f"v {f} h {-1*b}" +
-                                f"v {a} h {b} v {c} h {d}" +
-                                f"v {-1*c} h {e} v {-1*a} h {-1*e}" +
+                                f"v {f} h {-1*b} " +
+                                f"v {a} h {b} v {c} h {d} " +
+                                f"v {-1*c} h {e} v {-1*a} h {-1*e} " +
                                 f"v {-1*f}" +
                                 " z"))
             dwg.defs.add(symbol)
@@ -546,8 +547,46 @@ class FPGAGridGen:
         u = [x for x in sequence if not (x in seen or seen.add(x))]
         return [val for sublist in u for val in sublist]
 
-    def merge_symbol(self, list):
-        pass
+    def merge_symbol(self, inst_list, new_symbol_name):
+        points = []
+
+        def add_point(direction, distance):
+            if direction == "h":
+                new_pt = (points[-1][0] + distance, points[-1][1])
+            if direction == "v":
+                new_pt = (points[-1][0], points[-1][1] + distance)
+            points.append(new_pt)
+
+        for each in inst_list:
+            inst = self.get_instance(each)
+            symbol = self.get_symbol_of_instance(each)
+            pt = (inst.attribs["x"], inst.attribs["y"])
+            points.append(pt)
+            if symbol.elements[0].elementname == "rect":
+                ele = symbol.elements[0]
+                attrib = ele.attribs
+                add_point("v", float(attrib["height"]))
+                add_point("h", float(attrib["width"]))
+                add_point("v", -1*float(attrib["height"]))
+            elif symbol.elements[0].elementname == "path":
+                ele = symbol.elements[0]
+                pts = ele.attribs["d"].split()
+                for direction, distance in zip(pts[3:-1:2], pts[4:-1:2]):
+                    add_point(direction, float(distance))
+            else:
+                logger.error("Can not extract point from tag")
+        _, points = shaping_utils.get_shapes_outline(points)
+        path_points = shaping_utils.points_to_path(points)
+        pt = path_points.lower().split()
+        svg_path = ""
+        for eachpt in zip(pt[3::2], pt[4::2]):
+            svg_path += "v {} h {} ".format(*eachpt) if pt[0] == "v" else \
+                "h {} v {} ".format(*eachpt)
+        symbol = self.dwg.symbol(id=new_symbol_name)
+        symbol.add(self.dwg.path(d=f"M {pt[1]} {pt[2]} {svg_path} z"))
+        self.dwg.defs.add(symbol)
+        self.dwg_shapes.add(self.dwg.use(symbol, insert=points[0]))
+        return symbol
 
     def add_style(self, style):
         for ele in self.dwg.defs.elements:

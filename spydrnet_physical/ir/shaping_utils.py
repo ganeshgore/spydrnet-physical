@@ -88,7 +88,7 @@ class shaping_utils:
         return difference
 
     @staticmethod
-    def _points_to_path(points):
+    def points_to_path(points):
         """
         Converts the list of outline points to strin representing custom shape
 
@@ -110,7 +110,7 @@ class shaping_utils:
         return sequence_string
 
     @staticmethod
-    def _get_shapes_outline(array):
+    def get_shapes_outline(array):
         """
         Traces the outline of the given object
 

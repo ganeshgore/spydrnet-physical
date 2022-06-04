@@ -34,19 +34,22 @@ def main():
                        layout="small")
     fpga.enumerate_grid()
 
-    fpga.render_layout(filename="_small_layout_render.svg")
+    dwg = fpga.render_layout(filename="_small_layout_render.svg")
 
     fpga = FPGAGridGen(design_name="example_design",
                        arch_file="./support_files/vpr_arch_render_demo.xml",
                        release_root="_release",
                        layout="ultimate")
     fpga.enumerate_grid()
-
     dwg = fpga.render_layout(filename="_ultimate_layout_render.svg")
-    print(fpga.get_instance("cbx_1__0_")["xlink:href"][1:])
-    print(fpga.get_symbol_of_instance("cbx_1__0_"))
-    print(fpga.get_symbol("ram9k"))
-    print(fpga.add_style("symbol[id='ram9k'] * { fill:#a8dd00;}"))
+
+    fpga.get_instance("cbx_1__0_")["xlink:href"][1:]
+    fpga.get_symbol_of_instance("cbx_1__0_")
+    fpga.get_symbol("ram9k")
+    fpga.add_style("symbol[id='ram9k'] * { fill:#a8dd00;}")
+    print("-----")
+    # Need Some more effforts
+    fpga.merge_symbol(["cbx_1__0_", "clb_1__1_"], "new_symbol")
     dwg.save(pretty=True, indent=4)
 
 
