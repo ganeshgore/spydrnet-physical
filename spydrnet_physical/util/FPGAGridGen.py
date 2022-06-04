@@ -549,9 +549,23 @@ class FPGAGridGen:
     def merge_symbol(self, list):
         pass
 
+    def add_style(self, style):
+        for ele in self.dwg.defs.elements:
+            if ele.attribs.get('type', "") == 'text/css':
+                ele.append(style)
+
     def get_instance(self, instance_name):
         for ele in self.dwg_shapes.elements:
-            if instance_name in ele.attribs["id"]:
+            if instance_name in ele.attribs.get("id", ""):
+                return ele
+
+    def get_symbol_of_instance(self, instance_name):
+        symbol = self.get_instance(instance_name)
+        return self.get_symbol(symbol["xlink:href"][1:])
+
+    def get_symbol(self, symbol_name):
+        for ele in self.dwg.defs.elements:
+            if symbol_name in ele.attribs.get("id", ""):
                 return ele
 
     def render_layout(self, filename=None):
@@ -635,6 +649,7 @@ class FPGAGridGen:
                 else:
                     print(module)
         dwg.save(pretty=True, indent=4)
+        self.dwg = dwg
         self.dwg_shapes = dwg_shapes
         self.dwg_text = dwg_text
         return dwg

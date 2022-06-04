@@ -42,8 +42,12 @@ def main():
                        layout="ultimate")
     fpga.enumerate_grid()
 
-    fpga.render_layout(filename="_ultimate_layout_render.svg")
-    print(fpga.get_instance("cbx_1__0_"))
+    dwg = fpga.render_layout(filename="_ultimate_layout_render.svg")
+    print(fpga.get_instance("cbx_1__0_")["xlink:href"][1:])
+    print(fpga.get_symbol_of_instance("cbx_1__0_"))
+    print(fpga.get_symbol("ram9k"))
+    print(fpga.add_style("symbol[id='ram9k'] * { fill:#a8dd00;}"))
+    dwg.save(pretty=True, indent=4)
 
 
 if __name__ == "__main__":
