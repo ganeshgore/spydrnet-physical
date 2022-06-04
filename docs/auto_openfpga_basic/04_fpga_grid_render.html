@@ -355,16 +355,23 @@ to download the full example code</p>
                        <span class="n">layout</span><span class="o">=</span><span class="s2">"small"</span><span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
 
-    <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_small_layout_render.svg"</span><span class="p">)</span>
+    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_small_layout_render.svg"</span><span class="p">)</span>
 
     <span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
                        <span class="n">arch_file</span><span class="o">=</span><span class="s2">"./support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
                        <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
                        <span class="n">layout</span><span class="o">=</span><span class="s2">"ultimate"</span><span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
+    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_ultimate_layout_render.svg"</span><span class="p">)</span>
 
-    <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_ultimate_layout_render.svg"</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="s2">"cbx_1__0_"</span><span class="p">))</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="s2">"cbx_1__0_"</span><span class="p">)[</span><span class="s2">"xlink:href"</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">get_symbol_of_instance</span><span class="p">(</span><span class="s2">"cbx_1__0_"</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">get_symbol</span><span class="p">(</span><span class="s2">"ram9k"</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">add_style</span><span class="p">(</span><span class="s2">"symbol[id='ram9k'] * { fill:#a8dd00;}"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"-----"</span><span class="p">)</span>
+    <span class="c1"># Need Some more effforts</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">merge_symbol</span><span class="p">([</span><span class="s2">"cbx_1__0_"</span><span class="p">,</span> <span class="s2">"clb_1__1_"</span><span class="p">],</span> <span class="s2">"new_symbol"</span><span class="p">)</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
