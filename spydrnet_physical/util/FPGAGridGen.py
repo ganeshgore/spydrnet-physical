@@ -72,8 +72,8 @@ def parse_argument() -> argparse.Namespace:
 
 
 CSS_STYLE = '''
-.boundary{stroke:grey; fill:none; stroke_width:1}
-text{font-family: Lato; font-size:1.7px;}
+.boundary{stroke:grey; fill:none; stroke-width:0.2}
+text{font-family: Lato; font-size:1.2px;}
 symbol[id="cbx"] * { fill:#d9d9f3; stroke-width:0.1; stroke:black;}
 symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}
 symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}
@@ -486,16 +486,17 @@ class FPGAGridGen:
         '''
         Returns default shaping parameters for rendering
         '''
-        return {"clb": [6, 6],
-                "cbx": [4, 2],
-                "cby": [2, 4],
-                "sb": [2, 2, 2, 2, 2, 2]}
+        return {"grid": [10, 5],
+                "clb": [10, 10],
+                "cbx": [8.5, 2.5, 2, 0],
+                "cby": [2.5, 8.5, 0, 2],
+                "sb": [2.5, 2, 2, 2.5, 2, 2, -2, -2]}
 
     def add_render_symbols(self, dwg, params):
         sym_map = {}
         rect_symbols = {
-            "cbx": [8.5, 2.5, 2, 0],
-            "cby": [2.5, 8.5, 0, 2],
+            "cbx": params["cbx"],
+            "cby": params["cby"],
         }
         for tile, size in self.fpga_arch.pb_types.items():
             rect_symbols[tile] = [(12.5*pt if pt == 1
@@ -545,6 +546,14 @@ class FPGAGridGen:
         u = [x for x in sequence if not (x in seen or seen.add(x))]
         return [val for sublist in u for val in sublist]
 
+    def merge_symbol(self, list):
+        pass
+
+    def get_instance(self, instance_name):
+        for ele in self.dwg_shapes.elements:
+            if instance_name in ele.attribs["id"]:
+                return ele
+
     def render_layout(self, filename=None):
         '''
         Renders the given layout
@@ -569,6 +578,7 @@ class FPGAGridGen:
         for x_pt in range(1, (2*self.width)-2):
             for y_pt in range(1, (2*self.height)-2):
                 module = self.get_top_instance(x_pt, y_pt)
+                inst_name = module
                 if module in visited:
                     continue
                 visited.append(module)
@@ -614,16 +624,20 @@ class FPGAGridGen:
                 # dwg_shapes.add(dwg.circle(r=0.02, stroke="red",
                 #                center=(x_pt_new, y_pt_new)))
                 xct, yct = symbol_map[symbol]["center"]
-                dwg_text.add(dwg.text(symbol, insert=(x_pt_new+xct, (y_pt_new+yct)*-1),
+                dwg_text.add(dwg.text(inst_name, insert=(x_pt_new+xct, (y_pt_new+yct)*-1),
                                       transform="scale(1,-1)",
                                       alignment_baseline="middle",
                                       text_anchor="middle"))
                 if symbol:
                     dwg_shapes.add(dwg.use(symbol_map[symbol]["symbol"],
+                                           id=inst_name,
                                            insert=(x_pt_new, y_pt_new)))
                 else:
                     print(module)
         dwg.save(pretty=True, indent=4)
+        self.dwg_shapes = dwg_shapes
+        self.dwg_text = dwg_text
+        return dwg
 
 
 if __name__ == "__main__":

@@ -43,6 +43,7 @@ def main():
     fpga.enumerate_grid()
 
     fpga.render_layout(filename="_ultimate_layout_render.svg")
+    print(fpga.get_instance("cbx_1__0_"))
 
 
 if __name__ == "__main__":
