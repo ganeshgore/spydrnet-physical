@@ -561,21 +561,25 @@ class FPGAGridGen:
             inst = self.get_instance(each)
             symbol = self.get_symbol_of_instance(each)
             pt = (inst.attribs["x"], inst.attribs["y"])
-            points.append(pt)
             if symbol.elements[0].elementname == "rect":
                 ele = symbol.elements[0]
                 attrib = ele.attribs
+                points.append((pt[0]+attrib.get("x", 0),
+                              pt[1]+attrib.get("y", 0)))
                 add_point("v", float(attrib["height"]))
                 add_point("h", float(attrib["width"]))
                 add_point("v", -1*float(attrib["height"]))
             elif symbol.elements[0].elementname == "path":
                 ele = symbol.elements[0]
                 pts = ele.attribs["d"].split()
+                points.append((pt[0]+pts[1],
+                              pt[1]+pts[2]))
                 for direction, distance in zip(pts[3:-1:2], pts[4:-1:2]):
                     add_point(direction, float(distance))
             else:
                 logger.error("Can not extract point from tag")
         _, points = shaping_utils.get_shapes_outline(points)
+        print(points)
         path_points = shaping_utils.points_to_path(points)
         pt = path_points.lower().split()
         svg_path = ""
