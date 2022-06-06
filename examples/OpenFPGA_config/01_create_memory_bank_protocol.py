@@ -55,6 +55,7 @@ from the following tcl script.
 import logging
 import math
 
+import numpy as np
 import pandas as pd
 import seaborn as sns
 import spydrnet as sdn
@@ -65,9 +66,10 @@ sdn.enable_file_logging(LOG_LEVEL='INFO', filename="memory_bank_protocol")
 
 
 def main():
-    latch_locs = pd.read_csv('latch_placement_dump.txt', sep=" ",
+    latch_locs = pd.read_csv('small_latch_placement.txt', sep=" ",
                              names=["cells", "x_loc", "y_loc"])
-    # latch_locs = latch_locs.sample(n=10)
+    np.random.seed(40)
+    latch_locs = latch_locs.sample(n=4)
 
     total_mem_elements = latch_locs.shape[0]
     wl_n = math.ceil(math.sqrt(total_mem_elements))
@@ -114,24 +116,59 @@ def main():
     render_placement(latch_locs, wl_lines, bl_lines, x_cuts, None,
                      filename="_memeory_bank_conn_bl_line.svg", highlights="b")
     write_report(latch_locs)
+    validate_connection(latch_locs)
 
 
 def write_report(latch_locs):
     with open("_eco_changes.tcl", "w", encoding="UTF-8") as fp:
         wl_n = latch_locs["wl"].unique().size
-        fp.write("define_bus -type port -name wl -range {0 %d}\n" % wl_n)
-        fp.write("define_bus -type net -name wl -range {0 %d}\n" % wl_n)
-
         bl_n = latch_locs["bl"].unique().size
-        fp.write("define_bus -type port -name wl -range {0 %d}\n" % bl_n)
-        fp.write("define_bus -type net -name wl -range {0 %d}\n" % bl_n)
+        fp.write("remove_ports [get_ports -quiet wl*]\n")
+        fp.write("remove_ports [get_ports -quiet bl*]\n")
+        fp.write("remove_nets [get_nets -quiet wl*]\n")
+        fp.write("remove_nets [get_nets -quiet bl*]\n")
+        fp.write("for { set a 0}  {$a < %d} {incr a} {\n" % wl_n)
+        fp.write("    create_port wl[$a] -direction in;\n")
+        fp.write("    create_net wl[$a];\n")
+        fp.write("    connect_net -net wl[$a] wl[$a];\n")
+        fp.write("}\n")
+        fp.write("for { set a 0}  {$a < %d} {incr a} {\n" % bl_n)
+        fp.write("    create_port bl[$a] -direction in;\n")
+        fp.write("    create_net bl[$a];\n")
+        fp.write("    connect_net -net bl[$a] bl[$a];\n")
+        fp.write("}\n")
+        fp.write("foreach_in_collection pin [get_pins *LAT*/D -hier] {\n")
+        fp.write(
+            "    disconnect_net -net [get_nets -quiet -of_objects $pin] $pin\n")
+        fp.write("}\n")
+        fp.write("foreach_in_collection pin [get_pins *LAT*/G -hier] {\n")
+        fp.write(
+            "    disconnect_net -net [get_nets -quiet -of_objects $pin] $pin\n")
+        fp.write("}\n")
 
         for _, each in latch_locs.iterrows():
             cell = each['cells']
-            fp.write("connect_net -net  bl_in[%s] %s/D\n" %
+            fp.write("connect_net -net bl[%s] %s/D\n" %
                      (each['bl'][1:], cell))
-            fp.write("connect_net -net  wl_in[%s] %s/G\n" %
+            fp.write("connect_net -net  wl[%s] %s/G\n" %
                      (each['wl'][1:], cell))
+
+
+def validate_connection(dataframe):
+    print(dataframe[dataframe.duplicated(subset=['wl', 'bl'], keep=False)])
+
+
+def find_connection_cost(latch_locs, wl_lines, bl_lines):
+    total_v_wiring = 0
+    total_h_wiring = 0
+    for _, each in latch_locs.iterrows():
+        x_loc = float(each['x_loc'])
+        y_loc = float(each['y_loc'])
+        wl_indx = int(each['wl'][1:])
+        bl_indx = int(each['bl'][1:])
+        total_h_wiring = abs(x_loc-wl_lines[wl_indx])
+        total_v_wiring = abs(y_loc-bl_lines[bl_indx])
+    return total_v_wiring, total_h_wiring
 
 
 def render_placement(latch_locs, wl_lines, bl_lines,
@@ -143,10 +180,11 @@ def render_placement(latch_locs, wl_lines, bl_lines,
     viewbox = (-4, -4, xmax, ymax)
     dwg.viewbox(*viewbox)
     dwg_main = dwg.add(dwg.g(id="main_frame"))
-    dwg.defs.add(dwg.style('''
+    dwg.defs.add(dwg.style(r'''
         #boundary{fill:#FAFAFA; stroke-width:1px; stroke:black}
         .wl_lines{fill:red; stroke-width:0.1px; opacity:0.6;}
         .bl_lines{fill:green; stroke-width:0.1px; opacity:0.6;}
+        .connections{fill:green; stroke-width:0.1px; stroke:black;}
     '''))
     dwg_main.add(dwg.rect(size=(xmax, ymax), insert=(-4, -4), id="boundary"))
 
@@ -159,6 +197,13 @@ def render_placement(latch_locs, wl_lines, bl_lines,
         color = color[True]
         dwg_main.add(dwg.circle(r=0.5, class_="marker", fill=color, stroke="none",
                                 center=(each["x_loc"], each["y_loc"])))
+
+        # Add connection to the line
+        wl_indx = int(each['wl'][1:])
+        bl_indx = int(each['bl'][1:])
+        dwg_main.add(dwg.line(start=(each["x_loc"], each["y_loc"]),
+                              end=(bl_lines[bl_indx], wl_lines[wl_indx],),
+                              class_="connections"))
 
     # Add word and bit lines regions
     if x_cuts:
