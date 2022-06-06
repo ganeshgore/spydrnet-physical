@@ -6,7 +6,7 @@ Adding configuration chain to the fabric
 This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA
 
-.. image:: ../../../examples/OpenFPGA_config_chain/_fpga_configuration_chain.svg
+.. image:: ../../../examples/OpenFPGA_config/_fpga_configuration_chain.svg
     :width: 500px
     :align: center
 

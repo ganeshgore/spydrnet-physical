@@ -247,7 +247,7 @@ sphinx_gallery_conf = {
         os.path.join("..", "..", "examples", "OpenFPGA_clock_tree"),
         os.path.join("..", "..", "examples", "OpenFPGA_tiling"),
         os.path.join("..", "..", "examples", "OpenFPGA_rendering"),
-        os.path.join("..", "..", "examples", "OpenFPGA_config_chain"),
+        os.path.join("..", "..", "examples", "OpenFPGA_config"),
     ],
     # path to where to save gallery generated output
     "gallery_dirs": [
@@ -256,7 +256,7 @@ sphinx_gallery_conf = {
         "auto_openfpga_clock_tree",
         "auto_openfpga_tiling",
         "auto_openfpga_rendering",
-        "auto_openfpga_config_chain",
+        "auto_openfpga_config",
     ],
     "remove_config_comments": True,
     "filename_pattern": "/*.py",
