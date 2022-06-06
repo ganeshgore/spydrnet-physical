@@ -23,9 +23,9 @@ from the following tcl script.
 - Find total number of configuration elements in the block ``B``
 - Find number of WL lines (horizontal lines) ``wl_n = ceil(sqrt(B))``
 - Calculate number of BL lines (vertical lines) ``bl_n = B/wl_n``
-- Sort each cell with increasing order of ``x_loc``, 
+- Sort each cell with increasing order of ``x_loc``,
   assign bl[0] to first set of ``wl_n`` cells and continue assignement till the end
-- Sort each cell with increasing order of ``y_loc``, 
+- Sort each cell with increasing order of ``y_loc``,
   assign wl[0] to first set of ``bl_n`` cells and continue assignement till the end
 
 **Highlight WL connectivity**:
@@ -65,8 +65,9 @@ sdn.enable_file_logging(LOG_LEVEL='INFO', filename="memory_bank_protocol")
 
 
 def main():
-    latch_locs = pd.read_csv('small_latch_placement.txt', sep=" ",
+    latch_locs = pd.read_csv('latch_placement_dump.txt', sep=" ",
                              names=["cells", "x_loc", "y_loc"])
+    # latch_locs = latch_locs.sample(n=10)
 
     total_mem_elements = latch_locs.shape[0]
     wl_n = math.ceil(math.sqrt(total_mem_elements))
@@ -103,6 +104,10 @@ def main():
     logger.info("y_cuts     %s", y_cuts)
     logger.info("wl_lines   %s", wl_lines)
     logger.info("bl_lines   %s", bl_lines)
+    for each in latch_locs["wl"].unique():
+        logger.info("wl_line [%s]   %d", each, sum(latch_locs["wl"] == each))
+    for each in latch_locs["bl"].unique():
+        logger.info("bl_line [%s]   %d", each, sum(latch_locs["bl"] == each))
 
     render_placement(latch_locs, wl_lines, bl_lines, None, y_cuts,
                      filename="_memeory_bank_conn_wl_lines.svg", highlights="w")
@@ -113,8 +118,20 @@ def main():
 
 def write_report(latch_locs):
     with open("_eco_changes.tcl", "w", encoding="UTF-8") as fp:
+        wl_n = latch_locs["wl"].unique().size
+        fp.write("define_bus -type port -name wl -range {0 %d}\n" % wl_n)
+        fp.write("define_bus -type net -name wl -range {0 %d}\n" % wl_n)
+
+        bl_n = latch_locs["bl"].unique().size
+        fp.write("define_bus -type port -name wl -range {0 %d}\n" % bl_n)
+        fp.write("define_bus -type net -name wl -range {0 %d}\n" % bl_n)
+
         for _, each in latch_locs.iterrows():
-            fp.write(f"connect_pin {each['cells']} $wire\n")
+            cell = each['cells']
+            fp.write("connect_net -net  bl_in[%s] %s/D\n" %
+                     (each['bl'][1:], cell))
+            fp.write("connect_net -net  wl_in[%s] %s/G\n" %
+                     (each['wl'][1:], cell))
 
 
 def render_placement(latch_locs, wl_lines, bl_lines,
@@ -136,23 +153,10 @@ def render_placement(latch_locs, wl_lines, bl_lines,
     palette = sns.color_palette(None,
                                 max(len(wl_lines), len(bl_lines))).as_hex()
     for _, each in latch_locs.iterrows():
-        color = {True: 'black',
-                 each[f"{highlights}l"] == f"{highlights}0": palette[0],
-                 each[f"{highlights}l"] == f"{highlights}1": palette[1],
-                 each[f"{highlights}l"] == f"{highlights}2": palette[2],
-                 each[f"{highlights}l"] == f"{highlights}3": palette[3],
-                 each[f"{highlights}l"] == f"{highlights}4": palette[4],
-                 each[f"{highlights}l"] == f"{highlights}5": palette[5],
-                 each[f"{highlights}l"] == f"{highlights}6": palette[6],
-                 each[f"{highlights}l"] == f"{highlights}7": palette[7],
-                 each[f"{highlights}l"] == f"{highlights}8": palette[8],
-                 each[f"{highlights}l"] == f"{highlights}9": palette[9],
-                 each[f"{highlights}l"] == f"{highlights}10": palette[10],
-                 each[f"{highlights}l"] == f"{highlights}11": palette[11],
-                 each[f"{highlights}l"] == f"{highlights}12": palette[12],
-                 each[f"{highlights}l"] == f"{highlights}13": palette[13],
-                 each[f"{highlights}l"] == f"{highlights}14": palette[14],
-                 }[True]
+        color = {True: 'black'}
+        for indx, each_color in enumerate(palette):
+            color[each[f"{highlights}l"] == f"{highlights}{indx}"] = each_color
+        color = color[True]
         dwg_main.add(dwg.circle(r=0.5, class_="marker", fill=color, stroke="none",
                                 center=(each["x_loc"], each["y_loc"])))
 
