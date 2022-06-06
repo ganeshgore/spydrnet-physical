@@ -69,7 +69,7 @@ def main():
     latch_locs = pd.read_csv('small_latch_placement.txt', sep=" ",
                              names=["cells", "x_loc", "y_loc"])
     np.random.seed(40)
-    latch_locs = latch_locs.sample(n=4)
+    latch_locs = latch_locs.sample(n=15)
 
     total_mem_elements = latch_locs.shape[0]
     wl_n = math.ceil(math.sqrt(total_mem_elements))
@@ -85,22 +85,27 @@ def main():
     logger.info("Extra Conns        %s", (wl_n*bl_n)-total_mem_elements)
 
     latch_locs = latch_locs.sort_values(by=['x_loc', 'y_loc'])
+    print(latch_locs.head())
     x_cuts = latch_locs[::wl_n]['x_loc'].values.tolist() + [x_max]
     bl_lines = [round(sum(pts)*0.5, 2) for pts in zip(x_cuts[:-1], x_cuts[1:])]
-    sequence = []
-    for i in range(bl_n+1):
-        sequence += [f"b{i}"] * (wl_n)
-    latch_locs["bl"] = sequence[:latch_locs.shape[0]]
+
+    sequence = [j for j in range(bl_n) for i in range(bl_n)]
+    print(sequence)
+    latch_locs["x_bins"] = sequence[:latch_locs.shape[0]]
+
+    latch_locs = latch_locs.sort_values(by=['x_bins', 'y_loc'])
+    sequence_bl = []
+    sequence_wl = []
+    for i in range(bl_n):
+        sequence_bl += [f"b{i}"] * (wl_n)
+        sequence_wl += [f"w{j}" for j in range(wl_n)]
+    latch_locs["bl"] = sequence_bl[:latch_locs.shape[0]]
+    latch_locs["wl"] = sequence_wl[:latch_locs.shape[0]]
 
     latch_locs = latch_locs.sort_values(by=['y_loc', 'x_loc'])
     y_cuts = latch_locs[::bl_n]['y_loc'].values.tolist()
     y_cuts += [y_max]
     wl_lines = [round(sum(pts)*0.5, 2) for pts in zip(y_cuts[:-1], y_cuts[1:])]
-    latch_locs = latch_locs.sort_values(by=['y_loc', 'x_loc'])
-    sequence = []
-    for i in range(wl_n+1):
-        sequence += [f"w{i}"] * (bl_n)
-    latch_locs["wl"] = sequence[:latch_locs.shape[0]]
 
     logger.info("x_cuts     %s", x_cuts)
     logger.info("y_cuts     %s", y_cuts)
@@ -111,9 +116,9 @@ def main():
     for each in latch_locs["bl"].unique():
         logger.info("bl_line [%s]   %d", each, sum(latch_locs["bl"] == each))
 
-    render_placement(latch_locs, wl_lines, bl_lines, None, y_cuts,
+    render_placement(latch_locs, wl_lines, bl_lines, None, None,
                      filename="_memeory_bank_conn_wl_lines.svg", highlights="w")
-    render_placement(latch_locs, wl_lines, bl_lines, x_cuts, None,
+    render_placement(latch_locs, wl_lines, bl_lines, None, None,
                      filename="_memeory_bank_conn_bl_line.svg", highlights="b")
     write_report(latch_locs)
     validate_connection(latch_locs)
@@ -155,7 +160,9 @@ def write_report(latch_locs):
 
 
 def validate_connection(dataframe):
-    print(dataframe[dataframe.duplicated(subset=['wl', 'bl'], keep=False)])
+    duplicated = dataframe[dataframe.duplicated(subset=['wl', 'bl'],
+                                                keep=False)]
+    assert duplicated.size == 0, "Found %d duplicate connections" % duplicated.size
 
 
 def find_connection_cost(latch_locs, wl_lines, bl_lines):
@@ -181,12 +188,13 @@ def render_placement(latch_locs, wl_lines, bl_lines,
     dwg.viewbox(*viewbox)
     dwg_main = dwg.add(dwg.g(id="main_frame"))
     dwg.defs.add(dwg.style(r'''
-        #boundary{fill:#FAFAFA; stroke-width:1px; stroke:black}
+        .boundary{fill:#FAFAFA; stroke-width:1px; stroke:black}
         .wl_lines{fill:red; stroke-width:0.1px; opacity:0.6;}
         .bl_lines{fill:green; stroke-width:0.1px; opacity:0.6;}
         .connections{fill:green; stroke-width:0.1px; stroke:black;}
     '''))
-    dwg_main.add(dwg.rect(size=(xmax, ymax), insert=(-4, -4), id="boundary"))
+    dwg_main.add(dwg.rect(size=(xmax, ymax),
+                 insert=(-4, -4), class_="boundary"))
 
     palette = sns.color_palette(None,
                                 max(len(wl_lines), len(bl_lines))).as_hex()
