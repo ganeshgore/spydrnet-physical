@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="6.3. Extract configuration chain order" href="extract_configuration_order.html" /><link rel="prev" title="6.1. Create memory bank pin placement and connection" href="01_create_memory_bank_protocol.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>Adding configuration chain to the fabric - SpyDrNet-Physical alpha documentation</title>
+        <title>6.2. Adding configuration chain to the fabric - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -161,7 +161,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../introduction/install.html">Install</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
@@ -218,7 +218,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/verilog_support.html">Verilog Language Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">1.2. Display Netlist Information Functions</a></li>
@@ -278,13 +278,19 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/11_memory_bank_protocol.html">5.12. Implementing memeory bank protocol on Tile02</a></li>
 </ul>
 </li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">6. Configuration Chain</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_create_memory_bank_protocol.html">6.1. Create memory bank pin placement and connection</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">6.2. Adding configuration chain to the fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">6.3. Extract configuration chain order</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developeres Content</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developers Guidelines</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tests/definition.html">Definition - Unit tests</a></li>
@@ -329,7 +335,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="adding-configuration-chain-to-the-fabric">
-<span id="sphx-glr-auto-openfpga-config-configuration-chain-py"></span><h1>Adding configuration chain to the fabric<a class="headerlink" href="#adding-configuration-chain-to-the-fabric" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-openfpga-config-configuration-chain-py"></span><h1><span class="section-number">6.2. </span>Adding configuration chain to the fabric<a class="headerlink" href="#adding-configuration-chain-to-the-fabric" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstate how to create a tile strcuture from
 Verilog netlist obtained from OpenFPGA</p>
 <a class="reference internal image-reference" href="../_images/_fpga_configuration_chain.svg"><img alt="../_images/_fpga_configuration_chain.svg" class="align-center" src="../_images/_fpga_configuration_chain.svg" width="500px"/></a>
@@ -462,8 +468,26 @@ Verilog netlist obtained from OpenFPGA</p>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="extract_configuration_order.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><span class="section-number">6.3. </span>Extract configuration chain order</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="01_create_memory_bank_protocol.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><span class="section-number">6.1. </span>Create memory bank pin placement and connection</div>
+                
+              </div>
+            </a>
         </div>
 
         <div class="related-information">
