@@ -279,8 +279,9 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_config/index.html">6. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_config/01_create_memory_bank_protocol.html">6.1. Create memory bank pin placement and connection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_config/configuration_chain.html">6.2. Adding configuration chain to the fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_config/extract_configuration_order.html">6.3. Extract configuration chain order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_config/02_fabric_key_generator_ccff.html">6.2. Fabric key generation for homogeneous fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_config/configuration_chain.html">6.3. Adding configuration chain to the fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_config/extract_configuration_order.html">6.4. Extract configuration chain order</a></li>
 </ul>
 </li>
 </ul>
@@ -410,6 +411,7 @@
 <span class="s1">symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}</span>
 <span class="s1">symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}</span>
 <span class="s1">rect[class="lb"] { fill:#f4f0e6; stroke-width:0.1; stroke:black; }</span>
+<span class="s1">symbol[id*="io_"] * { fill:#f8b155; stroke-width:0.1; stroke:black;}</span>
 <span class="s1">'''</span>
 
 
@@ -942,14 +944,13 @@
             <span class="k">if</span> <span class="n">symbol_name</span> <span class="ow">in</span> <span class="n">ele</span><span class="o">.</span><span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">""</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">ele</span>
 
-<div class="viewcode-block" id="FPGAGridGen.render_layout"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.render_layout">[docs]</a>    <span class="k">def</span> <span class="nf">render_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="FPGAGridGen.render_layout"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.render_layout">[docs]</a>    <span class="k">def</span> <span class="nf">render_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Renders the given layout</span>
 <span class="sd">        '''</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span> <span class="ow">or</span> <span class="s2">"_render.svg"</span>
         <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_shaping_param</span><span class="p">()</span>
-        <span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
-        <span class="n">dwg</span> <span class="o">=</span> <span class="n">svgwrite</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">dwg</span> <span class="o">=</span> <span class="n">svgwrite</span><span class="o">.</span><span class="n">Drawing</span><span class="p">(</span><span class="s2">"_render.svg"</span><span class="p">,</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="n">CSS_STYLE</span><span class="p">))</span>
         <span class="n">symbol_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_render_symbols</span><span class="p">(</span><span class="n">dwg</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
@@ -963,10 +964,13 @@
         <span class="n">dwg_text</span> <span class="o">=</span> <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"main_text"</span><span class="p">))</span>
 
         <span class="n">visited</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">x_pt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">y_pt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">start_pt</span><span class="p">,</span> <span class="n">end_pt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">grid_io</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">x_pt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_pt</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span><span class="o">-</span><span class="n">end_pt</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">y_pt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_pt</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span><span class="o">-</span><span class="n">end_pt</span><span class="p">):</span>
                 <span class="n">module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_top_instance</span><span class="p">(</span><span class="n">x_pt</span><span class="p">,</span> <span class="n">y_pt</span><span class="p">)</span>
                 <span class="n">inst_name</span> <span class="o">=</span> <span class="n">module</span>
+                <span class="k">if</span> <span class="n">module</span> <span class="o">==</span> <span class="s2">"EMPTY"</span><span class="p">:</span>
+                    <span class="k">continue</span>
                 <span class="k">if</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
                     <span class="k">continue</span>
                 <span class="n">visited</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
@@ -1022,7 +1026,9 @@
                                            <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="n">x_pt_new</span><span class="p">,</span> <span class="n">y_pt_new</span><span class="p">)))</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
-        <span class="n">dwg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span> <span class="o">=</span> <span class="n">dwg</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg_shapes</span> <span class="o">=</span> <span class="n">dwg_shapes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg_text</span> <span class="o">=</span> <span class="n">dwg_text</span>
