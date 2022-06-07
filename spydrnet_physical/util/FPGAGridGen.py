@@ -616,10 +616,9 @@ class FPGAGridGen:
         '''
         Renders the given layout
         '''
-        filename = filename or "_render.svg"
         params = self._default_shaping_param()
         bbox = (0, 0, 15*(self.width)-2, 15*(self.height)-2)
-        dwg = svgwrite.Drawing(filename, bbox[2:], debug=False)
+        dwg = svgwrite.Drawing("_render.svg", bbox[2:], debug=False)
         dwg.viewbox(0, -1*bbox[3], bbox[2], bbox[3])
         dwg.defs.add(dwg.style(CSS_STYLE))
         symbol_map = self.add_render_symbols(dwg, params)
@@ -695,7 +694,9 @@ class FPGAGridGen:
                                            insert=(x_pt_new, y_pt_new)))
                 else:
                     print(module)
-        dwg.save(pretty=True, indent=4)
+
+        if filename:
+            dwg.saveas(filename, pretty=True, indent=4)
         self.dwg = dwg
         self.dwg_shapes = dwg_shapes
         self.dwg_text = dwg_text
