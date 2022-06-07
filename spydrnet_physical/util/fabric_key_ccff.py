@@ -41,8 +41,19 @@ class FabricKeyGenCCFF:
         Args:
             filename (str): Fabric key filename
         '''
+        start = 0
+        key = ET.Element('fabric_key')
+        for index, region_elements in enumerate(self.fkey):
+            region = ET.SubElement(key, "region", {'id': str(index)})
+            for each in region_elements:
+                inst_name = each[-1]
+                if (each[0] % 2 == 0) and (each[1] % 2 == 0):
+                    inst_name = "grid_" + inst_name
+                ET.SubElement(region, 'key', {'id': str(start),
+                                              'alias': inst_name})
+                start += 1
         with open(filename, "w", encoding="UTF-8") as fptr:
-            rough_string = ET.tostring(self.fkey, 'utf-8')
+            rough_string = ET.tostring(key, 'utf-8')
             reparsed = minidom.parseString(rough_string)
             fptr.write(reparsed.toprettyxml(indent="  "))
 

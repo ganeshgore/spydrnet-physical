@@ -618,7 +618,7 @@ class FPGAGridGen:
         '''
         filename = filename or "_render.svg"
         params = self._default_shaping_param()
-        bbox = (0, 0, 15*(self.width)-5, 15*(self.height)-5)
+        bbox = (0, 0, 15*(self.width)-2, 15*(self.height)-2)
         dwg = svgwrite.Drawing(filename, bbox[2:], debug=False)
         dwg.viewbox(0, -1*bbox[3], bbox[2], bbox[3])
         dwg.defs.add(dwg.style(CSS_STYLE))

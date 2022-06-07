@@ -34,3 +34,4 @@ fabric_key = FabricKeyGenCCFF(fpga)
 fabric_key.create_fabric_key()
 
 fabric_key.render_svg(filename="_small_layout_ccff_fabric_render.svg")
+fabric_key.save_fabric_key(filename="_serpentine_fabric_key.xml")
