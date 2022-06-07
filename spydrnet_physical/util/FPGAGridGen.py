@@ -79,6 +79,7 @@ symbol[id="cbx"] * { fill:#d9d9f3; stroke-width:0.1; stroke:black;}
 symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}
 symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}
 rect[class="lb"] { fill:#f4f0e6; stroke-width:0.1; stroke:black; }
+symbol[id*="io_"] * { fill:#f8b155; stroke-width:0.1; stroke:black;}
 '''
 
 
@@ -611,7 +612,7 @@ class FPGAGridGen:
             if symbol_name in ele.attribs.get("id", ""):
                 return ele
 
-    def render_layout(self, filename=None):
+    def render_layout(self, filename=None, grid_io=False):
         '''
         Renders the given layout
         '''
@@ -632,10 +633,13 @@ class FPGAGridGen:
         dwg_text = dwg_main.add(Group(id="main_text"))
 
         visited = []
-        for x_pt in range(1, (2*self.width)-2):
-            for y_pt in range(1, (2*self.height)-2):
+        start_pt, end_pt = (0, 1) if grid_io else (1, 2)
+        for x_pt in range(start_pt, (2*self.width)-end_pt):
+            for y_pt in range(start_pt, (2*self.height)-end_pt):
                 module = self.get_top_instance(x_pt, y_pt)
                 inst_name = module
+                if module == "EMPTY":
+                    continue
                 if module in visited:
                     continue
                 visited.append(module)

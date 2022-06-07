@@ -27,7 +27,8 @@ fpga = FPGAGridGen(design_name="example_design",
                    release_root="_release",
                    layout="homogeneous")
 fpga.enumerate_grid()
-fpga.render_layout(filename="_small_layout_ccff_fabric_render.svg")
+fpga.render_layout(filename="_small_layout_ccff_fabric_render.svg",
+                   grid_io=True)
 
 fabric_key = FabricKeyGenCCFF(fpga)
 fabric_key.create_fabric_key()
