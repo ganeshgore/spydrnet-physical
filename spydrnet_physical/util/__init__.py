@@ -23,3 +23,4 @@ from spydrnet_physical.util.connectivity_graph import (prepare_graph_from_nx,
                                                        run_metis,
                                                        write_metis_graph)
 from spydrnet_physical.util.FloorPlanViz import FloorPlanViz
+from spydrnet_physical.util.fabric_key_ccff import FabricKeyGenCCFF
