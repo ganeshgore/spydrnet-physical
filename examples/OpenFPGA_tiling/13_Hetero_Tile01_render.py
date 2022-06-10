@@ -14,7 +14,7 @@ This script can be used for shaping and placement of the modules before place an
    :align: center
 
 """
-
+#sphinx_gallery_thumbnail_path = '../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg'
 import glob
 import logging
 import os
