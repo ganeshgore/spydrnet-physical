@@ -163,8 +163,9 @@ class TestFpgaGridGen(unittest.TestCase):
         self.assertTupleEqual(grid_gen.get_block(1, 0), ("clb", 0, 0))
         self.assertTupleEqual(grid_gen.get_block(0, 1), ("clb", 0, 0))
         self.assertTupleEqual(grid_gen.get_block(1, 1), ("clb", 0, 0))
-
+ 
     def test_enumurate_grid_basiclayout(self):
+        '''Tests the list of Grid elements'''
         grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
         clb2 = ["clb", "clb"]
         # TODO :Reverse this grid io_bottom should be in bottom
@@ -219,6 +220,7 @@ class TestFpgaGridGen(unittest.TestCase):
         self.assertEqual(outcome, expected_outcome)
 
     def test_add_fill(self):
+        '''Tests if the grid is filled by the specified element '''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -232,6 +234,7 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_block(yi, xi), ("clb", yi, xi))
 
     def test_add_single(self):
+        '''Tests the addition of a single element in the FPGA Grid'''
         grid_gen = FPGAGridGen("myDesign",
                                self.vprArchTree, 'smallHetroLayout', "")
 
@@ -244,6 +247,7 @@ class TestFpgaGridGen(unittest.TestCase):
         self.assertTupleEqual(grid_gen.get_block(1, 0), ("dsp", 0, 0))
 
     def test_add_corners(self):
+        '''Test the addition of the cornor elements'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -257,6 +261,7 @@ class TestFpgaGridGen(unittest.TestCase):
                 self.assertTupleEqual(grid_gen.get_block(x, y), ("clb", x, y))
 
     def test_add_perimeter(self):
+        '''Test the addition of the elements around the periphery of the FPGA Grid'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -271,6 +276,7 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_block(yi, xi), ("clb", yi, xi))
 
     def test_add_row(self):
+        '''Tests the addition of row in the FPGA Grid'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -286,6 +292,7 @@ class TestFpgaGridGen(unittest.TestCase):
             self.assertTupleEqual(grid_gen.get_block(x, 3), ("io_right", x, 3))
 
     def test_add_row_repeat(self):
+        '''Tests the addition of row in the FPGA Grid and its repetition horizontaly'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -303,6 +310,7 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_block(x, y), ("io_right", x, y))
 
     def test_add_row_incr(self):
+        '''Tests the addition of row in the FPGA Grid and sets the increment difference between the row elements'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -318,6 +326,7 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_block(x, y), ("io_right", x, y))
 
     def test_add_col(self):
+        '''Tests the addition of column in the FPGA Grid'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -331,6 +340,7 @@ class TestFpgaGridGen(unittest.TestCase):
             self.assertTupleEqual(grid_gen.get_block(3, y), ("io_left", 3, y))
 
     def test_add_col_repeat(self):
+        '''Tests the addition of column in the FPGA Grid and its repetition vertically'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -348,6 +358,7 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_block(x, y), ("io_left", x, y))
 
     def test_add_col_incr(self):
+        '''Tests the addition of column in the FPGA Grid and sets the increment difference between the column elements'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -364,6 +375,7 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_block(x, y), ("io_left", x, y))
 
     def test_add_region_default(self):
+        '''tests the addition of the region in the FPGA Grid with default xy coordinates'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -384,6 +396,7 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_block(xi, yi), ("dsp", xi-1, yi))
 
     def test_add_region_start_xy(self):
+        '''tests the addition of the region in the FPGA Grid with specified xy coordinates'''
         grid_gen = FPGAGridGen(
             "myDesign", self.vprArchTree, 'smallHetroLayout', "")
 
@@ -408,6 +421,7 @@ class TestFpgaGridGen(unittest.TestCase):
                     grid_gen.get_block(xi, yi), ("dsp", xi-1, yi))
 
     def test_add_region_start_repeat(self):
+        '''tests the addition of the region in the FPGA Grid with specified xy coordinates and the repitition of the whole region'''
         grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
 
         grid_gen.enumerate_grid()
@@ -430,6 +444,54 @@ class TestFpgaGridGen(unittest.TestCase):
             for yi in [1, 2, 3, 16, 17, 18]:
                 self.assertTupleEqual(
                     grid_gen.get_block(xi, yi), ("dsp", xi-1, yi))
+
+    def test_add_region_start_incr(self):
+        '''tests the addition of the region in the FPGA Grid with specified xy coordinates and the incremention between the region elements'''
+
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element("region",  attrib = {"type":"dsp", "startx": "W-(W-1)", "endx": "W-(W-9)", "starty":"H-(H-1)", "endy":"H-(H-11)", "incrx": "W-(W-2)","incry": "H-(H-4)"})
+
+        grid_gen.add_region(tree)
+
+        for xi in [1, 3, 5, 7]:
+            for yi in [1, 5, 9]:
+                self.assertTupleEqual(
+                    grid_gen.get_block(xi, yi), ("dsp", xi, yi))
+
+        for xi in [2, 4, 6, 8]:
+            for yi in [1, 5, 9]:
+                self.assertTupleEqual(
+                    grid_gen.get_block(xi, yi), ("dsp", xi-1, yi))
+
+    def test_resolve_string(self):
+        '''Tests the resolution of expresions assigned to attributes to integers'''
+        grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
+
+        grid_gen.enumerate_grid()
+
+        tree = ET.Element("region",  attrib = {"type":"dsp", "startx": "W-(W-1)", "endx": "W-(W-9)", "starty":"H-(H-1)", "endy":"H-(H-11)", "incrx": "W-(W-2)","incry": "H-(H-4)"})
+
+        ele_w, ele_h = grid_gen.fpga_arch.tiles["io_right"]
+
+        var = {
+            "w": ele_w,
+            "h": ele_h,
+            "W": grid_gen.fpga_arch.width,
+            "H": grid_gen.fpga_arch.height
+        }
+        startx = grid_gen._resolve_string(tree, "startx", 0, var)
+        endx = grid_gen._resolve_string(tree, "endx", ele_w, var)
+        starty = grid_gen._resolve_string(tree, "starty", 0, var)
+        endy = grid_gen._resolve_string(tree, "endy", ele_h, var)
+
+        self.assertEqual(startx, 1)
+        self.assertEqual(endx, 9)
+        self.assertEqual(starty, 1)
+        self.assertEqual(endy, 11)
+
 
     def test_validate_grid(self):
         grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
