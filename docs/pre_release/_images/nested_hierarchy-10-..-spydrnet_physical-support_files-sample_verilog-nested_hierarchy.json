@@ -1,0 +1,236 @@
+{
+  "creator": "Yosys 0.17+67 (git sha1 UNKNOWN, ccache clang 11.0.0-2~ubuntu20.04.1 -Os -flto -flto)",
+  "modules": {
+    "module1": {
+      "attributes": {
+        "hdlname": "\\module1",
+        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:14.1-24.10"
+      },
+      "ports": {
+        "in0": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "in1": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "out": {
+          "direction": "output",
+          "bits": [ 4 ]
+        }
+      },
+      "cells": {
+        "module2_0": {
+          "hide_name": 0,
+          "type": "module2",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:21.13-21.61"
+          },
+          "port_directions": {
+            "in0": "input",
+            "in1": "input",
+            "out": "output"
+          },
+          "connections": {
+            "in0": [ 2 ],
+            "in1": [ 3 ],
+            "out": [ 5 ]
+          }
+        },
+        "module2_1": {
+          "hide_name": 0,
+          "type": "module2",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:22.13-22.61"
+          },
+          "port_directions": {
+            "in0": "input",
+            "in1": "input",
+            "out": "output"
+          },
+          "connections": {
+            "in0": [ 3 ],
+            "in1": [ 5 ],
+            "out": [ 4 ]
+          }
+        }
+      },
+      "netnames": {
+        "in0": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:15.11-15.14"
+          }
+        },
+        "in1": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:16.11-16.14"
+          }
+        },
+        "internal": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:19.10-19.18"
+          }
+        },
+        "out": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:17.12-17.15"
+          }
+        }
+      }
+    },
+    "module2": {
+      "attributes": {
+        "blackbox": 1,
+        "hdlname": "\\module2",
+        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:28.1-33.10"
+      },
+      "ports": {
+        "in0": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "in1": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "out": {
+          "direction": "output",
+          "bits": [ 4 ]
+        }
+      },
+      "cells": {
+      },
+      "netnames": {
+        "in0": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:29.11-29.14"
+          }
+        },
+        "in1": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:30.11-30.14"
+          }
+        },
+        "out": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:31.12-31.15"
+          }
+        }
+      }
+    },
+    "top": {
+      "attributes": {
+        "hdlname": "\\top",
+        "top": 1,
+        "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:2.1-12.10"
+      },
+      "ports": {
+        "in0": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "in1": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "out0": {
+          "direction": "output",
+          "bits": [ 4 ]
+        }
+      },
+      "cells": {
+        "inst_1_0": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:9.13-9.57"
+          },
+          "port_directions": {
+            "in0": "input",
+            "in1": "input",
+            "out": "output"
+          },
+          "connections": {
+            "in0": [ 2 ],
+            "in1": [ 3 ],
+            "out": [ 5 ]
+          }
+        },
+        "inst_1_1": {
+          "hide_name": 0,
+          "type": "module1",
+          "parameters": {
+          },
+          "attributes": {
+            "module_not_derived": 1,
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:10.13-10.58"
+          },
+          "port_directions": {
+            "in0": "input",
+            "in1": "input",
+            "out": "output"
+          },
+          "connections": {
+            "in0": [ 5 ],
+            "in1": [ 2 ],
+            "out": [ 4 ]
+          }
+        }
+      },
+      "netnames": {
+        "in0": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:3.11-3.14"
+          }
+        },
+        "in1": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:4.11-4.14"
+          }
+        },
+        "out0": {
+          "hide_name": 0,
+          "bits": [ 4 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:5.12-5.16"
+          }
+        },
+        "wire0": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/nested_hierarchy.v:7.10-7.15"
+          }
+        }
+      }
+    }
+  }
+}

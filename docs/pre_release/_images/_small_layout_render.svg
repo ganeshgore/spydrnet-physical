@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="88" version="1.1" viewBox="0,-88,88,88" width="88">
+    <defs>
+        <style type="text/css"><![CDATA[
+.boundary{stroke:grey; fill:none; stroke-width:0.2}
+text{font-family: Lato; font-size:1.2px;}
+symbol[id="cbx"] * { fill:#d9d9f3; stroke-width:0.1; stroke:black;}
+symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}
+symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}
+rect[class="lb"] { fill:#f4f0e6; stroke-width:0.1; stroke:black; }
+symbol[id*="io_"] * { fill:#f8b155; stroke-width:0.1; stroke:black;}
+]]></style>
+        <symbol id="cbx">
+            <rect class="routing" height="2.5" width="8.5" x="2" y="0"/>
+        </symbol>
+        <symbol id="cby">
+            <rect class="routing" height="8.5" width="2.5" x="0" y="2"/>
+        </symbol>
+        <symbol id="io_top">
+            <rect class="lb" height="12.5" width="12.5" x="0" y="0"/>
+        </symbol>
+        <symbol id="io_right">
+            <rect class="lb" height="12.5" width="12.5" x="0" y="0"/>
+        </symbol>
+        <symbol id="io_bottom">
+            <rect class="lb" height="12.5" width="12.5" x="0" y="0"/>
+        </symbol>
+        <symbol id="io_left">
+            <rect class="lb" height="12.5" width="12.5" x="0" y="0"/>
+        </symbol>
+        <symbol id="clb">
+            <rect class="lb" height="12.5" width="12.5" x="0" y="0"/>
+        </symbol>
+        <symbol id="mcu">
+            <rect class="lb" height="27.5" width="27.5" x="0" y="0"/>
+        </symbol>
+        <symbol id="dsp">
+            <rect class="lb" height="27.5" width="12.5" x="0" y="0"/>
+        </symbol>
+        <symbol id="ram9k">
+            <rect class="lb" height="12.5" width="27.5" x="0" y="0"/>
+        </symbol>
+        <symbol id="sb" x="0" y="0">
+            <path d="M 2 0 v 2 h -2 v 2.5 h 2 v 2 h 2.5 v -2 h 2 v -2.5 h -2 v -2 z"/>
+        </symbol>
+        <symbol id="sb00" x="-2" y="-2">
+            <path d="M 2 0 v 2 h -2 v 2.5 h 2 v 2 h 2.5 v -2 h 2 v -2.5 h -2 v -2 z"/>
+        </symbol>
+        <symbol id="sb01" x="0" y="0">
+            <path d="M 0 0 v 0 h 0 v 2.5 h 0 v 2 h 2.5 v -2 h 2 v -2.5 h -2 v 0 z"/>
+        </symbol>
+        <symbol id="sb02" x="0" y="-2">
+            <path d="M 0 0 v 2 h 0 v 2.5 h 0 v 2 h 2.5 v -2 h 2 v -2.5 h -2 v -2 z"/>
+        </symbol>
+        <symbol id="sb03" x="0" y="-2">
+            <path d="M 0 0 v 2 h 0 v 2.5 h 0 v 0 h 2.5 v 0 h 2 v -2.5 h -2 v -2 z"/>
+        </symbol>
+        <symbol id="sb04" x="-2" y="-2">
+            <path d="M 2 0 v 2 h -2 v 2.5 h 2 v 0 h 2.5 v 0 h 2 v -2.5 h -2 v -2 z"/>
+        </symbol>
+        <symbol id="sb05" x="-2" y="-2">
+            <path d="M 2 0 v 2 h -2 v 2.5 h 2 v 0 h 2.5 v 0 h 0 v -2.5 h 0 v -2 z"/>
+        </symbol>
+        <symbol id="sb06" x="-2" y="-2">
+            <path d="M 2 0 v 2 h -2 v 2.5 h 2 v 2 h 2.5 v -2 h 0 v -2.5 h 0 v -2 z"/>
+        </symbol>
+        <symbol id="sb07" x="-2" y="0">
+            <path d="M 2 0 v 0 h -2 v 2.5 h 2 v 2 h 2.5 v -2 h 0 v -2.5 h 0 v 0 z"/>
+        </symbol>
+        <symbol id="sb08" x="-2" y="0">
+            <path d="M 2 0 v 0 h -2 v 2.5 h 2 v 2 h 2.5 v -2 h 2 v -2.5 h -2 v 0 z"/>
+        </symbol>
+        <symbol id="sb09" x="0" y="-2">
+            <path d="M 0 0 v 2 h 0 v 2.5 h 0 v 2 h 2.5 v -2 h 0 v -2.5 h 0 v -2 z"/>
+        </symbol>
+        <symbol id="sb10" x="-2" y="0">
+            <path d="M 2 0 v 0 h -2 v 2.5 h 2 v 0 h 2.5 v 0 h 2 v -2.5 h -2 v 0 z"/>
+        </symbol>
+    </defs>
+    <g id="main" transform="scale(1,-1)">
+        <rect class="boundary" height="88" id="core_boundary" width="88" x="0" y="0"/>
+        <g id="main_shapes">
+            <use id="sb_0__0_" x="12.5" xlink:href="#sb01" y="12.5"/>
+            <use id="cby_0__1_" x="12.5" xlink:href="#cby" y="15.0"/>
+            <use id="sb_0__1_" x="12.5" xlink:href="#sb09" y="27.5"/>
+            <use id="cby_0__2_" x="12.5" xlink:href="#cby" y="30.0"/>
+            <use id="sb_0__2_" x="12.5" xlink:href="#sb02" y="42.5"/>
+            <use id="cby_0__3_" x="12.5" xlink:href="#cby" y="45.0"/>
+            <use id="sb_0__3_" x="12.5" xlink:href="#sb02" y="57.5"/>
+            <use id="cby_0__4_" x="12.5" xlink:href="#cby" y="60.0"/>
+            <use id="sb_0__4_" x="12.5" xlink:href="#sb03" y="72.5"/>
+            <use id="cbx_1__0_" x="15.0" xlink:href="#cbx" y="12.5"/>
+            <use id="mcu_1__1_" x="15.0" xlink:href="#mcu" y="15.0"/>
+            <use id="cbx_1__2_" x="15.0" xlink:href="#cbx" y="42.5"/>
+            <use id="clb_1__3_" x="15.0" xlink:href="#clb" y="45.0"/>
+            <use id="cbx_1__3_" x="15.0" xlink:href="#cbx" y="57.5"/>
+            <use id="clb_1__4_" x="15.0" xlink:href="#clb" y="60.0"/>
+            <use id="cbx_1__4_" x="15.0" xlink:href="#cbx" y="72.5"/>
+            <use id="sb_1__0_" x="27.5" xlink:href="#sb10" y="12.5"/>
+            <use id="sb_1__2_" x="27.5" xlink:href="#sb08" y="42.5"/>
+            <use id="cby_1__3_" x="27.5" xlink:href="#cby" y="45.0"/>
+            <use id="sb_1__3_" x="27.5" xlink:href="#sb00" y="57.5"/>
+            <use id="cby_1__4_" x="27.5" xlink:href="#cby" y="60.0"/>
+            <use id="sb_1__4_" x="27.5" xlink:href="#sb04" y="72.5"/>
+            <use id="cbx_2__0_" x="30.0" xlink:href="#cbx" y="12.5"/>
+            <use id="cbx_2__2_" x="30.0" xlink:href="#cbx" y="42.5"/>
+            <use id="clb_2__3_" x="30.0" xlink:href="#clb" y="45.0"/>
+            <use id="cbx_2__3_" x="30.0" xlink:href="#cbx" y="57.5"/>
+            <use id="clb_2__4_" x="30.0" xlink:href="#clb" y="60.0"/>
+            <use id="cbx_2__4_" x="30.0" xlink:href="#cbx" y="72.5"/>
+            <use id="sb_2__0_" x="42.5" xlink:href="#sb08" y="12.5"/>
+            <use id="cby_2__1_" x="42.5" xlink:href="#cby" y="15.0"/>
+            <use id="sb_2__1_" x="42.5" xlink:href="#sb02" y="27.5"/>
+            <use id="cby_2__2_" x="42.5" xlink:href="#cby" y="30.0"/>
+            <use id="sb_2__2_" x="42.5" xlink:href="#sb00" y="42.5"/>
+            <use id="cby_2__3_" x="42.5" xlink:href="#cby" y="45.0"/>
+            <use id="sb_2__3_" x="42.5" xlink:href="#sb00" y="57.5"/>
+            <use id="cby_2__4_" x="42.5" xlink:href="#cby" y="60.0"/>
+            <use id="sb_2__4_" x="42.5" xlink:href="#sb04" y="72.5"/>
+            <use id="cbx_3__0_" x="45.0" xlink:href="#cbx" y="12.5"/>
+            <use id="clb_3__1_" x="45.0" xlink:href="#clb" y="15.0"/>
+            <use id="cbx_3__1_" x="45.0" xlink:href="#cbx" y="27.5"/>
+            <use id="clb_3__2_" x="45.0" xlink:href="#clb" y="30.0"/>
+            <use id="cbx_3__2_" x="45.0" xlink:href="#cbx" y="42.5"/>
+            <use id="clb_3__3_" x="45.0" xlink:href="#clb" y="45.0"/>
+            <use id="cbx_3__3_" x="45.0" xlink:href="#cbx" y="57.5"/>
+            <use id="clb_3__4_" x="45.0" xlink:href="#clb" y="60.0"/>
+            <use id="cbx_3__4_" x="45.0" xlink:href="#cbx" y="72.5"/>
+            <use id="sb_3__0_" x="57.5" xlink:href="#sb08" y="12.5"/>
+            <use id="cby_3__1_" x="57.5" xlink:href="#cby" y="15.0"/>
+            <use id="sb_3__1_" x="57.5" xlink:href="#sb00" y="27.5"/>
+            <use id="cby_3__2_" x="57.5" xlink:href="#cby" y="30.0"/>
+            <use id="sb_3__2_" x="57.5" xlink:href="#sb00" y="42.5"/>
+            <use id="cby_3__3_" x="57.5" xlink:href="#cby" y="45.0"/>
+            <use id="sb_3__3_" x="57.5" xlink:href="#sb00" y="57.5"/>
+            <use id="cby_3__4_" x="57.5" xlink:href="#cby" y="60.0"/>
+            <use id="sb_3__4_" x="57.5" xlink:href="#sb04" y="72.5"/>
+            <use id="cbx_4__0_" x="60.0" xlink:href="#cbx" y="12.5"/>
+            <use id="clb_4__1_" x="60.0" xlink:href="#clb" y="15.0"/>
+            <use id="cbx_4__1_" x="60.0" xlink:href="#cbx" y="27.5"/>
+            <use id="clb_4__2_" x="60.0" xlink:href="#clb" y="30.0"/>
+            <use id="cbx_4__2_" x="60.0" xlink:href="#cbx" y="42.5"/>
+            <use id="clb_4__3_" x="60.0" xlink:href="#clb" y="45.0"/>
+            <use id="cbx_4__3_" x="60.0" xlink:href="#cbx" y="57.5"/>
+            <use id="clb_4__4_" x="60.0" xlink:href="#clb" y="60.0"/>
+            <use id="cbx_4__4_" x="60.0" xlink:href="#cbx" y="72.5"/>
+            <use id="sb_4__0_" x="72.5" xlink:href="#sb07" y="12.5"/>
+            <use id="cby_4__1_" x="72.5" xlink:href="#cby" y="15.0"/>
+            <use id="sb_4__1_" x="72.5" xlink:href="#sb06" y="27.5"/>
+            <use id="cby_4__2_" x="72.5" xlink:href="#cby" y="30.0"/>
+            <use id="sb_4__2_" x="72.5" xlink:href="#sb06" y="42.5"/>
+            <use id="cby_4__3_" x="72.5" xlink:href="#cby" y="45.0"/>
+            <use id="sb_4__3_" x="72.5" xlink:href="#sb06" y="57.5"/>
+            <use id="cby_4__4_" x="72.5" xlink:href="#cby" y="60.0"/>
+            <use id="sb_4__4_" x="72.5" xlink:href="#sb05" y="72.5"/>
+        </g>
+        <g id="main_text">
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-13.75">sb_0__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-21.25">cby_0__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-28.75">sb_0__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-36.25">cby_0__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-43.75">sb_0__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-51.25">cby_0__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-58.75">sb_0__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-66.25">cby_0__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="13.75" y="-73.75">sb_0__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="21.25" y="-13.75">cbx_1__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="28.75" y="-28.75">mcu_1__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="21.25" y="-43.75">cbx_1__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="21.25" y="-51.25">clb_1__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="21.25" y="-58.75">cbx_1__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="21.25" y="-66.25">clb_1__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="21.25" y="-73.75">cbx_1__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="28.75" y="-13.75">sb_1__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="28.75" y="-43.75">sb_1__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="28.75" y="-51.25">cby_1__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="28.75" y="-58.75">sb_1__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="28.75" y="-66.25">cby_1__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="28.75" y="-73.75">sb_1__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="36.25" y="-13.75">cbx_2__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="36.25" y="-43.75">cbx_2__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="36.25" y="-51.25">clb_2__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="36.25" y="-58.75">cbx_2__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="36.25" y="-66.25">clb_2__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="36.25" y="-73.75">cbx_2__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-13.75">sb_2__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-21.25">cby_2__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-28.75">sb_2__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-36.25">cby_2__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-43.75">sb_2__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-51.25">cby_2__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-58.75">sb_2__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-66.25">cby_2__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="43.75" y="-73.75">sb_2__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-13.75">cbx_3__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-21.25">clb_3__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-28.75">cbx_3__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-36.25">clb_3__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-43.75">cbx_3__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-51.25">clb_3__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-58.75">cbx_3__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-66.25">clb_3__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="51.25" y="-73.75">cbx_3__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-13.75">sb_3__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-21.25">cby_3__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-28.75">sb_3__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-36.25">cby_3__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-43.75">sb_3__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-51.25">cby_3__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-58.75">sb_3__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-66.25">cby_3__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="58.75" y="-73.75">sb_3__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-13.75">cbx_4__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-21.25">clb_4__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-28.75">cbx_4__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-36.25">clb_4__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-43.75">cbx_4__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-51.25">clb_4__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-58.75">cbx_4__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-66.25">clb_4__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="66.25" y="-73.75">cbx_4__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-13.75">sb_4__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-21.25">cby_4__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-28.75">sb_4__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-36.25">cby_4__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-43.75">sb_4__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-51.25">cby_4__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-58.75">sb_4__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-66.25">cby_4__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="73.75" y="-73.75">sb_4__4_</text>
+        </g>
+    </g>
+</svg>
