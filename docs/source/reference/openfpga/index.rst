@@ -64,3 +64,12 @@ OpenFPGA Class Generators
    :maxdepth: 1
    
    ../utility_classes/initial_placement
+
+
+:doc:`OpenFPGA_Bitstream_Manager <../utility_classes/openfpga_bitstream>`
+..................................................................
+
+.. toctree::
+   :maxdepth: 1
+   
+   ../utility_classes/openfpga_bitstream
