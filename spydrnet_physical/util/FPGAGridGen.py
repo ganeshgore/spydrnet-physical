@@ -76,12 +76,13 @@ def parse_argument() -> argparse.Namespace:
 CSS_STYLE = '''
 .boundary{stroke:grey; fill:none; stroke-width:0.2}
 text{font-family: Lato; font-size:1.2px;}
+symbol * { stroke-width:0.1; stroke:black;}
 .marker{stroke: red;opacity: 0.1;stroke-width: 0.1px;}
-symbol[id="cbx"] * { fill:#d9d9f3; stroke-width:0.1; stroke:black;}
-symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}
-symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}
-rect[class="lb"] { fill:#f4f0e6; stroke-width:0.1; stroke:black; }
-symbol[id*="io_"] * { fill:#f8b155; stroke-width:0.1; stroke:black;}
+symbol[id="cbx"] * { fill:#d9d9f3;}
+symbol[id="cby"] * { fill:#a8d0db;}
+symbol[id*="sb"] * { fill:#ceefe4;}
+rect[class="lb"] { fill:#f4f0e6; }
+symbol[id*="io_"] * { fill:#f8b155;}
 '''
 
 
@@ -638,6 +639,7 @@ class FPGAGridGen:
         for ele in self.dwg.defs.elements:
             if ele.attribs.get('type', "") == 'text/css':
                 ele.append(style)
+                ele.append("\n")
 
     def get_instance(self, instance_name):
         for ele in self.dwg_shapes.elements:
