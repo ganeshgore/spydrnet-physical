@@ -75,6 +75,7 @@ def parse_argument() -> argparse.Namespace:
 CSS_STYLE = '''
 .boundary{stroke:grey; fill:none; stroke-width:0.2}
 text{font-family: Lato; font-size:1.2px;}
+.marker{stroke: red;opacity: 0.1;stroke-width: 0.1px;}
 symbol[id="cbx"] * { fill:#d9d9f3; stroke-width:0.1; stroke:black;}
 symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}
 symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}
@@ -488,11 +489,27 @@ class FPGAGridGen:
         '''
         Returns default shaping parameters for rendering
         '''
-        return {"grid": [10, 5],
-                "clb": [10, 10],
-                "cbx": [8.5, 2.5, 2, 0],
-                "cby": [2.5, 8.5, 0, 2],
-                "sb": [2.5, 2, 2, 2.5, 2, 2, -2, -2]}
+        params = {"clb": [10, 10],
+                  "cbx": [8, 4, None, 0],
+                  "cby": [4, 8, 0, None],
+                  "grid": [None, None],
+                  "sb": [None, None, None, None, None, None, None, None]}
+
+        params["cbx"][2] = (params["clb"][0]-params["cbx"][0])*0.5
+        params["cby"][3] = (params["clb"][1]-params["cby"][1])*0.5
+        params["grid"][0] = params["clb"][0]+params["cby"][0]
+        params["grid"][1] = params["clb"][1]+params["cbx"][1]
+        params["sb"][0] = params["cbx"][1]
+        params["sb"][1] = (params["clb"][0]-params["cbx"][0])*0.5
+        params["sb"][2] = (params["clb"][1]-params["cby"][1])*0.5
+        params["sb"][3] = params["cby"][0]
+        params["sb"][4] = (params["clb"][0]-params["cbx"][0])*0.5
+        params["sb"][5] = (params["clb"][1]-params["cby"][1])*0.5
+        params["sb"][6] = -1*params["sb"][1]
+        params["sb"][7] = -1*params["sb"][5]
+        from pprint import pprint
+        pprint(params)
+        return params
 
     def add_render_symbols(self, dwg, params):
         sym_map = {}
@@ -500,9 +517,16 @@ class FPGAGridGen:
             "cbx": params["cbx"],
             "cby": params["cby"],
         }
-        for tile, size in self.fpga_arch.pb_types.items():
-            rect_symbols[tile] = [(12.5*pt if pt == 1
-                                  else (15*(pt-1)+12.5)) for pt in size] + [0, 0]
+        clb_w = params["clb"][0]
+        clb_h = params["clb"][1]
+        grid_x = params["grid"][0]
+        grid_y = params["grid"][1]
+        for tile, pt in self.fpga_arch.pb_types.items():
+            rect_symbols[tile] = [
+                (clb_w*pt[0] if pt[0] == 1 else (grid_x*(pt[0]-1)+clb_w))]
+            rect_symbols[tile] += [
+                (clb_h*pt[1] if pt[1] == 1 else (grid_y*(pt[1]-1)+clb_h))]
+            rect_symbols[tile] += [0, 0]  # add offset
         for module, dims in rect_symbols.items():
             symbol = dwg.symbol(id=module)
             class_tag = 'routing' if module in ('cbx', 'cby') else "lb"
@@ -512,23 +536,24 @@ class FPGAGridGen:
             sym_map[module] = {"symbol": symbol,
                                "center": (dims[0]/2 + dims[2],
                                           dims[1]/2 + dims[3])}
-        cb_map = {
+        sb_map = {
             #        a, b, c, d, e, f
-            "sb":   [2.5, 2, 2, 2.5, 2, 2, 0, 0],
-            "sb00": [2.5, 2, 2, 2.5, 2, 2, -2, -2],  # ┿
-            "sb01": [2.5, 0, 2, 2.5, 2, 0, 0, 0],  # ┗
-            "sb02": [2.5, 0, 2, 2.5, 2, 2, 0, -2],  # ┝
-            "sb03": [2.5, 0, 0, 2.5, 2, 2, 0, -2],  # ┏
-            "sb04": [2.5, 2, 0, 2.5, 2, 2, -2, -2],  # ┯
-            "sb05": [2.5, 2, 0, 2.5, 0, 2, -2, -2],  # ┓
-            "sb06": [2.5, 2, 2, 2.5, 0, 2, -2, -2],  # ┫
-            "sb07": [2.5, 2, 2, 2.5, 0, 0, -2, 0],  # ┛
-            "sb08": [2.5, 2, 2, 2.5, 2, 0, -2, 0],  # ┷
-            "sb09": [2.5, 0, 2, 2.5, 0, 2, 0, -2],  # ┃
-            "sb10": [2.5, 2, 0, 2.5, 2, 0, -2, 0],  # ━
+            "sb":   [1, 1, 1, 1, 1, 1, 0, 0],
+            "sb00": [1, 1, 1, 1, 1, 1, 1, 1],  # ┿
+            "sb01": [1, 0, 1, 1, 1, 0, 0, 0],  # ┗
+            "sb02": [1, 0, 1, 1, 1, 1, 0, 1],  # ┝
+            "sb03": [1, 0, 0, 1, 1, 1, 0, 1],  # ┏
+            "sb04": [1, 1, 0, 1, 1, 1, 1, 1],  # ┯
+            "sb05": [1, 1, 0, 1, 0, 1, 1, 1],  # ┓
+            "sb06": [1, 1, 1, 1, 0, 1, 1, 1],  # ┫
+            "sb07": [1, 1, 1, 1, 0, 0, 1, 0],  # ┛
+            "sb08": [1, 1, 1, 1, 1, 0, 1, 0],  # ┷
+            "sb09": [1, 0, 1, 1, 0, 1, 0, 1],  # ┃
+            "sb10": [1, 1, 0, 1, 1, 0, 1, 0],  # ━
         }
-        for module, dims in cb_map.items():
-            a, b, c, d, e, f, x, y = dims
+        for module, dims in sb_map.items():
+
+            a, b, c, d, e, f, x, y = [a*b for a, b in zip(params["sb"], dims)]
             symbol = dwg.symbol(id=module)
             symbol["x"] = x
             symbol["y"] = y
@@ -617,7 +642,9 @@ class FPGAGridGen:
         Renders the given layout
         '''
         params = self._default_shaping_param()
-        bbox = (0, 0, 15*(self.width)-2, 15*(self.height)-2)
+        grid_x = params["grid"][0]
+        grid_y = params["grid"][1]
+        bbox = (0, 0, grid_x*(self.width)-2, grid_y*(self.height)-2)
         dwg = svgwrite.Drawing("_render.svg", bbox[2:], debug=False)
         dwg.viewbox(0, -1*bbox[3], bbox[2], bbox[3])
         dwg.defs.add(dwg.style(CSS_STYLE))
@@ -679,8 +706,9 @@ class FPGAGridGen:
                 else:
                     symbol = module
 
-                x_pt_new = (x_pt/2)*15 if (x_pt % 2) == 0 else (x_pt/2)*15 + 5
-                y_pt_new = (y_pt/2)*15 if (y_pt % 2) == 0 else (y_pt/2)*15 + 5
+                x_pt_new = x_pt*0.5*grid_x if (x_pt % 2) == 0 else (int(x_pt*0.5)*grid_x) + params["clb"][0]  # nopep8
+                y_pt_new = y_pt*0.5*grid_y if (y_pt % 2) == 0 else (int(y_pt*0.5)*grid_y) + params["clb"][1]  # nopep8
+                print(x_pt, y_pt, x_pt_new, y_pt_new)
                 # dwg_shapes.add(dwg.circle(r=0.02, stroke="red",
                 #                center=(x_pt_new, y_pt_new)))
                 xct, yct = symbol_map[symbol]["center"]
@@ -688,6 +716,12 @@ class FPGAGridGen:
                                       transform="scale(1,-1)",
                                       alignment_baseline="middle",
                                       text_anchor="middle"))
+                dwg_shapes.add(dwg.line(start=(x_pt_new, 0),
+                                        end=(x_pt_new, bbox[3]),
+                                        class_="marker"))
+                dwg_shapes.add(dwg.line(start=(0, y_pt_new),
+                                        end=(bbox[2], y_pt_new),
+                                        class_="marker"))
                 if symbol:
                     dwg_shapes.add(dwg.use(symbol_map[symbol]["symbol"],
                                            id=inst_name,
