@@ -13,6 +13,7 @@ create a 2D matrix of the FPGA grid.
 import argparse
 import logging
 import math
+from itertools import accumulate
 
 import svgwrite
 from svgwrite.container import Group
@@ -600,22 +601,34 @@ class FPGAGridGen:
                 add_point("v", -1*float(attrib["height"]))
             elif symbol.elements[0].elementname == "path":
                 ele = symbol.elements[0]
+                attrib = ele.attribs
                 pts = ele.attribs["d"].split()
-                points.append((pt[0]+pts[1],
-                              pt[1]+pts[2]))
+                print(pts)
+                print(pt)
+                points.append((pt[0]+float(pts[1])+attrib.get("x", 0),
+                              pt[1]+float(pts[2])+attrib.get("y", 0)))
                 for direction, distance in zip(pts[3:-1:2], pts[4:-1:2]):
                     add_point(direction, float(distance))
             else:
                 logger.error("Can not extract point from tag")
-        _, points = shaping_utils.get_shapes_outline(points)
         print(points)
+        _, points = shaping_utils.get_shapes_outline(points)
         path_points = shaping_utils.points_to_path(points)
+        width_pt = list(accumulate(map(float, path_points.split()[3::2])))
+        height_pt = list(accumulate(map(float, path_points.split()[4::2])))
+        if path_points.split()[0] == "V":
+            width_pt, height_pt = height_pt, width_pt
+        min_x, max_x = min(width_pt), max(width_pt)
+        min_y, max_y = min(height_pt), max(height_pt)
         pt = path_points.lower().split()
         svg_path = ""
         for eachpt in zip(pt[3::2], pt[4::2]):
             svg_path += "v {} h {} ".format(*eachpt) if pt[0] == "v" else \
                 "h {} v {} ".format(*eachpt)
-        symbol = self.dwg.symbol(id=new_symbol_name)
+        symbol = self.dwg.symbol(
+            id=new_symbol_name, x=min_x, y=min_y,
+            width=max_x-min_x, height=max_y-min_y,
+            viewBox=f"{min_x} {min_y} {(max_x-min_x)} {(max_y-min_y)}")
         symbol.add(self.dwg.path(d=f"M {pt[1]} {pt[2]} {svg_path} z"))
         self.dwg.defs.add(symbol)
         self.dwg_shapes.add(self.dwg.use(symbol, insert=points[0]))
