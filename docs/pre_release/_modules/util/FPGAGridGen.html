@@ -411,12 +411,13 @@
 <span class="n">CSS_STYLE</span> <span class="o">=</span> <span class="s1">'''</span>
 <span class="s1">.boundary{stroke:grey; fill:none; stroke-width:0.2}</span>
 <span class="s1">text{font-family: Lato; font-size:1.2px;}</span>
+<span class="s1">symbol * { stroke-width:0.1; stroke:black;}</span>
 <span class="s1">.marker{stroke: red;opacity: 0.1;stroke-width: 0.1px;}</span>
-<span class="s1">symbol[id="cbx"] * { fill:#d9d9f3; stroke-width:0.1; stroke:black;}</span>
-<span class="s1">symbol[id="cby"] * { fill:#a8d0db; stroke-width:0.1; stroke:black;}</span>
-<span class="s1">symbol[id*="sb"] * { fill:#ceefe4; stroke-width:0.1; stroke:black;}</span>
-<span class="s1">rect[class="lb"] { fill:#f4f0e6; stroke-width:0.1; stroke:black; }</span>
-<span class="s1">symbol[id*="io_"] * { fill:#f8b155; stroke-width:0.1; stroke:black;}</span>
+<span class="s1">symbol[id="cbx"] * { fill:#d9d9f3;}</span>
+<span class="s1">symbol[id="cby"] * { fill:#a8d0db;}</span>
+<span class="s1">symbol[id*="sb"] * { fill:#ceefe4;}</span>
+<span class="s1">rect[class="lb"] { fill:#f4f0e6; }</span>
+<span class="s1">symbol[id*="io_"] * { fill:#f8b155;}</span>
 <span class="s1">'''</span>
 
 
@@ -973,6 +974,7 @@
         <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ele</span><span class="o">.</span><span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span> <span class="o">==</span> <span class="s1">'text/css'</span><span class="p">:</span>
                 <span class="n">ele</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">style</span><span class="p">)</span>
+                <span class="n">ele</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg_shapes</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
