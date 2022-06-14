@@ -157,6 +157,7 @@ class FPGAGridGen:
         ]
         self.RIGHT_ARROW = RIGHT_ARROW
         self.UP_ARROW = UP_ARROW
+        self.default_parameters = self._default_shaping_param()
 
     def get_width(self):
         """Get width of FPGA"""
@@ -489,12 +490,16 @@ class FPGAGridGen:
         '''
         Returns default shaping parameters for rendering
         '''
-        params = {"clb": [10, 10],
-                  "cbx": [8, 4, None, 0],
-                  "cby": [4, 8, 0, None],
-                  "grid": [None, None],
-                  "sb": [None, None, None, None, None, None, None, None]}
+        return {
+            "clb": [10, 10],
+            "cbx": [8, 4, None, 0],
+            "cby": [4, 8, 0, None],
+            "grid": [None, None],
+            "sb": [None, None, None, None, None, None, None, None]
+        }
 
+    def _expand_shaping_param(self):
+        params = self.default_parameters
         params["cbx"][2] = (params["clb"][0]-params["cbx"][0])*0.5
         params["cby"][3] = (params["clb"][1]-params["cby"][1])*0.5
         params["grid"][0] = params["clb"][0]+params["cby"][0]
@@ -507,8 +512,6 @@ class FPGAGridGen:
         params["sb"][5] = (params["clb"][1]-params["cby"][1])*0.5
         params["sb"][6] = -1*params["sb"][1]
         params["sb"][7] = -1*params["sb"][5]
-        from pprint import pprint
-        pprint(params)
         return params
 
     def add_render_symbols(self, dwg, params):
@@ -637,11 +640,11 @@ class FPGAGridGen:
             if symbol_name in ele.attribs.get("id", ""):
                 return ele
 
-    def render_layout(self, filename=None, grid_io=False):
+    def render_layout(self, filename=None, grid_io=False, markers=False):
         '''
         Renders the given layout
         '''
-        params = self._default_shaping_param()
+        params = self._expand_shaping_param()
         grid_x = params["grid"][0]
         grid_y = params["grid"][1]
         bbox = (0, 0, grid_x*(self.width)-2, grid_y*(self.height)-2)
@@ -708,7 +711,6 @@ class FPGAGridGen:
 
                 x_pt_new = x_pt*0.5*grid_x if (x_pt % 2) == 0 else (int(x_pt*0.5)*grid_x) + params["clb"][0]  # nopep8
                 y_pt_new = y_pt*0.5*grid_y if (y_pt % 2) == 0 else (int(y_pt*0.5)*grid_y) + params["clb"][1]  # nopep8
-                print(x_pt, y_pt, x_pt_new, y_pt_new)
                 # dwg_shapes.add(dwg.circle(r=0.02, stroke="red",
                 #                center=(x_pt_new, y_pt_new)))
                 xct, yct = symbol_map[symbol]["center"]
@@ -716,12 +718,13 @@ class FPGAGridGen:
                                       transform="scale(1,-1)",
                                       alignment_baseline="middle",
                                       text_anchor="middle"))
-                dwg_shapes.add(dwg.line(start=(x_pt_new, 0),
-                                        end=(x_pt_new, bbox[3]),
-                                        class_="marker"))
-                dwg_shapes.add(dwg.line(start=(0, y_pt_new),
-                                        end=(bbox[2], y_pt_new),
-                                        class_="marker"))
+                if markers:
+                    dwg_shapes.add(dwg.line(start=(x_pt_new, 0),
+                                            end=(x_pt_new, bbox[3]),
+                                            class_="marker"))
+                    dwg_shapes.add(dwg.line(start=(0, y_pt_new),
+                                            end=(bbox[2], y_pt_new),
+                                            class_="marker"))
                 if symbol:
                     dwg_shapes.add(dwg.use(symbol_map[symbol]["symbol"],
                                            id=inst_name,
