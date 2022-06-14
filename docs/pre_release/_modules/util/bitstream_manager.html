@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>util.openfpga_arch - SpyDrNet-Physical alpha documentation</title>
+        <title>util.bitstream_manager - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -332,105 +332,178 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for util.openfpga_arch</h1><div class="highlight"><pre>
+          <h1>Source code for util.bitstream_manager</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""</span>
-<span class="sd">This file contains OpenFPGA Architecture parser class</span>
-<span class="sd">It is desigend to provide a API interface to probe architecrure related data</span>
+<span class="sd">This file contain the class which performs  the bitsream manipulation</span>
 <span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">etree</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
-<span class="kn">from</span> <span class="nn">xml.dom.minidom</span> <span class="kn">import</span> <span class="n">Element</span>
-<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util.shell</span> <span class="kn">import</span> <span class="n">launch_shell</span>
 
-
-<div class="viewcode-block" id="OpenFPGA_Arch"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA_Arch</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">block_bitstream</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    This is an architecture parser which parses the VPR and OpenFPGA XML files</span>
-<span class="sd">    and provides easy interface APIs</span>
+<span class="sd">    This class store bistream for each block</span>
+<span class="sd">    """</span>
+    <span class="k">pass</span>
 
 
-<span class="sd">    .. note:: The idea here is not to parse complete architecture and</span>
-<span class="sd">      rebuild the openfpga and VPR mapping</span>
-
+<div class="viewcode-block" id="BitstreamManager"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager">[docs]</a><span class="k">class</span> <span class="nc">BitstreamManager</span><span class="p">:</span>
+    <span class="sd">"""</span>
 
 <span class="sd">    """</span>
 
-<div class="viewcode-block" id="OpenFPGA_Arch.__init__"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vpr_arch</span><span class="p">,</span> <span class="n">openfpga_arch</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vpr_arch</span> <span class="o">=</span> <span class="n">vpr_arch</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
-            <span class="n">vpr_arch</span><span class="p">,</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">else</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">vpr_arch</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">openfpga_arch</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">openfpga_arch</span> <span class="o">=</span> <span class="n">openfpga_arch</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
-                <span class="n">openfpga_arch</span><span class="p">,</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">)</span> <span class="k">else</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">openfpga_arch</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pb_types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_pb_types</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tiles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_tiles</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tiles</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"EMPTY"</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_layout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)]</span>
-                     <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)]</span></div>
+    <span class="n">instance_map</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">"""</span>
+<span class="sd">    A dictionary containing the module name instances of those definitions</span>
+<span class="sd">    """</span>
+    <span class="n">_regions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="sd">"""</span>
+<span class="sd">    Store the list of list, and each element contains tuple of</span>
+<span class="sd">    (module_name, instance_name)</span>
+<span class="sd">    """</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pb_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Returns list of pb_types in the architecture '''</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pb_types</span>
+    <span class="n">bit_man</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">"""</span>
+<span class="sd">    A dictionary of lists with the bitstream values</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Returns list of tiles in the architecture '''</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tiles</span>
+<span class="sd">    .. code-block::</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">""" Returns selected layout name """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layout</span>
+<span class="sd">        {</span>
+<span class="sd">            "module_name" : {</span>
+<span class="sd">                "elements": {</span>
+<span class="sd">                    "each_element" : (higher_index, lower_indx)</span>
+<span class="sd">                },</span>
+<span class="sd">                "bitstream": {</span>
+<span class="sd">                    "instance_name" : [&lt;&lt;as shown below&gt;&gt;]</span>
+<span class="sd">                }</span>
+<span class="sd">            }</span>
+<span class="sd">        }</span>
 
-    <span class="k">def</span> <span class="nf">_get_pb_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">pb</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">):</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">pb</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'width'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="n">pb</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'height'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
-                <span class="k">for</span> <span class="n">pb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vpr_arch</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"./tiles/tile"</span><span class="p">)}</span>
 
-    <span class="k">def</span> <span class="nf">_get_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">tile</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">):</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'width'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="nb">int</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'height'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
-                <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vpr_arch</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"./tiles/tile"</span><span class="p">)}</span>
+<span class="sd">    .. rst-class:: ascii</span>
 
-<div class="viewcode-block" id="OpenFPGA_Arch.get_width"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Return width of selected layout '''</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">-</span><span class="mi">2</span></div>
+<span class="sd">    ::</span>
 
-<div class="viewcode-block" id="OpenFPGA_Arch.get_height"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.get_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Return height of selected layout '''</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="o">-</span><span class="mi">2</span></div>
+<span class="sd">                   bits ----&gt;&gt;</span>
+<span class="sd">        ------------------------------------</span>
+<span class="sd">         I |</span>
+<span class="sd">         N |</span>
+<span class="sd">         S |</span>
+<span class="sd">         T |</span>
+<span class="sd">         A |</span>
+<span class="sd">         N |</span>
+<span class="sd">         C |</span>
+<span class="sd">         E |</span>
 
-<div class="viewcode-block" id="OpenFPGA_Arch.get_layouts"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.get_layouts">[docs]</a>    <span class="k">def</span> <span class="nf">get_layouts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="sd">        Each element is (unique_id, value)</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">Bit</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">"Bit"</span><span class="p">,</span> <span class="s2">"id value"</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BitstreamManager.__init__"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fabric_key</span><span class="p">,</span> <span class="n">bitstream</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">"""</span>
-<span class="sd">        Returns the dictionary of avaialble layouts in the architecture</span>
+<span class="sd">        Bitstream manipulation class</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Available layouts as a key and (width, height) as a value of each key</span>
+<span class="sd">        Args:</span>
+<span class="sd">            bistream: Fabric inpdendendent bitstream</span>
 <span class="sd">        """</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vpr_arch</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"layout"</span><span class="p">)</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"fixed_layout"</span><span class="p">):</span>
-            <span class="n">layout</span><span class="p">[</span><span class="n">each</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">each</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"width"</span><span class="p">)),</span>
-                                        <span class="nb">int</span><span class="p">(</span><span class="n">each</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"height"</span><span class="p">)))</span>
-        <span class="k">return</span> <span class="n">layout</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fabric_key</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fabric_key</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bitstream</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">bitstream</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_instance_map</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_bitstream</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="OpenFPGA_Arch.set_layout"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.set_layout">[docs]</a>    <span class="k">def</span> <span class="nf">set_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout_name</span><span class="p">):</span>
-        <span class="sd">""" Set speific layout as primary layout """</span>
-        <span class="n">layouts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layouts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="n">layout_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layouts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> \
-            <span class="s2">"</span><span class="si">%s</span><span class="s2"> layout not found, [</span><span class="si">%s</span><span class="s2">]"</span> <span class="o">%</span> <span class="p">(</span><span class="n">layout_name</span><span class="p">,</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">layouts</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vpr_arch</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"layout"</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"fixed_layout[@name='</span><span class="si">{</span><span class="n">layout_name</span><span class="si">}</span><span class="s2">']"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_layout</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"width"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_layout</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"height"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></div>
-
-<div class="viewcode-block" id="OpenFPGA_Arch.is_homogeneous"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.is_homogeneous">[docs]</a>    <span class="k">def</span> <span class="nf">is_homogeneous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">regions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        Checks if the device is homogeneous device or heterogenous</span>
-
-<span class="sd">        if layout section contains anything other than `corner`, `periphery` and</span>
-<span class="sd">        `fill` the device is consider as a homogeneous</span>
+<span class="sd">        Returns number of regions in the current bitstream</span>
 <span class="sd">        """</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vpr_arch</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"layout"</span><span class="p">)</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"fixed_layout"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"clb"</span><span class="p">))</span></div></div>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_regions</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_instance_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Extracts the tp level configuration regions</span>
+<span class="sd">        """</span>
+        <span class="n">regions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fabric_key</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"region"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">regions</span><span class="p">))]</span>
+        <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">each_region</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">regions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">each_instance</span> <span class="ow">in</span> <span class="n">each_region</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">each_instance</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
+                <span class="n">alias</span> <span class="o">=</span> <span class="n">each_instance</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"alias"</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance_map</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">instance_map</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alias</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_regions</span><span class="p">[</span><span class="n">indx</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">alias</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_module_of_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the module name of the given instance</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">module_name</span><span class="p">,</span> <span class="n">instances</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">instance_name</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">module_name</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="BitstreamManager.load_bitstream"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.load_bitstream">[docs]</a>    <span class="k">def</span> <span class="nf">load_bitstream</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        This method loads the bitstreams in the internal varaibles</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">each_region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bitstream</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">"region"</span><span class="p">):</span>
+            <span class="n">bitcount</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Counts number of bits in each mdoule</span>
+            <span class="n">element_count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">pre_module_name</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">bits</span> <span class="ow">in</span> <span class="n">each_region</span><span class="p">:</span>
+                <span class="n">unique_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"id"</span><span class="p">])</span>
+                <span class="n">bit</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bits</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]))</span>
+                <span class="n">bpath</span> <span class="o">=</span> <span class="n">bits</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"path"</span><span class="p">]</span>
+
+                <span class="c1"># Derive variables</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="n">bpath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">module_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_module_of_instance</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+
+                <span class="c1"># Enumerate data</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bit_man</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod</span> <span class="o">=</span> \
+                    <span class="bp">self</span><span class="o">.</span><span class="n">bit_man</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="p">{</span>
+                        <span class="s2">"elements"</span><span class="p">:</span> <span class="n">OrderedDict</span><span class="p">(),</span>
+                        <span class="s2">"instances"</span><span class="p">:</span> <span class="p">{},</span>
+                    <span class="p">})</span>
+
+                <span class="n">mod</span><span class="p">[</span><span class="s2">"instances"</span><span class="p">][</span><span class="n">instance</span><span class="p">]</span> <span class="o">=</span> <span class="n">mod</span><span class="p">[</span><span class="s2">"instances"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="n">mod</span><span class="p">[</span><span class="s2">"instances"</span><span class="p">][</span><span class="n">instance</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Bit</span><span class="p">(</span><span class="n">unique_id</span><span class="p">,</span> <span class="n">bit</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">pre_module_name</span> <span class="o">==</span> <span class="n">module_name</span><span class="p">):</span>
+                    <span class="n">bitcount</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">element_count</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">prev_bitcount</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="k">if</span> <span class="s2">"mem_out[0]"</span> <span class="ow">in</span> <span class="n">bpath</span><span class="p">:</span>
+                    <span class="n">reg_path</span> <span class="o">=</span> <span class="s1">'.'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bpath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">reg_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bit_man</span><span class="p">[</span><span class="n">module_name</span><span class="p">][</span><span class="s2">"elements"</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">mod</span><span class="p">[</span><span class="s2">"elements"</span><span class="p">][</span><span class="n">reg_path</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bitcount</span><span class="p">,</span> <span class="n">prev_bitcount</span><span class="p">)</span>
+                    <span class="n">prev_bitcount</span> <span class="o">=</span> <span class="n">bitcount</span>
+                    <span class="n">element_count</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">pre_module_name</span> <span class="o">=</span> <span class="n">module_name</span>
+                <span class="n">bitcount</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+    <span class="k">def</span> <span class="nf">get_module_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module_name</span><span class="p">):</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bit_man</span><span class="p">[</span><span class="n">module_name</span><span class="p">][</span><span class="s2">"elements"</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">print_bitstream_of_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module_name</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">"hex"</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">inst_name</span><span class="p">,</span> <span class="n">bits</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bit_man</span><span class="p">[</span><span class="n">module_name</span><span class="p">][</span><span class="s2">"instances"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">bit_str</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">"1"</span> <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">value</span> <span class="k">else</span> <span class="s2">"0"</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bits</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">'hex'</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">inst_name</span><span class="p">,</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bit_str</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">inst_name</span><span class="p">,</span> <span class="n">bit_str</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">create_fabric_bitstream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp_ptr</span><span class="p">:</span>
+            <span class="n">fp_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"# Fabric bitstream auto-generated</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_unique_memory_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
 </pre></div>
         </article>
       </div>
