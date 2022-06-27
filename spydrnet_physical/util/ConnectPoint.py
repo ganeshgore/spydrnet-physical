@@ -33,6 +33,7 @@ class ConnectPoint:
         self.to_dir = ""
         self._level = level
         self._color = color
+        self._buffer = False
         self._update_direction()
 
     @property
@@ -70,6 +71,19 @@ class ConnectPoint:
     def color(self):
         ''' return color of connection '''
         return self._color
+
+    @property
+    def is_buffered(self):
+        ''' Returns connection level '''
+        return bool(self._buffer)
+
+    @set_buffer.setter
+    def set_buffer(self):
+        self._buffer = True
+
+    @remove_buffer.setter
+    def remove_buffer(self):
+        self._buffer = False
 
     @from_connection.setter
     def from_connection(self, points):
