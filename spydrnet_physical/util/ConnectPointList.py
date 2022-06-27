@@ -657,6 +657,7 @@ class ConnectPointList:
         signal = signal_cable.name
         cable = netlist.top_instance.reference.create_cable(signal+"_ft")
         for point in self._points:
+            logger.debug("Evaluating Point %s", point)
             if point.level == "up":
                 continue
             w = cable.create_wire()
@@ -673,7 +674,11 @@ class ConnectPointList:
             else:
                 inst = self.get_top_instance(netlist, *point.from_connection)
                 port_name = f"{signal}_{point.from_dir}_out"
-                w.connect_pin(next(inst.get_port_pins(port_name)))
+                try:
+                    w.connect_pin(next(inst.get_port_pins(port_name)))
+                except AssertionError:
+                    logger.warning(next(inst.get_port_pins(port_name)).port.name)
+                    w = next(inst.get_port_pins(port_name)).wire
 
             if 0 in point.to_connection or \
                     (self.sizex+1 == point.to_connection[0]) or \
