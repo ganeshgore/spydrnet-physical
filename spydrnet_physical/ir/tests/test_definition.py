@@ -344,7 +344,7 @@ class TestDefinition(unittest.TestCase):
 
         self.assertEqual(len(cable_list), 1)
 
-
+    
 
 
 

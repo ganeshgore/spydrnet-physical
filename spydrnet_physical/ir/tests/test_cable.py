@@ -75,3 +75,37 @@ class TestCable(unittest.TestCase):
         o_indx = [get_pin(pin) for pin in next(assig_inst.get_ports("o")).pins]
         self.assertEqual(i_indx, [0, 1])
         self.assertEqual(o_indx, [1, 2])
+
+    def test_split(self):
+
+        cable1 = self.definition.create_cable(name="in0",is_downto=True, is_scalar = False, lower_index = 0, wires=4)
+
+        cable_list1 = [print(i.name) for i in self.definition.cables]  
+
+        self.assertEqual(len(cable_list1), 2)
+
+        cable1.split()
+
+        cable_list2 = [print(i.name) for i in self.definition.cables]  
+
+        self.assertEqual(len(cable_list2), 5)
+
+    def test_check_concat(self):
+
+        port1 = self.definition.create_port(name="in0", is_downto=True, is_scalar = False, lower_index = 0, direction=sdn.IN, pins=4)
+
+        cable1 = self.definition.create_cable(name="in0",is_downto=True, is_scalar = False, lower_index = 0, wires=4)
+
+        cable1.connect_port(port1)
+
+        self.assertEqual(cable1.check_concat(), False)
+
+        port2 = self.definition.create_port("io1", pins = 1)
+
+        cable2 = self.definition.create_cable("io1",wires = 1)
+
+        cable2.connect_port(port2)
+
+        self.assertEqual(cable2.check_concat(), True)
+    
+    
