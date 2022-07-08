@@ -209,6 +209,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/utility_classes/initial_placement.html">Initial Placement</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../reference/utility_classes/openfpga_bitstream.html">Bitstream Manager</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../reference/utility/index.html">Utility Classes</a></li>
@@ -275,6 +276,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_tiling/09_tile03_generation.html">5.10. Unified routing tile structure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_tiling/10_tile02_tiles.html">5.11. Tile02 - Area optimized version with higher regularity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_tiling/11_memory_bank_protocol.html">5.12. Implementing memeory bank protocol on Tile02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_tiling/12_Hetero_Tile01.html">5.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_tiling/13_Hetero_Tile01_render.html">5.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_config/index.html">6. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -639,7 +642,7 @@
                 <span class="n">outline</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">shaping_utils</span><span class="o">.</span><span class="n">_convert_rect_to_pt</span><span class="p">(</span><span class="n">each</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">shape</span> <span class="o">==</span> <span class="s2">"cross"</span><span class="p">:</span>
                 <span class="n">outline</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">shaping_utils</span><span class="o">.</span><span class="n">_convert_cross_to_pt</span><span class="p">(</span><span class="n">each</span><span class="p">))</span>
-            <span class="n">new_mod</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"AREA"</span><span class="p">]</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">new_mod</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"AREA"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">each</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                 <span class="s2">"AREA"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">LOC_X</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">each</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_X"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
                      <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">instances_list</span><span class="p">])</span>

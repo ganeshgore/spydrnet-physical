@@ -210,6 +210,7 @@
 <li class="toctree-l4"><a class="reference internal" href="initial_placement.html">Initial Placement</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="openfpga_bitstream.html">Bitstream Manager</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../utility/index.html">Utility Classes</a></li>
@@ -276,6 +277,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/09_tile03_generation.html">5.10. Unified routing tile structure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/10_tile02_tiles.html">5.11. Tile02 - Area optimized version with higher regularity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/11_memory_bank_protocol.html">5.12. Implementing memeory bank protocol on Tile02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/12_Hetero_Tile01.html">5.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_tiling/13_Hetero_Tile01_render.html">5.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_config/index.html">6. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -418,7 +421,7 @@ io_left     clb        clb        clb        clb        clb        clb      io_r
 <tr class="row-odd"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.validate_grid" title="util.FPGAGridGen.FPGAGridGen.validate_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_grid</span></code></a>()</p></td>
 <td><p>Checks for the correctness of the grid</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.render_layout" title="util.FPGAGridGen.FPGAGridGen.render_layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_layout</span></code></a>([filename, grid_io])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.FPGAGridGen.FPGAGridGen.render_layout" title="util.FPGAGridGen.FPGAGridGen.render_layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_layout</span></code></a>([filename, grid_io, markers])</p></td>
 <td><p>Renders the given layout</p></td>
 </tr>
 </tbody>
@@ -563,7 +566,7 @@ cordinate points</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="util.FPGAGridGen.FPGAGridGen.render_layout">
-<span class="sig-name descname"><span class="pre">render_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_io</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.render_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.render_layout" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">render_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_io</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/FPGAGridGen.html#FPGAGridGen.render_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.FPGAGridGen.FPGAGridGen.render_layout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the given layout</p>
 </dd></dl>
 </dd></dl>

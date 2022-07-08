@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="2.5. FPGA Layout grid generation" href="04_fpga_grid_generation.html" /><link rel="prev" title="2.3. Auto Floorplan homogeneous design" href="03_automated_initial_placement.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="6. Configuration Chain" href="../auto_openfpga_config/index.html" /><link rel="prev" title="5.13. Floorplanning Classic Tiles for hetergeneous design" href="12_Hetero_Tile01.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>2.4. Render Placement information from Verilog netlist - SpyDrNet-Physical alpha documentation</title>
+        <title>5.14. Floorplanning Classic Tiles for hetergeneous design - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -230,17 +230,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">1.7. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">2. OpenFPGA Basic Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01_fpga_arch_parse.html">2.1. OpenFPGA Architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03_automated_initial_placement.html">2.3. Auto Floorplan homogeneous design</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">2.4. Render Placement information from Verilog netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">2.5. FPGA Layout grid generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_render.html">2.6. RenderFPGA Pre Generation Grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">2.7. FPGA Instance to Layout mapping</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_FloorplanHeterogeneousDesign01.html">2.8. Heterogeneous Design Placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_grid_floor_plan_example.html">2.9. Grid Floorplan Generator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rename_modules.html">2.10. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/01_fpga_arch_parse.html">2.1. OpenFPGA Architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/03_automated_initial_placement.html">2.3. Auto Floorplan homogeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/03_initial_placement.html">2.4. Render Placement information from Verilog netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/04_fpga_grid_generation.html">2.5. FPGA Layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/04_fpga_grid_render.html">2.6. RenderFPGA Pre Generation Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/05_fpga_instance_name.html">2.7. FPGA Instance to Layout mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/07_FloorplanHeterogeneousDesign01.html">2.8. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/08_grid_floor_plan_example.html">2.9. Grid Floorplan Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/rename_modules.html">2.10. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -264,21 +264,21 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example4.html">4.11. Clock tree insertion Example Architecture 3</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">5. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/01_netlist_to_graph.html">5.1. Netlist to graph (networkx)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/02_switch_partition_01.html">5.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/03_switch_partition_02.html">5.3. Physical/Techmapped Partition Conn Box 02</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/04_switch_partition_03.html">5.4. Partition Conn Box 02 - Simplified</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/05_module_partition.html">5.5. Split CBs and SBs across fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part1.html">5.6. Generic Tiling Part02 - Creating tile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part2.html">5.7. Generic Tiling Part02 - Creating tile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/07_FloorplanDesign01.html">5.8. Floorplanning Classic Tiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/08_area_optimized_tiles.html">5.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/09_tile03_generation.html">5.10. Unified routing tile structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/10_tile02_tiles.html">5.11. Tile02 - Area optimized version with higher regularity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/11_memory_bank_protocol.html">5.12. Implementing memeory bank protocol on Tile02</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/12_Hetero_Tile01.html">5.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/13_Hetero_Tile01_render.html">5.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">5. Partition Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="01_netlist_to_graph.html">5.1. Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_switch_partition_01.html">5.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_switch_partition_02.html">5.3. Physical/Techmapped Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_switch_partition_03.html">5.4. Partition Conn Box 02 - Simplified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_module_partition.html">5.5. Split CBs and SBs across fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_generic_tiling_part1.html">5.6. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_generic_tiling_part2.html">5.7. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_FloorplanDesign01.html">5.8. Floorplanning Classic Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_area_optimized_tiles.html">5.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_tile03_generation.html">5.10. Unified routing tile structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_tile02_tiles.html">5.11. Tile02 - Area optimized version with higher regularity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_memory_bank_protocol.html">5.12. Implementing memeory bank protocol on Tile02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_Hetero_Tile01.html">5.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">5.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_config/index.html">6. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -335,31 +335,52 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-basic-03-initial-placement-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-tiling-13-hetero-tile01-render-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="render-placement-information-from-verilog-netlist">
-<span id="sphx-glr-auto-openfpga-basic-03-initial-placement-py"></span><h1><span class="section-number">2.4. </span>Render Placement information from Verilog netlist<a class="headerlink" href="#render-placement-information-from-verilog-netlist" title="Permalink to this headline">¶</a></h1>
+<section class="sphx-glr-example-title" id="floorplanning-classic-tiles-for-hetergeneous-design">
+<span id="sphx-glr-auto-openfpga-tiling-13-hetero-tile01-render-py"></span><h1><span class="section-number">5.14. </span>Floorplanning Classic Tiles for hetergeneous design<a class="headerlink" href="#floorplanning-classic-tiles-for-hetergeneous-design" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstate how to render FPGA Tile using <code class="docutils literal notranslate"><span class="pre">FloorPlanViz</span></code> class
 User can provide external script to render tiles, by default the rendering is
-based on <code class="docutils literal notranslate"><span class="pre">initial_placement</span></code> class.</p>
+based on <code class="docutils literal notranslate"><span class="pre">initial_hetero_placement</span></code> class.</p>
 <p>This script can be used for shaping and placement of the modules before place and route.</p>
-<a class="reference internal image-reference" href="../_images/_fpga_initial_placement.svg"><img alt="../_images/_fpga_initial_placement.svg" class="align-center" src="../_images/_fpga_initial_placement.svg" width="70%"/></a>
+<a class="reference internal image-reference" href="../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg"><img alt="../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg" class="align-center" src="../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg" width="70%"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">initial_placement</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FloorPlanViz</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">FloorPlanViz</span><span class="p">,</span> <span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">Tile02</span><span class="p">,</span>
+                                    <span class="n">GridFloorplanGen</span><span class="p">,</span> <span class="n">OpenFPGA</span><span class="p">,</span>
+                                    <span class="n">initial_hetero_placement</span><span class="p">)</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
 
+<span class="n">PROP</span> <span class="o">=</span> <span class="s2">"VERILOG.InlineConstraints"</span>
+
+
+<span class="n">CBX_COLOR</span> <span class="o">=</span> <span class="s1">'#d9d9f3'</span>
+<span class="n">CBY_COLOR</span> <span class="o">=</span> <span class="s1">'#a8d0db'</span>
+<span class="n">SB_COLOR</span> <span class="o">=</span> <span class="s1">'#ceefe4'</span>
+<span class="n">GRID_COLOR</span> <span class="o">=</span> <span class="s1">'#ddd0b1'</span>
+
+
+<span class="n">STYLE_SHEET</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="s1">    .over_util {fill:#b22222 !important}</span>
+<span class="s1">    text{font-family: Lato; font-size: 8px}</span>
+<span class="s1">'''</span>
+
+<span class="n">CPP</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">SC_HEIGHT</span> <span class="o">=</span> <span class="mi">10</span>
+
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">proj</span> <span class="o">=</span> <span class="s2">"../homogeneous_fabric"</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="s2">"../hetrogeneous_fabric"</span>
     <span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/lb/*.v'</span><span class="p">)</span>
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/routing/*.v'</span><span class="p">)</span>
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/sub_module/*.v'</span><span class="p">)</span>
@@ -373,7 +394,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
         <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
 
     <span class="c1"># Convert wires to bus structure</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_bus</span><span class="p">()</span>
@@ -382,19 +403,101 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">fpga</span><span class="o">.</span><span class="n">create_cb_bus</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">merge_all_grid_ios</span><span class="p">()</span>
 
+    <span class="c1"># Convert top level independent nets to bus</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_clb*"</span><span class="p">),</span>
+                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_io*"</span><span class="p">),</span>
+                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"sb_*"</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">check_all_scalar_connections</span><span class="p">(</span><span class="n">p</span><span class="p">)):</span>
+                <span class="n">cable_list</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">pins</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">cable_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">cable</span><span class="p">)</span>
+                <span class="n">cable</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">combine_cables</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">cable_list</span><span class="p">)</span>
+                <span class="n">cable</span><span class="o">.</span><span class="n">is_downto</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">inst</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
+
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="c1">#           Floorplan visualization</span>
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">initial_placement</span><span class="p">,</span>
-                                    <span class="n">areaFile</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/area_info.txt"</span><span class="p">)</span>
+    <span class="n">fpga_grid</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s1">'FPGA8x8'</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">"8x8"</span><span class="p">,</span>
+                            <span class="n">arch_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/FPGA88_hetero_Task/arch/k6_N10_tileable.xml"</span><span class="p">,</span>
+                            <span class="n">release_root</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">fpga_grid</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">load_grid</span><span class="p">(</span><span class="n">fpga_grid</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">initial_hetero_placement</span><span class="p">,</span>
+                                    <span class="n">areaFile</span><span class="o">=</span><span class="p">{</span>
+                                        <span class="s2">"grid_clb"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2500</span><span class="p">,</span> <span class="mi">24</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span>
+                                        <span class="s2">"cbx_1__1_"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2500</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+    <span class="c1"># print(set(inst.keys()))</span>
+    <span class="c1"># print(set(fpga.placement_creator.module_shapes.keys()))</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">module_shapes</span>
+    <span class="n">s_param</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">s_param</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">shapes</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'cbx_2__0_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'cbx_1__0_'</span><span class="p">]</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'cbx_2__2_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'cbx_1__1_'</span><span class="p">]</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'cbx_2__8_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'cbx_1__8_'</span><span class="p">]</span>
+
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'cby_2__1_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'cby_3__1_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'cby_1__1_'</span><span class="p">])</span>
+
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_2__0_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_3__0_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_1__0_'</span><span class="p">])</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_2__8_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_3__8_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_1__8_'</span><span class="p">])</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_2__2_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_1__1_'</span><span class="p">])</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_3__1_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_1__1_'</span><span class="p">])</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_2__1_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_1__1_'</span><span class="p">])</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_1__2_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_1__1_'</span><span class="p">])</span>
+
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_8__2_'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_8__1_'</span><span class="p">])</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'grid_mult_8'</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s1">'grid_clb'</span><span class="p">])</span>
+
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'grid_mult_8'</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">s_param</span><span class="p">[</span><span class="s2">"clb_h"</span><span class="p">]</span> <span class="o">+</span> <span class="n">s_param</span><span class="p">[</span><span class="s2">"cbx11_h"</span><span class="p">]</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_1__1_'</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_2__1_'</span><span class="p">][</span><span class="s2">"PLACEMENT"</span><span class="p">]</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_2__1_'</span><span class="p">][</span><span class="s2">"PLACEMENT"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_2__1_'</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                       <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_2__1_'</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_8__1_'</span><span class="p">][</span><span class="s2">"PLACEMENT"</span><span class="p">]</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_8__1_'</span><span class="p">][</span><span class="s2">"PLACEMENT"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_8__1_'</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                       <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">shapes</span><span class="p">[</span><span class="s1">'sb_8__1_'</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
     <span class="n">fpga</span><span class="o">.</span><span class="n">create_placement</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="s2">"*_0__*"</span><span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
 
+    <span class="c1"># Create Tile-02 structure</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">register_tile_generator</span><span class="p">(</span><span class="n">Tile02</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_tiles</span><span class="p">()</span>
+
+    <span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">'pastel'</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">as_hex</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">tile</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"*tile*"</span><span class="p">)):</span>
+        <span class="n">tile</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"COLOR"</span><span class="p">]</span> <span class="o">=</span> <span class="n">palette</span><span class="p">[</span><span class="n">indx</span><span class="p">]</span>
+
+    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
+
+    <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="c1"># #           Adjust Floorplan</span>
+    <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">update_module_label</span><span class="p">()</span>
+
     <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="p">)</span>
     <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">fp</span><span class="o">.</span><span class="n">custom_style_sheet</span> <span class="o">=</span> <span class="n">STYLE_SHEET</span>
     <span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
-    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fpga_initial_placement.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">design_grid</span><span class="o">.</span><span class="n">render_grid</span><span class="p">(</span><span class="n">return_group</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">pattern</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">CPP</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">SC_HEIGHT</span><span class="p">),</span>
+                          <span class="n">patternUnits</span><span class="o">=</span><span class="s2">"userSpaceOnUse"</span><span class="p">)</span>
+    <span class="n">pattern</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"black"</span><span class="p">))</span>
+    <span class="n">pattern</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">SC_HEIGHT</span><span class="o">+</span><span class="mi">2</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"red"</span><span class="p">))</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attribs</span><span class="p">[</span><span class="s2">"fill"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_funciri</span><span class="p">()</span>
+
+    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fpga_auto_initial_heterogeneous_placement.svg"</span><span class="p">,</span>
+               <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
@@ -402,12 +505,12 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-basic-03-initial-placement-py">
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-tiling-13-hetero-tile01-render-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/c95daa9306778d0932f2507fb6e5ad01/03_initial_placement.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">03_initial_placement.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/a8811e35d7757e9677194e415a2b38f5/13_Hetero_Tile01_render.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">13_Hetero_Tile01_render.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/8c89c950a7a24f18c98c035d29b4160d/03_initial_placement.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">03_initial_placement.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/580da9d8981ef0a9beac711fed034918/13_Hetero_Tile01_render.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">13_Hetero_Tile01_render.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -418,23 +521,23 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="04_fpga_grid_generation.html">
+          <a class="next-page" href="../auto_openfpga_config/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">2.5. </span>FPGA Layout grid generation</div>
+                <div class="title"><span class="section-number">6. </span>Configuration Chain</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="03_automated_initial_placement.html">
+          <a class="prev-page" href="12_Hetero_Tile01.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">2.3. </span>Auto Floorplan homogeneous design</div>
+                <div class="title"><span class="section-number">5.13. </span>Floorplanning Classic Tiles for hetergeneous design</div>
                 
               </div>
             </a>
@@ -446,7 +549,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_openfpga_basic/03_initial_placement.rst.txt"
+            <a class="muted-link" href="../_sources/auto_openfpga_tiling/13_Hetero_Tile01_render.rst.txt"
                rel="nofollow">
               Show Source
             </a>
