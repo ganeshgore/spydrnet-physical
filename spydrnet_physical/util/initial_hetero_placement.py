@@ -241,9 +241,11 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
                 inst.data[PROP]['LOC_Y'] = anchor[1] + (y_off*self.SC_HEIGHT)
 
         top_module.data[PROP]["WIDTH"] = \
-            self.design_grid.width + (40*self.CPP)
+            self.design_grid.width + \
+            (2*self.s_param["OFFSET_X"]*self.CPP)
         top_module.data[PROP]["HEIGHT"] = \
-            self.design_grid.height + (4*self.SC_HEIGHT)
+            self.design_grid.height + \
+            (2*self.s_param["OFFSET_Y"]*self.SC_HEIGHT)
 
     def update_shapes(self):
         """

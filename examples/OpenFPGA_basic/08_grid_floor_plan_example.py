@@ -12,7 +12,7 @@ This example demostrates how the grided floorplan is generated using
    :align: center
 
 """
-
+# sphinx_gallery_thumbnail_path = '../../examples/OpenFPGA_basic/_grid_floorplan.svg'
 from spydrnet_physical.util import GridFloorplanGen
 
 
