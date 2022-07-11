@@ -362,7 +362,8 @@ class OpenFPGA:
                 io = next(self._netlist.get_instances(io))
                 cb = next(self._netlist.get_instances(cb))
             except StopIteration:
-                logger.exception("Missing instance %s %s" % (cb, io))
+                logger.warning("Missing instance %s %s" % (cb, io))
+                continue
             lbl = f"{io.reference.name}_{cb.reference.name}"
             merge_list[lbl] = merge_list.get(lbl, [])
             merge_list[lbl] += [((io, cb), cb.name+"_new")]
@@ -708,15 +709,16 @@ class OpenFPGA:
                     top_port.change_name(pin_name)
                     logger.debug(f"{top_port.name} =>> {pin_name}")
 
-    def annotate_area_information(self, filename):
+    def annotate_area_information(self, filename, skipline=0):
         '''
         This method annotated the area infomration on each 
         definition of the top level module
         '''
         with open(filename, "r") as fp:
-            for line in fp.readlines():
+            for line in fp.readlines()[skipline:]:
                 if not(line):
                     continue
+                line = line.replace(","," ")
                 module, area = line.split()[:2]
                 area = int(float(area)*(self.GLOBAL_SCALE**2) /
                            (self.SC_HEIGHT*self.CPP))
