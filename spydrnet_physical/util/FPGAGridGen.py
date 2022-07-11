@@ -191,7 +191,10 @@ class FPGAGridGen:
         the cordiante origin starts from the first element of top most list
         and first element of the first element of list of list
         """
-        value = self.grid[y][x]
+        try:
+            value = self.grid[y][x]
+        except:
+            logger.exception("No lb found on %d %d", x, y)
         while value in [self.RIGHT_ARROW, self.UP_ARROW]:
             if value == self.UP_ARROW:
                 y -= 1

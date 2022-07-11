@@ -223,7 +223,7 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         # Perform placement
         top_module = self._top_module
         for x_indx in range((self.fpga_size[0]*2) + 1, 0, -1):
-            for y_indx in range((self.fpga_size[0]*2) + 1, 0, -1):
+            for y_indx in range((self.fpga_size[1]*2) + 1, 0, -1):
                 x_off, y_off = 0, 0
                 inst_name = self.fpga_grid.get_top_instance(x_indx, y_indx)
                 anchor = self.design_grid.get_x_y(x_indx-1, y_indx-1)
