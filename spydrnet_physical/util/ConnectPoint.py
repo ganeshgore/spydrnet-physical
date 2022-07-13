@@ -77,13 +77,13 @@ class ConnectPoint:
         ''' Returns connection level '''
         return bool(self._buffer)
 
-    @set_buffer.setter
-    def set_buffer(self):
-        self._buffer = True
+    # @set_buffer.setter
+    # def set_buffer(self):
+    #     self._buffer = True
 
-    @remove_buffer.setter
-    def remove_buffer(self):
-        self._buffer = False
+    # @remove_buffer.setter
+    # def remove_buffer(self):
+    #     self._buffer = False
 
     @from_connection.setter
     def from_connection(self, points):
