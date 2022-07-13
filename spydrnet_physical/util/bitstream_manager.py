@@ -12,7 +12,24 @@ class block_bitstream:
     """
     This class store bistream for each block
     """
-    pass
+
+    bit_man = {}
+    """
+    A dictionary of lists with the bitstream values
+
+    .. code-block::
+
+        {
+            "module_name" : {
+                "elements": {
+                    "each_element" : (higher_index, lower_indx)
+                },
+                "bitstream": {
+                    "instance_name" : [<<as shown below>>]
+                }
+            }
+        }
+    """
 
 
 class BitstreamManager:
@@ -34,25 +51,24 @@ class BitstreamManager:
     """
     A dictionary of lists with the bitstream values
 
-    .. code-block::
+    .. code-block: :
 
         {
-            "module_name" : {
+            "module_name": {
                 "elements": {
-                    "each_element" : (higher_index, lower_indx)
+                    "each_element": (higher_index, lower_indx)
                 },
                 "bitstream": {
-                    "instance_name" : [<<as shown below>>]
+                    "instance_name": [ << as shown below>>]
                 }
             }
         }
 
+    .. rst-class: : ascii
 
-    .. rst-class:: ascii
+    : :
 
-    ::
-
-                   bits ---->>
+                   bits - -- -> >
         ------------------------------------
          I |
          N |

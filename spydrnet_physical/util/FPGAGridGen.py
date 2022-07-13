@@ -158,6 +158,7 @@ class FPGAGridGen:
         self.RIGHT_ARROW = RIGHT_ARROW
         self.UP_ARROW = UP_ARROW
         self.default_parameters = self._default_shaping_param()
+        self.placement_db = {}
 
     def get_width(self):
         """Get width of FPGA"""
@@ -628,7 +629,7 @@ class FPGAGridGen:
                     add_point(direction, float(distance))
             else:
                 logger.error("Can not extract point from tag")
-        print(points)
+        logger.debug(points)
         _, points = shaping_utils.get_shapes_outline(points)
         path_points = shaping_utils.points_to_path(points)
         width_pt = list(accumulate(map(float, path_points.split()[3::2])))
@@ -656,6 +657,7 @@ class FPGAGridGen:
         symbol.add(self.dwg.path(d=f"M {pt[1]} {pt[2]} {svg_path} z"))
         self.dwg.defs.add(symbol)
         self.dwg_shapes.add(self.dwg.use(symbol, insert=points[0]))
+        # self.placement_db[symbol] = (points[0][0], points[0][1])
         return symbol
 
     def add_style(self, style):

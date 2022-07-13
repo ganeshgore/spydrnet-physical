@@ -62,6 +62,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.graphviz",
     "sphinx.ext.githubpages",
+    'sphinxcontrib.blockdiag',
     "sphinxcontrib_hdl_diagrams",
     "sphinx_gallery.gen_gallery",
     "autodocsumm",
@@ -312,3 +313,23 @@ except:
 exclude_patterns.append("_SDN_DOC_SOURCE/**")
 
 CollectRst()
+
+
+# ========
+# Headings
+# ========
+#
+# Headings
+# ========
+#
+# Heading 3
+# ---------
+#
+# Heading 4
+# ^^^^^^^^^
+#
+# Heading 5
+# ~~~~~~~~~
+#
+# Heading 6
+# *********

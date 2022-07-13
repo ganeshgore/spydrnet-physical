@@ -23,8 +23,7 @@ from itertools import chain
 
 import spydrnet as sdn
 from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen, Tile02,
-                                    GridFloorplanGen, OpenFPGA,
-                                    initial_hetero_placement)
+                                    GridFloorplanGen, OpenFPGA)
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
