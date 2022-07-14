@@ -2,19 +2,16 @@
 This class is created for OpenFPGA related netlist transformations
 """
 import logging
-import xml.etree.ElementTree as ET
 
-
-import spydrnet as sdn
-from spydrnet_physical.util import (OpenFPGA_Config_Generator,
-                                    OpenFPGA_Tile_Generator)
-from spydrnet_physical.util.shell import launch_shell
 from spydrnet_physical.util import Tile01
 
 logger = logging.getLogger('spydrnet_logs')
 
 
 class Tile02(Tile01):
+    """
+    Creates Tile02 style tiling structure
+    """
 
     def create_tiles(self):
         '''
@@ -38,6 +35,21 @@ class Tile02(Tile01):
 
         self.fpga_size[0] += 1
         self.fpga_size[1] += 1
+
+    def merge_and_update_wrapper(self, instance_list, tile_name):
+        '''
+        This method takes the group of list of instances and create a multiple
+        instances list
+        '''
+        if not instance_list:
+            return
+        # Create first tile
+        keys = sorted(instance_list.keys(), reverse=True,
+                      key=lambda x: len(instance_list[x]))
+        self.merge_and_update(instance_list[keys[0]], tile_name)
+        # Create extra tile
+        for indx, key in enumerate(keys[1:]):
+            self.merge_and_update(instance_list[key], f"{tile_name}_{indx+1}")
 
     def merge_and_update(self, instance_list, tile_name):
         """
@@ -80,8 +92,9 @@ class Tile02(Tile01):
                 "LOC_X", 0)
             new_inst.properties["LOC_Y"] = instances[index_y].properties.get(
                 "LOC_Y", 0)
-            logger.debug(f"{new_name} assigned %d %d" %
-                         (new_inst.properties["LOC_X"], new_inst.properties["LOC_Y"]))
+            logger.debug("%s assigned %d %d", new_name,
+                         new_inst.properties["LOC_X"],
+                         new_inst.properties["LOC_Y"])
 
     def _main_tile(self):
         '''Create main Tiles
@@ -105,17 +118,28 @@ class Tile02(Tile01):
            +---------------+
 
       '''
-        instance_list = []
+        instance_list = {}
         for x in range(1, self.fpga_size[0]):
             for y in range(1, self.fpga_size[1]):
-                clb = next(self._top_module.get_instances(
-                    f"grid_clb_{x}__{y}_"))
-                cbx = next(self._top_module.get_instances(f"cbx_{x}__{y}_"))
-                cby = next(self._top_module.get_instances(f"cby_{x}__{y}_"))
-                sb = next(self._top_module.get_instances(f"sb_{x}__{y}_"))
-                instance_list.append(((clb, cbx, cby, sb),
-                                      f"tile_{x+1}__{y+1}_"))
-        self.merge_and_update(instance_list, "tile")
+                try:
+                    clb, cbx, cby, sb = None, None, None, None
+                    clb = next(self._top_module.get_instances(
+                        f"grid_clb_{x}__{y}_"))
+                    cbx = next(self._top_module.get_instances(
+                        f"cbx_{x}__{y}_"))
+                    cby = next(self._top_module.get_instances(
+                        f"cby_{x}__{y}_"))
+                    sb = next(self._top_module.get_instances(f"sb_{x}__{y}_"))
+                    category = f"{clb.reference.name}_{cbx.reference.name}"
+                    category += f"_{cby.reference.name}_{sb.reference.name}"
+                    instance_list[category] = instance_list.get(category, [])
+                    instance_list[category].append(((clb, cbx, cby, sb),
+                                                    f"tile_{x+1}__{y+1}_"))
+                except StopIteration:
+                    logger.debug("Missing instance at [%s %s] %s %s %s %s",
+                                 x, y, clb, cbx, cby, sb)
+
+        self.merge_and_update_wrapper(instance_list, "tile")
 
     def _left_tile(self):
         ''' Create Left Tiles
@@ -137,14 +161,20 @@ class Tile02(Tile01):
              +-----+
 
         '''
-        instance_list = []
+        instance_list = {}
         for i in range(1, self.fpga_size[0]):
-            cby0 = next(self._top_module.get_instances(f"cby_0__{i}_"))
-            sb0 = next(self._top_module.get_instances(f"sb_0__{i}_"))
-            instance_list.append(((cby0, sb0,),
-                                  f"tile_1__{i+1}_"))
+            try:
+                cby0, sb0 = None, None
+                cby0 = next(self._top_module.get_instances(f"cby_0__{i}_"))
+                sb0 = next(self._top_module.get_instances(f"sb_0__{i}_"))
+                category = f"_{cby0.reference.name}_{sb0.reference.name}"
+                instance_list[category] = instance_list.get(category, [])
+                instance_list[category].append(((cby0, sb0,),
+                                                f"tile_1__{i+1}_"))
+            except StopIteration:
+                logger.debug("Missing instance at [%s] %s %s", i, cby0, sb0)
 
-        self.merge_and_update(instance_list, "left_tile")
+        self.merge_and_update_wrapper(instance_list, "left_tile")
 
     def _right_tile(self):
         '''    Create Right Tiles
@@ -168,22 +198,27 @@ class Tile02(Tile01):
             +--------------+
 
         '''
-        instance_list = []
+        instance_list = {}
         for i in range(1, self.fpga_size[0]):
-            clb = next(self._top_module.get_instances(
-                f"grid_clb_{self.fpga_size[0]}__{i}_"))
-            cbx1 = next(self._top_module.get_instances(
-                f"cbx_{self.fpga_size[0]}__{i}_"))
-            cby0 = next(self._top_module.get_instances(
-                f"cby_{self.fpga_size[0]}__{i}_"))
-            sb0 = next(self._top_module.get_instances(
-                f"sb_{self.fpga_size[0]}__{i}_"))
-            # grid_io = next(self._top_module.get_instances(
-            #     f"grid_io_right_{self.fpga_size[0]+1}__{i}_"))
-            instance_list.append(((clb, cbx1, cby0, sb0),
-                                  f"tile_{self.fpga_size[0]+1}__{i+1}_"))
-
-        self.merge_and_update(instance_list, "right_tile")
+            try:
+                clb, cbx1, cby0, sb0 = None, None, None, None
+                clb = next(self._top_module.get_instances(
+                    f"grid_clb_{self.fpga_size[0]}__{i}_"))
+                cbx1 = next(self._top_module.get_instances(
+                    f"cbx_{self.fpga_size[0]}__{i}_"))
+                cby0 = next(self._top_module.get_instances(
+                    f"cby_{self.fpga_size[0]}__{i}_"))
+                sb0 = next(self._top_module.get_instances(
+                    f"sb_{self.fpga_size[0]}__{i}_"))
+                category = f"{clb.reference.name}_{cbx1.reference.name}"
+                category += f"_{cby0.reference.name}_{sb0.reference.name}"
+                instance_list[category] = instance_list.get(category, [])
+                instance_list[category].append(((clb, cbx1, cby0, sb0),
+                                                f"tile_{self.fpga_size[0]+1}__{i+1}_"))
+            except StopIteration:
+                logger.debug("Missing instance at %s [right] %s %s %s %s",
+                             i, clb, cbx1, cby0, sb0)
+        self.merge_and_update_wrapper(instance_list, "right_tile")
 
     def _top_tile(self):
         '''     Create Top Tiles
@@ -205,22 +240,29 @@ class Tile02(Tile01):
             +--------------+
 
         '''
-        instance_list = []
+        instance_list = {}
         for i in range(1, self.fpga_size[1]):
-            clb = next(self._top_module.get_instances(
-                f"grid_clb_{i}__{self.fpga_size[1]}_"))
-            cbx = next(self._top_module.get_instances(
-                f"cbx_{i}__{self.fpga_size[1]}_"))
-            cby = next(self._top_module.get_instances(
-                f"cby_{i}__{self.fpga_size[1]}_"))
-            sb = next(self._top_module.get_instances(
-                f"sb_{i}__{self.fpga_size[1]}_"))
-            # grid_io = next(self._top_module.get_instances(
-            #     f"grid_io_top_{i}__{self.fpga_size[1]+1}_"))
-            instance_list.append(((clb, cbx, cby, sb),
-                                  f"tile_{i+1}__{self.fpga_size[1]+1}_"))
+            try:
+                clb, cbx, cby, sb = None, None, None, None
+                clb = next(self._top_module.get_instances(
+                    f"grid_clb_{i}__{self.fpga_size[1]}_"))
+                cbx = next(self._top_module.get_instances(
+                    f"cbx_{i}__{self.fpga_size[1]}_"))
+                cby = next(self._top_module.get_instances(
+                    f"cby_{i}__{self.fpga_size[1]}_"))
+                sb = next(self._top_module.get_instances(
+                    f"sb_{i}__{self.fpga_size[1]}_"))
 
-        self.merge_and_update(instance_list, "top_tile")
+                category = f"{clb.reference.name}_{cbx.reference.name}"
+                category += f"_{cby.reference.name}_{sb.reference.name}"
+                instance_list[category] = instance_list.get(category, [])
+                instance_list[category].append(((clb, cbx, cby, sb),
+                                                f"tile_{i+1}__{self.fpga_size[1]+1}_"))
+            except StopIteration:
+                logger.debug("Missing instance at %s [right] %s %s %s %s",
+                             i, clb, cbx, cby, sb)
+
+        self.merge_and_update_wrapper(instance_list, "top_tile")
 
     def _bottom_tile(self):
         '''   Create Bottom Tiles
@@ -236,14 +278,21 @@ class Tile02(Tile01):
              +-------+ +------------+
 
         '''
-        instance_list = []
-        for i in range(1, self.fpga_size[1]):
-            cbx0 = next(self._top_module.get_instances(f"cbx_{i}__0_"))
-            sb0 = next(self._top_module.get_instances(f"sb_{i}__0_"))
-            instance_list.append(((cbx0, sb0),
-                                  f"tile_{i+1}__1_"))
+        instance_list = {}
+        try:
+            for i in range(1, self.fpga_size[1]):
+                cbx0, sb0 = None, None
+                cbx0 = next(self._top_module.get_instances(f"cbx_{i}__0_"))
+                sb0 = next(self._top_module.get_instances(f"sb_{i}__0_"))
 
-        self.merge_and_update(instance_list, "bottom_tile")
+                category = f"{cbx0.reference.name}_{sb0.reference.name}"
+                instance_list[category] = instance_list.get(category, [])
+                instance_list[category].append(((cbx0, sb0),
+                                                f"tile_{i+1}__1_"))
+        except StopIteration:
+            logger.debug("Missing instance at %s [bottom] %s %s", i, cbx0, sb0)
+
+        self.merge_and_update_wrapper(instance_list, "bottom_tile")
 
     def _top_left_tile(self):
         '''       Create top left tile
@@ -264,12 +313,17 @@ class Tile02(Tile01):
 
         '''
         instance_list = []
-        cby0 = next(self._top_module.get_instances(
-            f"cby_0__{self.fpga_size[1]}_"))
-        sb0 = next(self._top_module.get_instances(
-            f"sb_0__{self.fpga_size[1]}_"))
-        instance_list.append(((sb0, cby0),
-                              f"tile_1__{self.fpga_size[1]+1}_"))
+        try:
+            cby0, sb0 = None, None
+            cby0 = next(self._top_module.get_instances(
+                f"cby_0__{self.fpga_size[1]}_"))
+            sb0 = next(self._top_module.get_instances(
+                f"sb_0__{self.fpga_size[1]}_"))
+            instance_list.append(((sb0, cby0),
+                                  f"tile_1__{self.fpga_size[1]+1}_"))
+        except StopIteration:
+            logger.debug("Missing instance at top_left %s %s", cby0, sb0)
+            return
         self.merge_and_update(instance_list, "top_left_tile")
 
     def _top_right_tile(self):
@@ -293,20 +347,22 @@ class Tile02(Tile01):
 
         '''
         instance_list = []
-        clb = next(self._top_module.get_instances(
-            f"grid_clb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        cbx0 = next(self._top_module.get_instances(
-            f"cbx_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        cby0 = next(self._top_module.get_instances(
-            f"cby_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        sb0 = next(self._top_module.get_instances(
-            f"sb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
-        # grid_io_0 = next(self._top_module.get_instances(
-        #     f"grid_io_right_{self.fpga_size[0]+1}__{self.fpga_size[1]}_"))
-        # grid_io_1 = next(self._top_module.get_instances(
-        #     f"grid_io_top_{self.fpga_size[0]}__{self.fpga_size[1]+1}_"))
-        instance_list.append(((clb, cbx0, cby0, sb0),
-                              f"tile_{self.fpga_size[0]+1}__{self.fpga_size[1]+1}_"))
+        try:
+            clb, cbx0, cby0, sb0 = None, None, None, None
+            clb = next(self._top_module.get_instances(
+                f"grid_clb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
+            cbx0 = next(self._top_module.get_instances(
+                f"cbx_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
+            cby0 = next(self._top_module.get_instances(
+                f"cby_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
+            sb0 = next(self._top_module.get_instances(
+                f"sb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
+            instance_list.append(((clb, cbx0, cby0, sb0),
+                                  f"tile_{self.fpga_size[0]+1}__{self.fpga_size[1]+1}_"))
+        except StopIteration:
+            logger.debug("Missing instance at top_right %s %s %s %s",
+                         clb, cbx0, cby0, sb0)
+            return
 
         self.merge_and_update(instance_list, "top_right_tile")
 
@@ -325,8 +381,14 @@ class Tile02(Tile01):
 
         '''
         instance_list = []
-        sb0 = next(self._top_module.get_instances("sb_0__0_"))
-        instance_list.append(((sb0,), "tile_1__1_"))
+        try:
+            sb0 = None
+            sb0 = next(self._top_module.get_instances("sb_0__0_"))
+            instance_list.append(((sb0,), "tile_1__1_"))
+        except StopIteration:
+            logger.debug("Missing instance at bottom_left %s", sb0)
+            return
+
         self.merge_and_update(instance_list, "bottom_left_tile")
 
     def _bottom_right_tile(self):
@@ -348,11 +410,16 @@ class Tile02(Tile01):
 
         '''
         instance_list = []
-        cbx0 = next(self._top_module.get_instances(
-            f"cbx_{self.fpga_size[0]}__0_"))
-        sb0 = next(self._top_module.get_instances(
-            f"sb_{self.fpga_size[0]}__0_"))
-        instance_list.append(((cbx0, sb0),
-                              f"tile_{self.fpga_size[0]+1}__1_"))
+        try:
+            cbx0, sb0 = None, None
+            cbx0 = next(self._top_module.get_instances(
+                f"cbx_{self.fpga_size[0]}__0_"))
+            sb0 = next(self._top_module.get_instances(
+                f"sb_{self.fpga_size[0]}__0_"))
+            instance_list.append(((cbx0, sb0),
+                                  f"tile_{self.fpga_size[0]+1}__1_"))
+        except StopIteration:
+            logger.debug("Missing instance at bottom_right %s %s", cbx0, sb0)
+            return
 
         self.merge_and_update(instance_list, "bottom_right_tile")

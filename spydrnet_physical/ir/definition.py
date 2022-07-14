@@ -307,7 +307,7 @@ class Definition(DefinitionBase):
                 outline.extend(shaping_utils._convert_rect_to_pt(each))
             if shape == "cross":
                 outline.extend(shaping_utils._convert_cross_to_pt(each))
-            new_mod.data[PROP]["AREA"] = each.reference.data[PROP].get(
+            new_mod.data[PROP]["AREA"] += each.reference.data[PROP].get(
                 "AREA", 0)
         LOC_X = min([each.data[PROP].get("LOC_X", 0)
                      for each in instances_list])

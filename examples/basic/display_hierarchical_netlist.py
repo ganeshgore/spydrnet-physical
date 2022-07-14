@@ -21,8 +21,8 @@ a given scalar or vector wires.
 The renderer is used from this project `Nic30/d3-hwschematic <https://github.com/Nic30/d3-hwschematic>`_
 
 """
-from os import path
-import spydrnet as sdn
+#sphinx_gallery_thumbnail_path = '../../examples/basic/2.png'
+
 import spydrnet_physical as sdnphy
 from spydrnet_physical.composers.html.composer import HTMLComposer
 

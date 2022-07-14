@@ -9,6 +9,6 @@ class TestInnerPin(unittest.TestCase):
         self.module = sdn.Definition("module1")
         self.pin = sdn.InnerPin()
 
-    def test_get_index(self):
-        port = self.definition.create_port(pins = 4)
-        self.assertEqual(port.pins[1], sdn.InnerPin)
+    #def test_get_index(self):
+    #    port = self.definition.create_port(pins = 4)
+    #    self.assertEqual(port.pins[1], sdn.InnerPin)
