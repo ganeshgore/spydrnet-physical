@@ -63,6 +63,114 @@ class FabricKeyGenCCFF:
         match = re.match(regex, instance_name)
         return match.group(1), match.group(2)
 
+    def create_custom_fabric_key(self):
+        for xpt in range(1, (self.fpga_grid.get_width()-4), 2):
+            for ypt in range((self.fpga_grid.get_height()*2)+3):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt, inst_name)]
+            for ypt in range((self.fpga_grid.get_height()*2)+3)[::-1]:
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt+1, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue    
+                self.fkey[0] += [(xpt+1, ypt, inst_name)]  
+
+        for xpt in [6]:
+            for ypt in [0,1]:
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt, inst_name)]
+                xpt = 7
+
+        for ypt in range(1, (self.fpga_grid.get_height()*2)+2, 2):
+            for xpt in range(7,(self.fpga_grid.get_width()-4), -1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt, inst_name)]
+              
+            for xpt in range(5,(self.fpga_grid.get_width()), 1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt+1)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt+1, inst_name)]
+            
+
+        for xpt in range(9, (self.fpga_grid.get_width()+5), 2):
+            for ypt in range((self.fpga_grid.get_height()*2)+3):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt, inst_name)]
+            for ypt in range((self.fpga_grid.get_height()*2)+3)[::-1]:
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt+1, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt+1, ypt, inst_name)] 
+
+        for xpt in [14]:
+            for ypt in [0,1]:
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt, inst_name)]
+                xpt = 15
+          
+        for ypt in range(1, (self.fpga_grid.get_height()*2)+2, 2):
+            for xpt in range(15,(self.fpga_grid.get_width()+4), -1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt, inst_name)]
+              
+            for xpt in range(13,(self.fpga_grid.get_width()*2), 1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt+1)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt+1, inst_name)]  
+
+        for xpt in [self.fpga_grid.get_width()*2]:
+            for ypt in range((self.fpga_grid.get_height()*2)+3):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                self.fkey[0] += [(xpt, ypt, inst_name)]
+
     def create_serpentine_connection(self):
         for xpt in range(0, (self.fpga_grid.get_width()*2)+3, 2):
             for ypt in range((self.fpga_grid.get_height()*2)+3):
