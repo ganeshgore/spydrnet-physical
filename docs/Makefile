@@ -11,7 +11,7 @@ SOURCEDIR         = source
 BUILDDIR          = build
 AUTO_BUILD_DIR    = "auto_.*\/.*"
 PYTHON_EXEC       ?= "python3.8"
-RUN_EXAMPLE_WC    ?= 
+RUN_EXAMPLE_WC    ?= OpenFPGA_*
 
 .SILENT:
 .ONESHELL:
@@ -45,7 +45,7 @@ run_examples: generate_schematics
 	log_dir=$$(pwd)/_run_examples_logs
 	mkdir -p $$log_dir
 	rm -rf $${log_dir}/failed.log 
-	find ../examples/OpenFPGA_${RUN_EXAMPLE_WC} -type f -name "*.py" | \
+	find ../examples/${RUN_EXAMPLE_WC} -type f -name "*.py" | \
 	parallel -j 4 'log_dir=$$(pwd); \
 	cd $$(dirname {}); filename=$$(basename {}); \
 	${PYTHON_EXEC} $$(basename {}) 1> "$${log_dir}/_run_examples_logs/$${filename%.*}.log"; \
