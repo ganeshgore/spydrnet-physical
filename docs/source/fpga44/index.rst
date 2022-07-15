@@ -27,7 +27,6 @@ The following figure illustrates the structure of an FPGA tile.
    :align: center
    :width: 80%
 
-
 Generating Netlist from OpenFPGA
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -21,9 +21,7 @@ jobs:
         shell: bash
         run: |
           source /tmp/buildenv/bin/activate
-          cd docs
-          PYTHON_EXEC=/tmp/buildenv/bin/python3 make run_examples
-          PYTHON_EXEC=/tmp/buildenv/bin/python3 make design_examples
+          cd docs && PYTHON_EXEC=/tmp/buildenv/bin/python3 make run_examples
       - name: Build Documentation
         shell: bash
         id: build
