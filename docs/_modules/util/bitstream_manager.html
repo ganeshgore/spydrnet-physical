@@ -347,7 +347,24 @@
     <span class="sd">"""</span>
 <span class="sd">    This class store bistream for each block</span>
 <span class="sd">    """</span>
-    <span class="k">pass</span>
+
+    <span class="n">bit_man</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">"""</span>
+<span class="sd">    A dictionary of lists with the bitstream values</span>
+
+<span class="sd">    .. code-block::</span>
+
+<span class="sd">        {</span>
+<span class="sd">            "module_name" : {</span>
+<span class="sd">                "elements": {</span>
+<span class="sd">                    "each_element" : (higher_index, lower_indx)</span>
+<span class="sd">                },</span>
+<span class="sd">                "bitstream": {</span>
+<span class="sd">                    "instance_name" : [&lt;&lt;as shown below&gt;&gt;]</span>
+<span class="sd">                }</span>
+<span class="sd">            }</span>
+<span class="sd">        }</span>
+<span class="sd">    """</span>
 
 
 <div class="viewcode-block" id="BitstreamManager"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager">[docs]</a><span class="k">class</span> <span class="nc">BitstreamManager</span><span class="p">:</span>
@@ -369,25 +386,24 @@
     <span class="sd">"""</span>
 <span class="sd">    A dictionary of lists with the bitstream values</span>
 
-<span class="sd">    .. code-block::</span>
+<span class="sd">    .. code-block: :</span>
 
 <span class="sd">        {</span>
-<span class="sd">            "module_name" : {</span>
+<span class="sd">            "module_name": {</span>
 <span class="sd">                "elements": {</span>
-<span class="sd">                    "each_element" : (higher_index, lower_indx)</span>
+<span class="sd">                    "each_element": (higher_index, lower_indx)</span>
 <span class="sd">                },</span>
 <span class="sd">                "bitstream": {</span>
-<span class="sd">                    "instance_name" : [&lt;&lt;as shown below&gt;&gt;]</span>
+<span class="sd">                    "instance_name": [ &lt;&lt; as shown below&gt;&gt;]</span>
 <span class="sd">                }</span>
 <span class="sd">            }</span>
 <span class="sd">        }</span>
 
+<span class="sd">    .. rst-class: : ascii</span>
 
-<span class="sd">    .. rst-class:: ascii</span>
+<span class="sd">    : :</span>
 
-<span class="sd">    ::</span>
-
-<span class="sd">                   bits ----&gt;&gt;</span>
+<span class="sd">                   bits - -- -&gt; &gt;</span>
 <span class="sd">        ------------------------------------</span>
 <span class="sd">         I |</span>
 <span class="sd">         N |</span>

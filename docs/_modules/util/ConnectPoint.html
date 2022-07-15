@@ -368,6 +368,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">to_dir</span> <span class="o">=</span> <span class="s2">""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">level</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_direction</span><span class="p">()</span></div>
 
     <span class="nd">@property</span>
@@ -405,6 +406,19 @@
     <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' return color of connection '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_buffered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Returns connection level '''</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">)</span>
+
+    <span class="c1"># @set_buffer.setter</span>
+    <span class="c1"># def set_buffer(self):</span>
+    <span class="c1">#     self._buffer = True</span>
+
+    <span class="c1"># @remove_buffer.setter</span>
+    <span class="c1"># def remove_buffer(self):</span>
+    <span class="c1">#     self._buffer = False</span>
 
     <span class="nd">@from_connection</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">from_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>

@@ -348,16 +348,17 @@ to download the full example code</p>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">FabricKeyGenCCFF</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"spydrnet_logs"</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s2">"INFO"</span><span class="p">)</span>
 
-<span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
-                   <span class="n">arch_file</span><span class="o">=</span><span class="s2">"../OpenFPGA_basic/support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
-                   <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
-                   <span class="n">layout</span><span class="o">=</span><span class="s2">"homogeneous"</span><span class="p">)</span>
+<span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span>
+    <span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
+    <span class="n">arch_file</span><span class="o">=</span><span class="s2">"../OpenFPGA_basic/support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
+    <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
+    <span class="n">layout</span><span class="o">=</span><span class="s2">"homogeneous"</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">fpga</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
-<span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_small_layout_ccff_fabric_render.svg"</span><span class="p">,</span>
-                   <span class="n">grid_io</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_small_layout_ccff_fabric_render.svg"</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">fabric_key</span> <span class="o">=</span> <span class="n">FabricKeyGenCCFF</span><span class="p">(</span><span class="n">fpga</span><span class="p">)</span>
 <span class="n">fabric_key</span><span class="o">.</span><span class="n">create_fabric_key</span><span class="p">()</span>

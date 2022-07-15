@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="5.14. Floorplanning Classic Tiles for hetergeneous design" href="13_Hetero_Tile01_render.html" /><link rel="prev" title="5.12. Implementing memeory bank protocol on Tile02" href="11_memory_bank_protocol.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>5.13. Floorplanning Classic Tiles for hetergeneous design - SpyDrNet-Physical alpha documentation</title>
+        <title>OpenFPGA Physical- Directory Structure - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -140,7 +140,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -161,7 +161,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction/install.html">Install</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
@@ -218,8 +218,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/verilog_support.html">Verilog Language Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Physical Design for 4x4 FPGA</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">1.2. Display Netlist Information Functions</a></li>
@@ -264,21 +264,21 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example4.html">4.11. Clock tree insertion Example Architecture 3</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">5. Partition Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01_netlist_to_graph.html">5.1. Netlist to graph (networkx)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_switch_partition_01.html">5.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03_switch_partition_02.html">5.3. Physical/Techmapped Partition Conn Box 02</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_switch_partition_03.html">5.4. Partition Conn Box 02 - Simplified</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_module_partition.html">5.5. Split CBs and SBs across fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_generic_tiling_part1.html">5.6. Generic Tiling Part02 - Creating tile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_generic_tiling_part2.html">5.7. Generic Tiling Part02 - Creating tile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_FloorplanDesign01.html">5.8. Floorplanning Classic Tiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_area_optimized_tiles.html">5.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_tile03_generation.html">5.10. Unified routing tile structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="10_tile02_tiles.html">5.11. Tile02 - Area optimized version with higher regularity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11_memory_bank_protocol.html">5.12. Implementing memeory bank protocol on Tile02</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">5.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="13_Hetero_Tile01_render.html">5.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">5. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/01_netlist_to_graph.html">5.1. Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/02_switch_partition_01.html">5.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/03_switch_partition_02.html">5.3. Physical/Techmapped Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/04_switch_partition_03.html">5.4. Partition Conn Box 02 - Simplified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/05_module_partition.html">5.5. Split CBs and SBs across fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part1.html">5.6. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part2.html">5.7. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/07_FloorplanDesign01.html">5.8. Floorplanning Classic Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/08_area_optimized_tiles.html">5.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/09_tile03_generation.html">5.10. Unified routing tile structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/10_tile02_tiles.html">5.11. Tile02 - Area optimized version with higher regularity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/11_memory_bank_protocol.html">5.12. Implementing memeory bank protocol on Tile02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/12_Hetero_Tile01.html">5.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/13_Hetero_Tile01_render.html">5.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_config/index.html">6. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -327,106 +327,220 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <div class="sphx-glr-download-link-note admonition note">
-<p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-tiling-12-hetero-tile01-py"><span class="std std-ref">here</span></a>
-to download the full example code</p>
-</div>
-<section class="sphx-glr-example-title" id="floorplanning-classic-tiles-for-hetergeneous-design">
-<span id="sphx-glr-auto-openfpga-tiling-12-hetero-tile01-py"></span><h1><span class="section-number">5.13. </span>Floorplanning Classic Tiles for hetergeneous design<a class="headerlink" href="#floorplanning-classic-tiles-for-hetergeneous-design" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstate how to render FPGA Tile using <code class="docutils literal notranslate"><span class="pre">FloorPlanViz</span></code> class
-User can provide external script to render tiles, by default the rendering is
-based on <code class="docutils literal notranslate"><span class="pre">initial_hetero_placement</span></code> class.</p>
-<p>This script can be used for shaping and placement of the modules before place and route.</p>
-<a class="reference internal image-reference" href="../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg"><img alt="../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg" class="align-center" src="../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg" width="70%"/></a>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span><span class="n">FloorPlanViz</span><span class="p">,</span> <span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">Tile02</span><span class="p">,</span>
-                                    <span class="n">GridFloorplanGen</span><span class="p">,</span> <span class="n">OpenFPGA</span><span class="p">)</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
-
-<span class="n">PROP</span> <span class="o">=</span> <span class="s2">"VERILOG.InlineConstraints"</span>
-
-
-<span class="n">CBX_COLOR</span> <span class="o">=</span> <span class="s1">'#d9d9f3'</span>
-<span class="n">CBY_COLOR</span> <span class="o">=</span> <span class="s1">'#a8d0db'</span>
-<span class="n">SB_COLOR</span> <span class="o">=</span> <span class="s1">'#ceefe4'</span>
-<span class="n">GRID_COLOR</span> <span class="o">=</span> <span class="s1">'#ddd0b1'</span>
-
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">proj</span> <span class="o">=</span> <span class="s2">"../hetrogeneous_fabric"</span>
-    <span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/lb/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/routing/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/sub_module/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/fpga_top.v'</span><span class="p">)</span>
-
-    <span class="c1"># Temporary fix to read multiple verilog files</span>
-    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">".v"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">eachV</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">eachV</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fpv</span><span class="p">:</span>
-                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpv</span><span class="o">.</span><span class="n">readlines</span><span class="p">())))</span>
-        <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
-
-    <span class="c1"># Convert wires to bus structure</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_io_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_sb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_cb_bus</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">merge_all_grid_ios</span><span class="p">()</span>
-
-    <span class="c1"># Convert top level independent nets to bus</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_clb*"</span><span class="p">),</span>
-                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"grid_io*"</span><span class="p">),</span>
-                   <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"sb_*"</span><span class="p">)):</span>
-        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">ports</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">check_all_scalar_connections</span><span class="p">(</span><span class="n">p</span><span class="p">)):</span>
-                <span class="n">cable_list</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">pins</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-                    <span class="n">cable_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">pins</span><span class="p">[</span><span class="n">pin</span><span class="p">]</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">cable</span><span class="p">)</span>
-                <span class="n">cable</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">combine_cables</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">cable_list</span><span class="p">)</span>
-                <span class="n">cable</span><span class="o">.</span><span class="n">is_downto</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
-
-    <span class="c1"># Create Tile-02 structure</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">register_tile_generator</span><span class="p">(</span><span class="n">Tile02</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">create_tiles</span><span class="p">()</span>
-
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+          <section id="openfpga-physical-directory-structure">
+<span id="id1"></span><h1>OpenFPGA Physical- Directory Structure<a class="headerlink" href="#openfpga-physical-directory-structure" title="Permalink to this headline">¶</a></h1>
+<section id="creating-tapeout-project">
+<h2>Creating Tapeout Project<a class="headerlink" href="#creating-tapeout-project" title="Permalink to this headline">¶</a></h2>
+<p>The hierarchical flow of the OpenFPGA-Physical recommends incrementally building the large FPGA fabric. In that methodology, the larger fabric such as a 100x100 FPGA design can be derived from a smaller replica 4x4. The OpenFPGA-Tapeout directory is designed to support such a design hierarchy</p>
+<div class="ascii highlight-default notranslate"><div class="highlight"><pre><span></span>OpenFPGA-Physical-Tapeout-Template
+├ &lt;project_1_directory&gt;
+├ &lt;project_2_directory&gt;
+|   ├ CommonFiles
+|   |   ├ config.sh
+|   |   ├ common_task/
+|   |   |   ├ arch/
+|   |   |   ├ config/
+|   |   |   ├ custom_modules/
+|   |   |   ├ IPs/
+|   |   |   ├ micro_benchmark/
+|   |   |   └ sc_verilog/
+|   |   ├ icc2_custom_project_dp_scripts/
+|   |   └ icc2_custom_project_pnr_scripts/
+|   ├ FPGA4x4_k4n8_design_pnr
+|   |   ├ config.sh
+|   |   ├ FPGA4x4_k4n8_design_task/
+|   |   ├ FPGA4x4_k4n8_design_verilog/
+|   |   ├ dp
+|   |   |   └ fpga_top
+|   |   |       ├ dp_setup/
+|   |   |       ├ icc2_dp_scripts/
+|   |   |       ├ icc2_custom_dp_scripts/
+|   |   |       ├ icc2_custom_project_dp_scripts/
+|   |   |       └ Makefile
+|   |   ├ pnr
+|   |   |   ├ &lt;tile1_name&gt;
+|   |   |   └ &lt;tile2_name&gt;
+|   |   |       ├ pnr_setup/
+|   |   |       ├ icc2_pnr_scripts/
+|   |   |       ├ icc2_custom_pnr_scripts/
+|   |   |       ├ icc2_custom_project_pnr_scripts/
+|   |   |       └ Makefile
+|   |   ├ release
+|   |   |   ├ ConnectNets
+|   |   |   ├ rpts
+|   |   |   ├ SVG
+|   |   |   ├ TCL
+|   |   |   ├ dp
+|   |   |   ├ pnr
+|   |   └ Makefile
+|   └ FPGA16x16_k4n8_design_pnr
+|       └ ....
+└ OpenFPGAPhysicalDesign-ICC2
+   ├ LoadTools.sh
+   ├ dp
+   |   └ fpga_top
+   |       ├ dp_setup/
+   |       ├ icc2_dp_scripts/
+   |       ├ icc2_custom_dp_scripts/
+   ├ pnr
+   |   ├ pnr_setup/
+   |   ├ icc2_pnr_scripts/
+   |   └ icc2_custom_pnr_scripts/
+   ├ Makefile
+   └ scripts
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-tiling-12-hetero-tile01-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/a1a4c5df07aeab82152cbb302a193b86/12_Hetero_Tile01.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">12_Hetero_Tile01.py</span></code></a></p>
-</div>
-<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/136d114db62f3294806a987c608d9a06/12_Hetero_Tile01.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">12_Hetero_Tile01.ipynb</span></code></a></p>
-</div>
-</div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 15%"/>
+<col style="width: 33%"/>
+<col style="width: 52%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Module
+Place and Route</p></th>
+<th class="head"><p>Scripts</p></th>
+<th class="head"><p>Remark</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="6"><p>init design</p></td>
+<td><p>SH_PRE_INIT_DESIGN</p></td>
+<td><p>Sourced before launching init_design icc2_shell</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_TAP_CELL_ADDITION</p></td>
+<td><p>Module level tap cell addition</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_PG_CREATION_FILE</p></td>
+<td><p>Power grid connections</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_INIT_DESIGN_POST_SCRIPT</p></td>
+<td><p>Physical hierarchical restructuring if required</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_SET_SDC</p></td>
+<td><p>This script set the explicit SDCs for the module</p></td>
+</tr>
+<tr class="row-odd"><td><p>SH_POST_INIT_DESIGN</p></td>
+<td><p>Sourced after finishing init_design phase in icc2_shell</p></td>
+</tr>
+<tr class="row-even"><td rowspan="6"><p>place_out</p></td>
+<td><p>SH_PRE_PLACE_OPT</p></td>
+<td><p>Sourced before launching place_opt phase in icc2_shell</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_LIB_CELL_PURPOSE_FILE</p></td>
+<td><p>Setting cell purpose for the library cells</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_PLACE_OPT_PRE_SCRIPT</p></td>
+<td><p>Sourced before running detailed placement</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_PLACE_OPT_SCRIPT</p></td>
+<td><p>Overwrites the existing placement flow</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_PLACE_OPT_POST_SCRIPT</p></td>
+<td><p>Sourced after running detailed placement</p></td>
+</tr>
+<tr class="row-odd"><td><p>SH_POST_PLACE_OPT</p></td>
+<td><p>Sourced after launching place_opt phase in icc2_shell</p></td>
+</tr>
+<tr class="row-even"><td rowspan="5"><p>clock_opt</p></td>
+<td><p>SH_PRE_CLOCK_OPT_SCRIPT</p></td>
+<td><p>Sourced before running clock synthesis</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_CLOCK_OPT_CTS_PRE_SCRIPT</p></td>
+<td><p>Sourced before running clock synthesis</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_CLOCK_OPT_CTS_SCRIPT</p></td>
+<td><p>Overwrite the clock synthesis    run</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_CLOCK_OPT_CTS_POST_SCRIPT</p></td>
+<td><p>Sourced after running clock synthesis</p></td>
+</tr>
+<tr class="row-even"><td><p>SH_POST_CLOCK_OPT_SCRIPT</p></td>
+<td><p>Sourced after clock synthesis</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="5"><p>clock_opt_opto</p></td>
+<td><p>SH_PRE_CLOCK_OPT_SCRIPT</p></td>
+<td><p>Sourced before running clock optimization</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_CLOCK_OPT_CTS_PRE_SCRIPT</p></td>
+<td><p>Sourced before running clock optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_CLOCK_OPT_CTS_SCRIPT</p></td>
+<td><p>Overwrite the clock optimization run</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_CLOCK_OPT_CTS_POST_SCRIPT</p></td>
+<td><p>Sourced after running clock optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p>SH_POST_CLOCK_OPT_SCRIPT</p></td>
+<td><p>Sourced after clock optimization</p></td>
+</tr>
+<tr class="row-even"><td rowspan="5"><p>route_auto</p></td>
+<td><p>SH_PRE_ROUTE_AUTO_SCRIPT</p></td>
+<td><p>Sourced before running detailed routing</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_ROUTE_AUTO_PRE_SCRIPT</p></td>
+<td><p>Sourced before running detailed routing</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_ROUTE_AUTO_SCRIPT</p></td>
+<td><p>Overwrite the detailed routing run</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_ROUTE_AUTO_POST_SCRIPT</p></td>
+<td><p>Sourced after running detailed routing</p></td>
+</tr>
+<tr class="row-even"><td><p>SH_POST_ROUTE_AUTO_SCRIPT</p></td>
+<td><p>Sourced after detailed routing</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="5"><p>route_opt</p></td>
+<td><p>SH_PRE_ROUTE_OPT_SCRIPT</p></td>
+<td><p>Sourced before running route optimization</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_ROUTE_OPT_PRE_SCRIPT</p></td>
+<td><p>Sourced before running route optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_ROUTE_OPT_SCRIPT</p></td>
+<td><p>Overwrite the route optimization run</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_ROUTE_OPT_POST_SCRIPT</p></td>
+<td><p>Sourced after running route optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p>SH_POST_ROUTE_OPT_SCRIPT</p></td>
+<td><p>Sourced after route optimization</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p>chip_finish</p></td>
+<td><p>SH_PRE_ROUTE_OPT_SCRIPT</p></td>
+<td><p>Sourced before running route optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_CHIP_FINISH_PRE_SCRIPT</p></td>
+<td><p>Sourced before running route optimization</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_CHIP_FINISH_POST_SCRIPT</p></td>
+<td><p>Sourced after running route optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p>SH_POST_ROUTE_OPT_SCRIPT</p></td>
+<td><p>Sourced after route optimization</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p>icv_in_design</p></td>
+<td><p>SH_PRE_ICV_IN_DESIGN_SCRIPT</p></td>
+<td><p>Sourced before running route optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p>TCL_USER_ICV_IN_DESIGN_PRE_SCRIPT</p></td>
+<td><p>Sourced before running route optimization</p></td>
+</tr>
+<tr class="row-even"><td><p>TCL_USER_ICV_IN_DESIGN_POST_SCRIPT</p></td>
+<td><p>Sourced after running route optimization</p></td>
+</tr>
+<tr class="row-odd"><td><p>SH_POST_ICV_IN_DESIGN_SCRIPT</p></td>
+<td><p>Sourced after route optimization</p></td>
+</tr>
+</tbody>
+</table></div>
+</section>
 </section>
 
         </article>
@@ -434,26 +548,8 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_he
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="13_Hetero_Tile01_render.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title"><span class="section-number">5.14. </span>Floorplanning Classic Tiles for hetergeneous design</div>
-              </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="11_memory_bank_protocol.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title"><span class="section-number">5.12. </span>Implementing memeory bank protocol on Tile02</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
 
         <div class="related-information">
@@ -462,7 +558,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_he
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_openfpga_tiling/12_Hetero_Tile01.rst.txt"
+            <a class="muted-link" href="../_sources/fpga44/directory_structure.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -470,8 +566,27 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_he
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">OpenFPGA Physical- Directory Structure</a><ul>
+<li><a class="reference internal" href="#creating-tapeout-project">Creating Tapeout Project</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

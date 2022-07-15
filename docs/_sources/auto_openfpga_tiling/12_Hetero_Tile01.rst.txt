@@ -32,7 +32,7 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-89
+.. GENERATED FROM PYTHON SOURCE LINES 17-88
 
 .. code-block:: default
 
@@ -45,8 +45,7 @@ This script can be used for shaping and placement of the modules before place an
 
     import spydrnet as sdn
     from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen, Tile02,
-                                        GridFloorplanGen, OpenFPGA,
-                                        initial_hetero_placement)
+                                        GridFloorplanGen, OpenFPGA)
 
     logger = logging.getLogger('spydrnet_logs')
     sdn.enable_file_logging(LOG_LEVEL='INFO')

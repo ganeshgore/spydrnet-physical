@@ -192,7 +192,7 @@ Following section is for rendering only
         dwg.saveas("_tile02_mb_floorplan.svg", pretty=True, indent=4)
 
         # Save netlist
-        base_dir = "output_tile01"
+        base_dir = "_output_tile04"
         Path(base_dir).mkdir(parents=True, exist_ok=True)
         fpga.save_netlist("sb*", path.join(base_dir, "routing"))
         fpga.save_netlist("cb*", path.join(base_dir, "routing"))
