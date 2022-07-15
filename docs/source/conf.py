@@ -62,7 +62,6 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.graphviz",
     "sphinx.ext.githubpages",
-    'sphinxcontrib.blockdiag',
     "sphinxcontrib_hdl_diagrams",
     "sphinx_gallery.gen_gallery",
     "autodocsumm",

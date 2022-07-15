@@ -27,12 +27,6 @@ The following figure illustrates the structure of an FPGA tile.
    :align: center
    :width: 80%
 
-.. .. blockdiag::
-
-..    diagram {
-..      Arch_Files -> OpenFPGA -> Verification;
-..           OpenFPGA -> Physical_Design;
-..    }
 
 Generating Netlist from OpenFPGA
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
