@@ -30,8 +30,8 @@ def main():
     fpga.enumerate_grid()
 
     # This is dummy remove this in future
-    fpga.default_parameters["cbx"][0] = 10  # uncomment to force square plan
-    fpga.default_parameters["cby"][1] = 10  # uncomment to force square plan
+    # fpga.default_parameters["cbx"][0] = 10  # uncomment to force square plan
+    # fpga.default_parameters["cby"][1] = 10  # uncomment to force square plan
 
     dwg = fpga.render_layout(
         filename=f"_{PROJ_NAME}_render.svg", grid_io=True, markers=True
@@ -60,18 +60,19 @@ def main():
                 fpga.merge_symbol(
                     [
                         f"{hetero}_{x}__{y}_",
-                        f"sb_{x-1}__{y}_",
+                        # f"sb_{x-1}__{y}_",
                         f"sb_{x}__{y}_",
-                        f"cby_{x-1}__{y}_",
+                        # f"cby_{x-1}__{y}_",
                         f"cby_{x}__{y}_",
-                        f"cby_{x-1}__{y+1}_",
+                        # f"cby_{x-1}__{y+1}_",
                         f"cby_{x}__{y+1}_",
                     ],
                     f"merged_{hetero}_block_at_{x}_{y}",
                 )
 
             fpga.merge_symbol(
-                [f"cbx_{x}__{y-1}_", f"sb_{x-1}__{y-1}_", f"sb_{x}__{y-1}_"],
+                # f"sb_{x-1}__{y-1}_"
+                [f"cbx_{x}__{y-1}_", f"sb_{x}__{y-1}_"],
                 f"merged_interface_cb_{x}_{y}",
             )
 
@@ -81,8 +82,8 @@ def main():
             fpga.merge_symbol(instances, f"sides_merged_at_{x}_{y}")
 
     # Corner Tiles
-    fpga.merge_symbol([f"cby_0__{h}_", f"sb_0__{h}_"], f"corner_ltop")
-    fpga.merge_symbol([f"cby_{w}__{h}_", f"sb_{w}__{h}_"], f"corner_rtop")
+    fpga.merge_symbol([f"cby_0__{h}_", f"sb_0__{h}_"], "corner_ltop")
+    fpga.merge_symbol([f"cby_{w}__{h}_", f"sb_{w}__{h}_"], "corner_rtop")
     # ====================== END =========================
 
     dwg.saveas(filename=f"{PROJ_NAME}_restruct_render.svg", pretty=True, indent=4)
