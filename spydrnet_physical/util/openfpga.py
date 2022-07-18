@@ -757,6 +757,7 @@ class OpenFPGA:
         def add_area_detail(ref):
             area = ref.data[PROP].get("AREA", 0)
             util = area/(ref.area/self.SC_GRID)
+            ref.data[PROP]["UTIL"] = util
             return f"[{util:.2%}]"
         get_label = get_label or add_area_detail
         for inst in self.top_module.get_instances("*"):
