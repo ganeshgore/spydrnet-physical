@@ -149,6 +149,11 @@ class OpenFPGA:
             else:
                 boundary.extend([boundary[-2]+pt, boundary[-1]])
                 direction = 'v'
+        offset_x = -1*int(min(map(float,boundary[::2])))
+        offset_y = -1*int(min(map(float,boundary[1::2])))
+        for indx in range(0,len(boundary),2):
+            boundary[indx] += offset_x
+            boundary[indx+1] += offset_y
         return boundary
 
     @staticmethod
