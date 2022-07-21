@@ -1,15 +1,18 @@
 """ 
 """
 import logging
+from os import environ
 import pickle
-import os
 from glob import glob
-from os.path import basename, dirname, realpath
+from os.path import basename, dirname, realpath, join
 
 import spydrnet as sdn
 from spydrnet_physical.util import FabricKeyGenCCFF, FPGAGridGen
 
 logger = logging.getLogger("spydrnet_logs")
+
+
+LAYOUT = environ.get("LAYOUT", "ultimate")
 
 
 class custom_fabric_key(FabricKeyGenCCFF):
@@ -31,6 +34,9 @@ class custom_fabric_key(FabricKeyGenCCFF):
         self.dwg = fpga_grid.dwg
         self.dwg_shapes = fpga_grid.dwg_shapes
         self.dwg_text = fpga_grid.dwg_text
+
+    # NOTE: Technicall we would like to have DP and ultimate as a same same fucntion
+    # with minimum arguments (check how we modified reder_fabric.py)
 
     def create_custom_fabric_key_dp(self):
 
@@ -936,16 +942,20 @@ def main():
         logger.exception("Architecture file not found ['task/arch/*vpr*']")
 
     # Load the existing grid from generate shapes
-    fpga = pickle.load(open(f"{PROJ_NAME}_fpgagridgen.pickle", "rb"))
+    fpga = pickle.load(open(f"{PROJ_NAME}_{LAYOUT}_fpgagridgen.pickle", "rb"))
 
     # Uncomment this to recreate the FPGA grid
+    # Note: it will remove all the physical planning from image
     # fpga.enumerate_grid()
     # fpga.render_layout(grid_io=True)
 
     fabric_key = custom_fabric_key(fpga)
-    fabric_key.create_custom_fabric_key_ultimate()
+    if LAYOUT == "ultimate":
+        fabric_key.create_custom_fabric_key_ultimate()
+    else:
+        fabric_key.create_custom_fabric_key_dp()
 
-    filename = os.path.join(f"{PROJ_NAME}_CCFF_Chain.svg")
+    filename = join(f"{PROJ_NAME}_{LAYOUT}_CCFF_Chain.svg")
     fabric_key.render_svg(filename=filename)
     fabric_key.save_fabric_key(filename="fabric_key.xml")
 

@@ -4,12 +4,16 @@ This script renders the FPGA architecure before restructuring
 import logging
 import pickle
 from glob import glob
+from os import environ
 from os.path import basename, dirname, realpath
+
 import spydrnet as sdn
 from spydrnet_physical.util import FPGAGridGen
 
 logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO")
+
+LAYOUT = environ.get("LAYOUT", "dp")
 
 
 def main():
@@ -25,11 +29,11 @@ def main():
         design_name=PROJ_NAME,
         arch_file=VPR_ARCH_FILE,
         release_root="_release",
-        layout="dp",
+        layout=LAYOUT,
     )
     fpga.enumerate_grid()
 
-    # This is dummy remove this in future
+    # This will make all blocks shaeped rectangular
     # fpga.default_parameters["cbx"][0] = 10  # uncomment to force square plan
     # fpga.default_parameters["cby"][1] = 10  # uncomment to force square plan
 
@@ -53,7 +57,10 @@ def main():
     w = fpga.get_width()
     h = fpga.get_height()
 
-    for x in [3, 7, 11, 15, 18, 22, 26, 30]:
+    hetro_columns = [3, 7]
+    if LAYOUT == "ultimate":
+        hetro_columns += [11, 15, 18, 22, 26, 30]
+    for x in hetro_columns:
         for y in range(1, h + 2, 2):
             hetero = "dsp" if x in (7, 26) else "ram9k"
             if y < 4:
@@ -86,9 +93,11 @@ def main():
     fpga.merge_symbol([f"cby_{w}__{h}_", f"sb_{w}__{h}_"], "corner_rtop")
     # ====================== END =========================
 
-    dwg.saveas(filename=f"{PROJ_NAME}_restruct_render.svg", pretty=True, indent=4)
-    pickle.dump(dwg, open(f"{PROJ_NAME}_restruct_render.pickle", "wb"))
-    pickle.dump(fpga, open(f"{PROJ_NAME}_fpgagridgen.pickle", "wb"))
+    dwg.saveas(
+        filename=f"{PROJ_NAME}_{LAYOUT}_restruct_render.svg", pretty=True, indent=4
+    )
+    pickle.dump(dwg, open(f"{PROJ_NAME}_{LAYOUT}_restruct_render.pickle", "wb"))
+    pickle.dump(fpga, open(f"{PROJ_NAME}_{LAYOUT}_fpgagridgen.pickle", "wb"))
     logger.info("Saving file %s_restruct_render.svg", PROJ_NAME)
 
 
