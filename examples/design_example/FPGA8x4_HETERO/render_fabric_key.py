@@ -504,42 +504,11 @@ class custom_fabric_key(FabricKeyGenCCFF):
             self.create_left2right_connection((self.fpga_grid.get_width()*2)+1, (self.fpga_grid.get_width()*2)+2, y, fkey_name=fkey33)        
 
             self.create_top2bot_connection((self.fpga_grid.get_width()*2)+1, y-1, y-2, fkey_name=fkey33)
- 
 
+        fkey_list = [fkey1,fkey2,fkey3,fkey4,fkey5,fkey6,fkey7,fkey8,fkey9,fkey10,fkey11,fkey12,fkey13,fkey14,fkey15,fkey16,fkey17,fkey18,fkey19,fkey20,fkey21,fkey22,fkey23,fkey24,fkey25,fkey26,fkey27,fkey28,fkey29,fkey30,fkey31,fkey32,fkey33,] 
 
-        self.fkey.append (fkey1)
-        self.fkey.append (fkey2)
-        self.fkey.append (fkey3)
-        self.fkey.append (fkey4)
-        self.fkey.append (fkey5)
-        self.fkey.append (fkey6)
-        self.fkey.append (fkey7)
-        self.fkey.append (fkey8)
-        self.fkey.append (fkey9)
-        self.fkey.append (fkey10)
-        self.fkey.append (fkey11)
-        self.fkey.append (fkey12)
-        self.fkey.append (fkey13)
-        self.fkey.append (fkey14)
-        self.fkey.append (fkey15)
-        self.fkey.append (fkey16)
-        self.fkey.append (fkey17)
-        self.fkey.append (fkey18)
-        self.fkey.append (fkey19)
-        self.fkey.append (fkey20)
-        self.fkey.append (fkey21)
-        self.fkey.append (fkey22)
-        self.fkey.append (fkey23)
-        self.fkey.append (fkey24)
-        self.fkey.append (fkey25)
-        self.fkey.append (fkey26)
-        self.fkey.append (fkey27)
-        self.fkey.append (fkey28)
-        self.fkey.append (fkey29)
-        self.fkey.append (fkey30)
-        self.fkey.append (fkey31)
-        self.fkey.append (fkey32)
-        self.fkey.append (fkey33)
+        for key in fkey_list:
+            self.fkey.append(key)
         return self.fkey
 
 
