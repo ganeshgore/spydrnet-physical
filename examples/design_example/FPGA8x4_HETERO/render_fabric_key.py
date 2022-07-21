@@ -12,7 +12,7 @@ from spydrnet_physical.util import FabricKeyGenCCFF, FPGAGridGen
 logger = logging.getLogger("spydrnet_logs")
 
 
-LAYOUT = environ.get("LAYOUT", "ultimate")
+LAYOUT = environ.get("LAYOUT", "dp")
 
 
 class custom_fabric_key(FabricKeyGenCCFF):
@@ -35,7 +35,7 @@ class custom_fabric_key(FabricKeyGenCCFF):
         self.dwg_shapes = fpga_grid.dwg_shapes
         self.dwg_text = fpga_grid.dwg_text
 
-    # NOTE: Technicall we would like to have DP and ultimate as a same same fucntion
+    # NOTE: Technically we would like to have DP and ultimate as a same same fucntion
     # with minimum arguments (check how we modified reder_fabric.py)
 
     def create_custom_fabric_key_dp(self):
