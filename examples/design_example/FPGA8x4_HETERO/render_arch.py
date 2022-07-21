@@ -53,9 +53,9 @@ def main():
     w = fpga.get_width()
     h = fpga.get_height()
 
-    for x in [3, 7]:
-        for y in range(1, 4 + 2, 2):
-            hetero = "dsp" if x in (7,) else "ram9k"
+    for x in [3, 7, 11, 15, 18, 22, 26, 30]:
+        for y in range(1, h + 2, 2):
+            hetero = "dsp" if x in (7, 26) else "ram9k"
             if y < 4:
                 fpga.merge_symbol(
                     [

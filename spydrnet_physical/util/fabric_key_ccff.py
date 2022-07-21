@@ -82,6 +82,83 @@ class FabricKeyGenCCFF:
                     continue
                 self.fkey[0] += [(xpt+1, ypt, inst_name)]
 
+    def create_sel_serpentine_connection(self, x, fkey_name):
+        for xpt in [x]:
+            for ypt in range((self.fpga_grid.get_height()*2)+3):
+                    try:
+                        inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                    except IndexError:
+                        break
+                    if inst_name == "EMPTY":
+                        continue
+                    fkey_name += [(xpt, ypt, inst_name)]  
+            for ypt in range((self.fpga_grid.get_height()*2)+3)[::-1]:
+                    try:
+                        inst_name = self.fpga_grid.get_top_instance(xpt+1, ypt)
+                    except IndexError:
+                        break
+                    if inst_name == "EMPTY":
+                        continue
+                    fkey_name += [(xpt+1, ypt, inst_name)]
+            
+    
+    def create_bot2top_connection(self, x, y1, y2, fkey_name):
+        for xpt in [x]:
+            for ypt in range(y1, y2+1, 1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+
+    def create_top2bot_connection(self, x, y1, y2, fkey_name): 
+        for xpt in [x]:
+            for ypt in range(y1, y2-1, -1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+    
+    def create_left2right_connection(self, x1, x2, y, fkey_name):
+        for ypt in [y]:    
+            for xpt in range(x1, x2+1, 1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+
+    def create_right2left_connection(self, x1, x2, y, fkey_name):
+        for ypt in [y]:    
+            for xpt in range(x1, x2-1, -1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+                
+    def create_diagonal_connection(self, x1, x2, y1, y2, fkey_name):
+
+        for ypt in [y1, y2]:    
+            for xpt in [x1, x2]:
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                if (x1 and y1) or (x2 and y2):
+                    fkey_name += [(xpt, ypt, inst_name)]
+
     def create_fabric_key(self, pattern=None):
         '''
         Main fucntion to create fabric key

@@ -110,7 +110,7 @@ class Cable(CableBase):
         self.definition.remove_cable(self)
 
     def check_concat(self):
-        """ This fucntion check if the cable is concatenated while connecting to other ports
+        """ This function check if the cable is concatenated while connecting to other ports
         """
         assert self.size, "Cable does not contain any wires"
 
