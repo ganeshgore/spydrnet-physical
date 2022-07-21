@@ -98,7 +98,7 @@ def main():
     )
     pickle.dump(dwg, open(f"{PROJ_NAME}_{LAYOUT}_restruct_render.pickle", "wb"))
     pickle.dump(fpga, open(f"{PROJ_NAME}_{LAYOUT}_fpgagridgen.pickle", "wb"))
-    logger.info("Saving file %s_restruct_render.svg", PROJ_NAME)
+    logger.info("Saving file %s_%s_restruct_render.svg", PROJ_NAME, LAYOUT)
 
 
 if __name__ == "__main__":
