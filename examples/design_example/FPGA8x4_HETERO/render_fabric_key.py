@@ -1,4 +1,4 @@
-""" 
+"""
 """
 import logging
 from os import environ
@@ -35,7 +35,7 @@ class custom_fabric_key(FabricKeyGenCCFF):
         self.dwg_shapes = fpga_grid.dwg_shapes
         self.dwg_text = fpga_grid.dwg_text
 
-    # NOTE: Technically we would like to have DP and ultimate as a same same fucntion
+    # FIXME: Technically we would like to have DP and ultimate as a same same function
     # with minimum arguments (check how we modified reder_fabric.py)
 
     def create_custom_fabric_key_dp(self):
@@ -81,6 +81,12 @@ class custom_fabric_key(FabricKeyGenCCFF):
             self.fpga_grid.get_width() - 2, 0, 1, fkey_name=fkey3
         )
 
+        # FIXME: Creating small unit fucntions is a good idea but i would suggest
+        # dont pass fkey_name argument recturn tuple from function and extend
+        # fkey3 in this script
+
+        # FIXME: Also you should think about more generic function instead of creating
+        # lefttoight rightoleft ..... functions, we will need many such small functions in future
         self.create_left2right_connection(
             self.fpga_grid.get_width() - 2,
             self.fpga_grid.get_width() - 1,
@@ -889,6 +895,8 @@ class custom_fabric_key(FabricKeyGenCCFF):
                 (self.fpga_grid.get_width() * 2) + 1, y - 1, y - 2, fkey_name=fkey33
             )
 
+        # FIXME: This is not scalable at all you need to find better ways to do
+        # such fabric key generation
         fkey_list = [
             fkey1,
             fkey2,
@@ -928,6 +936,84 @@ class custom_fabric_key(FabricKeyGenCCFF):
         for key in fkey_list:
             self.fkey.append(key)
         return self.fkey
+
+    # FIXME: I moved this functions from fabric_key_ccff, lets tray to generalise
+    # them before adding into fabric_key_ccff
+    def create_sel_serpentine_connection(self, x, fkey_name):
+        for xpt in [x]:
+            for ypt in range((self.fpga_grid.get_height() * 2) + 3):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+            for ypt in range((self.fpga_grid.get_height() * 2) + 3)[::-1]:
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt + 1, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt + 1, ypt, inst_name)]
+
+    def create_bot2top_connection(self, x, y1, y2, fkey_name):
+        for xpt in [x]:
+            for ypt in range(y1, y2 + 1, 1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+
+    def create_top2bot_connection(self, x, y1, y2, fkey_name):
+        for xpt in [x]:
+            for ypt in range(y1, y2 - 1, -1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+
+    def create_left2right_connection(self, x1, x2, y, fkey_name):
+        for ypt in [y]:
+            for xpt in range(x1, x2 + 1, 1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+
+    def create_right2left_connection(self, x1, x2, y, fkey_name):
+        for ypt in [y]:
+            for xpt in range(x1, x2 - 1, -1):
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                fkey_name += [(xpt, ypt, inst_name)]
+
+    def create_diagonal_connection(self, x1, x2, y1, y2, fkey_name):
+
+        for ypt in [y1, y2]:
+            for xpt in [x1, x2]:
+                try:
+                    inst_name = self.fpga_grid.get_top_instance(xpt, ypt)
+                except IndexError:
+                    break
+                if inst_name == "EMPTY":
+                    continue
+                if (x1 and y1) or (x2 and y2):
+                    fkey_name += [(xpt, ypt, inst_name)]
 
 
 def main():
