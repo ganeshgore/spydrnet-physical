@@ -398,8 +398,8 @@ class FPGAGridGen:
 
         for xstep in range(0, self.width, repeatx):
             for ystep in range(0, self.height, repeaty):
-                for x in range(startx, endx, incrx):
-                    for y in range(starty, endy, incry):
+                for x in range(startx, endx+1, incrx):
+                    for y in range(starty, endy+1, incry):
                         self._set_value(xstep + x, ystep + y, ele_type, ele_w, ele_h)
 
     def enumerate_grid(self):

@@ -187,39 +187,6 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         """
         self.update_shapes()
 
-        # Adjusting placement grids
-        self.design_grid.offset_x = self.s_param["OFFSET_X"]*self.CPP
-        self.design_grid.offset_y = self.s_param["OFFSET_Y"]*self.SC_HEIGHT
-
-        W = self.fpga_size[0]
-        H = self.fpga_size[1]
-
-        # Set grid_clb column
-        for i in range(2, (self.fpga_size[0]*2)+1, 2):
-            self.design_grid.set_column_width(
-                i, self.module_shapes["grid_clb"]["POINTS"][0]*self.CPP)
-        # Set grid_clb row
-        for i in range(2, (self.fpga_size[1]*2)+1, 2):
-            self.design_grid.set_row_height(
-                i, self.module_shapes["grid_clb"]["POINTS"][1]*self.SC_HEIGHT)
-
-        for i in range(1, (self.fpga_size[0]*2)+2, 2):
-            self.design_grid.set_column_width(
-                i, self.module_shapes["cby_1__1_"]["POINTS"][0]*self.CPP)
-
-        for i in range(1, (self.fpga_size[1]*2)+2, 2):
-            self.design_grid.set_row_height(
-                i, self.module_shapes["cbx_1__1_"]["POINTS"][1]*self.SC_HEIGHT)
-
-        self.design_grid.set_row_height(
-            1, self.module_shapes["cbx_1__0_"]["POINTS"][1]*self.SC_HEIGHT)
-        self.design_grid.set_row_height(
-            -1, self.module_shapes[f"cbx_1__{H}_"]["POINTS"][1]*self.SC_HEIGHT)
-        self.design_grid.set_column_width(
-            1, self.module_shapes["cby_0__1_"]["POINTS"][0]*self.CPP)
-        self.design_grid.set_column_width(
-            -1, self.module_shapes[f"cby_{W}__1_"]["POINTS"][0]*self.CPP)
-
         # Perform placement
         top_module = self._top_module
         for x_indx in range((self.fpga_size[0]*2) + 1, 0, -1):
@@ -237,6 +204,8 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
                     x_off, y_off = module["PLACEMENT"](x_indx, y_indx)
                 if isinstance(module["PLACEMENT"], tuple):
                     x_off, y_off = module["PLACEMENT"]
+                if isinstance(module["PLACEMENT"], list):
+                    x_off, y_off = module["PLACEMENT"]
                 inst.data[PROP]['LOC_X'] = anchor[0] + (x_off*self.CPP)
                 inst.data[PROP]['LOC_Y'] = anchor[1] + (y_off*self.SC_HEIGHT)
 
@@ -246,6 +215,43 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         top_module.data[PROP]["HEIGHT"] = \
             self.design_grid.height + \
             (2*self.s_param["OFFSET_Y"]*self.SC_HEIGHT)
+
+    def update_placement_grid(self):
+        """
+        Update two dimensional placement grid
+        """
+        # Adjusting placement grids
+        self.design_grid.offset_x = self.s_param["OFFSET_X"]*self.CPP
+        self.design_grid.offset_y = self.s_param["OFFSET_Y"]*self.SC_HEIGHT
+
+        W = self.fpga_size[0]
+        H = self.fpga_size[1]
+
+        # Set grid_clb column
+        for i in range(2, (self.fpga_size[0]*2)+1, 2):
+            self.design_grid.set_column_width(i, 
+                self.s_param["clb_w"]*self.CPP)
+        # Set grid_clb row
+        for i in range(2, (self.fpga_size[1]*2)+1, 2):
+            self.design_grid.set_row_height(i, 
+                self.s_param["clb_h"]*self.SC_HEIGHT)
+
+        for i in range(1, (self.fpga_size[0]*2)+2, 2):
+            self.design_grid.set_column_width(
+                i, self.s_param["cby11_w"]*self.CPP)
+
+        for i in range(1, (self.fpga_size[1]*2)+2, 2):
+            self.design_grid.set_row_height(
+                i, self.s_param["cbx11_h"]*self.SC_HEIGHT)
+
+        self.design_grid.set_row_height(
+            1, self.s_param["bottom_cbx_h"]*self.SC_HEIGHT)
+        self.design_grid.set_row_height(
+            -1, self.s_param["top_cbx_h"]*self.SC_HEIGHT)
+        self.design_grid.set_column_width(
+            1, self.s_param["left_cby_w"]*self.CPP)
+        self.design_grid.set_column_width(
+            -1, self.s_param["right_cby_w"]*self.CPP)
 
     def update_shapes(self):
         """
@@ -345,6 +351,9 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         return area
 
     def calculate_shapes(self):
+        """
+        This function compute different base variable for shaping FPGA fabric
+        """
         m = self.s_param
         for each_module in self._top_module.get_definitions("*"):
             m[f"{each_module.name}_util"] = 0.85
@@ -419,6 +428,7 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         m["bd"] = m["cby11_w"]
         m["be"] = 0.5*(m["clb_w"]-m["bottom_cbx_w"])
         m["bf"] = 0
+        self.update_placement_grid()
 
     def create_shapes(self):
         m = self.s_param
@@ -427,77 +437,74 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         H = self.fpga_size[1]
         # Placement is called with  PLACEMENT(x, y, instance, module_shapes, variables)
         self.module_shapes = {
-            f"grid_clb": {
+            "grid_clb": {
                 "SHAPE": "rect",
                 "POINTS": [m["clb_w"], m["clb_h"]],
-                "PLACEMENT": (0, 0)},
+                "PLACEMENT": [0, 0]},
             # Common connection blocks [Auto calculated]
-            f"cbx_1__0_": {
+            "cbx_1__0_": {
                 "SHAPE": "rect",
                 "POINTS": [m["bottom_cbx_w"], m["bottom_cbx_h"]],
-                "PLACEMENT": (0.5*(m["clb_w"]-m["bottom_cbx_w"]), 0)},
-            f"cbx_1__1_": {
+                "PLACEMENT": [0.5*(m["clb_w"]-m["bottom_cbx_w"]), 0]},
+            "cbx_1__1_": {
                 "SHAPE": "rect",
                 "POINTS": [m["cbx11_w"], m["cbx11_h"]],
-                "PLACEMENT": (0.5*(m["clb_w"]-m["cbx11_w"]), 0)},
+                "PLACEMENT": [0.5*(m["clb_w"]-m["cbx11_w"]), 0]},
             f"cbx_1__{H}_": {
                 "SHAPE": "rect",
                 "POINTS": [m["top_cbx_w"], m["top_cbx_h"]],
-                "PLACEMENT": (0.5*(m["clb_w"]-m["top_cbx_w"]), 0)},
-            f"cby_0__1_": {
+                "PLACEMENT": [0.5*(m["clb_w"]-m["top_cbx_w"]), 0]},
+            "cby_0__1_": {
                 "SHAPE": "rect",
                 "POINTS": [m["left_cby_w"], m["left_cby_h"]],
-                "PLACEMENT": (0, 0.5*(m["clb_h"]-m["left_cby_h"]))},
+                "PLACEMENT": [0, 0.5*(m["clb_h"]-m["left_cby_h"])]},
             f"cby_{W}__1_": {
                 "SHAPE": "rect",
                 "POINTS": [m["right_cby_w"], m["right_cby_h"]],
-                "PLACEMENT": (0, 0.5*(m["clb_h"]-m["right_cby_h"]))},
-            f"cby_1__1_": {
+                "PLACEMENT": [0, 0.5*(m["clb_h"]-m["right_cby_h"])]},
+            "cby_1__1_": {
                 "SHAPE": "rect",
                 "POINTS": [m["cby11_w"], m["cby11_h"]],
-                "PLACEMENT": (0, 0.5*(m["clb_h"]-m["cby11_h"]))},
+                "PLACEMENT": [0, 0.5*(m["clb_h"]-m["cby11_h"])]},
             # Common swith blocks [Auto calculated]
-            f"sb_0__0_": {
+            "sb_0__0_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ba"], 0, m["lc"], m["ld"], m["be"], 0],
-                "PLACEMENT": (0, 0)},
-            f"sb_0__1_": {
+                "PLACEMENT": [0, 0]},
+            "sb_0__1_": {
                 "SHAPE": "cross",
                 "POINTS": [m["la"], m["lb"], m["lc"], m["ld"], m["le"], m["lf"]],
-                "PLACEMENT": (0, -0.5*(m["clb_h"]-m["left_cby_h"]))},
+                "PLACEMENT": [0, -0.5*(m["clb_h"]-m["left_cby_h"])]},
             f"sb_0__{H}_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ta"], 0, 0, m["ld"], m["te"], m["lf"]],
-                "PLACEMENT": (0,
-                              -0.5*(m["clb_h"]-m["left_cby_h"]))},
-            f"sb_1__0_": {
+                "PLACEMENT": [0, -0.5*(m["clb_h"]-m["left_cby_h"])]},
+            "sb_1__0_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ba"], m["bb"], m["bc"], m["bd"], m["be"], m["bf"]],
-                "PLACEMENT": (-0.5*(m["clb_w"]-m["bottom_cbx_w"]),
-                              0)},
-            f"sb_1__1_": {
+                "PLACEMENT": [-0.5*(m["clb_w"]-m["bottom_cbx_w"]), 0]},
+            "sb_1__1_": {
                 "SHAPE": "cross",
                 "POINTS": [m["a"], m["b"], m["c"], m["d"], m["e"], m["f"]],
-                "PLACEMENT": (-0.5*(m["clb_w"]-m["cbx11_w"]),
-                              -0.5*(m["clb_h"]-m["cby11_h"]))},
+                "PLACEMENT": [-0.5*(m["clb_w"]-m["cbx11_w"]),
+                              -0.5*(m["clb_h"]-m["cby11_h"])]},
             f"sb_1__{H}_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ta"], m["tb"], m["tc"], m["td"], m["te"], m["tf"]],
-                "PLACEMENT": (-0.5*(m["clb_w"]-m["top_cbx_w"]),
-                              -0.5*(m["clb_h"]-m["cby11_h"]))},
+                "PLACEMENT": [-0.5*(m["clb_w"]-m["top_cbx_w"]),
+                              -0.5*(m["clb_h"]-m["cby11_h"])]},
             f"sb_{W}__0_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ba"], m["bb"], m["rc"], m["rd"], 0, 0],
-                "PLACEMENT": (-0.5*(m["clb_w"]-m["bottom_cbx_w"]),
-                              0)},
+                "PLACEMENT": [-0.5*(m["clb_w"]-m["bottom_cbx_w"]), 0]},
             f"sb_{W}__1_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ra"], m["rb"], m["rc"], m["rd"], m["re"], m["rf"]],
-                "PLACEMENT": (-0.5*(m["clb_w"]-m["cbx11_w"]),
-                              -0.5*(m["clb_h"]-m["right_cby_h"]))},
+                "PLACEMENT": [-0.5*(m["clb_w"]-m["cbx11_w"]),
+                              -0.5*(m["clb_h"]-m["right_cby_h"])]},
             f"sb_{W}__{H}_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ta"], m["tb"], 0, m["rd"], 0, m["rf"]],
-                "PLACEMENT": (-0.5*(m["clb_w"]-m["top_cbx_w"]),
-                              -0.5*(m["clb_h"]-m["right_cby_h"]))},
+                "PLACEMENT": [-0.5*(m["clb_w"]-m["top_cbx_w"]),
+                              -0.5*(m["clb_h"]-m["right_cby_h"])]},
         }

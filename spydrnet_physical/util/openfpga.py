@@ -149,6 +149,11 @@ class OpenFPGA:
             else:
                 boundary.extend([boundary[-2]+pt, boundary[-1]])
                 direction = 'v'
+        offset_x = -1*int(min(map(float,boundary[::2])))
+        offset_y = -1*int(min(map(float,boundary[1::2])))
+        for indx in range(0,len(boundary),2):
+            boundary[indx] += offset_x
+            boundary[indx+1] += offset_y
         return boundary
 
     @staticmethod
@@ -757,6 +762,7 @@ class OpenFPGA:
         def add_area_detail(ref):
             area = ref.data[PROP].get("AREA", 0)
             util = area/(ref.area/self.SC_GRID)
+            ref.data[PROP]["UTIL"] = util
             return f"[{util:.2%}]"
         get_label = get_label or add_area_detail
         for inst in self.top_module.get_instances("*"):
