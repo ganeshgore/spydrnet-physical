@@ -13,7 +13,7 @@ from spydrnet_physical.util import FPGAGridGen
 logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO")
 
-LAYOUT = environ.get("LAYOUT", "dp")
+LAYOUT = environ.get("LAYOUT", "ultimate")
 
 
 def main():
@@ -21,7 +21,7 @@ def main():
     Architecture render method
     """
     try:
-        VPR_ARCH_FILE = glob(("task/arch/*vpr*"))[0]
+        VPR_ARCH_FILE = glob(("/home/users/saad.khalil/Documents/RS/spydrnet-physical/examples/design_example/FPGA8x4_HETERO/task/arch/vpr_arch.xml"))[0]
         PROJ_NAME = basename(dirname(realpath(__file__)))
     except IndexError:
         logger.exception("Architecture file not found ['task/arch/*vpr*']")

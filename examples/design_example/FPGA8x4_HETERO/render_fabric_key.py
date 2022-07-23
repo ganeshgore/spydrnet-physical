@@ -937,8 +937,24 @@ class custom_fabric_key(FabricKeyGenCCFF):
             self.fkey.append(key)
         return self.fkey
 
-    # FIXME: I moved this functions from fabric_key_ccff, lets tray to generalise
+    # FIXME: I moved this functions from fabric_key_ccff, lets try to generalise
     # them before adding into fabric_key_ccff
+
+    # Not comprehensively tested. Need to do it tomorrow
+    def create_pattern(self, index_list):
+        '''
+        This should create any pattern.
+        index_list = list of tuple
+        '''
+        for i in index_list:
+            try:
+                inst_name = self.fpga_grid.get_top_instance(i[0], i[1])
+            except IndexError:
+                break
+            if inst_name == "EMPTY":
+                continue
+            self.fkey += [(i[0], i[1], inst_name)]
+
     def create_sel_serpentine_connection(self, x, fkey_name):
         for xpt in [x]:
             for ypt in range((self.fpga_grid.get_height() * 2) + 3):

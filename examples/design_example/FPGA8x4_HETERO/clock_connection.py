@@ -10,6 +10,7 @@ import spydrnet as sdn
 from spydrnet_physical.util import ConnectionPattern, ConnectPointList
 from svgwrite.container import Group, Style
 from spydrnet_physical.util import FPGAGridGen
+from copy import deepcopy
 
 
 logger = logging.getLogger("spydrnet_logs")
@@ -28,7 +29,7 @@ def main():
     Architecture render method
     """
     try:
-        VPR_ARCH_FILE = glob(("task/arch/*vpr*"))[0]
+        VPR_ARCH_FILE = glob(("/home/users/saad.khalil/Documents/RS/spydrnet-physical/examples/design_example/FPGA8x4_HETERO/task/arch/vpr_arch.xml"))[0]
         PROJ_NAME = basename(dirname(realpath(__file__)))
     except IndexError:
         logger.exception("Architecture file not found ['task/arch/*vpr*']")
@@ -57,11 +58,11 @@ def main():
     p_manager = ConnectionPattern(WIDTH, HEIGHT)
     hyb_pat = p_manager.connections
 
-    level0_patt.cursor = (WIDTH / 2, 0)
-    level0_patt.move_y(steps=int(HEIGHT / 2) + 1)
+    level0_patt.cursor = ((WIDTH / 2)+1, 0)
+    level0_patt.move_y(steps=HEIGHT - 2)
     level0_patt.merge(
-        p_manager.get_htree(WIDTH, root=2, side=-8).translate(
-            0, -(fpga.get_height() - 1)
+        p_manager.get_htree(WIDTH, root=2, side=-9).translate(
+            0, -(fpga.get_height())
         )
     )
     level0_patt.set_color("green")
@@ -71,42 +72,203 @@ def main():
         for y in [10, HEIGHT - 10]:
             if y == HEIGHT - 10 and x == int(WIDTH / 4) - 1:
                 level1_patt.merge(
-                    p_manager.get_htree(int(WIDTH / 2), side=-4).translate(
+                    p_manager.get_htree(int(WIDTH / 2), root = -1, side=-4).translate(
                         x - 17, y - 16
                     )
                 )
             if y == 10 and x == int(WIDTH / 4) - 1:
                 level1_patt.merge(
-                    p_manager.get_htree(int(WIDTH / 2), side=-4).translate(
+                    p_manager.get_htree(int(WIDTH / 2), root = -1,side=-4).translate(
                         x - 17, y - 17
                     )
                 )
             if y == HEIGHT - 10 and x == WIDTH - 16:
                 level1_patt.merge(
-                    p_manager.get_htree(int(WIDTH / 2), side=-4).translate(
-                        x - 16, y - 16
+                    p_manager.get_htree(int(WIDTH / 2), root = -1, side=-4).translate(
+                        x - 15, y - 16
                     )
                 )
             if y == 10 and x == WIDTH - 16:
                 level1_patt.merge(
-                    p_manager.get_htree(int(WIDTH / 2), side=-4).translate(
-                        x - 16, y - 17
+                    p_manager.get_htree(int(WIDTH / 2), root = -1, side=-4).translate(
+                        x - 15, y - 17
                     )
                 )
 
     for x in [7, 23, 43, 59]:
         for y in [6, 14, 22, 30]:
-            level2_patt.merge(
-                level2_pmanager.get_htree(int(WIDTH / 4), side=-2).translate(
-                    x - 8, y - 8
+            if x == 7:
+                level2_patt.merge(
+                    level2_pmanager.get_htree(int(WIDTH / 4)-1, side=-2).translate(
+                        x-7 , y-8 
+                    )
                 )
-            )
+            if x == 23:
+                level2_patt.merge(
+                    level2_pmanager.get_htree(int(WIDTH / 4)-1, side=-2).translate(
+                        x-9 , y-8 
+                    )
+                )
+            if x == 43:
+                level2_patt.merge(
+                    level2_pmanager.get_htree(int(WIDTH / 4)-1, side=-2).translate(
+                        x-5 , y-8 
+                    )
+                )
+            if x == 59:
+                level2_patt.merge(
+                    level2_pmanager.get_htree(int(WIDTH / 4)-1, side=-2).translate(
+                        x-7 , y-8 
+                    )
+                )
 
     for x in [3, 11, 19, 27, 39, 47, 55, 63]:
         for y in range(4, HEIGHT, 4):
-            level3_patt.merge(
-                level3_pmanager.get_htree(int(WIDTH / 12)).translate(x - 3, y - 3)
-            )
+            if x == 3 or x == 11:
+                level3_patt.merge(
+                    level3_pmanager.get_htree(int(WIDTH / 12)).translate(x - 2, y - 3)
+                )
+
+            if x == 19 or x == 27:
+                level3_patt.merge(
+                    level3_pmanager.get_htree(int(WIDTH / 12)).translate(x - 4, y - 3)
+                )
+
+            if x == 39 or x == 47:
+                level3_patt.merge(
+                    level3_pmanager.get_htree(int(WIDTH / 12)).translate(x , y - 3)
+                )
+
+            if x == 55 or x == 63:
+                level3_patt.merge(
+                    level3_pmanager.get_htree(int(WIDTH / 12)).translate(x - 2, y - 3)
+                )
+
+
+# what is more preferable 
+#   1 pattern with all the connection    or
+#   multiple patterns with small connections
+
+    pts1 = ConnectPointList(30, 3)
+    pts1.cursor = (1, 2)
+    pts1.hold_cursor()
+    pts1.move_x(2)
+    pts1.cursor = (7, 3)
+    pts1.hold_cursor()
+    pts1.move_x(-2).move_cursor_y(-2)
+    pts1.move_x(-2)
+    pts1.cursor = (9, 2)
+    pts1.hold_cursor()
+    pts1.move_x(2)
+    pts1.cursor = (15, 3)
+    pts1.hold_cursor()
+    pts1.move_x(2).move_cursor_y(-2)
+    pts1.move_x(2)
+    pts1.cursor = (21, 2)
+    pts1.hold_cursor()
+    pts1.move_x(-2)
+    pts1.cursor = (23, 3)
+    pts1.hold_cursor()
+    pts1.move_x(2).move_cursor_y(-2)
+    pts1.move_x(2).move_cursor_y(1)
+    pts1.move_x(4)
+    pts1.cursor = (30, 3)
+    pts1.hold_cursor()
+    pts1.move_x(-1).move_cursor_y(-2)
+    pts1.move_x(-1)
+    pts1.set_color("red")
+    for x in [4]:
+        for y in range(2, HEIGHT - 1, 4):
+            pts1_copy = deepcopy(pts1)
+            level3_patt.merge(pts1_copy.translate(x, y))
+
+    for x in [WIDTH-3]:
+        for y in range(2, HEIGHT - 1, 4):
+            pts2_copy = deepcopy(pts1)
+            pts2_copy.flip('h')
+            level3_patt.merge(pts2_copy.translate(x, y))       
+
+
+    #pts2 = ConnectPointList(3, 3)
+    #pts2.cursor = (1, 1)
+    #pts2.hold_cursor()
+    #pts2.move_x(2).move_cursor_y(-2)
+    #pts2.move_x(2)
+    #pts2.set_color("red")
+#
+    #for x in [20, 28, 58]:
+    #    for y in range(2, HEIGHT - 1, 4):
+    #        pts1_copy = deepcopy(pts1)
+    #        level3_patt.merge(pts1_copy.translate(x, y))
+#
+    #pts0 = ConnectPointList(3,1)
+    #pts0.cursor = (2,1)
+    #pts0.hold_cursor()
+    #pts0.move_x(1)
+    #pts0.move_x(-1)
+#
+    #for y in range(2, HEIGHT - 1, 2):
+    #        pts0_copy = deepcopy(pts0)
+    #        level0_patt.merge(pts0_copy.translate(int(WIDTH/2)-1, y))
+#
+    #pts3 = ConnectPointList(21,1)
+    #pts3.cursor = (1,1)
+    #pts3.hold_cursor()
+    #pts3.move_x(2)
+    #pts3.cursor = (13,1)
+    #pts3.hold_cursor()
+    #pts3.move_x(-2)
+    #pts3.cursor = (21,1)
+    #pts3.hold_cursor()
+    #pts3.move_x(-2)
+    #
+    #for x in [4, int(WIDTH/2)+9]:
+    #    for y in range(3, HEIGHT - 1, 4):
+    #        pts3_copy = deepcopy(pts3)
+    #        level3_patt.merge(pts3_copy.translate(x, y)) 
+#
+    ##pts4 = ConnectPointList(3,1)
+    ##pts4.cursor = (3,1)
+    ##pts4.hold_cursor()
+    ##pts4.move_x(-2)
+##
+    ##for x in [int(WIDTH/2)-11, WIDTH-7]:
+    ##    for y in range(3, HEIGHT - 1, 4):
+    ##        pts4_copy = deepcopy(pts4)
+    ##        level3_patt.merge(pts4_copy.translate(x, y)) 
+    #
+    #pts5 = ConnectPointList(15,1)
+    #pts5.cursor = (1,1)
+    #pts5.hold_cursor()
+    #pts5.move_x(4)
+    #pts5.cursor = (15, 1)
+    #pts5.hold_cursor()
+    #pts5.move_x(-4)
+#
+    #for x in [int(WIDTH/2)-7]:
+    #    for y in range(3, HEIGHT - 1, 4):
+    #        pts5_copy = deepcopy(pts5)
+    #        level3_patt.merge(pts5_copy.translate(x, y)) 
+
+    remove_points = []
+    for x in [15, int(WIDTH/2)+20]:
+        for y in range(12, HEIGHT-8, 4):
+            remove_points.append((x, y))
+            for point in remove_points:
+                point = level3_patt.search_to_point(point)
+                if point:
+                    level3_patt._points.remove(point)
+
+    # TODO Not working... need to short points on both the DSP columns.
+    short_points = []
+    for x in [16]:
+        for y in range(17, HEIGHT-8, 2):
+            short_points.append((x, y))
+            for point in short_points:
+                to_point = level3_patt.search_to_point(point)
+                from_point = level3_patt.search_from_point(point)
+                if to_point and from_point:
+                    level3_patt.short_through(point)
 
     hyb_pat.merge(level0_patt)
     hyb_pat.merge(level1_patt)
