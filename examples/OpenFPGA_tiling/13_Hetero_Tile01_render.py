@@ -9,57 +9,58 @@ based on ``initial_hetero_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. image:: ../../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg
+.. image:: ../../../examples/OpenFPGA_tiling/_fpga_auto_initial_heterogeneous_placement.svg
    :width: 70%
    :align: center
 
 """
-#sphinx_gallery_thumbnail_path = '../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg'
+# sphinx_gallery_thumbnail_path = '../../examples/OpenFPGA_tiling/_fpga_auto_initial_heterogeneous_placement.svg'
 import glob
 import logging
-import os
 import tempfile
-from itertools import chain
-import seaborn as sns
-
-import spydrnet as sdn
 from copy import deepcopy
-from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen, Tile02,
-                                    GridFloorplanGen, OpenFPGA,
-                                    initial_hetero_placement)
+from itertools import chain
 
-logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='INFO')
+import seaborn as sns
+import spydrnet as sdn
+from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen, OpenFPGA,
+                                    Tile02, initial_hetero_placement)
+
+logger = logging.getLogger("spydrnet_logs")
+sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 PROP = "VERILOG.InlineConstraints"
 
 
-CBX_COLOR = '#d9d9f3'
-CBY_COLOR = '#a8d0db'
-SB_COLOR = '#ceefe4'
-GRID_COLOR = '#ddd0b1'
+CBX_COLOR = "#d9d9f3"
+CBY_COLOR = "#a8d0db"
+SB_COLOR = "#ceefe4"
+GRID_COLOR = "#ddd0b1"
 
 
-STYLE_SHEET = '''
+STYLE_SHEET = """
     .over_util {fill:#b22222 !important}
     text{font-family: Lato; font-size: 8px}
-'''
+"""
 
 CPP = 2
 SC_HEIGHT = 10
 
 
 def main():
+    """
+    Main routine
+    """
     proj = "../hetrogeneous_fabric"
-    source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
+    source_files = glob.glob(f"{proj}/*_Verilog/lb/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/routing/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/fpga_top.v")
 
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-        for eachV in source_files:
-            with open(eachV, "r") as fpv:
+        for each_file in source_files:
+            with open(each_file, "r", encoding="UTF-8") as fpv:
                 fp.write(str.encode(" ".join(fpv.readlines())))
         fp.seek(0)
         netlist = sdn.parse(fp.name)
@@ -74,9 +75,11 @@ def main():
     fpga.merge_all_grid_ios()
 
     # Convert top level independent nets to bus
-    for i in chain(fpga.top_module.get_instances("grid_clb*"),
-                   fpga.top_module.get_instances("grid_io*"),
-                   fpga.top_module.get_instances("sb_*")):
+    for i in chain(
+        fpga.top_module.get_instances("grid_clb*"),
+        fpga.top_module.get_instances("grid_io*"),
+        fpga.top_module.get_instances("sb_*"),
+    ):
         for p in filter(lambda x: True, i.reference.ports):
             if p.size > 1 and (i.check_all_scalar_connections(p)):
                 cable_list = []
@@ -91,48 +94,52 @@ def main():
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #           Floorplan visualization
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    fpga_grid = FPGAGridGen(design_name='FPGA8x8', layout="8x8",
-                            arch_file=f"{proj}/FPGA88_hetero_Task/arch/k6_N10_tileable.xml",
-                            release_root=None)
+    fpga_grid = FPGAGridGen(
+        design_name="FPGA8x8",
+        layout="8x8",
+        arch_file=f"{proj}/FPGA88_hetero_Task/arch/k6_N10_tileable.xml",
+        release_root=None,
+    )
     fpga_grid.enumerate_grid()
     fpga.load_grid(fpga_grid)
-    fpga.register_placement_creator(initial_hetero_placement,
-                                    areaFile={
-                                        "grid_clb": [2500, 24*8, 24],
-                                        "cbx_1__1_": [2500*0.6, 0, 0]})
+    fpga.register_placement_creator(
+        initial_hetero_placement,
+        areaFile={"grid_clb": [2500, 24 * 8, 24],
+                  "cbx_1__1_": [2500 * 0.6, 0, 0]},
+    )
     # print(set(inst.keys()))
     # print(set(fpga.placement_creator.module_shapes.keys()))
     shapes = fpga.placement_creator.module_shapes
     s_param = fpga.placement_creator.s_param
-    print(set(inst.keys())-set(shapes.keys()))
+    print(set(inst.keys()) - set(shapes.keys()))
 
-    shapes['cbx_2__0_'] = shapes['cbx_1__0_']
-    shapes['cbx_2__2_'] = shapes['cbx_1__1_']
-    shapes['cbx_2__8_'] = shapes['cbx_1__8_']
+    shapes["cbx_2__0_"] = shapes["cbx_1__0_"]
+    shapes["cbx_2__2_"] = shapes["cbx_1__1_"]
+    shapes["cbx_2__8_"] = shapes["cbx_1__8_"]
 
-    shapes['cby_2__1_'] = shapes['cby_3__1_'] = deepcopy(shapes['cby_1__1_'])
+    shapes["cby_2__1_"] = shapes["cby_3__1_"] = deepcopy(shapes["cby_1__1_"])
 
-    shapes['sb_2__0_'] = shapes['sb_3__0_'] = deepcopy(shapes['sb_1__0_'])
-    shapes['sb_2__8_'] = shapes['sb_3__8_'] = deepcopy(shapes['sb_1__8_'])
-    shapes['sb_2__2_'] = deepcopy(shapes['sb_1__1_'])
-    shapes['sb_3__1_'] = deepcopy(shapes['sb_1__1_'])
-    shapes['sb_2__1_'] = deepcopy(shapes['sb_1__1_'])
-    shapes['sb_1__2_'] = deepcopy(shapes['sb_1__1_'])
+    shapes["sb_2__0_"] = shapes["sb_3__0_"] = deepcopy(shapes["sb_1__0_"])
+    shapes["sb_2__8_"] = shapes["sb_3__8_"] = deepcopy(shapes["sb_1__8_"])
+    shapes["sb_2__2_"] = deepcopy(shapes["sb_1__1_"])
+    shapes["sb_3__1_"] = deepcopy(shapes["sb_1__1_"])
+    shapes["sb_2__1_"] = deepcopy(shapes["sb_1__1_"])
+    shapes["sb_1__2_"] = deepcopy(shapes["sb_1__1_"])
 
-    shapes['sb_8__2_'] = deepcopy(shapes['sb_8__1_'])
-    shapes['grid_mult_8'] = deepcopy(shapes['grid_clb'])
+    shapes["sb_8__2_"] = deepcopy(shapes["sb_8__1_"])
+    shapes["grid_mult_8"] = deepcopy(shapes["grid_clb"])
 
-    shapes['grid_mult_8']["POINTS"][1] += s_param["clb_h"] + s_param["cbx11_h"]
-    shapes['sb_1__1_']["POINTS"][4] = 0
-    p = shapes['sb_2__1_']["PLACEMENT"]
-    shapes['sb_2__1_']["PLACEMENT"] = (p[0] + shapes['sb_2__1_']["POINTS"][1],
-                                       p[1])
-    shapes['sb_2__1_']["POINTS"][1] = 0
+    shapes["grid_mult_8"]["POINTS"][1] += s_param["clb_h"] + s_param["cbx11_h"]
+    shapes["sb_1__1_"]["POINTS"][4] = 0
+    p = shapes["sb_2__1_"]["PLACEMENT"]
+    shapes["sb_2__1_"]["PLACEMENT"] = (
+        p[0] + shapes["sb_2__1_"]["POINTS"][1], p[1])
+    shapes["sb_2__1_"]["POINTS"][1] = 0
 
-    p = shapes['sb_8__1_']["PLACEMENT"]
-    shapes['sb_8__1_']["PLACEMENT"] = (p[0] + shapes['sb_8__1_']["POINTS"][1],
-                                       p[1])
-    shapes['sb_8__1_']["POINTS"][1] = 0
+    p = shapes["sb_8__1_"]["PLACEMENT"]
+    shapes["sb_8__1_"]["PLACEMENT"] = (
+        p[0] + shapes["sb_8__1_"]["POINTS"][1], p[1])
+    shapes["sb_8__1_"]["POINTS"][1] = 0
 
     fpga.create_placement()
     fpga.show_placement_data("*_0__*")
@@ -142,7 +149,7 @@ def main():
     fpga.register_tile_generator(Tile02)
     fpga.create_tiles()
 
-    palette = sns.color_palette('pastel', 15).as_hex()
+    palette = sns.color_palette("pastel", 15).as_hex()
     for indx, tile in enumerate(fpga.top_module.get_definitions("*tile*")):
         tile.data[PROP]["COLOR"] = palette[indx]
 
@@ -159,10 +166,10 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(4*CPP, 2*SC_HEIGHT),
+    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT),
                           patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
-    pattern.add(dwg.circle(center=(2, SC_HEIGHT+2), r=1, fill="red"))
+    pattern.add(dwg.circle(center=(2, SC_HEIGHT + 2), r=1, fill="red"))
     dwg.defs.add(pattern)
     dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 

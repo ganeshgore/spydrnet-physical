@@ -57,9 +57,10 @@ def main():
     w = fpga.get_width()
     h = fpga.get_height()
 
-    hetro_columns = [3, 7]
+    hetro_columns = [5]
+
     if LAYOUT == "ultimate":
-        hetro_columns += [11, 15, 18, 22, 26, 30]
+        hetro_columns += [15, 18, 23, 26, 36]
     for x in hetro_columns:
         for y in range(1, h + 2, 2):
             hetero = "dsp" if x in (7, 26) else "ram9k"

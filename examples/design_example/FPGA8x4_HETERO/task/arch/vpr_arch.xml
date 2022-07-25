@@ -17,7 +17,6 @@
             <row type="io_bottom" starty="0" priority="100"/>
             <col type="io_right" startx="W-1" priority="100"/>
             <col type="io_left" startx="0" priority="100"/>
-            <col type="EMPTY" startx="0" priority="100"/>
             <corners type="EMPTY" priority="101"/>
             <!--Fill with 'clb'-->
             <fill type="clb" priority="10"/>
@@ -27,21 +26,26 @@
             <region type="ram9k" startx="3" endx="W/2" starty="1" endy="H-1" incrx="4" priority="20"/>
             <!-- <region type="ram9k" startx="18" endx="W-1" starty="1" endy="H-1" incrx="4" priority="20"/> -->
         </fixed_layout>
-        <fixed_layout name="ultimate" width="34" height="18">
+        <fixed_layout name="ultimate" width="42" height="18">
             <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
             <row type="io_top" starty="H-1" priority="100"/>
             <row type="io_bottom" starty="0" priority="100"/>
             <col type="io_right" startx="W-1" priority="100"/>
             <col type="io_left" startx="0" priority="100"/>
-            <col type="EMPTY" startx="0" priority="100"/>
             <corners type="EMPTY" priority="101"/>
             <!--Fill with 'clb'-->
             <fill type="clb" priority="10"/>
             <!--Row of DSP with 'EMPTY' blocks wherever a DSP does not fit. Vertical offset by 1 for perimeter.-->
-            <region type="dsp" startx="7" endx="W-1" starty="1" endy="H-1" incrx="19" priority="30"/>
+            <region type="dsp" startx="10" endx="W-1" starty="1" endy="H-1" incrx="21" priority="30"/>
             <!--Row of RAM9K with 'EMPTY' blocks wherever a RAM9k does not fit. Vertical offset by 1 for perimeter.-->
-            <region type="ram9k" startx="3" endx="W/2" starty="1" endy="H-1" incrx="4" priority="20"/>
-            <region type="ram9k" startx="18" endx="W-1" starty="1" endy="H-1" incrx="4" priority="20"/>
+            <col type="ram9k" startx="5" priority="20"/>
+            <col type="ram9k" startx="15" priority="20"/>
+            <col type="ram9k" startx="18" priority="20"/>
+            <col type="ram9k" startx="23" priority="20"/>
+            <col type="ram9k" startx="26" priority="20"/>
+            <col type="ram9k" startx="W-6" priority="20"/>
+            <!-- <region type="ram9k" startx="18" endx="23" starty="1" endy="H-1" incrx="5" priority="20"/>
+            <region type="ram9k" startx="26" endx="W-1" starty="1" endy="H-1" incrx="10" priority="20"/> -->
         </fixed_layout>
     </layout>
 </architecture>
