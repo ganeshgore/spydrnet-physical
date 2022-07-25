@@ -22,7 +22,7 @@ PROP = "VERILOG.InlineConstraints"
 
 class OpenFPGA:
     '''
-    This is top-level clas of OpenFPGa which provides methods for 
+    This is top-level clas of OpenFPGA which provides methods for 
     different generic netlist restructuring
 
     '''
@@ -334,7 +334,7 @@ class OpenFPGA:
     def merge_all_grid_ios(self):
         '''
         This method creates the group of ``grid_io`` and neighbouring ``connection_box``
-        whichcna be merge. 
+        which can be merge. 
 
         Variable ``cb_list``, ``grid_io_list`` first creates the list of instances on 
         the periphery of the FPGA, starting from the left bottom corner and going clockwise
@@ -757,7 +757,7 @@ class OpenFPGA:
 
     def update_module_label(self, get_label=None):
         '''
-        Adde area information to label
+        Add area information to label
         '''
         def add_area_detail(ref):
             area = ref.data[PROP].get("AREA", 0)
