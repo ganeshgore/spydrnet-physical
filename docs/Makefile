@@ -11,7 +11,7 @@ SOURCEDIR         = source
 BUILDDIR          = build
 AUTO_BUILD_DIR    = "auto_.*\/.*"
 PYTHON_EXEC       ?= "python3.8"
-RUN_EXAMPLE_WC    ?= 
+RUN_EXAMPLE_WC    ?= OpenFPGA_*
 
 .SILENT:
 .ONESHELL:
@@ -25,7 +25,7 @@ install:
 
 reload:
 	@$(SPHINXRELOAD) "$(SOURCEDIR)" "${BUILDDIR}" \
-	--watch "../examples/**" \
+	--watch "../examples/**/*.py" \
 	--watch "../spydrnet_physical/support_files/**" \
 	--re-ignore ${AUTO_BUILD_DIR} $(SPHINXRELOADOPTS) $(SPHINXOPTS) $(O)
 
@@ -53,6 +53,13 @@ run_examples: generate_schematics
 		else echo {} > "$${log_dir}/_run_examples_logs/failed.log"; \
 	echo "ERROR" {}; fi;'
 	if [[ -f $${log_dir}/failed.log ]]; then return 1; fi
+
+design_examples:
+# Write a script to run a  design example before documentation
+# mainly every design project will consist of a shell script to execute code
+# design_examples execution is different from run_examples execution because the 
+# each script is not independent, and it needs to executed sequentially 
+	echo "Not implemented yet"
 
 # run_examples:
 # 	find ../examples -type f -name "*.py" \

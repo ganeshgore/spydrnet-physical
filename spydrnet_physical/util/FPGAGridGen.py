@@ -617,12 +617,16 @@ class FPGAGridGen:
                 ele = symbol.elements[0]
                 attrib = ele.attribs
                 pts = ele.attribs["d"].split()
-                print(pts)
-                print(pt)
                 points.append(
                     (
-                        pt[0] + float(pts[1]) + attrib.get("x", 0),
-                        pt[1] + float(pts[2]) + attrib.get("y", 0),
+                        pt[0]
+                        + float(pts[1])
+                        + symbol.attribs.get("x", 0)
+                        + attrib.get("x", 0),
+                        pt[1]
+                        + float(pts[2])
+                        + symbol.attribs.get("y", 0)
+                        + attrib.get("y", 0),
                     )
                 )
                 for direction, distance in zip(pts[3:-1:2], pts[4:-1:2]):
@@ -760,6 +764,7 @@ class FPGAGridGen:
                 # dwg_shapes.add(dwg.circle(r=0.02, stroke="red",
                 #                center=(x_pt_new, y_pt_new)))
                 xct, yct = symbol_map[symbol]["center"]
+                self.placement_db[inst_name] = (x_pt_new + xct, y_pt_new + yct)
                 dwg_text.add(
                     dwg.text(
                         inst_name,

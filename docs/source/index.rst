@@ -55,6 +55,12 @@ Table of Contents
    example
 
 .. toctree::
+   :maxdepth: 2
+   :caption: Design examples
+
+   ./auto_design_examples/*/index.rst
+
+.. toctree::
    :maxdepth: 1
    :caption: Developeres Content
 
