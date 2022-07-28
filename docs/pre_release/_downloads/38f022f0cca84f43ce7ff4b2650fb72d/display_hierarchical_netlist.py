@@ -10,6 +10,11 @@ a given scalar or vector wires.
 .. image:: ../auto_sample_verilog/basic_hierarchy.svg
     :align: center
 
+.. rst-class:: hidden
+
+.. image:: ../../../examples/basic/_initial_design.html
+    :align: center
+
 .. raw:: html
 
     <iframe width="100%" height="400" scrolling="no" frameBorder="1"
