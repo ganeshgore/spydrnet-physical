@@ -9,7 +9,7 @@ based on ``initial_hetero_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. image:: ../../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg
+.. image:: ../../../examples/OpenFPGA_tiling/_fpga_auto_initial_heterogeneous_placement.svg
    :width: 70%
    :align: center
 

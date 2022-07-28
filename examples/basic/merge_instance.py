@@ -22,10 +22,11 @@ merged definition
 """
 
 
-from os import path
+import logging
+
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
-import logging
+
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
 
@@ -42,4 +43,7 @@ top.merge_instance([inst1, inst2],
                    new_instance_name="merged_module_instance_0")
 
 top.create_unconn_wires()
-sdn.compose(netlist, '_merged_design.v', skip_constraints=True)
+
+FILENAME = '_merged_design.v'
+sdn.compose(netlist, FILENAME, skip_constraints=True)
+logger.info("Saving merged version to %s", FILENAME)

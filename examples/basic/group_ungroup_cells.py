@@ -19,10 +19,10 @@ a given scalar or vector wires.
 
 """
 
-from os import path
+import logging
+
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
-import logging
 
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
@@ -36,4 +36,7 @@ top.flatten_instance(inst)
 inst = next(top.get_instances("inst_1_1"))
 top.flatten_instance(inst)
 top.create_unconn_wires()
-sdn.compose(netlist, '_ungrouped_design.v', skip_constraints=True)
+
+FILENAME = "_ungrouped_design.v"
+sdn.compose(netlist, FILENAME, skip_constraints=True)
+logger.info("Saving merged version to %s", FILENAME)
