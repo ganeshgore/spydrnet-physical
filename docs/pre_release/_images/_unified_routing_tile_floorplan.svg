@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-1440,1440,1440" width="100%">
+    <defs>
+        <symbol id="fpga_top">
+            <rect class="module_boundary fpga_top" fill="#f4f0e6" height="1339" width="1339" x="1" y="1"/>
+        </symbol>
+        <symbol id="grid_clb">
+            <rect class="module_boundary grid_clb" fill="#ddd0b1" height="199" width="199" x="1" y="1"/>
+        </symbol>
+        <symbol id="sb_0__4_">
+            <path class="module_boundary sb_0__4_" d="M 0 0 v 24 h 0 v 104 h 0  v 0 h 104 v 0 h 24 v -104  h -24 v -24 Z Z" fill="#ceefe4"/>
+        </symbol>
+        <symbol height="280" id="rb_0__0_" viewBox="0 0 128 280 " width="128">
+            <path class="module_boundary rb_0__0_" d="m 0 0 h 128 v 104 h -24 v 176 h -104 v -280  z" fill="#ceefe4"/>
+        </symbol>
+        <symbol height="304" id="rb_0__1_" viewBox="0 0 128 304 " width="128">
+            <path class="module_boundary rb_0__1_" d="m 0 0 h 104 v 24 h 24 v 104 h -24 v 176 h -104 v -304  z" fill="#ceefe4"/>
+        </symbol>
+        <symbol height="280" id="rb_1__0_" viewBox="0 0 304 280 " width="304">
+            <path class="module_boundary rb_1__0_" d="m 0 0 h 304 v 104 h -24 v 176 h -104 v -176 h -176 v -104  z" fill="#ceefe4"/>
+        </symbol>
+        <symbol height="304" id="rb_1__1_" viewBox="0 -24 304 304 " width="304">
+            <path class="module_boundary rb_1__1_" d="m 0 0 h 176 v -24 h 104 v 24 h 24 v 104 h -24 v 176 h -104 v -176 h -176 v -104  z" fill="#ceefe4"/>
+        </symbol>
+        <symbol height="128" id="rb_1__4_" viewBox="0 -24 304 128 " width="304">
+            <path class="module_boundary rb_1__4_" d="m 0 0 h 176 v -24 h 104 v 24 h 24 v 104 h -304 v -104  z" fill="#ceefe4"/>
+        </symbol>
+        <symbol height="280" id="rb_4__0_" viewBox="0 0 280 280 " width="280">
+            <path class="module_boundary rb_4__0_" d="m 0 0 h 280 v 280 h -104 v -176 h -176 v -104  z" fill="#ceefe4"/>
+        </symbol>
+        <symbol height="304" id="rb_4__1_" viewBox="0 -24 280 304 " width="280">
+            <path class="module_boundary rb_4__1_" d="m 0 0 h 176 v -24 h 104 v 304 h -104 v -176 h -176 v -104  z" fill="#ceefe4"/>
+        </symbol>
+        <symbol height="128" id="rb_4__4_" viewBox="0 -24 280 128 " width="280">
+            <path class="module_boundary rb_4__4_" d="m 0 0 h 176 v -24 h 104 v 128 h -280 v -104  z" fill="#ceefe4"/>
+        </symbol>
+        <style type="text/css"><![CDATA[
+            .origin{fill:black}
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        ]]></style>
+    </defs>
+    <g id="bg">
+        <rect fill="#FFF" height="1390" id="background" stroke-width="0" width="1390" x="-25" y="-25"/>
+    </g>
+    <g id="mainframe">
+        <g id="mainShapes" transform="scale(1,-1)">
+            <use class="topModule" x="0" xlink:href="#fpga_top" y="0"/>
+            <use class="grid_clb_1__1_" x="114" xlink:href="#grid_clb" y="114"/>
+            <use class="grid_clb_1__2_" x="114" xlink:href="#grid_clb" y="418"/>
+            <use class="grid_clb_1__3_" x="114" xlink:href="#grid_clb" y="722"/>
+            <use class="grid_clb_1__4_" x="114" xlink:href="#grid_clb" y="1026"/>
+            <use class="grid_clb_2__1_" x="418" xlink:href="#grid_clb" y="114"/>
+            <use class="grid_clb_2__2_" x="418" xlink:href="#grid_clb" y="418"/>
+            <use class="grid_clb_2__3_" x="418" xlink:href="#grid_clb" y="722"/>
+            <use class="grid_clb_2__4_" x="418" xlink:href="#grid_clb" y="1026"/>
+            <use class="grid_clb_3__1_" x="722" xlink:href="#grid_clb" y="114"/>
+            <use class="grid_clb_3__2_" x="722" xlink:href="#grid_clb" y="418"/>
+            <use class="grid_clb_3__3_" x="722" xlink:href="#grid_clb" y="722"/>
+            <use class="grid_clb_3__4_" x="722" xlink:href="#grid_clb" y="1026"/>
+            <use class="grid_clb_4__1_" x="1026" xlink:href="#grid_clb" y="114"/>
+            <use class="grid_clb_4__2_" x="1026" xlink:href="#grid_clb" y="418"/>
+            <use class="grid_clb_4__3_" x="1026" xlink:href="#grid_clb" y="722"/>
+            <use class="grid_clb_4__4_" x="1026" xlink:href="#grid_clb" y="1026"/>
+            <use class="sb_0__4_" x="10" xlink:href="#sb_0__4_" y="1202"/>
+            <use class="rb_0__0_" x="10" xlink:href="#rb_0__0_" y="10"/>
+            <use class="rb_0__1_" x="10" xlink:href="#rb_0__1_" y="290"/>
+            <use class="rb_0__2_" x="10" xlink:href="#rb_0__1_" y="594"/>
+            <use class="rb_0__3_" x="10" xlink:href="#rb_0__1_" y="898"/>
+            <use class="rb_1__0_" x="138" xlink:href="#rb_1__0_" y="10"/>
+            <use class="rb_2__0_" x="442" xlink:href="#rb_1__0_" y="10"/>
+            <use class="rb_3__0_" x="746" xlink:href="#rb_1__0_" y="10"/>
+            <use class="rb_1__1_" x="138" xlink:href="#rb_1__1_" y="290"/>
+            <use class="rb_1__2_" x="138" xlink:href="#rb_1__1_" y="594"/>
+            <use class="rb_1__3_" x="138" xlink:href="#rb_1__1_" y="898"/>
+            <use class="rb_2__1_" x="442" xlink:href="#rb_1__1_" y="290"/>
+            <use class="rb_2__2_" x="442" xlink:href="#rb_1__1_" y="594"/>
+            <use class="rb_2__3_" x="442" xlink:href="#rb_1__1_" y="898"/>
+            <use class="rb_3__1_" x="746" xlink:href="#rb_1__1_" y="290"/>
+            <use class="rb_3__2_" x="746" xlink:href="#rb_1__1_" y="594"/>
+            <use class="rb_3__3_" x="746" xlink:href="#rb_1__1_" y="898"/>
+            <use class="rb_1__4_" x="138" xlink:href="#rb_1__4_" y="1202"/>
+            <use class="rb_2__4_" x="442" xlink:href="#rb_1__4_" y="1202"/>
+            <use class="rb_3__4_" x="746" xlink:href="#rb_1__4_" y="1202"/>
+            <use class="rb_4__0_" x="1050" xlink:href="#rb_4__0_" y="10"/>
+            <use class="rb_4__1_" x="1050" xlink:href="#rb_4__1_" y="290"/>
+            <use class="rb_4__2_" x="1050" xlink:href="#rb_4__1_" y="594"/>
+            <use class="rb_4__3_" x="1050" xlink:href="#rb_4__1_" y="898"/>
+            <use class="rb_4__4_" x="1050" xlink:href="#rb_4__4_" y="1202"/>
+        </g>
+        <g id="mainText" transform="scale(1,-1)">
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="670.0" y="-134.0">fpga_top</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="214.0" y="-214.0">
+                grid_clb_1__1_
+                <tspan dy="1.2em" x="214.0" y="-214.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="214.0" y="-518.0">
+                grid_clb_1__2_
+                <tspan dy="1.2em" x="214.0" y="-518.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="214.0" y="-822.0">
+                grid_clb_1__3_
+                <tspan dy="1.2em" x="214.0" y="-822.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="214.0" y="-1126.0">
+                grid_clb_1__4_
+                <tspan dy="1.2em" x="214.0" y="-1126.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="518.0" y="-214.0">
+                grid_clb_2__1_
+                <tspan dy="1.2em" x="518.0" y="-214.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="518.0" y="-518.0">
+                grid_clb_2__2_
+                <tspan dy="1.2em" x="518.0" y="-518.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="518.0" y="-822.0">
+                grid_clb_2__3_
+                <tspan dy="1.2em" x="518.0" y="-822.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="518.0" y="-1126.0">
+                grid_clb_2__4_
+                <tspan dy="1.2em" x="518.0" y="-1126.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="822.0" y="-214.0">
+                grid_clb_3__1_
+                <tspan dy="1.2em" x="822.0" y="-214.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="822.0" y="-518.0">
+                grid_clb_3__2_
+                <tspan dy="1.2em" x="822.0" y="-518.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="822.0" y="-822.0">
+                grid_clb_3__3_
+                <tspan dy="1.2em" x="822.0" y="-822.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="822.0" y="-1126.0">
+                grid_clb_3__4_
+                <tspan dy="1.2em" x="822.0" y="-1126.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1126.0" y="-214.0">
+                grid_clb_4__1_
+                <tspan dy="1.2em" x="1126.0" y="-214.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1126.0" y="-518.0">
+                grid_clb_4__2_
+                <tspan dy="1.2em" x="1126.0" y="-518.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1126.0" y="-822.0">
+                grid_clb_4__3_
+                <tspan dy="1.2em" x="1126.0" y="-822.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1126.0" y="-1126.0">
+                grid_clb_4__4_
+                <tspan dy="1.2em" x="1126.0" y="-1126.0">[grid_clb]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="74.0" y="-1266.0">
+                sb_0__4_
+                <tspan dy="1.2em" x="74.0" y="-1266.0">[sb_0__4_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="74.0" y="-150.0">
+                rb_0__0_
+                <tspan dy="1.2em" x="74.0" y="-150.0">[rb_0__0_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="74.0" y="-442.0">
+                rb_0__1_
+                <tspan dy="1.2em" x="74.0" y="-442.0">[rb_0__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="74.0" y="-746.0">
+                rb_0__2_
+                <tspan dy="1.2em" x="74.0" y="-746.0">[rb_0__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="74.0" y="-1050.0">
+                rb_0__3_
+                <tspan dy="1.2em" x="74.0" y="-1050.0">[rb_0__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="290.0" y="-150.0">
+                rb_1__0_
+                <tspan dy="1.2em" x="290.0" y="-150.0">[rb_1__0_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="594.0" y="-150.0">
+                rb_2__0_
+                <tspan dy="1.2em" x="594.0" y="-150.0">[rb_1__0_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="898.0" y="-150.0">
+                rb_3__0_
+                <tspan dy="1.2em" x="898.0" y="-150.0">[rb_1__0_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="290.0" y="-442.0">
+                rb_1__1_
+                <tspan dy="1.2em" x="290.0" y="-442.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="290.0" y="-746.0">
+                rb_1__2_
+                <tspan dy="1.2em" x="290.0" y="-746.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="290.0" y="-1050.0">
+                rb_1__3_
+                <tspan dy="1.2em" x="290.0" y="-1050.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="594.0" y="-442.0">
+                rb_2__1_
+                <tspan dy="1.2em" x="594.0" y="-442.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="594.0" y="-746.0">
+                rb_2__2_
+                <tspan dy="1.2em" x="594.0" y="-746.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="594.0" y="-1050.0">
+                rb_2__3_
+                <tspan dy="1.2em" x="594.0" y="-1050.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="898.0" y="-442.0">
+                rb_3__1_
+                <tspan dy="1.2em" x="898.0" y="-442.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="898.0" y="-746.0">
+                rb_3__2_
+                <tspan dy="1.2em" x="898.0" y="-746.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="898.0" y="-1050.0">
+                rb_3__3_
+                <tspan dy="1.2em" x="898.0" y="-1050.0">[rb_1__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="290.0" y="-1266.0">
+                rb_1__4_
+                <tspan dy="1.2em" x="290.0" y="-1266.0">[rb_1__4_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="594.0" y="-1266.0">
+                rb_2__4_
+                <tspan dy="1.2em" x="594.0" y="-1266.0">[rb_1__4_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="898.0" y="-1266.0">
+                rb_3__4_
+                <tspan dy="1.2em" x="898.0" y="-1266.0">[rb_1__4_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1190.0" y="-150.0">
+                rb_4__0_
+                <tspan dy="1.2em" x="1190.0" y="-150.0">[rb_4__0_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1190.0" y="-442.0">
+                rb_4__1_
+                <tspan dy="1.2em" x="1190.0" y="-442.0">[rb_4__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1190.0" y="-746.0">
+                rb_4__2_
+                <tspan dy="1.2em" x="1190.0" y="-746.0">[rb_4__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1190.0" y="-1050.0">
+                rb_4__3_
+                <tspan dy="1.2em" x="1190.0" y="-1050.0">[rb_4__1_]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="1190.0" y="-1266.0">
+                rb_4__4_
+                <tspan dy="1.2em" x="1190.0" y="-1266.0">[rb_4__4_]</tspan>
+            </text>
+        </g>
+        <g id="edges" transform="scale(1,-1)"/>
+    </g>
+    <rect class="origin" height="10" width="10" x="0" y="0"/>
+    <g id="mainShapes" transform="scale(1,-1)">
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="10" y2="10"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="114" y2="114"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="314" y2="314"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="418" y2="418"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="618" y2="618"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="722" y2="722"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="922" y2="922"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="1026" y2="1026"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="1226" y2="1226"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1330" y1="1330" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="10" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="114" x2="114" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="314" x2="314" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="418" x2="418" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="618" x2="618" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="722" x2="722" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="922" x2="922" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="1026" x2="1026" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="1226" x2="1226" y1="10" y2="1330"/>
+        <line stroke="red" stroke-width="1" x1="1330" x2="1330" y1="10" y2="1330"/>
+    </g>
+</svg>
