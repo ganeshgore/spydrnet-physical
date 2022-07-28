@@ -43,11 +43,11 @@ OpenFPGA Class Generators
 '''''''''''''''''''''''''
 
 :doc:`OpenFPGA_Tile_Generator <../utility_classes/openfpga_tile_generator>`
-..................................................................
+................................................................................
 
 
 :doc:`OpenFPGA_Config_Generator <../utility_classes/openfpga_config_generator>`
-..................................................................
+................................................................................
 
 .. toctree::
    :maxdepth: 1
@@ -58,7 +58,7 @@ OpenFPGA Class Generators
 
 
 :doc:`OpenFPGA_Placement_Generator <../utility_classes/openfpga_placement_generator>`
-..................................................................
+.....................................................................................
 
 .. toctree::
    :maxdepth: 1
@@ -67,7 +67,7 @@ OpenFPGA Class Generators
 
 
 :doc:`OpenFPGA_Bitstream_Manager <../utility_classes/openfpga_bitstream>`
-..................................................................
+..........................................................................
 
 .. toctree::
    :maxdepth: 1

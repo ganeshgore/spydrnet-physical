@@ -345,10 +345,10 @@ a given scalar or vector wires.</p>
 <img alt="../_images/nested_hierarchy.svg" class="align-center" src="../_images/nested_hierarchy.svg"/><p><strong>Output1</strong> ungrouped module</p>
 <div align="center" class="align-center"><img alt="/__w/spydrnet-physical/spydrnet-physical/examples/basic/_ungrouped_design.v" src="../_images/group_ungroup_cells-38-..-examples-basic-_ungrouped_design.svg"/>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
-<span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
@@ -362,7 +362,10 @@ a given scalar or vector wires.</p>
 <span class="n">inst</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_1_1"</span><span class="p">))</span>
 <span class="n">top</span><span class="o">.</span><span class="n">flatten_instance</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
 <span class="n">top</span><span class="o">.</span><span class="n">create_unconn_wires</span><span class="p">()</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_ungrouped_design.v'</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">FILENAME</span> <span class="o">=</span> <span class="s2">"_ungrouped_design.v"</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">FILENAME</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Saving merged version to </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">FILENAME</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
