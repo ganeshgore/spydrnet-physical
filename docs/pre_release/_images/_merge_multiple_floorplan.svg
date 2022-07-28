@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-400,350,400" width="100%">
+    <defs>
+        <symbol id="top">
+            <rect class="module_boundary top" fill="#f4f0e6" height="299" width="249" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">in0</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in1');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">in1</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in3');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">in3</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'bus_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">bus_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">out0</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bus_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">bus_out</text>
+        </symbol>
+        <symbol height="80" id="NewModule" viewBox="0 0 140 80 " width="140">
+            <path class="module_boundary NewModule" d="m 0 0 h 140 v 40 h -100 v 40 h -40 v -80  z" fill="#f4f0e6"/>
+        </symbol>
+        <style type="text/css"><![CDATA[
+            .origin{fill:black}
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        ]]></style>
+    </defs>
+    <g id="bg">
+        <rect fill="#FFF" height="350" id="background" stroke-width="0" width="300" x="-25" y="-25"/>
+    </g>
+    <g id="mainframe">
+        <g id="mainShapes" transform="scale(1,-1)">
+            <use class="topModule" x="0" xlink:href="#top" y="0"/>
+            <use class="merged_inst_2_0" x="50" xlink:href="#NewModule" y="20"/>
+            <use class="merged_inst_2_1" x="50" xlink:href="#NewModule" y="170"/>
+        </g>
+        <g id="mainText" transform="scale(1,-1)">
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="125.0" y="-30.0">top</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="120.0" y="-60.0">
+                merged_inst_2_0
+                <tspan dy="1.2em" x="120.0" y="-60.0">[NewModule]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="120.0" y="-210.0">
+                merged_inst_2_1
+                <tspan dy="1.2em" x="120.0" y="-210.0">[NewModule]</tspan>
+            </text>
+        </g>
+        <g id="edges" transform="scale(1,-1)"/>
+    </g>
+    <rect class="origin" height="10" width="10" x="0" y="0"/>
+</svg>

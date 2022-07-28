@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-1120,1120,1120" width="100%">
+    <defs>
+        <symbol id="fpga_top">
+            <rect class="module_boundary fpga_top" fill="#f4f0e6" height="1019" width="1019" x="1" y="1"/>
+        </symbol>
+        <symbol id="tile">
+            <rect class="module_boundary tile" fill="#E6BA95" height="199" width="199" x="1" y="1"/>
+        </symbol>
+        <symbol id="right_tile">
+            <rect class="module_boundary right_tile" fill="#E6BA95" height="199" width="199" x="1" y="1"/>
+        </symbol>
+        <symbol id="top_tile">
+            <rect class="module_boundary top_tile" fill="#E6BA95" height="199" width="199" x="1" y="1"/>
+        </symbol>
+        <symbol id="top_left_tile">
+            <rect class="module_boundary top_left_tile" fill="#E6BA95" height="199" width="99" x="1" y="1"/>
+        </symbol>
+        <symbol id="top_right_tile">
+            <rect class="module_boundary top_right_tile" fill="#E6BA95" height="199" width="199" x="1" y="1"/>
+        </symbol>
+        <symbol id="bottom_left_tile">
+            <rect class="module_boundary bottom_left_tile" fill="#E6BA95" height="99" width="99" x="1" y="1"/>
+        </symbol>
+        <symbol id="bottom_right_tile">
+            <rect class="module_boundary bottom_right_tile" fill="#E6BA95" height="99" width="199" x="1" y="1"/>
+        </symbol>
+        <symbol id="left_tile">
+            <rect class="module_boundary left_tile" fill="#E6BA95" height="199" width="99" x="1" y="1"/>
+        </symbol>
+        <symbol id="bottom_tile">
+            <rect class="module_boundary bottom_tile" fill="#E6BA95" height="99" width="199" x="1" y="1"/>
+        </symbol>
+        <style type="text/css"><![CDATA[
+            .origin{fill:black}
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        ]]></style>
+        <style type="text/css"><![CDATA[
+    symbol[id*='tile'] * {number:01; fill:#d9d9f3;}
+    .over_util {fill:#b22222 !important}
+    text{font-family: Lato; font-size: 15px;}
+]]></style>
+    </defs>
+    <g id="bg">
+        <rect fill="#FFF" height="1070" id="background" stroke-width="0" width="1070" x="-25" y="-25"/>
+    </g>
+    <g id="mainframe">
+        <g id="mainShapes" transform="scale(1,-1)">
+            <use class="topModule" x="0" xlink:href="#fpga_top" y="0"/>
+            <use class="tile_2__2_" x="140" xlink:href="#tile" y="140"/>
+            <use class="tile_2__3_" x="140" xlink:href="#tile" y="360"/>
+            <use class="tile_2__4_" x="140" xlink:href="#tile" y="580"/>
+            <use class="tile_3__2_" x="360" xlink:href="#tile" y="140"/>
+            <use class="tile_3__3_" x="360" xlink:href="#tile" y="360"/>
+            <use class="tile_3__4_" x="360" xlink:href="#tile" y="580"/>
+            <use class="tile_4__2_" x="580" xlink:href="#tile" y="140"/>
+            <use class="tile_4__3_" x="580" xlink:href="#tile" y="360"/>
+            <use class="tile_4__4_" x="580" xlink:href="#tile" y="580"/>
+            <use class="tile_5__2_" x="800" xlink:href="#right_tile" y="140"/>
+            <use class="tile_5__3_" x="800" xlink:href="#right_tile" y="360"/>
+            <use class="tile_5__4_" x="800" xlink:href="#right_tile" y="580"/>
+            <use class="tile_2__5_" x="140" xlink:href="#top_tile" y="800"/>
+            <use class="tile_3__5_" x="360" xlink:href="#top_tile" y="800"/>
+            <use class="tile_4__5_" x="580" xlink:href="#top_tile" y="800"/>
+            <use class="tile_1__5_" x="20" xlink:href="#top_left_tile" y="800"/>
+            <use class="tile_5__5_" x="800" xlink:href="#top_right_tile" y="800"/>
+            <use class="tile_1__1_" x="20" xlink:href="#bottom_left_tile" y="20"/>
+            <use class="tile_5__1_" x="800" xlink:href="#bottom_right_tile" y="20"/>
+            <use class="tile_1__2_" x="20" xlink:href="#left_tile" y="140"/>
+            <use class="tile_1__3_" x="20" xlink:href="#left_tile" y="360"/>
+            <use class="tile_1__4_" x="20" xlink:href="#left_tile" y="580"/>
+            <use class="tile_2__1_" x="140" xlink:href="#bottom_tile" y="20"/>
+            <use class="tile_3__1_" x="360" xlink:href="#bottom_tile" y="20"/>
+            <use class="tile_4__1_" x="580" xlink:href="#bottom_tile" y="20"/>
+        </g>
+        <g id="mainText" transform="scale(1,-1)">
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="510.0" y="-102.0">fpga_top</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="240.0" y="-240.0">
+                tile_2__2_
+                <tspan dy="1.2em" x="240.0" y="-240.0">[tile]</tspan>
+                <tspan dy="2.4em" x="240.0" y="-240.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="240.0" y="-460.0">
+                tile_2__3_
+                <tspan dy="1.2em" x="240.0" y="-460.0">[tile]</tspan>
+                <tspan dy="2.4em" x="240.0" y="-460.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="240.0" y="-680.0">
+                tile_2__4_
+                <tspan dy="1.2em" x="240.0" y="-680.0">[tile]</tspan>
+                <tspan dy="2.4em" x="240.0" y="-680.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="460.0" y="-240.0">
+                tile_3__2_
+                <tspan dy="1.2em" x="460.0" y="-240.0">[tile]</tspan>
+                <tspan dy="2.4em" x="460.0" y="-240.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="460.0" y="-460.0">
+                tile_3__3_
+                <tspan dy="1.2em" x="460.0" y="-460.0">[tile]</tspan>
+                <tspan dy="2.4em" x="460.0" y="-460.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="460.0" y="-680.0">
+                tile_3__4_
+                <tspan dy="1.2em" x="460.0" y="-680.0">[tile]</tspan>
+                <tspan dy="2.4em" x="460.0" y="-680.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="680.0" y="-240.0">
+                tile_4__2_
+                <tspan dy="1.2em" x="680.0" y="-240.0">[tile]</tspan>
+                <tspan dy="2.4em" x="680.0" y="-240.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="680.0" y="-460.0">
+                tile_4__3_
+                <tspan dy="1.2em" x="680.0" y="-460.0">[tile]</tspan>
+                <tspan dy="2.4em" x="680.0" y="-460.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="680.0" y="-680.0">
+                tile_4__4_
+                <tspan dy="1.2em" x="680.0" y="-680.0">[tile]</tspan>
+                <tspan dy="2.4em" x="680.0" y="-680.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="900.0" y="-240.0">
+                tile_5__2_
+                <tspan dy="1.2em" x="900.0" y="-240.0">[right_tile]</tspan>
+                <tspan dy="2.4em" x="900.0" y="-240.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="900.0" y="-460.0">
+                tile_5__3_
+                <tspan dy="1.2em" x="900.0" y="-460.0">[right_tile]</tspan>
+                <tspan dy="2.4em" x="900.0" y="-460.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="900.0" y="-680.0">
+                tile_5__4_
+                <tspan dy="1.2em" x="900.0" y="-680.0">[right_tile]</tspan>
+                <tspan dy="2.4em" x="900.0" y="-680.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="240.0" y="-900.0">
+                tile_2__5_
+                <tspan dy="1.2em" x="240.0" y="-900.0">[top_tile]</tspan>
+                <tspan dy="2.4em" x="240.0" y="-900.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="460.0" y="-900.0">
+                tile_3__5_
+                <tspan dy="1.2em" x="460.0" y="-900.0">[top_tile]</tspan>
+                <tspan dy="2.4em" x="460.0" y="-900.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="680.0" y="-900.0">
+                tile_4__5_
+                <tspan dy="1.2em" x="680.0" y="-900.0">[top_tile]</tspan>
+                <tspan dy="2.4em" x="680.0" y="-900.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="70.0" y="-900.0">
+                tile_1__5_
+                <tspan dy="1.2em" x="70.0" y="-900.0">[top_left_tile]</tspan>
+                <tspan dy="2.4em" x="70.0" y="-900.0">160 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="900.0" y="-900.0">
+                tile_5__5_
+                <tspan dy="1.2em" x="900.0" y="-900.0">[top_right_tile]</tspan>
+                <tspan dy="2.4em" x="900.0" y="-900.0">1260 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="70.0" y="-70.0">
+                tile_1__1_
+                <tspan dy="1.2em" x="70.0" y="-70.0">[bottom_left_tile]</tspan>
+                <tspan dy="2.4em" x="70.0" y="-70.0">80 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="900.0" y="-70.0">
+                tile_5__1_
+                <tspan dy="1.2em" x="900.0" y="-70.0">[bottom_right_tile]</tspan>
+                <tspan dy="2.4em" x="900.0" y="-70.0">160 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="70.0" y="-240.0">
+                tile_1__2_
+                <tspan dy="1.2em" x="70.0" y="-240.0">[left_tile]</tspan>
+                <tspan dy="2.4em" x="70.0" y="-240.0">158 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="70.0" y="-460.0">
+                tile_1__3_
+                <tspan dy="1.2em" x="70.0" y="-460.0">[left_tile]</tspan>
+                <tspan dy="2.4em" x="70.0" y="-460.0">158 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="70.0" y="-680.0">
+                tile_1__4_
+                <tspan dy="1.2em" x="70.0" y="-680.0">[left_tile]</tspan>
+                <tspan dy="2.4em" x="70.0" y="-680.0">158 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="240.0" y="-70.0">
+                tile_2__1_
+                <tspan dy="1.2em" x="240.0" y="-70.0">[bottom_tile]</tspan>
+                <tspan dy="2.4em" x="240.0" y="-70.0">158 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="460.0" y="-70.0">
+                tile_3__1_
+                <tspan dy="1.2em" x="460.0" y="-70.0">[bottom_tile]</tspan>
+                <tspan dy="2.4em" x="460.0" y="-70.0">158 </tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="680.0" y="-70.0">
+                tile_4__1_
+                <tspan dy="1.2em" x="680.0" y="-70.0">[bottom_tile]</tspan>
+                <tspan dy="2.4em" x="680.0" y="-70.0">158 </tspan>
+            </text>
+        </g>
+        <g id="edges" transform="scale(1,-1)"/>
+    </g>
+    <rect class="origin" height="10" width="10" x="0" y="0"/>
+    <g id="mainShapes" transform="scale(1,-1)">
+        <line stroke="red" stroke-width="1" x1="10" x2="1010" y1="10" y2="10"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1010" y1="130" y2="130"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1010" y1="350" y2="350"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1010" y1="570" y2="570"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1010" y1="790" y2="790"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="1010" y1="1010" y2="1010"/>
+        <line stroke="red" stroke-width="1" x1="10" x2="10" y1="10" y2="1010"/>
+        <line stroke="red" stroke-width="1" x1="130" x2="130" y1="10" y2="1010"/>
+        <line stroke="red" stroke-width="1" x1="350" x2="350" y1="10" y2="1010"/>
+        <line stroke="red" stroke-width="1" x1="570" x2="570" y1="10" y2="1010"/>
+        <line stroke="red" stroke-width="1" x1="790" x2="790" y1="10" y2="1010"/>
+        <line stroke="red" stroke-width="1" x1="1010" x2="1010" y1="10" y2="1010"/>
+    </g>
+</svg>

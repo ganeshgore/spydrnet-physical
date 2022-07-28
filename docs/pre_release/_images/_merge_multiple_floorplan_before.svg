@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="100%" version="1.1" viewBox="-50,-400,350,400" width="100%">
+    <defs>
+        <symbol id="top">
+            <rect class="module_boundary top" fill="#f4f0e6" height="299" width="249" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">in0</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in1');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">in1</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in3');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">in3</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'bus_in');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">bus_in</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">out0</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'bus_out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="123.0" y="148.0"/>
+            <text class="pin center_pin" x="123.0" y="-148.0">bus_out</text>
+        </symbol>
+        <symbol id="module1">
+            <path class="module_boundary module1" d="M 0 0 v 0 h 0 v 40 h 0  v 40 h 40 v -40 h 40 v -40  h -40 v 0 Z Z" fill="#f4f0e6"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="38.0" y="38.0"/>
+            <text class="pin center_pin center_pin" x="38.0" y="38.0">in0</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in1');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="38.0" y="38.0"/>
+            <text class="pin center_pin center_pin" x="38.0" y="38.0">in1</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="38.0" y="38.0"/>
+            <text class="pin center_pin center_pin" x="38.0" y="38.0">out</text>
+        </symbol>
+        <symbol id="module2">
+            <rect class="module_boundary module2" fill="#f4f0e6" height="39" width="59" x="1" y="1"/>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in0');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="28.0" y="18.0"/>
+            <text class="pin center_pin" x="28.0" y="-18.0">in0</text>
+            <rect class="module_pin in_pin" height="4" onmousemove="showTooltip(evt, 'in1');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="28.0" y="18.0"/>
+            <text class="pin center_pin" x="28.0" y="-18.0">in1</text>
+            <rect class="module_pin out_pin" height="4" onmousemove="showTooltip(evt, 'out');" onmouseout="hideTooltip();" stroke-width="0" width="4" x="28.0" y="18.0"/>
+            <text class="pin center_pin" x="28.0" y="-18.0">out</text>
+        </symbol>
+        <style type="text/css"><![CDATA[
+            .origin{fill:black}
+            text{font-family: Verdana; font-size: 5px;}
+            .module_boundary{stroke:grey; stroke-width:1;opacity: 0.8}
+            .left_pin{
+                fill:blue;
+                text-anchor: start;
+                transform: translate(5px, 00px) scale(1,-1);}
+            .right_pin{
+                fill:blue;
+                text-anchor: end;
+                transform: translate(-5px, 00px) scale(1,-1);}
+            .bottom_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: start;
+                text-anchor: start;
+                transform: translate(0px, 10px) rotate(90deg) scale(1,-1);}
+            .top_pin{
+                fill:blue;
+                transform-box: fill-box;
+                transform-origin: bottom left;
+                text-anchor: start;
+                transform: translate(0px, -3px) rotate(-90deg) scale(1,-1);}
+            .in_pin{fill: red;}
+            .out_pin{fill: blue;}
+        ]]></style>
+    </defs>
+    <g id="bg">
+        <rect fill="#FFF" height="350" id="background" stroke-width="0" width="300" x="-25" y="-25"/>
+    </g>
+    <g id="mainframe">
+        <g id="mainShapes" transform="scale(1,-1)">
+            <use class="topModule" x="0" xlink:href="#top" y="0"/>
+            <use class="inst_1_0" x="50" xlink:href="#module1" y="20"/>
+            <use class="inst_1_1" x="50" xlink:href="#module1" y="170"/>
+            <use class="inst_2_0" x="130" xlink:href="#module2" y="20"/>
+            <use class="inst_2_1" x="130" xlink:href="#module2" y="170"/>
+        </g>
+        <g id="mainText" transform="scale(1,-1)">
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="125.0" y="-30.0">top</text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="90.0" y="-60.0">
+                inst_1_0
+                <tspan dy="1.2em" x="90.0" y="-60.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="90.0" y="-210.0">
+                inst_1_1
+                <tspan dy="1.2em" x="90.0" y="-210.0">[module1]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="160.0" y="-40.0">
+                inst_2_0
+                <tspan dy="1.2em" x="160.0" y="-40.0">[module2]</tspan>
+            </text>
+            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="160.0" y="-190.0">
+                inst_2_1
+                <tspan dy="1.2em" x="160.0" y="-190.0">[module2]</tspan>
+            </text>
+        </g>
+        <g id="edges" transform="scale(1,-1)"/>
+    </g>
+    <rect class="origin" height="10" width="10" x="0" y="0"/>
+</svg>
