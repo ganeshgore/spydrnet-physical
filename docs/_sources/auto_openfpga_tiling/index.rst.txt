@@ -1,9 +1,5 @@
 :orphan:
 
-
-
-.. _sphx_glr_auto_openfpga_tiling:
-
 .. _sec:partitions:
 
 Partition Examples 
@@ -17,14 +13,246 @@ A collection of examples to introduce the functionality, features, and uses of S
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to convert a netlist to a netowrkx graph.">
 
 .. only:: html
 
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_01_netlist_to_graph_thumb.png
-     :alt: Netlist to graph (networkx)
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_01_netlist_to_graph_thumb.png
+    :alt: Netlist to graph (networkx)
 
-     :ref:`sphx_glr_auto_openfpga_tiling_01_netlist_to_graph.py`
+  :ref:`sphx_glr_auto_openfpga_tiling_01_netlist_to_graph.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Netlist to graph (networkx)</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates partitioning based on logical connectivity. This example partitions a...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_02_switch_partition_01_thumb.png
+    :alt: Logical/Pre-techmapped Partition Conn Box 01
+
+  :ref:`sphx_glr_auto_openfpga_tiling_02_switch_partition_01.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Logical/Pre-techmapped Partition Conn Box 01</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates partitioning a tech-mapped connection box based on the mapped gates.">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_03_switch_partition_02_thumb.png
+    :alt: Physical/Techmapped Partition Conn Box 02
+
+  :ref:`sphx_glr_auto_openfpga_tiling_03_switch_partition_02.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Physical/Techmapped Partition Conn Box 02</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is simplified script Partition Conn Box 02">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_04_switch_partition_03_thumb.png
+    :alt: Partition Conn Box 02 - Simplified
+
+  :ref:`sphx_glr_auto_openfpga_tiling_04_switch_partition_03.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Partition Conn Box 02 - Simplified</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Given two set of channels, split all the CBs and SBs in the design  This script expects externa...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_05_module_partition_thumb.png
+    :alt: Split CBs and SBs across fabric
+
+  :ref:`sphx_glr_auto_openfpga_tiling_05_module_partition.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Split CBs and SBs across fabric</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example creates the CB and  SB subtiles based on the partition data obtained after metis p...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_06_generic_tiling_part1_thumb.png
+    :alt: Generic Tiling Part02 - Creating tile
+
+  :ref:`sphx_glr_auto_openfpga_tiling_06_generic_tiling_part1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Generic Tiling Part02 - Creating tile</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example creates the CB and  SB subtiles based on the partition data obtained after metis p...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_06_generic_tiling_part2_thumb.png
+    :alt: Generic Tiling Part02 - Creating tile
+
+  :ref:`sphx_glr_auto_openfpga_tiling_06_generic_tiling_part2.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Generic Tiling Part02 - Creating tile</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_07_FloorplanDesign01_thumb.png
+    :alt: Floorplanning Classic Tiles
+
+  :ref:`sphx_glr_auto_openfpga_tiling_07_FloorplanDesign01.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Floorplanning Classic Tiles</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_08_area_optimized_tiles_thumb.png
+    :alt: Generating and Floorplanning Area-optimized FPGA Tiles
+
+  :ref:`sphx_glr_auto_openfpga_tiling_08_area_optimized_tiles.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Generating and Floorplanning Area-optimized FPGA Tiles</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_09_tile03_generation_thumb.png
+    :alt: Unified routing tile structure
+
+  :ref:`sphx_glr_auto_openfpga_tiling_09_tile03_generation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Unified routing tile structure</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_10_tile02_tiles_thumb.png
+    :alt: Tile02 - Area optimized version with higher regularity
+
+  :ref:`sphx_glr_auto_openfpga_tiling_10_tile02_tiles.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Tile02 - Area optimized version with higher regularity</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_11_memory_bank_protocol_thumb.png
+    :alt: Implementing memeory bank protocol on Tile02
+
+  :ref:`sphx_glr_auto_openfpga_tiling_11_memory_bank_protocol.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Implementing memeory bank protocol on Tile02</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_12_Hetero_Tile01_thumb.png
+    :alt: Floorplanning Classic Tiles for hetergeneous design
+
+  :ref:`sphx_glr_auto_openfpga_tiling_12_Hetero_Tile01.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Floorplanning Classic Tiles for hetergeneous design</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
+
+.. only:: html
+
+  .. image:: /auto_openfpga_tiling/images/thumb/sphx_glr_13_Hetero_Tile01_render_thumb.png
+    :alt: Floorplanning Classic Tiles for hetergeneous design
+
+  :ref:`sphx_glr_auto_openfpga_tiling_13_Hetero_Tile01_render.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Floorplanning Classic Tiles for hetergeneous design</div>
+    </div>
+
 
 .. raw:: html
 
@@ -35,300 +263,32 @@ A collection of examples to introduce the functionality, features, and uses of S
    :hidden:
 
    /auto_openfpga_tiling/01_netlist_to_graph
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates partitioning based on logical connectivity. This example partitions a...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_02_switch_partition_01_thumb.png
-     :alt: Logical/Pre-techmapped Partition Conn Box 01
-
-     :ref:`sphx_glr_auto_openfpga_tiling_02_switch_partition_01.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/02_switch_partition_01
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates partitioning a tech-mapped connection box based on the mapped gates.">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_03_switch_partition_02_thumb.png
-     :alt: Physical/Techmapped Partition Conn Box 02
-
-     :ref:`sphx_glr_auto_openfpga_tiling_03_switch_partition_02.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/03_switch_partition_02
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This is simplified script Partition Conn Box 02">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_04_switch_partition_03_thumb.png
-     :alt: Partition Conn Box 02 - Simplified
-
-     :ref:`sphx_glr_auto_openfpga_tiling_04_switch_partition_03.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/04_switch_partition_03
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Given two set of channels, split all the CBs and SBs in the design  This script expects externa...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_05_module_partition_thumb.png
-     :alt: Split CBs and SBs across fabric
-
-     :ref:`sphx_glr_auto_openfpga_tiling_05_module_partition.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/05_module_partition
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example creates the CB and  SB subtiles based on the partition data obtained after metis p...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_06_generic_tiling_part1_thumb.png
-     :alt: Generic Tiling Part02 - Creating tile
-
-     :ref:`sphx_glr_auto_openfpga_tiling_06_generic_tiling_part1.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/06_generic_tiling_part1
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example creates the CB and  SB subtiles based on the partition data obtained after metis p...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_06_generic_tiling_part2_thumb.png
-     :alt: Generic Tiling Part02 - Creating tile
-
-     :ref:`sphx_glr_auto_openfpga_tiling_06_generic_tiling_part2.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/06_generic_tiling_part2
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_07_FloorplanDesign01_thumb.png
-     :alt: Floorplanning Classic Tiles
-
-     :ref:`sphx_glr_auto_openfpga_tiling_07_FloorplanDesign01.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/07_FloorplanDesign01
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_08_area_optimized_tiles_thumb.png
-     :alt: Generating and Floorplanning Area-optimized FPGA Tiles
-
-     :ref:`sphx_glr_auto_openfpga_tiling_08_area_optimized_tiles.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/08_area_optimized_tiles
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_09_tile03_generation_thumb.png
-     :alt: Unified routing tile structure
-
-     :ref:`sphx_glr_auto_openfpga_tiling_09_tile03_generation.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/09_tile03_generation
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_10_tile02_tiles_thumb.png
-     :alt: Tile02 - Area optimized version with higher regularity
-
-     :ref:`sphx_glr_auto_openfpga_tiling_10_tile02_tiles.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/10_tile02_tiles
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to create a tile strcuture from Verilog netlist obtained from OpenF...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_11_memory_bank_protocol_thumb.png
-     :alt: Implementing memeory bank protocol on Tile02
-
-     :ref:`sphx_glr_auto_openfpga_tiling_11_memory_bank_protocol.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/11_memory_bank_protocol
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
-
-.. only:: html
-
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_12_Hetero_Tile01_thumb.png
-     :alt: Floorplanning Classic Tiles for hetergeneous design
-
-     :ref:`sphx_glr_auto_openfpga_tiling_12_Hetero_Tile01.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
    /auto_openfpga_tiling/12_Hetero_Tile01
+   /auto_openfpga_tiling/13_Hetero_Tile01_render
 
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstate how to render FPGA Tile using FloorPlanViz class User can provide exter...">
 
 .. only:: html
 
- .. figure:: /auto_openfpga_tiling/images/thumb/sphx_glr_13_Hetero_Tile01_render_thumb.png
-     :alt: Floorplanning Classic Tiles for hetergeneous design
+  .. container:: sphx-glr-footer sphx-glr-footer-gallery
 
-     :ref:`sphx_glr_auto_openfpga_tiling_13_Hetero_Tile01_render.py`
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-.. raw:: html
+      :download:`Download all examples in Python source code: auto_openfpga_tiling_python.zip </auto_openfpga_tiling/auto_openfpga_tiling_python.zip>`
 
-    </div>
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-.. toctree::
-   :hidden:
-
-   /auto_openfpga_tiling/13_Hetero_Tile01_render
-.. raw:: html
-
-    <div class="sphx-glr-clear"></div>
-
-
-
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-gallery
-
-
-  .. container:: sphx-glr-download sphx-glr-download-python
-
-    :download:`Download all examples in Python source code: auto_openfpga_tiling_python.zip </auto_openfpga_tiling/auto_openfpga_tiling_python.zip>`
-
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-    :download:`Download all examples in Jupyter notebooks: auto_openfpga_tiling_jupyter.zip </auto_openfpga_tiling/auto_openfpga_tiling_jupyter.zip>`
+      :download:`Download all examples in Jupyter notebooks: auto_openfpga_tiling_jupyter.zip </auto_openfpga_tiling/auto_openfpga_tiling_jupyter.zip>`
 
 
 .. only:: html

@@ -43,17 +43,17 @@ The renderer is used from this project `Nic30/d3-hwschematic <https://github.com
 
 .. code-block:: default
 
-
     import spydrnet_physical as sdnphy
     from spydrnet_physical.composers.html.composer import HTMLComposer
+    from spydrnet_physical.composers.svg.composer import SVGComposer
 
     netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
 
-    top = netlist.top_instance.reference
-
-
     composer = HTMLComposer()
     composer.run(netlist, file_out="_initial_design.html")
+
+    composer = SVGComposer()
+    composer.run(netlist, file_out="_initial_design.svg")
 
 
 .. rst-class:: sphx-glr-timing
@@ -63,23 +63,18 @@ The renderer is used from this project `Nic30/d3-hwschematic <https://github.com
 
 .. _sphx_glr_download_auto_basic_display_hierarchical_netlist.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: display_hierarchical_netlist.py <display_hierarchical_netlist.py>`
 
-     :download:`Download Python source code: display_hierarchical_netlist.py <display_hierarchical_netlist.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: display_hierarchical_netlist.ipynb <display_hierarchical_netlist.ipynb>`
+      :download:`Download Jupyter notebook: display_hierarchical_netlist.ipynb <display_hierarchical_netlist.ipynb>`
 
 
 .. only:: html
