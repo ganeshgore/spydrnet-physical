@@ -4,6 +4,7 @@ import logging
 import re
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
+from fnmatch import fnmatch
 
 import spydrnet as sdn
 import svgwrite
@@ -58,12 +59,19 @@ class FabricKeyGenCCFF:
             fptr.write(reparsed.toprettyxml(indent="  "))
 
     @staticmethod
-    def instance_to_coordinate(self, instance_name,
-                               regex=r".*_([0-9]+)__([0-9]+)_"):
+    def instance_to_coordinate(instance_name, regex=None):
+        """
+        This method returns the cordinates from the instance name
+        """
+        regex = regex or r".*_([0-9]+)__([0-9]+)_"
         match = re.match(regex, instance_name)
         return match.group(1), match.group(2)
 
-    def create_serpentine_connection(self):
+    def create_serpentine_connection(self, start="bl"):
+        """
+        This method creates the a single fabric key pattern for the entire ]
+        FPGA device. Starting from bottom left to top right
+        """
         for xpt in range(0, (self.fpga_grid.get_width()*2)+3, 2):
             for ypt in range((self.fpga_grid.get_height()*2)+3):
                 try:
@@ -95,7 +103,7 @@ class FabricKeyGenCCFF:
             self.create_serpentine_connection()
         return self.fkey
 
-    def render_svg(self, filename, skip_instance="grid_io*"):
+    def render_svg(self, filename, skip_instance=''):
         '''
         This method renders the fabric key on the given FPGA grid
 
@@ -122,6 +130,8 @@ class FabricKeyGenCCFF:
         for each_region in self.fkey:
             points = []
             for each_instance in each_region:
+                if fnmatch(each_instance[-1], skip_instance):
+                    continue
                 points += map(str, mapping[each_instance[-1]])
             self.dwg_shapes.add(dwg.path(d=f"M {points[0]} {points[1]} " +
                                          " ".join(points), fill="none",
