@@ -54,7 +54,7 @@ class FabricKeyGenCCFF:
 
         # Check for duplicate
         if not skip_duplicate_checks:
-            flatlist = [item for sublist in self.fkey for item in sublist]
+            flatlist = [item[-1] for sublist in self.fkey for item in sublist]
             for key, value in Counter(flatlist).items():
                 if value > 1:
                     logger.warning("Duplicate key found %s, %d times", key, value)
@@ -126,7 +126,8 @@ class FabricKeyGenCCFF:
         """
         root = ET.parse(filename)
         for eachblock in root.findall(".//block"):
-            self.bits_mapping[eachblock.attrib["name"]] = \
+            name = eachblock.attrib["name"].replace("grid_", "")
+            self.bits_mapping[name] = \
                 int(eachblock.attrib["number_of_bits"])
 
     def bitstream_stats(self):
@@ -138,9 +139,6 @@ class FabricKeyGenCCFF:
             length = 0
             for block in region:
                 inst_name = block[-1]
-                if not (inst_name.startswith('cb') or
-                    inst_name.startswith('sb')):
-                    inst_name = "grid_" + inst_name
                 length += int(self.bits_mapping[inst_name])
             stats[f"region_{indx}"] = length
         return stats
