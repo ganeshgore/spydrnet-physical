@@ -125,7 +125,7 @@ class FabricKeyGenCCFF:
         maintains mapping for the final bitsream length calculation
         """
         root = ET.parse(filename)
-        for eachblock in root.findall(".//block"):
+        for eachblock in root.findall(".//block/block"):
             name = eachblock.attrib["name"].replace("grid_", "")
             self.bits_mapping[name] = \
                 int(eachblock.attrib["number_of_bits"])
@@ -183,7 +183,10 @@ class FabricKeyGenCCFF:
         for each_region in self.fkey:
             points = []
             for each_instance in each_region:
-                points += map(str, mapping[each_instance[-1]])
+                try:
+                    points += map(str, mapping[each_instance[-1]])
+                except KeyError:
+                    logger.warning("%s instance placement not found, while rendering CCFF", each_instance[-1])
             self.dwg_shapes.add(dwg.path(d=f"M {points[0]} {points[1]} " +
                                          " ".join(points), fill="none",
                                          marker_mid=marker.get_funciri(),
