@@ -4,6 +4,7 @@ import logging
 import re
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
+from collections import Counter
 
 import spydrnet as sdn
 import svgwrite
@@ -16,6 +17,7 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 class FabricKeyGenCCFF:
     ''' This stores list of connection points  '''
     fkey: list = [[]]
+    bits_mapping: dict = {}
 
     def __init__(self, fpga_grid=None, design_name=None,
                  arch_file=None, layout=None):
@@ -34,6 +36,40 @@ class FabricKeyGenCCFF:
         self.dwg_shapes = fpga_grid.dwg_shapes
         self.dwg_text = fpga_grid.dwg_text
 
+    def validate_key(self, skip_duplicate_checks=False,
+                            skip_missing_checks=False,
+                            skip_extra_instance_checks=False):
+        """
+        This method validates the generated fabric key against bitsream distribution file
+        It requies bitstream_distribution file loaded before execution.
+        Following checks has been performs
+
+        1. If there is a duplicated key in the current database
+        2. If there is missing instance in the current database
+        3. If there is an extra instance in the current database
+
+        """
+        assert len(self.bits_mapping) > 0, \
+            "Can not validate keu please load bitsream distribution file first"
+
+        # Check for duplicate
+        if not skip_duplicate_checks:
+            flatlist = [item for sublist in self.fkey for item in sublist]
+            for key, value in Counter(flatlist).items():
+                if value > 1:
+                    logger.warning("Duplicate key found %s, %d times", key, value)
+
+        # Check for missing instance
+        instance_list = self.bits_mapping.keys()
+        if not skip_missing_checks:
+            for instance in set(instance_list).difference(flatlist):
+                logger.warning("Instance not found %s", instance)
+
+        # Check for extra instance
+        if not skip_extra_instance_checks:
+            for instance in set(flatlist).difference(instance_list):
+                logger.warning("Extra instance found %s", instance)
+
     def save_fabric_key(self, filename):
         '''
         Saves the fabric key as XML
@@ -47,7 +83,8 @@ class FabricKeyGenCCFF:
             region = ET.SubElement(key, "region", {'id': str(index)})
             for each in region_elements:
                 inst_name = each[-1]
-                if (each[0] % 2 == 0) and (each[1] % 2 == 0):
+                if not (inst_name.startswith('cb') or
+                    inst_name.startswith('sb')):
                     inst_name = "grid_" + inst_name
                 ET.SubElement(region, 'key', {'id': str(start),
                                               'alias': inst_name})
@@ -81,6 +118,32 @@ class FabricKeyGenCCFF:
                 if inst_name == "EMPTY":
                     continue
                 self.fkey[0] += [(xpt+1, ypt, inst_name)]
+
+    def read_bistream_distribution(self, filename):
+        """
+        This method read the bitsream distribution file and
+        maintains mapping for the final bitsream length calculation
+        """
+        root = ET.parse(filename)
+        for eachblock in root.findall(".//block"):
+            self.bits_mapping[eachblock.attrib["name"]] = \
+                int(eachblock.attrib["number_of_bits"])
+
+    def bitstream_stats(self):
+        """
+        Return the statistics of the bitstream generated
+        """
+        stats = {}
+        for indx, region in enumerate(self.fkey):
+            length = 0
+            for block in region:
+                inst_name = block[-1]
+                if not (inst_name.startswith('cb') or
+                    inst_name.startswith('sb')):
+                    inst_name = "grid_" + inst_name
+                length += int(self.bits_mapping[inst_name])
+            stats[f"region_{indx}"] = length
+        return stats
 
     def create_fabric_key(self, pattern=None):
         '''
