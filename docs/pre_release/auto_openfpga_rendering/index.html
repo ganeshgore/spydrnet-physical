@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="3.1. Demonstrate how to render basic floorplan" href="01_floorplan_rendering.html" /><link rel="prev" title="2.10. Renaming Homogeneous FPGA Modules" href="../auto_openfpga_basic/rename_modules.html" />
 
-    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
         <title>3. Module Rendering Examples - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
@@ -221,13 +221,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_basic/display_info.html">1.2. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_basic/group_ungroup_cells.html">1.3. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">1.4. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_multiple_instances.html">1.5. Merging group of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_basic/partitioning_experiments.html">1.6. Partitions Experimentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">1.7. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/group_ungroup_cells.html">1.4. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">1.5. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_multiple_instances.html">1.6. Merging group of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/partitioning_experiments.html">1.7. Partitions Experimentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">1.8. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -334,41 +335,23 @@
         </div>
         <article role="main">
           <section id="module-rendering-examples">
-<span id="sec-rendering"></span><span id="sphx-glr-auto-openfpga-rendering"></span><h1><span class="section-number">3. </span>Module Rendering Examples<a class="headerlink" href="#module-rendering-examples" title="Permalink to this headline">¶</a></h1>
+<span id="sec-rendering"></span><h1><span class="section-number">3. </span>Module Rendering Examples<a class="headerlink" href="#module-rendering-examples" title="Permalink to this headline">¶</a></h1>
 <p>A collection of examples to introduce the functionality, features, and uses of SpyDrNet.</p>
-<div class="sphx-glr-thumbcontainer" tooltip=' .. include:: ../../../spydrnet_physical/util/FloorPlanViz.py     :start-after: """     :end-be...'><figure class="align-default" id="id1">
-<img alt="Demonstrate how to render basic floorplan" src="../_images/sphx_glr_01_floorplan_rendering_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 3.1 </span><span class="caption-text"><a class="reference internal" href="01_floorplan_rendering.html#sphx-glr-auto-openfpga-rendering-01-floorplan-rendering-py"><span class="std std-ref">Demonstrate how to render basic floorplan</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip=' .. include:: ../../../spydrnet_physical/util/FloorPlanViz.py     :start-after: """     :end-be...'><img alt="Demonstrate how to render basic floorplan" src="../_images/sphx_glr_01_floorplan_rendering_thumb.png"/>
+<p><a class="reference internal" href="01_floorplan_rendering.html#sphx-glr-auto-openfpga-rendering-01-floorplan-rendering-py"><span class="std std-ref">Demonstrate how to render basic floorplan</span></a></p>
+<div class="sphx-glr-thumbnail-title">Demonstrate how to render basic floorplan</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Output ======"><img alt="Demonstrate how to render basic floorplan" src="../_images/sphx_glr_01_multi_merge_floorplan_thumb.png"/>
+<p><a class="reference internal" href="01_multi_merge_floorplan.html#sphx-glr-auto-openfpga-rendering-01-multi-merge-floorplan-py"><span class="std std-ref">Demonstrate how to render basic floorplan</span></a></p>
+<div class="sphx-glr-thumbnail-title">Demonstrate how to render basic floorplan</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how a switch box (SB) and connection box (CB) can be rendered in a SVG ..."><img alt="Rendering Switch and Connection Boxes" src="../_images/sphx_glr_02_render_routing_box_thumb.png"/>
+<p><a class="reference internal" href="02_render_routing_box.html#sphx-glr-auto-openfpga-rendering-02-render-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a></p>
+<div class="sphx-glr-thumbnail-title">Rendering Switch and Connection Boxes</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how a switch box (SB) and connection box (CB) can be rendered in a SVG ..."><img alt="Rendering Switch and Connection Boxes" src="../_images/sphx_glr_03_render_edge_routing_box_thumb.png"/>
+<p><a class="reference internal" href="03_render_edge_routing_box.html#sphx-glr-auto-openfpga-rendering-03-render-edge-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a></p>
+<div class="sphx-glr-thumbnail-title">Rendering Switch and Connection Boxes</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Output ======"><figure class="align-default" id="id2">
-<img alt="Demonstrate how to render basic floorplan" src="../_images/sphx_glr_01_multi_merge_floorplan_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text"><a class="reference internal" href="01_multi_merge_floorplan.html#sphx-glr-auto-openfpga-rendering-01-multi-merge-floorplan-py"><span class="std std-ref">Demonstrate how to render basic floorplan</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how a switch box (SB) and connection box (CB) can be rendered in a SVG ..."><figure class="align-default" id="id3">
-<img alt="Rendering Switch and Connection Boxes" src="../_images/sphx_glr_02_render_routing_box_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 3.3 </span><span class="caption-text"><a class="reference internal" href="02_render_routing_box.html#sphx-glr-auto-openfpga-rendering-02-render-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="This example demostrate how a switch box (SB) and connection box (CB) can be rendered in a SVG ..."><figure class="align-default" id="id4">
-<img alt="Rendering Switch and Connection Boxes" src="../_images/sphx_glr_03_render_edge_routing_box_thumb.png"/>
-<figcaption>
-<p><span class="caption-number">Fig. 3.4 </span><span class="caption-text"><a class="reference internal" href="03_render_edge_routing_box.html#sphx-glr-auto-openfpga-rendering-03-render-edge-routing-box-py"><span class="std std-ref">Rendering Switch and Connection Boxes</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div><div class="sphx-glr-footer class sphx-glr-footer-gallery docutils container">
+<div class="sphx-glr-footer sphx-glr-footer-gallery docutils container">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/dde3d2a4b03ab564e5a8b671e645ae27/auto_openfpga_rendering_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">auto_openfpga_rendering_python.zip</span></code></a></p>
 </div>

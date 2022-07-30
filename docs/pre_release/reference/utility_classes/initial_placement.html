@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Bitstream Manager" href="openfpga_bitstream.html" /><link rel="prev" title="SRAM Configuration Protocol" href="sram_configuration.html" />
 
-    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
         <title>Initial Placement - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
@@ -221,13 +221,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/display_info.html">1.2. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.3. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.4. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_multiple_instances.html">1.5. Merging group of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/partitioning_experiments.html">1.6. Partitions Experimentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.7. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.4. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.5. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_multiple_instances.html">1.6. Merging group of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/partitioning_experiments.html">1.7. Partitions Experimentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.8. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -428,9 +429,9 @@ Y   │        ││                   ││        ││                   �
 </ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="util.initial_placement.initial_placement">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">util.initial_placement.</span></span><span class="sig-name descname"><span class="pre">initial_placement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridIO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">util.initial_placement.</span></span><span class="sig-name descname"><span class="pre">initial_placement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridIO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Attributes:</strong></p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
+<div class="table-wrapper"><table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%"/>
 <col style="width: 90%"/>
@@ -454,7 +455,7 @@ Y   │        ││                   ││        ││                   �
 </tbody>
 </table></div>
 <p><strong>Methods:</strong></p>
-<div class="table-wrapper"><table class="longtable docutils align-default">
+<div class="table-wrapper"><table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%"/>
 <col style="width: 90%"/>
@@ -518,7 +519,7 @@ Y   │        ││                   ││        ││                   �
 </table></div>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="util.initial_placement.initial_placement.CPP">
-<span class="sig-name descname"><span class="pre">CPP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.CPP" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CPP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.CPP" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">Contated-poly-pitch</span></code> (<a href="#id10"><span class="problematic" id="id11">`</span></a>default`=2)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -528,7 +529,7 @@ Y   │        ││                   ││        ││                   �
 </dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="util.initial_placement.initial_placement.SC_HEIGHT">
-<span class="sig-name descname"><span class="pre">SC_HEIGHT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">10</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.SC_HEIGHT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">SC_HEIGHT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.SC_HEIGHT" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">Standard</span> <span class="pre">cell</span> <span class="pre">height</span></code> (<a href="#id12"><span class="problematic" id="id13">`</span></a>default`=10)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -538,7 +539,7 @@ Y   │        ││                   ││        ││                   �
 </dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="util.initial_placement.initial_placement.SCALE">
-<span class="sig-name descname"><span class="pre">SCALE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">100</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.SCALE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">SCALE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.SCALE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Module level variable documented inline. (<a href="#id14"><span class="problematic" id="id15">`</span></a>default`=100)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -548,7 +549,7 @@ Y   │        ││                   ││        ││                   �
 </dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="util.initial_placement.initial_placement.PlacementDB">
-<span class="sig-name descname"><span class="pre">PlacementDB</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.PlacementDB" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PlacementDB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.PlacementDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stores list of modules i uppose</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -558,7 +559,7 @@ Y   │        ││                   ││        ││                   �
 </dd></dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="util.initial_placement.initial_placement.PlacementDBKey">
-<span class="sig-name descname"><span class="pre">PlacementDBKey</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.PlacementDBKey" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PlacementDBKey</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.PlacementDBKey" title="Permalink to this definition">¶</a></dt>
 <dd><p>Module level variable documented inline. (<a href="#id16"><span class="problematic" id="id17">`</span></a>default`=100)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -568,7 +569,7 @@ Y   │        ││                   ││        ││                   �
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="util.initial_placement.initial_placement.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridIO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridIO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="util.initial_placement.initial_placement.create_placement">

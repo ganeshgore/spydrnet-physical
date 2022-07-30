@@ -3,10 +3,10 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.3. Grouping ungrouping cells" href="group_ungroup_cells.html" /><link rel="prev" title="1.1. Visualise Hierarchical Netlist" href="display_hierarchical_netlist.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.3. Generating feedthrough from multiple instances" href="07_multiple_instance_feedthrough.html" /><link rel="prev" title="1.1. Display Netlist Information Functions" href="01_display_info.html" />
 
-    <meta name="generator" content="sphinx-4.2.0, furo 2021.10.09"/>
-        <title>1.2. Display Netlist Information Functions - SpyDrNet-Physical alpha documentation</title>
+    <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
+        <title>1.2. Visualise Hierarchical Netlist - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -221,13 +221,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">1. Basic Restructuring Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.2. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.3. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.4. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="merge_multiple_instances.html">1.5. Merging group of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="partitioning_experiments.html">1.6. Partitions Experimentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.7. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01_display_info.html">1.1. Display Netlist Information Functions</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.2. Visualise Hierarchical Netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.4. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.5. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="merge_multiple_instances.html">1.6. Merging group of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="partitioning_experiments.html">1.7. Partitions Experimentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.8. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -335,86 +336,39 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-basic-display-info-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-basic-02-display-hierarchical-netlist-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="display-netlist-information-functions">
-<span id="sphx-glr-auto-basic-display-info-py"></span><h1><span class="section-number">1.2. </span>Display Netlist Information Functions<a class="headerlink" href="#display-netlist-information-functions" title="Permalink to this headline">¶</a></h1>
-<dl class="simple">
-<dt>Some example functions that can be run to display information in a netlist:</dt><dd><ol class="arabic simple">
-<li><p>print the hierarchy in a netlist</p></li>
-<li><p>print each library with its definitions in a netlist</p></li>
-<li><p>print connections between ports of each instance in a netlist</p></li>
-<li><p>print the number of times each primitive is instanced</p></li>
-</ol>
-</dd>
-</dl>
-<p>Note: because the hierarchy function uses recursion, the maximum recursion depth may be exceeded if used for large designs</p>
-<div class="line-block">
-<div class="line">For an even simpler display of netlist information, try using these functions with the Minimal Script example.</div>
-</div>
-<div class="line-block">
-<div class="line">Also, JensRestemeier (not affiliated with BYU CCL) created a tool to generate images of netlists. See his <a class="reference external" href="https://github.com/JensRestemeier/EdifTests">github repository</a>.</div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet.util.selection</span> <span class="kn">import</span> <span class="n">Selection</span>
+<section class="sphx-glr-example-title" id="visualise-hierarchical-netlist">
+<span id="sphx-glr-auto-basic-02-display-hierarchical-netlist-py"></span><h1><span class="section-number">1.2. </span>Visualise Hierarchical Netlist<a class="headerlink" href="#visualise-hierarchical-netlist" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrates how to visualize a netlist
+In SVG format, which uses Yosys and netlist SVG to render
+Interactive viewer, which render hierarchical SVG using the <cite>d3-hwschematic</cite> project</p>
+<img alt="../_images/basic_hierarchy.svg" class="align-center" src="../_images/basic_hierarchy.svg"/><img alt="../_images/_initial_design.html" class="hidden align-center" src="../_images/_initial_design.html"/>
+<iframe frameborder="1" height="400" scrolling="no" src="/_images/_initial_design.html" width="100%"></iframe><p><a class="reference external" href="/_images/_initial_design.html">Open schematic in separate window</a></p>
+<p>The renderer is used from this project <a class="reference external" href="https://github.com/Nic30/d3-hwschematic">Nic30/d3-hwschematic</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.composers.html.composer</span> <span class="kn">import</span> <span class="n">HTMLComposer</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.composers.svg.composer</span> <span class="kn">import</span> <span class="n">SVGComposer</span>
 
-<span class="c1">#print the hierarchy of a netlist</span>
-<span class="k">def</span> <span class="nf">hierarchy</span><span class="p">(</span><span class="n">current_instance</span><span class="p">,</span><span class="n">indentation</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">indentation</span><span class="p">,</span><span class="n">level</span><span class="p">,</span><span class="s1">''</span><span class="p">,</span><span class="n">current_instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="s2">" --instance of"</span><span class="p">,</span><span class="n">current_instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="s2">"--"</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">current_instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-        <span class="n">hierarchy</span><span class="p">(</span><span class="n">child</span><span class="p">,</span><span class="n">indentation</span><span class="o">+</span><span class="s2">"     "</span><span class="p">,</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'basic_hierarchy'</span><span class="p">)</span>
 
-<span class="c1">#print a list of all libraries and definitions in a netlist</span>
-<span class="k">def</span> <span class="nf">libraries_definitions</span><span class="p">(</span><span class="n">my_netlist</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">library</span> <span class="ow">in</span> <span class="n">my_netlist</span><span class="o">.</span><span class="n">libraries</span><span class="p">:</span>
-        <span class="n">definitions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">library</span><span class="o">.</span><span class="n">definitions</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"DEFINITIONS IN '"</span><span class="p">,</span><span class="n">library</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="s2">"':"</span><span class="p">,</span><span class="n">definitions</span><span class="p">)</span>
+<span class="c1"># Export netlist in SVG format, single level</span>
+<span class="n">composer</span> <span class="o">=</span> <span class="n">SVGComposer</span><span class="p">()</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_initial_design.svg"</span><span class="p">)</span>
 
-<span class="c1">#prints each instance and it's connections (what inputs to it and what it outputs to)</span>
-<span class="k">def</span> <span class="nf">print_connections</span><span class="p">(</span><span class="n">current_netlist</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"CONNECTIONS:"</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">current_netlist</span><span class="o">.</span><span class="n">get_instances</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"Instance name:"</span><span class="p">,</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">out_going_pin</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="o">.</span><span class="n">OUTSIDE</span><span class="p">,</span><span class="nb">filter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">out_going_pin</span><span class="o">.</span><span class="n">wire</span><span class="p">:</span>
-                <span class="n">next_instances</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pin2</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">' of '</span> <span class="o">+</span> <span class="n">pin2</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">pin2</span> <span class="ow">in</span> <span class="n">out_going_pin</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="o">.</span><span class="n">OUTSIDE</span><span class="p">,</span> <span class="nb">filter</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">out_going_pin</span><span class="p">))</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="p">,</span><span class="s1">'Port'</span><span class="p">,</span><span class="n">out_going_pin</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="s1">'----&gt;'</span><span class="p">,</span><span class="n">next_instances</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">in_coming_pin</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="o">.</span><span class="n">OUTSIDE</span><span class="p">,</span><span class="nb">filter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">in_coming_pin</span><span class="o">.</span><span class="n">wire</span><span class="p">:</span>
-                <span class="n">previous_instances</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pin2</span> <span class="k">for</span> <span class="n">pin2</span> <span class="ow">in</span> <span class="n">in_coming_pin</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">selection</span> <span class="o">=</span> <span class="n">Selection</span><span class="o">.</span><span class="n">OUTSIDE</span><span class="p">,</span> <span class="nb">filter</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">in_coming_pin</span><span class="p">))</span>
-                <span class="n">checked_previous_instances</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">' of '</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">previous_instances</span> <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span> <span class="ow">or</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">IN</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">()))</span><span class="ow">is</span> <span class="kc">True</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="p">,</span><span class="n">checked_previous_instances</span><span class="p">,</span><span class="s1">'----&gt;'</span><span class="p">,</span><span class="s1">'Port'</span><span class="p">,</span><span class="n">in_coming_pin</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-<span class="c1">#print the number of times each primitive is instanced</span>
-<span class="k">def</span> <span class="nf">instance_count</span><span class="p">(</span><span class="n">current_netlist</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Number of times each primitive is instanced:"</span><span class="p">)</span>
-    <span class="n">primitives_library</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">current_netlist</span><span class="o">.</span><span class="n">get_libraries</span><span class="p">(</span><span class="s2">"hdi_primitives"</span><span class="p">),</span><span class="kc">None</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">primitive</span> <span class="ow">in</span> <span class="n">primitives_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">():</span>
-        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">current_netlist</span><span class="o">.</span><span class="n">get_instances</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">primitive</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="p">,</span><span class="n">primitive</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="s2">": "</span><span class="p">,</span><span class="n">count</span><span class="p">)</span>
-
-
-
-<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">load_example_netlist_by_name</span><span class="p">(</span><span class="s2">"fourBitCounter"</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"HIERARCHY:"</span><span class="p">)</span>
-<span class="n">hierarchy</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="p">)</span>
-<span class="n">libraries_definitions</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
-<span class="n">print_connections</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
-<span class="n">instance_count</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
+<span class="c1"># Export hierarchical netlist in HTML format</span>
+<span class="n">composer</span> <span class="o">=</span> <span class="n">HTMLComposer</span><span class="p">()</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_initial_design.html"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-basic-display-info-py">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-basic-02-display-hierarchical-netlist-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/d9afab7626d86ddd48b8fad6aa2daa0c/display_info.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">display_info.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/0ebb69150913441b9580af3fc1fd6872/02_display_hierarchical_netlist.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_display_hierarchical_netlist.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/f00131283d123f2928c930c001932135/display_info.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">display_info.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/1ea74c2baf1594d78c93178126b785a8/02_display_hierarchical_netlist.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02_display_hierarchical_netlist.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -425,23 +379,23 @@ to download the full example code</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="group_ungroup_cells.html">
+          <a class="next-page" href="07_multiple_instance_feedthrough.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">1.3. </span>Grouping ungrouping cells</div>
+                <div class="title"><span class="section-number">1.3. </span>Generating feedthrough from multiple instances</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="display_hierarchical_netlist.html">
+          <a class="prev-page" href="01_display_info.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">1.1. </span>Visualise Hierarchical Netlist</div>
+                <div class="title"><span class="section-number">1.1. </span>Display Netlist Information Functions</div>
                 
               </div>
             </a>
@@ -453,7 +407,7 @@ to download the full example code</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_basic/display_info.rst.txt"
+            <a class="muted-link" href="../_sources/auto_basic/02_display_hierarchical_netlist.rst.txt"
                rel="nofollow">
               Show Source
             </a>
