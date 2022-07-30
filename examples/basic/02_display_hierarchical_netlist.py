@@ -3,9 +3,10 @@
 Visualise Hierarchical Netlist
 ===============================
 
-This example demostrates how to generate a feedthrough wire connection for
-a given scalar or vector wires.
 
+This example demonstrates how to visualize a netlist
+In SVG format, which uses Yosys and netlist SVG to render
+Interactive viewer, which render hierarchical SVG using the `d3-hwschematic` project
 
 .. image:: ../auto_sample_verilog/basic_hierarchy.svg
     :align: center
@@ -33,8 +34,10 @@ from spydrnet_physical.composers.svg.composer import SVGComposer
 
 netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
 
-composer = HTMLComposer()
-composer.run(netlist, file_out="_initial_design.html")
-
+# Export netlist in SVG format, single level
 composer = SVGComposer()
 composer.run(netlist, file_out="_initial_design.svg")
+
+# Export hierarchical netlist in HTML format
+composer = HTMLComposer()
+composer.run(netlist, file_out="_initial_design.html")
