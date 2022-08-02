@@ -49,15 +49,8 @@ def main():
     source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
     source_files += glob.glob(f"{proj}/*_Verilog/fpga_top.v")
 
-    # Temporary fix to read multiple verilog files
-    with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-        for eachV in source_files:
-            with open(eachV, "r") as fpv:
-                fp.write(str.encode(" ".join(fpv.readlines())))
-        fp.seek(0)
-        netlist = sdn.parse(fp.name)
-
-    fpga = OpenFPGA(grid=(8, 8), netlist=netlist)
+    # Create OpenFPGA object
+    fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
 
     # Convert wires to bus structure
     fpga.create_grid_clb_bus()

@@ -6,6 +6,7 @@ import logging
 import os
 import pickle
 import re
+import tempfile
 from collections import OrderedDict
 from fnmatch import fnmatch
 from pathlib import Path
@@ -32,7 +33,13 @@ class OpenFPGA:
     SC_GRID = SC_HEIGHT * CPP
 
     def __init__(
-        self, grid, netlist, library="work", top_module="fpga_top", arch_xml=None
+        self,
+        grid,
+        netlist=None,
+        verilog_files=None,
+        library="work",
+        top_module="fpga_top",
+        arch_xml=None,
     ):
         """
         Init class with OpenFPGA netlist
@@ -44,10 +51,20 @@ class OpenFPGA:
             top_module (str): top_module name
         """
         self.fpga_size = list(grid)
-        self._netlist = netlist
-        self._library = next(netlist.get_libraries(library))
+        if netlist:
+            self._netlist = netlist
+        elif verilog_files:
+            with tempfile.NamedTemporaryFile(suffix=".v") as fp:
+                for each_file in verilog_files:
+                    with open(each_file, "r", encoding="UTF-8") as fpv:
+                        fp.write(str.encode(" ".join(fpv.readlines())))
+                fp.seek(0)
+                self._netlist = sdn.parse(fp.name)
+        else:
+            logger.error("Provide verilog either verilog files or netlist object")
+        self._library = next(self._netlist.get_libraries(library))
         self._top_module = next(self._library.get_definitions(top_module))
-        netlist.top_instance = self._top_module
+        self._netlist.top_instance = self._top_module
         self.written_modules = []  # Stores written definitions names
         self.write_modules_paths = []  # Stores written definitions names
         self.tile_creator = None
@@ -280,8 +297,10 @@ class OpenFPGA:
         """
         output = []
         output.append(" = =" * 30)
-        output.append(f"{'MODULE':>20s} {'SHAPE':8s} {'UTIL %':6} {'AREA':>16}"
-         + f"{'SC_AREA':>16} {'WIDTH':>8} {'HEIGHT':>8}      {'POINTS':<10}")
+        output.append(
+            f"{'MODULE':>20s} {'SHAPE':8s} {'UTIL %':6} {'AREA':>16}"
+            + f"{'SC_AREA':>16} {'WIDTH':>8} {'HEIGHT':>8}      {'POINTS':<10}"
+        )
 
         output.append(" = =" * 30)
         seen = []

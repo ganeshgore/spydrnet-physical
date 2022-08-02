@@ -19,7 +19,7 @@ class SVGComposer:
     # TODO
     # Add option to suppress stdout printing of the yosys compilation
     # Finish documentation and add in sphinx index
-    def run(self, netlist, yosys_cmmds="", file_out="out.svg"):
+    def run(self, netlist, yosys_cmmds="", file_out="out.svg", top_module=None):
         """
         Main method to run composer
 
@@ -31,7 +31,7 @@ class SVGComposer:
         """
         verilog_file = "_" + file_out.replace(".svg", ".v")
         sdn.compose(netlist, verilog_file, skip_constraints=True)
-        top = netlist.top_instance.reference.name
+        top = top_module or netlist.top_instance.reference.name
 
         json_file = "_" + file_out.replace(".svg", ".json")
         os.system(

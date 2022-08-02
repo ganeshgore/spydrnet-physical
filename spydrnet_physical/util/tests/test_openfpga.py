@@ -1,4 +1,4 @@
-''' Tst cases fro get_names method '''
+""" Tst cases fro get_names method """
 from spydrnet_physical.util import OpenFPGA, Tile01
 import spydrnet as sdn
 from os.path import abspath
@@ -10,24 +10,17 @@ from spydrnet_physical.util import get_names
 
 
 class TestOpenFPGA(unittest.TestCase):
-    ''' Test case to cehck OpenFPGA '''
+    """Test case to cehck OpenFPGA"""
 
     def setUp(self) -> None:
         self.source_dir = abspath("examples/homogeneous_fabric")
-        source_files = glob.glob(f'{self.source_dir}/*_Verilog/lb/*.v')
-        source_files += glob.glob(f'{self.source_dir}/*_Verilog/routing/*.v')
-        source_files += glob.glob(f'{self.source_dir}/*_Verilog/sub_module/*.v')
-        source_files += glob.glob(f'{self.source_dir}/*_Verilog/fpga_top.v')
+        source_files = glob.glob(f"{self.source_dir}/*_Verilog/lb/*.v")
+        source_files += glob.glob(f"{self.source_dir}/*_Verilog/routing/*.v")
+        source_files += glob.glob(f"{self.source_dir}/*_Verilog/sub_module/*.v")
+        source_files += glob.glob(f"{self.source_dir}/*_Verilog/fpga_top.v")
 
-        # Temporary fix to read multiple verilog files
-        with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-            for eachV in source_files:
-                with open(eachV, "r") as fpv:
-                    fp.write(str.encode(" ".join(fpv.readlines())))
-            fp.seek(0)
-            netlist = sdn.parse(fp.name)
-
-        self.fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
+        # Create OpenFPGA object
+        self.fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
 
         # Convert wires to bus structure
         self.fpga.create_grid_clb_bus()
@@ -39,22 +32,25 @@ class TestOpenFPGA(unittest.TestCase):
         self.fpga.remove_undriven_nets()
 
         # Top level nets to bus
-        for i in chain(self.fpga.top_module.get_instances("grid_clb*"),
-                       self.fpga.top_module.get_instances("grid_io*"),
-                       self.fpga.top_module.get_instances("sb_*")):
+        for i in chain(
+            self.fpga.top_module.get_instances("grid_clb*"),
+            self.fpga.top_module.get_instances("grid_io*"),
+            self.fpga.top_module.get_instances("sb_*"),
+        ):
             for p in filter(lambda x: True, i.reference.ports):
                 if p.size > 1 and (i.check_all_scalar_connections(p)):
                     cable_list = []
                     for pin in p.pins[::-1]:
                         cable_list.append(i.pins[pin].wire.cable)
                     self.fpga.top_module.combine_cables(
-                        f"{i.name}_{p.name}", cable_list)
+                        f"{i.name}_{p.name}", cable_list
+                    )
 
         self.fpga.create_grid_clb_feedthroughs()
 
     @unittest.skip(reason="Replace this with unit test")
     def test_grid_clb_ports(self):
-        """ Verify grid clb port names """
+        """Verify grid clb port names"""
         clb = next(self.fpga.library.get_definitions("grid_clb"))
 
         port_names = get_names(clb.get_ports())
@@ -70,7 +66,7 @@ class TestOpenFPGA(unittest.TestCase):
 
     @unittest.skip(reason="Replace this with unit test")
     def test_cbx11_ports(self):
-        """ Verify grid clb port names """
+        """Verify grid clb port names"""
         cbx11 = next(self.fpga.library.get_definitions("cbx_1__1_"))
 
         cbx11_names = get_names(cbx11.get_ports())
@@ -93,7 +89,7 @@ class TestOpenFPGA(unittest.TestCase):
 
     @unittest.skip(reason="Replace this with unit test")
     def test_cby11_ports(self):
-        """ Verify grid clb port names """
+        """Verify grid clb port names"""
         cby11 = next(self.fpga.library.get_definitions("cby_1__1_"))
 
         cby11_names = get_names(cby11.get_ports())
@@ -116,7 +112,7 @@ class TestOpenFPGA(unittest.TestCase):
 
     @unittest.skip(reason="Replace this with unit test")
     def test_sb11_ports(self):
-        """ Verify grid clb port names """
+        """Verify grid clb port names"""
         sb11 = next(self.fpga.library.get_definitions("sb_1__1_"))
 
         sb11_names = get_names(sb11.get_ports())
@@ -146,14 +142,17 @@ class TestOpenFPGA(unittest.TestCase):
         self.fpga.create_tiles()
         top_instances = self.fpga.top_module.children
         top_references = set([inst.reference.name for inst in top_instances])
-        self.assertEqual(top_references, {
-            "tile",
-            "left_tile",
-            "right_tile",
-            "top_tile",
-            "bottom_tile",
-            "bottom_left_tile",
-            "bottom_right_tile",
-            "top_left_tile",
-            "top_right_tile",
-        })
+        self.assertEqual(
+            top_references,
+            {
+                "tile",
+                "left_tile",
+                "right_tile",
+                "top_tile",
+                "bottom_tile",
+                "bottom_left_tile",
+                "bottom_right_tile",
+                "top_left_tile",
+                "top_right_tile",
+            },
+        )
