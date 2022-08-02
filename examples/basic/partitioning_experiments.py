@@ -7,7 +7,7 @@ This example aim to demonstrate how to create circuit partition on
 post techmapped netlist. Following methods are evaluated.
 
 1. Using pymetis library
-2. Generating graph file and executing hmetis externally with system call 
+2. Generating graph file and executing hmetis externally with system call
 
 .. image:: ../../../examples/basic/_pymetis_run.svg
     :width: 200px
@@ -22,8 +22,7 @@ from networkx.readwrite.json_graph import tree
 import pydot
 import pymetis
 from networkx.drawing.nx_pydot import to_pydot
-from spydrnet_physical.util import (prepare_graph_from_nx, run_metis,
-                                    write_metis_graph)
+from spydrnet_physical.util import prepare_graph_from_nx, run_metis, write_metis_graph
 
 # = = = = = = = = = = = = = = = = = = = = =
 #          Create simple graph
@@ -66,15 +65,14 @@ print(f"adjncy {adjncy}")
 print(f"eweights {eweights}")
 print(f"vweights {vweights}")
 
-n_cuts, membership = pymetis.part_graph(2, eweights=eweights,
-                                        vweights=vweights, xadj=xadj,
-                                        adjncy=adjncy)
+n_cuts, membership = pymetis.part_graph(
+    2, eweights=eweights, vweights=vweights, xadj=xadj, adjncy=adjncy
+)
 print(f"n_cuts {n_cuts}")
 
 # Convert to pydot to render subgraph
 graph_dot = to_pydot(graph)
-subgraph = pydot.Cluster('part1', label=''), \
-    pydot.Cluster('part2', label='')
+subgraph = pydot.Cluster("part1", label=""), pydot.Cluster("part2", label="")
 
 for each in subgraph:
     graph_dot.add_subgraph(each)
@@ -90,22 +88,26 @@ for index, partition in enumerate(membership):
 for edge in graph_dot.get_edge_list():
     edge.set_label(f"{edge.get_weight() or 1}")
 
-graph_dot.write_svg('_pymetis_run.svg')
+graph_dot.write_svg("_pymetis_run.svg")
 
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 #   Generating graph file and externally running metis
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-write_metis_graph(nx.to_numpy_array(graph),
-                  eweights=True, vweights=vweights,
-                  filename="_partition_experiments_01.csr")
+write_metis_graph(
+    nx.to_numpy_array(graph),
+    eweights=True,
+    vweights=vweights,
+    filename="_partition_experiments_01.csr",
+)
 membership = run_metis(
-    filename="_partition_experiments_01.csr", cuts=2,
-    options="-objtype cut -minconn -niter 100 -ncuts 3 ")
+    filename="_partition_experiments_01.csr",
+    cuts=2,
+    options="-objtype cut -minconn -niter 100 -ncuts 3 ",
+)
 
 graph_dot2 = to_pydot(graph)
-subgraph = pydot.Cluster('part1', label=''), \
-    pydot.Cluster('part2', label='')
+subgraph = pydot.Cluster("part1", label=""), pydot.Cluster("part2", label="")
 
 # Convert to pydot to render subgraph
 for each in subgraph:
@@ -116,11 +118,10 @@ for index, color in enumerate(membership):
     node = graph_dot2.get_node(str(node_names[index]))[0]
     node.set_color("red" if color else "green")
     subgraph[color].add_node(node)
-    graph_dot2.get_node(str(index))[0].set_label(
-        f"{index} [{vweights[index]}]")
+    graph_dot2.get_node(str(index))[0].set_label(f"{index} [{vweights[index]}]")
 
 # Add weights to node labels
 for edge in graph_dot2.get_edge_list():
     edge.set_label(f"{edge.get_weight() or 1}")
 
-graph_dot2.write_svg('_external_metis_run.svg')
+graph_dot2.write_svg("_external_metis_run.svg")
