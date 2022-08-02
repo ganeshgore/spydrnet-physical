@@ -13,7 +13,7 @@ a given scalar or vector wires.
 **Output1** ungrouped module
 
 
-.. image:: ../auto_sample_verilog/_ungrouped_design.svg
+.. image:: ../../../examples/basic/_ungrouped_design.svg
     :align: center
 
 """
@@ -28,15 +28,16 @@ logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 netlist = sdnphy.load_netlist_by_name("nested_hierarchy")
-
-netlist = sdnphy.load_netlist_by_name("nested_hierarchy")
 top = netlist.top_instance.reference
+
+# Flatten inst_1_0
 inst = next(top.get_instances("inst_1_0"))
 top.flatten_instance(inst)
+
+# Flatten inst_1_1
 inst = next(top.get_instances("inst_1_1"))
 top.flatten_instance(inst)
 top.create_unconn_wires()
 
-FILENAME = "_ungrouped_design.svg"
 composer = SVGComposer()
-composer.run(netlist, file_out=FILENAME)
+composer.run(netlist, file_out="_ungrouped_design.svg")

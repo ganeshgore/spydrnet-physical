@@ -27,7 +27,7 @@ The renderer is used from this project
 `Nic30/d3-hwschematic <https://github.com/Nic30/d3-hwschematic>`_
 
 """
-# sphinx_gallery_thumbnail_path = 'auto_sample_verilog/basic_hierarchy.svg'
+# sphinx_gallery_thumbnail_path = "../../../examples/basic/_initial_design.svg"
 import spydrnet_physical as sdnphy
 from spydrnet_physical.composers.html.composer import HTMLComposer
 from spydrnet_physical.composers.svg.composer import SVGComposer

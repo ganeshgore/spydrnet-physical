@@ -22,27 +22,32 @@ import tempfile
 from itertools import chain
 
 import spydrnet as sdn
-from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen, Tile02,
-                                    GridFloorplanGen, OpenFPGA)
+from spydrnet_physical.util import (
+    FloorPlanViz,
+    FPGAGridGen,
+    Tile02,
+    GridFloorplanGen,
+    OpenFPGA,
+)
 
-logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='INFO')
+logger = logging.getLogger("spydrnet_logs")
+sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 PROP = "VERILOG.InlineConstraints"
 
 
-CBX_COLOR = '#d9d9f3'
-CBY_COLOR = '#a8d0db'
-SB_COLOR = '#ceefe4'
-GRID_COLOR = '#ddd0b1'
+CBX_COLOR = "#d9d9f3"
+CBY_COLOR = "#a8d0db"
+SB_COLOR = "#ceefe4"
+GRID_COLOR = "#ddd0b1"
 
 
 def main():
     proj = "../hetrogeneous_fabric"
-    source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
+    source_files = glob.glob(f"{proj}/*_Verilog/lb/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/routing/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/fpga_top.v")
 
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -62,16 +67,17 @@ def main():
     fpga.merge_all_grid_ios()
 
     # Convert top level independent nets to bus
-    for i in chain(fpga.top_module.get_instances("grid_clb*"),
-                   fpga.top_module.get_instances("grid_io*"),
-                   fpga.top_module.get_instances("sb_*")):
+    for i in chain(
+        fpga.top_module.get_instances("grid_clb*"),
+        fpga.top_module.get_instances("grid_io*"),
+        fpga.top_module.get_instances("sb_*"),
+    ):
         for p in filter(lambda x: True, i.reference.ports):
             if p.size > 1 and (i.check_all_scalar_connections(p)):
                 cable_list = []
                 for pin in p.pins[::-1]:
                     cable_list.append(i.pins[pin].wire.cable)
-                cable = fpga.top_module.combine_cables(
-                    f"{i.name}_{p.name}", cable_list)
+                cable = fpga.top_module.combine_cables(f"{i.name}_{p.name}", cable_list)
                 cable.is_downto = False
 
     fpga.design_top_stat()
