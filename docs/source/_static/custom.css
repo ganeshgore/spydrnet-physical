@@ -1,5 +1,4 @@
-
-img.main-image{
+img.main-image {
     margin-top: 30px;
 }
 
@@ -28,7 +27,9 @@ dl.field-list {
     grid-template-columns: max-content auto;
 }
 
-.hidden { display: none !important }
+.hidden {
+    display: none !important
+}
 
 .ascii pre {
     line-height: 1.05;
@@ -40,6 +41,10 @@ dl.field-list {
     background: none;
     margin: auto;
     width: auto;
+}
+
+.sphx-glr-thumbcontainer img {
+    height: 120px !important;
 }
 
 
@@ -58,10 +63,6 @@ dl.field-list {
     width: 100px !important;
 }
 
-.sphx-glr-thumbcontainer img {
-    max-height: 120px !important;
-    width: 80px !important;
-}
 
 .sphx-glr-thumbcontainer a.internal {
     padding: 100px 10px 0 !important;
