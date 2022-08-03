@@ -244,6 +244,7 @@ sphinx_gallery_conf = {
     "examples_dirs": [
         os.path.join("..", "..", "examples", "basic"),
         os.path.join("..", "..", "examples", "OpenFPGA_basic"),
+        os.path.join("..", "..", "examples", "OpenFPGA_Floorplanning"),
         os.path.join("..", "..", "examples", "OpenFPGA_clock_tree"),
         os.path.join("..", "..", "examples", "OpenFPGA_tiling"),
         os.path.join("..", "..", "examples", "OpenFPGA_rendering"),
@@ -253,6 +254,7 @@ sphinx_gallery_conf = {
     "gallery_dirs": [
         "auto_basic",
         "auto_openfpga_basic",
+        "auto_openfpga_floorplanning",
         "auto_openfpga_clock_tree",
         "auto_openfpga_tiling",
         "auto_openfpga_rendering",

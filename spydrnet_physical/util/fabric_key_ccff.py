@@ -202,7 +202,6 @@ class FabricKeyGenCCFF:
             for each_instance in each_region:
                 if fnmatch(each_instance[-1], skip_instance):
                     continue
-                points += map(str, mapping[each_instance[-1]])
                 try:
                     points += map(str, mapping[each_instance[-1]])
                 except KeyError:
