@@ -9,7 +9,7 @@ based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. image:: ../../../examples/OpenFPGA_basic/_hetero_design_floorplan.svg
+.. image:: ../../../examples/OpenFPGA_Floorplanning/_hetero_design_floorplan.svg
    :width: 70%
    :align: center
 
