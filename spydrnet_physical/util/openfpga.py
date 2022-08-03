@@ -827,8 +827,8 @@ class OpenFPGA:
                 pin_name = re.match(regex, top_port.name)
                 if pin_name:
                     pin_name = name_map(pin_name.groups()[0])
-                    top_port.change_name(pin_name)
                     logger.debug("%s =>> %s", top_port.name, pin_name)
+                    top_port.change_name(pin_name)
 
     def annotate_area_information(self, filename, skipline=0):
         """
