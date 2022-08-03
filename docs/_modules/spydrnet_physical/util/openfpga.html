@@ -227,9 +227,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/08_multiple_instance_feedthrough.html">1.5. Generating feedthrough from multiple instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/09_combine_pins.html">1.6. Combined definitions pins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/10_combine_wires.html">1.7. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/11_logging_mesages.html">1.8. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -239,9 +240,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/04_fpga_grid_generation.html">2.4. FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/04_fpga_grid_render.html">2.5. RenderFPGA Pre Generation Grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/05_fpga_instance_name.html">2.6. FPGA Instance to Layout mapping</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/07_FloorplanHeterogeneousDesign01.html">2.7. Heterogeneous Design Placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.8. Grid Floorplan Generator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.7. Grid Floorplan Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -615,6 +615,8 @@
         <span class="c1"># fmt: on</span>
         <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">" = ="</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
             <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2"> "</span>
                 <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2"> "</span>
@@ -727,7 +729,10 @@
                 <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_str</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">inst_cnt</span></div>
 
-    <span class="k">def</span> <span class="nf">remove_direct_interc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenFPGA.remove_direct_interc"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.remove_direct_interc">[docs]</a>    <span class="k">def</span> <span class="nf">remove_direct_interc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Removes direct interconnects from the OpenFPGA netlist</span>
+<span class="sd">        """</span>
         <span class="n">direct_interc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"direct_*"</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">direct_interc</span><span class="p">:</span>
             <span class="k">return</span>
@@ -738,7 +743,7 @@
             <span class="k">for</span> <span class="n">eachpin</span> <span class="ow">in</span> <span class="n">wire_to</span><span class="o">.</span><span class="n">pins</span><span class="p">:</span>
                 <span class="n">wire_to</span><span class="o">.</span><span class="n">disconnect_pin</span><span class="p">(</span><span class="n">eachpin</span><span class="p">)</span>
                 <span class="n">wire_from</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="n">eachpin</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">remove_child</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">remove_child</span><span class="p">(</span><span class="n">each</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.merge_all_grid_ios"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.merge_all_grid_ios">[docs]</a>    <span class="k">def</span> <span class="nf">merge_all_grid_ios</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -1165,8 +1170,8 @@
                 <span class="n">pin_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">top_port</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">pin_name</span><span class="p">:</span>
                     <span class="n">pin_name</span> <span class="o">=</span> <span class="n">name_map</span><span class="p">(</span><span class="n">pin_name</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
-                    <span class="n">top_port</span><span class="o">.</span><span class="n">change_name</span><span class="p">(</span><span class="n">pin_name</span><span class="p">)</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> =&gt;&gt; </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">top_port</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">pin_name</span><span class="p">)</span></div>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> =&gt;&gt; </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">top_port</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">pin_name</span><span class="p">)</span>
+                    <span class="n">top_port</span><span class="o">.</span><span class="n">change_name</span><span class="p">(</span><span class="n">pin_name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.annotate_area_information"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.annotate_area_information">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_area_information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">skipline</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">"""</span>

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.9. Merging two instances in the design" href="merge_instance.html" /><link rel="prev" title="1.7. Combined independent nets" href="10_combine_wires.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.10. Merging two instances in the design" href="merge_instance.html" /><link rel="prev" title="1.8. Logging and debuging" href="11_logging_mesages.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>1.8. Grouping ungrouping cells - SpyDrNet-Physical alpha documentation</title>
+        <title>1.9. Grouping ungrouping cells - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -228,9 +228,10 @@
 <li class="toctree-l3"><a class="reference internal" href="08_multiple_instance_feedthrough.html">1.5. Generating feedthrough from multiple instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="09_combine_pins.html">1.6. Combined definitions pins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="10_combine_wires.html">1.7. Combined independent nets</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_logging_mesages.html">1.8. Logging and debuging</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -240,9 +241,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/04_fpga_grid_generation.html">2.4. FPGA Layout grid generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/04_fpga_grid_render.html">2.5. RenderFPGA Pre Generation Grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/05_fpga_instance_name.html">2.6. FPGA Instance to Layout mapping</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/07_FloorplanHeterogeneousDesign01.html">2.7. Heterogeneous Design Placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/08_grid_floor_plan_example.html">2.8. Grid Floorplan Generator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/08_grid_floor_plan_example.html">2.7. Grid Floorplan Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -342,7 +342,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="grouping-ungrouping-cells">
-<span id="sphx-glr-auto-basic-group-ungroup-cells-py"></span><h1><span class="section-number">1.8. </span>Grouping ungrouping cells<a class="headerlink" href="#grouping-ungrouping-cells" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-basic-group-ungroup-cells-py"></span><h1><span class="section-number">1.9. </span>Grouping ungrouping cells<a class="headerlink" href="#grouping-ungrouping-cells" title="Permalink to this headline">¶</a></h1>
 <p>This example demostrates how to generate a feedthrough wire connection for
 a given scalar or vector wires.</p>
 <img alt="../_images/nested_hierarchy.svg" class="align-center" src="../_images/nested_hierarchy.svg"/><p><strong>Output1</strong> ungrouped module</p>
@@ -393,18 +393,18 @@ a given scalar or vector wires.</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">1.9. </span>Merging two instances in the design</div>
+                <div class="title"><span class="section-number">1.10. </span>Merging two instances in the design</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="10_combine_wires.html">
+          <a class="prev-page" href="11_logging_mesages.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">1.7. </span>Combined independent nets</div>
+                <div class="title"><span class="section-number">1.8. </span>Logging and debuging</div>
                 
               </div>
             </a>
