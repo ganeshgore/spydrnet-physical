@@ -277,6 +277,8 @@ class OpenFPGA:
         # fmt: on
         output.append(" = =" * 30)
         for instance in self.top_module.get_instances(pattern):
+            print(instance.reference.name)
+            print(instance.reference.properties)
             output.append(
                 f"{instance.name:20s} "
                 + f"{instance.reference.name:20s} "
@@ -390,6 +392,9 @@ class OpenFPGA:
         return inst_cnt
 
     def remove_direct_interc(self):
+        """
+        Removes direct interconnects from the OpenFPGA netlist
+        """
         direct_interc = next(self._top_module.get_definitions("direct_*"), None)
         if not direct_interc:
             return
