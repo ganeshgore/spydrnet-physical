@@ -19,7 +19,7 @@
 
 
 =================================
-Auto Floorplan homogeneous design
+Auto floorplan homogeneous design
 =================================
 
 This example demonstate how to render FPGA Tile using ``FloorPlanViz`` class
@@ -32,49 +32,42 @@ This script can be used for shaping and placement of the modules before place an
    :width: 100%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-104
+.. GENERATED FROM PYTHON SOURCE LINES 17-100
 
 .. code-block:: default
 
 
     import glob
     import logging
-    import os
-    import tempfile
 
     import spydrnet as sdn
-    from spydrnet_physical.util import OpenFPGA, initial_placement, initial_hetero_placement
-    from spydrnet_physical.util import FloorPlanViz, FPGAGridGen
-    from spydrnet_physical import PROP
+    from spydrnet_physical.util import OpenFPGA, initial_hetero_placement
+    from spydrnet_physical.util import FPGAGridGen, FloorPlanViz
 
-    logger = logging.getLogger('spydrnet_logs')
-    sdn.enable_file_logging(LOG_LEVEL='INFO')
+    logger = logging.getLogger("spydrnet_logs")
+    sdn.enable_file_logging(LOG_LEVEL="INFO")
 
-    STYLE_SHEET = '''
+    STYLE_SHEET = """
         .over_util {fill:#b22222 !important}
         text{font-family: Lato; font-size: 8px}
-    '''
+    """
 
     CPP = 2
     SC_HEIGHT = 10
 
 
     def main():
+        """
+        Main method
+        """
         proj = "../homogeneous_fabric"
-        source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
+        source_files = glob.glob(f"{proj}/*_Verilog/lb/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/routing/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/fpga_top.v")
 
-        # Temporary fix to read multiple verilog files
-        with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-            for each_verilog in source_files:
-                with open(each_verilog, "r", encoding="UTF-8") as fpv:
-                    fp.write(str.encode(" ".join(fpv.readlines())))
-            fp.seek(0)
-            netlist = sdn.parse(fp.name)
-
-        fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
+        # Create OpenFPGA object
+        fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
 
         # Convert wires to bus structure
         fpga.annotate_area_information("./support_files/fpga_top_area.rpt")
@@ -89,13 +82,17 @@ This script can be used for shaping and placement of the modules before place an
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         #           Floorplan visualization
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        fpga_grid = FPGAGridGen(design_name='FPGA4x4', layout="4x4",
-                                arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
-                                release_root=None)
+        fpga_grid = FPGAGridGen(
+            design_name="FPGA4x4",
+            layout="4x4",
+            arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
+            release_root=None,
+        )
         fpga_grid.enumerate_grid()
         fpga.load_grid(fpga_grid)
-        fpga.register_placement_creator(initial_hetero_placement,
-                                        areaFile=f"{proj}/area_info.txt")
+        fpga.register_placement_creator(
+            initial_hetero_placement, areaFile=f"{proj}/area_info.txt"
+        )
         fpga.create_placement()
         fpga.show_placement_data("*_0__*")
         fpga.design_top_stat()
@@ -111,10 +108,9 @@ This script can be used for shaping and placement of the modules before place an
         dwg = fp.get_svg()
         dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-        pattern = dwg.pattern(size=(4*CPP, 2*SC_HEIGHT),
-                              patternUnits="userSpaceOnUse")
+        pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
         pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
-        pattern.add(dwg.circle(center=(2, SC_HEIGHT+2), r=1, fill="red"))
+        pattern.add(dwg.circle(center=(2, SC_HEIGHT + 2), r=1, fill="red"))
         dwg.defs.add(pattern)
         dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 

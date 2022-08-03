@@ -11,14 +11,31 @@ Basic Restructuring Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demostrates how to generate a feedthrough wire connection for a given scalar or ve...">
+    <div class="sphx-glr-thumbcontainer" tooltip=" Some example functions that can be run to display information in a netlist:     1) print the h...">
 
 .. only:: html
 
-  .. image:: /auto_basic/images/thumb/sphx_glr_display_hierarchical_netlist_thumb.svg
+  .. image:: /auto_basic/images/thumb/sphx_glr_01_display_info_thumb.png
+    :alt: Display Netlist Information Functions
+
+  :ref:`sphx_glr_auto_basic_01_display_info.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Display Netlist Information Functions</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to visualize a netlist In SVG format, which uses Yosys and netlis...">
+
+.. only:: html
+
+  .. image:: /auto_basic/images/thumb/sphx_glr_02_display_hierarchical_netlist_thumb.png
     :alt: Visualise Hierarchical Netlist
 
-  :ref:`sphx_glr_auto_basic_display_hierarchical_netlist.py`
+  :ref:`sphx_glr_auto_basic_02_display_hierarchical_netlist.py`
 
 .. raw:: html
 
@@ -28,18 +45,86 @@ Basic Restructuring Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Some example functions that can be run to display information in a netlist:     1) print the hi...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to merge group of instances in the design">
 
 .. only:: html
 
-  .. image:: /auto_basic/images/thumb/sphx_glr_display_info_thumb.png
-    :alt: Display Netlist Information Functions
+  .. image:: /auto_basic/images/thumb/sphx_glr_06_merge_multiple_instances_thumb.png
+    :alt: Merging group of instances
 
-  :ref:`sphx_glr_auto_basic_display_info.py`
+  :ref:`sphx_glr_auto_basic_06_merge_multiple_instances.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Display Netlist Information Functions</div>
+      <div class="sphx-glr-thumbnail-title">Merging group of instances</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to generate feedthrough from multiple instances. If multiple inst...">
+
+.. only:: html
+
+  .. image:: /auto_basic/images/thumb/sphx_glr_07_multiple_instance_feedthrough_thumb.png
+    :alt: Generating feedthrough from multiple instances
+
+  :ref:`sphx_glr_auto_basic_07_multiple_instance_feedthrough.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Generating feedthrough from multiple instances</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demostrates how to generate a feedthrough wire connection for a given scalar or ve...">
+
+.. only:: html
+
+  .. image:: /auto_basic/images/thumb/sphx_glr_08_multiple_instance_feedthrough_thumb.png
+    :alt: Generating feedthrough from multiple instances
+
+  :ref:`sphx_glr_auto_basic_08_multiple_instance_feedthrough.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Generating feedthrough from multiple instances</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example combines independent pins of the module to a single multipin ports (Bux)">
+
+.. only:: html
+
+  .. image:: /auto_basic/images/thumb/sphx_glr_09_combine_pins_thumb.png
+    :alt: Combined definitions pins
+
+  :ref:`sphx_glr_auto_basic_09_combine_pins.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Combined definitions pins</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example combines independent nets of the module to a single multipin cable (Bux)">
+
+.. only:: html
+
+  .. image:: /auto_basic/images/thumb/sphx_glr_10_combine_wires_thumb.png
+    :alt: Combined independent nets
+
+  :ref:`sphx_glr_auto_basic_10_combine_wires.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Combined independent nets</div>
     </div>
 
 
@@ -79,40 +164,6 @@ Basic Restructuring Examples
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to merge group of instances in the design">
-
-.. only:: html
-
-  .. image:: /auto_basic/images/thumb/sphx_glr_merge_multiple_instances_thumb.png
-    :alt: Merging group of instances
-
-  :ref:`sphx_glr_auto_basic_merge_multiple_instances.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Merging group of instances</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example aim to demonstrate how to create circuit partition on post techmapped netlist. Fol...">
-
-.. only:: html
-
-  .. image:: /auto_basic/images/thumb/sphx_glr_partitioning_experiments_thumb.png
-    :alt: Partitions Experimentation
-
-  :ref:`sphx_glr_auto_basic_partitioning_experiments.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Partitions Experimentation</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="This example demostrates how to generate a feedthrough wire connection for a given scalar or ve...">
 
 .. only:: html
@@ -136,12 +187,15 @@ Basic Restructuring Examples
 .. toctree::
    :hidden:
 
-   /auto_basic/display_hierarchical_netlist
-   /auto_basic/display_info
+   /auto_basic/01_display_info
+   /auto_basic/02_display_hierarchical_netlist
+   /auto_basic/06_merge_multiple_instances
+   /auto_basic/07_multiple_instance_feedthrough
+   /auto_basic/08_multiple_instance_feedthrough
+   /auto_basic/09_combine_pins
+   /auto_basic/10_combine_wires
    /auto_basic/group_ungroup_cells
    /auto_basic/merge_instance
-   /auto_basic/merge_multiple_instances
-   /auto_basic/partitioning_experiments
    /auto_basic/wire_feedthrough
 
 

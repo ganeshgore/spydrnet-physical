@@ -31,7 +31,7 @@ a given scalar or vector wires.
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 
-netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
+netlist = sdnphy.load_netlist_by_name("basic_hierarchy")
 
 top = netlist.top_instance.reference
 cable0 = next(top.get_cables("in3"))
@@ -40,11 +40,11 @@ inst2 = next(top.get_instances("inst_1_0"))
 
 top.create_feedthrough(inst2, cable0)
 top.create_unconn_wires()
-sdn.compose(netlist, '_output_wire.v', skip_constraints=True)
+sdn.compose(netlist, "_output_wire.v", skip_constraints=True)
 
 
 # Reset design
-netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
+netlist = sdnphy.load_netlist_by_name("basic_hierarchy")
 
 top = netlist.top_instance.reference
 bus_in = next(top.get_cables("bus_in"))
@@ -52,4 +52,4 @@ inst1 = next(top.get_instances("inst_2_0"))
 
 cables = top.create_feedthrough(inst1, bus_in)
 top.create_unconn_wires()
-sdn.compose(netlist, '_output_bus.v', skip_constraints=True)
+sdn.compose(netlist, "_output_bus.v", skip_constraints=True)

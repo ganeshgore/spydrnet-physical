@@ -12,10 +12,9 @@ a given scalar or vector wires.
 
 **Output1** ungrouped module
 
-.. hdl-diagram:: ../../../examples/basic/_ungrouped_design.v
-   :type: netlistsvg
-   :align: center
-   :module: top
+
+.. image:: ../../../examples/basic/_ungrouped_design.svg
+    :align: center
 
 """
 
@@ -23,20 +22,22 @@ import logging
 
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
+from spydrnet_physical.composers.svg.composer import SVGComposer
 
-logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='INFO')
+logger = logging.getLogger("spydrnet_logs")
+sdn.enable_file_logging(LOG_LEVEL="INFO")
 
-netlist = sdnphy.load_netlist_by_name('nested_hierarchy')
-
-netlist = sdnphy.load_netlist_by_name('nested_hierarchy')
+netlist = sdnphy.load_netlist_by_name("nested_hierarchy")
 top = netlist.top_instance.reference
+
+# Flatten inst_1_0
 inst = next(top.get_instances("inst_1_0"))
 top.flatten_instance(inst)
+
+# Flatten inst_1_1
 inst = next(top.get_instances("inst_1_1"))
 top.flatten_instance(inst)
 top.create_unconn_wires()
 
-FILENAME = "_ungrouped_design.v"
-sdn.compose(netlist, FILENAME, skip_constraints=True)
-logger.info("Saving merged version to %s", FILENAME)
+composer = SVGComposer()
+composer.run(netlist, file_out="_ungrouped_design.svg")

@@ -32,49 +32,48 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-185
+.. GENERATED FROM PYTHON SOURCE LINES 17-187
 
 .. code-block:: default
 
     import glob
+    import math
     import logging
-    import os
-    import tempfile
     from itertools import chain
 
     import spydrnet as sdn
-    from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen,
-                                        GridFloorplanGen, OpenFPGA,
-                                        initial_placement)
+    from spydrnet_physical.util import (
+        FloorPlanViz,
+        FPGAGridGen,
+        GridFloorplanGen,
+        OpenFPGA,
+        initial_placement,
+    )
 
-    logger = logging.getLogger('spydrnet_logs')
-    sdn.enable_file_logging(LOG_LEVEL='INFO')
+    logger = logging.getLogger("spydrnet_logs")
+    sdn.enable_file_logging(LOG_LEVEL="INFO")
 
     PROP = "VERILOG.InlineConstraints"
 
 
-    CBX_COLOR = '#d9d9f3'
-    CBY_COLOR = '#a8d0db'
-    SB_COLOR = '#ceefe4'
-    GRID_COLOR = '#ddd0b1'
+    CBX_COLOR = "#d9d9f3"
+    CBY_COLOR = "#a8d0db"
+    SB_COLOR = "#ceefe4"
+    GRID_COLOR = "#ddd0b1"
 
 
     def main():
+        """
+        Main method
+        """
         proj = "../homogeneous_fabric"
-        source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
+        source_files = glob.glob(f"{proj}/*_Verilog/lb/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/routing/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/fpga_top.v")
 
-        # Temporary fix to read multiple verilog files
-        with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-            for eachV in source_files:
-                with open(eachV, "r") as fpv:
-                    fp.write(str.encode(" ".join(fpv.readlines())))
-            fp.seek(0)
-            netlist = sdn.parse(fp.name)
-
-        fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
+        # Create OpenFPGA object
+        fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
 
         # Convert wires to bus structure
         fpga.create_grid_clb_bus()
@@ -84,26 +83,29 @@ This script can be used for shaping and placement of the modules before place an
         fpga.merge_all_grid_ios()
 
         # Convert top level independent nets to bus
-        for i in chain(fpga.top_module.get_instances("grid_clb*"),
-                       fpga.top_module.get_instances("grid_io*"),
-                       fpga.top_module.get_instances("sb_*")):
+        for i in chain(
+            fpga.top_module.get_instances("grid_clb*"),
+            fpga.top_module.get_instances("grid_io*"),
+            fpga.top_module.get_instances("sb_*"),
+        ):
             for p in filter(lambda x: True, i.reference.ports):
                 if p.size > 1 and (i.check_all_scalar_connections(p)):
                     cable_list = []
                     for pin in p.pins[::-1]:
                         cable_list.append(i.pins[pin].wire.cable)
-                    cable = fpga.top_module.combine_cables(
-                        f"{i.name}_{p.name}", cable_list)
+                    cable = fpga.top_module.combine_cables(f"{i.name}_{p.name}", cable_list)
                     cable.is_downto = False
 
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         #           Floorplan visualization
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        fpga.register_placement_creator(initial_placement,
-                                        areaFile=f"{proj}/area_info.txt")
-        fpga_grid = FPGAGridGen(design_name='FPGA4x4', layout="4x4",
-                                arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
-                                release_root=None)
+        fpga.register_placement_creator(initial_placement, areaFile=f"{proj}/area_info.txt")
+        fpga_grid = FPGAGridGen(
+            design_name="FPGA4x4",
+            layout="4x4",
+            arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
+            release_root=None,
+        )
         fpga_grid.enumerate_grid()
         fpga.load_grid(fpga_grid)
         fpga.create_placement()
@@ -116,17 +118,17 @@ This script can be used for shaping and placement of the modules before place an
         grid_plan.offset_x = 10
         grid_plan.offset_y = 10
 
-        for i in range(2, 9+1, 2):
-            grid_plan.set_column_width(i, p.CLB_W*4)
+        for i in range(2, 9 + 1, 2):
+            grid_plan.set_column_width(i, p.CLB_W * 4)
 
-        for i in range(2, 9+1, 2):
-            grid_plan.set_row_height(i, p.CLB_H*4)
+        for i in range(2, 9 + 1, 2):
+            grid_plan.set_row_height(i, p.CLB_H * 4)
 
-        for i in range(1, 9+1, 2):
-            grid_plan.set_column_width(i, (p.CLB_GRID_X-p.CLB_W)*4)
+        for i in range(1, 9 + 1, 2):
+            grid_plan.set_column_width(i, (p.CLB_GRID_X - p.CLB_W) * 4)
 
-        for i in range(1, 9+1, 2):
-            grid_plan.set_row_height(i, (p.CLB_GRID_Y-p.CLB_H)*4)
+        for i in range(1, 9 + 1, 2):
+            grid_plan.set_row_height(i, (p.CLB_GRID_Y - p.CLB_H) * 4)
 
         # dwg = grid_plan.render_grid()
         # dwg.saveas("_fpga_grid_floorplan.svg", pretty=True, indent=4)
@@ -135,17 +137,17 @@ This script can be used for shaping and placement of the modules before place an
             for yi in range(1, 10):
                 X_OFFSET, Y_OFFSET = 0, 0
                 inst_name = fpga_grid.get_top_instance(xi, yi)
-                points = grid_plan.get_x_y(xi-1, yi-1)
+                points = grid_plan.get_x_y(xi - 1, yi - 1)
                 inst = next(fpga.top_module.get_instances(f"*{inst_name}"))
                 if "cbx" in inst_name:
-                    X_OFFSET, Y_OFFSET = 2*(p.CLB_W-p.CBX_W), 0
+                    X_OFFSET, Y_OFFSET = 2 * (p.CLB_W - p.CBX_W), 0
                 elif "cby" in inst_name:
-                    X_OFFSET, Y_OFFSET = 0, 2*(p.CLB_H-p.CBY_H)
+                    X_OFFSET, Y_OFFSET = 0, 2 * (p.CLB_H - p.CBY_H)
                 elif "sb" in inst_name:
                     PTS = inst.reference.data[PROP]["POINTS"]
-                    X_OFFSET, Y_OFFSET = PTS[1]*-1, PTS[-1]*-1
-                inst.data[PROP]['LOC_X'] = points[0] + X_OFFSET
-                inst.data[PROP]['LOC_Y'] = points[1] + Y_OFFSET
+                    X_OFFSET, Y_OFFSET = PTS[1] * -1, PTS[-1] * -1
+                inst.data[PROP]["LOC_X"] = math.floor(points[0] + X_OFFSET)
+                inst.data[PROP]["LOC_Y"] = math.floor(points[1] + Y_OFFSET)
 
         fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
         fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
@@ -180,14 +182,14 @@ This script can be used for shaping and placement of the modules before place an
                 inst_col.append(inst)
             if inst_col:
                 inst_col = [each] + inst_col
-                inst_list[each.reference.name] = inst_list.get(
-                    each.reference.name, [])
+                inst_list[each.reference.name] = inst_list.get(each.reference.name, [])
                 inst_list[each.reference.name].append((inst_col, f"rb_{x}__{y}_"))
 
         for module, merge_inst in inst_list.items():
             module_name = module.replace("sb", "rb")
             fpga.top_module.merge_multiple_instance(
-                merge_inst, new_definition_name=module_name)
+                merge_inst, new_definition_name=module_name
+            )
 
         for sb in fpga.top_module.get_definitions("rb_*"):
             sb.data[PROP]["COLOR"] = SB_COLOR
