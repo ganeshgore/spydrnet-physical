@@ -98,6 +98,25 @@ def main():
     fpga.placement_creator.derive_sb_paramters()
     fpga.placement_creator.create_shapes()
 
+    # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    # #           Adding Margin
+    # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    shapes = fpga.placement_creator.module_shapes
+
+    for module in ["grid_clb"]:
+        shapes[module]["POINTS"][0] -= 16
+        shapes[module]["POINTS"][1] -= 2
+        shapes[module]["PLACEMENT"][0] += 8
+        shapes[module]["PLACEMENT"][1] += 1
+
+    for module in ["cbx_1__0_", "cbx_1__1_", "cbx_1__4_"]:
+        shapes[module]["POINTS"][0] -= 16
+        shapes[module]["PLACEMENT"][0] += 8
+
+    for module in ["cby_0__1_", "cby_1__1_", "cby_4__1_"]:
+        shapes[module]["POINTS"][1] -= 2
+        shapes[module]["PLACEMENT"][1] += 1
+
     fpga.create_placement()
     fpga.show_placement_data(filename="_homogeneous_placement.txt")
     fpga.show_utilization_data()
@@ -117,9 +136,9 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
-    pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
-    pattern.add(dwg.circle(center=(2, SC_HEIGHT + 2), r=1, fill="red"))
+    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
+    pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
+    pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
     dwg.defs.add(pattern)
     dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 
