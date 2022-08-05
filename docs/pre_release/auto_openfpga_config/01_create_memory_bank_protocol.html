@@ -1,0 +1,710 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><base href="pre_release"><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="7.2. Fabric key generation for homogeneous fabric" href="02_fabric_key_generator_ccff.html" /><link rel="prev" title="7. Configuration Chain" href="index.html" />
+
+    <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
+        <title>7.1. Create memory bank pin placement and connection - SpyDrNet-Physical alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">SpyDrNet-Physical alpha documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">SpyDrNet-Physical alpha documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction/install.html">Install</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
+<li class="toctree-l2"><a class="reference external" href="?http://#shell-interface">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference external" href="?http://#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/element.html">Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/definition.html">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/instance.html">Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/cable.html">Cable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/wire.html">Wire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/innerpin.html">InnerPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/outerpin.html">OuterPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/pin.html">Pin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/port.html">Port</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/base.html">OpenFPGA Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/openfpga_arch.html">OpenFPGA Arch Parser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/routing_render.html">Routing Render</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/openfpga/tile01.html">Tile-01</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/tile.html">Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/left-tile.html">Left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/right-tile.html">Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-tile.html">Top-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-tile.html">Bottom-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-left-tile.html">Top-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-right-tile.html">Top-Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-left-tile.html">Bottom-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-right-tile.html">Bottom-Right-Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/tile02.html">Tile-02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/config_chain_01.html">Configuration Chain Pattern 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/config_chain_simple.html">Configuration Chain Pattern 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/sram_configuration.html">SRAM Configuration Protocol</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/utility_classes/initial_placement.html">Initial Placement</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/utility_classes/initial_placement.html">Initial Placement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/openfpga_bitstream.html">Bitstream Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/utility/index.html">Utility Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/verilog_support.html">Verilog Language Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/06_merge_multiple_instances.html">1.3. Merging group of instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/07_multiple_instance_feedthrough.html">1.4. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/08_multiple_instance_feedthrough.html">1.5. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/09_combine_pins.html">1.6. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/10_combine_wires.html">1.7. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/11_logging_mesages.html">1.8. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/01_fpga_arch_parse.html">2.1. OpenFPGA Architecture Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/04_fpga_grid_generation.html">2.3. FPGA Layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/04_fpga_grid_render.html">2.4. RenderFPGA Pre Generation Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/rename_modules.html">2.7. Renaming Homogeneous FPGA Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/01_floorplan_rendering.html">3.1. Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/01_multi_merge_floorplan.html">3.2. Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/02_render_routing_box.html">3.3. Rendering Switch and Connection Boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/03_render_edge_routing_box.html">3.4. Rendering Switch and Connection Boxes</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_floorplanning/index.html">4. Floorplanning Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/02_FloorplanHeterogeneousDesign01.html">4.2. Heterogeneous Design Placement</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/01_connection_patterns.html">5.1. Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/02_create_simple_htree.html">5.2. Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/03_create_hybrid_htree.html">5.3. Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/04_embed_clock_tree.html">5.4. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/05_embed_clock_tree_fpga44.html">5.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_connection_pattern_tie_cell.html">5.6. Adding Tie Cells on Floating Pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_reset_feedthrough.html">5.7. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/07_clock_tree_example1.html">5.8. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/08_clock_tree_example2.html">5.9. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example3.html">5.10. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example4.html">5.11. Clock tree insertion Example Architecture 3</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">6. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/01_netlist_to_graph.html">6.1. Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/02_switch_partition_01.html">6.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/03_switch_partition_02.html">6.3. Physical/Techmapped Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/04_switch_partition_03.html">6.4. Partition Conn Box 02 - Simplified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/05_module_partition.html">6.5. Split CBs and SBs across fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part1.html">6.6. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part2.html">6.7. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/07_FloorplanDesign01.html">6.8. Floorplanning Classic Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/08_area_optimized_tiles.html">6.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/09_tile03_generation.html">6.10. Unified routing tile structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/10_tile02_tiles.html">6.11. Tile02 - Area optimized version with higher regularity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/11_memory_bank_protocol.html">6.12. Implementing memeory bank protocol on Tile02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/12_Hetero_Tile01.html">6.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/13_Hetero_Tile01_render.html">6.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/partitioning_experiments.html">6.15. Partitions Experimentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">7. Configuration Chain</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">7.1. Create memory bank pin placement and connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_fabric_key_generator_ccff.html">7.2. Fabric key generation for homogeneous fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_chain.html">7.3. Adding configuration chain to the fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extract_configuration_order.html">7.4. Extract configuration chain order</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developeres Content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developers Guidelines</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/element.html">Element - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/definition.html">Definition - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/instance.html">Instance - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/cable.html">Cable - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/wire.html">Wire - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/port.html">Port - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/pin.html">Pin - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/outerpin.html">OuterPin - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/innerpin.html">InnerPin - Unit tests</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-config-01-create-memory-bank-protocol-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="create-memory-bank-pin-placement-and-connection">
+<span id="sphx-glr-auto-openfpga-config-01-create-memory-bank-protocol-py"></span><h1><span class="section-number">7.1. </span>Create memory bank pin placement and connection<a class="headerlink" href="#create-memory-bank-pin-placement-and-connection" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrated how a memeroy bacnk protocol can be inserted in the
+pre place and routed module.</p>
+<p>The idea here is to optimize the WL and BL pin placement on the tile as well
+as restructure the (WL and BL) connectivity with eatch latch. The input this
+script is the placment and information of each latch, which can be extracted
+from the following tcl script.</p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">foreach_in_collection</span><span class="w"> </span>cell<span class="w"> </span><span class="k">[</span><span class="nv">get_cells</span><span class="w"> </span><span class="o">*</span>LAT<span class="o">*</span><span class="w"> </span><span class="o">-</span>hierarchical<span class="k">]</span><span class="w"> </span><span class="k">{</span><span class="w"></span>
+<span class="w">   </span><span class="nv">echo</span><span class="w"> </span><span class="s2">"[get_attr -name full_name $cell] [get_attr -name origin $cell]"</span>
+<span class="k">}</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>_filename.txt
+</pre></div>
+</div>
+<p><strong>Algorithm</strong>:</p>
+<ul class="simple">
+<li><p>Find total number of configuration elements in the block <code class="docutils literal notranslate"><span class="pre">B</span></code></p></li>
+<li><p>Find number of WL lines (horizontal lines) <code class="docutils literal notranslate"><span class="pre">wl_n</span> <span class="pre">=</span> <span class="pre">ceil(sqrt(B))</span></code></p></li>
+<li><p>Calculate number of BL lines (vertical lines) <code class="docutils literal notranslate"><span class="pre">bl_n</span> <span class="pre">=</span> <span class="pre">B/wl_n</span></code></p></li>
+<li><p>Sort each cell with increasing order of <code class="docutils literal notranslate"><span class="pre">x_loc</span></code>,
+assign bl[0] to first set of <code class="docutils literal notranslate"><span class="pre">wl_n</span></code> cells and continue assignement till the end</p></li>
+<li><p>Sort each cell with increasing order of <code class="docutils literal notranslate"><span class="pre">y_loc</span></code>,
+assign wl[0] to first set of <code class="docutils literal notranslate"><span class="pre">bl_n</span></code> cells and continue assignement till the end</p></li>
+</ul>
+<p><strong>Highlight BL connectivity</strong>:</p>
+<a class="reference internal image-reference" href="../_images/_memeory_bank_conn_bl_line.svg"><img alt="../_images/_memeory_bank_conn_bl_line.svg" class="align-center" src="../_images/_memeory_bank_conn_bl_line.svg" width="80%"/></a>
+<p><strong>Output log</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> INFO  76 - Total mem elements 756
+ INFO  77 - word lines         28
+ INFO  78 - bit lines          27
+ INFO  79 - Capacity           756
+ INFO  80 - Extra Conns        0
+ INFO 111 - x_cuts     [0.28, 2.52, 5.74, 7.84, 10.08, 12.32, 15.12, 19.32, 21.84, 24.92, 27.86, 30.38, 32.06, 34.3, 36.68, 40.88, 46.34, 49.42, 54.32, 58.52, 62.02, 67.48, 69.86, 72.8, 75.18, 78.26, 80.92, 82]
+ INFO 112 - wl_lines   [0.9, 2.7, 4.5, 6.3, 8.1, 9.9, 11.7, 14.4, 17.1, 19.8, 22.5, 24.3, 26.1, 28.8, 31.5, 33.3, 35.1, 36.9, 38.7, 40.5, 42.3, 45.0, 47.7, 50.4, 53.1, 54.9, 56.7, 57.3]
+ INFO 113 - bl_lines   [1.4, 4.13, 6.79, 8.96, 11.2, 13.72, 17.22, 20.58, 23.38, 26.39, 29.12, 31.22, 33.18, 35.49, 38.78, 43.61, 47.88, 51.87, 56.42, 60.27, 64.75, 68.67, 71.33, 73.99, 76.72, 79.59, 81.46]
+ INFO 126 - V Cost 13.73, H Cost 13.54, Total Cost 27.27
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a linear solution to the problem. A further improvement can be obtained by using a simulated annealing method with the solution received in this example as an initial condition.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">import</span> <span class="nn">svgwrite</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"spydrnet_logs"</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s2">"INFO"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"memory_bank_protocol"</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s2">"</span><span class="si">%(levelname)5s</span><span class="s2"> </span><span class="si">%(lineno)3s</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">"</span><span class="p">)</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">latch_locs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="s2">"latch_placement_dump.txt"</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">" "</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">"cells"</span><span class="p">,</span> <span class="s2">"x_loc"</span><span class="p">,</span> <span class="s2">"y_loc"</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="c1"># latch_locs = pd.read_csv('small_latch_placement.txt', sep=" ",</span>
+    <span class="c1">#                          names=["cells", "x_loc", "y_loc"])</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+    <span class="c1"># latch_locs = latch_locs.sample(n=750)</span>
+    <span class="n">total_mem_elements</span> <span class="o">=</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">wl_n</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">total_mem_elements</span><span class="p">))</span>
+    <span class="n">bl_n</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">total_mem_elements</span> <span class="o">/</span> <span class="n">wl_n</span><span class="p">)</span>
+
+    <span class="n">_</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">[</span><span class="s2">"x_loc"</span><span class="p">])),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">[</span><span class="s2">"x_loc"</span><span class="p">]))</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">[</span><span class="s2">"y_loc"</span><span class="p">])),</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">[</span><span class="s2">"y_loc"</span><span class="p">]))</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Total mem elements </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">total_mem_elements</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"word lines         </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">wl_n</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"bit lines          </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">bl_n</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Capacity           </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">wl_n</span> <span class="o">*</span> <span class="n">bl_n</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Extra Conns        </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="p">(</span><span class="n">wl_n</span> <span class="o">*</span> <span class="n">bl_n</span><span class="p">)</span> <span class="o">-</span> <span class="n">total_mem_elements</span><span class="p">)</span>
+
+    <span class="n">latch_locs</span> <span class="o">=</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">"x_loc"</span><span class="p">,</span> <span class="s2">"y_loc"</span><span class="p">])</span>
+    <span class="n">x_cuts</span> <span class="o">=</span> <span class="n">latch_locs</span><span class="p">[::</span><span class="n">wl_n</span><span class="p">][</span><span class="s2">"x_loc"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">x_max</span><span class="p">]</span>
+    <span class="n">bl_lines</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">pts</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_cuts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x_cuts</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span>
+
+    <span class="n">sequence</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bl_n</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">wl_n</span><span class="p">)]</span>
+    <span class="n">latch_locs</span><span class="p">[</span><span class="s2">"x_bins"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">[:</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+    <span class="n">latch_locs</span> <span class="o">=</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">"x_bins"</span><span class="p">,</span> <span class="s2">"y_loc"</span><span class="p">])</span>
+    <span class="n">sequence_bl</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sequence_wl</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bl_n</span><span class="p">):</span>
+        <span class="n">sequence_bl</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"b</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">wl_n</span><span class="p">)</span>
+        <span class="n">sequence_wl</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"w</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">wl_n</span><span class="p">)]</span>
+    <span class="n">latch_locs</span><span class="p">[</span><span class="s2">"bl"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequence_bl</span><span class="p">[:</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="n">latch_locs</span><span class="p">[</span><span class="s2">"wl"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequence_wl</span><span class="p">[:</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+    <span class="n">latch_locs</span> <span class="o">=</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">"y_loc"</span><span class="p">,</span> <span class="s2">"x_loc"</span><span class="p">])</span>
+    <span class="n">y_cuts</span> <span class="o">=</span> <span class="n">latch_locs</span><span class="p">[::</span><span class="n">bl_n</span><span class="p">][</span><span class="s2">"y_loc"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">y_cuts</span> <span class="o">+=</span> <span class="p">[</span><span class="n">y_max</span><span class="p">]</span>
+    <span class="n">wl_lines</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">pts</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">y_cuts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_cuts</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span>
+
+    <span class="c1"># This is an alternate option to place WL pins based on the</span>
+    <span class="c1"># the average y location of each Wx assigned cells</span>
+    <span class="c1"># wl_lines = []</span>
+    <span class="c1"># for each in sorted(latch_locs["wl"].unique()):</span>
+    <span class="c1">#     rows = latch_locs[latch_locs["wl"] == each]["y_loc"].values</span>
+    <span class="c1">#     print(each, rows)</span>
+    <span class="c1">#     wl_lines.append(sum(rows)/len(rows))</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"x_cuts     </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">x_cuts</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"wl_lines   </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">wl_lines</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"bl_lines   </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">bl_lines</span><span class="p">)</span>
+
+    <span class="n">render_placement</span><span class="p">(</span>
+        <span class="n">latch_locs</span><span class="p">,</span>
+        <span class="n">wl_lines</span><span class="p">,</span>
+        <span class="n">bl_lines</span><span class="p">,</span>
+        <span class="n">x_cuts</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">"_memeory_bank_conn_bl_line.svg"</span><span class="p">,</span>
+        <span class="n">highlights</span><span class="o">=</span><span class="s2">"b"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">write_report</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">)</span>
+    <span class="n">validate_connection</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">)</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="n">find_connection_cost</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">,</span> <span class="n">wl_lines</span><span class="p">,</span> <span class="n">bl_lines</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"V Cost </span><span class="si">%.2f</span><span class="s2">, H Cost </span><span class="si">%.2f</span><span class="s2">, Total Cost </span><span class="si">%.2f</span><span class="s2">"</span><span class="p">,</span> <span class="o">*</span><span class="n">cost</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">cost</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">write_report</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"_eco_changes.tcl"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="n">wl_n</span> <span class="o">=</span> <span class="n">latch_locs</span><span class="p">[</span><span class="s2">"wl"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">bl_n</span> <span class="o">=</span> <span class="n">latch_locs</span><span class="p">[</span><span class="s2">"bl"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"remove_ports [get_ports -quiet wl*]</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"remove_ports [get_ports -quiet bl*]</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"remove_nets [get_nets -quiet wl*]</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"remove_nets [get_nets -quiet bl*]</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"for { set a 0}  {$a &lt; </span><span class="si">%d</span><span class="s2">} {incr a} {</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="n">wl_n</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"    create_port wl[$a] -direction in;</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"    create_net wl[$a];</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"    connect_net -net wl[$a] wl[$a];</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"for { set a 0}  {$a &lt; </span><span class="si">%d</span><span class="s2">} {incr a} {</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="n">bl_n</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"    create_port bl[$a] -direction in;</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"    create_net bl[$a];</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"    connect_net -net bl[$a] bl[$a];</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"foreach_in_collection pin [get_pins *LAT*/D -hier] {</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"    disconnect_net -net [get_nets -quiet -of_objects $pin] $pin</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"foreach_in_collection pin [get_pins *LAT*/G -hier] {</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"    disconnect_net -net [get_nets -quiet -of_objects $pin] $pin</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">cell</span> <span class="o">=</span> <span class="n">each</span><span class="p">[</span><span class="s2">"cells"</span><span class="p">]</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"connect_net -net bl[</span><span class="si">%s</span><span class="s2">] </span><span class="si">%s</span><span class="s2">/D</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"bl"</span><span class="p">][</span><span class="mi">1</span><span class="p">:],</span> <span class="n">cell</span><span class="p">))</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"connect_net -net  wl[</span><span class="si">%s</span><span class="s2">] </span><span class="si">%s</span><span class="s2">/G</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"wl"</span><span class="p">][</span><span class="mi">1</span><span class="p">:],</span> <span class="n">cell</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">validate_connection</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+    <span class="n">duplicated</span> <span class="o">=</span> <span class="n">dataframe</span><span class="p">[</span><span class="n">dataframe</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"wl"</span><span class="p">,</span> <span class="s2">"bl"</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+    <span class="k">assert</span> <span class="n">duplicated</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"Found </span><span class="si">%d</span><span class="s2"> duplicate connections"</span> <span class="o">%</span> <span class="n">duplicated</span><span class="o">.</span><span class="n">size</span>
+
+
+<span class="k">def</span> <span class="nf">find_connection_cost</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">,</span> <span class="n">wl_lines</span><span class="p">,</span> <span class="n">bl_lines</span><span class="p">):</span>
+    <span class="n">total_v_wiring</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_h_wiring</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">x_loc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"x_loc"</span><span class="p">])</span>
+        <span class="n">y_loc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"y_loc"</span><span class="p">])</span>
+        <span class="n">wl_indx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"wl"</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">bl_indx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"bl"</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">total_h_wiring</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x_loc</span> <span class="o">-</span> <span class="n">wl_lines</span><span class="p">[</span><span class="n">wl_indx</span><span class="p">])</span>
+        <span class="n">total_v_wiring</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y_loc</span> <span class="o">-</span> <span class="n">bl_lines</span><span class="p">[</span><span class="n">bl_indx</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">total_v_wiring</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">total_h_wiring</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">render_placement</span><span class="p">(</span>
+    <span class="n">latch_locs</span><span class="p">,</span> <span class="n">wl_lines</span><span class="p">,</span> <span class="n">bl_lines</span><span class="p">,</span> <span class="n">regions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"_sample.svg"</span><span class="p">,</span> <span class="n">highlights</span><span class="o">=</span><span class="s2">"b"</span>
+<span class="p">):</span>
+    <span class="n">dwg</span> <span class="o">=</span> <span class="n">svgwrite</span><span class="o">.</span><span class="n">Drawing</span><span class="p">()</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">[</span><span class="s2">"x_loc"</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">[</span><span class="s2">"x_loc"</span><span class="p">])</span> <span class="o">+</span> <span class="mi">8</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">[</span><span class="s2">"y_loc"</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">latch_locs</span><span class="p">[</span><span class="s2">"y_loc"</span><span class="p">])</span> <span class="o">+</span> <span class="mi">8</span>
+    <span class="n">viewbox</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">viewbox</span><span class="p">(</span><span class="o">*</span><span class="n">viewbox</span><span class="p">)</span>
+    <span class="n">dwg_main</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">g</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">"main_frame"</span><span class="p">))</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+            <span class="sa">r</span><span class="sd">"""</span>
+<span class="sd">        .boundary{fill:#FAFAFA; stroke-width:1px; stroke:black}</span>
+<span class="sd">        .wl_lines{fill:red; stroke-width:0.1px; opacity:0.6;}</span>
+<span class="sd">        .bl_lines{fill:green; stroke-width:0.1px; opacity:0.6;}</span>
+<span class="sd">        .connections{fill:green; stroke-width:0.1px; stroke:black;}</span>
+<span class="sd">    """</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">),</span> <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="n">class_</span><span class="o">=</span><span class="s2">"boundary"</span><span class="p">))</span>
+
+    <span class="n">palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wl_lines</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">bl_lines</span><span class="p">)))</span><span class="o">.</span><span class="n">as_hex</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">latch_locs</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="p">{</span><span class="kc">True</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">each_color</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">palette</span><span class="p">):</span>
+            <span class="n">color</span><span class="p">[</span><span class="n">each</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">highlights</span><span class="si">}</span><span class="s2">l"</span><span class="p">]</span> <span class="o">==</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">highlights</span><span class="si">}{</span><span class="n">indx</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">each_color</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span>
+                <span class="n">r</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                <span class="n">class_</span><span class="o">=</span><span class="s2">"marker"</span><span class="p">,</span>
+                <span class="n">fill</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+                <span class="n">stroke</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+                <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"x_loc"</span><span class="p">],</span> <span class="n">each</span><span class="p">[</span><span class="s2">"y_loc"</span><span class="p">]),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Add connection to the line</span>
+        <span class="n">wl_indx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"wl"</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">bl_indx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"bl"</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+                <span class="n">start</span><span class="o">=</span><span class="p">(</span><span class="n">each</span><span class="p">[</span><span class="s2">"x_loc"</span><span class="p">],</span> <span class="n">each</span><span class="p">[</span><span class="s2">"y_loc"</span><span class="p">]),</span>
+                <span class="n">end</span><span class="o">=</span><span class="p">(</span>
+                    <span class="n">bl_lines</span><span class="p">[</span><span class="n">bl_indx</span><span class="p">],</span>
+                    <span class="n">wl_lines</span><span class="p">[</span><span class="n">wl_indx</span><span class="p">],</span>
+                <span class="p">),</span>
+                <span class="n">class_</span><span class="o">=</span><span class="s2">"connections"</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Add word and bit lines regions</span>
+    <span class="k">if</span> <span class="n">regions</span> <span class="ow">and</span> <span class="p">(</span><span class="n">highlights</span> <span class="o">==</span> <span class="s2">"b"</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">pts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">regions</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">regions</span><span class="p">[</span><span class="mi">1</span><span class="p">:])):</span>
+            <span class="n">min_pt</span><span class="p">,</span> <span class="n">max_pt</span> <span class="o">=</span> <span class="n">pts</span>
+            <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span>
+                    <span class="n">size</span><span class="o">=</span><span class="p">((</span><span class="n">max_pt</span> <span class="o">-</span> <span class="n">min_pt</span><span class="p">),</span> <span class="n">ymax</span><span class="p">),</span>
+                    <span class="n">class_</span><span class="o">=</span><span class="s2">"bl_region"</span><span class="p">,</span>
+                    <span class="n">fill</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="n">indx</span><span class="p">],</span>
+                    <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                    <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="n">min_pt</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">if</span> <span class="n">regions</span> <span class="ow">and</span> <span class="p">(</span><span class="n">highlights</span> <span class="o">==</span> <span class="s2">"w"</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">pts</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">regions</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">regions</span><span class="p">[</span><span class="mi">1</span><span class="p">:])):</span>
+            <span class="n">min_pt</span><span class="p">,</span> <span class="n">max_pt</span> <span class="o">=</span> <span class="n">pts</span>
+            <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span>
+                    <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="p">(</span><span class="n">max_pt</span> <span class="o">-</span> <span class="n">min_pt</span><span class="p">)),</span>
+                    <span class="n">class_</span><span class="o">=</span><span class="s2">"wl_region"</span><span class="p">,</span>
+                    <span class="n">fill</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="n">indx</span><span class="p">],</span>
+                    <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                    <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_pt</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Add word and bit lines</span>
+    <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">each_wl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wl_lines</span><span class="p">):</span>
+        <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span>
+                <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span>
+                <span class="n">class_</span><span class="o">=</span><span class="s2">"wl_lines"</span><span class="p">,</span>
+                <span class="n">stroke</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="n">indx</span><span class="p">]</span> <span class="k">if</span> <span class="n">highlights</span> <span class="o">==</span> <span class="s2">"w"</span> <span class="k">else</span> <span class="s2">"red"</span><span class="p">,</span>
+                <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">each_wl</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">each_wl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bl_lines</span><span class="p">):</span>
+        <span class="n">dwg_main</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span>
+                <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ymax</span><span class="p">),</span>
+                <span class="n">class_</span><span class="o">=</span><span class="s2">"bl_lines"</span><span class="p">,</span>
+                <span class="n">stroke</span><span class="o">=</span><span class="n">palette</span><span class="p">[</span><span class="n">indx</span><span class="p">]</span> <span class="k">if</span> <span class="n">highlights</span> <span class="o">==</span> <span class="s2">"b"</span> <span class="k">else</span> <span class="s2">"red"</span><span class="p">,</span>
+                <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="n">each_wl</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dwg</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Output TCL</strong></p>
+<div class="highlight-tcl notranslate"><div class="highlight"><pre><span></span><span class="nv">remove_ports</span><span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span><span class="o">-</span>quiet<span class="w"> </span>wl<span class="o">*</span><span class="k">]</span>
+<span class="nv">remove_ports</span><span class="w"> </span><span class="k">[</span><span class="nv">get_ports</span><span class="w"> </span><span class="o">-</span>quiet<span class="w"> </span>bl<span class="o">*</span><span class="k">]</span>
+<span class="nv">remove_nets</span><span class="w"> </span><span class="k">[</span><span class="nv">get_nets</span><span class="w"> </span><span class="o">-</span>quiet<span class="w"> </span>wl<span class="o">*</span><span class="k">]</span>
+<span class="nv">remove_nets</span><span class="w"> </span><span class="k">[</span><span class="nv">get_nets</span><span class="w"> </span><span class="o">-</span>quiet<span class="w"> </span>bl<span class="o">*</span><span class="k">]</span>
+<span class="k">for</span><span class="w"> </span><span class="k">{</span><span class="w"> </span><span class="k">set</span><span class="w"> </span>a<span class="w"> </span><span class="mi">0</span><span class="k">}</span><span class="w">  </span><span class="k">{</span><span class="nv">$a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nv">28</span><span class="k">}</span><span class="w"> </span><span class="k">{</span><span class="nb">incr</span><span class="w"> </span>a<span class="k">}</span><span class="w"> </span><span class="k">{</span><span class="w"></span>
+<span class="w">    </span><span class="nv">create_port</span><span class="w"> </span>wl<span class="k">[</span><span class="nv">$a</span><span class="k">]</span><span class="w"> </span><span class="o">-</span>direction<span class="w"> </span><span class="ow">in</span><span class="k">;</span><span class="w"></span>
+<span class="w">    </span><span class="nv">create_net</span><span class="w"> </span>wl<span class="k">[</span><span class="nv">$a</span><span class="k">];</span><span class="w"></span>
+<span class="w">    </span><span class="nv">connect_net</span><span class="w"> </span><span class="o">-</span>net<span class="w"> </span>wl<span class="k">[</span><span class="nv">$a</span><span class="k">]</span><span class="w"> </span>wl<span class="k">[</span><span class="nv">$a</span><span class="k">];</span><span class="w"></span>
+<span class="k">}</span>
+<span class="k">for</span><span class="w"> </span><span class="k">{</span><span class="w"> </span><span class="k">set</span><span class="w"> </span>a<span class="w"> </span><span class="mi">0</span><span class="k">}</span><span class="w">  </span><span class="k">{</span><span class="nv">$a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nv">27</span><span class="k">}</span><span class="w"> </span><span class="k">{</span><span class="nb">incr</span><span class="w"> </span>a<span class="k">}</span><span class="w"> </span><span class="k">{</span><span class="w"></span>
+<span class="w">    </span><span class="nv">create_port</span><span class="w"> </span>bl<span class="k">[</span><span class="nv">$a</span><span class="k">]</span><span class="w"> </span><span class="o">-</span>direction<span class="w"> </span><span class="ow">in</span><span class="k">;</span><span class="w"></span>
+<span class="w">    </span><span class="nv">create_net</span><span class="w"> </span>bl<span class="k">[</span><span class="nv">$a</span><span class="k">];</span><span class="w"></span>
+<span class="w">    </span><span class="nv">connect_net</span><span class="w"> </span><span class="o">-</span>net<span class="w"> </span>bl<span class="k">[</span><span class="nv">$a</span><span class="k">]</span><span class="w"> </span>bl<span class="k">[</span><span class="nv">$a</span><span class="k">];</span><span class="w"></span>
+<span class="k">}</span>
+<span class="nv">foreach_in_collection</span><span class="w"> </span>pin<span class="w"> </span><span class="k">[</span><span class="nv">get_pins</span><span class="w"> </span><span class="o">*</span>LAT<span class="o">*/</span>D<span class="w"> </span><span class="o">-</span>hier<span class="k">]</span><span class="w"> </span><span class="k">{</span><span class="w"></span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-config-01-create-memory-bank-protocol-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/3b0740a7d063111861c6e7c4317c22a9/01_create_memory_bank_protocol.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_create_memory_bank_protocol.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/d353bd087c817c3e765d90960ce89440/01_create_memory_bank_protocol.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_create_memory_bank_protocol.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="02_fabric_key_generator_ccff.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><span class="section-number">7.2. </span>Fabric key generation for homogeneous fabric</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><span class="section-number">7. </span>Configuration Chain</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2021, University of Utah |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
+            <a class="muted-link" href="../_sources/auto_openfpga_config/01_create_memory_bank_protocol.rst.txt"
+               rel="nofollow">
+              Show Source
+            </a>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/scripts/main.js"></script>
+    </body>
+</html>
