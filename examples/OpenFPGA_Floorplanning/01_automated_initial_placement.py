@@ -28,7 +28,7 @@ sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 STYLE_SHEET = """
     .over_util {fill:#b22222 !important}
-    text{font-family: Lato; font-style: italic; font-size: 50px;}
+    text{font-family: Lato; font-style: italic; font-size: 350px;}
 """
 
 SCALE = 100
