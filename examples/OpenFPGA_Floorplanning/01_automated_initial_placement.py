@@ -9,13 +9,14 @@ based on ``initial_placement`` class.
 
 This script can be used for shaping and placement of the modules before place and route.
 
-.. image:: ../../../examples/OpenFPGA_basic/_fpga_auto_initial_placement.svg
+.. image:: ../../../examples/OpenFPGA_Floorplanning/_fpga_auto_initial_placement.svg
    :width: 100%
    :align: center
 
 """
 
 import glob
+import math
 import logging
 
 import spydrnet as sdn
@@ -27,11 +28,12 @@ sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 STYLE_SHEET = """
     .over_util {fill:#b22222 !important}
-    text{font-family: Lato; font-size: 8px}
+    text{font-family: Lato; font-style: italic; font-size: 50px;}
 """
 
-CPP = 2
-SC_HEIGHT = 10
+SCALE = 100
+CPP = math.floor(0.46 * SCALE)
+SC_HEIGHT = math.floor(2.72 * SCALE)
 
 
 def main():
@@ -46,9 +48,6 @@ def main():
 
     # Create OpenFPGA object
     fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
-
-    # Convert wires to bus structure
-    fpga.annotate_area_information("./support_files/fpga_top_area.rpt")
 
     # Convert wires to bus structure
     fpga.create_grid_clb_bus()
@@ -66,19 +65,51 @@ def main():
         arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
         release_root=None,
     )
+
+    fpga.SC_HEIGHT = SC_HEIGHT
+    fpga.CPP = CPP
+    fpga.SC_GRID = CPP * SC_HEIGHT
+
     fpga_grid.enumerate_grid()
     fpga.load_grid(fpga_grid)
-    fpga.register_placement_creator(
-        initial_hetero_placement, areaFile=f"{proj}/area_info.txt"
-    )
+    fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
+
+    fpga.register_placement_creator(initial_hetero_placement)
+    fpga.placement_creator.CPP = CPP
+    fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
+    fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
+
+    fpga.show_utilization_data()
+
+    # Uncomment this to set module dimensions
+    # ====================================================================
+    # m = {}
+    # m["clb_w"], m["clb_h"] = 360, 8
+    # m["cbx11_w"], m["cbx11_h"] = 280, 4
+    # m["bottom_cbx_w"], m["bottom_cbx_h"] = 280, 4
+    # m["top_cbx_w"], m["top_cbx_h"] = 280, 4
+
+    # m["cby11_w"], m["cby11_h"] = 50, 6
+    # m["left_cby_w"], m["left_cby_h"] = 50, 6
+    # m["right_cby_w"], m["right_cby_h"] = 50, 6
+    # fpga.placement_creator.update_shaping_param(m)
+    # ====================================================================
+
+    fpga.placement_creator.derive_sb_paramters()
+    fpga.placement_creator.create_shapes()
+
     fpga.create_placement()
-    fpga.show_placement_data("*_0__*")
+    fpga.show_placement_data(filename="_homogeneous_placement.txt")
+    fpga.show_utilization_data()
     fpga.design_top_stat()
+    fpga.save_shaping_data("*")
+
+    fpga.update_module_label()
+    fpga.show_utilization_data()
 
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # #           Adjust Floorplan
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    fpga.update_module_label()
 
     fp = FloorPlanViz(fpga.top_module)
     fp.compose(skip_connections=True, skip_pins=True)
@@ -97,3 +128,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# %%
+#
+# **Placement information**
+#
+# .. literalinclude:: ../../../examples/OpenFPGA_Floorplanning/_homogeneous_placement.txt

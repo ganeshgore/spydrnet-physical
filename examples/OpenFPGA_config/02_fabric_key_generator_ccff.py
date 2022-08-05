@@ -24,7 +24,7 @@ sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 fpga = FPGAGridGen(
     design_name="example_design",
-    arch_file="../OpenFPGA_basic/support_files/vpr_arch_render_demo.xml",
+    arch_file="../support_files/vpr_arch_render_demo.xml",
     release_root="_release",
     layout="homogeneous",
 )

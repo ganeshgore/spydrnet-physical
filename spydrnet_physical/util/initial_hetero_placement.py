@@ -280,10 +280,8 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
                 )
             else:
                 module.data[PROP]["SHAPE"] = "rect"
-                module.data[PROP]["WIDTH"] = math.floor(param["POINTS"][0] * self.CPP)
-                module.data[PROP]["HEIGHT"] = math.floor(
-                    param["POINTS"][1] * self.SC_HEIGHT
-                )
+                module.data[PROP]["WIDTH"] = int(param["POINTS"][0] * self.CPP)
+                module.data[PROP]["HEIGHT"] = int(param["POINTS"][1] * self.SC_HEIGHT)
 
     def _scale_shape(self, shape, points):
         if shape == "cross":

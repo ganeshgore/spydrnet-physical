@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Callable
 
 import spydrnet as sdn
+import spydrnet_physical as sdnphy
 from spydrnet_physical.util import FPGAGridGen, initial_placement
 
 logger = logging.getLogger("spydrnet_logs")
@@ -206,8 +207,12 @@ class OpenFPGA:
         u = [x for x in sequence if not (x in seen or seen.add(x))]
         return [val for sublist in u for val in sublist]
 
-    def save_shaping_data(self, pattern="*", scale=1, filename=None):
+    def save_shaping_data(self, pattern="*", scale=None, filename=None):
+        """
+        Save the shaping data
+        """
         output = []
+        scale = scale or self.GLOBAL_SCALE
         output.append(
             "{:^20} {:^20} {:^10} {:^10} {:^5} {:^8} {:<20}".format(
                 "INSTANCE", "MODULE", "LOC_X", "LOC_Y", "SHAPE", "BBOX_PT", "POINTS"
@@ -277,8 +282,6 @@ class OpenFPGA:
         # fmt: on
         output.append(" = =" * 30)
         for instance in self.top_module.get_instances(pattern):
-            print(instance.reference.name)
-            print(instance.reference.properties)
             output.append(
                 f"{instance.name:20s} "
                 + f"{instance.reference.name:20s} "
@@ -300,8 +303,8 @@ class OpenFPGA:
         output = []
         output.append(" = =" * 30)
         output.append(
-            f"{'MODULE':>20s} {'SHAPE':8s} {'UTIL %':6} {'AREA':>16}"
-            + f"{'SC_AREA':>16} {'WIDTH':>8} {'HEIGHT':>8}      {'POINTS':<10}"
+            f"{'MODULE':>20s} {'SHAPE':8s} {'UTIL %':6} {'AREA':>16} {'SC_AREA_GRID':>16} {'SC_AREA_UM':>16}"
+            + f"{'WIDTH':>8} {'HEIGHT':>8}      {'POINTS':<10}"
         )
 
         output.append(" = =" * 30)
@@ -313,12 +316,14 @@ class OpenFPGA:
                 continue
             if instance.reference.name.startswith("const"):
                 continue
+
             output.append(
-                "{:<20s} {:8s} {:.2%} {:16.2f} {:16.2f} {:8} {:8}      {}".format(
+                "{:<20s} {:8s} {:.2%} {:16.2f} {:16d} {:16.2f} {:8} {:8}      {}".format(
                     instance.reference.name,
                     instance.reference.properties.get("SHAPE", "--"),
-                    instance.reference.properties.get("UTIL", 0),
+                    instance.reference.utilization,
                     instance.reference.area,
+                    instance.reference.properties.get("AREA", 0),
                     instance.reference.properties.get("AREA_UM", 0),
                     instance.reference.properties.get("WIDTH", 0),
                     instance.reference.properties.get("HEIGHT", 0),
@@ -582,7 +587,7 @@ class OpenFPGA:
                     sort_pins=sort_pins,
                 )
 
-    def create_grid_clb_bus(self):
+    def create_grid_clb_bus(self, pins=None, grid_module="grid_clb"):
         """
         Convert `grid_clb` Input/Output pins to bus structure
         ::
@@ -601,19 +606,18 @@ class OpenFPGA:
         """
 
         sides = ("left", "top", "right", "bottom")
-        grid_clb = next(self._library.get_definitions("grid_clb*"))
 
-        # for port in grid_clb.get_ports("*pin_clk*"):
-        #     grid_clb.remove_port(port)
-
+        pins = (pins or []) + [("I", "in"), ("O", "out")]
         #  =========  grid_clb renaming =========
-        for side in sides:
-            #  Input pins
-            self._convert_to_bus(grid_clb, f"{side}*_pin_I_*", f"grid_{side}_in")
-            # self._convert_to_bus(grid_clb, f"{side}*_pin_O_*",
-            #                      f"grid_{side}_out")
+        for grid_clb in self._library.get_definitions(f"{grid_module}*"):
+            for side in sides:
+                #  Input pins
+                for pin in pins:
+                    self._convert_to_bus(
+                        grid_clb, f"{side}*_pin_{pin[0]}_*", f"grid_{side}_{pin[1]}"
+                    )
 
-    def create_sb_bus(self, pins=[]):
+    def create_sb_bus(self, pins=None):
         """
         Convert `sb` Input pins to bus structure
         ::
@@ -629,7 +633,7 @@ class OpenFPGA:
           right_bottom_grid_top_width_0_height_0_subtile_*__pin_O_*_    -> sb_right_b_in
 
         """
-        pins = pins + [("O", "in"), ("inpad", "inpad")]
+        pins = (pins or []) + [("O", "in"), ("inpad", "inpad")]
         sides = ("top", "right", "bottom", "left")
         for sb in self._library.get_definitions("sb_*"):
             for s1 in sides:
@@ -642,7 +646,7 @@ class OpenFPGA:
                             f"grid_{s1}_{s2[0]}_{pin[1]}",
                         )
 
-    def create_cb_bus(self, pins=[]):
+    def create_cb_bus(self, pins=None):
         """
         Convert `cb` Input pins to bus structure
         ::
@@ -658,7 +662,7 @@ class OpenFPGA:
           bottom_grid_top_width_0_height_0_subtile_*__pin_outpad_*_ -> grid_bottom_in
 
         """
-        pins = pins + [("I", "out"), ("outpad", "outpad")]
+        pins = (pins or []) + [("I", "out"), ("outpad", "outpad")]
         sides = ("top", "right", "bottom", "left")
         for cbx in self._library.get_definitions("cb?_*"):
             for indx, s1 in enumerate(sides):
@@ -846,15 +850,22 @@ class OpenFPGA:
                     continue
                 line = line.replace(",", " ")
                 module, area = line.split()[:2]
-                area = int(
+                area_grid = int(
                     float(area) * (self.GLOBAL_SCALE**2) / (self.SC_HEIGHT * self.CPP)
                 )
                 try:
                     ref = next(self.top_module.get_definitions(module))
-                    logger.debug(f"{ref.name} [{module}] area is set to {int(area)}")
-                    ref.data[PROP]["AREA"] = int(area)
+                    logger.debug(
+                        "%s [%s] area is set to %d %f",
+                        ref.name,
+                        module,
+                        int(area_grid),
+                        float(area),
+                    )
+                    ref.data[PROP]["AREA"] = int(area_grid)
+                    ref.data[PROP]["AREA_UM"] = float(area) * (self.GLOBAL_SCALE**2)
                 except StopIteration:
-                    logger.warning(f"{module} not found in the netlist")
+                    logger.warning("%s not found in the netlist", module)
 
     # print the hierarchy of a netlist
     def hierarchy(
@@ -890,8 +901,7 @@ class OpenFPGA:
         """
 
         def add_area_detail(ref):
-            area = ref.data[PROP].get("AREA", 0)
-            util = area / (ref.area / self.SC_GRID)
+            util = ref.utilization
             ref.data[PROP]["UTIL"] = util
             return f"[{util:.2%}]"
 
