@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="5. Clock Tree Embedding" href="../auto_openfpga_clock_tree/index.html" /><link rel="prev" title="4.1. Auto floorplan homogeneous design" href="01_automated_initial_placement.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4.2. Heterogeneous Design Placement" href="02_FloorplanHeterogeneousDesign01.html" /><link rel="prev" title="4. Floorplanning Examples" href="index.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>4.2. Heterogeneous Design Placement - SpyDrNet-Physical alpha documentation</title>
+        <title>4.1. Auto floorplan homogeneous design - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -252,8 +252,8 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">4. Floorplanning Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">4.2. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">4.1. Auto floorplan homogeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_FloorplanHeterogeneousDesign01.html">4.2. Heterogeneous Design Placement</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -342,170 +342,111 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-floorplanning-02-floorplanheterogeneousdesign01-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-floorplanning-01-automated-initial-placement-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="heterogeneous-design-placement">
-<span id="sphx-glr-auto-openfpga-floorplanning-02-floorplanheterogeneousdesign01-py"></span><h1><span class="section-number">4.2. </span>Heterogeneous Design Placement<a class="headerlink" href="#heterogeneous-design-placement" title="Permalink to this headline">¶</a></h1>
+<section class="sphx-glr-example-title" id="auto-floorplan-homogeneous-design">
+<span id="sphx-glr-auto-openfpga-floorplanning-01-automated-initial-placement-py"></span><h1><span class="section-number">4.1. </span>Auto floorplan homogeneous design<a class="headerlink" href="#auto-floorplan-homogeneous-design" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstate how to render FPGA Tile using <code class="docutils literal notranslate"><span class="pre">FloorPlanViz</span></code> class
 User can provide external script to render tiles, by default the rendering is
 based on <code class="docutils literal notranslate"><span class="pre">initial_placement</span></code> class.</p>
 <p>This script can be used for shaping and placement of the modules before place and route.</p>
-<a class="reference internal image-reference" href="../_images/_hetero_design_floorplan.svg"><img alt="../_images/_hetero_design_floorplan.svg" class="align-center" src="../_images/_hetero_design_floorplan.svg" width="70%"/></a>
+<a class="reference internal image-reference" href="../_images/_fpga_auto_initial_placement.svg"><img alt="../_images/_fpga_auto_initial_placement.svg" class="align-center" src="../_images/_fpga_auto_initial_placement.svg" width="100%"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">PROP</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">FloorPlanViz</span><span class="p">,</span>
-    <span class="n">FPGAGridGen</span><span class="p">,</span>
-    <span class="n">GridFloorplanGen</span><span class="p">,</span>
-    <span class="n">OpenFPGA</span><span class="p">,</span>
-    <span class="n">get_names</span><span class="p">,</span>
-    <span class="n">initial_hetero_placement</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span><span class="p">,</span> <span class="n">initial_hetero_placement</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">FloorPlanViz</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"spydrnet_logs"</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s2">"INFO"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"floorplan_heterpgeneous"</span><span class="p">)</span>
-
-
-<span class="n">CBX_COLOR</span> <span class="o">=</span> <span class="s2">"#d9d9f3"</span>
-<span class="n">CBY_COLOR</span> <span class="o">=</span> <span class="s2">"#a8d0db"</span>
-<span class="n">SB_COLOR</span> <span class="o">=</span> <span class="s2">"#ceefe4"</span>
-<span class="n">GRID_COLOR</span> <span class="o">=</span> <span class="s2">"#ddd0b1"</span>
-<span class="n">HETERO_COLOR</span> <span class="o">=</span> <span class="s2">"#6E6858"</span>
-
-<span class="n">FPGA_WIDTH</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="n">FPGA_HEIGHT</span> <span class="o">=</span> <span class="mi">8</span>
-
-<span class="n">SCALE</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">CPP</span> <span class="o">=</span> <span class="mf">0.46</span> <span class="o">*</span> <span class="n">SCALE</span>
-<span class="n">SC_HEIGHT</span> <span class="o">=</span> <span class="mf">2.72</span> <span class="o">*</span> <span class="n">SCALE</span>
-
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s2">"INFO"</span><span class="p">)</span>
 
 <span class="n">STYLE_SHEET</span> <span class="o">=</span> <span class="s2">"""</span>
-<span class="s2">    symbol {mix-blend-mode: difference;}</span>
-<span class="s2">    symbol[id*='mult'] * {number:01; fill:#BC85C3;}</span>
 <span class="s2">    .over_util {fill:#b22222 !important}</span>
-<span class="s2">    text{font-family: Lato; font-style: italic; font-size: 750px;}</span>
-<span class="s2">    rect.highlight_box { fill:none; stroke-width:40; stroke:green;}</span>
-<span class="s2">    text.highlight_box { font-size:500px; font-weight:800; fill:red}</span>
+<span class="s2">    text{font-family: Lato; font-style: italic; font-size: 50px;}</span>
 <span class="s2">"""</span>
+
+<span class="n">SCALE</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">CPP</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">0.46</span> <span class="o">*</span> <span class="n">SCALE</span><span class="p">)</span>
+<span class="n">SC_HEIGHT</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">2.72</span> <span class="o">*</span> <span class="n">SCALE</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">"""</span>
 <span class="sd">    Main method</span>
 <span class="sd">    """</span>
-
-    <span class="n">proj</span> <span class="o">=</span> <span class="s2">"../heterogeneous_fabric/"</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="s2">"../homogeneous_fabric"</span>
     <span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/*_Verilog/lb/*.v"</span><span class="p">)</span>
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/*_Verilog/routing/*.v"</span><span class="p">)</span>
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/*_Verilog/sub_module/*.v"</span><span class="p">)</span>
     <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/*_Verilog/fpga_top.v"</span><span class="p">)</span>
 
     <span class="c1"># Create OpenFPGA object</span>
-    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">verilog_files</span><span class="o">=</span><span class="n">source_files</span><span class="p">)</span>
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">verilog_files</span><span class="o">=</span><span class="n">source_files</span><span class="p">)</span>
 
     <span class="c1"># Convert wires to bus structure</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_clb_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_grid_io_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_sb_bus</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">create_cb_bus</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">merge_all_grid_ios</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
 
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="c1">#           Floorplan visualization</span>
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-
     <span class="n">fpga_grid</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span>
-        <span class="n">design_name</span><span class="o">=</span><span class="s2">"FPGA8x8"</span><span class="p">,</span>
-        <span class="n">layout</span><span class="o">=</span><span class="s2">"8x8"</span><span class="p">,</span>
-        <span class="n">arch_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/FPGA88_hetero_Task/arch/k6_N10_tileable.xml"</span><span class="p">,</span>
+        <span class="n">design_name</span><span class="o">=</span><span class="s2">"FPGA4x4"</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s2">"4x4"</span><span class="p">,</span>
+        <span class="n">arch_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/FPGA44_Task/arch/k6_N10_tileable.xml"</span><span class="p">,</span>
         <span class="n">release_root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span>
+
+    <span class="n">fpga</span><span class="o">.</span><span class="n">SC_HEIGHT</span> <span class="o">=</span> <span class="n">SC_HEIGHT</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">CPP</span> <span class="o">=</span> <span class="n">CPP</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">SC_GRID</span> <span class="o">=</span> <span class="n">CPP</span> <span class="o">*</span> <span class="n">SC_HEIGHT</span>
+
     <span class="n">fpga_grid</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">load_grid</span><span class="p">(</span><span class="n">fpga_grid</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">annotate_area_information</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/area_info.txt"</span><span class="p">,</span> <span class="n">skipline</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="c1">#         Shaping Information</span>
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = =</span>
-
-    <span class="n">fpga</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span>
-        <span class="n">initial_hetero_placement</span><span class="p">,</span>
-        <span class="n">areaFile</span><span class="o">=</span><span class="p">{},</span>
-    <span class="p">)</span>
-
+    <span class="n">fpga</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">initial_hetero_placement</span><span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">CPP</span> <span class="o">=</span> <span class="n">CPP</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">SC_HEIGHT</span> <span class="o">=</span> <span class="n">SC_HEIGHT</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">SC_GRID</span> <span class="o">=</span> <span class="n">CPP</span> <span class="o">*</span> <span class="n">SC_HEIGHT</span>
 
-    <span class="n">m</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">show_utilization_data</span><span class="p">()</span>
 
-    <span class="n">m</span><span class="p">[</span><span class="s2">"clb_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"clb_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">580</span><span class="p">,</span> <span class="mi">82</span>
-    <span class="n">m</span><span class="p">[</span><span class="s2">"cbx11_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"cbx11_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">18</span>
-    <span class="n">m</span><span class="p">[</span><span class="s2">"bottom_cbx_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"bottom_cbx_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">32</span>
-    <span class="n">m</span><span class="p">[</span><span class="s2">"top_cbx_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"top_cbx_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">52</span>
+    <span class="c1"># Uncomment this to set module dimensions</span>
+    <span class="c1"># ====================================================================</span>
+    <span class="c1"># m = {}</span>
+    <span class="c1"># m["clb_w"], m["clb_h"] = 360, 8</span>
+    <span class="c1"># m["cbx11_w"], m["cbx11_h"] = 280, 4</span>
+    <span class="c1"># m["bottom_cbx_w"], m["bottom_cbx_h"] = 280, 4</span>
+    <span class="c1"># m["top_cbx_w"], m["top_cbx_h"] = 280, 4</span>
 
-    <span class="n">m</span><span class="p">[</span><span class="s2">"cby11_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"cby11_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">60</span>
-    <span class="n">m</span><span class="p">[</span><span class="s2">"left_cby_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"left_cby_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">60</span>
-    <span class="n">m</span><span class="p">[</span><span class="s2">"right_cby_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"right_cby_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">260</span><span class="p">,</span> <span class="mi">60</span>
+    <span class="c1"># m["cby11_w"], m["cby11_h"] = 50, 6</span>
+    <span class="c1"># m["left_cby_w"], m["left_cby_h"] = 50, 6</span>
+    <span class="c1"># m["right_cby_w"], m["right_cby_h"] = 50, 6</span>
+    <span class="c1"># fpga.placement_creator.update_shaping_param(m)</span>
+    <span class="c1"># ====================================================================</span>
 
-    <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">update_shaping_param</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">derive_sb_paramters</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">create_shapes</span><span class="p">()</span>
 
-    <span class="n">shapes</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">module_shapes</span>
-
-    <span class="n">inst</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"This are extra modules to floorplan"</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">shapes</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"cbx_2__0_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"cbx_1__0_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"cbx_2__2_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"cbx_1__1_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"cbx_2__8_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"cbx_1__8_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"cby_2__1_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"cby_1__1_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"cby_3__1_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"cby_1__1_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__2_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__1_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_2__0_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__0_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_2__1_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__1_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_2__2_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__1_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_2__8_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__8_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_3__0_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__0_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_3__1_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__1_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_3__8_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__8_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_8__2_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_8__1_"</span><span class="p">])</span>
-
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"grid_mult_8"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"grid_clb"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"grid_mult_8"</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">m</span><span class="p">[</span><span class="s2">"clb_h"</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span><span class="p">[</span><span class="s2">"cbx11_h"</span><span class="p">]</span>
-
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_2__1_"</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Trim right side</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_2__1_"</span><span class="p">][</span><span class="s2">"PLACEMENT"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Reset x offset</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_8__1_"</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Trim right side</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_8__1_"</span><span class="p">][</span><span class="s2">"PLACEMENT"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Reset x offset</span>
-
-    <span class="c1"># Make few modules unique to fit in floorplan</span>
-    <span class="n">instance_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"sb_7__</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">_"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">FPGA_HEIGHT</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
-    <span class="n">instance_list</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"sb_1__3_"</span><span class="p">,</span> <span class="s2">"sb_1__5_"</span><span class="p">,</span> <span class="s2">"sb_1__7_"</span><span class="p">]</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">make_instance_unique</span><span class="p">(</span>
-        <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">instance_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
-        <span class="s2">"sb_7__1_"</span><span class="p">,</span>
-        <span class="n">instance_list</span><span class="o">=</span><span class="n">instance_list</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_7__1_"</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_1__1_"</span><span class="p">])</span>
-    <span class="n">shapes</span><span class="p">[</span><span class="s2">"sb_7__1_"</span><span class="p">][</span><span class="s2">"POINTS"</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Trim right side</span>
-
-    <span class="c1"># Not able uniquify the sb_1__1_ instance</span>
-
     <span class="n">fpga</span><span class="o">.</span><span class="n">create_placement</span><span class="p">()</span>
-    <span class="n">pprint</span><span class="p">(</span><span class="n">shapes</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">update_module_label</span><span class="p">()</span>
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="s2">"*"</span><span class="p">)</span>
-    <span class="c1"># # fpga.design_top_stat()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_homogeneous_placement.txt"</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">show_utilization_data</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">save_shaping_data</span><span class="p">(</span><span class="s2">"*"</span><span class="p">)</span>
 
-    <span class="c1"># fpga.top_module.data[PROP]["WIDTH"] = 1900</span>
-    <span class="c1"># fpga.top_module.data[PROP]["HEIGHT"] = 1900</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">update_module_label</span><span class="p">()</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">show_utilization_data</span><span class="p">()</span>
+
+    <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="c1"># #           Adjust Floorplan</span>
+    <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
 
     <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="p">)</span>
     <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -519,21 +460,107 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attribs</span><span class="p">[</span><span class="s2">"fill"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_funciri</span><span class="p">()</span>
 
-    <span class="n">filename</span> <span class="o">=</span> <span class="s2">"_hetero_design_floorplan.svg"</span>
-    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fpga_auto_initial_placement.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
+<p><strong>Placement information</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span>
+            <span class="n">INSTANCE</span>               <span class="n">MODULE</span> <span class="n">LOC_X</span> <span class="n">LOC_Y</span> <span class="n">WIDTH</span> <span class="n">HEIGHT</span>    <span class="n">SHAPE</span>               <span class="n">POINTS</span>
+ <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span>
+<span class="n">grid_clb_1__1_</span>       <span class="n">grid_clb</span>              <span class="mi">2760</span>  <span class="mi">3264</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_1__2_</span>       <span class="n">grid_clb</span>              <span class="mi">2760</span>  <span class="mi">10336</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_1__3_</span>       <span class="n">grid_clb</span>              <span class="mi">2760</span>  <span class="mi">17408</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_1__4_</span>       <span class="n">grid_clb</span>              <span class="mi">2760</span>  <span class="mi">24480</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_2__1_</span>       <span class="n">grid_clb</span>              <span class="mi">8740</span>  <span class="mi">3264</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_2__2_</span>       <span class="n">grid_clb</span>              <span class="mi">8740</span>  <span class="mi">10336</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_2__3_</span>       <span class="n">grid_clb</span>              <span class="mi">8740</span>  <span class="mi">17408</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_2__4_</span>       <span class="n">grid_clb</span>              <span class="mi">8740</span>  <span class="mi">24480</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_3__1_</span>       <span class="n">grid_clb</span>              <span class="mi">14720</span>  <span class="mi">3264</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_3__2_</span>       <span class="n">grid_clb</span>              <span class="mi">14720</span>  <span class="mi">10336</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_3__3_</span>       <span class="n">grid_clb</span>              <span class="mi">14720</span>  <span class="mi">17408</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_3__4_</span>       <span class="n">grid_clb</span>              <span class="mi">14720</span>  <span class="mi">24480</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_4__1_</span>       <span class="n">grid_clb</span>              <span class="mi">20700</span>  <span class="mi">3264</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_4__2_</span>       <span class="n">grid_clb</span>              <span class="mi">20700</span>  <span class="mi">10336</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_4__3_</span>       <span class="n">grid_clb</span>              <span class="mi">20700</span>  <span class="mi">17408</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">grid_clb_4__4_</span>       <span class="n">grid_clb</span>              <span class="mi">20700</span>  <span class="mi">24480</span>  <span class="mi">4600</span>  <span class="mi">5440</span> <span class="n">rect</span>     
+<span class="n">sb_0__0_</span>             <span class="n">sb_0__0_</span>               <span class="mi">920</span>   <span class="mi">544</span>    <span class="mi">55</span>    <span class="mi">12</span> <span class="n">cross</span>    
+<span class="n">sb_0__1_</span>             <span class="n">sb_0__1_</span>               <span class="mi">920</span>  <span class="mi">8160</span>    <span class="mi">60</span>    <span class="mi">10</span> <span class="n">cross</span>    
+<span class="n">sb_0__2_</span>             <span class="n">sb_0__1_</span>               <span class="mi">920</span>  <span class="mi">15232</span>    <span class="mi">60</span>    <span class="mi">10</span> <span class="n">cross</span>    
+<span class="n">sb_0__3_</span>             <span class="n">sb_0__1_</span>               <span class="mi">920</span>  <span class="mi">22304</span>    <span class="mi">60</span>    <span class="mi">10</span> <span class="n">cross</span>    
+<span class="n">sb_0__4_</span>             <span class="n">sb_0__4_</span>               <span class="mi">920</span>  <span class="mi">29376</span>    <span class="mi">55</span>    <span class="mi">12</span> <span class="n">cross</span>    
+<span class="n">sb_1__0_</span>             <span class="n">sb_1__0_</span>              <span class="mi">6670</span>   <span class="mi">544</span>    <span class="mi">60</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_2__0_</span>             <span class="n">sb_1__0_</span>              <span class="mi">12650</span>   <span class="mi">544</span>    <span class="mi">60</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_3__0_</span>             <span class="n">sb_1__0_</span>              <span class="mi">18630</span>   <span class="mi">544</span>    <span class="mi">60</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_1__1_</span>             <span class="n">sb_1__1_</span>              <span class="mi">6440</span>  <span class="mi">7616</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_1__2_</span>             <span class="n">sb_1__1_</span>              <span class="mi">6440</span>  <span class="mi">14688</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_1__3_</span>             <span class="n">sb_1__1_</span>              <span class="mi">6440</span>  <span class="mi">21760</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_2__1_</span>             <span class="n">sb_1__1_</span>              <span class="mi">12420</span>  <span class="mi">7616</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_2__2_</span>             <span class="n">sb_1__1_</span>              <span class="mi">12420</span>  <span class="mi">14688</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_2__3_</span>             <span class="n">sb_1__1_</span>              <span class="mi">12420</span>  <span class="mi">21760</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_3__1_</span>             <span class="n">sb_1__1_</span>              <span class="mi">18400</span>  <span class="mi">7616</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_3__2_</span>             <span class="n">sb_1__1_</span>              <span class="mi">18400</span>  <span class="mi">14688</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_3__3_</span>             <span class="n">sb_1__1_</span>              <span class="mi">18400</span>  <span class="mi">21760</span>    <span class="mi">70</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_1__4_</span>             <span class="n">sb_1__4_</span>              <span class="mi">6670</span>  <span class="mi">28832</span>    <span class="mi">60</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_2__4_</span>             <span class="n">sb_1__4_</span>              <span class="mi">12650</span>  <span class="mi">28832</span>    <span class="mi">60</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_3__4_</span>             <span class="n">sb_1__4_</span>              <span class="mi">18630</span>  <span class="mi">28832</span>    <span class="mi">60</span>    <span class="mi">14</span> <span class="n">cross</span>    
+<span class="n">sb_4__0_</span>             <span class="n">sb_4__0_</span>              <span class="mi">24610</span>   <span class="mi">544</span>    <span class="mi">55</span>    <span class="mi">12</span> <span class="n">cross</span>    
+<span class="n">sb_4__1_</span>             <span class="n">sb_4__1_</span>              <span class="mi">24380</span>  <span class="mi">8160</span>    <span class="mi">60</span>    <span class="mi">10</span> <span class="n">cross</span>    
+<span class="n">sb_4__2_</span>             <span class="n">sb_4__1_</span>              <span class="mi">24380</span>  <span class="mi">15232</span>    <span class="mi">60</span>    <span class="mi">10</span> <span class="n">cross</span>    
+<span class="n">sb_4__3_</span>             <span class="n">sb_4__1_</span>              <span class="mi">24380</span>  <span class="mi">22304</span>    <span class="mi">60</span>    <span class="mi">10</span> <span class="n">cross</span>    
+<span class="n">sb_4__4_</span>             <span class="n">sb_4__4_</span>              <span class="mi">24610</span>  <span class="mi">29376</span>    <span class="mi">55</span>    <span class="mi">12</span> <span class="n">cross</span>    
+<span class="n">cbx_1__1_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">3680</span>  <span class="mi">8704</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_1__2_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">3680</span>  <span class="mi">15776</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_1__3_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">3680</span>  <span class="mi">22848</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_2__1_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">9660</span>  <span class="mi">8704</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_2__2_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">9660</span>  <span class="mi">15776</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_2__3_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">9660</span>  <span class="mi">22848</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_3__1_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">15640</span>  <span class="mi">8704</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_3__2_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">15640</span>  <span class="mi">15776</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_3__3_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">15640</span>  <span class="mi">22848</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_4__1_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">21620</span>  <span class="mi">8704</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_4__2_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">21620</span>  <span class="mi">15776</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cbx_4__3_</span>            <span class="n">cbx_1__1_</span>             <span class="mi">21620</span>  <span class="mi">22848</span>  <span class="mi">2760</span>  <span class="mi">1632</span> <span class="n">rect</span>     
+<span class="n">cby_1__1_</span>            <span class="n">cby_1__1_</span>             <span class="mi">7360</span>  <span class="mi">4352</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_1__2_</span>            <span class="n">cby_1__1_</span>             <span class="mi">7360</span>  <span class="mi">11424</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_1__3_</span>            <span class="n">cby_1__1_</span>             <span class="mi">7360</span>  <span class="mi">18496</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_1__4_</span>            <span class="n">cby_1__1_</span>             <span class="mi">7360</span>  <span class="mi">25568</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_2__1_</span>            <span class="n">cby_1__1_</span>             <span class="mi">13340</span>  <span class="mi">4352</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_2__2_</span>            <span class="n">cby_1__1_</span>             <span class="mi">13340</span>  <span class="mi">11424</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_2__3_</span>            <span class="n">cby_1__1_</span>             <span class="mi">13340</span>  <span class="mi">18496</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_2__4_</span>            <span class="n">cby_1__1_</span>             <span class="mi">13340</span>  <span class="mi">25568</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_3__1_</span>            <span class="n">cby_1__1_</span>             <span class="mi">19320</span>  <span class="mi">4352</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_3__2_</span>            <span class="n">cby_1__1_</span>             <span class="mi">19320</span>  <span class="mi">11424</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_3__3_</span>            <span class="n">cby_1__1_</span>             <span class="mi">19320</span>  <span class="mi">18496</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_3__4_</span>            <span class="n">cby_1__1_</span>             <span class="mi">19320</span>  <span class="mi">25568</span>  <span class="mi">1380</span>  <span class="mi">3264</span> <span class="n">rect</span>     
+<span class="n">cby_0__1_</span>            <span class="n">cby_0__1_</span>              <span class="mi">920</span>  <span class="mi">3808</span>  <span class="mi">1840</span>  <span class="mi">4352</span> <span class="n">rect</span>     
+<span class="n">cby_0__2_</span>            <span class="n">cby_0__1_</span>              <span class="mi">920</span>  <span class="mi">10880</span>  <span class="mi">1840</span>  <span class="mi">4352</span> <span class="n">rect</span>     
+<span class="n">cby_0__3_</span>            <span class="n">cby_0__1_</span>              <span class="mi">920</span>  <span class="mi">17952</span>  <span class="mi">1840</span>  <span class="mi">4352</span> <span class="n">rect</span>     
+<span class="n">cby_0__4_</span>            <span class="n">cby_0__1_</span>              <span class="mi">920</span>  <span class="mi">25024</span>  <span class="mi">1840</span>  <span class="mi">4352</span> <span class="n">rect</span>     
+<span class="n">cbx_1__4_</span>            <span class="n">cbx_1__4_</span>             <span class="mi">3450</span>  <span class="mi">29920</span>  <span class="mi">3220</span>  <span class="mi">2720</span> <span class="n">rect</span>     
+<span class="n">cbx_2__4_</span>            <span class="n">cbx_1__4_</span>             <span class="mi">9430</span>  <span class="mi">29920</span>  <span class="mi">3220</span>  <span class="mi">2720</span> <span class="n">rect</span>     
+<span class="n">cbx_3__4_</span>            <span class="n">cbx_1__4_</span>             <span class="mi">15410</span>  <span class="mi">29920</span>  <span class="mi">3220</span>  <span class="mi">2720</span> <span class="n">rect</span>     
+<span class="n">cbx_4__4_</span>            <span class="n">cbx_1__4_</span>             <span class="mi">21390</span>  <span class="mi">29920</span>  <span class="mi">3220</span>  <span class="mi">2720</span> <span class="n">rect</span>     
+<span class="n">cby_4__4_</span>            <span class="n">cby_4__1_</span>             <span class="mi">25300</span>  <span class="mi">25024</span>  <span class="mi">1840</span>  <span class="mi">4352</span> <span class="n">rect</span>     
+<span class="n">cby_4__3_</span>            <span class="n">cby_4__1_</span>             <span class="mi">25300</span>  <span class="mi">17952</span>  <span class="mi">1840</span>  <span class="mi">4352</span> <span class="n">rect</span>     
+<span class="n">cby_4__2_</span>            <span class="n">cby_4__1_</span>             <span class="mi">25300</span>  <span class="mi">10880</span>  <span class="mi">1840</span>  <span class="mi">4352</span> <span class="n">rect</span>     
+<span class="n">cby_4__1_</span>            <span class="n">cby_4__1_</span>             <span class="mi">25300</span>  <span class="mi">3808</span>  <span class="mi">1840</span>  <span class="mi">4352</span> <span class="n">rect</span>     
+<span class="n">cbx_4__0_</span>            <span class="n">cbx_1__0_</span>             <span class="mi">21390</span>   <span class="mi">544</span>  <span class="mi">3220</span>  <span class="mi">2720</span> <span class="n">rect</span>     
+<span class="n">cbx_3__0_</span>            <span class="n">cbx_1__0_</span>             <span class="mi">15410</span>   <span class="mi">544</span>  <span class="mi">3220</span>  <span class="mi">2720</span> <span class="n">rect</span>     
+<span class="n">cbx_2__0_</span>            <span class="n">cbx_1__0_</span>             <span class="mi">9430</span>   <span class="mi">544</span>  <span class="mi">3220</span>  <span class="mi">2720</span> <span class="n">rect</span>     
+<span class="n">cbx_1__0_</span>            <span class="n">cbx_1__0_</span>             <span class="mi">3450</span>   <span class="mi">544</span>  <span class="mi">3220</span>  <span class="mi">2720</span> <span class="n">rect</span>     
+</pre></div>
+</div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-floorplanning-02-floorplanheterogeneousdesign01-py">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-floorplanning-01-automated-initial-placement-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/8da193481925f3291107b06826ad83d4/02_FloorplanHeterogeneousDesign01.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_FloorplanHeterogeneousDesign01.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/82d26b35809ece9fb1307146dd070e23/01_automated_initial_placement.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_automated_initial_placement.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/17349820d081b23e9f4e288d91001a13/02_FloorplanHeterogeneousDesign01.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02_FloorplanHeterogeneousDesign01.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/45d472909467d310f193f0ac5c67728c/01_automated_initial_placement.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_automated_initial_placement.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -544,23 +571,23 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../auto_openfpga_clock_tree/index.html">
+          <a class="next-page" href="02_FloorplanHeterogeneousDesign01.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">5. </span>Clock Tree Embedding</div>
+                <div class="title"><span class="section-number">4.2. </span>Heterogeneous Design Placement</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="01_automated_initial_placement.html">
+          <a class="prev-page" href="index.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">4.1. </span>Auto floorplan homogeneous design</div>
+                <div class="title"><span class="section-number">4. </span>Floorplanning Examples</div>
                 
               </div>
             </a>
@@ -572,7 +599,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_openfpga_floorplanning/02_FloorplanHeterogeneousDesign01.rst.txt"
+            <a class="muted-link" href="../_sources/auto_openfpga_floorplanning/01_automated_initial_placement.rst.txt"
                rel="nofollow">
               Show Source
             </a>

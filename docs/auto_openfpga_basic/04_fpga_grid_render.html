@@ -1,12 +1,12 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="2.6. FPGA Instance to Layout mapping" href="05_fpga_instance_name.html" /><link rel="prev" title="2.4. FPGA Layout grid generation" href="04_fpga_grid_generation.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="2.5. FPGA Instance to Layout mapping" href="05_fpga_instance_name.html" /><link rel="prev" title="2.3. FPGA Layout grid generation" href="04_fpga_grid_generation.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>2.5. RenderFPGA Pre Generation Grid - SpyDrNet-Physical alpha documentation</title>
+        <title>2.4. RenderFPGA Pre Generation Grid - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -237,12 +237,11 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">2. OpenFPGA Basic Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="01_fpga_arch_parse.html">2.1. OpenFPGA Architecture Parsing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03_automated_initial_placement.html">2.3. Auto floorplan homogeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">2.4. FPGA Layout grid generation</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">2.5. RenderFPGA Pre Generation Grid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">2.6. FPGA Instance to Layout mapping</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_grid_floor_plan_example.html">2.7. Grid Floorplan Generator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">2.3. FPGA Layout grid generation</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">2.4. RenderFPGA Pre Generation Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rename_modules.html">2.7. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -252,43 +251,48 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/03_render_edge_routing_box.html">3.4. Rendering Switch and Connection Boxes</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">4. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/01_connection_patterns.html">4.1. Connection Pattern Generation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/02_create_simple_htree.html">4.2. Create H-Tree Connectivity pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/03_create_hybrid_htree.html">4.3. Create Hybrid Connectivity Pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/04_embed_clock_tree.html">4.4. Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/05_embed_clock_tree_fpga44.html">4.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_connection_pattern_tie_cell.html">4.6. Adding Tie Cells on Floating Pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_reset_feedthrough.html">4.7. Create Reset Feedthrough in fpga_top</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/07_clock_tree_example1.html">4.8. Clock tree insertion Example Architecture 1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/08_clock_tree_example2.html">4.9. Clock tree insertion Example Architecture 2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example3.html">4.10. Clock tree insertion Example Architecture 3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example4.html">4.11. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_floorplanning/index.html">4. Floorplanning Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/02_FloorplanHeterogeneousDesign01.html">4.2. Heterogeneous Design Placement</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">5. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/01_netlist_to_graph.html">5.1. Netlist to graph (networkx)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/02_switch_partition_01.html">5.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/03_switch_partition_02.html">5.3. Physical/Techmapped Partition Conn Box 02</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/04_switch_partition_03.html">5.4. Partition Conn Box 02 - Simplified</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/05_module_partition.html">5.5. Split CBs and SBs across fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part1.html">5.6. Generic Tiling Part02 - Creating tile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part2.html">5.7. Generic Tiling Part02 - Creating tile</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/07_FloorplanDesign01.html">5.8. Floorplanning Classic Tiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/08_area_optimized_tiles.html">5.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/09_tile03_generation.html">5.10. Unified routing tile structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/10_tile02_tiles.html">5.11. Tile02 - Area optimized version with higher regularity</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/11_memory_bank_protocol.html">5.12. Implementing memeory bank protocol on Tile02</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/12_Hetero_Tile01.html">5.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/13_Hetero_Tile01_render.html">5.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/partitioning_experiments.html">5.15. Partitions Experimentation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/01_connection_patterns.html">5.1. Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/02_create_simple_htree.html">5.2. Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/03_create_hybrid_htree.html">5.3. Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/04_embed_clock_tree.html">5.4. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/05_embed_clock_tree_fpga44.html">5.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_connection_pattern_tie_cell.html">5.6. Adding Tie Cells on Floating Pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_reset_feedthrough.html">5.7. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/07_clock_tree_example1.html">5.8. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/08_clock_tree_example2.html">5.9. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example3.html">5.10. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example4.html">5.11. Clock tree insertion Example Architecture 3</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_config/index.html">6. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/01_create_memory_bank_protocol.html">6.1. Create memory bank pin placement and connection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/02_fabric_key_generator_ccff.html">6.2. Fabric key generation for homogeneous fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/configuration_chain.html">6.3. Adding configuration chain to the fabric</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/extract_configuration_order.html">6.4. Extract configuration chain order</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">6. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/01_netlist_to_graph.html">6.1. Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/02_switch_partition_01.html">6.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/03_switch_partition_02.html">6.3. Physical/Techmapped Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/04_switch_partition_03.html">6.4. Partition Conn Box 02 - Simplified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/05_module_partition.html">6.5. Split CBs and SBs across fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part1.html">6.6. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part2.html">6.7. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/07_FloorplanDesign01.html">6.8. Floorplanning Classic Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/08_area_optimized_tiles.html">6.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/09_tile03_generation.html">6.10. Unified routing tile structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/10_tile02_tiles.html">6.11. Tile02 - Area optimized version with higher regularity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/11_memory_bank_protocol.html">6.12. Implementing memeory bank protocol on Tile02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/12_Hetero_Tile01.html">6.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/13_Hetero_Tile01_render.html">6.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/partitioning_experiments.html">6.15. Partitions Experimentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_config/index.html">7. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/01_create_memory_bank_protocol.html">7.1. Create memory bank pin placement and connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/02_fabric_key_generator_ccff.html">7.2. Fabric key generation for homogeneous fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/configuration_chain.html">7.3. Adding configuration chain to the fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/extract_configuration_order.html">7.4. Extract configuration chain order</a></li>
 </ul>
 </li>
 </ul>
@@ -297,7 +301,7 @@
 <p class="caption" role="heading"><span class="caption-text">Developeres Content</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developers Guidelines</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tests/library.html">Library - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tests/element.html">Element - Unit tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tests/definition.html">Definition - Unit tests</a></li>
@@ -342,7 +346,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="renderfpga-pre-generation-grid">
-<span id="sphx-glr-auto-openfpga-basic-04-fpga-grid-render-py"></span><h1><span class="section-number">2.5. </span>RenderFPGA Pre Generation Grid<a class="headerlink" href="#renderfpga-pre-generation-grid" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-openfpga-basic-04-fpga-grid-render-py"></span><h1><span class="section-number">2.4. </span>RenderFPGA Pre Generation Grid<a class="headerlink" href="#renderfpga-pre-generation-grid" title="Permalink to this headline">¶</a></h1>
 <p>This class generates the 2D matrix of the FPGA grid.</p>
 <p><strong>layout section of Architecture file</strong></p>
 <a class="reference internal image-reference" href="../_images/_small_layout_render.svg"><img alt="../_images/_small_layout_render.svg" class="align-center" src="../_images/_small_layout_render.svg" width="60%"/></a>
@@ -357,40 +361,44 @@ to download the full example code</p>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FPGAGridGen</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"spydrnet_logs"</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s2">"INFO"</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
-                       <span class="n">arch_file</span><span class="o">=</span><span class="s2">"./support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
-                       <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
-                       <span class="n">layout</span><span class="o">=</span><span class="s2">"small"</span><span class="p">)</span>
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span>
+        <span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
+        <span class="n">arch_file</span><span class="o">=</span><span class="s2">"../support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
+        <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s2">"small"</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
 
     <span class="n">dwg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_small_layout_render.svg"</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Demonstrates how to modify the dimensions</span>
-    <span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
-                       <span class="n">arch_file</span><span class="o">=</span><span class="s2">"./support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
-                       <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
-                       <span class="n">layout</span><span class="o">=</span><span class="s2">"ultimate"</span><span class="p">)</span>
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span>
+        <span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
+        <span class="n">arch_file</span><span class="o">=</span><span class="s2">"../support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
+        <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s2">"ultimate"</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">default_parameters</span><span class="p">[</span><span class="s2">"cbx"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">default_parameters</span><span class="p">[</span><span class="s2">"cby"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="s2">"_ultimate_layout_render.svg"</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_ultimate_layout_render.svg"</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Demonstrates how tomodify the structure</span>
-    <span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span><span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
-                       <span class="n">arch_file</span><span class="o">=</span><span class="s2">"./support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
-                       <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
-                       <span class="n">layout</span><span class="o">=</span><span class="s2">"ultimate"</span><span class="p">)</span>
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">FPGAGridGen</span><span class="p">(</span>
+        <span class="n">design_name</span><span class="o">=</span><span class="s2">"example_design"</span><span class="p">,</span>
+        <span class="n">arch_file</span><span class="o">=</span><span class="s2">"../support_files/vpr_arch_render_demo.xml"</span><span class="p">,</span>
+        <span class="n">release_root</span><span class="o">=</span><span class="s2">"_release"</span><span class="p">,</span>
+        <span class="n">layout</span><span class="o">=</span><span class="s2">"ultimate"</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">default_parameters</span><span class="p">[</span><span class="s2">"cbx"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">default_parameters</span><span class="p">[</span><span class="s2">"cby"</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="s2">"_ultimate_layout_render_sized.svg"</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dwg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_ultimate_layout_render_sized.svg"</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">fpga</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="s2">"cbx_1__0_"</span><span class="p">)[</span><span class="s2">"xlink:href"</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">get_symbol_of_instance</span><span class="p">(</span><span class="s2">"cbx_1__0_"</span><span class="p">)</span>
@@ -398,9 +406,18 @@ to download the full example code</p>
     <span class="n">fpga</span><span class="o">.</span><span class="n">add_style</span><span class="p">(</span><span class="s2">"symbol[id='ram9k'] * { fill:#a8dd00;}"</span><span class="p">)</span>
     <span class="c1"># Need Some more effforts</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">merge_symbol</span><span class="p">([</span><span class="s2">"cbx_1__0_"</span><span class="p">,</span> <span class="s2">"clb_1__1_"</span><span class="p">,</span> <span class="s2">"cbx_1__1_"</span><span class="p">],</span> <span class="s2">"new_symbol"</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">merge_symbol</span><span class="p">([</span><span class="s2">"ram9k_3__5_"</span><span class="p">,</span> <span class="s2">"sb_3__4_"</span><span class="p">,</span> <span class="s2">"sb_3__5_"</span><span class="p">,</span>
-                      <span class="s2">"cbx_3__4_"</span><span class="p">,</span> <span class="s2">"cbx_3__5_"</span><span class="p">,</span> <span class="s2">"cbx_4__4_"</span><span class="p">,</span> <span class="s2">"cbx_4__5_"</span><span class="p">],</span>
-                      <span class="s2">"new_symbol_2"</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">merge_symbol</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">"ram9k_3__5_"</span><span class="p">,</span>
+            <span class="s2">"sb_3__4_"</span><span class="p">,</span>
+            <span class="s2">"sb_3__5_"</span><span class="p">,</span>
+            <span class="s2">"cbx_3__4_"</span><span class="p">,</span>
+            <span class="s2">"cbx_3__5_"</span><span class="p">,</span>
+            <span class="s2">"cbx_4__4_"</span><span class="p">,</span>
+            <span class="s2">"cbx_4__5_"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">"new_symbol_2"</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">add_style</span><span class="p">(</span><span class="s2">"symbol[id='new_symbol'] * { fill:#a8dd00;}"</span><span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">add_style</span><span class="p">(</span><span class="s2">"symbol[id='new_symbol_2'] * { fill:#599fff;}"</span><span class="p">)</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
@@ -432,7 +449,7 @@ to download the full example code</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">2.6. </span>FPGA Instance to Layout mapping</div>
+                <div class="title"><span class="section-number">2.5. </span>FPGA Instance to Layout mapping</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -443,7 +460,7 @@ to download the full example code</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">2.4. </span>FPGA Layout grid generation</div>
+                <div class="title"><span class="section-number">2.3. </span>FPGA Layout grid generation</div>
                 
               </div>
             </a>

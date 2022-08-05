@@ -10,7 +10,7 @@ This class generates the 2D matrix of the FPGA grid.
 
 .. rst-class:: hidden
 
-.. program-output:: bash -c "mkdir -p auto_prog_output && xmllint --format --xpath '//layout' ../../examples/OpenFPGA_basic/support_files/vpr_arch_render_demo.xml > ./auto_prog_output/arch_layout_snnipet.xml"
+.. program-output:: bash -c "mkdir -p auto_prog_output && xmllint --format --xpath '//layout' ../../examples/support_files/vpr_arch_render_demo.xml > ./auto_prog_output/arch_layout_snnipet.xml"
 
 
 .. literalinclude:: ../auto_prog_output/arch_layout_snnipet.xml
@@ -57,7 +57,7 @@ def main():
     """
     fpga = FPGAGridGen(
         design_name="example_design",
-        arch_file="./support_files/vpr_arch_render_demo.xml",
+        arch_file="../support_files/vpr_arch_render_demo.xml",
         release_root="_release",
         layout="small",
     )

@@ -43,7 +43,7 @@ GRID_COLOR = "#ddd0b1"
 
 
 def main():
-    proj = "../hetrogeneous_fabric"
+    proj = "../heterogeneous_fabric"
     source_files = glob.glob(f"{proj}/*_Verilog/lb/*.v")
     source_files += glob.glob(f"{proj}/*_Verilog/routing/*.v")
     source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
