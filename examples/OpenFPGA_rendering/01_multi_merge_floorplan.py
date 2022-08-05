@@ -1,33 +1,39 @@
-'''
-=========================================
-Demonstrate how to render basic floorplan
-=========================================
+"""
+=======================================
+Placement aware instace merge operation
+=======================================
+
+This example demonstrate how a instance merge operation on pre placed instances
+results in auto inferences of shape and placement of newly created module.
 
 Output
 ======
 
+**Before merging**
+
 .. image:: ../../../examples/OpenFPGA_rendering/_merge_multiple_floorplan_before.svg
     :width: 400px
+
+**After merging**
 
 .. image:: ../../../examples/OpenFPGA_rendering/_merge_multiple_floorplan.svg
     :width: 400px
 
-'''
+"""
 
 
 import logging
 
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
-from spydrnet_physical.util import get_names
 from spydrnet_physical.util import FloorPlanViz
 
 PROPERTY = "VERILOG.InlineConstraints"
 
-logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="01_floorplan_rendering")
+logger = logging.getLogger("spydrnet_logs")
+sdn.enable_file_logging(LOG_LEVEL="DEBUG", filename="01_floorplan_rendering")
 
-netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
+netlist = sdnphy.load_netlist_by_name("basic_hierarchy")
 top = netlist.top_instance.reference
 
 module1 = next(netlist.get_definitions("module1"))
@@ -77,9 +83,13 @@ dwg = fp.get_svg()
 dwg.saveas("_merge_multiple_floorplan_before.svg", pretty=True, indent=4)
 
 
-main_def, instance_list = top.merge_multiple_instance([((inst_1_0, inst_2_0), 'merged_inst_2_0'),
-                                                       ((inst_1_1, inst_2_1), 'merged_inst_2_1')],
-                                                      new_definition_name="NewModule")
+main_def, instance_list = top.merge_multiple_instance(
+    [
+        ((inst_1_0, inst_2_0), "merged_inst_2_0"),
+        ((inst_1_1, inst_2_1), "merged_inst_2_1"),
+    ],
+    new_definition_name="NewModule",
+)
 
 fp = FloorPlanViz(top)
 fp.compose(skip_connections=True)

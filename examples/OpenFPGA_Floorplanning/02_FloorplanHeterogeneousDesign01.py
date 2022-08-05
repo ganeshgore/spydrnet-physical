@@ -165,10 +165,6 @@ def main():
     fpga.update_module_label()
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     fpga.show_placement_data("*")
-    # # fpga.design_top_stat()
-
-    # fpga.top_module.data[PROP]["WIDTH"] = 1900
-    # fpga.top_module.data[PROP]["HEIGHT"] = 1900
 
     fp = FloorPlanViz(fpga.top_module)
     fp.compose(skip_connections=True, skip_pins=True)
