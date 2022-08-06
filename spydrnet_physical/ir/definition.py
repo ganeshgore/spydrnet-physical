@@ -24,7 +24,8 @@ if typing.TYPE_CHECKING:
         FirstClassElement as FirstClassElementPhy,
     )
 
-    DefinitionBase = type("DefinitionBase", (DefinitionSDN, FirstClassElementPhy), {})
+    DefinitionBase = type(
+        "DefinitionBase", (DefinitionSDN, FirstClassElementPhy), {})
 
 PROP = "VERILOG.InlineConstraints"
 
@@ -46,7 +47,7 @@ class Definition(DefinitionBase):
         Return utilization of this module
         """
         if self.data[PROP].get("AREA_UM", 0):
-            return self.area / self.data[PROP].get("AREA_UM", 0)
+            return self.data[PROP].get("AREA_UM", 0) / self.area
         else:
             return 0
 
@@ -219,7 +220,8 @@ class Definition(DefinitionBase):
                 cable, get_port_names=get_port_names
             )
 
-            cable_name = get_cable_names(indx, instance) or f"{cable.name}_ft_in_{indx}"
+            cable_name = get_cable_names(
+                indx, instance) or f"{cable.name}_ft_in_{indx}"
             new_cable = self.create_cable(cable_name, wires=cable.size)
             new_cable.connect_instance_port(instance, outport)
 
@@ -227,9 +229,11 @@ class Definition(DefinitionBase):
                 for pin in set(each_w.pins):
                     # These are loads and
                     if (
-                        isinstance(pin, OuterPin) and (pin.port.direction == sdn.IN)
+                        isinstance(pin, OuterPin) and (
+                            pin.port.direction == sdn.IN)
                     ) or (
-                        isinstance(pin, InnerPin) and (pin.port.direction == sdn.OUT)
+                        isinstance(pin, InnerPin) and (
+                            pin.port.direction == sdn.OUT)
                     ):
                         each_w.disconnect_pin(pin)
                         new_cable.wires[pin.get_index].connect_pin(pin)
@@ -252,7 +256,8 @@ class Definition(DefinitionBase):
         instances_list: [(Cable, (inst1, inst1, . . . .instn), ...
                         (Cable, (inst1, inst1, . . . .instn))]
         """
-        assert len(instances_list) > 0, "Missing instances list to create feedthroughs"
+        assert len(
+            instances_list) > 0, "Missing instances list to create feedthroughs"
 
         for cable, inst_tuple in instances_list:
             assert isinstance(cable, sdn.Cable), "Cable object required"
@@ -283,14 +288,16 @@ class Definition(DefinitionBase):
                 new_cable = self.create_cable(f"{cable.name}_ft_{indx}")
                 new_cable.create_wires(cable.size)
 
-                logger.debug(f"Created new cable {cable.name} {new_cable.name}")
+                logger.debug(
+                    f"Created new cable {cable.name} {new_cable.name}")
                 new_cables.append(new_cable)
                 new_cable.connect_instance_port(inst, port_map[indx][1])
                 for each_w in cable.wires:
                     for pin in each_w.pins:
                         if pin.port.direction == sdn.IN:
                             each_w.disconnect_pin(pin)
-                            new_cable.wires[pin.inner_pin.index()].connect_pin(pin)
+                            new_cable.wires[pin.inner_pin.index()].connect_pin(
+                                pin)
                 cable.connect_instance_port(inst, port_map[indx][0])
         return new_cables, port_map
 
@@ -340,9 +347,12 @@ class Definition(DefinitionBase):
                 outline.extend(shaping_utils._convert_rect_to_pt(each))
             if shape == "cross":
                 outline.extend(shaping_utils._convert_cross_to_pt(each))
-            new_mod.data[PROP]["AREA"] += each.reference.data[PROP].get("AREA", 0)
-        LOC_X = min([each.data[PROP].get("LOC_X", 0) for each in instances_list])
-        LOC_Y = min([each.data[PROP].get("LOC_Y", 0) for each in instances_list])
+            new_mod.data[PROP]["AREA"] += each.reference.data[PROP].get(
+                "AREA", 0)
+        LOC_X = min([each.data[PROP].get("LOC_X", 0)
+                    for each in instances_list])
+        LOC_Y = min([each.data[PROP].get("LOC_Y", 0)
+                    for each in instances_list])
         new_instance.data[PROP]["LOC_X"] = LOC_X
         new_instance.data[PROP]["LOC_Y"] = LOC_Y
         if outline:
@@ -411,7 +421,8 @@ class Definition(DefinitionBase):
         # ====== Create a new definition
         if not new_definition_name:
             new_def_name = (
-                "_".join([each.reference.name for each in instances_list]) + "_merged"
+                "_".join(
+                    [each.reference.name for each in instances_list]) + "_merged"
             )
             print(f"Inferred definition name {new_def_name} ")
         else:
@@ -421,7 +432,8 @@ class Definition(DefinitionBase):
         # ===== Create instance of the definition
         if not new_instance_name:
             new_instance_name = f"{new_def_name}_1"
-        merged_module = self.create_child(name=new_instance_name, reference=new_mod)
+        merged_module = self.create_child(
+            name=new_instance_name, reference=new_mod)
 
         # ===== Interate over each module and create new module
         for index, eachM in enumerate(instances_list):
@@ -429,7 +441,8 @@ class Definition(DefinitionBase):
             rename_map[eachM.reference.name] = {}
             rename_map[eachM.reference.name][index] = {}
             currMap = rename_map[eachM.reference.name][index]
-            IntInst = new_mod.create_child(name=eachM.name, reference=eachM.reference)
+            IntInst = new_mod.create_child(
+                name=eachM.name, reference=eachM.reference)
             # Iterate over each port of current instance
             for p in eachM.get_ports():
                 pClone = p.clone()  # It copied all pins, wires and cables
@@ -547,7 +560,8 @@ class Definition(DefinitionBase):
                 for eachPort in ports[1:]:
                     self.remove_cable(eachPort.pins[0].wire.cable)
                     self.remove_port(eachPort)
-                    logger.debug(f"Merged Ports {ports[0].name}<-{eachPort.name}")
+                    logger.debug(
+                        f"Merged Ports {ports[0].name}<-{eachPort.name}")
                 if ports in absorbPins:
                     self.remove_port(ports[0])
                     logger.debug(f"Absorbed port {ports[0].name}")
@@ -593,10 +607,12 @@ class Definition(DefinitionBase):
         assert self.library, "Library is not defined for the definition"
         assert self.library.netlist, "netlist is not defined for the library definition"
         netlist = self.library.netlist
-        assign_library = next(netlist.get_libraries("SDN_VERILOG_ASSIGNMENT"), None)
+        assign_library = next(netlist.get_libraries(
+            "SDN_VERILOG_ASSIGNMENT"), None)
         if assign_library is None:
             logger.info("Missing SDN_VERILOG_ASSIGNMENT libarary Creating new")
-            assign_library = netlist.create_library(name="SDN_VERILOG_ASSIGNMENT")
+            assign_library = netlist.create_library(
+                name="SDN_VERILOG_ASSIGNMENT")
         return assign_library
 
     def _get_assignment_definition(self, assign_library, size):
@@ -610,7 +626,8 @@ class Definition(DefinitionBase):
         size = (int) Size of the assignment block
         """
         assign_def_name = f"SDN_VERILOG_ASSIGNMENT_{size}"
-        definition = next(assign_library.get_definitions(assign_def_name), None)
+        definition = next(
+            assign_library.get_definitions(assign_def_name), None)
         if definition is None:
             definition = assign_library.create_definition(name=assign_def_name)
             p_in = definition.create_port("i", pins=size)
@@ -635,7 +652,8 @@ class Definition(DefinitionBase):
         port: (Port) Port of this definition
         port_name: (str) Options New port name (default {port_name}_dup)
         """
-        assert isinstance(port, sdn.Port), f"Required Port but found {type(port)}"
+        assert isinstance(
+            port, sdn.Port), f"Required Port but found {type(port)}"
 
         assert self.library, "Library is not defined for the definition"
         assert self.library.netlist, "netlist is not defined for the library definition"
@@ -659,17 +677,22 @@ class Definition(DefinitionBase):
         port_cable = port.pins[0].wire.cable
 
         assign_library = self._get_assignment_library()
-        definition = self._get_assignment_definition(assign_library, new_cable.size)
+        definition = self._get_assignment_definition(
+            assign_library, new_cable.size)
 
         instance = self.create_child(
             f"SDN_ASSIGNMENT_{port.name}_{new_port.name}", reference=definition
         )
         if port.is_output:
-            port_cable.connect_instance_port(instance, next(definition.get_ports("i")))
-            new_cable.connect_instance_port(instance, next(definition.get_ports("o")))
+            port_cable.connect_instance_port(
+                instance, next(definition.get_ports("i")))
+            new_cable.connect_instance_port(
+                instance, next(definition.get_ports("o")))
         else:
-            new_cable.connect_instance_port(instance, next(definition.get_ports("i")))
-            port_cable.connect_instance_port(instance, next(definition.get_ports("o")))
+            new_cable.connect_instance_port(
+                instance, next(definition.get_ports("i")))
+            port_cable.connect_instance_port(
+                instance, next(definition.get_ports("o")))
         return new_port
 
     def combine_cables(self, new_cable_name, cables, quiet=False):
@@ -697,7 +720,8 @@ class Definition(DefinitionBase):
             assert (
                 self == c.definition
             ), f"all ports to combine should belong to same definition"
-            assert cables.count(c) == 1, f"Cable defined multiple times {c.name}"
+            assert cables.count(
+                c) == 1, f"Cable defined multiple times {c.name}"
 
         newCable = self.create_cable(new_cable_name, is_scalar=False)
         for c in cables[::-1]:
@@ -737,7 +761,8 @@ class Definition(DefinitionBase):
                 self == p.definition
             ), f"all ports to combine should belong to same definition"
 
-        new_port = self.create_port(port_name, direction=direction, is_downto=False)
+        new_port = self.create_port(
+            port_name, direction=direction, is_downto=False)
         new_cable = self.create_cable(
             port_name, is_scalar=new_port.is_scalar, is_downto=False
         )
@@ -760,7 +785,8 @@ class Definition(DefinitionBase):
             logger.debug(f"Removing port {p.name}")
             self.remove_port(p)
         logger.debug(
-            f"Combined with {new_port.name} " + f"created cable {new_cable.name}"
+            f"Combined with {new_port.name} " +
+            f"created cable {new_cable.name}"
         )
         logger.debug(f"{new_port.name} <- {port_list}")
         return new_port, new_cable
@@ -786,7 +812,8 @@ class Definition(DefinitionBase):
 
         cable = next(self.get_cables(port.name))
         for indx, pin in enumerate(port.pins[::-1]):
-            new_port = self.create_port(f"{port.name}_{indx}", direction=port.direction)
+            new_port = self.create_port(
+                f"{port.name}_{indx}", direction=port.direction)
             new_cable = self.create_cable(f"{port.name}_{indx}")
             cable.remove_wire(pin.wire)
             new_cable.add_wire(pin.wire)
@@ -823,7 +850,8 @@ class Definition(DefinitionBase):
                     if pin.wire.cable.is_port_cable:
                         # if the pin wire is connected to instance port
                         pin_top = next(
-                            filter(lambda x: isinstance(x, sdn.InnerPin), pin.wire.pins)
+                            filter(lambda x: isinstance(
+                                x, sdn.InnerPin), pin.wire.pins)
                         )
                         pin_top = instance.pins[pin_top]
                         if not pin_top.wire:
@@ -952,7 +980,8 @@ class Definition(DefinitionBase):
             try:
                 next(self.get_instances(each)).reference = new_def
             except StopIteration:
-                logger.exception("%s instance not found during uniquifying", each)
+                logger.exception(
+                    "%s instance not found during uniquifying", each)
         return new_def
 
     # def sanity_check_cables(self):
