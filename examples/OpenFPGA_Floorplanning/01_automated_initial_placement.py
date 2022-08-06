@@ -126,17 +126,20 @@ def main():
     fpga.update_module_label()
     fpga.show_utilization_data()
 
+    # Highlight over utilized modules
+    additional_styles = fpga.get_overutils_styles()
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # #           Adjust Floorplan
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
     fp = FloorPlanViz(fpga.top_module)
     fp.compose(skip_connections=True, skip_pins=True)
-    fp.custom_style_sheet = STYLE_SHEET
+    fp.custom_style_sheet = STYLE_SHEET + additional_styles
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
+    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
+                          patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
     pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
     dwg.defs.add(pattern)

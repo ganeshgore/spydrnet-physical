@@ -62,7 +62,8 @@ class OpenFPGA:
                 fp.seek(0)
                 self._netlist = sdn.parse(fp.name)
         else:
-            logger.error("Provide verilog either verilog files or netlist object")
+            logger.error(
+                "Provide verilog either verilog files or netlist object")
         self._library = next(self._netlist.get_libraries(library))
         self._top_module = next(self._library.get_definitions(top_module))
         self._netlist.top_instance = self._top_module
@@ -261,7 +262,8 @@ class OpenFPGA:
                 0,
                 "rect",
                 4,
-                " ".join(map(lambda x: f"{x*scale: 6.3f}", (0, 0, 0, H, W, H, W, 0))),
+                " ".join(
+                    map(lambda x: f"{x*scale: 6.3f}", (0, 0, 0, H, W, H, W, 0))),
             )
         )
         if filename:
@@ -367,7 +369,8 @@ class OpenFPGA:
                 continue
             if inst.reference.name.startswith("const"):
                 continue
-            inst_cnt[inst.reference.name] = 1 + inst_cnt.get(inst.reference.name, 0)
+            inst_cnt[inst.reference.name] = 1 + \
+                inst_cnt.get(inst.reference.name, 0)
         inst_cnt = OrderedDict(
             sorted(inst_cnt.items(), reverse=True, key=lambda t: t[1])
         )
@@ -384,7 +387,8 @@ class OpenFPGA:
             if fnmatch(def_, pattern):
                 output_str.append(
                     "{: >20} {: >8}".format(
-                        def_ if len(def_) < 20 else f"...{def_[-17:]}", inst_cnt[def_]
+                        def_ if len(
+                            def_) < 20 else f"...{def_[-17:]}", inst_cnt[def_]
                     )
                 )
             for each in function:
@@ -400,7 +404,8 @@ class OpenFPGA:
         """
         Removes direct interconnects from the OpenFPGA netlist
         """
-        direct_interc = next(self._top_module.get_definitions("direct_*"), None)
+        direct_interc = next(
+            self._top_module.get_definitions("direct_*"), None)
         if not direct_interc:
             return
         ports = {p.name: p for p in direct_interc.get_ports()}
@@ -426,7 +431,8 @@ class OpenFPGA:
         WIDTH = self.fpga_size[0]
         HEIGHT = self.fpga_size[1]
         label = (
-            ["cby*"] * HEIGHT + ["cbx*"] * WIDTH + ["cby*"] * HEIGHT + ["cbx*"] * WIDTH
+            ["cby*"] * HEIGHT + ["cbx*"] * WIDTH +
+            ["cby*"] * HEIGHT + ["cbx*"] * WIDTH
         )
         x_pts = (
             [0] * HEIGHT
@@ -460,7 +466,8 @@ class OpenFPGA:
             + list(range(HEIGHT, 0, -1))
             + [0] * WIDTH
         )
-        grid_io_list = ["%s_%d__%d_" % (each) for each in zip(label, x_pts, y_pts)]
+        grid_io_list = ["%s_%d__%d_" % (each)
+                        for each in zip(label, x_pts, y_pts)]
 
         merge_list = {}
         for cb, io in zip(cb_list, grid_io_list):
@@ -480,9 +487,11 @@ class OpenFPGA:
             mainDef, instance_list = self.top_module.merge_multiple_instance(
                 instance_list, new_definition_name=new_module_name
             )
-            new_defs.append(next(self.library.get_definitions(new_module_name)))
+            new_defs.append(
+                next(self.library.get_definitions(new_module_name)))
             new_defs[-1].OptPins()
-            next(self.library.get_definitions(mainDef.name[:-4])).name += "_old"
+            next(self.library.get_definitions(
+                mainDef.name[:-4])).name += "_old"
             mainDef.name = mainDef.name[:-4]
             for inst in instance_list:
                 inst.name = inst.name[:-4]
@@ -687,7 +696,8 @@ class OpenFPGA:
                 "top": f"cbx_{x+0}__{y+0}_",
                 "bottom": f"cbx_{x+0}__{y-1}_",
             }[side]
-            through_inst = next(self._top_module.get_instances(through_inst_name))
+            through_inst = next(
+                self._top_module.get_instances(through_inst_name))
             ref_name = through_inst.reference.name
             ft_map[ref_name] = ft_map.get(ref_name, [])
             ft_map[ref_name].append((cable, (through_inst,)))
@@ -784,7 +794,8 @@ class OpenFPGA:
             if definition.name in self.written_modules:
                 continue
             if sort_ports:
-                definition._ports.sort(key=lambda x: str(x._direction) + x.name)
+                definition._ports.sort(
+                    key=lambda x: str(x._direction) + x.name)
             if sort_cables:
                 definition._cables.sort(key=lambda x: x.name)
             if sort_instances:
@@ -851,7 +862,8 @@ class OpenFPGA:
                 line = line.replace(",", " ")
                 module, area = line.split()[:2]
                 area_grid = int(
-                    float(area) * (self.GLOBAL_SCALE**2) / (self.SC_HEIGHT * self.CPP)
+                    float(area) * (self.GLOBAL_SCALE**2) /
+                    (self.SC_HEIGHT * self.CPP)
                 )
                 try:
                     ref = next(self.top_module.get_definitions(module))
@@ -863,7 +875,8 @@ class OpenFPGA:
                         float(area),
                     )
                     ref.data[PROP]["AREA"] = int(area_grid)
-                    ref.data[PROP]["AREA_UM"] = float(area) * (self.GLOBAL_SCALE**2)
+                    ref.data[PROP]["AREA_UM"] = float(
+                        area) * (self.GLOBAL_SCALE**2)
                 except StopIteration:
                     logger.warning("%s not found in the netlist", module)
 
@@ -879,10 +892,12 @@ class OpenFPGA:
             else current_instance
         )
         inst_name = (
-            current_instance.name if isinstance(current_instance, sdn.Instance) else ""
+            current_instance.name if isinstance(
+                current_instance, sdn.Instance) else ""
         )
         if not ("SDN_VERILOG" in reference.name):
-            line = f"{indentation} {level} {inst_name}" + f"[{reference.name}]\n"
+            line = f"{indentation} {level} {inst_name}" + \
+                f"[{reference.name}]\n"
             output += line
             print(line, end="")
         for child in reference.children:
@@ -912,3 +927,15 @@ class OpenFPGA:
             # if util > 0.9:
             #     ADDITIONAL_STYLES += f".{ref.name}" + \
             #         "{fill:#b22222 !important;}\n"
+
+    def get_overutils_styles(self, color='#D60B00'):
+        """
+        Analyzes utilisation of each module and returns CSS string to highlight
+        in the SVG
+        """
+        additional_styles = ""
+        for eachmdoule in self.top_module.get_definitions():
+            if eachmdoule.utilization > 0.95:
+                additional_styles += f"\n.{eachmdoule.name}" + \
+                    f"{{ fill: {color} !important }} \n"
+        return additional_styles
