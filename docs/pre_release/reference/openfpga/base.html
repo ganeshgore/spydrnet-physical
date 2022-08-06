@@ -253,7 +253,8 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_floorplanning/index.html">4. Floorplanning Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/02_FloorplanHeterogeneousDesign01.html">4.2. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/02_adjusting_initial_placement.html">4.2. Dimension based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/03_FloorplanHeterogeneousDesign01.html">4.3. Heterogeneous Design Placement</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -485,6 +486,9 @@ different generic netlist restructuring</p>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.update_module_label" title="spydrnet_physical.util.OpenFPGA.update_module_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_module_label</span></code></a></p></td>
 <td><p>Adde area information to label</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.util.OpenFPGA.get_overutils_styles" title="spydrnet_physical.util.OpenFPGA.get_overutils_styles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_overutils_styles</span></code></a></p></td>
+<td><p>Analyzes utilisation of each module and returns CSS string to highlight in the SVG</p></td>
 </tr>
 </tbody>
 </table></div>
@@ -742,6 +746,12 @@ definition of the top level module</p>
 <dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.update_module_label">
 <span class="sig-name descname"><span class="pre">update_module_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.update_module_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.update_module_label" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adde area information to label</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.util.OpenFPGA.get_overutils_styles">
+<span class="sig-name descname"><span class="pre">get_overutils_styles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'#D60B00'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/util/openfpga.html#OpenFPGA.get_overutils_styles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.util.OpenFPGA.get_overutils_styles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyzes utilisation of each module and returns CSS string to highlight
+in the SVG</p>
 </dd></dl>
 </dd></dl>
 </section>

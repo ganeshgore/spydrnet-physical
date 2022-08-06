@@ -35,6 +35,8 @@ SCALE = 100
 CPP = math.floor(0.46 * SCALE)
 SC_HEIGHT = math.floor(2.72 * SCALE)
 
+PROP = "VERILOG.InlineConstraints"
+
 
 def main():
     """
@@ -126,6 +128,12 @@ def main():
     fpga.update_module_label()
     fpga.show_utilization_data()
 
+    fpga.update_module_label(
+        get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
+                            f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
+                            f"[{x.utilization:.2%}]")
+    fpga.show_utilization_data()
+
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # #           Adjust Floorplan
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -136,7 +144,8 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
+    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
+                          patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
     pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
     dwg.defs.add(pattern)

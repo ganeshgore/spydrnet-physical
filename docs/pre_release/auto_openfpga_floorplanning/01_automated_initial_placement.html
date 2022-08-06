@@ -3,7 +3,7 @@
   <head><base href="pre_release"><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4.2. Heterogeneous Design Placement" href="02_FloorplanHeterogeneousDesign01.html" /><link rel="prev" title="4. Floorplanning Examples" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4.2. Dimension based floorplanning" href="02_adjusting_initial_placement.html" /><link rel="prev" title="4. Floorplanning Examples" href="index.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
         <title>4.1. Auto floorplan homogeneous design - SpyDrNet-Physical alpha documentation</title>
@@ -253,7 +253,8 @@
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">4. Floorplanning Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">4.1. Auto floorplan homogeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_FloorplanHeterogeneousDesign01.html">4.2. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_adjusting_initial_placement.html">4.2. Dimension based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_FloorplanHeterogeneousDesign01.html">4.3. Heterogeneous Design Placement</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -372,6 +373,8 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 <span class="n">CPP</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">0.46</span> <span class="o">*</span> <span class="n">SCALE</span><span class="p">)</span>
 <span class="n">SC_HEIGHT</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">2.72</span> <span class="o">*</span> <span class="n">SCALE</span><span class="p">)</span>
 
+<span class="n">PROP</span> <span class="o">=</span> <span class="s2">"VERILOG.InlineConstraints"</span>
+
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">"""</span>
@@ -463,6 +466,12 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">fpga</span><span class="o">.</span><span class="n">update_module_label</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">show_utilization_data</span><span class="p">()</span>
 
+    <span class="n">fpga</span><span class="o">.</span><span class="n">update_module_label</span><span class="p">(</span>
+        <span class="n">get_label</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s1">'WIDTH'</span><span class="p">])</span><span class="o">/</span><span class="n">CPP</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span>
+                            <span class="sa">f</span><span class="s2">"x</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s1">'HEIGHT'</span><span class="p">])</span><span class="o">/</span><span class="n">SC_HEIGHT</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span>
+                            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">utilization</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
+    <span class="n">fpga</span><span class="o">.</span><span class="n">show_utilization_data</span><span class="p">()</span>
+
     <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="c1"># #           Adjust Floorplan</span>
     <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
@@ -473,7 +482,8 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">design_grid</span><span class="o">.</span><span class="n">render_grid</span><span class="p">(</span><span class="n">return_group</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
-    <span class="n">pattern</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">pattern</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">CPP</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">SC_HEIGHT</span><span class="p">),</span> <span class="n">patternUnits</span><span class="o">=</span><span class="s2">"userSpaceOnUse"</span><span class="p">)</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">pattern</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">CPP</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">SC_HEIGHT</span><span class="p">),</span>
+                          <span class="n">patternUnits</span><span class="o">=</span><span class="s2">"userSpaceOnUse"</span><span class="p">)</span>
     <span class="n">pattern</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"black"</span><span class="p">))</span>
     <span class="n">pattern</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">SC_HEIGHT</span> <span class="o">+</span> <span class="mi">4</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"red"</span><span class="p">))</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
@@ -590,12 +600,12 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="02_FloorplanHeterogeneousDesign01.html">
+          <a class="next-page" href="02_adjusting_initial_placement.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">4.2. </span>Heterogeneous Design Placement</div>
+                <div class="title"><span class="section-number">4.2. </span>Dimension based floorplanning</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

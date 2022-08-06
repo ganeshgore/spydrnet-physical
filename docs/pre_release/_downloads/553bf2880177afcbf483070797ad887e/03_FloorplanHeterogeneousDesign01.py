@@ -172,7 +172,8 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
+    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT),
+                          patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
     pattern.add(dwg.circle(center=(2, SC_HEIGHT + 2), r=1, fill="red"))
     dwg.defs.add(pattern)
