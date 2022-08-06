@@ -246,7 +246,7 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/01_floorplan_rendering.html">3.1. Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/01_multi_merge_floorplan.html">3.2. Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/01_multi_merge_floorplan.html">3.2. Placement aware instace merge operation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/02_render_routing_box.html">3.3. Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/03_render_edge_routing_box.html">3.4. Rendering Switch and Connection Boxes</a></li>
 </ul>
@@ -502,10 +502,6 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">fpga</span><span class="o">.</span><span class="n">update_module_label</span><span class="p">()</span>
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">show_placement_data</span><span class="p">(</span><span class="s2">"*"</span><span class="p">)</span>
-    <span class="c1"># # fpga.design_top_stat()</span>
-
-    <span class="c1"># fpga.top_module.data[PROP]["WIDTH"] = 1900</span>
-    <span class="c1"># fpga.top_module.data[PROP]["HEIGHT"] = 1900</span>
 
     <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="p">)</span>
     <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

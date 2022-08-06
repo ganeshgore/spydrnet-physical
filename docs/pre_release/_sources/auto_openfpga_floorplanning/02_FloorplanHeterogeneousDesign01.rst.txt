@@ -32,7 +32,7 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-191
+.. GENERATED FROM PYTHON SOURCE LINES 17-187
 
 .. code-block:: default
 
@@ -187,10 +187,6 @@ This script can be used for shaping and placement of the modules before place an
         fpga.update_module_label()
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         fpga.show_placement_data("*")
-        # # fpga.design_top_stat()
-
-        # fpga.top_module.data[PROP]["WIDTH"] = 1900
-        # fpga.top_module.data[PROP]["HEIGHT"] = 1900
 
         fp = FloorPlanViz(fpga.top_module)
         fp.compose(skip_connections=True, skip_pins=True)
