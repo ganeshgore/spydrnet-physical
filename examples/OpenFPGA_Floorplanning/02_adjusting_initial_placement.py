@@ -125,7 +125,6 @@ def main():
 
     fpga.update_module_label(
         get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f} [{x.utilization:.2%}]")
-    fpga.show_utilization_data()
 
     # Highlight over utilized modules
     additional_styles = fpga.get_overutils_styles()

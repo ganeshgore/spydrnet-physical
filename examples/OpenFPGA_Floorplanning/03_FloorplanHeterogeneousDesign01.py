@@ -17,19 +17,13 @@ This script can be used for shaping and placement of the modules before place an
 
 import glob
 import logging
+import math
 from copy import deepcopy
 
-from pprint import pprint
 import spydrnet as sdn
 import spydrnet_physical as PROP
-from spydrnet_physical.util import (
-    FloorPlanViz,
-    FPGAGridGen,
-    GridFloorplanGen,
-    OpenFPGA,
-    get_names,
-    initial_hetero_placement,
-)
+from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen,
+                                    OpenFPGA, initial_hetero_placement)
 
 logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO", filename="floorplan_heterpgeneous")
@@ -45,9 +39,10 @@ FPGA_WIDTH = 8
 FPGA_HEIGHT = 8
 
 SCALE = 100
-CPP = 0.46 * SCALE
-SC_HEIGHT = 2.72 * SCALE
+CPP = math.floor(0.46 * SCALE)
+SC_HEIGHT = math.floor(2.72 * SCALE)
 
+PROP = "VERILOG.InlineConstraints"
 
 STYLE_SHEET = """
     symbol {mix-blend-mode: difference;}
@@ -91,6 +86,11 @@ def main():
     )
     fpga_grid.enumerate_grid()
     fpga.load_grid(fpga_grid)
+    fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
+
+    fpga.SC_HEIGHT = SC_HEIGHT
+    fpga.CPP = CPP
+    fpga.SC_GRID = CPP * SC_HEIGHT
 
     # = = = = = = = = = = = = = = = = = = = = = = =
     #         Shaping Information
@@ -106,15 +106,14 @@ def main():
     fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
 
     m = {}
+    m["clb_w"], m["clb_h"] = 340, 60
+    m["cbx11_w"], m["cbx11_h"] = 220, 10
+    m["bottom_cbx_w"], m["bottom_cbx_h"] = 220, 18
+    m["top_cbx_w"], m["top_cbx_h"] = 220, 40
 
-    m["clb_w"], m["clb_h"] = 580, 82
-    m["cbx11_w"], m["cbx11_h"] = 400, 18
-    m["bottom_cbx_w"], m["bottom_cbx_h"] = 400, 32
-    m["top_cbx_w"], m["top_cbx_h"] = 400, 52
-
-    m["cby11_w"], m["cby11_h"] = 160, 60
-    m["left_cby_w"], m["left_cby_h"] = 320, 60
-    m["right_cby_w"], m["right_cby_h"] = 260, 60
+    m["cby11_w"], m["cby11_h"] = 120, 40
+    m["left_cby_w"], m["left_cby_h"] = 180, 40
+    m["right_cby_w"], m["right_cby_h"] = 160, 40
 
     fpga.placement_creator.update_shaping_param(m)
     fpga.placement_creator.derive_sb_paramters()
@@ -163,14 +162,16 @@ def main():
     shapes.pop("sb_1__1_")
 
     fpga.create_placement()
-    pprint(shapes)
     fpga.update_module_label()
+
+    additional_styles = fpga.get_overutils_styles()
+
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     fpga.show_placement_data("*")
 
     fp = FloorPlanViz(fpga.top_module)
     fp.compose(skip_connections=True, skip_pins=True)
-    fp.custom_style_sheet = STYLE_SHEET
+    fp.custom_style_sheet = STYLE_SHEET + additional_styles
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
