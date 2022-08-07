@@ -1,15 +1,12 @@
 """
-=================================
-Auto floorplan homogeneous design
-=================================
+=============================
+Dimension based floorplanning
+=============================
 
-This example demonstate how to render FPGA Tile using ``FloorPlanViz`` class
-User can provide external script to render tiles, by default the rendering is
-based on ``initial_placement`` class.
+This example demonstate how to optimized different dimension of the homogeneus
+FPGA fabric to increse the utilzation of each module in the design.
 
-This script can be used for shaping and placement of the modules before place and route.
-
-.. image:: ../../../examples/OpenFPGA_Floorplanning/_fpga_auto_initial_placement.svg
+.. image:: ../../../examples/OpenFPGA_Floorplanning/_fpga_auto_initial_placement_adjusted.svg
    :width: 100%
    :align: center
 
@@ -28,7 +25,7 @@ sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 STYLE_SHEET = """
     .over_util {fill:#b22222 !important}
-    text{font-family: Lato; font-style: italic; font-size: 250px;}
+    text{font-family: Lato; font-style: italic; font-size: 350px;}
 """
 
 SCALE = 100
@@ -77,22 +74,24 @@ def main():
     fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
     fpga.register_placement_creator(initial_hetero_placement)
+
     fpga.show_utilization_data()
 
-    # Uncomment this to set module dimensions
     # ====================================================================
-    # m = {}
-    # m["clb_w"], m["clb_h"] = 360, 8
-    # m["cbx11_w"], m["cbx11_h"] = 280, 4
-    # m["bottom_cbx_w"], m["bottom_cbx_h"] = 280, 4
-    # m["top_cbx_w"], m["top_cbx_h"] = 280, 4
+    # Dimension based floorplanning
+    # ====================================================================
+    m = {}
+    m["clb_w"], m["clb_h"] = 200, 30
+    m["cbx11_w"], m["cbx11_h"] = 116, 16
+    m["bottom_cbx_w"], m["bottom_cbx_h"] = 180, 10
+    m["top_cbx_w"], m["top_cbx_h"] = 180, 10
 
-    # m["cby11_w"], m["cby11_h"] = 50, 6
-    # m["left_cby_w"], m["left_cby_h"] = 50, 6
-    # m["right_cby_w"], m["right_cby_h"] = 50, 6
-    # fpga.placement_creator.update_shaping_param(m)
+    m["cby11_w"], m["cby11_h"] = 100, 20
+    m["left_cby_w"], m["left_cby_h"] = 60, 30
+    m["right_cby_w"], m["right_cby_h"] = 60, 30
     # ====================================================================
 
+    fpga.placement_creator.update_shaping_param(m)
     fpga.placement_creator.derive_sb_paramters()
     fpga.placement_creator.create_shapes()
 
@@ -121,22 +120,18 @@ def main():
     fpga.design_top_stat()
     fpga.save_shaping_data("*")
 
-    fpga.update_module_label()
-    fpga.show_utilization_data()
-
     fpga.update_module_label(
-        get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
-                            f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
-                            f"[{x.utilization:.2%}]")
-    fpga.show_utilization_data()
+        get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f} [{x.utilization:.2%}]")
 
+    # Highlight over utilized modules
+    additional_styles = fpga.get_overutils_styles()
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # #           Adjust Floorplan
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
     fp = FloorPlanViz(fpga.top_module)
     fp.compose(skip_connections=True, skip_pins=True)
-    fp.custom_style_sheet = STYLE_SHEET
+    fp.custom_style_sheet = STYLE_SHEET + additional_styles
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
@@ -147,7 +142,8 @@ def main():
     dwg.defs.add(pattern)
     dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 
-    dwg.saveas("_fpga_auto_initial_placement.svg", pretty=True, indent=4)
+    dwg.saveas("_fpga_auto_initial_placement_adjusted.svg",
+               pretty=True, indent=4)
 
 
 if __name__ == "__main__":
