@@ -101,10 +101,6 @@ def main():
         areaFile={},
     )
 
-    fpga.placement_creator.CPP = CPP
-    fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-    fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
-
     m = {}
     m["clb_w"], m["clb_h"] = 340, 60
     m["cbx11_w"], m["cbx11_h"] = 220, 10

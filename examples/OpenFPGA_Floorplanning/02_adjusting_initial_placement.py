@@ -74,9 +74,6 @@ def main():
     fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
     fpga.register_placement_creator(initial_hetero_placement)
-    fpga.placement_creator.CPP = CPP
-    fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-    fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
 
     fpga.show_utilization_data()
 

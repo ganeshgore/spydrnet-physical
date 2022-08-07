@@ -131,6 +131,9 @@ class OpenFPGA:
         self.placement_creator = cls(
             self.fpga_size, self._netlist, self.fpga_grid, *args, **kwargs
         )
+        self.placement_creator.CPP = self.CPP
+        self.placement_creator.SC_HEIGHT = self.SC_HEIGHT
+        self.placement_creator.SC_GRID = self.CPP * self.SC_HEIGHT
 
     def create_tiles(self):
         """
