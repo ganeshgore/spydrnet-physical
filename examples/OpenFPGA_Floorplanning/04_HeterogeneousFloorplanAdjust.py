@@ -1,15 +1,12 @@
 """
-===============================
-Heterogeneous Design Placement
-===============================
+==================================
+Heterogeneous Floorplan Adjustment
+==================================
 
-This example demonstate how to render FPGA Tile using ``FloorPlanViz`` class
-User can provide external script to render tiles, by default the rendering is
-based on ``initial_placement`` class.
+This example customises the hterogeneous placement and demonstrate how perticular
+column or row of the FPGa grid can be cpmpressed.
 
-This script can be used for shaping and placement of the modules before place and route.
-
-.. image:: ../../../examples/OpenFPGA_Floorplanning/_hetero_design_floorplan.svg
+.. image:: ../../../examples/OpenFPGA_Floorplanning/_hetero_design_adjust_floorplan.svg
    :width: 70%
    :align: center
 
@@ -95,20 +92,19 @@ def main():
     #         Shaping Information
     # = = = = = = = = = = = = = = = = = = = = = = =
 
-    fpga.register_placement_creator(
-        initial_hetero_placement,
-        areaFile={},
-    )
+    fpga.register_placement_creator(initial_hetero_placement)
 
     m = {}
-    m["clb_w"], m["clb_h"] = 340, 60
-    m["cbx11_w"], m["cbx11_h"] = 220, 10
+    m["clb_w"], m["clb_h"] = 340, 48
+    m["cbx11_w"], m["cbx11_h"] = 220, 18
     m["bottom_cbx_w"], m["bottom_cbx_h"] = 220, 18
     m["top_cbx_w"], m["top_cbx_h"] = 220, 40
 
-    m["cby11_w"], m["cby11_h"] = 120, 40
-    m["left_cby_w"], m["left_cby_h"] = 180, 40
-    m["right_cby_w"], m["right_cby_h"] = 160, 40
+    m["cby11_w"], m["cby11_h"] = 120, 30
+    m["left_cby_w"], m["left_cby_h"] = 180, 30
+    m["right_cby_w"], m["right_cby_h"] = 160, 30
+
+    m["mult_w_delta"] = 120
 
     fpga.placement_creator.update_shaping_param(m)
     fpga.placement_creator.derive_sb_paramters()
@@ -116,13 +112,21 @@ def main():
 
     shapes = fpga.placement_creator.module_shapes
 
+    # This adjusts the placement grid
+    for col in MULT_COLS:
+        fpga.placement_creator.design_grid.set_column_width(
+            col * 2, (m["clb_w"]-m["mult_w_delta"]) * CPP)
+
     inst = fpga.design_top_stat()
     logger.info("This are extra modules to floorplan")
     logger.info(set(inst.keys()) - set(shapes.keys()))
 
     shapes["cbx_2__0_"] = deepcopy(shapes["cbx_1__0_"])
+    shapes["cbx_2__0_"]["POINTS"][0] -= m["mult_w_delta"]
     shapes["cbx_2__2_"] = deepcopy(shapes["cbx_1__1_"])
+    shapes["cbx_2__2_"]["POINTS"][0] -= m["mult_w_delta"]
     shapes["cbx_2__8_"] = deepcopy(shapes["cbx_1__8_"])
+    shapes["cbx_2__8_"]["POINTS"][0] -= m["mult_w_delta"]
     shapes["cby_2__1_"] = deepcopy(shapes["cby_1__1_"])
     shapes["cby_3__1_"] = deepcopy(shapes["cby_1__1_"])
     shapes["sb_1__2_"] = deepcopy(shapes["sb_1__1_"])
@@ -137,6 +141,7 @@ def main():
 
     shapes["grid_mult_8"] = deepcopy(shapes["grid_clb"])
     shapes["grid_mult_8"]["POINTS"][1] += m["clb_h"] + m["cbx11_h"]
+    shapes["grid_mult_8"]["POINTS"][0] -= m["mult_w_delta"]
 
     shapes["sb_2__1_"]["POINTS"][1] = 0  # Trim right side
     shapes["sb_2__1_"]["PLACEMENT"][0] = 0  # Reset x offset
@@ -177,7 +182,7 @@ def main():
     dwg.defs.add(pattern)
     dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 
-    filename = "_hetero_design_floorplan.svg"
+    filename = "_hetero_design_adjust_floorplan.svg"
     dwg.saveas(filename, pretty=True, indent=4)
 
 
