@@ -1,6 +1,6 @@
 """
 ===========================
-FPGA Layout grid generation
+FPGA layout grid generation
 ===========================
 
 This class generates the 2D matrix of the FPGA grid.

@@ -38,7 +38,8 @@ def main():
     source_files += glob.glob(f"{proj}/*_Verilog/routing/*.v")
     source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
     source_files += glob.glob(f"{proj}/*_Verilog/fpga_top.v")
-    source_files += glob.glob(f"{proj}/*_Task/CustomModules/standard_cell_wrapper.v")
+    source_files += glob.glob(
+        f"{proj}/*_Task/CustomModules/standard_cell_wrapper.v")
 
     # Create OpenFPGA object
     fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
@@ -64,7 +65,8 @@ def main():
                 cable_list = []
                 for pin in p.pins[::-1]:
                     cable_list.append(i.pins[pin].wire.cable)
-                fpga.top_module.combine_cables(f"{i.name}_{p.name}", cable_list)
+                fpga.top_module.combine_cables(
+                    f"{i.name}_{p.name}", cable_list)
 
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #                   Start rendering CBX11
@@ -87,7 +89,8 @@ def main():
         file_ptr.write(f'`include "{cust_proj}/standard_cell_primitives.v"\n')
         file_ptr.write(f'`include "{veri_proj}/sub_module/muxes.v"\n')
         file_ptr.write(f'`include "{veri_proj}/sub_module/memories.v"\n')
-        file_ptr.write(f'`include "{veri_proj}/sub_module/inv_buf_passgate.v"\n')
+        file_ptr.write(
+            f'`include "{veri_proj}/sub_module/inv_buf_passgate.v"\n')
 
 
 if __name__ == "__main__":

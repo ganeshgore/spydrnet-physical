@@ -106,3 +106,15 @@ class OpenFPGA_Arch:
         `fill` the device is consider as a homogeneous
         """
         raise NotImplementedError("Not implemented yet")
+
+    def get_hetero_columns(self, pb_type):
+        """
+        Returns columns numbers of given heterogenesous pb_type
+        """
+        return []
+
+    def get_hetero_rows(self, pb_type):
+        """
+        Returns row numbers of given heterogenesous pb_type
+        """
+        return []
