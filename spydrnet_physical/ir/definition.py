@@ -341,6 +341,7 @@ class Definition(DefinitionBase):
         # if def_data:
         outline = []
         new_mod.data[PROP]["AREA"] = 0
+        new_mod.data[PROP]["AREA_UM"] = 0
         for each in instances_list:
             shape = each.reference.data[PROP].get("SHAPE", None)
             if shape == "rect":
@@ -349,6 +350,8 @@ class Definition(DefinitionBase):
                 outline.extend(shaping_utils._convert_cross_to_pt(each))
             new_mod.data[PROP]["AREA"] += each.reference.data[PROP].get(
                 "AREA", 0)
+            new_mod.data[PROP]["AREA_UM"] += each.reference.data[PROP].get(
+                "AREA_UM", 0)
         LOC_X = min([each.data[PROP].get("LOC_X", 0)
                     for each in instances_list])
         LOC_Y = min([each.data[PROP].get("LOC_Y", 0)
