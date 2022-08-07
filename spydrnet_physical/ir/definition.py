@@ -964,7 +964,7 @@ class Definition(DefinitionBase):
             if pin.wire:
                 pin.wire.disconnect_pin(pin)
 
-    def make_instance_unique(self, instance, new_name, instance_list=[]):
+    def make_instance_unique(self, instance, new_name, instance_list=()):
         """clone the definition and point the reference to the new definition"""
         assert instance in self.children, "Isntance is not part of this definition"
         reference = instance.reference

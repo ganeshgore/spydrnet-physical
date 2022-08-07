@@ -58,6 +58,8 @@ STYLE_SHEET = """
     text.highlight_box { font-size:500px; font-weight:800; fill:red}
 """
 
+MULT_COLS = [2, 8]
+
 
 def main():
     """
@@ -148,17 +150,17 @@ def main():
     shapes["sb_8__1_"]["PLACEMENT"][0] = 0  # Reset x offset
 
     # Make few modules unique to fit in floorplan
-    instance_list = [f"sb_7__{i}_" for i in range(1, FPGA_HEIGHT, 2)]
-    instance_list += ["sb_1__3_", "sb_1__5_", "sb_1__7_"]
+    inst_list = []
+    for col in MULT_COLS:
+        inst_list += [f"sb_{col-1}__{i}_" for i in range(1, FPGA_HEIGHT, 2)]
     fpga.top_module.make_instance_unique(
-        next(fpga.top_module.get_instances(instance_list[0])),
+        next(fpga.top_module.get_instances(inst_list[0])),
         "sb_7__1_",
-        instance_list=instance_list,
+        instance_list=inst_list,
     )
     shapes["sb_7__1_"] = deepcopy(shapes["sb_1__1_"])
     shapes["sb_7__1_"]["POINTS"][-2] = 0  # Trim right side
-
-    # Not able uniquify the sb_1__1_ instance
+    shapes.pop("sb_1__1_")
 
     fpga.create_placement()
     pprint(shapes)
