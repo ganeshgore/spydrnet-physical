@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4.2. Dimension based floorplanning" href="02_adjusting_initial_placement.html" /><link rel="prev" title="4. Floorplanning Examples" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="4.3. Heterogeneous Design Placement" href="03_FloorplanHeterogeneousDesign01.html" /><link rel="prev" title="4.1. Auto floorplan homogeneous design" href="01_automated_initial_placement.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>4.1. Auto floorplan homogeneous design - SpyDrNet-Physical alpha documentation</title>
+        <title>4.2. Dimension based floorplanning - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -252,8 +252,8 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">4. Floorplanning Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">4.1. Auto floorplan homogeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_adjusting_initial_placement.html">4.2. Dimension based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">4.2. Dimension based floorplanning</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_FloorplanHeterogeneousDesign01.html">4.3. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_HeterogeneousFloorplanAdjust.html">4.4. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
@@ -344,16 +344,14 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-floorplanning-01-automated-initial-placement-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-floorplanning-02-adjusting-initial-placement-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="auto-floorplan-homogeneous-design">
-<span id="sphx-glr-auto-openfpga-floorplanning-01-automated-initial-placement-py"></span><h1><span class="section-number">4.1. </span>Auto floorplan homogeneous design<a class="headerlink" href="#auto-floorplan-homogeneous-design" title="Permalink to this headline">¶</a></h1>
-<p>This example demonstate how to render FPGA Tile using <code class="docutils literal notranslate"><span class="pre">FloorPlanViz</span></code> class
-User can provide external script to render tiles, by default the rendering is
-based on <code class="docutils literal notranslate"><span class="pre">initial_placement</span></code> class.</p>
-<p>This script can be used for shaping and placement of the modules before place and route.</p>
-<a class="reference internal image-reference" href="../_images/_fpga_auto_initial_placement.svg"><img alt="../_images/_fpga_auto_initial_placement.svg" class="align-center" src="../_images/_fpga_auto_initial_placement.svg" width="100%"/></a>
+<section class="sphx-glr-example-title" id="dimension-based-floorplanning">
+<span id="sphx-glr-auto-openfpga-floorplanning-02-adjusting-initial-placement-py"></span><h1><span class="section-number">4.2. </span>Dimension based floorplanning<a class="headerlink" href="#dimension-based-floorplanning" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstate how to optimized different dimension of the homogeneus
+FPGA fabric to increse the utilzation of each module in the design.</p>
+<a class="reference internal image-reference" href="../_images/_fpga_auto_initial_placement_adjusted.svg"><img alt="../_images/_fpga_auto_initial_placement_adjusted.svg" class="align-center" src="../_images/_fpga_auto_initial_placement_adjusted.svg" width="100%"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -367,7 +365,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 
 <span class="n">STYLE_SHEET</span> <span class="o">=</span> <span class="s2">"""</span>
 <span class="s2">    .over_util {fill:#b22222 !important}</span>
-<span class="s2">    text{font-family: Lato; font-style: italic; font-size: 250px;}</span>
+<span class="s2">    text{font-family: Lato; font-style: italic; font-size: 350px;}</span>
 <span class="s2">"""</span>
 
 <span class="n">SCALE</span> <span class="o">=</span> <span class="mi">100</span>
@@ -416,22 +414,24 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">fpga</span><span class="o">.</span><span class="n">annotate_area_information</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s2">/area_info.txt"</span><span class="p">,</span> <span class="n">skipline</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">fpga</span><span class="o">.</span><span class="n">register_placement_creator</span><span class="p">(</span><span class="n">initial_hetero_placement</span><span class="p">)</span>
+
     <span class="n">fpga</span><span class="o">.</span><span class="n">show_utilization_data</span><span class="p">()</span>
 
-    <span class="c1"># Uncomment this to set module dimensions</span>
     <span class="c1"># ====================================================================</span>
-    <span class="c1"># m = {}</span>
-    <span class="c1"># m["clb_w"], m["clb_h"] = 360, 8</span>
-    <span class="c1"># m["cbx11_w"], m["cbx11_h"] = 280, 4</span>
-    <span class="c1"># m["bottom_cbx_w"], m["bottom_cbx_h"] = 280, 4</span>
-    <span class="c1"># m["top_cbx_w"], m["top_cbx_h"] = 280, 4</span>
+    <span class="c1"># Dimension based floorplanning</span>
+    <span class="c1"># ====================================================================</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">"clb_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"clb_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">30</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">"cbx11_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"cbx11_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">16</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">"bottom_cbx_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"bottom_cbx_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">10</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">"top_cbx_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"top_cbx_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">10</span>
 
-    <span class="c1"># m["cby11_w"], m["cby11_h"] = 50, 6</span>
-    <span class="c1"># m["left_cby_w"], m["left_cby_h"] = 50, 6</span>
-    <span class="c1"># m["right_cby_w"], m["right_cby_h"] = 50, 6</span>
-    <span class="c1"># fpga.placement_creator.update_shaping_param(m)</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">"cby11_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"cby11_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">20</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">"left_cby_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"left_cby_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">30</span>
+    <span class="n">m</span><span class="p">[</span><span class="s2">"right_cby_w"</span><span class="p">],</span> <span class="n">m</span><span class="p">[</span><span class="s2">"right_cby_h"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">30</span>
     <span class="c1"># ====================================================================</span>
 
+    <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">update_shaping_param</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">derive_sb_paramters</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">create_shapes</span><span class="p">()</span>
 
@@ -460,22 +460,18 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
     <span class="n">fpga</span><span class="o">.</span><span class="n">save_shaping_data</span><span class="p">(</span><span class="s2">"*"</span><span class="p">)</span>
 
-    <span class="n">fpga</span><span class="o">.</span><span class="n">update_module_label</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">show_utilization_data</span><span class="p">()</span>
-
     <span class="n">fpga</span><span class="o">.</span><span class="n">update_module_label</span><span class="p">(</span>
-        <span class="n">get_label</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s1">'WIDTH'</span><span class="p">])</span><span class="o">/</span><span class="n">CPP</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span>
-                            <span class="sa">f</span><span class="s2">"x</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s1">'HEIGHT'</span><span class="p">])</span><span class="o">/</span><span class="n">SC_HEIGHT</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span>
-                            <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">utilization</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">show_utilization_data</span><span class="p">()</span>
+        <span class="n">get_label</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s1">'WIDTH'</span><span class="p">])</span><span class="o">/</span><span class="n">CPP</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s1">'HEIGHT'</span><span class="p">])</span><span class="o">/</span><span class="n">SC_HEIGHT</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> [</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">utilization</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
 
+    <span class="c1"># Highlight over utilized modules</span>
+    <span class="n">additional_styles</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">get_overutils_styles</span><span class="p">()</span>
     <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="c1"># #           Adjust Floorplan</span>
     <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
 
     <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="p">)</span>
     <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">fp</span><span class="o">.</span><span class="n">custom_style_sheet</span> <span class="o">=</span> <span class="n">STYLE_SHEET</span>
+    <span class="n">fp</span><span class="o">.</span><span class="n">custom_style_sheet</span> <span class="o">=</span> <span class="n">STYLE_SHEET</span> <span class="o">+</span> <span class="n">additional_styles</span>
     <span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">design_grid</span><span class="o">.</span><span class="n">render_grid</span><span class="p">(</span><span class="n">return_group</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
@@ -486,7 +482,8 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attribs</span><span class="p">[</span><span class="s2">"fill"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_funciri</span><span class="p">()</span>
 
-    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fpga_auto_initial_placement.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fpga_auto_initial_placement_adjusted.svg"</span><span class="p">,</span>
+               <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
@@ -581,12 +578,12 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-floorplanning-01-automated-initial-placement-py">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-openfpga-floorplanning-02-adjusting-initial-placement-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/82d26b35809ece9fb1307146dd070e23/01_automated_initial_placement.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_automated_initial_placement.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/b2b4622bc88b6a2909c1d4d42c793849/02_adjusting_initial_placement.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02_adjusting_initial_placement.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/45d472909467d310f193f0ac5c67728c/01_automated_initial_placement.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_automated_initial_placement.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/56ce87f9919e42a9bd598ce5aa2c9d3e/02_adjusting_initial_placement.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02_adjusting_initial_placement.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -597,23 +594,23 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="02_adjusting_initial_placement.html">
+          <a class="next-page" href="03_FloorplanHeterogeneousDesign01.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">4.2. </span>Dimension based floorplanning</div>
+                <div class="title"><span class="section-number">4.3. </span>Heterogeneous Design Placement</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="01_automated_initial_placement.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">4. </span>Floorplanning Examples</div>
+                <div class="title"><span class="section-number">4.1. </span>Auto floorplan homogeneous design</div>
                 
               </div>
             </a>
@@ -625,7 +622,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_openfpga_floorplanning/01_automated_initial_placement.rst.txt"
+            <a class="muted-link" href="../_sources/auto_openfpga_floorplanning/02_adjusting_initial_placement.rst.txt"
                rel="nofollow">
               Show Source
             </a>

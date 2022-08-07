@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="3.3. Rendering Switch and Connection Boxes" href="02_render_routing_box.html" /><link rel="prev" title="3.1. Demonstrate how to render basic floorplan" href="01_floorplan_rendering.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>3.2. Demonstrate how to render basic floorplan - SpyDrNet-Physical alpha documentation</title>
+        <title>3.2. Placement aware instace merge operation - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -246,14 +246,16 @@
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">3. Module Rendering Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="01_floorplan_rendering.html">3.1. Demonstrate how to render basic floorplan</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">3.2. Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">3.2. Placement aware instace merge operation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_render_routing_box.html">3.3. Rendering Switch and Connection Boxes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_render_edge_routing_box.html">3.4. Rendering Switch and Connection Boxes</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_floorplanning/index.html">4. Floorplanning Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/02_FloorplanHeterogeneousDesign01.html">4.2. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/02_adjusting_initial_placement.html">4.2. Dimension based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/03_FloorplanHeterogeneousDesign01.html">4.3. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/04_HeterogeneousFloorplanAdjust.html">4.4. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -345,25 +347,28 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-openfpga-rendering-01-multi-merge-floorplan-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="demonstrate-how-to-render-basic-floorplan">
-<span id="sphx-glr-auto-openfpga-rendering-01-multi-merge-floorplan-py"></span><h1><span class="section-number">3.2. </span>Demonstrate how to render basic floorplan<a class="headerlink" href="#demonstrate-how-to-render-basic-floorplan" title="Permalink to this headline">¶</a></h1>
+<section class="sphx-glr-example-title" id="placement-aware-instace-merge-operation">
+<span id="sphx-glr-auto-openfpga-rendering-01-multi-merge-floorplan-py"></span><h1><span class="section-number">3.2. </span>Placement aware instace merge operation<a class="headerlink" href="#placement-aware-instace-merge-operation" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrate how a instance merge operation on pre placed instances
+results in auto inferences of shape and placement of newly created module.</p>
 <section id="output">
 <h2><span class="section-number">3.2.1. </span>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p><strong>Before merging</strong></p>
 <a class="reference internal image-reference" href="../_images/_merge_multiple_floorplan_before.svg"><img alt="../_images/_merge_multiple_floorplan_before.svg" src="../_images/_merge_multiple_floorplan_before.svg" width="400px"/></a>
+<p><strong>After merging</strong></p>
 <a class="reference internal image-reference" href="../_images/_merge_multiple_floorplan.svg"><img alt="../_images/_merge_multiple_floorplan.svg" src="../_images/_merge_multiple_floorplan.svg" width="400px"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
-<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">get_names</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FloorPlanViz</span>
 
 <span class="n">PROPERTY</span> <span class="o">=</span> <span class="s2">"VERILOG.InlineConstraints"</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'DEBUG'</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"01_floorplan_rendering"</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"spydrnet_logs"</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"01_floorplan_rendering"</span><span class="p">)</span>
 
-<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'basic_hierarchy'</span><span class="p">)</span>
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s2">"basic_hierarchy"</span><span class="p">)</span>
 <span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
 
 <span class="n">module1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"module1"</span><span class="p">))</span>
@@ -413,9 +418,13 @@ to download the full example code</p>
 <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_merge_multiple_floorplan_before.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
-<span class="n">main_def</span><span class="p">,</span> <span class="n">instance_list</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">([((</span><span class="n">inst_1_0</span><span class="p">,</span> <span class="n">inst_2_0</span><span class="p">),</span> <span class="s1">'merged_inst_2_0'</span><span class="p">),</span>
-                                                       <span class="p">((</span><span class="n">inst_1_1</span><span class="p">,</span> <span class="n">inst_2_1</span><span class="p">),</span> <span class="s1">'merged_inst_2_1'</span><span class="p">)],</span>
-                                                      <span class="n">new_definition_name</span><span class="o">=</span><span class="s2">"NewModule"</span><span class="p">)</span>
+<span class="n">main_def</span><span class="p">,</span> <span class="n">instance_list</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">((</span><span class="n">inst_1_0</span><span class="p">,</span> <span class="n">inst_2_0</span><span class="p">),</span> <span class="s2">"merged_inst_2_0"</span><span class="p">),</span>
+        <span class="p">((</span><span class="n">inst_1_1</span><span class="p">,</span> <span class="n">inst_2_1</span><span class="p">),</span> <span class="s2">"merged_inst_2_1"</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="n">new_definition_name</span><span class="o">=</span><span class="s2">"NewModule"</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">fp</span> <span class="o">=</span> <span class="n">FloorPlanViz</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
 <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -489,7 +498,7 @@ to download the full example code</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">3.2. Demonstrate how to render basic floorplan</a><ul>
+<li><a class="reference internal" href="#">3.2. Placement aware instace merge operation</a><ul>
 <li><a class="reference internal" href="#output">3.2.1. Output</a></li>
 </ul>
 </li>

@@ -28,12 +28,14 @@ sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 STYLE_SHEET = """
     .over_util {fill:#b22222 !important}
-    text{font-family: Lato; font-style: italic; font-size: 350px;}
+    text{font-family: Lato; font-style: italic; font-size: 250px;}
 """
 
 SCALE = 100
 CPP = math.floor(0.46 * SCALE)
 SC_HEIGHT = math.floor(2.72 * SCALE)
+
+PROP = "VERILOG.InlineConstraints"
 
 
 def main():
@@ -75,10 +77,6 @@ def main():
     fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
     fpga.register_placement_creator(initial_hetero_placement)
-    fpga.placement_creator.CPP = CPP
-    fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-    fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
-
     fpga.show_utilization_data()
 
     # Uncomment this to set module dimensions
@@ -126,6 +124,12 @@ def main():
     fpga.update_module_label()
     fpga.show_utilization_data()
 
+    fpga.update_module_label(
+        get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
+                            f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
+                            f"[{x.utilization:.2%}]")
+    fpga.show_utilization_data()
+
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # #           Adjust Floorplan
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -136,7 +140,8 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
+    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
+                          patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
     pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
     dwg.defs.add(pattern)

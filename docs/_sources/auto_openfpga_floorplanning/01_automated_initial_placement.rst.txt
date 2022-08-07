@@ -32,7 +32,7 @@ This script can be used for shaping and placement of the modules before place an
    :width: 100%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-151
+.. GENERATED FROM PYTHON SOURCE LINES 17-156
 
 .. code-block:: default
 
@@ -50,12 +50,14 @@ This script can be used for shaping and placement of the modules before place an
 
     STYLE_SHEET = """
         .over_util {fill:#b22222 !important}
-        text{font-family: Lato; font-style: italic; font-size: 350px;}
+        text{font-family: Lato; font-style: italic; font-size: 250px;}
     """
 
     SCALE = 100
     CPP = math.floor(0.46 * SCALE)
     SC_HEIGHT = math.floor(2.72 * SCALE)
+
+    PROP = "VERILOG.InlineConstraints"
 
 
     def main():
@@ -97,10 +99,6 @@ This script can be used for shaping and placement of the modules before place an
         fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
         fpga.register_placement_creator(initial_hetero_placement)
-        fpga.placement_creator.CPP = CPP
-        fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-        fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
-
         fpga.show_utilization_data()
 
         # Uncomment this to set module dimensions
@@ -148,6 +146,12 @@ This script can be used for shaping and placement of the modules before place an
         fpga.update_module_label()
         fpga.show_utilization_data()
 
+        fpga.update_module_label(
+            get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
+                                f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
+                                f"[{x.utilization:.2%}]")
+        fpga.show_utilization_data()
+
         # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         # #           Adjust Floorplan
         # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -158,7 +162,8 @@ This script can be used for shaping and placement of the modules before place an
         dwg = fp.get_svg()
         dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-        pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
+        pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
+                              patternUnits="userSpaceOnUse")
         pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
         pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
         dwg.defs.add(pattern)
@@ -171,7 +176,7 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-155
+.. GENERATED FROM PYTHON SOURCE LINES 157-160
 
 **Placement information**
 
