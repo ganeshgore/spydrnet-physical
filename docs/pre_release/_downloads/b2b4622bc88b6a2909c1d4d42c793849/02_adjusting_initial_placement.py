@@ -74,9 +74,6 @@ def main():
     fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
     fpga.register_placement_creator(initial_hetero_placement)
-    fpga.placement_creator.CPP = CPP
-    fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-    fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
 
     fpga.show_utilization_data()
 
@@ -125,7 +122,6 @@ def main():
 
     fpga.update_module_label(
         get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f} [{x.utilization:.2%}]")
-    fpga.show_utilization_data()
 
     # Highlight over utilized modules
     additional_styles = fpga.get_overutils_styles()

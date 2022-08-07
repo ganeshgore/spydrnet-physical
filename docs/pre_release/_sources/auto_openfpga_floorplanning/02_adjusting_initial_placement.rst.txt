@@ -29,7 +29,7 @@ FPGA fabric to increse the utilzation of each module in the design.
    :width: 100%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-156
+.. GENERATED FROM PYTHON SOURCE LINES 14-152
 
 .. code-block:: default
 
@@ -96,9 +96,6 @@ FPGA fabric to increse the utilzation of each module in the design.
         fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
         fpga.register_placement_creator(initial_hetero_placement)
-        fpga.placement_creator.CPP = CPP
-        fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-        fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
 
         fpga.show_utilization_data()
 
@@ -147,7 +144,6 @@ FPGA fabric to increse the utilzation of each module in the design.
 
         fpga.update_module_label(
             get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f} [{x.utilization:.2%}]")
-        fpga.show_utilization_data()
 
         # Highlight over utilized modules
         additional_styles = fpga.get_overutils_styles()
@@ -176,7 +172,7 @@ FPGA fabric to increse the utilzation of each module in the design.
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-160
+.. GENERATED FROM PYTHON SOURCE LINES 153-156
 
 **Placement information**
 

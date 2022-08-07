@@ -28,7 +28,7 @@ sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 STYLE_SHEET = """
     .over_util {fill:#b22222 !important}
-    text{font-family: Lato; font-style: italic; font-size: 350px;}
+    text{font-family: Lato; font-style: italic; font-size: 250px;}
 """
 
 SCALE = 100
@@ -77,10 +77,6 @@ def main():
     fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
     fpga.register_placement_creator(initial_hetero_placement)
-    fpga.placement_creator.CPP = CPP
-    fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-    fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
-
     fpga.show_utilization_data()
 
     # Uncomment this to set module dimensions

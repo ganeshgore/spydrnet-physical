@@ -32,7 +32,7 @@ This script can be used for shaping and placement of the modules before place an
    :width: 100%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-160
+.. GENERATED FROM PYTHON SOURCE LINES 17-156
 
 .. code-block:: default
 
@@ -50,7 +50,7 @@ This script can be used for shaping and placement of the modules before place an
 
     STYLE_SHEET = """
         .over_util {fill:#b22222 !important}
-        text{font-family: Lato; font-style: italic; font-size: 350px;}
+        text{font-family: Lato; font-style: italic; font-size: 250px;}
     """
 
     SCALE = 100
@@ -99,10 +99,6 @@ This script can be used for shaping and placement of the modules before place an
         fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
         fpga.register_placement_creator(initial_hetero_placement)
-        fpga.placement_creator.CPP = CPP
-        fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-        fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
-
         fpga.show_utilization_data()
 
         # Uncomment this to set module dimensions
@@ -180,7 +176,7 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-164
+.. GENERATED FROM PYTHON SOURCE LINES 157-160
 
 **Placement information**
 

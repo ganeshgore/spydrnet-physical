@@ -32,26 +32,19 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-188
+.. GENERATED FROM PYTHON SOURCE LINES 17-186
 
 .. code-block:: default
 
 
     import glob
     import logging
+    import math
     from copy import deepcopy
 
-    from pprint import pprint
     import spydrnet as sdn
-    import spydrnet_physical as PROP
-    from spydrnet_physical.util import (
-        FloorPlanViz,
-        FPGAGridGen,
-        GridFloorplanGen,
-        OpenFPGA,
-        get_names,
-        initial_hetero_placement,
-    )
+    from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen,
+                                        OpenFPGA, initial_hetero_placement)
 
     logger = logging.getLogger("spydrnet_logs")
     sdn.enable_file_logging(LOG_LEVEL="INFO", filename="floorplan_heterpgeneous")
@@ -67,9 +60,10 @@ This script can be used for shaping and placement of the modules before place an
     FPGA_HEIGHT = 8
 
     SCALE = 100
-    CPP = 0.46 * SCALE
-    SC_HEIGHT = 2.72 * SCALE
+    CPP = math.floor(0.46 * SCALE)
+    SC_HEIGHT = math.floor(2.72 * SCALE)
 
+    PROP = "VERILOG.InlineConstraints"
 
     STYLE_SHEET = """
         symbol {mix-blend-mode: difference;}
@@ -79,6 +73,8 @@ This script can be used for shaping and placement of the modules before place an
         rect.highlight_box { fill:none; stroke-width:40; stroke:green;}
         text.highlight_box { font-size:500px; font-weight:800; fill:red}
     """
+
+    MULT_COLS = [2, 8]
 
 
     def main():
@@ -111,6 +107,11 @@ This script can be used for shaping and placement of the modules before place an
         )
         fpga_grid.enumerate_grid()
         fpga.load_grid(fpga_grid)
+        fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
+
+        fpga.SC_HEIGHT = SC_HEIGHT
+        fpga.CPP = CPP
+        fpga.SC_GRID = CPP * SC_HEIGHT
 
         # = = = = = = = = = = = = = = = = = = = = = = =
         #         Shaping Information
@@ -121,20 +122,15 @@ This script can be used for shaping and placement of the modules before place an
             areaFile={},
         )
 
-        fpga.placement_creator.CPP = CPP
-        fpga.placement_creator.SC_HEIGHT = SC_HEIGHT
-        fpga.placement_creator.SC_GRID = CPP * SC_HEIGHT
-
         m = {}
+        m["clb_w"], m["clb_h"] = 340, 60
+        m["cbx11_w"], m["cbx11_h"] = 220, 10
+        m["bottom_cbx_w"], m["bottom_cbx_h"] = 220, 18
+        m["top_cbx_w"], m["top_cbx_h"] = 220, 40
 
-        m["clb_w"], m["clb_h"] = 580, 82
-        m["cbx11_w"], m["cbx11_h"] = 400, 18
-        m["bottom_cbx_w"], m["bottom_cbx_h"] = 400, 32
-        m["top_cbx_w"], m["top_cbx_h"] = 400, 52
-
-        m["cby11_w"], m["cby11_h"] = 160, 60
-        m["left_cby_w"], m["left_cby_h"] = 320, 60
-        m["right_cby_w"], m["right_cby_h"] = 260, 60
+        m["cby11_w"], m["cby11_h"] = 120, 40
+        m["left_cby_w"], m["left_cby_h"] = 180, 40
+        m["right_cby_w"], m["right_cby_h"] = 160, 40
 
         fpga.placement_creator.update_shaping_param(m)
         fpga.placement_creator.derive_sb_paramters()
@@ -170,27 +166,29 @@ This script can be used for shaping and placement of the modules before place an
         shapes["sb_8__1_"]["PLACEMENT"][0] = 0  # Reset x offset
 
         # Make few modules unique to fit in floorplan
-        instance_list = [f"sb_7__{i}_" for i in range(1, FPGA_HEIGHT, 2)]
-        instance_list += ["sb_1__3_", "sb_1__5_", "sb_1__7_"]
+        inst_list = []
+        for col in MULT_COLS:
+            inst_list += [f"sb_{col-1}__{i}_" for i in range(1, FPGA_HEIGHT, 2)]
         fpga.top_module.make_instance_unique(
-            next(fpga.top_module.get_instances(instance_list[0])),
+            next(fpga.top_module.get_instances(inst_list[0])),
             "sb_7__1_",
-            instance_list=instance_list,
+            instance_list=inst_list,
         )
         shapes["sb_7__1_"] = deepcopy(shapes["sb_1__1_"])
         shapes["sb_7__1_"]["POINTS"][-2] = 0  # Trim right side
-
-        # Not able uniquify the sb_1__1_ instance
+        shapes.pop("sb_1__1_")
 
         fpga.create_placement()
-        pprint(shapes)
         fpga.update_module_label()
+
+        additional_styles = fpga.get_overutils_styles()
+
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         fpga.show_placement_data("*")
 
         fp = FloorPlanViz(fpga.top_module)
         fp.compose(skip_connections=True, skip_pins=True)
-        fp.custom_style_sheet = STYLE_SHEET
+        fp.custom_style_sheet = STYLE_SHEET + additional_styles
         dwg = fp.get_svg()
         dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
