@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="120" version="1.1" viewBox="0,-90.0,80,120" width="80">
-    <defs id="id10">
+    <defs id="id15">
         <style type="text/css"><![CDATA[
                 text{font-family: Verdana;}
                 svgg{background-color:grey;}
@@ -12,8 +12,11 @@
                 .top{stroke-dasharray: 5;}
                 .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
                 ]]></style>
-        <marker id="id9" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
+        <marker id="id13" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
             <path d="M 0 0 L 60 30 L 0 60 z" fill="blue"/>
+        </marker>
+        <marker id="id14" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
+            <circle cx="0" cy="0" fill="red" r="60"/>
         </marker>
     </defs>
     <g id="markers" transform="scale(1,-1)">
@@ -27,15 +30,15 @@
         <line class="gridmarker" x1="10.0" x2="70.0" y1="70.0" y2="70.0"/>
     </g>
     <g id="main" transform="scale(1,-1)">
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="40" y1="0" y2="20"/>
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="60" y1="20" y2="20"/>
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="20" y1="20" y2="20"/>
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="40" y1="20" y2="40"/>
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="60" y1="40" y2="40"/>
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="20" y1="40" y2="40"/>
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="40" y1="40" y2="60"/>
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="60" y1="60" y2="60"/>
-        <line class="connection same" marker-end="url(#id9)" stroke=" black" x1="40" x2="20" y1="60" y2="60"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="40" y1="0" y2="20"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="60" y1="20" y2="20"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="20" y1="20" y2="20"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="40" y1="20" y2="40"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="60" y1="40" y2="40"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="20" y1="40" y2="40"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="40" y1="40" y2="60"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="60" y1="60" y2="60"/>
+        <line class="connection same" marker-end="url(#id13)" marker-mid="url(#id14)" stroke=" black" x1="40" x2="20" y1="60" y2="60"/>
         <g id="text">
             <text alignment-baseline="middle" class="moduleLabel" fill="black" font-size="6.0" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="10.0">Original</text>
         </g>

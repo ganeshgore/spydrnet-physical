@@ -351,9 +351,8 @@ to download the full example code</p>
 <section class="sphx-glr-example-title" id="renaming-homogeneous-fpga-modules">
 <span id="sphx-glr-auto-openfpga-basic-rename-modules-py"></span><h1><span class="section-number">2.7. </span>Renaming Homogeneous FPGA Modules<a class="headerlink" href="#renaming-homogeneous-fpga-modules" title="Permalink to this headline">¶</a></h1>
 <p>Demonstrates how to rename FPGA modules</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">glob</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">tempfile</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">OpenFPGA</span>
@@ -362,39 +361,93 @@ to download the full example code</p>
 <span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">proj</span> <span class="o">=</span> <span class="s2">"../homogeneous_fabric"</span>
-    <span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/lb/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/routing/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/sub_module/*.v'</span><span class="p">)</span>
-    <span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/fpga_top.v'</span><span class="p">)</span>
+<span class="n">proj</span> <span class="o">=</span> <span class="s2">"../homogeneous_fabric"</span>
+<span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/lb/*.v'</span><span class="p">)</span>
+<span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/routing/*.v'</span><span class="p">)</span>
+<span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/sub_module/*.v'</span><span class="p">)</span>
+<span class="n">source_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">proj</span><span class="si">}</span><span class="s1">/*_Verilog/fpga_top.v'</span><span class="p">)</span>
 
-    <span class="c1"># Temporary fix to read multiple verilog files</span>
-    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">".v"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">each_module</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">each_module</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fpv</span><span class="p">:</span>
-                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpv</span><span class="o">.</span><span class="n">readlines</span><span class="p">())))</span>
-        <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="c1"># Create OpenFPGA object</span>
+<span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">verilog_files</span><span class="o">=</span><span class="n">source_files</span><span class="p">)</span>
+<span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_before_rename.txt"</span><span class="p">)</span>
 
-    <span class="n">fpga</span> <span class="o">=</span> <span class="n">OpenFPGA</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">netlist</span><span class="o">=</span><span class="n">netlist</span><span class="p">)</span>
+<span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+<span class="c1">#           Renaming Module</span>
+<span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+<span class="n">rename_modules_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"grid_clb"</span><span class="p">:</span> <span class="s2">"logic_block"</span><span class="p">,</span>
+    <span class="s2">"cbx_1__1_"</span><span class="p">:</span> <span class="s2">"h_conn"</span><span class="p">,</span>
+    <span class="s2">"cby_1__1_"</span><span class="p">:</span> <span class="s2">"v_conn"</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">each_module</span><span class="p">,</span> <span class="n">new_name</span> <span class="ow">in</span> <span class="n">rename_modules_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">each_module</span><span class="p">))</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_name</span>
 
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="c1">#           Renaming Module</span>
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="n">rename_modules_map</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">"grid_clb"</span><span class="p">:</span> <span class="s2">"LB"</span><span class="p">,</span>
-        <span class="s2">"cbx_1__1_"</span><span class="p">:</span> <span class="s2">"h_conn"</span><span class="p">,</span>
-        <span class="s2">"cby_1__1_"</span><span class="p">:</span> <span class="s2">"v_conn"</span>
-    <span class="p">}</span>
-    <span class="k">for</span> <span class="n">each_module</span><span class="p">,</span> <span class="n">new_name</span> <span class="ow">in</span> <span class="n">rename_modules_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="nb">next</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">each_module</span><span class="p">))</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_name</span>
-
-    <span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">()</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+<span class="n">fpga</span><span class="o">.</span><span class="n">design_top_stat</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"_after_rename.txt"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<p><strong>before_rename</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
+<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span>  <span class="n">DESIGN</span> <span class="n">STATS</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
+<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
+    <span class="n">top_module</span> <span class="p">:</span> <span class="n">fpga_top</span>
+    <span class="n">definitions</span><span class="p">:</span> <span class="mi">20</span>
+    <span class="n">instances</span>  <span class="p">:</span> <span class="mi">97</span>
+<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
+          <span class="n">References</span>    <span class="n">count</span>
+<span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> 
+           <span class="n">cbx_1__0_</span>        <span class="mi">4</span>
+           <span class="n">cbx_1__1_</span>       <span class="mi">12</span>
+           <span class="n">cbx_1__4_</span>        <span class="mi">4</span>
+           <span class="n">cby_0__1_</span>        <span class="mi">4</span>
+           <span class="n">cby_1__1_</span>       <span class="mi">12</span>
+           <span class="n">cby_4__1_</span>        <span class="mi">4</span>
+            <span class="n">grid_clb</span>       <span class="mi">16</span>
+      <span class="n">grid_io_bottom</span>        <span class="mi">4</span>
+        <span class="n">grid_io_left</span>        <span class="mi">4</span>
+       <span class="n">grid_io_right</span>        <span class="mi">4</span>
+         <span class="n">grid_io_top</span>        <span class="mi">4</span>
+            <span class="n">sb_0__0_</span>        <span class="mi">1</span>
+            <span class="n">sb_0__1_</span>        <span class="mi">3</span>
+            <span class="n">sb_0__4_</span>        <span class="mi">1</span>
+            <span class="n">sb_1__0_</span>        <span class="mi">3</span>
+            <span class="n">sb_1__1_</span>        <span class="mi">9</span>
+            <span class="n">sb_1__4_</span>        <span class="mi">3</span>
+            <span class="n">sb_4__0_</span>        <span class="mi">1</span>
+            <span class="n">sb_4__1_</span>        <span class="mi">3</span>
+            <span class="n">sb_4__4_</span>        <span class="mi">1</span>
+</pre></div>
+</div>
+<p><strong>after_rename</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
+<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span>  <span class="n">DESIGN</span> <span class="n">STATS</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
+<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
+    <span class="n">top_module</span> <span class="p">:</span> <span class="n">fpga_top</span>
+    <span class="n">definitions</span><span class="p">:</span> <span class="mi">20</span>
+    <span class="n">instances</span>  <span class="p">:</span> <span class="mi">97</span>
+<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
+          <span class="n">References</span>    <span class="n">count</span>
+<span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> 
+           <span class="n">cbx_1__0_</span>        <span class="mi">4</span>
+           <span class="n">cbx_1__4_</span>        <span class="mi">4</span>
+           <span class="n">cby_0__1_</span>        <span class="mi">4</span>
+           <span class="n">cby_4__1_</span>        <span class="mi">4</span>
+      <span class="n">grid_io_bottom</span>        <span class="mi">4</span>
+        <span class="n">grid_io_left</span>        <span class="mi">4</span>
+       <span class="n">grid_io_right</span>        <span class="mi">4</span>
+         <span class="n">grid_io_top</span>        <span class="mi">4</span>
+              <span class="n">h_conn</span>       <span class="mi">12</span>
+         <span class="n">logic_block</span>       <span class="mi">16</span>
+            <span class="n">sb_0__0_</span>        <span class="mi">1</span>
+            <span class="n">sb_0__1_</span>        <span class="mi">3</span>
+            <span class="n">sb_0__4_</span>        <span class="mi">1</span>
+            <span class="n">sb_1__0_</span>        <span class="mi">3</span>
+            <span class="n">sb_1__1_</span>        <span class="mi">9</span>
+            <span class="n">sb_1__4_</span>        <span class="mi">3</span>
+            <span class="n">sb_4__0_</span>        <span class="mi">1</span>
+            <span class="n">sb_4__1_</span>        <span class="mi">3</span>
+            <span class="n">sb_4__4_</span>        <span class="mi">1</span>
+              <span class="n">v_conn</span>       <span class="mi">12</span>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>

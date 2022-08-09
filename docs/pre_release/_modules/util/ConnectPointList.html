@@ -345,15 +345,16 @@
           <h1>Source code for util.ConnectPointList</h1><div class="highlight"><pre>
 <span></span><span class="sd">'''</span>
 <span class="sd">'''</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">svgwrite</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">ConnectPoint</span>
 <span class="kn">from</span> <span class="nn">svgwrite.container</span> <span class="kn">import</span> <span class="n">Group</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 
 <span class="n">DEFAULT_COLOR</span> <span class="o">=</span> <span class="s2">" black"</span>
 
@@ -432,7 +433,13 @@
 
 <div class="viewcode-block" id="ConnectPointList.store_points"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.store_points">[docs]</a>    <span class="k">def</span> <span class="nf">store_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">''' Stores all points and its attributes in csv format in the file '''</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_ptr</span><span class="p">:</span>
+            <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"# Generated using SpyDrNet-physical plugin</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"# fr_x  fr_y  to_x  to_y  type</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"= = "</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span>  <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">:</span>
+                <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">point</span><span class="p">)</span><span class="o">+</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="ConnectPointList.validate_connectivity"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.validate_connectivity">[docs]</a>    <span class="k">def</span> <span class="nf">validate_connectivity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -441,15 +448,45 @@
 <span class="sd">        * If there is any connection coming outside from range (0-sizex+1) or (0-sizey+1)</span>
 <span class="sd">        * If there is any redundant connections</span>
 <span class="sd">        """</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+        <span class="c1"># Check if signal enter module multiple times</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Checking consistency of the connection file"</span><span class="p">)</span>
+        <span class="n">point</span> <span class="p">:</span> <span class="n">ConnectPoint</span>
+        <span class="n">in_mapping</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="o">+</span><span class="mi">2</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="o">+</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">in_mapping</span><span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">to_x</span><span class="p">][</span><span class="n">point</span><span class="o">.</span><span class="n">to_y</span><span class="p">]:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Multiple input for instance (</span><span class="si">%d</span><span class="s2"> </span><span class="si">%d</span><span class="s2">)"</span><span class="p">,</span>
+                                <span class="o">*</span><span class="n">point</span><span class="o">.</span><span class="n">to_connection</span><span class="p">)</span>
+            <span class="n">in_mapping</span><span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">to_x</span><span class="p">][</span><span class="n">point</span><span class="o">.</span><span class="n">to_y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.load_points"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points">[docs]</a>    <span class="k">def</span> <span class="nf">load_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectPointList.load_points"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points">[docs]</a>    <span class="k">def</span> <span class="nf">load_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">" "</span><span class="p">,</span> <span class="n">skiplines</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
         <span class="sd">'''</span>
 <span class="sd">        Loads all points and its attributes from the given csv file</span>
 
 <span class="sd">        Format: from_x, from_y, to_x, to_y, level, color</span>
 <span class="sd">        '''</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">append</span><span class="p">:</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">)]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">pts_file</span><span class="p">:</span>
+            <span class="n">spamreader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">pts_file</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span> <span class="n">skipinitialspace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="n">spamreader</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">skiplines</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">spamreader</span><span class="p">:</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="o">*</span><span class="n">row</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+                <span class="k">if</span> <span class="s2">"top"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">make_top_connection</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">"down"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">push_connection_down</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">"up"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ConnectPointList.load_points_from_svg"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points_from_svg">[docs]</a>    <span class="k">def</span> <span class="nf">load_points_from_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"markers"</span><span class="p">,</span>
+                        <span class="n">same_color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">down_color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">up_color</span><span class="o">=</span><span class="s2">"green"</span><span class="p">):</span>
+        <span class="sd">'''</span>
+<span class="sd">        This method loads points from the SVG file.</span>
+<span class="sd">        enabling UI based designing of connection file.</span>
+<span class="sd">        '''</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
 
 <div class="viewcode-block" id="ConnectPointList.search_from_point"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.search_from_point">[docs]</a>    <span class="k">def</span> <span class="nf">search_from_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
         <span class="sd">'''</span>
@@ -638,7 +675,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            ConnectPointList: Return self object</span>
 <span class="sd">        '''</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">connectlist</span><span class="o">.</span><span class="n">_points</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">connectlist</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.scale"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
@@ -839,17 +876,27 @@
 <span class="s2">                .top{stroke-dasharray: 5;}</span>
 <span class="s2">                .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}</span>
 <span class="s2">                """</span><span class="p">))</span>
+        <span class="c1"># Add arrow marker</span>
         <span class="n">DRMarker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">refX</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span> <span class="n">refY</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span>
                               <span class="n">viewBox</span><span class="o">=</span><span class="s2">"0 0 120 120"</span><span class="p">,</span>
                               <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
                               <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span> <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">)</span>
         <span class="n">DRMarker</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="s2">"M 0 0 L 60 30 L 0 60 z"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">))</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">DRMarker</span><span class="p">)</span>
+
+        <span class="c1"># Add buffer marker</span>
+        <span class="n">buff_marker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">refX</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span> <span class="n">refY</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span>
+                                 <span class="n">viewBox</span><span class="o">=</span><span class="s2">"0 0 120 120"</span><span class="p">,</span>
+                                 <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
+                                 <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span> <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">)</span>
+        <span class="n">buff_marker</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"red"</span><span class="p">))</span>
+        <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">buff_marker</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="n">conn_new</span> <span class="o">=</span> <span class="n">conn</span><span class="o">*</span><span class="n">scale</span>
             <span class="n">dwgMain</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">conn_new</span><span class="o">.</span><span class="n">from_connection</span><span class="p">,</span>
                                  <span class="n">end</span><span class="o">=</span><span class="n">conn_new</span><span class="o">.</span><span class="n">to_connection</span><span class="p">,</span>
                                  <span class="n">stroke</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
+                                 <span class="n">marker_mid</span><span class="o">=</span><span class="n">buff_marker</span><span class="o">.</span><span class="n">get_funciri</span><span class="p">(),</span>
                                  <span class="n">marker_end</span><span class="o">=</span><span class="n">DRMarker</span><span class="o">.</span><span class="n">get_funciri</span><span class="p">(),</span>
                                  <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"connection </span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">level</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">dwg</span></div>
@@ -913,7 +960,7 @@
                 <span class="n">mstat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"out"</span><span class="p">,</span> <span class="n">default</span><span class="p">)[</span><span class="s2">"top"</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'-'</span><span class="p">,</span>
                 <span class="n">mstat</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"out"</span><span class="p">,</span> <span class="n">default</span><span class="p">)[</span><span class="s2">"bottom"</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">'-'</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
@@ -1022,7 +1069,8 @@
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">w</span><span class="o">.</span><span class="n">connect_pin</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="n">port_name</span><span class="p">)))</span>
                 <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="n">port_name</span><span class="p">))</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="nb">next</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="n">port_name</span><span class="p">))</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                     <span class="n">w</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">get_port_pins</span><span class="p">(</span><span class="n">port_name</span><span class="p">))</span><span class="o">.</span><span class="n">wire</span>
 
             <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="n">point</span><span class="o">.</span><span class="n">to_connection</span> <span class="ow">or</span> \

@@ -24,14 +24,13 @@ Renaming Homogeneous FPGA Modules
 
 Demonstrates how to rename FPGA modules
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-54
+.. GENERATED FROM PYTHON SOURCE LINES 9-44
 
 .. code-block:: default
 
 
-    import glob
+    from glob import glob
     import logging
-    import tempfile
 
     import spydrnet as sdn
     from spydrnet_physical.util import OpenFPGA
@@ -40,39 +39,42 @@ Demonstrates how to rename FPGA modules
     sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
-    def main():
-        proj = "../homogeneous_fabric"
-        source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
+    proj = "../homogeneous_fabric"
+    source_files = glob(f'{proj}/*_Verilog/lb/*.v')
+    source_files += glob(f'{proj}/*_Verilog/routing/*.v')
+    source_files += glob(f'{proj}/*_Verilog/sub_module/*.v')
+    source_files += glob(f'{proj}/*_Verilog/fpga_top.v')
 
-        # Temporary fix to read multiple verilog files
-        with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-            for each_module in source_files:
-                with open(each_module, "r") as fpv:
-                    fp.write(str.encode(" ".join(fpv.readlines())))
-            fp.seek(0)
-            netlist = sdn.parse(fp.name)
+    # Create OpenFPGA object
+    fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
+    fpga.design_top_stat(filename="_before_rename.txt")
 
-        fpga = OpenFPGA(grid=(4, 4), netlist=netlist)
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    #           Renaming Module
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    rename_modules_map = {
+        "grid_clb": "logic_block",
+        "cbx_1__1_": "h_conn",
+        "cby_1__1_": "v_conn"
+    }
+    for each_module, new_name in rename_modules_map.items():
+        next(fpga.top_module.get_definitions(each_module)).name = new_name
 
-        # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        #           Renaming Module
-        # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        rename_modules_map = {
-            "grid_clb": "LB",
-            "cbx_1__1_": "h_conn",
-            "cby_1__1_": "v_conn"
-        }
-        for each_module, new_name in rename_modules_map.items():
-            next(fpga.top_module.get_definitions(each_module)).name = new_name
-
-        fpga.design_top_stat()
+    fpga.design_top_stat(filename="_after_rename.txt")
 
 
-    if __name__ == "__main__":
-        main()
+
+.. GENERATED FROM PYTHON SOURCE LINES 45-54
+
+**Output**
+
+**before_rename**
+
+.. literalinclude:: ../../../examples/OpenFPGA_basic/_before_rename.txt
+
+**after_rename**
+
+.. literalinclude:: ../../../examples/OpenFPGA_basic/_after_rename.txt
 
 
 .. rst-class:: sphx-glr-timing

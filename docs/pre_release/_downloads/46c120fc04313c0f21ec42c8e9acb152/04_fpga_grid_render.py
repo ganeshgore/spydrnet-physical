@@ -46,7 +46,7 @@ dwg = fpga.render_layout(
     filename="_small_layout_render.svg", grid_io=True, markers=True)
 
 # %%
-# **<odify the dimensions**
+# **Modify the dimensions**
 # This example adds rectangular shape to all the modules in te design
 #
 # .. image:: ../../../examples/OpenFPGA_basic/_ultimate_layout_render.svg
