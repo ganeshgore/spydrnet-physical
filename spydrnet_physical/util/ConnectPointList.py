@@ -96,7 +96,15 @@ class ConnectPointList:
         * If there is any connection coming outside from range (0-sizex+1) or (0-sizey+1)
         * If there is any redundant connections
         """
-        raise NotImplementedError
+        # Check if signal enter module multiple times
+        logger.info("Checking consistency of the connection file")
+        point : ConnectPoint
+        in_mapping = [[0 for _ in range(self.sizey+2)] for _ in range(self.sizex+2)]
+        for point in self._points:
+            if in_mapping[point.to_x][point.to_y]:
+                logger.warning("Multiple input for instance (%d %d)",
+                                *point.to_connection)
+            in_mapping[point.to_x][point.to_y] = 1
 
     def load_points(self, filename):
         '''
@@ -494,17 +502,27 @@ class ConnectPointList:
                 .top{stroke-dasharray: 5;}
                 .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
                 """))
+        # Add arrow marker
         DRMarker = dwg.marker(refX="30", refY="30",
                               viewBox="0 0 120 120",
                               markerUnits="strokeWidth",
                               markerWidth="5", markerHeight="10", orient="auto")
         DRMarker.add(dwg.path(d="M 0 0 L 60 30 L 0 60 z", fill="blue"))
         dwg.defs.add(DRMarker)
+
+        # Add buffer marker
+        buff_marker = dwg.marker(refX="30", refY="30",
+                                 viewBox="0 0 120 120",
+                                 markerUnits="strokeWidth",
+                                 markerWidth="5", markerHeight="10", orient="auto")
+        buff_marker.add(dwg.circle(center=(0, 0), r=60, fill="red"))
+        dwg.defs.add(buff_marker)
         for conn in self._points:
             conn_new = conn*scale
             dwgMain.add(dwg.line(start=conn_new.from_connection,
                                  end=conn_new.to_connection,
                                  stroke=conn.color,
+                                 marker_mid=buff_marker.get_funciri(),
                                  marker_end=DRMarker.get_funciri(),
                                  class_=f"connection {conn.level}"))
         return dwg
@@ -568,7 +586,7 @@ class ConnectPointList:
                 mstat.get("out", default)["top"] or '-',
                 mstat.get("out", default)["bottom"] or '-'))
         if filename:
-            with open(filename, "w") as fp:
+            with open(filename, "w", encoding="UTF-8") as fp:
                 fp.write("\n".join(output))
         return output
 
@@ -677,7 +695,8 @@ class ConnectPointList:
                 try:
                     w.connect_pin(next(inst.get_port_pins(port_name)))
                 except AssertionError:
-                    logger.warning(next(inst.get_port_pins(port_name)).port.name)
+                    logger.warning(
+                        next(inst.get_port_pins(port_name)).port.name)
                     w = next(inst.get_port_pins(port_name)).wire
 
             if 0 in point.to_connection or \
