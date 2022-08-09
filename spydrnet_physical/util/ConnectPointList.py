@@ -1,14 +1,15 @@
 '''
 '''
-from typing import List
+import csv
 import logging
+from collections import OrderedDict
+from typing import List
 
 import networkx as nx
 import spydrnet as sdn
 import svgwrite
 from spydrnet_physical.util import ConnectPoint
 from svgwrite.container import Group
-from collections import OrderedDict
 
 DEFAULT_COLOR = " black"
 
@@ -87,7 +88,13 @@ class ConnectPointList:
 
     def store_points(self, filename):
         ''' Stores all points and its attributes in csv format in the file '''
-        raise NotImplementedError
+        with open(filename, "w", encoding="UTF-8") as file_ptr:
+            file_ptr.write("# Generated using SpyDrNet-physical plugin\n")
+            file_ptr.write("# fr_x  fr_y  to_x  to_y  type\n")
+            file_ptr.write("= = "*10 +"\n")
+            for point in  self.points:
+                file_ptr.write(str(point)+"\n")
+
 
     def validate_connectivity(self):
         """
@@ -106,13 +113,35 @@ class ConnectPointList:
                                 *point.to_connection)
             in_mapping[point.to_x][point.to_y] = 1
 
-    def load_points(self, filename):
+    def load_points(self, filename, append=False, delimiter=" ", skiplines=3):
         '''
         Loads all points and its attributes from the given csv file
 
         Format: from_x, from_y, to_x, to_y, level, color
         '''
+        if not append:
+            _ = [self._points.pop(0) for _ in list(self._points)]
+        with open(filename, encoding="UTF-8") as pts_file:
+            spamreader = csv.reader(pts_file, delimiter=delimiter, skipinitialspace=True)
+            _ = [next(spamreader) for _ in range(skiplines)]
+            for row in spamreader:
+                point = self.add_connection(*row[:4])
+                if "top" in row[-1]:
+                    self.make_top_connection(point)
+                if "down" in row[-1]:
+                    self.push_connection_down(point)
+                if "up" in row[-1]:
+                    self.pull_connection_up(point)
+
+
+    def load_points_from_svg(self, filename, grid=10, group="markers",
+                        same_color="black", down_color="red", up_color="green"):
+        '''
+        This method loads points from the SVG file.
+        enabling UI based designing of connection file.
+        '''
         raise NotImplementedError
+
 
     def search_from_point(self, point):
         '''
@@ -301,7 +330,7 @@ class ConnectPointList:
         Returns:
             ConnectPointList: Return self object
         '''
-        self._points.extend(connectlist._points)
+        self._points.extend(connectlist.points)
         return self
 
     def scale(self, scale, anchor=(0, 0)):
