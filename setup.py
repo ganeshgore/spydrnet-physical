@@ -9,16 +9,16 @@ if sys.argv[-1] == "setup.py":
 
 if sys.version_info[:2] < (3, 5):
     python_version = "{}.{}".format(sys.version_info[0], sys.version_info[1])
-    msg = (
-        "SpyDrNet 1.0+ requires Python 3.5 or later ({} detected).\n\n".format(
-            python_version)
+    msg = "SpyDrNet 1.0+ requires Python 3.5 or later ({} detected).\n\n".format(
+        python_version
     )
     sys.stderr.write(msg + "\n")
     sys.exit(1)
 
 # Write the version information.
-sys.path.insert(0, 'spydrnet_physical')
+sys.path.insert(0, "spydrnet_physical")
 import release  # nopep8
+
 version = release.update_versionfile()
 sys.path.pop(0)
 
@@ -26,21 +26,16 @@ long_description = "WIP"
 
 example_verilog_netlist = list()
 folder_path = path.normpath(
-    path.join(path.dirname(__file__), "spydrnet_physical", "support_files"))
+    path.join(path.dirname(__file__), "spydrnet_physical", "support_files")
+)
 for filename in glob.glob(path.join(folder_path, "**", "*"), recursive=True):
     if path.isfile(filename) and path.getsize(filename) < 1024 * 10:
         example_verilog_netlist.append(
-            "support_files/" +
-            str(filename)[len(folder_path) + 1:].replace('\\', '/'))
+            "support_files/" + str(filename)[len(folder_path) + 1 :].replace("\\", "/")
+        )
 
 extras_require = {
-    "all": [
-        "pytest",
-        "ply",
-        "websock",
-        "svgwrite",
-        "ipython"
-    ],
+    "all": ["pytest", "ply", "websock", "svgwrite", "ipython"],
     "pytest": ["pytest"],
     "ply": ["ply"],
 }
@@ -52,8 +47,8 @@ if __name__ == "__main__":
         version=version,
         maintainer=release.maintainer,
         maintainer_email=release.maintainer_email,
-        author=release.authors['gore'][0],
-        author_email=release.authors['gore'][1],
+        author=release.authors["gore"][0],
+        author_email=release.authors["gore"][1],
         description=release.description,
         keywords=release.keywords,
         long_description=long_description,
@@ -62,19 +57,17 @@ if __name__ == "__main__":
         url=release.url,
         project_urls=release.project_urls,
         classifiers=release.classifiers,
-        package_data={'spydrnet_physical': [
-            'VERSION'] + example_verilog_netlist},
+        package_data={"spydrnet_physical": ["VERSION"] + example_verilog_netlist},
         packages=setuptools.find_packages(),
         extras_require=extras_require,
         dependency_links=[
             "git+git://https://github.com/ganeshgore/spydrnet/main",
         ],
-        python_requires='>=3.5',
+        python_requires=">=3.5",
         zip_safe=False,
         entry_points={
-            'console_scripts': [
-                'sdnphy = spydrnet_physical.util.shell:launch_shell',
-                'clean_gsb = spydrnet_physical.util.clean_gsb:clean_gsb',
+            "console_scripts": [
+                "sdnphy = spydrnet_physical.util.shell:launch_shell",
             ],
         },
     )

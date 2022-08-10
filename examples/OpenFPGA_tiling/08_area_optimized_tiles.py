@@ -19,27 +19,26 @@ from itertools import chain
 from os import path
 
 import spydrnet as sdn
-from spydrnet_physical.util import (FloorPlanViz, Tile01,
-                                    GridFloorplanGen, OpenFPGA)
+from spydrnet_physical.util import FloorPlanViz, Tile01, GridFloorplanGen, OpenFPGA
 
 
-logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='INFO')
+logger = logging.getLogger("spydrnet_logs")
+sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 PROP = "VERILOG.InlineConstraints"
 
 
 def main():
-    proj = '../homogeneous_fabric'
-    source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
-    source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
+    proj = "../homogeneous_fabric"
+    source_files = glob.glob(f"{proj}/*_Verilog/lb/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/routing/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
+    source_files += glob.glob(f"{proj}/*_Verilog/fpga_top.v")
 
     # Temporary fix to read multiple verilog files
     with tempfile.NamedTemporaryFile(suffix=".v") as fp:
-        for eachV in source_files:
-            with open(eachV, "r") as fpv:
+        for each_file in source_files:
+            with open(each_file, "r", encoding="UTF-8") as fpv:
                 fp.write(str.encode(" ".join(fpv.readlines())))
         fp.seek(0)
         netlist = sdn.parse(fp.name)
@@ -58,16 +57,17 @@ def main():
     fpga.remove_config_chain()
 
     # Convert top level independent nets to bus
-    for i in chain(fpga.top_module.get_instances("grid_clb*"),
-                   fpga.top_module.get_instances("grid_io*"),
-                   fpga.top_module.get_instances("sb_*")):
+    for i in chain(
+        fpga.top_module.get_instances("grid_clb*"),
+        fpga.top_module.get_instances("grid_io*"),
+        fpga.top_module.get_instances("sb_*"),
+    ):
         for p in filter(lambda x: True, i.reference.ports):
             if p.size > 1 and (i.check_all_scalar_connections(p)):
                 cable_list = []
                 for pin in p.pins[::-1]:
                     cable_list.append(i.pins[pin].wire.cable)
-                cable = fpga.top_module.combine_cables(
-                    f"{i.name}_{p.name}", cable_list)
+                cable = fpga.top_module.combine_cables(f"{i.name}_{p.name}", cable_list)
                 cable.is_downto = False
 
     # Before Creating Tiles
@@ -81,11 +81,12 @@ def main():
 
     # After Creating Tiles
     fpga.design_top_stat()
+    fpga.show_utilization_data()
 
-# %%
-#
-# Following section is for rendering only
-#
+    # %%
+    #
+    # Following section is for rendering only
+    #
 
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #           Floorplan visualization
@@ -104,15 +105,15 @@ def main():
     for xi in range(4, 0, -1):
         for yi in range(4, 0, -1):
             X_OFFSET, Y_OFFSET = 10, 10
-            points = grid_plan.get_x_y(xi-1, yi-1)
+            points = grid_plan.get_x_y(xi - 1, yi - 1)
             try:
                 inst = next(fpga.top_module.get_instances(f"*_{xi}__{yi}_*"))
                 refname = inst.reference.name
             except StopIteration:
                 continue
 
-            inst.data[PROP]['LOC_X'] = points[0] + X_OFFSET
-            inst.data[PROP]['LOC_Y'] = points[1] + Y_OFFSET
+            inst.data[PROP]["LOC_X"] = points[0] + X_OFFSET
+            inst.data[PROP]["LOC_Y"] = points[1] + Y_OFFSET
 
     fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
     fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20

@@ -108,26 +108,26 @@ Utilization Based
 
 import logging
 import math
-import os
 import json
 from copy import deepcopy
 from typing import Callable
 from pprint import pformat, pprint
 from spydrnet_physical.util.shell import launch_shell
 from spydrnet_physical.util import GridFloorplanGen
+from spydrnet_physical.util.get_names import get_names
 from spydrnet_physical import PROP
 
 import yaml
 from spydrnet_physical.util import OpenFPGA_Placement_Generator, FPGAGridGen
 
-logger = logging.getLogger('spydrnet_logs')
+logger = logging.getLogger("spydrnet_logs")
 
 AREA, WIDTH, HEIGHT = 0, 1, 2
 
-CBX_COLOR = '#d9d9f3'
-CBY_COLOR = '#a8d0db'
-SB_COLOR = '#ceefe4'
-GRID_COLOR = '#ddd0b1'
+CBX_COLOR = "#d9d9f3"
+CBY_COLOR = "#a8d0db"
+SB_COLOR = "#ceefe4"
+GRID_COLOR = "#ddd0b1"
 
 
 class initial_hetero_placement(OpenFPGA_Placement_Generator):
@@ -157,10 +157,17 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
     }
     """dict: All the shaping paramteres """
 
-    def __init__(self, grid, netlist, fpga_grid: FPGAGridGen, debug=False,
-                 areaFile=None, shapingConf=None):
+    def __init__(
+        self,
+        grid,
+        netlist,
+        fpga_grid: FPGAGridGen,
+        debug=False,
+        areaFile=None,
+        shapingConf=None,
+    ):
         super().__init__(grid, netlist, fpga_grid)
-        self.SC_GRID = self.SC_HEIGHT*self.CPP
+        self.SC_GRID = self.SC_HEIGHT * self.CPP
         self.calculate_shapes()
         self.create_shapes()
         self.add_module_colors()
@@ -189,11 +196,11 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
 
         # Perform placement
         top_module = self._top_module
-        for x_indx in range((self.fpga_size[0]*2) + 1, 0, -1):
-            for y_indx in range((self.fpga_size[1]*2) + 1, 0, -1):
+        for x_indx in range((self.fpga_size[0] * 2) + 1, 0, -1):
+            for y_indx in range((self.fpga_size[1] * 2) + 1, 0, -1):
                 x_off, y_off = 0, 0
                 inst_name = self.fpga_grid.get_top_instance(x_indx, y_indx)
-                anchor = self.design_grid.get_x_y(x_indx-1, y_indx-1)
+                anchor = self.design_grid.get_x_y(x_indx - 1, y_indx - 1)
                 try:
                     inst = next(top_module.get_instances(f"*{inst_name}"))
                 except StopIteration:
@@ -206,52 +213,56 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
                     x_off, y_off = module["PLACEMENT"]
                 if isinstance(module["PLACEMENT"], list):
                     x_off, y_off = module["PLACEMENT"]
-                inst.data[PROP]['LOC_X'] = anchor[0] + (x_off*self.CPP)
-                inst.data[PROP]['LOC_Y'] = anchor[1] + (y_off*self.SC_HEIGHT)
+                inst.data[PROP]["LOC_X"] = math.floor(
+                    anchor[0] + (x_off * self.CPP))
+                inst.data[PROP]["LOC_Y"] = math.floor(
+                    anchor[1] + (y_off * self.SC_HEIGHT)
+                )
 
-        top_module.data[PROP]["WIDTH"] = \
-            self.design_grid.width + \
-            (2*self.s_param["OFFSET_X"]*self.CPP)
-        top_module.data[PROP]["HEIGHT"] = \
-            self.design_grid.height + \
-            (2*self.s_param["OFFSET_Y"]*self.SC_HEIGHT)
+        top_module.data[PROP]["WIDTH"] = self.design_grid.width + (
+            2 * self.s_param["OFFSET_X"] * self.CPP
+        )
+        top_module.data[PROP]["HEIGHT"] = self.design_grid.height + (
+            2 * self.s_param["OFFSET_Y"] * self.SC_HEIGHT
+        )
 
     def update_placement_grid(self):
         """
         Update two dimensional placement grid
         """
         # Adjusting placement grids
-        self.design_grid.offset_x = self.s_param["OFFSET_X"]*self.CPP
-        self.design_grid.offset_y = self.s_param["OFFSET_Y"]*self.SC_HEIGHT
+        self.design_grid.offset_x = self.s_param["OFFSET_X"] * self.CPP
+        self.design_grid.offset_y = self.s_param["OFFSET_Y"] * self.SC_HEIGHT
 
         W = self.fpga_size[0]
         H = self.fpga_size[1]
 
         # Set grid_clb column
-        for i in range(2, (self.fpga_size[0]*2)+1, 2):
-            self.design_grid.set_column_width(i, 
-                self.s_param["clb_w"]*self.CPP)
-        # Set grid_clb row
-        for i in range(2, (self.fpga_size[1]*2)+1, 2):
-            self.design_grid.set_row_height(i, 
-                self.s_param["clb_h"]*self.SC_HEIGHT)
-
-        for i in range(1, (self.fpga_size[0]*2)+2, 2):
+        for i in range(2, (self.fpga_size[0] * 2) + 1, 2):
             self.design_grid.set_column_width(
-                i, self.s_param["cby11_w"]*self.CPP)
-
-        for i in range(1, (self.fpga_size[1]*2)+2, 2):
+                i, self.s_param["clb_w"] * self.CPP)
+        # Set grid_clb row
+        for i in range(2, (self.fpga_size[1] * 2) + 1, 2):
             self.design_grid.set_row_height(
-                i, self.s_param["cbx11_h"]*self.SC_HEIGHT)
+                i, self.s_param["clb_h"] * self.SC_HEIGHT)
+
+        for i in range(1, (self.fpga_size[0] * 2) + 2, 2):
+            self.design_grid.set_column_width(
+                i, self.s_param["cby11_w"] * self.CPP)
+
+        for i in range(1, (self.fpga_size[1] * 2) + 2, 2):
+            self.design_grid.set_row_height(
+                i, self.s_param["cbx11_h"] * self.SC_HEIGHT)
 
         self.design_grid.set_row_height(
-            1, self.s_param["bottom_cbx_h"]*self.SC_HEIGHT)
-        self.design_grid.set_row_height(
-            -1, self.s_param["top_cbx_h"]*self.SC_HEIGHT)
+            1, self.s_param["bottom_cbx_h"] * self.SC_HEIGHT
+        )
+        self.design_grid.set_row_height(-1,
+                                        self.s_param["top_cbx_h"] * self.SC_HEIGHT)
         self.design_grid.set_column_width(
-            1, self.s_param["left_cby_w"]*self.CPP)
-        self.design_grid.set_column_width(
-            -1, self.s_param["right_cby_w"]*self.CPP)
+            1, self.s_param["left_cby_w"] * self.CPP)
+        self.design_grid.set_column_width(-1,
+                                          self.s_param["right_cby_w"] * self.CPP)
 
     def update_shapes(self):
         """
@@ -264,41 +275,55 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
             try:
                 module = next(self._top_module.get_definitions(eachm))
             except StopIteration:
-                logger.exception('Not found %s', eachm)
-                return
+                logger.warning("Shape %s not found", eachm)
             shape = param.get("SHAPE", "rect")
             if (shape == "cross") or (shape == "custom"):
                 points = self._scale_shape(shape, param["POINTS"])
                 module.data[PROP]["SHAPE"] = shape
                 module.data[PROP]["POINTS"] = points
-                module.data[PROP]["WIDTH"] = \
-                    sum([param["POINTS"][i] for i in [1, 3, 4]])
-                module.data[PROP]["HEIGHT"] = \
-                    sum([param["POINTS"][i] for i in [0, 2, 5]])
+                module.data[PROP]["WIDTH"] = sum(
+                    [param["POINTS"][i] for i in [1, 3, 4]]
+                )
+                module.data[PROP]["HEIGHT"] = sum(
+                    [param["POINTS"][i] for i in [0, 2, 5]]
+                )
             else:
-                module.data[PROP]["SHAPE"] = 'rect'
-                module.data[PROP]["WIDTH"] = param["POINTS"][0]*self.CPP
-                module.data[PROP]["HEIGHT"] = param["POINTS"][1] * \
-                    self.SC_HEIGHT
+                module.data[PROP]["SHAPE"] = "rect"
+                module.data[PROP]["WIDTH"] = int(param["POINTS"][0] * self.CPP)
+                module.data[PROP]["HEIGHT"] = int(
+                    param["POINTS"][1] * self.SC_HEIGHT)
 
     def _scale_shape(self, shape, points):
         if shape == "cross":
-            points = [a*b for a, b in (zip(
-                points, (self.SC_HEIGHT, self.CPP, self.SC_HEIGHT,
-                         self.CPP, self.CPP, self.SC_HEIGHT)))]
+            points = [
+                a * b
+                for a, b in (
+                    zip(
+                        points,
+                        (
+                            self.SC_HEIGHT,
+                            self.CPP,
+                            self.SC_HEIGHT,
+                            self.CPP,
+                            self.CPP,
+                            self.SC_HEIGHT,
+                        ),
+                    )
+                )
+            ]
         if shape == "custom":
             pass
         return points
 
     def update_shaping_param(self, update_module_shapes):
-        '''
+        """
         Overwrite default configuration variables
-        '''
+        """
         self.s_param.update(update_module_shapes)
 
     @staticmethod
     def _get_location(x, y):
-        ""
+        """"""
         return 0, 0
 
     @staticmethod
@@ -327,18 +352,18 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         Return:
             (flota, float)
         """
-        area_um = area*self.SC_GRID
+        area_um = area * self.SC_GRID
         if width is None and height is None:
-            height_um = int(math.sqrt(area_um/aspect_ratio))
-            width_um = int(area_um/height_um)
+            height_um = int(math.sqrt(area_um / aspect_ratio))
+            width_um = int(area_um / height_um)
         elif width:
-            width_um = width*self.CPP
-            height_um = int(area_um/width_um)
+            width_um = width * self.CPP
+            height_um = int(area_um / width_um)
         elif height:
-            height_um = height*self.SC_HEIGHT
-            width_um = int(area_um/height_um)
-        width = self.base2(width_um/self.CPP)
-        height = self.base2(height_um/self.SC_HEIGHT)
+            height_um = height * self.SC_HEIGHT
+            width_um = int(area_um / height_um)
+        width = self.base2(width_um / self.CPP)
+        height = self.base2(height_um / self.SC_HEIGHT)
         return width, height
 
     def get_area(self, module):
@@ -358,17 +383,7 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         for each_module in self._top_module.get_definitions("*"):
             m[f"{each_module.name}_util"] = 0.85
 
-        # # Get total tile area in the grid unit
-        # tile_area = self.get_area("grid_clb") + \
-        #     self.get_area("cbx_1__1") + \
-        #     self.get_area("cby_1__1") + \
-        #     self.get_area("sb_1__1")
-        # m["tile_w"], m["tile_h"] = self._get_width_height(
-        #     tile_area, m["TILE_ASPECT_RATIO"])
         # TODO : Need to genrate these parameters automatically
-        # m["tile_width"], m["tile_h"] = 250, 250
-        # m["left_tile_width"], m["left_tile_h"] = 300, 300
-        # m["right_tile_width"], m["right_tile_h"] = 350, 350
         m["clb_w"], m["clb_h"] = 100, 20
 
         m["cbx11_w"], m["cbx11_h"] = 60, 6
@@ -390,47 +405,47 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
 
         # Dervived calcualation
         # Center switch box
-        m["a"] = m["cbx11_h"]
-        m["b"] = 0.5*(m["clb_w"]-m["cbx11_w"])
-        m["c"] = 0.5*(m["clb_h"]-m["cby11_h"])
-        m["d"] = m["cby11_w"]
-        m["e"] = 0.5*(m["clb_w"]-m["cbx11_w"])
-        m["f"] = 0.5*(m["clb_h"]-m["cby11_h"])
+        m["a"] = math.floor(m["cbx11_h"])
+        m["b"] = math.floor(0.5 * (m["clb_w"] - m["cbx11_w"]))
+        m["c"] = math.floor(0.5 * (m["clb_h"] - m["cby11_h"]))
+        m["d"] = math.floor(m["cby11_w"])
+        m["e"] = math.floor(0.5 * (m["clb_w"] - m["cbx11_w"]))
+        m["f"] = math.floor(0.5 * (m["clb_h"] - m["cby11_h"]))
 
         # Left switch block dimensions
-        m["la"] = m["cbx11_h"]
-        m["lb"] = 0
-        m["lc"] = 0.5 * (m["clb_h"] - m["left_cby_h"])
-        m["ld"] = m["left_cby_w"]
-        m["le"] = 0.5*(m["clb_w"]-m["cbx11_w"])
-        m["lf"] = 0.5*(m["clb_h"]-m["left_cby_h"])
+        m["la"] = math.floor(m["cbx11_h"])
+        m["lb"] = math.floor(0)
+        m["lc"] = math.floor(0.5 * (m["clb_h"] - m["left_cby_h"]))
+        m["ld"] = math.floor(m["left_cby_w"])
+        m["le"] = math.floor(0.5 * (m["clb_w"] - m["cbx11_w"]))
+        m["lf"] = math.floor(0.5 * (m["clb_h"] - m["left_cby_h"]))
 
         # Right switch block dimensions
-        m["ra"] = m["cbx11_h"]
-        m["rb"] = 0.5*(m["clb_w"]-m["cbx11_w"])
-        m["rc"] = 0.5 * (m["clb_h"] - m["right_cby_h"])
-        m["rd"] = m["right_cby_w"]
-        m["re"] = 0
-        m["rf"] = 0.5*(m["clb_h"]-m["right_cby_h"])
+        m["ra"] = math.floor(m["cbx11_h"])
+        m["rb"] = math.floor(0.5 * (m["clb_w"] - m["cbx11_w"]))
+        m["rc"] = math.floor(0.5 * (m["clb_h"] - m["right_cby_h"]))
+        m["rd"] = math.floor(m["right_cby_w"])
+        m["re"] = math.floor(0)
+        m["rf"] = math.floor(0.5 * (m["clb_h"] - m["right_cby_h"]))
 
         # Top switch block dimensions
-        m["ta"] = m["top_cbx_h"]
-        m["tb"] = 0.5*(m["clb_w"]-m["top_cbx_w"])
-        m["tc"] = 0
-        m["td"] = m["cby11_w"]
-        m["te"] = 0.5*(m["clb_w"]-m["top_cbx_w"])
-        m["tf"] = 0.5*(m["clb_h"]-m["cby11_h"])
+        m["ta"] = math.floor(m["top_cbx_h"])
+        m["tb"] = math.floor(0.5 * (m["clb_w"] - m["top_cbx_w"]))
+        m["tc"] = math.floor(0)
+        m["td"] = math.floor(m["cby11_w"])
+        m["te"] = math.floor(0.5 * (m["clb_w"] - m["top_cbx_w"]))
+        m["tf"] = math.floor(0.5 * (m["clb_h"] - m["cby11_h"]))
 
         # Bottom switch block dimensions
-        m["ba"] = m["bottom_cbx_h"]
-        m["bb"] = 0.5*(m["clb_w"]-m["bottom_cbx_w"])
-        m["bc"] = 0.5*(m["clb_h"]-m["cby11_h"])
-        m["bd"] = m["cby11_w"]
-        m["be"] = 0.5*(m["clb_w"]-m["bottom_cbx_w"])
-        m["bf"] = 0
+        m["ba"] = math.floor(m["bottom_cbx_h"])
+        m["bb"] = math.floor(0.5 * (m["clb_w"] - m["bottom_cbx_w"]))
+        m["bc"] = math.floor(0.5 * (m["clb_h"] - m["cby11_h"]))
+        m["bd"] = math.floor(m["cby11_w"])
+        m["be"] = math.floor(0.5 * (m["clb_w"] - m["bottom_cbx_w"]))
+        m["bf"] = math.floor(0)
         self.update_placement_grid()
 
-    def create_shapes(self):
+    def create_shapes(self, shape_all=False):
         m = self.s_param
 
         W = self.fpga_size[0]
@@ -440,71 +455,105 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
             "grid_clb": {
                 "SHAPE": "rect",
                 "POINTS": [m["clb_w"], m["clb_h"]],
-                "PLACEMENT": [0, 0]},
+                "PLACEMENT": [0, 0],
+            },
             # Common connection blocks [Auto calculated]
             "cbx_1__0_": {
                 "SHAPE": "rect",
                 "POINTS": [m["bottom_cbx_w"], m["bottom_cbx_h"]],
-                "PLACEMENT": [0.5*(m["clb_w"]-m["bottom_cbx_w"]), 0]},
+                "PLACEMENT": [0.5 * (m["clb_w"] - m["bottom_cbx_w"]), 0],
+            },
             "cbx_1__1_": {
                 "SHAPE": "rect",
                 "POINTS": [m["cbx11_w"], m["cbx11_h"]],
-                "PLACEMENT": [0.5*(m["clb_w"]-m["cbx11_w"]), 0]},
+                "PLACEMENT": [0.5 * (m["clb_w"] - m["cbx11_w"]), 0],
+            },
             f"cbx_1__{H}_": {
                 "SHAPE": "rect",
                 "POINTS": [m["top_cbx_w"], m["top_cbx_h"]],
-                "PLACEMENT": [0.5*(m["clb_w"]-m["top_cbx_w"]), 0]},
+                "PLACEMENT": [0.5 * (m["clb_w"] - m["top_cbx_w"]), 0],
+            },
             "cby_0__1_": {
                 "SHAPE": "rect",
                 "POINTS": [m["left_cby_w"], m["left_cby_h"]],
-                "PLACEMENT": [0, 0.5*(m["clb_h"]-m["left_cby_h"])]},
+                "PLACEMENT": [0, 0.5 * (m["clb_h"] - m["left_cby_h"])],
+            },
             f"cby_{W}__1_": {
                 "SHAPE": "rect",
                 "POINTS": [m["right_cby_w"], m["right_cby_h"]],
-                "PLACEMENT": [0, 0.5*(m["clb_h"]-m["right_cby_h"])]},
+                "PLACEMENT": [0, 0.5 * (m["clb_h"] - m["right_cby_h"])],
+            },
             "cby_1__1_": {
                 "SHAPE": "rect",
                 "POINTS": [m["cby11_w"], m["cby11_h"]],
-                "PLACEMENT": [0, 0.5*(m["clb_h"]-m["cby11_h"])]},
+                "PLACEMENT": [0, 0.5 * (m["clb_h"] - m["cby11_h"])],
+            },
             # Common swith blocks [Auto calculated]
             "sb_0__0_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ba"], 0, m["lc"], m["ld"], m["be"], 0],
-                "PLACEMENT": [0, 0]},
+                "PLACEMENT": [0, 0],
+            },
             "sb_0__1_": {
                 "SHAPE": "cross",
                 "POINTS": [m["la"], m["lb"], m["lc"], m["ld"], m["le"], m["lf"]],
-                "PLACEMENT": [0, -0.5*(m["clb_h"]-m["left_cby_h"])]},
+                "PLACEMENT": [0, -0.5 * (m["clb_h"] - m["left_cby_h"])],
+            },
             f"sb_0__{H}_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ta"], 0, 0, m["ld"], m["te"], m["lf"]],
-                "PLACEMENT": [0, -0.5*(m["clb_h"]-m["left_cby_h"])]},
+                "PLACEMENT": [0, -0.5 * (m["clb_h"] - m["left_cby_h"])],
+            },
             "sb_1__0_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ba"], m["bb"], m["bc"], m["bd"], m["be"], m["bf"]],
-                "PLACEMENT": [-0.5*(m["clb_w"]-m["bottom_cbx_w"]), 0]},
+                "PLACEMENT": [-0.5 * (m["clb_w"] - m["bottom_cbx_w"]), 0],
+            },
             "sb_1__1_": {
                 "SHAPE": "cross",
                 "POINTS": [m["a"], m["b"], m["c"], m["d"], m["e"], m["f"]],
-                "PLACEMENT": [-0.5*(m["clb_w"]-m["cbx11_w"]),
-                              -0.5*(m["clb_h"]-m["cby11_h"])]},
+                "PLACEMENT": [
+                    -0.5 * (m["clb_w"] - m["cbx11_w"]),
+                    -0.5 * (m["clb_h"] - m["cby11_h"]),
+                ],
+            },
             f"sb_1__{H}_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ta"], m["tb"], m["tc"], m["td"], m["te"], m["tf"]],
-                "PLACEMENT": [-0.5*(m["clb_w"]-m["top_cbx_w"]),
-                              -0.5*(m["clb_h"]-m["cby11_h"])]},
+                "PLACEMENT": [
+                    -0.5 * (m["clb_w"] - m["top_cbx_w"]),
+                    -0.5 * (m["clb_h"] - m["cby11_h"]),
+                ],
+            },
             f"sb_{W}__0_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ba"], m["bb"], m["rc"], m["rd"], 0, 0],
-                "PLACEMENT": [-0.5*(m["clb_w"]-m["bottom_cbx_w"]), 0]},
+                "PLACEMENT": [-0.5 * (m["clb_w"] - m["bottom_cbx_w"]), 0],
+            },
             f"sb_{W}__1_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ra"], m["rb"], m["rc"], m["rd"], m["re"], m["rf"]],
-                "PLACEMENT": [-0.5*(m["clb_w"]-m["cbx11_w"]),
-                              -0.5*(m["clb_h"]-m["right_cby_h"])]},
+                "PLACEMENT": [
+                    -0.5 * (m["clb_w"] - m["cbx11_w"]),
+                    -0.5 * (m["clb_h"] - m["right_cby_h"]),
+                ],
+            },
             f"sb_{W}__{H}_": {
                 "SHAPE": "cross",
                 "POINTS": [m["ta"], m["tb"], 0, m["rd"], 0, m["rf"]],
-                "PLACEMENT": [-0.5*(m["clb_w"]-m["top_cbx_w"]),
-                              -0.5*(m["clb_h"]-m["right_cby_h"])]},
+                "PLACEMENT": [
+                    -0.5 * (m["clb_w"] - m["top_cbx_w"]),
+                    -0.5 * (m["clb_h"] - m["right_cby_h"]),
+                ],
+            },
         }
+        unshaped_modules = set(get_names(self._top_module.get_definitions())) - \
+            set(list(self.module_shapes.keys()))
+        if shape_all:
+            for modules in unshaped_modules:
+                self.module_shapes[modules] = {
+                    "SHAPE": "rect",
+                    "POINTS": [int(200/self.CPP), int(200/self.SC_HEIGHT)],
+                    "PLACEMENT": [0, 0],
+                }
+        return unshaped_modules

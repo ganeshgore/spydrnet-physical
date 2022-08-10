@@ -162,7 +162,7 @@ class Tile02(Tile01):
 
         '''
         instance_list = {}
-        for i in range(1, self.fpga_size[0]):
+        for i in range(1, self.fpga_size[1]):
             try:
                 cby0, sb0 = None, None
                 cby0 = next(self._top_module.get_instances(f"cby_0__{i}_"))
@@ -241,7 +241,7 @@ class Tile02(Tile01):
 
         '''
         instance_list = {}
-        for i in range(1, self.fpga_size[1]):
+        for i in range(1, self.fpga_size[0]):
             try:
                 clb, cbx, cby, sb = None, None, None, None
                 clb = next(self._top_module.get_instances(
@@ -280,7 +280,7 @@ class Tile02(Tile01):
         '''
         instance_list = {}
         try:
-            for i in range(1, self.fpga_size[1]):
+            for i in range(1, self.fpga_size[0]):
                 cbx0, sb0 = None, None
                 cbx0 = next(self._top_module.get_instances(f"cbx_{i}__0_"))
                 sb0 = next(self._top_module.get_instances(f"sb_{i}__0_"))

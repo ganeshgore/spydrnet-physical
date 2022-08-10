@@ -7,43 +7,50 @@ import argparse
 import glob
 import json
 import os
-import tempfile
 import xml.etree.ElementTree as ET
 from copy import deepcopy
 
 import spydrnet as sdn
 
 
-def formatter(prog): return argparse.HelpFormatter(prog, max_help_position=60)
+def formatter(prog):
+    return argparse.HelpFormatter(prog, max_help_position=60)
 
 
 def parse_argument() -> argparse.Namespace:
     parser = argparse.ArgumentParser(formatter_class=formatter)
-    parser.add_argument('--instance_map',
-                        help="jsonfile_containing instace map")
-    parser.add_argument('--top_level_design',
-                        help="Design name")
-    parser.add_argument('--gsb_dir', type=str,
-                        help="General switch box dir")
+    parser.add_argument("--instance_map", help="jsonfile_containing instace map")
+    parser.add_argument("--top_level_design", help="Design name")
+    parser.add_argument("--gsb_dir", type=str, help="General switch box dir")
     return parser.parse_args()
 
 
 def extract_input(root):
     # Create new Input Tag
-    input_conn = ET.Element('INPUT')
+    input_conn = ET.Element("INPUT")
     # Add input connection details
     for chan in ["CHANX", "CHANY", "OPIN"]:
         channel = ET.Element(chan)
-        for each in sorted(set([f"{ele.attrib['side']}_{int(ele.attrib['index']):03}" for ele in root.findall(f".//driver_node[@type='{chan}']")])):
+        for each in sorted(
+            set(
+                [
+                    f"{ele.attrib['side']}_{int(ele.attrib['index']):03}"
+                    for ele in root.findall(f".//driver_node[@type='{chan}']")
+                ]
+            )
+        ):
             each = each.split("_")
             elements = root.findall(
-                f".//driver_node[@type='{chan}'][@side='{each[0]}'][@index='{int(each[1])}']")
+                f".//driver_node[@type='{chan}'][@side='{each[0]}'][@index='{int(each[1])}']"
+            )
             element = deepcopy(elements[0])
             element.attrib["connections"] = str(len(elements))
             elements = root.findall(
-                f".//driver_node[@type='{chan}'][@side='{each[0]}'][@index='{int(each[1])}']/..")
+                f".//driver_node[@type='{chan}'][@side='{each[0]}'][@index='{int(each[1])}']/.."
+            )
             element.attrib["out_driver"] = str(
-                len([e for e in elements if e.attrib['mux_size'] == "0"]))
+                len([e for e in elements if e.attrib["mux_size"] == "0"])
+            )
             channel.append(element)
         input_conn.append(channel)
     return input_conn
@@ -52,25 +59,25 @@ def extract_input(root):
 def clean_tags(root):
     # Drop segment_id and node_id attributes
     for ele in root.findall("*") + root.findall(".//driver_node"):
-        if 'segment_id' in ele.attrib.keys():
+        if "segment_id" in ele.attrib.keys():
             ele.attrib.pop("segment_id")
-        if 'sb_module_pin_name' in ele.attrib.keys():
+        if "sb_module_pin_name" in ele.attrib.keys():
             ele.attrib.pop("sb_module_pin_name")
-        if 'node_id' in ele.attrib.keys():
+        if "node_id" in ele.attrib.keys():
             ele.attrib.pop("node_id")
 
 
-def clean_gsb():
-    args = parse_argument()
-    gsb = args.gsb_dir
-
-    if args.instance_map:
-        instance_list = json.load(open(args.instance_map, "r"))
-    elif args.top_level_design:
+def clean_gsb(instance_map, top_level_design, gsb_dir):
+    """
+    Main method to clean general switch box
+    """
+    if instance_map:
+        instance_list = json.load(open(instance_map, "r"))
+    elif top_level_design:
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         # Read FPGA Netlist
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-        netlist = sdn.parse(args.top_level_design)
+        netlist = sdn.parse(top_level_design)
 
         # Create instance and reference mapping
         instance_list = {}
@@ -81,7 +88,7 @@ def clean_gsb():
     else:
         return
 
-    for _, file in enumerate(sorted(glob.glob(f'{gsb}/_*.xml'))):
+    for _, file in enumerate(sorted(glob.glob(f"{gsb_dir}/_*.xml"))):
         module = os.path.splitext(os.path.basename(file))[0]
         # =====================================================================
         # Extract Switch Box information
@@ -94,7 +101,7 @@ def clean_gsb():
             root.remove(ele)
         root.append(extract_input(root))
         root.attrib["type"] = "SB"
-        tree.write(f"{gsb}/{module[1:]}.xml", encoding="utf-8")
+        tree.write(f"{gsb_dir}/{module[1:]}.xml", encoding="utf-8")
         print(f"Writing {file}")
         continue
         # =====================================================================
@@ -108,11 +115,12 @@ def clean_gsb():
                 root.remove(ele)
         if len(list(root)) > 1:
             filename = module.replace("sb", "cbx")[1:]
-            filename = [ref for ref, inst in instance_list.items()
-                        if filename in inst][0]
+            filename = [ref for ref, inst in instance_list.items() if filename in inst][
+                0
+            ]
             root.append(extract_input(root))
             root.attrib["type"] = "CBX"
-            tree.write(f"{gsb}/{filename}.xml")
+            tree.write(f"{gsb_dir}/{filename}.xml")
 
         # =====================================================================
         # Extract Connection Box Vertical information
@@ -124,16 +132,18 @@ def clean_gsb():
             for ele in root.findall(tag):
                 root.remove(ele)
         module = module.split("_")
-        module[4] = str(int(module[4])+1)
+        module[4] = str(int(module[4]) + 1)
         module = "_".join(module)
         filename = module.replace("sb", "cby")[1:]
         if len(list(root)) > 1:
-            filename = [ref for ref, inst in instance_list.items()
-                        if filename in inst][0]
+            filename = [ref for ref, inst in instance_list.items() if filename in inst][
+                0
+            ]
             root.append(extract_input(root))
             root.attrib["type"] = "CBY"
-            tree.write(f"{gsb}/{filename}.xml")
+            tree.write(f"{gsb_dir}/{filename}.xml")
 
 
 if __name__ == "__main__":
-    clean_gsb()
+    args = parse_argument()
+    clean_gsb(args.instance_map, args.top_level_design, args.gsb_dir)
