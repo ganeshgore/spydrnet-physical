@@ -235,9 +235,9 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/01_fpga_arch_parse.html">2.1. OpenFPGA Architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/04_fpga_grid_generation.html">2.3. FPGA Layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/01_fpga_arch_parse.html">2.1. OpenFPGA architecture parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/02_fpga_grid_generation.html">2.2. FPGA layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/03_fpga_basic_elements.html">2.3. Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/04_fpga_grid_render.html">2.4. RenderFPGA Pre Generation Grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
@@ -253,9 +253,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_floorplanning/index.html">4. Floorplanning Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/02_adjusting_initial_placement.html">4.2. Dimension based floorplanning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/03_FloorplanHeterogeneousDesign01.html">4.3. Heterogeneous Design Placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_HeterogeneousFloorplanAdjust.html">4.4. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/02_dimenson_based_floorplan.html">4.2. Dimension based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/03_utilization_based_floorplan.html">4.3. Utilisation based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -379,6 +380,12 @@ rebuild the openfpga and VPR mapping</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#util.openfpga_arch.OpenFPGA_Arch.is_homogeneous" title="util.openfpga_arch.OpenFPGA_Arch.is_homogeneous"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_homogeneous</span></code></a></p></td>
 <td><p>Checks if the device is homogeneous device or heterogenous</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.openfpga_arch.OpenFPGA_Arch.get_hetero_columns" title="util.openfpga_arch.OpenFPGA_Arch.get_hetero_columns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hetero_columns</span></code></a></p></td>
+<td><p>Returns columns numbers of given heterogenesous pb_type</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.openfpga_arch.OpenFPGA_Arch.get_hetero_rows" title="util.openfpga_arch.OpenFPGA_Arch.get_hetero_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hetero_rows</span></code></a></p></td>
+<td><p>Returns row numbers of given heterogenesous pb_type</p></td>
+</tr>
 </tbody>
 </table></div>
 <p><strong>Attributes:</strong></p>
@@ -452,6 +459,16 @@ rebuild the openfpga and VPR mapping</p>
 <dd><p>Checks if the device is homogeneous device or heterogenous</p>
 <p>if layout section contains anything other than <cite>corner</cite>, <cite>periphery</cite> and
 <cite>fill</cite> the device is consider as a homogeneous</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.openfpga_arch.OpenFPGA_Arch.get_hetero_columns">
+<span class="sig-name descname"><span class="pre">get_hetero_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pb_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/openfpga_arch.html#OpenFPGA_Arch.get_hetero_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.openfpga_arch.OpenFPGA_Arch.get_hetero_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns columns numbers of given heterogenesous pb_type</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.openfpga_arch.OpenFPGA_Arch.get_hetero_rows">
+<span class="sig-name descname"><span class="pre">get_hetero_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pb_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/openfpga_arch.html#OpenFPGA_Arch.get_hetero_rows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.openfpga_arch.OpenFPGA_Arch.get_hetero_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns row numbers of given heterogenesous pb_type</p>
 </dd></dl>
 </dd></dl>
 </section>

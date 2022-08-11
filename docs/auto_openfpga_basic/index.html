@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="2.1. OpenFPGA Architecture Parsing" href="01_fpga_arch_parse.html" /><link rel="prev" title="1.11. Generating feedthrough from single instance" href="../auto_basic/wire_feedthrough.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="2.1. OpenFPGA architecture parsing" href="01_fpga_arch_parse.html" /><link rel="prev" title="1.11. Generating feedthrough from single instance" href="../auto_basic/wire_feedthrough.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
         <title>2. OpenFPGA Basic Examples - SpyDrNet-Physical alpha documentation</title>
@@ -235,9 +235,9 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">2. OpenFPGA Basic Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="01_fpga_arch_parse.html">2.1. OpenFPGA Architecture Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_fpga_basic_elements.html">2.2. Render FPGA Basic Elements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_generation.html">2.3. FPGA Layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01_fpga_arch_parse.html">2.1. OpenFPGA architecture parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_fpga_grid_generation.html">2.2. FPGA layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_fpga_basic_elements.html">2.3. Render FPGA Basic Elements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04_fpga_grid_render.html">2.4. RenderFPGA Pre Generation Grid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
@@ -253,9 +253,10 @@
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_floorplanning/index.html">4. Floorplanning Examples</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/02_adjusting_initial_placement.html">4.2. Dimension based floorplanning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/03_FloorplanHeterogeneousDesign01.html">4.3. Heterogeneous Design Placement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/04_HeterogeneousFloorplanAdjust.html">4.4. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/02_dimenson_based_floorplan.html">4.2. Dimension based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/03_utilization_based_floorplan.html">4.3. Utilisation based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -345,16 +346,16 @@
           <section id="openfpga-basic-examples">
 <span id="sec-basic-examples"></span><h1><span class="section-number">2. </span>OpenFPGA Basic Examples<a class="headerlink" href="#openfpga-basic-examples" title="Permalink to this headline">¶</a></h1>
 <p>A collection of examples introduces the functionality and features <code class="docutils literal notranslate"><span class="pre">SpyDrNet-Physical</span></code> library.</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the OpenFPGA_Arch class which parses the VPR and OpenFPGA Architectur..."><img alt="OpenFPGA Architecture Parsing" src="../_images/sphx_glr_01_fpga_arch_parse_thumb.png"/>
-<p><a class="reference internal" href="01_fpga_arch_parse.html#sphx-glr-auto-openfpga-basic-01-fpga-arch-parse-py"><span class="std std-ref">OpenFPGA Architecture Parsing</span></a></p>
-<div class="sphx-glr-thumbnail-title">OpenFPGA Architecture Parsing</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstates, how to create OpenFPGA object to perform all basic transformation and..."><img alt="Render FPGA Basic Elements" src="../_images/sphx_glr_02_fpga_basic_elements_thumb.png"/>
-<p><a class="reference internal" href="02_fpga_basic_elements.html#sphx-glr-auto-openfpga-basic-02-fpga-basic-elements-py"><span class="std std-ref">Render FPGA Basic Elements</span></a></p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the OpenFPGA_Arch class which parses the VPR and OpenFPGA Architectur..."><img alt="OpenFPGA architecture parsing" src="../_images/sphx_glr_01_fpga_arch_parse_thumb.png"/>
+<p><a class="reference internal" href="01_fpga_arch_parse.html#sphx-glr-auto-openfpga-basic-01-fpga-arch-parse-py"><span class="std std-ref">OpenFPGA architecture parsing</span></a></p>
+<div class="sphx-glr-thumbnail-title">OpenFPGA architecture parsing</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This class generates the 2D matrix of the FPGA grid."><img alt="FPGA layout grid generation" src="../_images/sphx_glr_02_fpga_grid_generation_thumb.png"/>
+<p><a class="reference internal" href="02_fpga_grid_generation.html#sphx-glr-auto-openfpga-basic-02-fpga-grid-generation-py"><span class="std std-ref">FPGA layout grid generation</span></a></p>
+<div class="sphx-glr-thumbnail-title">FPGA layout grid generation</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstates, how to create OpenFPGA object to perform all basic transformation and..."><img alt="Render FPGA Basic Elements" src="../_images/sphx_glr_03_fpga_basic_elements_thumb.png"/>
+<p><a class="reference internal" href="03_fpga_basic_elements.html#sphx-glr-auto-openfpga-basic-03-fpga-basic-elements-py"><span class="std std-ref">Render FPGA Basic Elements</span></a></p>
 <div class="sphx-glr-thumbnail-title">Render FPGA Basic Elements</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This class generates the 2D matrix of the FPGA grid."><img alt="FPGA Layout grid generation" src="../_images/sphx_glr_04_fpga_grid_generation_thumb.png"/>
-<p><a class="reference internal" href="04_fpga_grid_generation.html#sphx-glr-auto-openfpga-basic-04-fpga-grid-generation-py"><span class="std std-ref">FPGA Layout grid generation</span></a></p>
-<div class="sphx-glr-thumbnail-title">FPGA Layout grid generation</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This class generates the 2D matrix of the FPGA grid."><img alt="RenderFPGA Pre Generation Grid" src="../_images/sphx_glr_04_fpga_grid_render_thumb.png"/>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrated how to perform design planning/ floorplanning even before generating ..."><img alt="RenderFPGA Pre Generation Grid" src="../_images/sphx_glr_04_fpga_grid_render_thumb.png"/>
 <p><a class="reference internal" href="04_fpga_grid_render.html#sphx-glr-auto-openfpga-basic-04-fpga-grid-render-py"><span class="std std-ref">RenderFPGA Pre Generation Grid</span></a></p>
 <div class="sphx-glr-thumbnail-title">RenderFPGA Pre Generation Grid</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip=" **_complete_metrics**"><img alt="FPGA Instance to Layout mapping" src="../_images/sphx_glr_05_fpga_instance_name_thumb.png"/>
@@ -388,7 +389,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">2.1. </span>OpenFPGA Architecture Parsing</div>
+                <div class="title"><span class="section-number">2.1. </span>OpenFPGA architecture parsing</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

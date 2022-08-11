@@ -1,5 +1,6 @@
 """
-OpenFPGA Architecture Parsing
+=============================
+OpenFPGA architecture parsing
 =============================
 
 This example demonstrates the ``OpenFPGA_Arch`` class which parses the
