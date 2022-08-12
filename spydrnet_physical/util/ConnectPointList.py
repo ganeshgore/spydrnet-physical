@@ -1,6 +1,7 @@
 '''
 '''
 import csv
+import math
 import logging
 from collections import OrderedDict
 from typing import List
@@ -144,13 +145,35 @@ class ConnectPointList:
         root = minidom.parse(filename)
         if not append:
             _ = [self._points.pop(0) for _ in list(self._points)]
+
+        x_grid = []
+        y_grid = []
+        for conn in root.getElementsByTagName("line"):
+            if "gridmarker" in conn.getAttribute('class'):
+                x1 = abs(float(conn.getAttribute("x1")))
+                x2 = abs(float(conn.getAttribute("x2")))
+                y1 = abs(float(conn.getAttribute("y1")))
+                y2 = abs(float(conn.getAttribute("y2")))
+                if y1 == y2:
+                    y_grid.append(y1)
+                if x1 == x2:
+                    x_grid.append(x1)
+        x_grid = sorted(x_grid)
+        y_grid = sorted(y_grid)
+        x_origin = x_grid[0]
+        y_origin = y_grid[0]
+        x_grid= min([ abs(a-b) for a,b in zip(x_grid[:-1], x_grid[1:])])
+        y_grid= min([ abs(a-b) for a,b in zip(y_grid[:-1], y_grid[1:])])
+        logger.info("Computed grid size is  %.2f x %.2f", x_grid, y_grid)
+        logger.info("origin  %.2f x %.2f", x_origin, y_origin)
+
         for conn in root.getElementsByTagName("line"):
             conn_class = conn.getAttribute('class')
             if "connection" in conn_class:
-                x1 = round(float(conn.getAttribute("x1"))/grid)
-                x2 = round(float(conn.getAttribute("x2"))/grid)
-                y1 = round(float(conn.getAttribute("y1"))/grid)
-                y2 = round(float(conn.getAttribute("y2"))/grid)
+                x1 = 1 + math.floor((abs(float(conn.getAttribute("x1"))))/x_grid)
+                x2 = 1 + math.floor((abs(float(conn.getAttribute("x2"))))/x_grid)
+                y1 = 1 + math.floor((abs(float(conn.getAttribute("y1"))))/y_grid)
+                y2 = 1 + math.floor((abs(float(conn.getAttribute("y2"))))/y_grid)
                 if x1 == x2:
                     direction = "top" if y2 > y1 else "bottom"
                 elif y1 == y2:
@@ -160,8 +183,12 @@ class ConnectPointList:
                         conn.attributes.items())
                 conn_type = "up" if "up" in conn_class else "down" \
                                 if "down" in conn_class else "same"
-                print(f"{x1:8.2f},  {y1:8.2f}, {x2:8.2f}, {y2:8.2f} -> {direction:>8s}[{conn_type}]")
-                point = self.add_connection(x1, y1, x2, y2)
+                print(f"{x1:8.2f},  {y1:8.2f}, {x2:8.2f}, {y2:8.2f} -> {direction:>8s}[{conn_type:^4s}]", end="  ")
+                try:
+                    point = self.add_connection(x1, y1, x2, y2)
+                    print("Added")
+                except AssertionError as e:
+                    print("Skipped (%8s, %8s) : %s"% (conn.getAttribute("x1"), conn.getAttribute("y1"), e))
                 if "top" in conn_class:
                     self.make_top_connection(point)
                 if "down" in conn_class:
