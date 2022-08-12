@@ -42,9 +42,9 @@ class ConnectionPattern:
 
     @property
     def svg_main(self):
-        """ 
+        """
         Returns the svgwrite drawing object,
-        call after running ``render_pattern`` 
+        call after running ``render_pattern``
         """
         return self.dwg_main
 
@@ -203,14 +203,14 @@ class ConnectionPattern:
         if dwgMarker:
             dwgMarker = dwgMarker[0]
             for i in range(0, self.sizex+1):
-                dwgMarker.add(dwg.line(start=((i+0.5)*scale, 0.5*scale),
-                                       end=((i+0.5)*scale,
-                                            (self.sizey+0.5)*scale),
+                dwgMarker.add(dwg.line(start=(round((i+0.5)*scale), round( 0.5*scale)),
+                                       end=(round((i+0.5)*scale),
+                                            round((self.sizey+0.5)*scale)),
                                        class_="gridmarker"))
             for i in range(0, self.sizey+1):
-                dwgMarker.add(dwg.line(start=(0.5*scale, (i+0.5)*scale),
-                                       end=((self.sizex+0.5) *
-                                            scale, (i+0.5)*scale),
+                dwgMarker.add(dwg.line(start=(round(0.5*scale), round((i+0.5)*scale)),
+                                       end=(round((self.sizex+0.5) * scale),
+                                            round((i+0.5)*scale)),
                                        class_="gridmarker"))
 
         # Add labels to the grid

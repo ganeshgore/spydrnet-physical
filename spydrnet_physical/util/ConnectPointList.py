@@ -4,6 +4,7 @@ import csv
 import logging
 from collections import OrderedDict
 from typing import List
+from xml.dom import minidom
 
 import networkx as nx
 import spydrnet as sdn
@@ -14,7 +15,7 @@ from svgwrite.container import Group
 DEFAULT_COLOR = " black"
 
 logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='INFO')
+sdn.enable_file_logging(LOG_LEVEL='DEBUG')
 
 
 class ConnectPointList:
@@ -134,13 +135,41 @@ class ConnectPointList:
                     self.pull_connection_up(point)
 
 
-    def load_points_from_svg(self, filename, grid=10, group="markers",
+    def load_points_from_svg(self, filename, grid=6.9*2, group="markers", append=False,
                         same_color="black", down_color="red", up_color="green"):
         '''
         This method loads points from the SVG file.
         enabling UI based designing of connection file.
         '''
-        raise NotImplementedError
+        root = minidom.parse(filename)
+        if not append:
+            _ = [self._points.pop(0) for _ in list(self._points)]
+        for conn in root.getElementsByTagName("line"):
+            conn_class = conn.getAttribute('class')
+            if "connection" in conn_class:
+                x1 = round(float(conn.getAttribute("x1"))/grid)
+                x2 = round(float(conn.getAttribute("x2"))/grid)
+                y1 = round(float(conn.getAttribute("y1"))/grid)
+                y2 = round(float(conn.getAttribute("y2"))/grid)
+                if x1 == x2:
+                    direction = "top" if y2 > y1 else "bottom"
+                elif y1 == y2:
+                    direction = "right" if x2 > x1 else "left"
+                else:
+                    logger.warning("Can not identify the connection direction %s",
+                        conn.attributes.items())
+                conn_type = "up" if "up" in conn_class else "down" \
+                                if "down" in conn_class else "same"
+                print(f"{x1:8.2f},  {y1:8.2f}, {x2:8.2f}, {y2:8.2f} -> {direction:>8s}[{conn_type}]")
+                point = self.add_connection(x1, y1, x2, y2)
+                if "top" in conn_class:
+                    self.make_top_connection(point)
+                if "down" in conn_class:
+                    self.push_connection_down(point)
+                if "up" in conn_class:
+                    self.pull_connection_up(point)
+
+        # raise NotImplementedError
 
 
     def search_from_point(self, point):
@@ -548,8 +577,8 @@ class ConnectPointList:
         dwg.defs.add(buff_marker)
         for conn in self._points:
             conn_new = conn*scale
-            dwgMain.add(dwg.line(start=conn_new.from_connection,
-                                 end=conn_new.to_connection,
+            dwgMain.add(dwg.line(start=tuple(map(round, conn_new.from_connection)),
+                                 end=tuple(map(round, conn_new.to_connection)),
                                  stroke=conn.color,
                                  marker_mid=buff_marker.get_funciri(),
                                  marker_end=DRMarker.get_funciri(),
@@ -576,7 +605,7 @@ class ConnectPointList:
         try:
             return next(netlist.top_instance.reference.get_instances(instance_name))
         except StopIteration:
-            logger.exception("Instance not found " + instance_name)
+            logger.exception("Instance not found %s", instance_name)
 
     def get_top_instance_name(self, x, y):
         '''
@@ -593,16 +622,16 @@ class ConnectPointList:
         '''
         stat = self.show_stats(netlist)
         output = []
-        format_str = "{:15s} | {:>3} {:>3} {:>3} {:>3} | {:>3} {:>3} {:>3} {:>3}"
+        format_str = "{:25s} | {:>3} {:>3} {:>3} {:>3} | {:>3} {:>3} {:>3} {:>3}"
         default = {
             "left": 0, "right": 0, "top": 0, "bottom": 0
         }
-        output.append("= "*26)
-        output.append("{:15s} | {:^15} | {:^15}".format('Module', "In", "Out"))
+        output.append("= "*32)
+        output.append("{:25s} | {:^15} | {:^15}".format('Module', "In", "Out"))
         output.append(format_str.format('Module',
                                         "L", "R", "T", "B",
                                         "L", "R", "T", "B"))
-        output.append("= "*26)
+        output.append("= "*32)
         for module, mstat in stat.items():
             output.append(format_str.format(
                 module,
@@ -735,12 +764,15 @@ class ConnectPointList:
                     cable, upper=w.get_index, lower=w.get_index)
             else:
                 inst = self.get_top_instance(netlist, *point.to_connection)
+                if point.level in ["same", "down"]:
+                    assert signal, "Singal is not defined for %s connection" % point.level
                 port_name = {
                     "same": f"{signal}_{point.to_dir}_in",
                     "top": f"{signal}_{point.to_dir}_in",
                     "down": f"{down_port}_{point.to_dir}_in"}[point.level]
+                logger.debug("Connecting to pin %s", port_name)
                 w.connect_pin(next(inst.get_port_pins(port_name)))
-        if not len(cable.wires):
+        if len(cable.wires) > 0:
             netlist.top_instance.reference.remove_cable(cable)
 
     def print_instance_grid_map(self):
