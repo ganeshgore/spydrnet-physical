@@ -163,7 +163,7 @@ class TestFpgaGridGen(unittest.TestCase):
         self.assertTupleEqual(grid_gen.get_block(0, 1), ("clb", 0, 0))
         self.assertTupleEqual(grid_gen.get_block(1, 1), ("clb", 0, 0))
 
-    @pytest.mark.xfail()
+    #@pytest.mark.xfail()
     def test_enumurate_grid_basiclayout(self):
         '''Tests the list of Grid elements'''
         grid_gen = FPGAGridGen("myDesign", self.vprArchTree, 'basicLayout', "")
@@ -176,18 +176,18 @@ class TestFpgaGridGen(unittest.TestCase):
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
-            ['io_left', *clb2, *(['ram9k']*10), *clb2, 'io_right'],
+            ['io_left', *clb2, *(['ram9k']*11), 'clb', 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *clb2, 'dsp', '→', 'dsp', '→', 'dsp',
-                '→', 'dsp', '→', 'dsp', '→', *clb2, 'io_right'],
+                '→', 'dsp', '→', 'dsp', '→', 'dsp', '→', 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
-            ['io_left', *clb2, *(['ram9k']*10), *clb2, 'io_right'],
+            ['io_left', *clb2, *(['ram9k']*11), 'clb', 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
             ['io_left', *(['clb']*14), 'io_right'],
