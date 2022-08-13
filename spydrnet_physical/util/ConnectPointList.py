@@ -173,8 +173,8 @@ class ConnectPointList:
 
         x_grid = (max(x_grid)-min(x_grid))/(self.sizex)
         y_grid = (max(y_grid)-min(y_grid))/(self.sizey)
-        logger.info("Computed grid size is  %.2f x %.2f", x_grid, y_grid)
-        logger.info("origin  %.2f x %.2f", x_origin, y_origin)
+        logger.debug("Computed grid size is  %.2f x %.2f", x_grid, y_grid)
+        logger.debug("origin  %.2f x %.2f", x_origin, y_origin)
 
         logger.debug("x1                 x2                 y1                 y2")
         for conn in root.getElementsByTagName("line"):
@@ -783,9 +783,11 @@ class ConnectPointList:
                 continue
             w = cable.create_wire()
             if point.level == "top":
+                assign_name = f"{signal}_{point.to_x}_{point.to_y}_top_assign"
                 top_cable.assign_cable(cable,
                                        upper=len(cable.wires),
-                                       lower=len(cable.wires)-1)
+                                       lower=len(cable.wires)-1,
+                                       assign_instance_name=assign_name)
             elif (0 in point.from_connection) or \
                 (self.sizex+1 == point.from_connection[0]) or \
                     (self.sizey+1 == point.from_connection[1]):
