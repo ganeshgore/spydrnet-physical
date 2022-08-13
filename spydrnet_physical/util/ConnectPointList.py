@@ -195,17 +195,18 @@ class ConnectPointList:
                     continue
                 conn_type = "up" if "up" in conn_class else "down" \
                                 if "down" in conn_class else "same"
-                logger.debug(f"{x1:8.2f}[{conn.getAttribute('x1'):8s}]  "+
-                      f"{y1:8.2f}[{conn.getAttribute('y1'):8s}]  "+
-                      f"{x2:8.2f}[{conn.getAttribute('x2'):8s}]  "+
-                      f"{y2:8.2f}[{conn.getAttribute('y2'):8s}]  "+
-                      f"-> {direction:>8s}[{conn_type:^4s}]", end="  ")
+                points_info = f"{x1:8.2f}[{conn.getAttribute('x1'):8s}]  " + \
+                      f"{y1:8.2f}[{conn.getAttribute('y1'):8s}]  " + \
+                      f"{x2:8.2f}[{conn.getAttribute('x2'):8s}]  " + \
+                      f"{y2:8.2f}[{conn.getAttribute('y2'):8s}]  " + \
+                      f"-> {direction:>8s}[{conn_type:^4s}]"
                 try:
                     point = self.add_connection(abs(x1), self.sizey+1-abs(y1),
                         abs(x2), self.sizey+1-abs(y2))
-                    print("Added")
-                except AssertionError as e:
-                    print("Skipped (%8s, %8s) : %s"% (conn.getAttribute("x1"), conn.getAttribute("y1"), e))
+                    logger.debug("%s Added", points_info)
+                except AssertionError as error:
+                    logger.debug("%s Skipped (%8s, %8s) : %s", points_info,
+                        conn.getAttribute("x1"), conn.getAttribute("y1"), error)
                 if "top" in conn_class:
                     self.make_top_connection(point)
                 if "down" in conn_class:
