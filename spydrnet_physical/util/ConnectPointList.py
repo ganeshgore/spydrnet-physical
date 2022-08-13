@@ -110,6 +110,12 @@ class ConnectPointList:
         point : ConnectPoint
         in_mapping = [[0 for _ in range(self.sizey+2)] for _ in range(self.sizex+2)]
         for point in self._points:
+            if point.to_x >= self.sizex+2:
+                logger.warning("Pointx out of range %d", point.to_x)
+                continue
+            if point.to_y >= self.sizey+2:
+                logger.warning("Pointy out of range %d", point.to_y)
+                continue
             if in_mapping[point.to_x][point.to_y]:
                 logger.warning("Multiple input for instance (%d %d)",
                                 *point.to_connection)
@@ -150,10 +156,10 @@ class ConnectPointList:
         y_grid = []
         for conn in root.getElementsByTagName("line"):
             if "gridmarker" in conn.getAttribute('class'):
-                x1 = abs(float(conn.getAttribute("x1")))
-                x2 = abs(float(conn.getAttribute("x2")))
-                y1 = abs(float(conn.getAttribute("y1")))
-                y2 = abs(float(conn.getAttribute("y2")))
+                x1 = float(conn.getAttribute("x1"))
+                x2 = float(conn.getAttribute("x2"))
+                y1 = float(conn.getAttribute("y1"))
+                y2 = float(conn.getAttribute("y2"))
                 if y1 == y2:
                     y_grid.append(y1)
                 if x1 == x2:
@@ -162,30 +168,41 @@ class ConnectPointList:
         y_grid = sorted(y_grid)
         x_origin = x_grid[0]
         y_origin = y_grid[0]
-        x_grid= min([ abs(a-b) for a,b in zip(x_grid[:-1], x_grid[1:])])
-        y_grid= min([ abs(a-b) for a,b in zip(y_grid[:-1], y_grid[1:])])
+        # x_grid= min([ abs(a-b) for a,b in zip(x_grid[:-1], x_grid[1:])])
+        # y_grid= min([ abs(a-b) for a,b in zip(y_grid[:-1], y_grid[1:])])
+
+        x_grid = (max(x_grid)-min(x_grid))/(self.sizex)
+        y_grid = (max(y_grid)-min(y_grid))/(self.sizey)
         logger.info("Computed grid size is  %.2f x %.2f", x_grid, y_grid)
         logger.info("origin  %.2f x %.2f", x_origin, y_origin)
 
+        logger.debug("x1                 x2                 y1                 y2")
         for conn in root.getElementsByTagName("line"):
             conn_class = conn.getAttribute('class')
             if "connection" in conn_class:
-                x1 = 1 + math.floor((abs(float(conn.getAttribute("x1"))))/x_grid)
-                x2 = 1 + math.floor((abs(float(conn.getAttribute("x2"))))/x_grid)
-                y1 = 1 + math.floor((abs(float(conn.getAttribute("y1"))))/y_grid)
-                y2 = 1 + math.floor((abs(float(conn.getAttribute("y2"))))/y_grid)
-                if x1 == x2:
+                x1 = 1 + math.floor(((float(conn.getAttribute("x1")))-(x_origin))/x_grid)
+                x2 = 1 + math.floor(((float(conn.getAttribute("x2")))-(x_origin))/x_grid)
+                y1 = 1 + math.floor(((float(conn.getAttribute("y1")))-(y_origin))/y_grid)
+                y2 = 1 + math.floor(((float(conn.getAttribute("y2")))-(y_origin))/y_grid)
+
+                if abs(y1 - y2) > abs(x1 - x2):
                     direction = "top" if y2 > y1 else "bottom"
-                elif y1 == y2:
+                elif abs(x1 - x2) > abs(y1 - y2):
                     direction = "right" if x2 > x1 else "left"
                 else:
-                    logger.warning("Can not identify the connection direction %s",
-                        conn.attributes.items())
+                    logger.warning("Can not identify the connection direction %s [Dx %.2f, Dy %.2f]",
+                        conn.attributes.items(),abs(x1 - x2),abs(y1 - y2))
+                    continue
                 conn_type = "up" if "up" in conn_class else "down" \
                                 if "down" in conn_class else "same"
-                print(f"{x1:8.2f},  {y1:8.2f}, {x2:8.2f}, {y2:8.2f} -> {direction:>8s}[{conn_type:^4s}]", end="  ")
+                logger.debug(f"{x1:8.2f}[{conn.getAttribute('x1'):8s}]  "+
+                      f"{y1:8.2f}[{conn.getAttribute('y1'):8s}]  "+
+                      f"{x2:8.2f}[{conn.getAttribute('x2'):8s}]  "+
+                      f"{y2:8.2f}[{conn.getAttribute('y2'):8s}]  "+
+                      f"-> {direction:>8s}[{conn_type:^4s}]", end="  ")
                 try:
-                    point = self.add_connection(x1, y1, x2, y2)
+                    point = self.add_connection(abs(x1), self.sizey+1-abs(y1),
+                        abs(x2), self.sizey+1-abs(y2))
                     print("Added")
                 except AssertionError as e:
                     print("Skipped (%8s, %8s) : %s"% (conn.getAttribute("x1"), conn.getAttribute("y1"), e))
@@ -780,7 +797,7 @@ class ConnectPointList:
                 try:
                     w.connect_pin(next(inst.get_port_pins(port_name)))
                 except AssertionError:
-                    logger.warning(
+                    logger.warning("%s -> %s", inst.name,
                         next(inst.get_port_pins(port_name)).port.name)
                     w = next(inst.get_port_pins(port_name)).wire
 
