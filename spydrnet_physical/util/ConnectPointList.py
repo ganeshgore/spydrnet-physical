@@ -819,7 +819,9 @@ class ConnectPointList:
                     "down": f"{down_port}_{point.to_dir}_in"}[point.level]
                 logger.debug("Connecting to pin %s", port_name)
                 w.connect_pin(next(inst.get_port_pins(port_name)))
-        if len(cable.wires) > 0:
+
+        # If the cable does not contain any wire remove it
+        if len(cable.wires) == 0:
             netlist.top_instance.reference.remove_cable(cable)
 
     def print_instance_grid_map(self):
