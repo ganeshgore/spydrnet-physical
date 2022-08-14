@@ -42,7 +42,22 @@ a_cable.assign_cable(y_cable)
 # Add Buffer on Wire0
 inst = next(top.get_instances("inst_1_0"))
 out_wire = inst.get_port_cables("out")[0]
-top.add_buffer(out_wire, buffer)
+top.add_buffer(out_wire, buffer, instance_name="buff0")
+
+# Add Buffer on Input Nets
+# Not Implemenetd
+# out_wire = inst.get_port_cables("in0")[0]
+# top.add_buffer(out_wire, buffer, instance_name="input_bufer")
+
+# Add Buffer on Output Nets
+# Not Implemenetd
+# out_wire = inst.get_port_cables("out0")[0]
+# top.add_buffer(out_wire, buffer, instance_name="output_bufer")
+
+# Add Buffer on Passthrough buffer
+# Not Implemenetd
+# out_wire = inst.get_port_cables("in_ft")[0]
+# top.add_buffer(out_wire, buffer, instance_name="passthrough_bufer")
 
 # Write netlist and render SVG
 sdn.compose(netlist, "_buffered_nested_hierarchy.v", skip_constraints=True)
