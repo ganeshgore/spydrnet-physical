@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="5.11. Clock tree insertion Example Architecture 3" href="09_clock_tree_example4.html" /><link rel="prev" title="5.9. Clock tree insertion Example Architecture 2" href="08_clock_tree_example2.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="5.12. Clock tree insertion Example Architecture 3" href="09_clock_tree_example4.html" /><link rel="prev" title="5.10. Clock tree insertion Example Architecture 2" href="08_clock_tree_example2.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>5.10. Clock tree insertion Example Architecture 3 - SpyDrNet-Physical alpha documentation</title>
+        <title>5.11. Clock tree insertion Example Architecture 3 - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -263,14 +263,15 @@
 <li class="toctree-l3"><a class="reference internal" href="01_connection_patterns.html">5.1. Connection Pattern Generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02_create_simple_htree.html">5.2. Create H-Tree Connectivity pattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03_create_hybrid_htree.html">5.3. Create Hybrid Connectivity Pattern</a></li>
-<li class="toctree-l3"><a class="reference internal" href="04_embed_clock_tree.html">5.4. Create Clock Tree Embedding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="05_embed_clock_tree_fpga44.html">5.5. Two layer H-Tree insertion in 4x4 FPGA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_connection_pattern_tie_cell.html">5.6. Adding Tie Cells on Floating Pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_reset_feedthrough.html">5.7. Create Reset Feedthrough in fpga_top</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_clock_tree_example1.html">5.8. Clock tree insertion Example Architecture 1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="08_clock_tree_example2.html">5.9. Clock tree insertion Example Architecture 2</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">5.10. Clock tree insertion Example Architecture 3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_clock_tree_example4.html">5.11. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_5_adding_buffers_on_clockpath.html">5.4. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_embed_clock_tree.html">5.5. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_embed_clock_tree_fpga44.html">5.6. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_connection_pattern_tie_cell.html">5.7. Adding Tie Cells on Floating Pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_reset_feedthrough.html">5.8. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_clock_tree_example1.html">5.9. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="08_clock_tree_example2.html">5.10. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">5.11. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_clock_tree_example4.html">5.12. Clock tree insertion Example Architecture 3</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">6. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -349,7 +350,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="clock-tree-insertion-example-architecture-3">
-<span id="sphx-glr-auto-openfpga-clock-tree-09-clock-tree-example3-py"></span><h1><span class="section-number">5.10. </span>Clock tree insertion Example Architecture 3<a class="headerlink" href="#clock-tree-insertion-example-architecture-3" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-openfpga-clock-tree-09-clock-tree-example3-py"></span><h1><span class="section-number">5.11. </span>Clock tree insertion Example Architecture 3<a class="headerlink" href="#clock-tree-insertion-example-architecture-3" title="Permalink to this headline">¶</a></h1>
 <p>9x12 odd row/column homogeneous fabric design</p>
 <a class="reference internal image-reference" href="../_images/_clock_tree_example_arch_03.svg"><img alt="../_images/_clock_tree_example_arch_03.svg" class="align-center" src="../_images/_clock_tree_example_arch_03.svg" width="500px"/></a>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
@@ -499,7 +500,7 @@ to download the full example code</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">5.11. </span>Clock tree insertion Example Architecture 3</div>
+                <div class="title"><span class="section-number">5.12. </span>Clock tree insertion Example Architecture 3</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -510,7 +511,7 @@ to download the full example code</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">5.9. </span>Clock tree insertion Example Architecture 2</div>
+                <div class="title"><span class="section-number">5.10. </span>Clock tree insertion Example Architecture 2</div>
                 
               </div>
             </a>
