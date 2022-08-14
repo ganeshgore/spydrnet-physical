@@ -229,9 +229,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.6. Combined definitions pins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.7. Combined independent nets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.8. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.9. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.10. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.11. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.12. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -415,6 +416,12 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.get_connectivity_network" title="spydrnet_physical.ir.definition.Definition.get_connectivity_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_network</span></code></a></p></td>
 <td><p>This method converts current module into networkx graph each cell is represented as as node and nets are represented as edges</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.make_instance_unique" title="spydrnet_physical.ir.definition.Definition.make_instance_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_instance_unique</span></code></a></p></td>
+<td><p>clone the definition and point the reference to the new definition</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="spydrnet_physical.ir.definition.Definition.add_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer</span></code></a></p></td>
+<td><p>Adds buffer on the given net :Parameters: * <strong>cable</strong> (<em>sdn.Cable</em>)              * <strong>buffer</strong> (<em>str</em>)              * <strong>instance_name</strong> (<em>sdn.Instance</em>)              * <strong>ports tuple</strong> (<em>str, str</em>)</p></td>
+</tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cable</span></code></p></td>
 <td><p>Add a cable to the definition.</p></td>
 </tr>
@@ -481,25 +488,22 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_leaf</span></code></p></td>
 <td><p>Check to see if this definition represents a leaf cell.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.make_instance_unique" title="spydrnet_physical.ir.definition.Definition.make_instance_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_instance_unique</span></code></a></p></td>
-<td><p>clone the definition and point the reference to the new definition</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></p></td>
 <td><p>pop the object from the data structure</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_cables_from</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_cables_from</span></code></p></td>
 <td><p>Remove a set of cables from the definition.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_child</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_child</span></code></p></td>
 <td><p>Remove an instance from the definition.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_children_from</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_children_from</span></code></p></td>
 <td><p>Remove a set of instances from the definition.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_ports_from</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_ports_from</span></code></p></td>
 <td><p>Remove a set of ports from the definition.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">somhing</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">somhing</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -813,6 +817,19 @@ each cell is represented as as node and nets are represented as edges</p>
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.make_instance_unique">
 <span class="sig-name descname"><span class="pre">make_instance_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.make_instance_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.make_instance_unique" title="Permalink to this definition">¶</a></dt>
 <dd><p>clone the definition and point the reference to the new definition</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.add_buffer">
+<span class="sig-name descname"><span class="pre">add_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'buff0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('A',</span> <span class="pre">'Y')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.add_buffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds buffer on the given net
+:Parameters: * <strong>cable</strong> (<em>sdn.Cable</em>)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>buffer</strong> (<em>str</em>)</p></li>
+<li><p><strong>instance_name</strong> (<em>sdn.Instance</em>)</p></li>
+<li><p><strong>ports tuple</strong> (<em>str, str</em>)</p></li>
+</ul>
+</div></blockquote>
 </dd></dl>
 </dd></dl>
 </section>
