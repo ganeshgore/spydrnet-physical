@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:s="https://github.com/nturley/netlistsvg" width="407" height="119.5">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:s="https://github.com/nturley/netlistsvg" width="407" height="161.5">
   <style>svg {
     stroke:#000;
     fill:none;
@@ -19,7 +19,7 @@
   .splitjoinBody {
     fill:#000;
   }</style>
-  <g s:type="generic" transform="translate(188,22)" s:width="30" s:height="40" id="cell_buff0">
+  <g s:type="generic" transform="translate(188,64)" s:width="30" s:height="40" id="cell_buff0">
     <text x="15" y="-4" class="nodelabel cell_buff0" s:attribute="ref">buff0</text>
     <rect width="30" height="20" s:generic="body" class="cell_buff0"/>
     <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0" id="port_buff0~A">
@@ -29,7 +29,7 @@
       <text x="5" y="-4" style="fill:#000; stroke:none" class="cell_buff0">Y</text>
     </g>
   </g>
-  <g s:type="generic" transform="translate(96,22)" s:width="30" s:height="40" id="cell_inst_1_0">
+  <g s:type="generic" transform="translate(96,64)" s:width="30" s:height="40" id="cell_inst_1_0">
     <text x="15" y="-4" class="nodelabel cell_inst_1_0" s:attribute="ref">inst_1_0</text>
     <rect width="30" height="40" s:generic="body" class="cell_inst_1_0"/>
     <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0" id="port_inst_1_0~in0">
@@ -42,7 +42,7 @@
       <text x="5" y="-4" style="fill:#000; stroke:none" class="cell_inst_1_0">out</text>
     </g>
   </g>
-  <g s:type="generic" transform="translate(280,22)" s:width="30" s:height="40" id="cell_inst_1_1">
+  <g s:type="generic" transform="translate(280,64)" s:width="30" s:height="40" id="cell_inst_1_1">
     <text x="15" y="-4" class="nodelabel cell_inst_1_1" s:attribute="ref">inst_1_1</text>
     <rect width="30" height="40" s:generic="body" class="cell_inst_1_1"/>
     <g transform="translate(0,10)" s:x="0" s:y="10" s:pid="in0" id="port_inst_1_1~in0">
@@ -55,35 +55,48 @@
       <text x="5" y="-4" style="fill:#000; stroke:none" class="cell_inst_1_1">out</text>
     </g>
   </g>
-  <g s:type="inputExt" transform="translate(12,22.5)" s:width="30" s:height="20" id="cell_in0">
+  <g s:type="inputExt" transform="translate(12,64.5)" s:width="30" s:height="20" id="cell_in0">
     <text x="15" y="-4" class="nodelabel cell_in0" s:attribute="ref">in0</text>
     <s:alias val="$_inputExt_"/>
     <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_in0"/>
     <g s:x="28" s:y="10" s:pid="Y"/>
   </g>
-  <g s:type="inputExt" transform="translate(12,87.5)" s:width="30" s:height="20" id="cell_in1">
+  <g s:type="inputExt" transform="translate(12,129.5)" s:width="30" s:height="20" id="cell_in1">
     <text x="15" y="-4" class="nodelabel cell_in1" s:attribute="ref">in1</text>
     <s:alias val="$_inputExt_"/>
     <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_in1"/>
     <g s:x="28" s:y="10" s:pid="Y"/>
   </g>
-  <g s:type="outputExt" transform="translate(365,22.5)" s:width="30" s:height="20" id="cell_out0">
+  <g s:type="inputExt" transform="translate(12,22)" s:width="30" s:height="20" id="cell_in_ft">
+    <text x="15" y="-4" class="nodelabel cell_in_ft" s:attribute="ref">in_ft</text>
+    <s:alias val="$_inputExt_"/>
+    <path d="M0,0 L0,20 L15,20 L30,10 L15,0 Z" class="cell_in_ft"/>
+    <g s:x="28" s:y="10" s:pid="Y"/>
+  </g>
+  <g s:type="outputExt" transform="translate(365,64.5)" s:width="30" s:height="20" id="cell_out0">
     <text x="15" y="-4" class="nodelabel cell_out0" s:attribute="ref">out0</text>
     <s:alias val="$_outputExt_"/>
     <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_out0"/>
     <g s:x="0" s:y="10" s:pid="A"/>
   </g>
-  <line x1="127" x2="188" y1="32.5" y2="32.5" class="net_5"/>
-  <line x1="40" x2="96" y1="32.5" y2="32.5" class="net_2"/>
-  <line x1="40" x2="62" y1="32.5" y2="32.5" class="net_2"/>
-  <line x1="62" x2="62" y1="32.5" y2="75" class="net_2"/>
-  <line x1="62" x2="236" y1="75" y2="75" class="net_2"/>
-  <line x1="236" x2="236" y1="75" y2="52.5" class="net_2"/>
-  <circle cx="62" cy="32.5" r="2" style="fill:#000" class="net_2"/>
-  <line x1="236" x2="280" y1="52.5" y2="52.5" class="net_2"/>
-  <line x1="40" x2="52" y1="97.5" y2="97.5" class="net_3"/>
-  <line x1="52" x2="52" y1="97.5" y2="52.5" class="net_3"/>
-  <line x1="52" x2="96" y1="52.5" y2="52.5" class="net_3"/>
-  <line x1="219" x2="280" y1="32.5" y2="32.5" class="net_6"/>
-  <line x1="311" x2="365" y1="32.5" y2="32.5" class="net_4"/>
+  <g s:type="outputExt" transform="translate(77,22)" s:width="30" s:height="20" id="cell_out_ft">
+    <text x="15" y="-4" class="nodelabel cell_out_ft" s:attribute="ref">out_ft</text>
+    <s:alias val="$_outputExt_"/>
+    <path d="M30,0 L30,20 L15,20 L0,10 L15,0 Z" class="cell_out_ft"/>
+    <g s:x="0" s:y="10" s:pid="A"/>
+  </g>
+  <line x1="127" x2="188" y1="74.5" y2="74.5" class="net_6"/>
+  <line x1="40" x2="96" y1="74.5" y2="74.5" class="net_2"/>
+  <line x1="40" x2="62" y1="74.5" y2="74.5" class="net_2"/>
+  <line x1="62" x2="62" y1="74.5" y2="117" class="net_2"/>
+  <line x1="62" x2="236" y1="117" y2="117" class="net_2"/>
+  <line x1="236" x2="236" y1="117" y2="94.5" class="net_2"/>
+  <circle cx="62" cy="74.5" r="2" style="fill:#000" class="net_2"/>
+  <line x1="236" x2="280" y1="94.5" y2="94.5" class="net_2"/>
+  <line x1="40" x2="52" y1="139.5" y2="139.5" class="net_3"/>
+  <line x1="52" x2="52" y1="139.5" y2="94.5" class="net_3"/>
+  <line x1="52" x2="96" y1="94.5" y2="94.5" class="net_3"/>
+  <line x1="219" x2="280" y1="74.5" y2="74.5" class="net_7"/>
+  <line x1="311" x2="365" y1="74.5" y2="74.5" class="net_5"/>
+  <line x1="40" x2="77" y1="32" y2="32" class="net_4"/>
 </svg>

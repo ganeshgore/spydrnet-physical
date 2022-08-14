@@ -380,7 +380,22 @@ to download the full example code</p>
 <span class="c1"># Add Buffer on Wire0</span>
 <span class="n">inst</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s2">"inst_1_0"</span><span class="p">))</span>
 <span class="n">out_wire</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">get_port_cables</span><span class="p">(</span><span class="s2">"out"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">top</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">out_wire</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+<span class="n">top</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">out_wire</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">instance_name</span><span class="o">=</span><span class="s2">"buff0"</span><span class="p">)</span>
+
+<span class="c1"># Add Buffer on Input Nets</span>
+<span class="c1"># Not Implemenetd</span>
+<span class="c1"># out_wire = inst.get_port_cables("in0")[0]</span>
+<span class="c1"># top.add_buffer(out_wire, buffer, instance_name="input_bufer")</span>
+
+<span class="c1"># Add Buffer on Output Nets</span>
+<span class="c1"># Not Implemenetd</span>
+<span class="c1"># out_wire = inst.get_port_cables("out0")[0]</span>
+<span class="c1"># top.add_buffer(out_wire, buffer, instance_name="output_bufer")</span>
+
+<span class="c1"># Add Buffer on Passthrough buffer</span>
+<span class="c1"># Not Implemenetd</span>
+<span class="c1"># out_wire = inst.get_port_cables("in_ft")[0]</span>
+<span class="c1"># top.add_buffer(out_wire, buffer, instance_name="passthrough_bufer")</span>
 
 <span class="c1"># Write netlist and render SVG</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s2">"_buffered_nested_hierarchy.v"</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
