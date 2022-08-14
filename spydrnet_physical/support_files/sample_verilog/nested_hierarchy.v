@@ -15,7 +15,7 @@ module module1(in0, in1, out);
     input in0;
     input in1;
     output out;
-    
+
     wire internal;
 
     module2 module2_0 (.in0(in0), .in1(in1), .out(internal));
