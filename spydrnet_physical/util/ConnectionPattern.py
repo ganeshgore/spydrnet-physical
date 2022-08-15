@@ -203,7 +203,7 @@ class ConnectionPattern:
         if dwgMarker:
             dwgMarker = dwgMarker[0]
             for i in range(0, self.sizex+1):
-                dwgMarker.add(dwg.line(start=(round((i+0.5)*scale), round( 0.5*scale)),
+                dwgMarker.add(dwg.line(start=(round((i+0.5)*scale), round(0.5*scale)),
                                        end=(round((i+0.5)*scale),
                                             round((self.sizey+0.5)*scale)),
                                        class_="gridmarker"))
@@ -233,7 +233,7 @@ class ConnectionPattern:
                     dwgText.add(label)
 
         # Add title to generated SVG image
-        title = title or f" %d x %d FPGA " % (self.sizex, self.sizey)
+        title = title or f"{self.sizex} x {self.sizey} FPGA "
         dwgText.add(dwg.text(title,
                              insert=((self.sizex+1)*scale*0.5, -1*-0.5*scale),
                              transform="scale(1,-1)",

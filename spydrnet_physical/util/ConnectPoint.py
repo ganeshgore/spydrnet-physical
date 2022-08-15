@@ -73,17 +73,18 @@ class ConnectPoint:
         return self._color
 
     @property
+    def buffer(self):
+        ''' Returns connection level '''
+        return bool(self._buffer)
+
+    @property
     def is_buffered(self):
         ''' Returns connection level '''
         return bool(self._buffer)
 
-    # @set_buffer.setter
-    # def set_buffer(self):
-    #     self._buffer = True
-
-    # @remove_buffer.setter
-    # def remove_buffer(self):
-    #     self._buffer = False
+    @buffer.setter
+    def buffer(self, value):
+        self._buffer = bool(value)
 
     @from_connection.setter
     def from_connection(self, points):
@@ -176,8 +177,8 @@ class ConnectPoint:
         '''
         This method extracts the direction of the connection.
 
-        Direction is derived by subtracting the x and y coordinates 
-        of the to and from connection and 
+        Direction is derived by subtracting the x and y coordinates
+        of the to and from connection and
         if the value of X is 0 and the value of Y is:
         >1 direction = Top <1 direction = Bottom
         and if the value of Y is 0 and X is
@@ -218,7 +219,7 @@ class ConnectPoint:
             angle (int): Valid angles are (0, 90, 180, 270, 360, -90, -180, -270, -360)
 
         Returns:
-            tuple : (x, y) 
+            tuple : (x, y)
 
         '''
         x, y = point
@@ -241,7 +242,7 @@ class ConnectPoint:
 
     def __mul__(self, scale):
         '''
-        Returns to and from coordinates after multipluing 
+        Returns to and from coordinates after multipluing
         them with the scaling factor
         '''
         pt = deepcopy(self)
@@ -251,7 +252,7 @@ class ConnectPoint:
 
     def __rmul__(self, scale):
         '''
-        Returns to and from coordinates after multipluing 
+        Returns to and from coordinates after multipluing
         them with the scaling factor
         '''
         pt = deepcopy(self)
