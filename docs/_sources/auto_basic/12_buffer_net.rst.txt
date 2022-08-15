@@ -66,20 +66,20 @@ This example demonstrate how to buffer a net with single
     out_wire = inst.get_port_cables("out")[0]
     top.add_buffer(out_wire, buffer, instance_name="buff0")
 
-    # Add Buffer on Input Nets
-    # Not Implemenetd
-    # out_wire = inst.get_port_cables("in0")[0]
-    # top.add_buffer(out_wire, buffer, instance_name="input_bufer")
-
     # Add Buffer on Output Nets
-    # Not Implemenetd
-    # out_wire = inst.get_port_cables("out0")[0]
-    # top.add_buffer(out_wire, buffer, instance_name="output_bufer")
+    out_wire = next(top.get_cables("out0"))
+    top.add_buffer(out_wire, buffer, instance_name="OBuf")
 
     # Add Buffer on Passthrough buffer
-    # Not Implemenetd
-    # out_wire = inst.get_port_cables("in_ft")[0]
-    # top.add_buffer(out_wire, buffer, instance_name="passthrough_bufer")
+    out_wire = next(top.get_cables("out_ft"))
+    top.add_buffer(out_wire, buffer, instance_name="ft_bufer")
+
+    # Add Buffer on Input Nets
+    try:
+        out_wire = next(top.get_cables("in0"))
+        top.add_buffer(out_wire, buffer, instance_name="IBuf")
+    except NotImplementedError:
+        pass
 
     # Write netlist and render SVG
     sdn.compose(netlist, "_buffered_nested_hierarchy.v", skip_constraints=True)
