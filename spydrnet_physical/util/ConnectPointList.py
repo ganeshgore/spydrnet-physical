@@ -646,9 +646,9 @@ class ConnectPointList:
                 .connection{{ opacity: 0.5;
                             marker-end:url(#{dir_marker.get_id()});
                             stroke-width:1.2;}}
-                .up{{stroke-dasharray: 2;
-                    marker-end:url(#{up_conn.get_id()});}}
                 .down{{stroke-dasharray: 2;
+                    marker-end:url(#{up_conn.get_id()});}}
+                .up{{stroke-dasharray: 2;
                     marker-start:url(#{down_conn.get_id()});}}
                 .top{{stroke-dasharray: 2;
                     marker-start:url(#{top_marker.get_id()});}}
