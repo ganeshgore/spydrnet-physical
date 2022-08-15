@@ -1018,6 +1018,7 @@ class Definition(DefinitionBase):
         buffer_input_wire.connect_pin(driver_pin)
         buffer_input_wire.connect_pin(a_pin)
         cable.wires[0].connect_pin(y_pin)
+        logger.debug("Added buffer in %s with instance name %s", self.name, buffer_inst.name)
 
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())
