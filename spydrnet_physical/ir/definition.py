@@ -1001,12 +1001,11 @@ class Definition(DefinitionBase):
         if cable.is_port_cable:
             driver_pin = list(filter(lambda x: isinstance(x, sdn.InnerPin),
                                      cable.wires[0].pins))[0]
-            print(driver_pin.port.direction)
-            raise NotImplementedError(
-                "Input or Output buffer is not supported")
-        else:
-            driver_pin = next(cable.get_pins(selection="OUTSIDE",
-                                             filter=lambda x: x.inner_pin.port.direction == sdn.OUT))
+            if (driver_pin.port.direction == sdn.IN):
+                raise NotImplementedError(
+                    "Buffer on input net is not supported")
+        driver_pin = next(cable.get_pins(selection="OUTSIDE",
+                                         filter=lambda x: x.inner_pin.port.direction == sdn.OUT))
         driver_pin.wire.disconnect_pin(driver_pin)
 
         buffer = next(self.get_definitions(buffer)) if isinstance(
