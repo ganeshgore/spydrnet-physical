@@ -417,15 +417,30 @@ usng transformations like <code class="docutils literal notranslate"><span class
 <span class="n">right_tree</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">connections</span>
 <span class="n">right_tree</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left_tree</span><span class="p">)</span>
 <span class="n">right_tree</span><span class="o">.</span><span class="n">crop_edges</span><span class="p">()</span>
-<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Scale and Merge"</span><span class="p">)</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Scale"</span><span class="p">)</span>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_scaling2.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="c1"># ===============================</span>
 <span class="c1">#        Sampling Example</span>
 <span class="c1"># ===============================</span>
 <span class="n">right_tree</span><span class="o">.</span><span class="n">sample_connections</span><span class="p">()</span>
-<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Scale and Sample"</span><span class="p">)</span>
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Sampling after scaling"</span><span class="p">)</span>
 <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fishbone_pattern_sampling.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+
+<span class="c1"># =========================================</span>
+<span class="c1">#        Up down connection with buffer</span>
+<span class="c1"># =========================================</span>
+<span class="n">p_manager</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">fishbone_pattern</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">steps</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">make_top_connection</span><span class="p">(</span><span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">push_connection_down</span><span class="p">(</span><span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">fishbone_pattern</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">svg</span> <span class="o">=</span> <span class="n">p_manager</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Top and bottom connectivity"</span><span class="p">)</span>
+<span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_layer_connections.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>

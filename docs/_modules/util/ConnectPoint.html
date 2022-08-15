@@ -420,17 +420,18 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_color</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Returns connection level '''</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_buffered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">''' Returns connection level '''</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">)</span>
 
-    <span class="c1"># @set_buffer.setter</span>
-    <span class="c1"># def set_buffer(self):</span>
-    <span class="c1">#     self._buffer = True</span>
-
-    <span class="c1"># @remove_buffer.setter</span>
-    <span class="c1"># def remove_buffer(self):</span>
-    <span class="c1">#     self._buffer = False</span>
+    <span class="nd">@buffer</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@from_connection</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">from_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
@@ -523,8 +524,8 @@
         <span class="sd">'''</span>
 <span class="sd">        This method extracts the direction of the connection.</span>
 
-<span class="sd">        Direction is derived by subtracting the x and y coordinates </span>
-<span class="sd">        of the to and from connection and </span>
+<span class="sd">        Direction is derived by subtracting the x and y coordinates</span>
+<span class="sd">        of the to and from connection and</span>
 <span class="sd">        if the value of X is 0 and the value of Y is:</span>
 <span class="sd">        &gt;1 direction = Top &lt;1 direction = Bottom</span>
 <span class="sd">        and if the value of Y is 0 and X is</span>
@@ -565,7 +566,7 @@
 <span class="sd">            angle (int): Valid angles are (0, 90, 180, 270, 360, -90, -180, -270, -360)</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            tuple : (x, y) </span>
+<span class="sd">            tuple : (x, y)</span>
 
 <span class="sd">        '''</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">point</span>
@@ -588,7 +589,7 @@
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
         <span class="sd">'''</span>
-<span class="sd">        Returns to and from coordinates after multipluing </span>
+<span class="sd">        Returns to and from coordinates after multipluing</span>
 <span class="sd">        them with the scaling factor</span>
 <span class="sd">        '''</span>
         <span class="n">pt</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -598,7 +599,7 @@
 
     <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
         <span class="sd">'''</span>
-<span class="sd">        Returns to and from coordinates after multipluing </span>
+<span class="sd">        Returns to and from coordinates after multipluing</span>
 <span class="sd">        them with the scaling factor</span>
 <span class="sd">        '''</span>
         <span class="n">pt</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>

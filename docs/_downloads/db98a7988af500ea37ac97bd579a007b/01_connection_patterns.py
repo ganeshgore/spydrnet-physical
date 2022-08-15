@@ -6,7 +6,7 @@ Connection Pattern Generation
 This example demonstrate how to genrate different connection pattern
 for routing global signals. By default this library support basic fishbone
 and HTree patterns, which can be extended to create desired connectivity
-usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``, 
+usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``,
 ``scale`` and ``sample``
 
 
@@ -87,12 +87,27 @@ p_manager = ConnectionPattern(5, 5)
 right_tree = p_manager.connections
 right_tree.merge(left_tree)
 right_tree.crop_edges()
-svg = p_manager.render_pattern(title="Scale and Merge")
+svg = p_manager.render_pattern(title="Scale")
 svg.saveas("_fishbone_pattern_scaling2.svg", pretty=True, indent=4)
 
 # ===============================
 #        Sampling Example
 # ===============================
 right_tree.sample_connections()
-svg = p_manager.render_pattern(title="Scale and Sample")
+svg = p_manager.render_pattern(title="Sampling after scaling")
 svg.saveas("_fishbone_pattern_sampling.svg", pretty=True, indent=4)
+
+
+# =========================================
+#        Up down connection with buffer
+# =========================================
+p_manager.reset()
+fishbone_pattern = p_manager.get_fishbone(x_margin=(1, 1), steps=2)
+fishbone_pattern.add_connection(2, 2, 3, 2)
+fishbone_pattern.make_top_connection(fishbone_pattern.points[0])
+fishbone_pattern.push_connection_down(fishbone_pattern.points[-1])
+fishbone_pattern.pull_connection_up(fishbone_pattern.points[-2])
+fishbone_pattern.points[-3].buffer = True
+
+svg = p_manager.render_pattern(title="Top and bottom connectivity")
+svg.saveas("_layer_connections.svg", pretty=True, indent=4)
