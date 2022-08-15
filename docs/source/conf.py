@@ -16,7 +16,7 @@
 import os
 import sys
 import pathlib
-import datetime
+from datetime import datetime
 
 sys.path.insert(0, os.path.abspath("../.."))  # nopep8
 sys.path.insert(0, os.path.abspath("../../spydrnet_physical"))  # nopep8
