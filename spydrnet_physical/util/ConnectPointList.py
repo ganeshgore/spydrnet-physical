@@ -817,8 +817,8 @@ class ConnectPointList:
             if point.level == "up":
                 continue
             w = cable.create_wire()
+            assign_name = f"{signal}_{point.to_x}_{point.to_y}_top_assign"
             if point.level == "top":
-                assign_name = f"{signal}_{point.to_x}_{point.to_y}_top_assign"
                 top_cable.assign_cable(cable,
                                        upper=len(cable.wires),
                                        lower=len(cable.wires)-1,
@@ -828,7 +828,8 @@ class ConnectPointList:
                     (self.sizey+1 == point.from_connection[1]):
                 signal_cable.assign_cable(cable,
                                           upper=w.get_index,
-                                          lower=w.get_index)
+                                          lower=w.get_index,
+                                          assign_instance_name=assign_name)
             else:
                 inst = self.get_top_instance(netlist, *point.from_connection)
                 port_name = f"{signal}_{point.from_dir}_out"
@@ -843,7 +844,8 @@ class ConnectPointList:
                     (self.sizex+1 == point.to_connection[0]) or \
                     (self.sizey+1 == point.to_connection[1]):
                 signal_cable.assign_cable(
-                    cable, upper=w.get_index, lower=w.get_index)
+                    cable, upper=w.get_index, lower=w.get_index,
+                    assign_instance_name=assign_name)
             else:
                 inst = self.get_top_instance(netlist, *point.to_connection)
                 if point.level in ["same", "down"]:
