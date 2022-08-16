@@ -3,24 +3,22 @@
 RenderFPGA Pre Generation Grid
 ==============================
 
-This class generates the 2D matrix of the FPGA grid.
+This example demonstrated how to perform design planning/ floorplanning
+even before generating **OpenFPGA netlist**.
+
+This rendering scheme is usefull to visualise global signal and
+clock signal planning
+
+.. note:: at this stage we dont have information of unique modules and its
+   instances, hence during this rendering every instance is derived from same
+   shapes
 
 
-**layout section of Architecture file**
+**Default FPGA grid generation**
 
 .. image:: ../../../examples/OpenFPGA_basic/_small_layout_render.svg
    :width: 60%
    :align: center
-
-.. image:: ../../../examples/OpenFPGA_basic/_ultimate_layout_render.svg
-   :width: 90%
-   :align: center
-
-.. image:: ../../../examples/OpenFPGA_basic/_ultimate_layout_render_sized.svg
-   :width: 90%
-   :align: center
-
-.. Note:: Merging with non reactilinear instances is still giving wrong output
 
 """
 
@@ -33,63 +31,54 @@ logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 
-def main():
-    fpga = FPGAGridGen(
-        design_name="example_design",
-        arch_file="../support_files/vpr_arch_render_demo.xml",
-        release_root="_release",
-        layout="small",
-    )
-    fpga.enumerate_grid()
+# %%
+#
+# **Create simple FPGA grid**
+#
+#
+fpga = FPGAGridGen(
+    design_name="example_design",
+    arch_file="../support_files/vpr_arch_render_demo.xml",
+    layout="small",
+)
+fpga.enumerate_grid()
+dwg = fpga.render_layout(
+    filename="_small_layout_render.svg", grid_io=True, markers=True)
 
-    dwg = fpga.render_layout(filename="_small_layout_render.svg", markers=True)
+# %%
+# **Modify the dimensions**
+# This example adds rectangular shape to all the modules in te design
+#
+# .. image:: ../../../examples/OpenFPGA_basic/_ultimate_layout_render.svg
+#    :width: 60%
+#    :align: center
 
-    # Demonstrates how to modify the dimensions
-    fpga = FPGAGridGen(
-        design_name="example_design",
-        arch_file="../support_files/vpr_arch_render_demo.xml",
-        release_root="_release",
-        layout="ultimate",
-    )
-    fpga.enumerate_grid()
-    fpga.default_parameters["cbx"][0] = 10
-    fpga.default_parameters["cby"][1] = 10
-    dwg = fpga.render_layout(filename="_ultimate_layout_render.svg", grid_io=True)
+fpga = FPGAGridGen(
+    design_name="example_design",
+    arch_file="../support_files/vpr_arch_render_demo.xml",
+    layout="small",
+)
+fpga.enumerate_grid()
+fpga.default_parameters["cbx"][0] = 10
+fpga.default_parameters["cby"][1] = 10
+dwg = fpga.render_layout(grid_io=False)
+fpga.add_style("symbol[id='mcu'] * { fill:#ECCCB2;}")
+dwg.saveas("_ultimate_layout_render.svg", pretty=True, indent=4)
 
-    # Demonstrates how tomodify the structure
-    fpga = FPGAGridGen(
-        design_name="example_design",
-        arch_file="../support_files/vpr_arch_render_demo.xml",
-        release_root="_release",
-        layout="ultimate",
-    )
-    fpga.enumerate_grid()
-    fpga.default_parameters["cbx"][0] = 10
-    fpga.default_parameters["cby"][1] = 10
-    dwg = fpga.render_layout(filename="_ultimate_layout_render_sized.svg", grid_io=True)
+# %%
+# **Modify the structure**
+#
+# .. image:: ../../../examples/OpenFPGA_basic/_ultimate_layout_render_sized.svg
+#    :width: 60%
+#    :align: center
 
-    fpga.get_instance("cbx_1__0_")["xlink:href"][1:]
-    fpga.get_symbol_of_instance("cbx_1__0_")
-    fpga.get_symbol("ram9k")
-    fpga.add_style("symbol[id='ram9k'] * { fill:#a8dd00;}")
-    # Need Some more effforts
-    fpga.merge_symbol(["cbx_1__0_", "clb_1__1_", "cbx_1__1_"], "new_symbol")
-    fpga.merge_symbol(
-        [
-            "ram9k_3__5_",
-            "sb_3__4_",
-            "sb_3__5_",
-            "cbx_3__4_",
-            "cbx_3__5_",
-            "cbx_4__4_",
-            "cbx_4__5_",
-        ],
-        "new_symbol_2",
-    )
-    fpga.add_style("symbol[id='new_symbol'] * { fill:#a8dd00;}")
-    fpga.add_style("symbol[id='new_symbol_2'] * { fill:#599fff;}")
-    dwg.save(pretty=True, indent=4)
+fpga.get_symbol_of_instance("cbx_1__2_")
+fpga.get_symbol("mcu")
+surrounding_routing = ["mcu_1__1_"]
+surrounding_routing += ["cbx_1__2_", "sb_1__2_", "cbx_2__2_"]
+surrounding_routing += ["cbx_1__0_", "sb_1__0_", "cbx_2__0_"]
+fpga.merge_symbol(surrounding_routing, "new_mcu_module")
 
-
-if __name__ == "__main__":
-    main()
+fpga.add_style(
+    "symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
+dwg.saveas("_ultimate_layout_render_sized.svg", pretty=True, indent=4)

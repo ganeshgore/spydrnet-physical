@@ -987,6 +987,39 @@ class Definition(DefinitionBase):
                     "%s instance not found during uniquifying", each)
         return new_def
 
+    def add_buffer(self, cable, buffer, instance_name, ports=("A", "Y")):
+        """
+        Adds buffer on the given net
+        args:
+            cable (sdn.Cable):
+            buffer (str):
+            instance_name (sdn.Instance):
+            ports tuple(str, str):
+        """
+        pre_buffer_w = f"{instance_name}_pre_buffer"
+
+        if cable.is_port_cable:
+            driver_pin = list(filter(lambda x: isinstance(x, sdn.InnerPin),
+                                     cable.wires[0].pins))[0]
+            if (driver_pin.port.direction == sdn.IN):
+                raise NotImplementedError(
+                    "Buffer on input net is not supported")
+        driver_pin = next(cable.get_pins(selection="OUTSIDE",
+                                         filter=lambda x: x.inner_pin.port.direction == sdn.OUT))
+        driver_pin.wire.disconnect_pin(driver_pin)
+
+        buffer = next(self.get_definitions(buffer)) if isinstance(
+            buffer, str) else buffer
+        buffer_inst = self.create_child(name=instance_name, reference=buffer)
+        a_pin = next(buffer_inst.get_port_pins(ports[0]))
+        y_pin = next(buffer_inst.get_port_pins(ports[1]))
+
+        buffer_input_wire = self.create_cable(pre_buffer_w, wires=1).wires[0]
+        buffer_input_wire.connect_pin(driver_pin)
+        buffer_input_wire.connect_pin(a_pin)
+        cable.wires[0].connect_pin(y_pin)
+        logger.debug("Added buffer in %s with instance name %s", self.name, buffer_inst.name)
+
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())
     #     for eachCables in self.get_cables():

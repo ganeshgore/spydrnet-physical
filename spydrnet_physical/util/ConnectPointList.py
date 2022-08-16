@@ -1,19 +1,22 @@
 '''
 '''
-from typing import List
+import csv
+import math
 import logging
+from collections import OrderedDict
+from typing import List
+from xml.dom import minidom
 
 import networkx as nx
 import spydrnet as sdn
 import svgwrite
 from spydrnet_physical.util import ConnectPoint
 from svgwrite.container import Group
-from collections import OrderedDict
 
 DEFAULT_COLOR = " black"
 
 logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='INFO')
+sdn.enable_file_logging(LOG_LEVEL='DEBUG')
 
 
 class ConnectPointList:
@@ -87,7 +90,12 @@ class ConnectPointList:
 
     def store_points(self, filename):
         ''' Stores all points and its attributes in csv format in the file '''
-        raise NotImplementedError
+        with open(filename, "w", encoding="UTF-8") as file_ptr:
+            file_ptr.write("# Generated using SpyDrNet-physical plugin\n")
+            file_ptr.write("# fr_x  fr_y  to_x  to_y  type\n")
+            file_ptr.write("= = "*10 + "\n")
+            for point in self.points:
+                file_ptr.write(str(point)+"\n")
 
     def validate_connectivity(self):
         """
@@ -96,15 +104,126 @@ class ConnectPointList:
         * If there is any connection coming outside from range (0-sizex+1) or (0-sizey+1)
         * If there is any redundant connections
         """
-        raise NotImplementedError
+        # Check if signal enter module multiple times
+        logger.info("Checking consistency of the connection file")
+        point: ConnectPoint
+        in_mapping = [[0 for _ in range(self.sizey+2)]
+                      for _ in range(self.sizex+2)]
+        for point in self._points:
+            if point.to_x >= self.sizex+2:
+                logger.warning("Pointx out of range %d", point.to_x)
+                continue
+            if point.to_y >= self.sizey+2:
+                logger.warning("Pointy out of range %d", point.to_y)
+                continue
+            if in_mapping[point.to_x][point.to_y]:
+                logger.warning("Multiple input for instance (%d %d)",
+                               *point.to_connection)
+            in_mapping[point.to_x][point.to_y] = 1
 
-    def load_points(self, filename):
+    def load_points(self, filename, append=False, delimiter=" ", skiplines=3):
         '''
         Loads all points and its attributes from the given csv file
 
         Format: from_x, from_y, to_x, to_y, level, color
         '''
-        raise NotImplementedError
+        if not append:
+            _ = [self._points.pop(0) for _ in list(self._points)]
+        with open(filename, encoding="UTF-8") as pts_file:
+            spamreader = csv.reader(
+                pts_file, delimiter=delimiter, skipinitialspace=True)
+            _ = [next(spamreader) for _ in range(skiplines)]
+            for row in spamreader:
+                point = self.add_connection(*row[:4])
+                if "top" in row[-1]:
+                    self.make_top_connection(point)
+                if "down" in row[-1]:
+                    self.push_connection_down(point)
+                if "up" in row[-1]:
+                    self.pull_connection_up(point)
+
+    def load_points_from_svg(self, filename, grid=6.9*2, group="markers", append=False,
+                             same_color="black", down_color="red", up_color="green"):
+        '''
+        This method loads points from the SVG file.
+        enabling UI based designing of connection file.
+        '''
+        root = minidom.parse(filename)
+        if not append:
+            _ = [self._points.pop(0) for _ in list(self._points)]
+
+        x_grid = []
+        y_grid = []
+        for conn in root.getElementsByTagName("line"):
+            if "gridmarker" in conn.getAttribute('class'):
+                x1 = float(conn.getAttribute("x1"))
+                x2 = float(conn.getAttribute("x2"))
+                y1 = float(conn.getAttribute("y1"))
+                y2 = float(conn.getAttribute("y2"))
+                if y1 == y2:
+                    y_grid.append(y1)
+                if x1 == x2:
+                    x_grid.append(x1)
+        x_grid = sorted(x_grid)
+        y_grid = sorted(y_grid)
+        x_origin = x_grid[0]
+        y_origin = y_grid[0]
+        # x_grid= min([ abs(a-b) for a,b in zip(x_grid[:-1], x_grid[1:])])
+        # y_grid= min([ abs(a-b) for a,b in zip(y_grid[:-1], y_grid[1:])])
+
+        x_grid = (max(x_grid)-min(x_grid))/(self.sizex)
+        y_grid = (max(y_grid)-min(y_grid))/(self.sizey)
+        logger.debug("Computed grid size is  %.2f x %.2f", x_grid, y_grid)
+        logger.debug("origin  %.2f x %.2f", x_origin, y_origin)
+
+        logger.debug(
+            "x1                 x2                 y1                 y2")
+        for conn in root.getElementsByTagName("line"):
+            conn_class = conn.getAttribute('class')
+            if "connection" in conn_class:
+                x1 = 1 + \
+                    math.floor(
+                        ((float(conn.getAttribute("x1")))-(x_origin))/x_grid)
+                x2 = 1 + \
+                    math.floor(
+                        ((float(conn.getAttribute("x2")))-(x_origin))/x_grid)
+                y1 = 1 + \
+                    math.floor(
+                        ((float(conn.getAttribute("y1")))-(y_origin))/y_grid)
+                y2 = 1 + \
+                    math.floor(
+                        ((float(conn.getAttribute("y2")))-(y_origin))/y_grid)
+
+                if abs(y1 - y2) > abs(x1 - x2):
+                    direction = "top" if y2 > y1 else "bottom"
+                elif abs(x1 - x2) > abs(y1 - y2):
+                    direction = "right" if x2 > x1 else "left"
+                else:
+                    logger.warning("Can not identify the connection direction %s [Dx %.2f, Dy %.2f]",
+                                   conn.attributes.items(), abs(x1 - x2), abs(y1 - y2))
+                    continue
+                conn_type = "up" if "up" in conn_class else "down" \
+                    if "down" in conn_class else "same"
+                points_info = f"{x1:8.2f}[{conn.getAttribute('x1'):8s}]  " + \
+                    f"{y1:8.2f}[{conn.getAttribute('y1'):8s}]  " + \
+                    f"{x2:8.2f}[{conn.getAttribute('x2'):8s}]  " + \
+                    f"{y2:8.2f}[{conn.getAttribute('y2'):8s}]  " + \
+                    f"-> {direction:>8s}[{conn_type:^4s}]"
+                try:
+                    point = self.add_connection(abs(x1), self.sizey+1-abs(y1),
+                                                abs(x2), self.sizey+1-abs(y2))
+                    logger.debug("%s Added", points_info)
+                except AssertionError as error:
+                    logger.debug("%s Skipped (%8s, %8s) : %s", points_info,
+                                 conn.getAttribute("x1"), conn.getAttribute("y1"), error)
+                if "top" in conn_class:
+                    self.make_top_connection(point)
+                if "down" in conn_class:
+                    self.push_connection_down(point)
+                if "up" in conn_class:
+                    self.pull_connection_up(point)
+
+        # raise NotImplementedError
 
     def search_from_point(self, point):
         '''
@@ -293,7 +412,7 @@ class ConnectPointList:
         Returns:
             ConnectPointList: Return self object
         '''
-        self._points.extend(connectlist._points)
+        self._points.extend(connectlist.points)
         return self
 
     def scale(self, scale, anchor=(0, 0)):
@@ -483,30 +602,67 @@ class ConnectPointList:
 
         dwgMarker = dwg.add(Group(id="markers",  transform="scale(1,-1)"))
         dwgMain = dwg.add(Group(id="main", transform="scale(1,-1)"))
+
+        # Add arrow marker
+        dir_marker = dwg.marker(refX="30", refY="30",
+                                viewBox="0 0 120 120",
+                                markerUnits="strokeWidth",
+                                markerWidth="5", markerHeight="10", orient="auto")
+        dir_marker.add(dwg.path(d="M 0 0 L 60 30 L 0 60 z", fill="blue"))
+        dwg.defs.add(dir_marker)
+
+        # Add down connection marker
+        down_conn = dwg.marker(viewBox="-15 -15 30 30",
+                               markerUnits="strokeWidth",
+                               markerWidth="5", markerHeight="10", orient="auto")
+        down_conn.add(dwg.rect(insert=(-10, -10), size=(20, 20), fill="green"))
+        down_conn.add(dwg.path(d="M 8 0 L -8 8 L -8 -8 z", fill="blue"))
+        dwg.defs.add(down_conn)
+
+        # Add up conenction marker
+        up_conn = dwg.marker(viewBox="-15 -15 30 30",
+                             markerUnits="strokeWidth",
+                             markerWidth="5", markerHeight="10", orient="auto")
+        up_conn.add(dwg.rect(insert=(-10, -10), size=(20, 20), fill="green"))
+        up_conn.add(dwg.path(d="M 8 0 L -8 8 L -8 -8 z", fill="blue"))
+        dwg.defs.add(up_conn)
+
+        # Top connection marker
+        top_marker = dwg.marker(viewBox="-15 -15 30 30",
+                                markerUnits="strokeWidth",
+                                markerWidth="5",
+                                markerHeight="10",
+                                orient="auto")
+        top_marker.add(dwg.line(start=(0, -15), end=(0, 15),
+                       stroke_width="5px",  stroke="red"))
+        dwg.defs.add(top_marker)
+
         dwg.defs.add(dwg.style("""
-                text{font-family: Verdana;}
-                svgg{background-color:grey;}
-                .connection{stroke-linecap:round; opacity: 0.7; stroke-width:1.2;}
+                text{font-family: Lato;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
-                .down{stroke-dasharray: 5;}
-                .up{stroke-dasharray: 5;}
-                .top{stroke-dasharray: 5;}
                 .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
+                """ + f"""
+                .connection{{ opacity: 0.5;
+                            marker-end:url(#{dir_marker.get_id()});
+                            stroke-width:1.2;}}
+                .down{{stroke-dasharray: 2;
+                    marker-end:url(#{up_conn.get_id()});}}
+                .up{{stroke-dasharray: 2;
+                    marker-start:url(#{down_conn.get_id()});}}
+                .top{{stroke-dasharray: 2;
+                    marker-start:url(#{top_marker.get_id()});}}
+                .buffer{{ filter: hue-rotate(90deg);
+                          stroke-width:2; stroke-dasharray:1;}}
                 """))
-        DRMarker = dwg.marker(refX="30", refY="30",
-                              viewBox="0 0 120 120",
-                              markerUnits="strokeWidth",
-                              markerWidth="5", markerHeight="10", orient="auto")
-        DRMarker.add(dwg.path(d="M 0 0 L 60 30 L 0 60 z", fill="blue"))
-        dwg.defs.add(DRMarker)
+
         for conn in self._points:
             conn_new = conn*scale
-            dwgMain.add(dwg.line(start=conn_new.from_connection,
-                                 end=conn_new.to_connection,
+            buffer = " buffer" if conn.buffer else ""
+            dwgMain.add(dwg.line(start=tuple(map(round, conn_new.from_connection)),
+                                 end=tuple(map(round, conn_new.to_connection)),
                                  stroke=conn.color,
-                                 marker_end=DRMarker.get_funciri(),
-                                 class_=f"connection {conn.level}"))
+                                 class_=f"connection {conn.level}{buffer}"))
         return dwg
 
     def get_reference(self, netlist, x, y):
@@ -529,7 +685,7 @@ class ConnectPointList:
         try:
             return next(netlist.top_instance.reference.get_instances(instance_name))
         except StopIteration:
-            logger.exception("Instance not found " + instance_name)
+            logger.exception("Instance not found %s", instance_name)
 
     def get_top_instance_name(self, x, y):
         '''
@@ -546,16 +702,16 @@ class ConnectPointList:
         '''
         stat = self.show_stats(netlist)
         output = []
-        format_str = "{:15s} | {:>3} {:>3} {:>3} {:>3} | {:>3} {:>3} {:>3} {:>3}"
+        format_str = "{:25s} | {:>3} {:>3} {:>3} {:>3} | {:>3} {:>3} {:>3} {:>3}"
         default = {
             "left": 0, "right": 0, "top": 0, "bottom": 0
         }
-        output.append("= "*26)
-        output.append("{:15s} | {:^15} | {:^15}".format('Module', "In", "Out"))
+        output.append("= "*32)
+        output.append("{:25s} | {:^15} | {:^15}".format('Module', "In", "Out"))
         output.append(format_str.format('Module',
                                         "L", "R", "T", "B",
                                         "L", "R", "T", "B"))
-        output.append("= "*26)
+        output.append("= "*32)
         for module, mstat in stat.items():
             output.append(format_str.format(
                 module,
@@ -568,7 +724,7 @@ class ConnectPointList:
                 mstat.get("out", default)["top"] or '-',
                 mstat.get("out", default)["bottom"] or '-'))
         if filename:
-            with open(filename, "w") as fp:
+            with open(filename, "w", encoding="UTF-8") as fp:
                 fp.write("\n".join(output))
         return output
 
@@ -661,38 +817,48 @@ class ConnectPointList:
             if point.level == "up":
                 continue
             w = cable.create_wire()
+            assign_name = f"{signal}_{point.to_x}_{point.to_y}_top_assign"
             if point.level == "top":
                 top_cable.assign_cable(cable,
                                        upper=len(cable.wires),
-                                       lower=len(cable.wires)-1)
+                                       lower=len(cable.wires)-1,
+                                       assign_instance_name=assign_name)
             elif (0 in point.from_connection) or \
                 (self.sizex+1 == point.from_connection[0]) or \
                     (self.sizey+1 == point.from_connection[1]):
                 signal_cable.assign_cable(cable,
                                           upper=w.get_index,
-                                          lower=w.get_index)
+                                          lower=w.get_index,
+                                          assign_instance_name=assign_name)
             else:
                 inst = self.get_top_instance(netlist, *point.from_connection)
                 port_name = f"{signal}_{point.from_dir}_out"
                 try:
                     w.connect_pin(next(inst.get_port_pins(port_name)))
                 except AssertionError:
-                    logger.warning(next(inst.get_port_pins(port_name)).port.name)
+                    logger.warning("%s -> %s", inst.name,
+                                   next(inst.get_port_pins(port_name)).port.name)
                     w = next(inst.get_port_pins(port_name)).wire
 
             if 0 in point.to_connection or \
                     (self.sizex+1 == point.to_connection[0]) or \
                     (self.sizey+1 == point.to_connection[1]):
                 signal_cable.assign_cable(
-                    cable, upper=w.get_index, lower=w.get_index)
+                    cable, upper=w.get_index, lower=w.get_index,
+                    assign_instance_name=assign_name)
             else:
                 inst = self.get_top_instance(netlist, *point.to_connection)
+                if point.level in ["same", "down"]:
+                    assert signal, "Singal is not defined for %s connection" % point.level
                 port_name = {
                     "same": f"{signal}_{point.to_dir}_in",
                     "top": f"{signal}_{point.to_dir}_in",
                     "down": f"{down_port}_{point.to_dir}_in"}[point.level]
+                logger.debug("Connecting to pin %s", port_name)
                 w.connect_pin(next(inst.get_port_pins(port_name)))
-        if not len(cable.wires):
+
+        # If the cable does not contain any wire remove it
+        if len(cable.wires) == 0:
             netlist.top_instance.reference.remove_cable(cable)
 
     def print_instance_grid_map(self):

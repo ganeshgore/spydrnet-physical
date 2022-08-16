@@ -69,7 +69,7 @@ class FabricKeyGenCCFF:
         instance_list = self.bits_mapping.keys()
         if not skip_missing_checks:
             for instance in set(instance_list).difference(flatlist):
-                logger.warning("Instance not found %s", instance)
+                logger.warning("Instance missing %s", instance)
 
         # Check for extra instance
         if not skip_extra_instance_checks:
@@ -274,7 +274,7 @@ class FabricKeyGenCCFF:
                 -1 * float(element.attribs["y"]),
             )
 
-        for each_region in self.fkey:
+        for indx, each_region in enumerate(self.fkey):
             points = []
             for each_instance in each_region:
                 if fnmatch(each_instance[-1], skip_instance):
@@ -290,6 +290,7 @@ class FabricKeyGenCCFF:
                 dwg.path(
                     d=f"M {points[0]} {points[1]} " + " ".join(points),
                     fill="none",
+                    class_ = f"region_{indx}",
                     marker_mid=marker.get_funciri(),
                     marker_end=marker.get_funciri(),
                     stroke_width="0.4px",
