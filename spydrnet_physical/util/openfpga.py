@@ -383,7 +383,8 @@ class OpenFPGA:
         output_str.append("= = " * 10)
         output_str.append(f"    top_module : {design.name}")
         output_str.append(f"    definitions: {len(inst_cnt)}")
-        output_str.append(f"    instances  : {len(design.children)}")
+        output_str.append(
+            f"    instances  : {sum([v for _, v in inst_cnt.items()])}")
         output_str.append("= = " * 10)
         output_str.append("{: >20} {: >8}".format("References", "count"))
         output_str.append("- - " * 10)
