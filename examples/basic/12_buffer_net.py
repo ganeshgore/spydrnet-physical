@@ -48,9 +48,13 @@ top.add_buffer(out_wire, buffer, instance_name="buff0")
 out_wire = next(top.get_cables("out0"))
 top.add_buffer(out_wire, buffer, instance_name="OBuf")
 
+# # Add Buffer on Passthrough buffer
+# out_wire = next(top.get_cables("out_ft"))
+# top.add_buffer(out_wire, buffer, instance_name="ft_bufer")
+
 # Add Buffer on Passthrough buffer
 out_wire = next(top.get_cables("out_ft"))
-top.add_buffer(out_wire, buffer, instance_name="ft_bufer")
+top.add_buffer(out_wire.wires[0], buffer, instance_name="ft_bufer")
 
 # Add Buffer on Input Nets
 try:

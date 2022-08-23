@@ -987,25 +987,30 @@ class Definition(DefinitionBase):
                     "%s instance not found during uniquifying", each)
         return new_def
 
-    def add_buffer(self, cable, buffer, instance_name, ports=("A", "Y")):
+    def add_buffer(self, wire, buffer, instance_name, ports=("A", "Y")):
         """
         Adds buffer on the given net
         args:
-            cable (sdn.Cable):
+            wire (sdn.Wire, sdn.Cable): Cable or a wire to be buffered
             buffer (str):
             instance_name (sdn.Instance):
             ports tuple(str, str):
         """
         pre_buffer_w = f"{instance_name}_pre_buffer"
 
-        if cable.is_port_cable:
+        if isinstance(wire, sdn.Cable):
+            for each_wire in wire.wires:
+                self.add_buffer(each_wire, buffer, instance_name, ports)
+            return
+
+        if wire.cable.is_port_cable:
             driver_pin = list(filter(lambda x: isinstance(x, sdn.InnerPin),
-                                     cable.wires[0].pins))[0]
+                                     wire.cable.wires[0].pins))[0]
             if (driver_pin.port.direction == sdn.IN):
                 raise NotImplementedError(
                     "Buffer on input net is not supported")
-        driver_pin = next(cable.get_pins(selection="OUTSIDE",
-                                         filter=lambda x: x.inner_pin.port.direction == sdn.OUT))
+        driver_pin = next(wire.get_pins(selection="OUTSIDE",
+                                        filter=lambda x: x.inner_pin.port.direction == sdn.OUT))
         driver_pin.wire.disconnect_pin(driver_pin)
 
         buffer = next(self.get_definitions(buffer)) if isinstance(
@@ -1017,8 +1022,9 @@ class Definition(DefinitionBase):
         buffer_input_wire = self.create_cable(pre_buffer_w, wires=1).wires[0]
         buffer_input_wire.connect_pin(driver_pin)
         buffer_input_wire.connect_pin(a_pin)
-        cable.wires[0].connect_pin(y_pin)
-        logger.debug("Added buffer in %s with instance name %s", self.name, buffer_inst.name)
+        wire.connect_pin(y_pin)
+        logger.debug("Added buffer in %s with instance name %s",
+                     self.name, buffer_inst.name)
 
     # def sanity_check_cables(self):
     #     allWires = list(self.get_wires())
