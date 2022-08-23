@@ -32,7 +32,7 @@ This script can be used for shaping and placement of the modules before place an
    :width: 100%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-156
+.. GENERATED FROM PYTHON SOURCE LINES 17-161
 
 .. code-block:: default
 
@@ -50,6 +50,7 @@ This script can be used for shaping and placement of the modules before place an
 
     STYLE_SHEET = """
         .over_util {fill:#b22222 !important}
+        line {stroke-width: 30}
         text{font-family: Lato; font-style: italic; font-size: 250px;}
     """
 
@@ -162,6 +163,7 @@ This script can be used for shaping and placement of the modules before place an
         dwg = fp.get_svg()
         dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
+        # This standard cell grid
         pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
                               patternUnits="userSpaceOnUse")
         pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
@@ -169,6 +171,9 @@ This script can be used for shaping and placement of the modules before place an
         dwg.defs.add(pattern)
         dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 
+        # This adds placment grid markers
+        fpga_grid.render_layout()
+        dwg.add(fpga_grid.dwg_shapes)
         dwg.saveas("_fpga_auto_initial_placement.svg", pretty=True, indent=4)
 
 
@@ -176,7 +181,7 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-160
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
 **Placement information**
 

@@ -28,6 +28,7 @@ sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 STYLE_SHEET = """
     .over_util {fill:#b22222 !important}
+    line {stroke-width: 30}
     text{font-family: Lato; font-style: italic; font-size: 250px;}
 """
 
@@ -140,6 +141,7 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
+    # This standard cell grid
     pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
                           patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
@@ -147,6 +149,9 @@ def main():
     dwg.defs.add(pattern)
     dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 
+    # This adds placment grid markers
+    fpga_grid.render_layout()
+    dwg.add(fpga_grid.dwg_shapes)
     dwg.saveas("_fpga_auto_initial_placement.svg", pretty=True, indent=4)
 
 
