@@ -386,9 +386,13 @@ to download the full example code</p>
 <span class="n">out_wire</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"out0"</span><span class="p">))</span>
 <span class="n">top</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">out_wire</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">instance_name</span><span class="o">=</span><span class="s2">"OBuf"</span><span class="p">)</span>
 
+<span class="c1"># # Add Buffer on Passthrough buffer</span>
+<span class="c1"># out_wire = next(top.get_cables("out_ft"))</span>
+<span class="c1"># top.add_buffer(out_wire, buffer, instance_name="ft_bufer")</span>
+
 <span class="c1"># Add Buffer on Passthrough buffer</span>
 <span class="n">out_wire</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="s2">"out_ft"</span><span class="p">))</span>
-<span class="n">top</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">out_wire</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">instance_name</span><span class="o">=</span><span class="s2">"ft_bufer"</span><span class="p">)</span>
+<span class="n">top</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span><span class="n">out_wire</span><span class="o">.</span><span class="n">wires</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buffer</span><span class="p">,</span> <span class="n">instance_name</span><span class="o">=</span><span class="s2">"ft_bufer"</span><span class="p">)</span>
 
 <span class="c1"># Add Buffer on Input Nets</span>
 <span class="k">try</span><span class="p">:</span>

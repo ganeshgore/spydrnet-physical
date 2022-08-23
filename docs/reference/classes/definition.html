@@ -420,7 +420,7 @@
 <td><p>clone the definition and point the reference to the new definition</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="spydrnet_physical.ir.definition.Definition.add_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer</span></code></a></p></td>
-<td><p>Adds buffer on the given net :Parameters: * <strong>cable</strong> (<em>sdn.Cable</em>)              * <strong>buffer</strong> (<em>str</em>)              * <strong>instance_name</strong> (<em>sdn.Instance</em>)              * <strong>ports tuple</strong> (<em>str, str</em>)</p></td>
+<td><p>Adds buffer on the given net :Parameters: * <strong>wire</strong> (<em>sdn.Wire, sdn.Cable</em>) -- Cable or a wire to be buffered              * <strong>buffer</strong> (<em>str</em>)              * <strong>instance_name</strong> (<em>sdn.Instance</em>)              * <strong>ports tuple</strong> (<em>str, str</em>)</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cable</span></code></p></td>
 <td><p>Add a cable to the definition.</p></td>
@@ -820,9 +820,9 @@ each cell is represented as as node and nets are represented as edges</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.add_buffer">
-<span class="sig-name descname"><span class="pre">add_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('A',</span> <span class="pre">'Y')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.add_buffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wire</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('A',</span> <span class="pre">'Y')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.add_buffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds buffer on the given net
-:Parameters: * <strong>cable</strong> (<em>sdn.Cable</em>)</p>
+:Parameters: * <strong>wire</strong> (<em>sdn.Wire, sdn.Cable</em>) – Cable or a wire to be buffered</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><strong>buffer</strong> (<em>str</em>)</p></li>
