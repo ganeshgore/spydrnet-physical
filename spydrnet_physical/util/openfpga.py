@@ -372,8 +372,9 @@ class OpenFPGA:
                 continue
             if inst.reference.name.startswith("const"):
                 continue
-            inst_cnt[inst.reference.name] = 1 + \
-                inst_cnt.get(inst.reference.name, 0)
+            if fnmatch(inst.reference.name, pattern):
+                inst_cnt[inst.reference.name] = 1 + \
+                    inst_cnt.get(inst.reference.name, 0)
         inst_cnt = OrderedDict(
             sorted(inst_cnt.items(), reverse=True, key=lambda t: t[1])
         )
