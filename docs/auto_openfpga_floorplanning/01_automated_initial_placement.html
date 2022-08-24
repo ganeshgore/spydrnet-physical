@@ -482,6 +482,7 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">fp</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">skip_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_pins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">fp</span><span class="o">.</span><span class="n">custom_style_sheet</span> <span class="o">=</span> <span class="n">STYLE_SHEET</span>
     <span class="n">dwg</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">get_svg</span><span class="p">()</span>
+    <span class="c1"># This adds placment grid markers</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">design_grid</span><span class="o">.</span><span class="n">render_grid</span><span class="p">(</span><span class="n">return_group</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
     <span class="c1"># This standard cell grid</span>
@@ -492,9 +493,6 @@ based on <code class="docutils literal notranslate"><span class="pre">initial_pl
     <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attribs</span><span class="p">[</span><span class="s2">"fill"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">get_funciri</span><span class="p">()</span>
 
-    <span class="c1"># This adds placment grid markers</span>
-    <span class="n">fpga_grid</span><span class="o">.</span><span class="n">render_layout</span><span class="p">()</span>
-    <span class="n">dwg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">fpga_grid</span><span class="o">.</span><span class="n">dwg_shapes</span><span class="p">)</span>
     <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_fpga_auto_initial_placement.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 
