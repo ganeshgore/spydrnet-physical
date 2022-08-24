@@ -139,6 +139,7 @@ def main():
     fp.compose(skip_connections=True, skip_pins=True)
     fp.custom_style_sheet = STYLE_SHEET
     dwg = fp.get_svg()
+    # This adds placment grid markers
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
     # This standard cell grid
@@ -149,9 +150,6 @@ def main():
     dwg.defs.add(pattern)
     dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 
-    # This adds placment grid markers
-    fpga_grid.render_layout()
-    dwg.add(fpga_grid.dwg_shapes)
     dwg.saveas("_fpga_auto_initial_placement.svg", pretty=True, indent=4)
 
 
