@@ -1,20 +1,22 @@
 """
-=================
-FPGA Floorplanner
-=================
+===============================
+FPGA heterogeneous Floorplanner
+===============================
 
-This dedicated OpenFPGA floorplan shapes each block in the FPGA in a classic tiling structure. This floorplanning can is applied to homogeneous architecture out of the box, but external information may be required for heterogeneous architecture.
+This is dedicated OpenFPGA floorplan shapes each block in the FPGA in a
+classic tiling structure.
+This floorplanning can is applied to homogeneous architecture out of the box,
+but external information may be required for heterogeneous architecture.
 
-This floor planner is sequential. It honors utilization constraints and parameter constraints in the given order.
+This floor planner is sequential. It honors utilization constraints and
+parameter constraints in the given order.
 
-User defined variables
-
-GRID_AR = 1.5
 
 Paramater Based (*Preferred*):
 ------------------------------
 
-Following figure details the various paramteres referred in this type of floorplanning
+Following figure details the various paramteres referred in this type of
+floorplanning
 
 .. rst-class:: ascii
 
@@ -23,77 +25,40 @@ Following figure details the various paramteres referred in this type of floorpl
 
                   |<---------  GRID_X  --------->|
                   |                              |
-        ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐  ∧
-        │           ││   CBX_TOP   ││              ││             ││           │  |
-        │           ││   _WIDTH    ││              ││             ││           │  | CBX_TOP_HEIGHT
-        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ⩒
+        ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐
+        │           ││  top_cbx_w  ││              ││           ↑ ││           │
+        │           ││<----------->││              ││  top_cbx_h↓ ││           │
+        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │
         │        │┌───────────────────┐│        │┌───────────────────┐│        │
-        └────────┘│   GRID_CLB_RATIO  │└────────┘│                   │└────────┘
-        ┌────────┐│       W/H         │┌────────┐│                   │┌────────┐
-        │        ││                   ││        ││                   ││        │
-        │  CBY_  ││                   ││   CB_  ││                   ││  CBY_  │
-        │  LEFT_ ││                   ││ HEIGHT ││                   ││ RIGHT_ │
-        │ HEIGHT ││                   ││ _RATIO ││                   ││ HEIGHT │
-        │        ││                   ││        ││                   ││        │
         └────────┘│                   │└────────┘│                   │└────────┘
         ┌────────┐│                   │┌────────┐│                   │┌────────┐
-    ↑   │        │└───────────────────┘│        │└───────────────────┘│        │
-    |   │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │
-    |   │           ││  CB_WIDTH_  ││              ││             ││           │  FPGA_SIZE[0],y
-    |   │           ││    RATIO    ││              ││             ││           │
-    G   │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │
-    R   │        │┌───────────────────┐│        │┌───────────────────┐│        │
-    I   └────────┘│                   │└────────┘│                   │└────────┘
-    D   ┌────────┐│                   │┌────────┐│                   │┌────────┐
-    _   │        ││                   ││        ││                   ││        │
-    Y   │        ││                   ││        ││                   ││        │
-    |   │        ││                   ││        ││                   ││        │
-    |   │        ││                   ││        ││                   ││        │
-    |   │        ││                   ││        ││                   ││        │
-    |   └────────┘│                   │└────────┘│                   │└────────┘
-    |   ┌────────┐│                   │┌────────┐│                   │┌────────┐
-    ↓   │        │└───────────────────┘│        │└───────────────────┘│        │
-        │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │  ∧
-        │           ││ CBX_BOTTOM_ ││              ││             ││           │  |
-        │           ││   _WIDTH    ││              ││             ││           │  | CBX_BOTTOM_HEIGHT
-        └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘  ⩒
-        <----------->                                               <--------->
-        CBY_LEFT_WIDTH                                           CBY_RIGHT_WIDTH
-
-
-**Area Based**:
-
-- ``OVERALL_UTILIZATION``
-- ``GRID_CLB_UTILIZATION``
-- ``SB_UTILIZATION``
-
-
-**Common Parameters** (All of them are absolute numbers in multiple of *SC_HEIGHT* or *CPP*)
-
-- ``GRID_CLB_CHAN_X`` and ``GRID_CLB_CHAN_Y``: Grid CLB margins
-- ``CBx_CHAN_X`` and ``CBx_CHAN_Y`` : Connection box X margins
-- ``CBy_CHAN_X`` and ``CBy_CHAN_Y`` : Connection box Y margins
-- ``GPIO_CHAN_X`` and ``GPIO_CHAN_Y``: GPIO cell margins
-
-
-**Absolute Numbers** (In multiple of *SC_HEIGHT* or *CPP*)
-
-* ``tile_width``
-* ``tile_height``
-* ``CLB_W``
-* ``CLB_H``
-* ``CBX_WIDTH``
-* ``CBX_HEIGHT``
-* ``CBY_WIDTH``
-* ``CBY_HEIGHT``
-* ``LEFT_CBY_WIDTH``
-* ``LEFT_CBY_HEIGHT``
-* ``RIGHT_CBY_WIDTH``
-* ``RIGHT_CBY_HEIGHT``
-* ``TOP_CBX_WIDTH``
-* ``TOP_CBX_HEIGHT``
-* ``BOTTOM_CBX_WIDTH``
-* ``BOTTOM_CBX_HEIGHT``
+        │      ↑ ││                   ││       ↑││                   ││      ↑ │
+        │      | ││                   ││       |││                   ││      | │
+        │      | ││                   ││       |││                   ││      | │
+        │left_ | ││                   ││cby11_h|││                   ││right | │
+        |cby_h ↓ ││                   ││       ↓││                   ││cby_h ↓ │
+        └────────┘│                   │└────────┘│                   │└────────┘
+        ┌────────┐│                   │┌────────┐│                   │┌────────┐
+        │        │└───────────────────┘│        │└───────────────────┘│        │
+        │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │
+        │           ││   cbx11_w   ││              ││           ↑ ││           │
+        │           ││<----------->││              ││   cbx11_h ↓ ││           │
+        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │
+        │        │┌───────────────────┐│        │┌───────────────────┐│        │
+        └────────┘│                ↑  │└────────┘│                   │└────────┘
+        ┌────────┐│                |  │┌────────┐│                   │┌────────┐
+        │        ││                |  ││        ││                   ││        │
+        │        ││                |  ││        ││                   ││        │
+        │left_   ││          clb_h |  ││        ││                   ││right   │
+        │cby_w   ││                |  ││cby11_w ││                   ││cby_W   │
+        │<------>││                |  ││<------>││                   ││<------>│
+        └────────┘│<----------------->│└────────┘│                   │└────────┘
+        ┌────────┐│      clb_w     ↓  │┌────────┐│                   │┌────────┐
+        │        │└───────────────────┘│        │└───────────────────┘│        │
+        │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │
+        │           ││bottom_cbx_w ││              ││            ↑││           │
+        │           ││<----------->││              ││bottom_cbx_h↓││           │
+        └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘
 
 
 Utilization Based
@@ -103,22 +68,26 @@ Utilization Based
 
 * Optionally provide a method to apply shaping and placement to the netlist elements
 
-"""
+This function creates a parameterized dictionary detailig `SHAPE`, `POINTS` and `PLACEMENT` information
 
+::
+
+    self.module_shape = {
+        "SHAPE" : 'rect' and 'cross',
+        "POINTS" : (w, h) or (a, b, c, d, e, f),
+        "PLACEMENT" : (x_off, v_off),
+    }
+
+"""
 
 import logging
 import math
-import json
-from copy import deepcopy
 from typing import Callable
-from pprint import pformat, pprint
-from spydrnet_physical.util.shell import launch_shell
-from spydrnet_physical.util import GridFloorplanGen
-from spydrnet_physical.util.get_names import get_names
-from spydrnet_physical import PROP
 
-import yaml
-from spydrnet_physical.util import OpenFPGA_Placement_Generator, FPGAGridGen
+from spydrnet_physical import PROP
+from spydrnet_physical.util.get_names import get_names
+
+from spydrnet_physical.util import (FPGAGridGen, OpenFPGA_Placement_Generator)
 
 logger = logging.getLogger("spydrnet_logs")
 
