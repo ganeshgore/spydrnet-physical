@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Bitstream Manager" href="openfpga_bitstream.html" /><link rel="prev" title="SRAM Configuration Protocol" href="sram_configuration.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>Initial Placement - SpyDrNet-Physical alpha documentation</title>
+        <title>Initial Heterogeneous Placement - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -161,7 +161,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../introduction/install.html">Install</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
@@ -169,7 +169,7 @@
 <li class="toctree-l2"><a class="reference external" href="?http://#visualization">Visualization</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="../classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../classes/library.html">Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../classes/bundle.html">Bundle</a></li>
@@ -186,7 +186,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../visualization/index.html">Visualization and Floorplanning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../connectivity/index.html">Connectivity Pattern Generation</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../openfpga/index.html">OpenFPGA Transformations</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/base.html">OpenFPGA Base</a></li>
 <li class="toctree-l3"><a class="reference internal" href="openfpga_arch.html">OpenFPGA Arch Parser</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../openfpga/routing_render.html">Routing Render</a></li>
@@ -206,7 +206,7 @@
 <li class="toctree-l3"><a class="reference internal" href="config_chain_01.html">Configuration Chain Pattern 01</a></li>
 <li class="toctree-l3"><a class="reference internal" href="config_chain_simple.html">Configuration Chain Pattern 01</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sram_configuration.html">SRAM Configuration Protocol</a></li>
-<li class="toctree-l3"><a class="reference internal" href="initial_hetero_placement.html">Initial Heterogeneous Placement</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Initial Heterogeneous Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="openfpga_bitstream.html">Bitstream Manager</a></li>
 </ul>
 </li>
@@ -343,92 +343,58 @@
           </label>
         </div>
         <article role="main">
-          <section id="initial-placement">
-<span id="id1"></span><h1>Initial Placement<a class="headerlink" href="#initial-placement" title="Permalink to this headline">¶</a></h1>
-<section id="openfpga-floorplaner">
-<h2>OpenFPGA Floorplaner<a class="headerlink" href="#openfpga-floorplaner" title="Permalink to this headline">¶</a></h2>
-<p>This is dedicated OpenFPGA floorplaner which shape tiles in traditional structure
-as shown below. This placement class is not dependent iupon the architecture and always
-applied to homogeneous structure.</p>
-<p>There are total two ways</p>
-<div class="toctree-wrapper compound">
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Initial Placement</a></li>
-</ul>
-</div>
+          <section id="initial-heterogeneous-placement">
+<span id="id1"></span><h1>Initial Heterogeneous Placement<a class="headerlink" href="#initial-heterogeneous-placement" title="Permalink to this headline">¶</a></h1>
+<section id="fpga-heterogeneous-floorplanner">
+<h2>FPGA heterogeneous Floorplanner<a class="headerlink" href="#fpga-heterogeneous-floorplanner" title="Permalink to this headline">¶</a></h2>
+<p>This is dedicated OpenFPGA floorplan shapes each block in the FPGA in a
+classic tiling structure.
+This floorplanning can is applied to homogeneous architecture out of the box,
+but external information may be required for heterogeneous architecture.</p>
+<p>This floor planner is sequential. It honors utilization constraints and
+parameter constraints in the given order.</p>
 <section id="paramater-based-preferred">
 <h3>Paramater Based (<em>Preferred</em>):<a class="headerlink" href="#paramater-based-preferred" title="Permalink to this headline">¶</a></h3>
-<p>Following figure details the various paramteres referred in this type of floorplanning</p>
-<div class="ascii highlight-default notranslate"><div class="highlight"><pre><span></span>              |&lt;---------  GRID_X  ---------&gt;|
-              |                              |
-    ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐  ∧
-    │           ││   CBX_TOP   ││              ││             ││           │  |
-    │           ││   _WIDTH    ││              ││             ││           │  | CBX_TOP_HEIGHT
-    │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ⩒
-    │        │┌───────────────────┐│        │┌───────────────────┐│        │
-    └────────┘│   GRID_CLB_RATIO  │└────────┘│                   │└────────┘
-    ┌────────┐│       W/H         │┌────────┐│                   │┌────────┐
-    │        ││                   ││        ││                   ││        │
-    │  CBY_  ││                   ││   CB_  ││                   ││  CBY_  │
-    │  LEFT_ ││                   ││ HEIGHT ││                   ││ RIGHT_ │
-    │ HEIGHT ││                   ││ _RATIO ││                   ││ HEIGHT │
-    │        ││                   ││        ││                   ││        │
-    └────────┘│                   │└────────┘│                   │└────────┘
-    ┌────────┐│                   │┌────────┐│                   │┌────────┐
-↑   │        │└───────────────────┘│        │└───────────────────┘│        │
-|   │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │
-|   │           ││  CB_WIDTH_  ││              ││             ││           │  FPGA_SIZE[0],y
-|   │           ││    RATIO    ││              ││             ││           │
-G   │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │
-R   │        │┌───────────────────┐│        │┌───────────────────┐│        │
-I   └────────┘│                   │└────────┘│                   │└────────┘
-D   ┌────────┐│                   │┌────────┐│                   │┌────────┐
-_   │        ││                   ││        ││                   ││        │
-Y   │        ││                   ││        ││                   ││        │
-|   │        ││                   ││        ││                   ││        │
-|   │        ││                   ││        ││                   ││        │
-|   │        ││                   ││        ││                   ││        │
-|   └────────┘│                   │└────────┘│                   │└────────┘
-|   ┌────────┐│                   │┌────────┐│                   │┌────────┐
-↓   │        │└───────────────────┘│        │└───────────────────┘│        │
-    │        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │  ∧
-    │           ││ CBX_BOTTOM_ ││              ││             ││           │  |
-    │           ││   _WIDTH    ││              ││             ││           │  | CBX_BOTTOM_HEIGHT
-    └───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘  ⩒
-    &lt;-----------&gt;                                               &lt;---------&gt;
-    CBY_LEFT_WIDTH                                           CBY_RIGHT_WIDTH
+<p>Following figure details the various paramteres referred in this type of
+floorplanning</p>
+<div class="ascii highlight-default notranslate"><div class="highlight"><pre><span></span>          |&lt;---------  GRID_X  ---------&gt;|
+          |                              |
+┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐
+│           ││  top_cbx_w  ││              ││           ↑ ││           │
+│           ││&lt;-----------&gt;││              ││  top_cbx_h↓ ││           │
+│        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │
+│        │┌───────────────────┐│        │┌───────────────────┐│        │
+└────────┘│                   │└────────┘│                   │└────────┘
+┌────────┐│                   │┌────────┐│                   │┌────────┐
+│      ↑ ││                   ││       ↑││                   ││      ↑ │
+│      | ││                   ││       |││                   ││      | │
+│      | ││                   ││       |││                   ││      | │
+│left_ | ││                   ││cby11_h|││                   ││right | │
+|cby_h ↓ ││                   ││       ↓││                   ││cby_h ↓ │
+└────────┘│                   │└────────┘│                   │└────────┘
+┌────────┐│                   │┌────────┐│                   │┌────────┐
+│        │└───────────────────┘│        │└───────────────────┘│        │
+│        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │
+│           ││   cbx11_w   ││              ││           ↑ ││           │
+│           ││&lt;-----------&gt;││              ││   cbx11_h ↓ ││           │
+│        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │
+│        │┌───────────────────┐│        │┌───────────────────┐│        │
+└────────┘│                ↑  │└────────┘│                   │└────────┘
+┌────────┐│                |  │┌────────┐│                   │┌────────┐
+│        ││                |  ││        ││                   ││        │
+│        ││                |  ││        ││                   ││        │
+│left_   ││          clb_h |  ││        ││                   ││right   │
+│cby_w   ││                |  ││cby11_w ││                   ││cby_W   │
+│&lt;------&gt;││                |  ││&lt;------&gt;││                   ││&lt;------&gt;│
+└────────┘│&lt;-----------------&gt;│└────────┘│                   │└────────┘
+┌────────┐│      clb_w     ↓  │┌────────┐│                   │┌────────┐
+│        │└───────────────────┘│        │└───────────────────┘│        │
+│        └──┐┌─────────────┐┌──┘        └──┐┌─────────────┐┌──┘        │
+│           ││bottom_cbx_w ││              ││            ↑││           │
+│           ││&lt;-----------&gt;││              ││bottom_cbx_h↓││           │
+└───────────┘└─────────────┘└──────────────┘└─────────────┘└───────────┘
 </pre></div>
 </div>
-<p><strong>Area Based</strong>:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">OVERALL_UTILIZATION</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GRID_CLB_UTILIZATION</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SB_UTILIZATION</span></code></p></li>
-</ul>
-<p><strong>Common Parameters</strong> (All of them are absolute numbers in multiple of <em>SC_HEIGHT</em> or <em>CPP</em>)</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">GRID_CLB_CHAN_X</span></code> and <code class="docutils literal notranslate"><span class="pre">GRID_CLB_CHAN_Y</span></code>: Grid CLB margins</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CBx_CHAN_X</span></code> and <code class="docutils literal notranslate"><span class="pre">CBx_CHAN_Y</span></code> : Connection box X margins</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CBy_CHAN_X</span></code> and <code class="docutils literal notranslate"><span class="pre">CBy_CHAN_Y</span></code> : Connection box Y margins</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GPIO_CHAN_X</span></code> and <code class="docutils literal notranslate"><span class="pre">GPIO_CHAN_Y</span></code>: GPIO cell margins</p></li>
-</ul>
-<p><strong>Absolute Numbers</strong> (In multiple of <em>SC_HEIGHT</em> or <em>CPP</em>)</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">GRID_X</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GRID_Y</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CLB_W</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CLB_H</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CBX_WIDTH</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CBY_HEIGHT</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">LEFT_CBY_WIDTH</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">LEFT_CBY_HEIGHT</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">RIGHT_CBY_WIDTH</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">RIGHT_CBY_HEIGHT</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">TOP_CBX_WIDTH</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">TOP_CBX_HEIGHT</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">BOTTOM_CBX_WIDTH</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">BOTTOM_CBX_HEIGHT</span></code></p></li>
-</ul>
 </section>
 <section id="utilization-based">
 <h3>Utilization Based<a class="headerlink" href="#utilization-based" title="Permalink to this headline">¶</a></h3>
@@ -436,9 +402,17 @@ Y   │        ││                   ││        ││                   �
 <ul class="simple">
 <li><p>Optionally provide a method to apply shaping and placement to the netlist elements</p></li>
 </ul>
+<p>This function creates a parameterized dictionary detailig <cite>SHAPE</cite>, <cite>POINTS</cite> and <cite>PLACEMENT</cite> information</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">module_shape</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"SHAPE"</span> <span class="p">:</span> <span class="s1">'rect'</span> <span class="ow">and</span> <span class="s1">'cross'</span><span class="p">,</span>
+    <span class="s2">"POINTS"</span> <span class="p">:</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span>
+    <span class="s2">"PLACEMENT"</span> <span class="p">:</span> <span class="p">(</span><span class="n">x_off</span><span class="p">,</span> <span class="n">v_off</span><span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <dl class="py class">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">util.initial_placement.</span></span><span class="sig-name descname"><span class="pre">initial_placement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridIO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">util.initial_hetero_placement.</span></span><span class="sig-name descname"><span class="pre">initial_hetero_placement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Attributes:</strong></p>
 <div class="table-wrapper"><table class="autosummary longtable docutils align-default">
 <colgroup>
@@ -446,20 +420,26 @@ Y   │        ││                   ││        ││                   �
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.CPP" title="util.initial_placement.initial_placement.CPP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPP</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.CPP" title="util.initial_hetero_placement.initial_hetero_placement.CPP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPP</span></code></a></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Contated-poly-pitch</span></code> (<a href="#id2"><span class="problematic" id="id3">`</span></a>default`=2)</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.SC_HEIGHT" title="util.initial_placement.initial_placement.SC_HEIGHT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SC_HEIGHT</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.SC_HEIGHT" title="util.initial_hetero_placement.initial_hetero_placement.SC_HEIGHT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SC_HEIGHT</span></code></a></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">Standard</span> <span class="pre">cell</span> <span class="pre">height</span></code> (<a href="#id4"><span class="problematic" id="id5">`</span></a>default`=10)</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.SCALE" title="util.initial_placement.initial_placement.SCALE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SCALE</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.SCALE" title="util.initial_hetero_placement.initial_hetero_placement.SCALE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SCALE</span></code></a></p></td>
 <td><p>Module level variable documented inline. (<a href="#id6"><span class="problematic" id="id7">`</span></a>default`=100).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.PlacementDB" title="util.initial_placement.initial_placement.PlacementDB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PlacementDB</span></code></a></p></td>
-<td><p>Stores list of modules i uppose</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.margins" title="util.initial_hetero_placement.initial_hetero_placement.margins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">margins</span></code></a></p></td>
+<td><p>Stores module database without any margin</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.PlacementDBKey" title="util.initial_placement.initial_placement.PlacementDBKey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PlacementDBKey</span></code></a></p></td>
-<td><p>Module level variable documented inline. (<a href="#id8"><span class="problematic" id="id9">`</span></a>default`=100).</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.module_shapes_final" title="util.initial_hetero_placement.initial_hetero_placement.module_shapes_final"><code class="xref py py-obj docutils literal notranslate"><span class="pre">module_shapes_final</span></code></a></p></td>
+<td><p>Stores module database without any margin</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.module_final" title="util.initial_hetero_placement.initial_hetero_placement.module_final"><code class="xref py py-obj docutils literal notranslate"><span class="pre">module_final</span></code></a></p></td>
+<td><p>Stores module database with margin</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.s_param" title="util.initial_hetero_placement.initial_hetero_placement.s_param"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s_param</span></code></a></p></td>
+<td><p>All the shaping paramteres</p></td>
 </tr>
 </tbody>
 </table></div>
@@ -470,66 +450,51 @@ Y   │        ││                   ││        ││                   �
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.__init__" title="util.initial_placement.initial_placement.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.__init__" title="util.initial_hetero_placement.initial_hetero_placement.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.create_placement" title="util.initial_placement.initial_placement.create_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_placement</span></code></a></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_module_colors</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.update_placement" title="util.initial_hetero_placement.initial_hetero_placement.update_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_placement</span></code></a></p></td>
+<td><p>This will be extendned in the class</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.create_placement" title="util.initial_hetero_placement.initial_hetero_placement.create_placement"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_placement</span></code></a></p></td>
 <td><p>Overrides the base method to create placement information</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.update_configuration" title="util.initial_placement.initial_placement.update_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_configuration</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.update_placement_grid" title="util.initial_hetero_placement.initial_hetero_placement.update_placement_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_placement_grid</span></code></a></p></td>
+<td><p>Update two dimensional placement grid</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.update_shapes" title="util.initial_hetero_placement.initial_hetero_placement.update_shapes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_shapes</span></code></a></p></td>
+<td><p>This method updates the shape of all the modules based on the s_params variable</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.update_shaping_param" title="util.initial_hetero_placement.initial_hetero_placement.update_shaping_param"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_shaping_param</span></code></a></p></td>
 <td><p>Overwrite default configuration variables</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_default_configuration</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.base2" title="util.initial_hetero_placement.initial_hetero_placement.base2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base2</span></code></a></p></td>
+<td><p>Snaps the point in multiple for 2</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_variables</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.base4" title="util.initial_hetero_placement.initial_hetero_placement.base4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base4</span></code></a></p></td>
+<td><p>Snaps the point in multiple for 4</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">figSize</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.get_area" title="util.initial_hetero_placement.initial_hetero_placement.get_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_area</span></code></a></p></td>
+<td><p>Return the area of the given module after considering the utilisation</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">snapDims</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.calculate_shapes" title="util.initial_hetero_placement.initial_hetero_placement.calculate_shapes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_shapes</span></code></a></p></td>
+<td><p>This function compute different base variable for shaping FPGA fabric</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComputeGrid</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.initial_hetero_placement.initial_hetero_placement.derive_sb_paramters" title="util.initial_hetero_placement.initial_hetero_placement.derive_sb_paramters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">derive_sb_paramters</span></code></a></p></td>
+<td><p>This method calculated switch block dimensions from grid_clb and cb</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">CreateDatabase</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_clb</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cbx</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cby</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stype</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unique</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.initial_placement.initial_placement.add_sb" title="util.initial_placement.initial_placement.add_sb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_sb</span></code></a></p></td>
-<td><p>Adds switch-blocks in the placement database</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_gridIOH</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_gridIOV</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_pad</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_shapes</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table></div>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.CPP">
-<span class="sig-name descname"><span class="pre">CPP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.CPP" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">Contated-poly-pitch</span></code> (<a href="#id10"><span class="problematic" id="id11">`</span></a>default`=2)</p>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.CPP">
+<span class="sig-name descname"><span class="pre">CPP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.CPP" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Contated-poly-pitch</span></code> (<a href="#id8"><span class="problematic" id="id9">`</span></a>default`=2)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>int</p>
@@ -537,9 +502,9 @@ Y   │        ││                   ││        ││                   �
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.SC_HEIGHT">
-<span class="sig-name descname"><span class="pre">SC_HEIGHT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.SC_HEIGHT" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="docutils literal notranslate"><span class="pre">Standard</span> <span class="pre">cell</span> <span class="pre">height</span></code> (<a href="#id12"><span class="problematic" id="id13">`</span></a>default`=10)</p>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.SC_HEIGHT">
+<span class="sig-name descname"><span class="pre">SC_HEIGHT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.SC_HEIGHT" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Standard</span> <span class="pre">cell</span> <span class="pre">height</span></code> (<a href="#id10"><span class="problematic" id="id11">`</span></a>default`=10)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>int</p>
@@ -547,9 +512,9 @@ Y   │        ││                   ││        ││                   �
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.SCALE">
-<span class="sig-name descname"><span class="pre">SCALE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.SCALE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Module level variable documented inline. (<a href="#id14"><span class="problematic" id="id15">`</span></a>default`=100)</p>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.SCALE">
+<span class="sig-name descname"><span class="pre">SCALE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.SCALE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module level variable documented inline. (<a href="#id12"><span class="problematic" id="id13">`</span></a>default`=100)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>int</p>
@@ -557,19 +522,39 @@ Y   │        ││                   ││        ││                   �
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.PlacementDB">
-<span class="sig-name descname"><span class="pre">PlacementDB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.PlacementDB" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores list of modules i uppose</p>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.margins">
+<span class="sig-name descname"><span class="pre">margins</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.margins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores module database without any margin</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>list</p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.PlacementDBKey">
-<span class="sig-name descname"><span class="pre">PlacementDBKey</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#util.initial_placement.initial_placement.PlacementDBKey" title="Permalink to this definition">¶</a></dt>
-<dd><p>Module level variable documented inline. (<a href="#id16"><span class="problematic" id="id17">`</span></a>default`=100)</p>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.module_shapes_final">
+<span class="sig-name descname"><span class="pre">module_shapes_final</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.module_shapes_final" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores module database without any margin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.module_final">
+<span class="sig-name descname"><span class="pre">module_final</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.module_final" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores module database with margin</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.s_param">
+<span class="sig-name descname"><span class="pre">s_param</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'OFFSET_X':</span> <span class="pre">20,</span> <span class="pre">'OFFSET_Y':</span> <span class="pre">2,</span> <span class="pre">'TILE_ASPECT_RATIO':</span> <span class="pre">1}</span></em><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.s_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>All the shaping paramteres</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
@@ -577,61 +562,59 @@ Y   │        ││                   ││        ││                   �
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridIO</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fpga_grid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet_physical.util.FPGAGridGen.FPGAGridGen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">areaFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.create_placement">
-<span class="sig-name descname"><span class="pre">create_placement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement.create_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement.create_placement" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.update_placement">
+<span class="sig-name descname"><span class="pre">update_placement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.update_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.update_placement" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will be extendned in the class</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.create_placement">
+<span class="sig-name descname"><span class="pre">create_placement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.create_placement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.create_placement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overrides the base method to create placement information</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.update_configuration">
-<span class="sig-name descname"><span class="pre">update_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shapingConf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement.update_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement.update_configuration" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.update_placement_grid">
+<span class="sig-name descname"><span class="pre">update_placement_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.update_placement_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.update_placement_grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update two dimensional placement grid</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.update_shapes">
+<span class="sig-name descname"><span class="pre">update_shapes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.update_shapes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.update_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method updates the shape of all the modules based on the
+s_params variable</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.update_shaping_param">
+<span class="sig-name descname"><span class="pre">update_shaping_param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_module_shapes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.update_shaping_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.update_shaping_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overwrite default configuration variables</p>
 </dd></dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="util.initial_placement.initial_placement.add_sb">
-<span class="sig-name descname"><span class="pre">add_sb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_placement.html#initial_placement.add_sb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_placement.initial_placement.add_sb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds switch-blocks in the placement database</p>
-<dl class="ascii">
-<dt>::</dt><dd><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><p>d</p>
-</div></blockquote>
-<div class="table-wrapper"><table class="docutils align-default">
-<tbody>
-</tbody>
-</table></div>
-</div></blockquote>
-<p>c |    |</p>
-</div></blockquote>
-<p>b   |    |   e</p>
-</div></blockquote>
-<p>+—-+    +—-+</p>
-</div></blockquote>
-<dl>
-<dt>a |              |           Cross Shape</dt><dd><div class="line-block">
-<div class="line">|           -lengths {a b c d e f}</div>
-</div>
-<dl>
-<dt>+—-+    +—-+</dt><dd><div class="line-block">
-<div class="line"><a href="#id18"><span class="problematic" id="id19">|</span></a></div>
-<div class="line">| f</div>
-</div>
-<div class="table-wrapper"><table class="docutils align-default">
-<tbody>
-</tbody>
-</table></div>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.base2">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.base2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.base2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Snaps the point in multiple for 2</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.base4">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multiple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.base4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.base4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Snaps the point in multiple for 4</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.get_area">
+<span class="sig-name descname"><span class="pre">get_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.get_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.get_area" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the area of the given module after considering the utilisation</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.calculate_shapes">
+<span class="sig-name descname"><span class="pre">calculate_shapes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.calculate_shapes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.calculate_shapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function compute different base variable for shaping FPGA fabric</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.initial_hetero_placement.initial_hetero_placement.derive_sb_paramters">
+<span class="sig-name descname"><span class="pre">derive_sb_paramters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/initial_hetero_placement.html#initial_hetero_placement.derive_sb_paramters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.initial_hetero_placement.initial_hetero_placement.derive_sb_paramters" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calculated switch block dimensions from grid_clb and cb</p>
 </dd></dl>
 </dd></dl>
 </section>
@@ -643,8 +626,26 @@ Y   │        ││                   ││        ││                   �
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="openfpga_bitstream.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Bitstream Manager</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="sram_configuration.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">SRAM Configuration Protocol</div>
+                
+              </div>
+            </a>
         </div>
 
         <div class="related-information">
@@ -653,7 +654,7 @@ Y   │        ││                   ││        ││                   �
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../../_sources/reference/utility_classes/initial_placement.rst.txt"
+            <a class="muted-link" href="../../_sources/reference/utility_classes/initial_hetero_placement.rst.txt"
                rel="nofollow">
               Show Source
             </a>
@@ -673,8 +674,8 @@ Y   │        ││                   ││        ││                   �
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Initial Placement</a><ul>
-<li><a class="reference internal" href="#openfpga-floorplaner">OpenFPGA Floorplaner</a><ul>
+<li><a class="reference internal" href="#">Initial Heterogeneous Placement</a><ul>
+<li><a class="reference internal" href="#fpga-heterogeneous-floorplanner">FPGA heterogeneous Floorplanner</a><ul>
 <li><a class="reference internal" href="#paramater-based-preferred">Paramater Based (<em>Preferred</em>):</a></li>
 <li><a class="reference internal" href="#utilization-based">Utilization Based</a></li>
 </ul>

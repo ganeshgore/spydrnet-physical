@@ -15,7 +15,7 @@ Base Transformations
    base
 
    ../utility_classes/openfpga_arch
-   
+
    routing_render
 
 
@@ -51,7 +51,7 @@ OpenFPGA Class Generators
 
 .. toctree::
    :maxdepth: 1
-   
+
    ../utility_classes/config_chain_01
    ../utility_classes/config_chain_simple
    ../utility_classes/sram_configuration
@@ -62,8 +62,8 @@ OpenFPGA Class Generators
 
 .. toctree::
    :maxdepth: 1
-   
-   ../utility_classes/initial_placement
+
+   ../utility_classes/initial_hetero_placement
 
 
 :doc:`OpenFPGA_Bitstream_Manager <../utility_classes/openfpga_bitstream>`
@@ -71,5 +71,5 @@ OpenFPGA Class Generators
 
 .. toctree::
    :maxdepth: 1
-   
+
    ../utility_classes/openfpga_bitstream

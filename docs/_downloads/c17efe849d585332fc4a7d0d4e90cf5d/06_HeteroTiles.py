@@ -6,6 +6,14 @@ Heterogeneous Floorplan Adjustment
 This example customises the hterogeneous placement and demonstrate how perticular
 column or row of the FPGa grid can be cpmpressed.
 
+**Pre Tile Render**
+
+.. image:: ../../../examples/OpenFPGA_Floorplanning/_hetero_pre_tile.svg
+   :width: 70%
+   :align: center
+
+**Post Tile Render**
+
 .. image:: ../../../examples/OpenFPGA_Floorplanning/_hetero_tile.svg
    :width: 70%
    :align: center
@@ -15,11 +23,14 @@ column or row of the FPGa grid can be cpmpressed.
 import glob
 import logging
 import math
+import json
+from collections import OrderedDict
 from copy import deepcopy
 
 import spydrnet as sdn
-from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen, Tile02, get_names,
-                                    OpenFPGA, initial_hetero_placement)
+from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen, OpenFPGA,
+                                    Tile02, get_names,
+                                    initial_hetero_placement)
 
 logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO", filename="floorplan_heterpgeneous")
@@ -222,7 +233,7 @@ def main():
     )
 
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    fpga.show_placement_data("*")
+    # fpga.show_placement_data("*")
 
     fp = FloorPlanViz(fpga.top_module)
     fp.compose(skip_connections=True, skip_pins=True)
@@ -239,6 +250,9 @@ def main():
 
     filename = "_hetero_tile.svg"
     dwg.saveas(filename, pretty=True, indent=4)
+
+    filename = "_top_instances_ports.txt"
+    dump_top_definition_ports(fpga, rpt_file=filename)
 
 
 def sort_by_cordinate(inst_name):
@@ -280,6 +294,23 @@ def merge_inter_hetero_routing(fpga, block_name, prefix="_old",
     main_def.name = new_def_name or main_def.name[:-4]
     for inst in instance_list:
         inst.name = inst.name[:-4]
+
+
+def dump_top_definition_ports(fpga: OpenFPGA, rpt_file):
+    """
+    Create top level port
+    """
+    portmap = OrderedDict()
+    instances = {t.name: t for t in fpga.top_module.get_definitions()}
+    instances = OrderedDict(sorted(instances.items(), reverse=True))
+    for def_name, defs in instances.items():
+        if "ASSIGN" in def_name:
+            continue
+        if def_name.startswith("const"):
+            continue
+        portmap[def_name] = sorted(get_names(defs.get_ports("*")))
+
+    json.dump(portmap, open(rpt_file, 'w', encoding="UTF-8"), indent=4)
 
 
 if __name__ == "__main__":
