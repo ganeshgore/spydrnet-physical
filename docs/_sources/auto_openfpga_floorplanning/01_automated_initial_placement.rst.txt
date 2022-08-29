@@ -32,7 +32,7 @@ This script can be used for shaping and placement of the modules before place an
    :width: 100%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-159
+.. GENERATED FROM PYTHON SOURCE LINES 17-155
 
 .. code-block:: default
 
@@ -75,10 +75,6 @@ This script can be used for shaping and placement of the modules before place an
         fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
 
         # Convert wires to bus structure
-        fpga.create_grid_clb_bus()
-        fpga.create_grid_io_bus()
-        fpga.create_sb_bus()
-        fpga.create_cb_bus()
         fpga.merge_all_grid_ios()
 
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -179,7 +175,7 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-163
+.. GENERATED FROM PYTHON SOURCE LINES 156-159
 
 **Placement information**
 

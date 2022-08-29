@@ -49,10 +49,6 @@ def main():
     fpga = OpenFPGA(grid=(4, 4), verilog_files=source_files)
 
     # Convert wires to bus structure
-    fpga.create_grid_clb_bus()
-    fpga.create_grid_io_bus()
-    fpga.create_sb_bus()
-    fpga.create_cb_bus()
     fpga.merge_all_grid_ios()
 
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
