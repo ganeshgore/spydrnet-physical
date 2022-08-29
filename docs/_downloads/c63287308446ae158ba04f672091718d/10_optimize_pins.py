@@ -5,6 +5,17 @@ Optimizing module pins
 This example demonstrate how to optimize the module pins based on the
 connectivity of the current instances.
 
+
+**Before Optimization**
+.. image:: ../../../examples/OpenFPGA_basic/_simple_design.svg
+   :width: 60%
+   :align: center
+
+**After Optimization**
+.. image:: ../../../examples/OpenFPGA_basic/_simple_design_post_opt_pins.svg
+   :width: 60%
+   :align: center
+
 """
 
 import logging
@@ -46,15 +57,3 @@ next(netlist.get_definitions("block1")).OptPins()
 
 composer = SVGComposer()
 composer.run(netlist, file_out="_simple_design_post_opt_pins.svg")
-
-
-# %%
-# **Output**
-#
-# **before_rename**
-#
-# .. literalinclude:: ../../../examples/OpenFPGA_basic/_before_rename.txt
-#
-# **after_rename**
-#
-# .. literalinclude:: ../../../examples/OpenFPGA_basic/_after_rename.txt

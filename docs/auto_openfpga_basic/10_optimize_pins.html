@@ -353,6 +353,30 @@ to download the full example code</p>
 <span id="sphx-glr-auto-openfpga-basic-10-optimize-pins-py"></span><h1><span class="section-number">2.7. </span>Optimizing module pins<a class="headerlink" href="#optimizing-module-pins" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrate how to optimize the module pins based on the
 connectivity of the current instances.</p>
+<p><strong>Before Optimization</strong>
+.. image:: ../../../examples/OpenFPGA_basic/_simple_design.svg</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">width</dt>
+<dd class="field-odd"><p>60%</p>
+</dd>
+<dt class="field-even">align</dt>
+<dd class="field-even"><p>center</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>After Optimization</strong>
+.. image:: ../../../examples/OpenFPGA_basic/_simple_design_post_opt_pins.svg</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">width</dt>
+<dd class="field-odd"><p>60%</p>
+</dd>
+<dt class="field-even">align</dt>
+<dd class="field-even"><p>center</p>
+</dd>
+</dl>
+</div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
@@ -392,71 +416,6 @@ connectivity of the current instances.</p>
 
 <span class="n">composer</span> <span class="o">=</span> <span class="n">SVGComposer</span><span class="p">()</span>
 <span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_simple_design_post_opt_pins.svg"</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Output</strong></p>
-<p><strong>before_rename</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
-<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span>  <span class="n">DESIGN</span> <span class="n">STATS</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
-<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
-    <span class="n">top_module</span> <span class="p">:</span> <span class="n">fpga_top</span>
-    <span class="n">definitions</span><span class="p">:</span> <span class="mi">20</span>
-    <span class="n">instances</span>  <span class="p">:</span> <span class="mi">97</span>
-<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
-          <span class="n">References</span>    <span class="n">count</span>
-<span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> 
-           <span class="n">cbx_1__0_</span>        <span class="mi">4</span>
-           <span class="n">cbx_1__1_</span>       <span class="mi">12</span>
-           <span class="n">cbx_1__4_</span>        <span class="mi">4</span>
-           <span class="n">cby_0__1_</span>        <span class="mi">4</span>
-           <span class="n">cby_1__1_</span>       <span class="mi">12</span>
-           <span class="n">cby_4__1_</span>        <span class="mi">4</span>
-            <span class="n">grid_clb</span>       <span class="mi">16</span>
-      <span class="n">grid_io_bottom</span>        <span class="mi">4</span>
-        <span class="n">grid_io_left</span>        <span class="mi">4</span>
-       <span class="n">grid_io_right</span>        <span class="mi">4</span>
-         <span class="n">grid_io_top</span>        <span class="mi">4</span>
-            <span class="n">sb_0__0_</span>        <span class="mi">1</span>
-            <span class="n">sb_0__1_</span>        <span class="mi">3</span>
-            <span class="n">sb_0__4_</span>        <span class="mi">1</span>
-            <span class="n">sb_1__0_</span>        <span class="mi">3</span>
-            <span class="n">sb_1__1_</span>        <span class="mi">9</span>
-            <span class="n">sb_1__4_</span>        <span class="mi">3</span>
-            <span class="n">sb_4__0_</span>        <span class="mi">1</span>
-            <span class="n">sb_4__1_</span>        <span class="mi">3</span>
-            <span class="n">sb_4__4_</span>        <span class="mi">1</span>
-</pre></div>
-</div>
-<p><strong>after_rename</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
-<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span>  <span class="n">DESIGN</span> <span class="n">STATS</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
-<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
-    <span class="n">top_module</span> <span class="p">:</span> <span class="n">fpga_top</span>
-    <span class="n">definitions</span><span class="p">:</span> <span class="mi">20</span>
-    <span class="n">instances</span>  <span class="p">:</span> <span class="mi">97</span>
-<span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> <span class="o">=</span> 
-          <span class="n">References</span>    <span class="n">count</span>
-<span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> 
-           <span class="n">cbx_1__0_</span>        <span class="mi">4</span>
-           <span class="n">cbx_1__4_</span>        <span class="mi">4</span>
-           <span class="n">cby_0__1_</span>        <span class="mi">4</span>
-           <span class="n">cby_4__1_</span>        <span class="mi">4</span>
-      <span class="n">grid_io_bottom</span>        <span class="mi">4</span>
-        <span class="n">grid_io_left</span>        <span class="mi">4</span>
-       <span class="n">grid_io_right</span>        <span class="mi">4</span>
-         <span class="n">grid_io_top</span>        <span class="mi">4</span>
-              <span class="n">h_conn</span>       <span class="mi">12</span>
-         <span class="n">logic_block</span>       <span class="mi">16</span>
-            <span class="n">sb_0__0_</span>        <span class="mi">1</span>
-            <span class="n">sb_0__1_</span>        <span class="mi">3</span>
-            <span class="n">sb_0__4_</span>        <span class="mi">1</span>
-            <span class="n">sb_1__0_</span>        <span class="mi">3</span>
-            <span class="n">sb_1__1_</span>        <span class="mi">9</span>
-            <span class="n">sb_1__4_</span>        <span class="mi">3</span>
-            <span class="n">sb_4__0_</span>        <span class="mi">1</span>
-            <span class="n">sb_4__1_</span>        <span class="mi">3</span>
-            <span class="n">sb_4__4_</span>        <span class="mi">1</span>
-              <span class="n">v_conn</span>       <span class="mi">12</span>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
