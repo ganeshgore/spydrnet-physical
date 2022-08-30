@@ -7,11 +7,13 @@ connectivity of the current instances.
 
 
 **Before Optimization**
+
 .. image:: ../../../examples/OpenFPGA_basic/_simple_design.svg
    :width: 60%
    :align: center
 
 **After Optimization**
+
 .. image:: ../../../examples/OpenFPGA_basic/_simple_design_post_opt_pins.svg
    :width: 60%
    :align: center
@@ -24,8 +26,17 @@ import spydrnet as sdn
 from spydrnet_physical.composers.svg.composer import SVGComposer
 
 
+
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
+
+# %%
+#
+# Example 1
+# ~~~~~~~~~
+#
+# 
+
 
 with open("_simple_design.v", "w", encoding="UTF-8") as fp:
     fp.write('''
