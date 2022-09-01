@@ -33,6 +33,11 @@ runOpenFPGA:
 	find ./${DESIGN_NAME}_Verilog -name "*.v" -exec sed -i "s/.*default_nettype/\/\/ \`default_nettype/g" '{}' \;
 	find ./${DESIGN_NAME}_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Date.*/d"
 	find ./${DESIGN_NAME}_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Author.*/d"
+	$${PYTHON_EXEC} -c "import spydrnet as sdn; import yaml; from pathlib import Path; import os;\
+			netlist = sdn.parse('${DESIGN_NAME}_Verilog/fpga_top.v'); \
+			modules = sorted([e for e in netlist.top_instance.reference.get_definitions()], key=lambda x: x.name); \
+			instances = {m.name:[i.name for i in m.references] for m in modules}; \
+			yaml.dump(instances, open('top_hierarchy.yml', 'w'))"
 	# ${PYTHON_EXEC} -c "from spydrnet_physical.util import clean_gsb;
 	# 				clean_gsb(None, '${DESIGN_NAME}_Verilog/fpga_top.v','${DESIGN_NAME}_Verilog/GSB/')"
 	find ./${DESIGN_NAME}_gsb -name "*.xml" -type f -exec xmllint --output '{}' --format '{}' \;
