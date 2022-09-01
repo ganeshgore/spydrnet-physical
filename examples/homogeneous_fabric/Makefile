@@ -36,7 +36,7 @@ runOpenFPGA:
 	$${PYTHON_EXEC} -c "import spydrnet as sdn; import yaml; from pathlib import Path; import os;\
 			netlist = sdn.parse('${DESIGN_NAME}_Verilog/fpga_top.v'); \
 			modules = sorted([e for e in netlist.top_instance.reference.get_definitions()], key=lambda x: x.name); \
-			instances = {m.name:[i.name for i in m.references] for m in modules}; \
+			instances = {m.name:sorted([i.name for i in m.references]) for m in modules}; \
 			yaml.dump(instances, open('top_hierarchy.yml', 'w'))"
 	$${PYTHON_EXEC} -c "from spydrnet_physical.util import split_fabric_bitstream;
 					split_fabric_bitstream('${DESIGN_NAME}_bitstreams/top/fabric_independent_bitstream.xml', \

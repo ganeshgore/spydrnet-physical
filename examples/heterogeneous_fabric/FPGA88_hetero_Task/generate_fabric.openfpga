@@ -32,7 +32,8 @@ build_fabric --compress_routing --write_fabric_key fabric_key_output.xml
 
 # Dump GSB data
 # Necessary for creation of rr graph for SymbiFlow
-write_gsb_to_xml --file FPGA88_hetero_gsb --unique --exclude_rr_info
+write_gsb_to_xml --file FPGA88_hetero_gsb --unique
+# --exclude_rr_info
 
 # Repack the netlist to physical pbs
 # This must be done before bitstream generator and testbench generation
