@@ -3,6 +3,7 @@ SHELL = bash
 PYTHON_EXEC ?= python3.8
 OPTIONS =
 OPENFPGA_PATH ?=
+DESIGN_NAME = FPGA88_hetero
 
 .SILENT:
 .ONESHELL:
@@ -10,23 +11,35 @@ OPENFPGA_PATH ?=
 runOpenFPGA:
 	SECONDS=0
 	source $${OPENFPGA_PATH}/openfpga.sh
-	run-task FPGA88_hetero_Task --remove_run_dir all
-	run-task FPGA88_hetero_Task
-	rm -rf FPGA88_hetero_Verilog && mkdir FPGA88_hetero_Verilog
-	rm -rf FPGA88_hetero_gsb && mkdir FPGA88_hetero_gsb
-	cp -R FPGA88_hetero_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/FPGA88_hetero_Verilog .
-	cp -R FPGA88_hetero_Task/CustomModules/ FPGA88_hetero_Verilog/
-	cp -R FPGA88_hetero_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/FPGA88_hetero_gsb/ .
-	for file in FPGA88_hetero_gsb/*.xml; do mv "$$file" "$${file/sb_/_sb_}"; done
-	find ./FPGA88_hetero_Verilog -name "*.v" -exec sed -i "s/.*default_nettype/\/\/ \`default_nettype/g" '{}' \;
-	find ./FPGA88_hetero_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Date.*/d"
-	find ./FPGA88_hetero_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Author.*/d"
-	clean_gsb --top_level_design FPGA88_hetero_Verilog/fpga_top.v --gsb_dir FPGA88_hetero_gsb/
-	find ./FPGA88_hetero_gsb -name "*.xml" -type f -exec xmllint --output '{}' --format '{}' \;
+	run-task ${DESIGN_NAME}_Task --remove_run_dir all
+	run-task ${DESIGN_NAME}_Task
+	rm -rf ${DESIGN_NAME}_Verilog && mkdir ${DESIGN_NAME}_Verilog
+	rm -rf ${DESIGN_NAME}_gsb && mkdir ${DESIGN_NAME}_gsb
+	rm -rf ${DESIGN_NAME}_bitstreams && mkdir ${DESIGN_NAME}_bitstreams
+	cp -R ${DESIGN_NAME}_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/${DESIGN_NAME}_Verilog .
+	cp -R ${DESIGN_NAME}_Task/CustomModules/ ${DESIGN_NAME}_Verilog/
+	cp -R ${DESIGN_NAME}_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/${DESIGN_NAME}_gsb/ .
+	cp ${DESIGN_NAME}_Task/latest/k6_N10_tileable/top/MIN_ROUTE_CHAN_WIDTH/fabric_key_output.xml ${DESIGN_NAME}_bitstreams/
+#	Copy bitsream files
+	for file in ${DESIGN_NAME}_Task/latest/k6_N10_tileable/**/*_bitstream.xml; do
+		benchmark=$$(basename $$(dirname $$(dirname "$$file")))
+		mkdir -p ${DESIGN_NAME}_bitstreams/$${benchmark}
+		cp $$file ${DESIGN_NAME}_bitstreams/$${benchmark}/
+	done
+	sed -i "/Author:.*/d" ${DESIGN_NAME}_bitstreams/*/*.xml
+	sed -i "/Organization:.*/d" ${DESIGN_NAME}_bitstreams/*/*.xml
+	sed -i "/Date:.*/d" ${DESIGN_NAME}_bitstreams/*/*.xml
+	# for file in ${DESIGN_NAME}_gsb/*.xml; do mv "$$file" "$${file/\//\/_}"; done
+	find ./${DESIGN_NAME}_Verilog -name "*.v" -exec sed -i "s/.*default_nettype/\/\/ \`default_nettype/g" '{}' \;
+	find ./${DESIGN_NAME}_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Date.*/d"
+	find ./${DESIGN_NAME}_Verilog -type f -name "*.v" -print0 | xargs -0  sed -i "/^\/\/.*Author.*/d"
+	# ${PYTHON_EXEC} -c "from spydrnet_physical.util import clean_gsb;
+	# 				clean_gsb(None, '${DESIGN_NAME}_Verilog/fpga_top.v','${DESIGN_NAME}_Verilog/GSB/')"
+	find ./${DESIGN_NAME}_gsb -name "*.xml" -type f -exec xmllint --output '{}' --format '{}' \;
 	duration=$$SECONDS
 	echo "$$(($$duration / 60)) minutes and $$(($$duration % 60)) seconds elapsed." >> runOpenFPGA
 
 clean:
 	rm -rf runOpenFPGA
 	source $${OPENFPGA_PATH}/openfpga.sh
-	run-task FPGA88_hetero_Task --remove_run_dir all
+	run-task ${DESIGN_NAME}_Task --remove_run_dir all

@@ -72,7 +72,7 @@ def clean_gsb(instance_map, top_level_design, gsb_dir):
     Main method to clean general switch box
     """
     if instance_map:
-        instance_list = json.load(open(instance_map, "r"))
+        instance_list = json.load(open(instance_map, "r", encoding="UTF-8"))
     elif top_level_design:
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         # Read FPGA Netlist
