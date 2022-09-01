@@ -7,10 +7,12 @@ import argparse
 import glob
 import json
 import os
+import pathlib
 import xml.etree.ElementTree as ET
 from copy import deepcopy
 
 import spydrnet as sdn
+import yaml
 
 
 def formatter(prog):
@@ -19,7 +21,8 @@ def formatter(prog):
 
 def parse_argument() -> argparse.Namespace:
     parser = argparse.ArgumentParser(formatter_class=formatter)
-    parser.add_argument("--instance_map", help="jsonfile_containing instace map")
+    parser.add_argument(
+        "--instance_map", help="jsonfile_containing instace map")
     parser.add_argument("--top_level_design", help="Design name")
     parser.add_argument("--gsb_dir", type=str, help="General switch box dir")
     return parser.parse_args()
@@ -144,6 +147,25 @@ def clean_gsb(instance_map, top_level_design, gsb_dir):
             tree.write(f"{gsb_dir}/{filename}.xml")
 
 
+def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstreams"):
+    tree = ET.parse(fabric_file)
+    root = tree.getroot()
+
+    instance_map = yaml.safe_load(open(instance_list, "r", encoding="UTF-8"))
+
+    for ele in list(root):
+        instance_name = ele.attrib["name"]
+        module_name = [m for m, inst in instance_map.items()
+                       if instance_name in inst][0]
+        pathlib.Path(
+            f'{output_dir}/{module_name}').mkdir(parents=True, exist_ok=True)
+        ET.ElementTree(ele).write(
+            f"{output_dir}/{module_name}/{instance_name}_bits.xml", encoding="unicode")
+
+
 if __name__ == "__main__":
     args = parse_argument()
     clean_gsb(args.instance_map, args.top_level_design, args.gsb_dir)
+    split_fabric_bitstream(
+        "../examples/homogeneous_fabric/FPGA44_bitstreams/top/fabric_independent_bitstream.xml",
+        "../examples/homogeneous_fabric/top_hierarchy.yml")

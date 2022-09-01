@@ -25,4 +25,4 @@ from spydrnet_physical.util.connectivity_graph import (prepare_graph_from_nx,
 from spydrnet_physical.util.FloorPlanViz import FloorPlanViz
 from spydrnet_physical.util.fabric_key_ccff import FabricKeyGenCCFF
 from spydrnet_physical.util.bitstream_manager import BitstreamManager
-from spydrnet_physical.util.clean_gsb import clean_gsb
+from spydrnet_physical.util.clean_gsb import clean_gsb, split_fabric_bitstream
