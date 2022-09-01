@@ -4,6 +4,7 @@ format
 """
 
 import argparse
+import fileinput
 import glob
 import json
 import os
@@ -147,20 +148,27 @@ def clean_gsb(instance_map, top_level_design, gsb_dir):
             tree.write(f"{gsb_dir}/{filename}.xml")
 
 
-def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstreams"):
+def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstreams", unique=False):
     tree = ET.parse(fabric_file)
     root = tree.getroot()
 
     instance_map = yaml.safe_load(open(instance_list, "r", encoding="UTF-8"))
 
+    visited = []
     for ele in list(root):
         instance_name = ele.attrib["name"]
         module_name = [m for m, inst in instance_map.items()
                        if instance_name in inst][0]
-        pathlib.Path(
-            f'{output_dir}/{module_name}').mkdir(parents=True, exist_ok=True)
+        if module_name in visited:
+            continue
+        out_directory = f'{output_dir}' if unique else f'{output_dir}/{module_name}'
+        out_filename = f'{module_name}_bits.xml' if unique else f'{instance_name}_bits.xml'
+        pathlib.Path(out_directory).mkdir(parents=True, exist_ok=True)
         ET.ElementTree(ele).write(
-            f"{output_dir}/{module_name}/{instance_name}_bits.xml", encoding="unicode")
+            f"{out_directory}/{out_filename}", encoding="unicode")
+        visited.append(module_name)
+        for line in fileinput.input(f"{out_directory}/{out_filename}", inplace=True):
+            print(line.replace(instance_name, "{{INSTACE_NAME}}"), end="")
 
 
 if __name__ == "__main__":

@@ -38,9 +38,10 @@ runOpenFPGA:
 			modules = sorted([e for e in netlist.top_instance.reference.get_definitions()], key=lambda x: x.name); \
 			instances = {m.name:sorted([i.name for i in m.references]) for m in modules}; \
 			yaml.dump(instances, open('top_hierarchy.yml', 'w'))"
+	rm -rf split_bitstreams
 	$${PYTHON_EXEC} -c "from spydrnet_physical.util import split_fabric_bitstream;
 					split_fabric_bitstream('${DESIGN_NAME}_bitstreams/top/fabric_independent_bitstream.xml', \
-										'top_hierarchy.yml', output_dir='split_bitstreams')"
+										'top_hierarchy.yml', output_dir='split_bitstreams', unique=True)"
 	find ./${DESIGN_NAME}_gsb -name "*.xml" -type f -exec xmllint --output '{}' --format '{}' \;
 	duration=$$SECONDS
 	echo "$$(($$duration / 60)) minutes and $$(($$duration % 60)) seconds elapsed." >> runOpenFPGA
