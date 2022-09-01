@@ -161,14 +161,24 @@ def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstr
                        if instance_name in inst][0]
         if module_name in visited:
             continue
-        out_directory = f'{output_dir}' if unique else f'{output_dir}/{module_name}'
-        out_filename = f'{module_name}_bits.xml' if unique else f'{instance_name}_bits.xml'
+        # out_directory = f'{output_dir}' if unique else f'{output_dir}/{module_name}'
+        out_directory = f'{output_dir}/{module_name}'
+        out_filename = f'{module_name}' if unique else f'{instance_name}'
+        out_xml_file = f"{out_directory}/{out_filename}_bits.xml"
         pathlib.Path(out_directory).mkdir(parents=True, exist_ok=True)
-        ET.ElementTree(ele).write(
-            f"{out_directory}/{out_filename}", encoding="unicode")
+        ET.ElementTree(ele).write(out_xml_file, encoding="unicode")
         visited.append(module_name)
-        for line in fileinput.input(f"{out_directory}/{out_filename}", inplace=True):
+        for line in fileinput.input(out_xml_file, inplace=True):
             print(line.replace(instance_name, "{{INSTACE_NAME}}"), end="")
+
+        # Create list of paths in correct sequence
+        with open(f"{out_directory}/{out_filename}_paths.txt", "w", encoding="UTF-8") as fp:
+            for indx, h_ele in enumerate(ele.findall(".//hierarchy/..")):
+                path = ".".join([e.attrib["name"]
+                                 for e in h_ele.findall(".//instance")])
+                bit_len = len(h_ele.findall(".//bit"))
+                fp.write(f"{indx:3}. [{bit_len:3}] " +
+                         path.rsplit(instance_name, 1)[-1]+"\n")
 
 
 if __name__ == "__main__":
