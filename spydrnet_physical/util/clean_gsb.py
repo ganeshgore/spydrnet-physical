@@ -159,26 +159,43 @@ def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstr
         instance_name = ele.attrib["name"]
         module_name = [m for m, inst in instance_map.items()
                        if instance_name in inst][0]
-        if module_name in visited:
-            continue
+
         # out_directory = f'{output_dir}' if unique else f'{output_dir}/{module_name}'
         out_directory = f'{output_dir}/{module_name}'
         out_filename = f'{module_name}' if unique else f'{instance_name}'
         out_xml_file = f"{out_directory}/{out_filename}_bits.xml"
         pathlib.Path(out_directory).mkdir(parents=True, exist_ok=True)
-        ET.ElementTree(ele).write(out_xml_file, encoding="unicode")
-        visited.append(module_name)
-        for line in fileinput.input(out_xml_file, inplace=True):
-            print(line.replace(instance_name, "{{INSTACE_NAME}}"), end="")
 
-        # Create list of paths in correct sequence
-        with open(f"{out_directory}/{out_filename}_paths.txt", "w", encoding="UTF-8") as fp:
+        if not module_name in visited:
+            # Save bitsream section
+            ET.ElementTree(ele).write(out_xml_file, encoding="unicode")
+
+            for line in fileinput.input(out_xml_file, inplace=True):
+                print(line.replace(instance_name, "{{INSTACE_NAME}}"), end="")
+
+            # Create list of paths in correct sequence
+            print_format = ""
+            with open(f"{out_directory}/{out_filename}_paths.txt", "w", encoding="UTF-8") as fp:
+                for indx, h_ele in enumerate(ele.findall(".//hierarchy/..")):
+                    path = ".".join([e.attrib["name"]
+                                    for e in h_ele.findall(".//instance")])
+                    bit_len = len(h_ele.findall(".//bit"))
+                    fp.write(f"{indx+1:3}. [{bit_len:3}] " +
+                             path.rsplit(instance_name, 1)[-1]+"\n")
+                    # print_format += f"%{max(bit_len,7)}s" %
+                    print_format += f" {f'[{indx+1}]':>{max(bit_len,7)}}"
+
+        # Store bitstream values
+        with open(f"{out_directory}/{out_filename}_bitstream.txt", "a", encoding="UTF-8") as fp:
+            if not module_name in visited:
+                fp.write(f"{'':15} |" + print_format + "\n")
+            bits = []
             for indx, h_ele in enumerate(ele.findall(".//hierarchy/..")):
-                path = ".".join([e.attrib["name"]
-                                 for e in h_ele.findall(".//instance")])
-                bit_len = len(h_ele.findall(".//bit"))
-                fp.write(f"{indx:3}. [{bit_len:3}] " +
-                         path.rsplit(instance_name, 1)[-1]+"\n")
+                bits_words = "".join([mems.attrib["value"]
+                                     for mems in h_ele.findall(".//bit")])
+                bits.append(f" {bits_words:>{max(len(bits_words),7)}}")
+            fp.write(f"{instance_name:15} |" + "".join(bits) + "\n")
+        visited.append(module_name)
 
 
 if __name__ == "__main__":
