@@ -352,9 +352,10 @@ class OpenFPGA:
                 continue
             if inst.reference.name.startswith("const"):
                 continue
-            if not inst.reference.name in inst_cnt.keys():
-                inst_cnt[inst.reference.name] = []
-            inst_cnt[inst.reference.name].append(inst.name)
+            if fnmatch(inst.reference.name, pattern):
+                if not inst.reference.name in inst_cnt.keys():
+                    inst_cnt[inst.reference.name] = []
+                inst_cnt[inst.reference.name].append(inst.name)
         return OrderedDict(sorted(inst_cnt.items(), reverse=True))
 
     def design_top_stat(self, pattern="*", quiet=False, filename=None, function=()):
