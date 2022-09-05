@@ -38,10 +38,28 @@ runOpenFPGA:
 			modules = sorted([e for e in netlist.top_instance.reference.get_definitions()], key=lambda x: x.name); \
 			instances = {m.name:sorted([i.name for i in m.references]) for m in modules}; \
 			yaml.dump(instances, open('top_hierarchy.yml', 'w'))"
+	# clear mapping in bitstream
+	sed -i 's/net_name=".*"//' ${DESIGN_NAME}_bitstreams/top/fabric_independent_bitstream.xml
+	sed -i 's/value="1"/value="0"/' ${DESIGN_NAME}_bitstreams/top/fabric_independent_bitstream.xml
+	sed -i 's/path_id=".*"//' ${DESIGN_NAME}_bitstreams/top/fabric_independent_bitstream.xml
+	sed -i '' -e '/<input_nets>/,/<\/input_nets>/d' ${DESIGN_NAME}_bitstreams/top/fabric_independent_bitstream.xml
+
 	rm -rf split_bitstreams
 	$${PYTHON_EXEC} -c "from spydrnet_physical.util import split_fabric_bitstream;
 					split_fabric_bitstream('${DESIGN_NAME}_bitstreams/top/fabric_independent_bitstream.xml', \
-										'top_hierarchy.yml', output_dir='split_bitstreams', unique=True)"
+										'top_hierarchy.yml', output_dir='split_bitstreams')"
+	$${PYTHON_EXEC} -c "from spydrnet_physical.util import merge_fabric_bitstream;
+					merge_fabric_bitstream('fabric_independent_bitstream_regenerated.xml', \
+										'top_hierarchy.yml', output_dir='split_bitstreams')"
+
+	# XMLLint regenerated bitstream file
+	xml_file=fabric_independent_bitstream_regenerated.xml
+	XMLLINT_INDENT="    " xmllint --format $${xml_file} > _reg.tmp && mv _reg.tmp $${xml_file}
+
+	# XMLLint original bitstream file
+	xml_file=./FPGA44_bitstreams/top/fabric_independent_bitstream.xml
+	XMLLINT_INDENT="    " xmllint --format $${xml_file} > _reg.tmp && mv _reg.tmp $${xml_file}
+
 	find ./${DESIGN_NAME}_gsb -name "*.xml" -type f -exec xmllint --output '{}' --format '{}' \;
 	duration=$$SECONDS
 	echo "$$(($$duration / 60)) minutes and $$(($$duration % 60)) seconds elapsed." >> runOpenFPGA
