@@ -57,7 +57,7 @@ runOpenFPGA:
 	XMLLINT_INDENT="    " xmllint --format $${xml_file} > _reg.tmp && mv _reg.tmp $${xml_file}
 
 	# XMLLint original bitstream file
-	xml_file=./FPGA44_bitstreams/top/fabric_independent_bitstream.xml
+	xml_file=./${DESIGN_NAME}_bitstreams/top/fabric_independent_bitstream.xml
 	XMLLINT_INDENT="    " xmllint --format $${xml_file} > _reg.tmp && mv _reg.tmp $${xml_file}
 
 	find ./${DESIGN_NAME}_gsb -name "*.xml" -type f -exec xmllint --output '{}' --format '{}' \;
