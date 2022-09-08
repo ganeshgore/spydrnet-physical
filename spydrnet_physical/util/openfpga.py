@@ -3,6 +3,7 @@ This is OpenFPGA generated Verilog Netlist Parser Class
 """
 
 import logging
+import math
 import os
 import pickle
 import re
@@ -13,7 +14,6 @@ from pathlib import Path
 from typing import Callable
 
 import spydrnet as sdn
-import spydrnet_physical as sdnphy
 from spydrnet_physical.util import FPGAGridGen, initial_placement
 
 logger = logging.getLogger("spydrnet_logs")
@@ -243,8 +243,9 @@ class OpenFPGA:
                     "Unknown shape %s on module %s", S, instance.reference.name
                 )
             )
+
             output.append(
-                "{:^20} {:^20} {: 10.2f} {: 10.2f} {:^8} {:^5} {:20}".format(
+                "{:^20} {:^20} {: 10.{precision}f} {: 10.{precision}f} {:^8} {:^5} {:20}".format(
                     instance.name,
                     instance.reference.name,
                     scale * instance.properties.get("LOC_X", 0),
@@ -252,13 +253,14 @@ class OpenFPGA:
                     S,
                     4 if S == "rect" else int(len(points) / 2),
                     " ".join(map(lambda x: f"{x*scale: 6.3f}", points)),
+                    precision=int(round(math.log(1/scale,10)))
                 )
             )
 
         W = self.top_module.properties.get("WIDTH", 1000)
         H = self.top_module.properties.get("HEIGHT", 1000)
         output.append(
-            "{:^20} {:^20} {: 10.2f} {: 10.2f} {:^8} {:^5} {:20}\n".format(
+            "{:^20} {:^20} {: 10.{precision}f} {: 10.{precision}f} {:^8} {:^5} {:20}\n".format(
                 self.top_module.name,
                 self.top_module.name,
                 0,
@@ -267,6 +269,7 @@ class OpenFPGA:
                 4,
                 " ".join(
                     map(lambda x: f"{x*scale: 6.3f}", (0, 0, 0, H, W, H, W, 0))),
+                precision=int(round(math.log(1/scale, 10)))
             )
         )
         if filename:
