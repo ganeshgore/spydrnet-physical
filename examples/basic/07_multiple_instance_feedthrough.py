@@ -42,10 +42,10 @@ inst1 = next(top.get_instances('inst_1_0'))
 inst2 = next(top.get_instances('inst_1_1'))
 
 
-#composer = HTMLComposer()
-#composer.run(netlist, file_out="1_mul_inst_ft_design.html")
+composer = HTMLComposer()
+composer.run(netlist, file_out="1_mul_inst_ft_design.html")
 composer = SVGComposer()
-composer.run(netlist, file_out="basic_hierarchy_design.svg")
+composer.run(netlist, file_out="_basic_hierarchy_design.svg")
 
 cable = top.create_cable(name= 'A')
 wire = cable.create_wire()
@@ -55,7 +55,7 @@ inst_list = [(cable,[inst1, inst2])]
 top.create_feedthrough_multiple(inst_list)
 top.create_unconn_wires()
     
-#composer = HTMLComposer()
-#composer.run(netlist, file_out="2_mul_inst_ft_design.html")
+composer = HTMLComposer()
+composer.run(netlist, file_out="_2_mul_inst_ft_design.html")
 composer = SVGComposer()
-composer.run(netlist, file_out="Feedthrough_basic_hierarchy_design.svg")
+composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.svg")
