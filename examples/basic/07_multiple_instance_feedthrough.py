@@ -9,6 +9,16 @@ This example demonstrates how to generate feedthrough from multiple instances.
 If multiple instances belong to the same reference module it should reuser 
 the feedthrough instead of creating independent feedthrough to pass through each instance.
 
+**Before feedthrough**
+
+.. image:: ../../../examples/basic/basic_hierarchy_design.svg
+   :align: center
+
+**After feedthrough**
+
+.. image:: ../../../examples/basic/Feedthrough_basic_hierarchy_design.svg
+    :align: center
+
 """
 
 import logging
@@ -32,10 +42,10 @@ inst1 = next(top.get_instances('inst_1_0'))
 inst2 = next(top.get_instances('inst_1_1'))
 
 
-composer = HTMLComposer()
-composer.run(netlist, file_out="1_mul_inst_ft_design.html")
+#composer = HTMLComposer()
+#composer.run(netlist, file_out="1_mul_inst_ft_design.html")
 composer = SVGComposer()
-composer.run(netlist, file_out="1_mul_inst_ft_design.svg")
+composer.run(netlist, file_out="basic_hierarchy_design.svg")
 
 cable = top.create_cable(name= 'A')
 wire = cable.create_wire()
@@ -45,7 +55,7 @@ inst_list = [(cable,[inst1, inst2])]
 top.create_feedthrough_multiple(inst_list)
 top.create_unconn_wires()
     
-composer = HTMLComposer()
-composer.run(netlist, file_out="2_mul_inst_ft_design.html")
+#composer = HTMLComposer()
+#composer.run(netlist, file_out="2_mul_inst_ft_design.html")
 composer = SVGComposer()
-composer.run(netlist, file_out="2_mul_inst_ft_design.svg")
+composer.run(netlist, file_out="Feedthrough_basic_hierarchy_design.svg")
