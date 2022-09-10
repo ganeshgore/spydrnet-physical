@@ -7,12 +7,12 @@ This example demonstrate how to merge group of instances in the design
 
 **Before Merging**
 
-.. image:: ../../../examples/basic/basic_hierarchy_design.svg
+.. image:: ../../../examples/basic/_basic_inst_design.svg
    :align: center
 
 **After Merging**
 
-.. image:: ../../../examples/basic/Merged_mul_inst_design.svg
+.. image:: ../../../examples/basic/_Merged_mul_inst_design.svg
     :align: center
 
 """
@@ -34,16 +34,16 @@ inst4 = next(top.get_instances('inst_2_1'))
 inst_tup_list = ([inst1, inst2], "merged_inst1"), ([inst3, inst4], "merged_inst2")
 
 composer = HTMLComposer()
-composer.run(netlist, file_out="_mul_inst_design.html")
+composer.run(netlist, file_out="_basic_inst_design.html")
 composer = SVGComposer()
-composer.run(netlist, file_out="_mul_inst_design.svg")
+composer.run(netlist, file_out="_basic_inst_design.svg")
 
 top.merge_multiple_instance(inst_tup_list, new_definition_name = "merged_insts")
 
 sdn.compose(netlist, '_merged_mul_inst_design.v', skip_constraints=True)
 
 composer = HTMLComposer()
-composer.run(netlist, file_out="_merged_mul_inst_design.html")
+composer.run(netlist, file_out="_Merged_mul_inst_design.html")
 
 composer = SVGComposer()
 composer.run(netlist, file_out="_Merged_mul_inst_design.svg")

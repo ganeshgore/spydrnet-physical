@@ -11,12 +11,12 @@ the feedthrough instead of creating independent feedthrough to pass through each
 
 **Before feedthrough**
 
-.. image:: ../../../examples/basic/basic_hierarchy_design.svg
+.. image:: ../../../examples/basic/_basic_hierarchy_design.svg
    :align: center
 
 **After feedthrough**
 
-.. image:: ../../../examples/basic/Feedthrough_basic_hierarchy_design.svg
+.. image:: ../../../examples/basic/_Feedthrough_basic_hierarchy_design.svg
     :align: center
 
 """
@@ -43,7 +43,7 @@ inst2 = next(top.get_instances('inst_1_1'))
 
 
 composer = HTMLComposer()
-composer.run(netlist, file_out="1_mul_inst_ft_design.html")
+composer.run(netlist, file_out="_basic_hierarchy_design.html")
 composer = SVGComposer()
 composer.run(netlist, file_out="_basic_hierarchy_design.svg")
 
@@ -56,6 +56,6 @@ top.create_feedthrough_multiple(inst_list)
 top.create_unconn_wires()
     
 composer = HTMLComposer()
-composer.run(netlist, file_out="_2_mul_inst_ft_design.html")
+composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.html")
 composer = SVGComposer()
 composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.svg")
