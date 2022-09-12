@@ -240,21 +240,23 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         """
         for eachm, param in self.module_shapes.items():
             if not param:
+                logger.warning("Parameters not found for %s", eachm)
                 continue
             try:
                 module = next(self._top_module.get_definitions(eachm))
             except StopIteration:
                 logger.warning("Shape %s not found", eachm)
+                continue
             shape = param.get("SHAPE", "rect")
             if (shape == "cross") or (shape == "custom"):
                 points = self._scale_shape(shape, param["POINTS"])
                 module.data[PROP]["SHAPE"] = shape
                 module.data[PROP]["POINTS"] = points
                 module.data[PROP]["WIDTH"] = sum(
-                    [param["POINTS"][i] for i in [1, 3, 4]]
+                    [points[i] for i in [1, 3, 4]]
                 )
                 module.data[PROP]["HEIGHT"] = sum(
-                    [param["POINTS"][i] for i in [0, 2, 5]]
+                    [points[i] for i in [0, 2, 5]]
                 )
             else:
                 module.data[PROP]["SHAPE"] = "rect"
