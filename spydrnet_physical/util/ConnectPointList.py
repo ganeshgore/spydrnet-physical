@@ -171,6 +171,8 @@ class ConnectPointList:
         # x_grid= min([ abs(a-b) for a,b in zip(x_grid[:-1], x_grid[1:])])
         # y_grid= min([ abs(a-b) for a,b in zip(y_grid[:-1], y_grid[1:])])
 
+        logger.debug("Found vertical markers at %s", x_grid)
+        logger.debug("Found horizontal markers at %s", y_grid)
         x_grid = (max(x_grid)-min(x_grid))/(self.sizex)
         y_grid = (max(y_grid)-min(y_grid))/(self.sizey)
         logger.debug("Computed grid size is  %.2f x %.2f", x_grid, y_grid)

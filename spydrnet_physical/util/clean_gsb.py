@@ -7,6 +7,7 @@ import argparse
 import fileinput
 import glob
 import json
+import shutil
 import os
 import pathlib
 import xml.etree.ElementTree as ET
@@ -148,11 +149,16 @@ def clean_gsb(instance_map, top_level_design, gsb_dir):
             tree.write(f"{gsb_dir}/{filename}.xml")
 
 
-def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstreams", unique=False):
+def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstreams"):
     tree = ET.parse(fabric_file)
     root = tree.getroot()
 
     instance_map = yaml.safe_load(open(instance_list, "r", encoding="UTF-8"))
+
+    pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
+    with open(f"{output_dir}/instance_sequence.yaml", "w", encoding="UTF-8") as fp:
+        yaml.safe_dump(list(map(lambda x: x.attrib["name"], list(root))), fp)
+    print(f"{output_dir}/instance_sequence.yaml saved")
 
     visited = []
     for ele in list(root):
@@ -162,7 +168,7 @@ def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstr
 
         # out_directory = f'{output_dir}' if unique else f'{output_dir}/{module_name}'
         out_directory = f'{output_dir}/{module_name}'
-        out_filename = f'{module_name}' if unique else f'{instance_name}'
+        out_filename = f'{module_name}'
         out_xml_file = f"{out_directory}/{out_filename}_bits.xml"
         pathlib.Path(out_directory).mkdir(parents=True, exist_ok=True)
 
@@ -196,6 +202,52 @@ def split_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstr
                 bits.append(f" {bits_words:>{max(len(bits_words),7)}}")
             fp.write(f"{instance_name:15} |" + "".join(bits) + "\n")
         visited.append(module_name)
+
+
+def _prepare_bitstream_block(instance_name, bitstream_template, bitstream):
+    shutil.copy2(bitstream_template, "_tmp_bitstream_template.xml")
+    for line in fileinput.input("_tmp_bitstream_template.xml", inplace=True):
+        print(line.replace("{{INSTACE_NAME}}", instance_name), end="")
+
+    tree = ET.parse(open("_tmp_bitstream_template.xml", "r", encoding="UTF-8"))
+    root = tree.getroot()
+    return root
+
+
+def merge_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstreams"):
+
+    instance_map = yaml.safe_load(open(instance_list, "r", encoding="UTF-8"))
+
+    bitstreams = {}
+
+    for module_name in instance_map.keys():
+        print(f" -------- {module_name} -------- ")
+        try:
+            bitfile_name = f"{output_dir}/{module_name}/{module_name}_bitstream.txt"
+            with open(bitfile_name, "r", encoding="UTF-8") as fp:
+                for lines in fp.readlines()[1:]:
+                    instance, bits = lines.rsplit("|")
+                    instance = instance.strip()
+                    bitstreams[instance] = _prepare_bitstream_block(
+                        instance, f"{output_dir}/{module_name}/{module_name}_bits.xml",
+                        bits.replace(" ", ""))
+            print(f"Done {instance}")
+        except FileNotFoundError:
+            print(f"{module_name} bitstream block not found")
+
+    # Create top level bitstream again
+    tree = ET.Element("bitstream_block", attrib={
+                      "name": "fpga_top", "hierarchy_level": "0"})
+    filename = f"{output_dir}/instance_sequence.yaml"
+    with open(filename, "r", encoding="UTF-8") as fp:
+        for instance in yaml.safe_load(fp):
+            # tree.append( ET.Element("bitstream_block",
+            #             attrib={"name": instance}))
+            tree.append(bitstreams[instance])
+
+    ET.ElementTree(tree).write(fabric_file)
+    # with open(fabric_file, "w", encoding="UTF-8") as fp:
+    #     fp.write("This file is auto generated")
 
 
 if __name__ == "__main__":

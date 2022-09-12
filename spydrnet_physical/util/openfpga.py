@@ -284,7 +284,7 @@ class OpenFPGA:
         output = []
         output.append(" = =" * 30)
         # fmt: off
-        output.append("%20s %20s %5s %5s %5s %5s %8s %20s"
+        output.append("%20s %20s %5s %8s %8s %8s %8s %20s"
                 % ("INSTANCE", "MODULE", "LOC_X", "LOC_Y",
                    "WIDTH", "HEIGHT", "SHAPE", "POINTS"))
         # fmt: on
@@ -887,7 +887,7 @@ class OpenFPGA:
                     ref.data[PROP]["AREA_UM"] = float(
                         area) * (self.GLOBAL_SCALE**2)
                 except StopIteration:
-                    logger.warning("%s not found in the netlist", module)
+                    logger.warning("Area annotation: %s not found in the netlist ", module)
 
     # print the hierarchy of a netlist
     def hierarchy(

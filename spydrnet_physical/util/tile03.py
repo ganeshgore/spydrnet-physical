@@ -33,8 +33,8 @@ class Tile03(Tile01):
         self._left_tile()
         self._bottom_tile()
 
-        self.fpga_size[0] += 1
-        self.fpga_size[1] += 1
+        # self.fpga_size[0] += 1
+        # self.fpga_size[1] += 1
 
     def merge_and_update_wrapper(self, instance_list, tile_name):
         '''
