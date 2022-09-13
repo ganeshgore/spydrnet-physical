@@ -367,7 +367,7 @@ class Tile03(Tile01):
         try:
             clb, cbx0, cby0, sb0 = None, None, None, None
             clb = next(self._top_module.get_instances(
-                f"grid_clb_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
+                f"grid_io_right_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
             cbx0 = next(self._top_module.get_instances(
                 f"cbx_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
             cby0 = next(self._top_module.get_instances(
@@ -411,8 +411,8 @@ class Tile03(Tile01):
             cbx10 = next(get_instances("cbx_1__0_"))
             sb010 = next(get_instances("sb_1__0_"))
 
-            instance_list.append(((grid_io, cby1, cbx1, sb1, sb0, 
-                                 cby01, sb01, cbx10, sb010), 
+            instance_list.append(((grid_io, cby1, cbx1, sb1, sb0,
+                                 cby01, sb01, cbx10, sb010),
                                 "tile_1__1_"))
         except StopIteration:
             logger.debug("Missing instance at left_bottom %s %s %s %s %s %s %s %s %s",
