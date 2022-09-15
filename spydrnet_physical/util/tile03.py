@@ -296,7 +296,7 @@ class Tile03(Tile01):
                 cbx0 = next(get_instances(f"cbx_{i}__0_"))
                 sb0 = next(get_instances(f"sb_{i}__0_"))
 
-                category = f"{cbx0.reference.name}_{sb0.reference.name}"
+                category = f"{cbx0.reference.name}_{sb0.reference.name}_{sb1.reference.name}"
                 instance_list[category] = instance_list.get(category, [])
                 instance_list[category].append(((cbx0, sb0, grid_io, cby1, cbx1, sb1),
                                                 f"tile_{i}__1_"))
