@@ -869,7 +869,8 @@ class OpenFPGA:
                 if not (line):
                     continue
                 line = line.replace(",", " ")
-                module, area = line.split()[:2]
+                module = line.split()[0]
+                area = line.split()[1] or 0
                 area_grid = int(
                     float(area) * (self.GLOBAL_SCALE**2) /
                     (self.SC_HEIGHT * self.CPP)
