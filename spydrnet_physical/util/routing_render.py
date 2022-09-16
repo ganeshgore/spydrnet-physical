@@ -32,6 +32,12 @@ class base_renderer:
         """
         return f"{x.attrib['side']}_{int(x.attrib['index'])}"
 
+    def extract_info(self):
+        """
+        This should be extended in the specific element rendering class
+        """
+        raise NotImplementedError
+
     def _setup_svg(self):
         # Variables for SVG rendering
         self.dwg = Drawing()
@@ -313,17 +319,19 @@ class cb_renderer(base_renderer):
             key=lambda x: f"{x.attrib['side']}_{x.attrib['index']}",
         )
         self.ipin_l = len(self.ipin)
+        logger.debug("Found %d Ipins", self.ipin_l)
         self.chan = sorted(
-            self.root.findall(".//INPUT/*/driver_node"),
-            key=lambda x: int(x.attrib["index"]),
+            {node.attrib["index"] for node in self.root.findall(".//*/driver_node")}
         )
+
         self.chan_l = len(self.chan)
-        self.channels = self.root.attrib["type"].lower()
+        logger.debug("Found %d Channels", self.chan_l)
+        self.channels = self.root.tag.lower()
         assert (
             "cb" in self.channels
         ), "XML file does not contain connection box information"
 
-    def report_ipins(self, pMap=None):
+    def report_ipins(self):
         """
         Reports IPIN information
 
@@ -334,10 +342,12 @@ class cb_renderer(base_renderer):
             example: {'top_1': 2, 'left_1': 1 }
 
         """
-        pMap = {
-            f"{i.attrib['side']}_{i.attrib['index']}": indx
-            for indx, i in enumerate(self.chan)
-        }
+        print(
+            f"{' ':13}  "
+            + "|    " * int(np.floor(self.chan_l / (2 * 5)))
+            + "  "
+            + "|    " * int(np.floor(self.chan_l / (2 * 5)))
+        )
         for each_pin in self.ipin:
             print(
                 f"{each_pin.attrib['side']:>10} " + f"{each_pin.attrib['index']:4}",
@@ -345,10 +355,11 @@ class cb_renderer(base_renderer):
             )
             conn_map = ["-"] * self.chan_l
             for conn in each_pin:
-                conn_map[pMap[f"{conn.attrib['side']}_{conn.attrib['index']}"]] = "x"
-            print("".join(conn_map), end="")
+                conn_map[int(conn.attrib["index"])] = "x"
+
+            print("".join(conn_map[::2]), end="  ")
+            print("".join(conn_map[1::2]), end="")
             print(f" {conn_map.count('x'):3}")
-            print("", end="")
 
 
 class RoutingRender:
