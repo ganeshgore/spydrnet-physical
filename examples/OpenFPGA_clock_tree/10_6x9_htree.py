@@ -5,7 +5,7 @@ Grouping ungrouping cells
 
 This example is for creating Htree for 6x9 fabric. Our main constraints for clocktrees are to connect all the CLBs to the lowest level of Htree to have same clock delays to each cell.
 
-.. image:: ../example/OpenFPGA_clock_tree/_hybrid_connectivity_pattern_graph.svg
+.. image:: ../examples/OpenFPGA_clock_tree/_hybrid_connectivity_pattern_graph.svg
     :align: center
 
 
