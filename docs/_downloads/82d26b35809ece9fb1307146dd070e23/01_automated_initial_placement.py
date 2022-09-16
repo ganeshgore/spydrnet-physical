@@ -116,7 +116,7 @@ def main():
     fpga.show_placement_data(filename="_homogeneous_placement.txt")
     fpga.show_utilization_data()
     fpga.design_top_stat()
-    fpga.save_shaping_data("*")
+    fpga.save_shaping_data("*", scale=1/SCALE)
 
     fpga.update_module_label()
     fpga.show_utilization_data()

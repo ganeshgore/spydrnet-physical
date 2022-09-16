@@ -239,7 +239,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/10_optimize_pins.html">2.7. Optimizing module pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/12_io_sequence.html">2.8. Represetes IO Sequence in OpenFPGA Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -377,6 +378,12 @@
 <span class="sd">        returns attribute  ``&lt;side&gt;_&lt;index&gt;`` as a string</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'side'</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'index'</span><span class="p">])</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="k">def</span> <span class="nf">extract_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        This should be extended in the specific element rendering class</span>
+<span class="sd">        """</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="k">def</span> <span class="nf">_setup_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Variables for SVG rendering</span>
@@ -659,17 +666,19 @@
             <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'side'</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'index'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ipin_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ipin</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Found </span><span class="si">%d</span><span class="s2"> Ipins"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipin_l</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">chan</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">".//INPUT/*/driver_node"</span><span class="p">),</span>
-            <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"index"</span><span class="p">]),</span>
+            <span class="p">{</span><span class="n">node</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"index"</span><span class="p">]</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">".//*/driver_node"</span><span class="p">)}</span>
         <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">chan_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chan</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Found </span><span class="si">%d</span><span class="s2"> Channels"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chan_l</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">assert</span> <span class="p">(</span>
             <span class="s2">"cb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span>
         <span class="p">),</span> <span class="s2">"XML file does not contain connection box information"</span></div>
 
-<div class="viewcode-block" id="cb_renderer.report_ipins"><a class="viewcode-back" href="../../../reference/openfpga/routing_render.html#spydrnet_physical.util.cb_renderer.report_ipins">[docs]</a>    <span class="k">def</span> <span class="nf">report_ipins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pMap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="cb_renderer.report_ipins"><a class="viewcode-back" href="../../../reference/openfpga/routing_render.html#spydrnet_physical.util.cb_renderer.report_ipins">[docs]</a>    <span class="k">def</span> <span class="nf">report_ipins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Reports IPIN information</span>
 
@@ -680,10 +689,12 @@
 <span class="sd">            example: {'top_1': 2, 'left_1': 1 }</span>
 
 <span class="sd">        """</span>
-        <span class="n">pMap</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'side'</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'index'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">:</span> <span class="n">indx</span>
-            <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chan</span><span class="p">)</span>
-        <span class="p">}</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">' '</span><span class="si">:</span><span class="s2">13</span><span class="si">}</span><span class="s2">  "</span>
+            <span class="o">+</span> <span class="s2">"|    "</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chan_l</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)))</span>
+            <span class="o">+</span> <span class="s2">"  "</span>
+            <span class="o">+</span> <span class="s2">"|    "</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chan_l</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)))</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">each_pin</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipin</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">each_pin</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'side'</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> "</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">each_pin</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'index'</span><span class="p">]</span><span class="si">:</span><span class="s2">4</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
@@ -691,10 +702,11 @@
             <span class="p">)</span>
             <span class="n">conn_map</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"-"</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">chan_l</span>
             <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="n">each_pin</span><span class="p">:</span>
-                <span class="n">conn_map</span><span class="p">[</span><span class="n">pMap</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'side'</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'index'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">"x"</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">conn_map</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">conn_map</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span><span class="si">:</span><span class="s2">3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span></div></div>
+                <span class="n">conn_map</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"index"</span><span class="p">])]</span> <span class="o">=</span> <span class="s2">"x"</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">conn_map</span><span class="p">[::</span><span class="mi">2</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s2">"  "</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">conn_map</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">conn_map</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span><span class="si">:</span><span class="s2">3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="RoutingRender"><a class="viewcode-back" href="../../../reference/openfpga/routing_render.html#spydrnet_physical.util.RoutingRender">[docs]</a><span class="k">class</span> <span class="nc">RoutingRender</span><span class="p">:</span>

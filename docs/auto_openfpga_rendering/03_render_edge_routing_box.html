@@ -240,7 +240,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/10_optimize_pins.html">2.7. Optimizing module pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/12_io_sequence.html">2.8. Represetes IO Sequence in OpenFPGA Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">3. Module Rendering Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -361,26 +362,22 @@ can be rendered in a SVG format.</p>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">cb_renderer</span><span class="p">,</span> <span class="n">sb_renderer</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'DEBUG'</span><span class="p">)</span>
-
-<span class="n">scale</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">SPACING</span> <span class="o">=</span> <span class="mi">150</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span>
-    <span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'DEBUG'</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"03_render_edge_routing_box"</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"spydrnet_logs"</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"03_render_edge_routing_box"</span><span class="p">)</span>
 
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">gsb</span> <span class="o">=</span> <span class="s1">'../homogeneous_fabric/FPGA44_gsb'</span>
+    <span class="sd">"""</span>
+<span class="sd">    Main routine</span>
+<span class="sd">    """</span>
+    <span class="n">gsb</span> <span class="o">=</span> <span class="s2">"../homogeneous_fabric/FPGA44_gsb"</span>
 
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="c1">#  This prints horizontal connection box information</span>
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">conn_box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">gsb</span><span class="si">}</span><span class="s1">/cbx_*__*_.xml'</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">conn_box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">gsb</span><span class="si">}</span><span class="s2">/cbx_*__*_.xml"</span><span class="p">)):</span>
         <span class="n">module</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">conn_box</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">cb_render</span> <span class="o">=</span> <span class="n">cb_renderer</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">conn_box</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Printing module : ========== </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2"> ========== "</span><span class="p">)</span>
@@ -389,25 +386,26 @@ can be rendered in a SVG format.</p>
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
     <span class="c1">#  This prints vertical connection box information</span>
     <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">conn_box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">gsb</span><span class="si">}</span><span class="s1">/cby_*__*_.xml'</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">conn_box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">gsb</span><span class="si">}</span><span class="s2">/cby_*__*_.xml"</span><span class="p">)):</span>
         <span class="n">module</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">conn_box</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">cb_render</span> <span class="o">=</span> <span class="n">cb_renderer</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">conn_box</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Printing module : ========== </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2"> ========== "</span><span class="p">)</span>
         <span class="n">cb_render</span><span class="o">.</span><span class="n">report_ipins</span><span class="p">()</span>
 
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="c1">#  This prints switch box information</span>
-    <span class="c1"># = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
-    <span class="k">for</span> <span class="n">indx</span><span class="p">,</span> <span class="n">conn_box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">gsb</span><span class="si">}</span><span class="s1">/sb_*__*_.xml'</span><span class="p">)):</span>
-        <span class="n">module</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">conn_box</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Printing module : ========== </span><span class="si">{</span><span class="n">module</span><span class="si">}</span><span class="s2"> ========== "</span><span class="p">)</span>
-        <span class="n">sb_render</span> <span class="o">=</span> <span class="n">sb_renderer</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">conn_box</span><span class="p">)</span>
-        <span class="n">sb_render</span><span class="o">.</span><span class="n">report_connectivity</span><span class="p">(</span><span class="n">filter_direct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                      <span class="n">in_pin</span><span class="o">=</span><span class="p">[</span><span class="s2">"chanx_left"</span><span class="p">,</span> <span class="s2">"chanx_right"</span><span class="p">,</span>
-                                              <span class="s2">"chany_top"</span><span class="p">,</span> <span class="s2">"chany_bottom"</span><span class="p">])</span>
-        <span class="n">sb_render</span><span class="o">.</span><span class="n">report_connectivity</span><span class="p">(</span><span class="n">filter_direct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                      <span class="n">in_pin</span><span class="o">=</span><span class="p">[</span><span class="s2">"opin_left"</span><span class="p">,</span> <span class="s2">"opin_right"</span><span class="p">,</span>
-                                              <span class="s2">"opin_top"</span><span class="p">,</span> <span class="s2">"opin_bottom"</span><span class="p">])</span>
+    <span class="c1"># FIXME:</span>
+    <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="c1"># #  This prints switch box information</span>
+    <span class="c1"># # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =</span>
+    <span class="c1"># for _, conn_box in enumerate(glob.glob(f'{gsb}/sb_*__*_.xml')):</span>
+    <span class="c1">#     module = os.path.splitext(os.path.basename(conn_box))[0]</span>
+    <span class="c1">#     print(f"Printing module : ========== {module} ========== ")</span>
+    <span class="c1">#     sb_render = sb_renderer(module, conn_box)</span>
+    <span class="c1">#     sb_render.report_connectivity(filter_direct=True,</span>
+    <span class="c1">#                                   in_pin=["chanx_left", "chanx_right",</span>
+    <span class="c1">#                                           "chany_top", "chany_bottom"])</span>
+    <span class="c1">#     sb_render.report_connectivity(filter_direct=True,</span>
+    <span class="c1">#                                   in_pin=["opin_left", "opin_right",</span>
+    <span class="c1">#                                           "opin_top", "opin_bottom"])</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>

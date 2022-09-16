@@ -239,7 +239,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/10_optimize_pins.html">2.7. Optimizing module pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/12_io_sequence.html">2.8. Represetes IO Sequence in OpenFPGA Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -349,6 +350,7 @@
 <span class="sd">"""</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">re</span>
@@ -359,7 +361,6 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
 
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">initial_placement</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">"spydrnet_logs"</span><span class="p">)</span>
@@ -589,8 +590,9 @@
                     <span class="s2">"Unknown shape </span><span class="si">%s</span><span class="s2"> on module </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span>
                 <span class="p">)</span>
             <span class="p">)</span>
+
             <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="s2">"</span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{: 10.2f}</span><span class="s2"> </span><span class="si">{: 10.2f}</span><span class="s2"> </span><span class="si">{:^8}</span><span class="s2"> </span><span class="si">{:^5}</span><span class="s2"> </span><span class="si">{:20}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="s2">"</span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{:^20}</span><span class="s2"> {: 10.</span><span class="si">{precision}</span><span class="s2">f} {: 10.</span><span class="si">{precision}</span><span class="s2">f} </span><span class="si">{:^8}</span><span class="s2"> </span><span class="si">{:^5}</span><span class="s2"> </span><span class="si">{:20}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                     <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                     <span class="n">scale</span> <span class="o">*</span> <span class="n">instance</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOC_X"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
@@ -598,13 +600,14 @@
                     <span class="n">S</span><span class="p">,</span>
                     <span class="mi">4</span> <span class="k">if</span> <span class="n">S</span> <span class="o">==</span> <span class="s2">"rect"</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
                     <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="o">*</span><span class="n">scale</span><span class="si">:</span><span class="s2"> 6.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">points</span><span class="p">)),</span>
+                    <span class="n">precision</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">scale</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
         <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
         <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"HEIGHT"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
         <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">"</span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{: 10.2f}</span><span class="s2"> </span><span class="si">{: 10.2f}</span><span class="s2"> </span><span class="si">{:^8}</span><span class="s2"> </span><span class="si">{:^5}</span><span class="s2"> </span><span class="si">{:20}</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="s2">"</span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{:^20}</span><span class="s2"> {: 10.</span><span class="si">{precision}</span><span class="s2">f} {: 10.</span><span class="si">{precision}</span><span class="s2">f} </span><span class="si">{:^8}</span><span class="s2"> </span><span class="si">{:^5}</span><span class="s2"> </span><span class="si">{:20}</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="mi">0</span><span class="p">,</span>
@@ -613,6 +616,7 @@
                 <span class="mi">4</span><span class="p">,</span>
                 <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                     <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="o">*</span><span class="n">scale</span><span class="si">:</span><span class="s2"> 6.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="mi">0</span><span class="p">))),</span>
+                <span class="n">precision</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">scale</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
@@ -627,7 +631,7 @@
         <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">" = ="</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
         <span class="c1"># fmt: off</span>
-        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"</span><span class="si">%20s</span><span class="s2"> </span><span class="si">%20s</span><span class="s2"> </span><span class="si">%5s</span><span class="s2"> </span><span class="si">%5s</span><span class="s2"> </span><span class="si">%5s</span><span class="s2"> </span><span class="si">%5s</span><span class="s2"> </span><span class="si">%8s</span><span class="s2"> </span><span class="si">%20s</span><span class="s2">"</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"</span><span class="si">%20s</span><span class="s2"> </span><span class="si">%20s</span><span class="s2"> </span><span class="si">%5s</span><span class="s2"> </span><span class="si">%8s</span><span class="s2"> </span><span class="si">%8s</span><span class="s2"> </span><span class="si">%8s</span><span class="s2"> </span><span class="si">%8s</span><span class="s2"> </span><span class="si">%20s</span><span class="s2">"</span>
                 <span class="o">%</span> <span class="p">(</span><span class="s2">"INSTANCE"</span><span class="p">,</span> <span class="s2">"MODULE"</span><span class="p">,</span> <span class="s2">"LOC_X"</span><span class="p">,</span> <span class="s2">"LOC_Y"</span><span class="p">,</span>
                    <span class="s2">"WIDTH"</span><span class="p">,</span> <span class="s2">"HEIGHT"</span><span class="p">,</span> <span class="s2">"SHAPE"</span><span class="p">,</span> <span class="s2">"POINTS"</span><span class="p">))</span>
         <span class="c1"># fmt: on</span>
@@ -698,9 +702,10 @@
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"const"</span><span class="p">):</span>
                 <span class="k">continue</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">inst_cnt</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="n">inst_cnt</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">inst_cnt</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">inst_cnt</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">inst_cnt</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">inst_cnt</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">inst_cnt</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.design_top_stat"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.design_top_stat">[docs]</a>    <span class="k">def</span> <span class="nf">design_top_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="p">()):</span>
@@ -1211,7 +1216,8 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">line</span><span class="p">):</span>
                     <span class="k">continue</span>
                 <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span>
-                <span class="n">module</span><span class="p">,</span> <span class="n">area</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">module</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">area</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span>
                 <span class="n">area_grid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
                     <span class="nb">float</span><span class="p">(</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span>
                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SC_HEIGHT</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">CPP</span><span class="p">)</span>
@@ -1229,7 +1235,7 @@
                     <span class="n">ref</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"AREA_UM"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
                         <span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> not found in the netlist"</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span></div>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Area annotation: </span><span class="si">%s</span><span class="s2"> not found in the netlist "</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span></div>
 
     <span class="c1"># print the hierarchy of a netlist</span>
     <span class="k">def</span> <span class="nf">hierarchy</span><span class="p">(</span>

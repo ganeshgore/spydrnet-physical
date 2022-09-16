@@ -240,7 +240,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/10_optimize_pins.html">2.7. Optimizing module pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/12_io_sequence.html">2.8. Represetes IO Sequence in OpenFPGA Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -347,143 +348,6 @@
           <section id="bitstream-manager">
 <span id="openfpga-bitstream"></span><h1>Bitstream Manager<a class="headerlink" href="#bitstream-manager" title="Permalink to this headline">¶</a></h1>
 <p>This file contain the class which performs  the bitsream manipulation</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">util.bitstream_manager.</span></span><span class="sig-name descname"><span class="pre">BitstreamManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fabric_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitstream</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/bitstream_manager.html#BitstreamManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.bitstream_manager.BitstreamManager" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>Attributes:</strong></p>
-<div class="table-wrapper"><table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.bitstream_manager.BitstreamManager.instance_map" title="util.bitstream_manager.BitstreamManager.instance_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instance_map</span></code></a></p></td>
-<td><p>A dictionary containing the module name instances of those definitions</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.bitstream_manager.BitstreamManager.bit_man" title="util.bitstream_manager.BitstreamManager.bit_man"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bit_man</span></code></a></p></td>
-<td><p>A dictionary of lists with the bitstream values</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.bitstream_manager.BitstreamManager.regions" title="util.bitstream_manager.BitstreamManager.regions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regions</span></code></a></p></td>
-<td><p>Returns number of regions in the current bitstream</p></td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>Classes:</strong></p>
-<div class="table-wrapper"><table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.bitstream_manager.BitstreamManager.Bit" title="util.bitstream_manager.BitstreamManager.Bit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bit</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>Methods:</strong></p>
-<div class="table-wrapper"><table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.bitstream_manager.BitstreamManager.__init__" title="util.bitstream_manager.BitstreamManager.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a></p></td>
-<td><p>Bitstream manipulation class</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.bitstream_manager.BitstreamManager.load_bitstream" title="util.bitstream_manager.BitstreamManager.load_bitstream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_bitstream</span></code></a></p></td>
-<td><p>This method loads the bitstreams in the internal varaibles</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_module_elements</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_bitstream_of_module</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_fabric_bitstream</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unique_memory_elements</span></code></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table></div>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager.instance_map">
-<span class="sig-name descname"><span class="pre">instance_map</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#util.bitstream_manager.BitstreamManager.instance_map" title="Permalink to this definition">¶</a></dt>
-<dd><p>A dictionary containing the module name instances of those definitions</p>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager.bit_man">
-<span class="sig-name descname"><span class="pre">bit_man</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#util.bitstream_manager.BitstreamManager.bit_man" title="Permalink to this definition">¶</a></dt>
-<dd><p>A dictionary of lists with the bitstream values</p>
-<p>: :</p>
-<blockquote>
-<div><blockquote>
-<div><p>bits - – -&gt; &gt;</p>
-</div></blockquote>
-<blockquote>
-<div><p>I |
-N |
-S |
-T |
-A |
-N |
-C |
-E |</p>
-</div></blockquote>
-<p>Each element is (unique_id, value)</p>
-</div></blockquote>
-</dd></dl>
-<dl class="py class">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager.Bit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Bit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#util.bitstream_manager.BitstreamManager.Bit" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>Attributes:</strong></p>
-<div class="table-wrapper"><table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.bitstream_manager.BitstreamManager.Bit.id" title="util.bitstream_manager.BitstreamManager.Bit.id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">id</span></code></a></p></td>
-<td><p>Alias for field number 0</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.bitstream_manager.BitstreamManager.Bit.value" title="util.bitstream_manager.BitstreamManager.Bit.value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></a></p></td>
-<td><p>Alias for field number 1</p></td>
-</tr>
-</tbody>
-</table></div>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager.Bit.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#util.bitstream_manager.BitstreamManager.Bit.id" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager.Bit.value">
-<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#util.bitstream_manager.BitstreamManager.Bit.value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fabric_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitstream</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/util/bitstream_manager.html#BitstreamManager.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.bitstream_manager.BitstreamManager.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bitstream manipulation class</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>bistream</strong> – Fabric inpdendendent bitstream</p>
-</dd>
-</dl>
-</dd></dl>
-<dl class="py property">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager.regions">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">regions</span></span><a class="headerlink" href="#util.bitstream_manager.BitstreamManager.regions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns number of regions in the current bitstream</p>
-</dd></dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="util.bitstream_manager.BitstreamManager.load_bitstream">
-<span class="sig-name descname"><span class="pre">load_bitstream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/bitstream_manager.html#BitstreamManager.load_bitstream"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.bitstream_manager.BitstreamManager.load_bitstream" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method loads the bitstreams in the internal varaibles</p>
-</dd></dl>
-</dd></dl>
 </section>
 
         </article>

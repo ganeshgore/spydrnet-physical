@@ -136,7 +136,7 @@ FPGA fabric to increse the utilzation of each module in the design.
         fpga.show_placement_data(filename="_homogeneous_placement.txt")
         fpga.show_utilization_data()
         fpga.design_top_stat()
-        fpga.save_shaping_data("*")
+        fpga.save_shaping_data("*", scale=1/SCALE)
 
         fpga.update_module_label(
             get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f} [{x.utilization:.2%}]")

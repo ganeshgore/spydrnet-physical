@@ -238,7 +238,8 @@
 <li class="toctree-l3"><a class="reference internal" href="auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_openfpga_basic/08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="auto_openfpga_basic/10_optimize_pins.html">2.7. Optimizing module pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="auto_openfpga_basic/rename_modules.html">2.8. Renaming Homogeneous FPGA Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga_basic/12_io_sequence.html">2.8. Represetes IO Sequence in OpenFPGA Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -364,8 +365,6 @@
 </li>
           <li><a href="reference/openfpga/routing_render.html#spydrnet_physical.util.RoutingRender.__init__">(spydrnet_physical.util.RoutingRender method)</a>
 </li>
-          <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.__init__">(util.bitstream_manager.BitstreamManager method)</a>
-</li>
           <li><a href="reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.__init__">(util.ConnectionPattern.ConnectionPattern method)</a>
 </li>
           <li><a href="reference/utility_classes/ConnectPoint.html#util.ConnectPoint.ConnectPoint.__init__">(util.ConnectPoint.ConnectPoint method)</a>
@@ -385,14 +384,14 @@
           <li><a href="reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._bottom_left_tile">(spydrnet_physical.util.Tile02 method)</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_right_tile">_bottom_right_tile() (spydrnet_physical.util.Tile01 method)</a>
 
         <ul>
           <li><a href="reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._bottom_right_tile">(spydrnet_physical.util.Tile02 method)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/openfpga/tile01.html#spydrnet_physical.util.Tile01._bottom_tile">_bottom_tile() (spydrnet_physical.util.Tile01 method)</a>
 
         <ul>
@@ -507,15 +506,9 @@
 </li>
         <li><a href="reference/utility_classes/initial_hetero_placement.html#util.initial_hetero_placement.initial_hetero_placement.base4">base4() (util.initial_hetero_placement.initial_hetero_placement static method)</a>
 </li>
-        <li><a href="reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration.bit_line_cols">bit_line_cols (util.sram_configuration_protocol.sram_configuration attribute)</a>
-</li>
-        <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.bit_man">bit_man (util.bitstream_manager.BitstreamManager attribute)</a>
-</li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager">BitstreamManager (class in util.bitstream_manager)</a>
-</li>
-        <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.Bit">BitstreamManager.Bit (class in util.bitstream_manager)</a>
+        <li><a href="reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration.bit_line_cols">bit_line_cols (util.sram_configuration_protocol.sram_configuration attribute)</a>
 </li>
         <li><a href="reference/utility_classes/ConnectPoint.html#util.ConnectPoint.ConnectPoint.buffer">buffer (util.ConnectPoint.ConnectPoint property)</a>
 </li>
@@ -821,8 +814,6 @@
   <h2>I</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.Bit.id">id (util.bitstream_manager.BitstreamManager.Bit attribute)</a>
-</li>
         <li><a href="reference/classes/innerpin.html#spydrnet_physical.ir.innerpin.InnerPin.index">index() (spydrnet_physical.ir.innerpin.InnerPin method)</a>
 
         <ul>
@@ -838,8 +829,6 @@
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/classes/instance.html#spydrnet_physical.ir.instance.Instance">Instance (class in spydrnet_physical.ir.instance)</a>
-</li>
-        <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.instance_map">instance_map (util.bitstream_manager.BitstreamManager attribute)</a>
 </li>
         <li><a href="reference/utility_classes/ConnectPoint.html#util.ConnectPoint.ConnectPoint.is_buffered">is_buffered (util.ConnectPoint.ConnectPoint property)</a>
 </li>
@@ -866,8 +855,6 @@
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.library">library (spydrnet_physical.util.OpenFPGA property)</a>
-</li>
-        <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.load_bitstream">load_bitstream() (util.bitstream_manager.BitstreamManager method)</a>
 </li>
         <li><a href="reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points">load_points() (util.ConnectPointList.ConnectPointList method)</a>
 </li>
@@ -1007,8 +994,6 @@
   <h2>R</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.regions">regions (util.bitstream_manager.BitstreamManager property)</a>
-</li>
         <li><a href="reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.register_config_generator">register_config_generator() (spydrnet_physical.util.OpenFPGA method)</a>
 </li>
         <li><a href="reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.register_placement_creator">register_placement_creator() (spydrnet_physical.util.OpenFPGA method)</a>
@@ -1031,10 +1016,10 @@
 </li>
         <li><a href="reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.render_floorplan">render_floorplan() (spydrnet_physical.util.OpenFPGA method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.render_layout">render_layout() (util.FPGAGridGen.FPGAGridGen method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.render_pattern">render_pattern() (util.ConnectionPattern.ConnectionPattern method)</a>
 
         <ul>
@@ -1274,8 +1259,6 @@
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.validate_grid">validate_grid() (util.FPGAGridGen.FPGAGridGen method)</a>
-</li>
-        <li><a href="reference/utility_classes/openfpga_bitstream.html#util.bitstream_manager.BitstreamManager.Bit.value">value (util.bitstream_manager.BitstreamManager.Bit attribute)</a>
 </li>
     </ul></td>
   </tr></table>
