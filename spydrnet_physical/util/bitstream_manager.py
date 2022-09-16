@@ -1,35 +1,65 @@
 """
 This file contain the class which performs  the bitsream manipulation
 """
+import xml.etree.ElementTree as etree
+from collections import OrderedDict, namedtuple
+from pprint import pprint
+from bitstring import Bits, BitArray, BitStream
+
 import numpy as np
 import pandas as pd
-import xml.etree.ElementTree as etree
-from collections import namedtuple, OrderedDict
-from pprint import pprint
 
 
-class block_bitstream:
+class BitstreamBlock:
     """
-    This class store bistream for each block
-    """
+    This class store bistream for each definition and its intannces
 
-    bit_man = {}
-    """
     A dictionary of lists with the bitstream values
 
-    .. code-block::
+    args:
 
-        {
-            "module_name" : {
-                "elements": {
-                    "each_element" : (higher_index, lower_indx)
-                },
-                "bitstream": {
-                    "instance_name" : [<<as shown below>>]
-                }
-            }
-        }
+        name (str) : Name of the module
+        bistream_segments(tuple(str, int)): tuple of tuple with each element indicating name
+        and length of the segment
     """
+    _bit_instance_map = {}
+    bistream_paths = {}
+
+    def __init__(self, name, bistream_paths, bitstream):
+        self.name = name
+        if bistream_paths:
+            self.load_bitstream_paths(bistream_paths)
+        if bitstream:
+            self.load_bitstream(bistream_paths)
+
+    def load_bitstream(self, filename):
+        pass
+
+    def load_bitstream_paths(self, filename):
+        pass
+
+    @property
+    def bitstream_length(self):
+        """
+        """
+        assert self.bistream_paths, "bistream_paths is loaded"
+        pass
+        # return self.length
+
+
+class RoutingBitstreamBlock(BitstreamBlock):
+    """
+    This is dedicated bitsream block for routing related resoures
+    it host bitsreams for connection box as well as switch box
+    """
+
+    block_type = ""
+    '''
+    Stores type of routing block switchbox or connectonbox
+    '''
+
+    def __init__(self, name, bistream_paths, bitstream):
+        pass
 
 
 class BitstreamManager:
