@@ -342,7 +342,7 @@ class FPGAGridGen:
         ele_w, ele_h = self.fpga_arch.tiles[ele_type]
         x = int(ele.attrib["x"])
         y = int(ele.attrib["y"])
-        self._set_value(x - 1, y - 1, ele_type, ele_w, ele_h)
+        self._set_value(x, y, ele_type, ele_w, ele_h)
 
     def add_row(self, ele):
         ele_type = ele.attrib["type"]
