@@ -416,11 +416,11 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         m["bf"] = math.floor(0)
         self.update_placement_grid()
 
-    def create_shapes(self, shape_all=False):
+    def create_shapes(self, w_override=None, h_override=None, shape_all=False):
         m = self.s_param
 
-        W = self.fpga_size[0]
-        H = self.fpga_size[1]
+        W = w_override or self.fpga_size[0]
+        H = h_override or self.fpga_size[1]
         # Placement is called with  PLACEMENT(x, y, instance, module_shapes, variables)
         self.module_shapes = {
             "grid_clb": {

@@ -673,7 +673,10 @@ class FPGAGridGen:
 
     def get_symbol_of_instance(self, instance_name):
         symbol = self.get_instance(instance_name)
-        return self.get_symbol(symbol["xlink:href"][1:])
+        try:
+            return self.get_symbol(symbol["xlink:href"][1:])
+        except TypeError:
+            logger.exception("%s instance not found", instance_name)
 
     def get_symbol(self, symbol_name):
         for ele in self.dwg.defs.elements:

@@ -249,19 +249,20 @@ class Tile03(Tile01):
             try:
                 clb, cbx, cby, sb = None, None, None, None
                 clb = next(self._top_module.get_instances(
-                    f"grid_io_top_{i}__{self.fpga_size[1]}_"))
+                    f"grid_io_top*_{i}__{self.fpga_size[1]}_"))
                 cbx = next(self._top_module.get_instances(
-                    f"cbx_{i}__{self.fpga_size[1]}_"))
+                    f"cbx*_{i}__{self.fpga_size[1]}_"))
                 cby = next(self._top_module.get_instances(
-                    f"cby_{i}__{self.fpga_size[1]}_"))
+                    f"cby*_{i}__{self.fpga_size[1]}_"))
                 sb = next(self._top_module.get_instances(
-                    f"sb_{i}__{self.fpga_size[1]}_"))
+                    f"sb*_{i}__{self.fpga_size[1]}_"))
 
                 category = f"{clb.reference.name}_{cbx.reference.name}"
                 category += f"_{cby.reference.name}_{sb.reference.name}"
                 instance_list[category] = instance_list.get(category, [])
                 instance_list[category].append(((clb, cbx, cby, sb),
                                                 f"tile_{i}__{self.fpga_size[1]}_"))
+                logger.info("top_tiles types %s", instance_list.keys())
             except StopIteration:
                 logger.debug("Missing instance at %s [right] %s %s %s %s",
                              i, clb, cbx, cby, sb)
@@ -288,18 +289,21 @@ class Tile03(Tile01):
             for i in range(2, self.fpga_size[0]):
                 cbx0, sb0 = None, None
 
-                grid_io = next(get_instances(f"grid_io_bottom_{i}__1_"))
-                cby1 = next(get_instances(f"cby_{i}__1_"))
-                cbx1 = next(get_instances(f"cbx_{i}__1_"))
-                sb1 = next(get_instances(f"sb_{i}__1_"))
+                grid_io = next(get_instances(f"grid_io_bottom*_{i}__1_"))
+                cby1 = next(get_instances(f"cby*_{i}__1_"))
+                cbx1 = next(get_instances(f"cbx*_{i}__1_"))
+                sb1 = next(get_instances(f"sb*_{i}__1_"))
 
-                cbx0 = next(get_instances(f"cbx_{i}__0_"))
-                sb0 = next(get_instances(f"sb_{i}__0_"))
+                cbx0 = next(get_instances(f"cbx*_{i}__0_"))
+                sb0 = next(get_instances(f"sb*_{i}__0_"))
 
-                category = f"{cbx0.reference.name}_{sb0.reference.name}_{sb1.reference.name}"
+                category = f"{cbx0.reference.name}_{sb0.reference.name}"
+                category += f"_{sb1.reference.name}_{grid_io.reference.name}"
+                category += f"_{cby1.reference.name}_{cbx1.reference.name}"
                 instance_list[category] = instance_list.get(category, [])
                 instance_list[category].append(((cbx0, sb0, grid_io, cby1, cbx1, sb1),
                                                 f"tile_{i}__1_"))
+            logger.info("Bottom_tile types %s", instance_list.keys())
         except StopIteration:
             logger.debug("Missing instance at %s [bottom] %s %s", i, cbx0, sb0)
 
@@ -400,7 +404,7 @@ class Tile03(Tile01):
         instance_list = []
         get_instances = self._top_module.get_instances
         try:
-            grid_io = next(get_instances("grid_io_left_1__1_"))
+            grid_io = next(get_instances("grid_io_*_1__1_"))
             cby1 = next(get_instances("cby_1__1_"))
             cbx1 = next(get_instances("cbx_1__1_"))
             sb1 = next(get_instances("sb_1__1_"))
