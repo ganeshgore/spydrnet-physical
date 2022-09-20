@@ -938,14 +938,14 @@ class OpenFPGA:
             #     ADDITIONAL_STYLES += f".{ref.name}" + \
             #         "{fill:#b22222 !important;}\n"
 
-    def get_overutils_styles(self, color='#D60B00'):
+    def get_overutils_styles(self, target=0.95, color='#D60B00'):
         """
         Analyzes utilisation of each module and returns CSS string to highlight
         in the SVG
         """
         additional_styles = ""
         for eachmdoule in self.top_module.get_definitions():
-            if eachmdoule.utilization > 0.95:
+            if eachmdoule.utilization > target:
                 additional_styles += f"\n.{eachmdoule.name}" + \
                     f"{{ fill: {color} !important }} \n"
         return additional_styles
