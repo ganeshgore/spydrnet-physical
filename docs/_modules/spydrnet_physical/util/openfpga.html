@@ -1286,14 +1286,14 @@
             <span class="c1">#     ADDITIONAL_STYLES += f".{ref.name}" + \</span>
             <span class="c1">#         "{fill:#b22222 !important;}\n"</span>
 
-<div class="viewcode-block" id="OpenFPGA.get_overutils_styles"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.get_overutils_styles">[docs]</a>    <span class="k">def</span> <span class="nf">get_overutils_styles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#D60B00'</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenFPGA.get_overutils_styles"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.get_overutils_styles">[docs]</a>    <span class="k">def</span> <span class="nf">get_overutils_styles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#D60B00'</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Analyzes utilisation of each module and returns CSS string to highlight</span>
 <span class="sd">        in the SVG</span>
 <span class="sd">        """</span>
         <span class="n">additional_styles</span> <span class="o">=</span> <span class="s2">""</span>
         <span class="k">for</span> <span class="n">eachmdoule</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">eachmdoule</span><span class="o">.</span><span class="n">utilization</span> <span class="o">&gt;</span> <span class="mf">0.95</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">eachmdoule</span><span class="o">.</span><span class="n">utilization</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
                 <span class="n">additional_styles</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">.</span><span class="si">{</span><span class="n">eachmdoule</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> \
                     <span class="sa">f</span><span class="s2">"</span><span class="se">{{</span><span class="s2"> fill: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2"> !important </span><span class="se">}}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">"</span>
         <span class="k">return</span> <span class="n">additional_styles</span></div></div>

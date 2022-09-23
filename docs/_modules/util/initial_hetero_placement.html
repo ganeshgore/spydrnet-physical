@@ -764,11 +764,11 @@
         <span class="n">m</span><span class="p">[</span><span class="s2">"bf"</span><span class="p">]</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_placement_grid</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">create_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape_all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w_override</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">h_override</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape_all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s_param</span>
 
-        <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">w_override</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">h_override</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="c1"># Placement is called with  PLACEMENT(x, y, instance, module_shapes, variables)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">module_shapes</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">"grid_clb"</span><span class="p">:</span> <span class="p">{</span>

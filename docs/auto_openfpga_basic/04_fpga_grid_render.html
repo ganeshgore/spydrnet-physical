@@ -382,7 +382,8 @@ shapes</p>
 <span class="p">)</span>
 <span class="n">fpga</span><span class="o">.</span><span class="n">enumerate_grid</span><span class="p">()</span>
 <span class="n">dwg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_layout</span><span class="p">(</span>
-    <span class="n">filename</span><span class="o">=</span><span class="s2">"_small_layout_render.svg"</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s2">"_small_layout_render.svg"</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Modify the dimensions</strong>
@@ -410,8 +411,7 @@ This example adds rectangular shape to all the modules in te design</p>
 <span class="n">surrounding_routing</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">"cbx_1__0_"</span><span class="p">,</span> <span class="s2">"sb_1__0_"</span><span class="p">,</span> <span class="s2">"cbx_2__0_"</span><span class="p">]</span>
 <span class="n">fpga</span><span class="o">.</span><span class="n">merge_symbol</span><span class="p">(</span><span class="n">surrounding_routing</span><span class="p">,</span> <span class="s2">"new_mcu_module"</span><span class="p">)</span>
 
-<span class="n">fpga</span><span class="o">.</span><span class="n">add_style</span><span class="p">(</span>
-    <span class="s2">"symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}"</span><span class="p">)</span>
+<span class="n">fpga</span><span class="o">.</span><span class="n">add_style</span><span class="p">(</span><span class="s2">"symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}"</span><span class="p">)</span>
 <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_ultimate_layout_render_sized.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>

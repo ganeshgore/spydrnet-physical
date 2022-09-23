@@ -60,7 +60,7 @@ clock signal planning
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-48
+.. GENERATED FROM PYTHON SOURCE LINES 39-49
 
 .. code-block:: default
 
@@ -71,10 +71,11 @@ clock signal planning
     )
     fpga.enumerate_grid()
     dwg = fpga.render_layout(
-        filename="_small_layout_render.svg", grid_io=True, markers=True)
+        filename="_small_layout_render.svg", grid_io=True, markers=True
+    )
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-55
+.. GENERATED FROM PYTHON SOURCE LINES 50-56
 
 **Modify the dimensions**
 This example adds rectangular shape to all the modules in te design
@@ -83,7 +84,7 @@ This example adds rectangular shape to all the modules in te design
    :width: 60%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-68
+.. GENERATED FROM PYTHON SOURCE LINES 56-69
 
 .. code-block:: default
 
@@ -101,7 +102,7 @@ This example adds rectangular shape to all the modules in te design
     dwg.saveas("_ultimate_layout_render.svg", pretty=True, indent=4)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-74
+.. GENERATED FROM PYTHON SOURCE LINES 70-75
 
 **Modify the structure**
 
@@ -109,7 +110,7 @@ This example adds rectangular shape to all the modules in te design
    :width: 60%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-85
+.. GENERATED FROM PYTHON SOURCE LINES 75-85
 
 .. code-block:: default
 
@@ -121,8 +122,7 @@ This example adds rectangular shape to all the modules in te design
     surrounding_routing += ["cbx_1__0_", "sb_1__0_", "cbx_2__0_"]
     fpga.merge_symbol(surrounding_routing, "new_mcu_module")
 
-    fpga.add_style(
-        "symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
+    fpga.add_style("symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
     dwg.saveas("_ultimate_layout_render_sized.svg", pretty=True, indent=4)
 
 
