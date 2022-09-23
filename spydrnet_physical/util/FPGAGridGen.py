@@ -398,8 +398,8 @@ class FPGAGridGen:
 
         for xstep in range(0, self.width, repeatx):
             for ystep in range(0, self.height, repeaty):
-                for x in range(startx, endx+1, incrx):
-                    for y in range(starty, endy+1, incry):
+                for x in range(startx, endx + 1, incrx):
+                    for y in range(starty, endy + 1, incry):
                         self._set_value(xstep + x, ystep + y, ele_type, ele_w, ele_h)
 
     def enumerate_grid(self):
@@ -670,6 +670,7 @@ class FPGAGridGen:
         for ele in self.dwg_shapes.elements:
             if instance_name in ele.attribs.get("id", ""):
                 return ele
+        logger.error("No matching instance found in the SVG %s", instance_name)
 
     def get_symbol_of_instance(self, instance_name):
         symbol = self.get_instance(instance_name)

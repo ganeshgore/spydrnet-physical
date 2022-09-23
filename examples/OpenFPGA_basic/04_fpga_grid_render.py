@@ -43,7 +43,8 @@ fpga = FPGAGridGen(
 )
 fpga.enumerate_grid()
 dwg = fpga.render_layout(
-    filename="_small_layout_render.svg", grid_io=True, markers=True)
+    filename="_small_layout_render.svg", grid_io=True, markers=True
+)
 
 # %%
 # **Modify the dimensions**
@@ -79,6 +80,5 @@ surrounding_routing += ["cbx_1__2_", "sb_1__2_", "cbx_2__2_"]
 surrounding_routing += ["cbx_1__0_", "sb_1__0_", "cbx_2__0_"]
 fpga.merge_symbol(surrounding_routing, "new_mcu_module")
 
-fpga.add_style(
-    "symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
+fpga.add_style("symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
 dwg.saveas("_ultimate_layout_render_sized.svg", pretty=True, indent=4)
