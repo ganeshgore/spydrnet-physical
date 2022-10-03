@@ -77,9 +77,9 @@ CSS_STYLE = """
 text{font-family: Lato; font-size:1.2px;}
 symbol * { stroke-width:0.1; stroke:black;}
 .marker{stroke: red;opacity: 0.1;stroke-width: 0.1px;}
-symbol[id="cbx"] * { fill:#d9d9f3;}
-symbol[id="cby"] * { fill:#a8d0db;}
-symbol[id*="sb"] * { fill:#ceefe4;}
+symbol[id="cbx"] * { fill:#87acab;}
+symbol[id="cby"] * { fill:#87acab;}
+symbol[id*="sb"] * { fill:#87acab;}
 rect[class="lb"] { fill:#f4f0e6; }
 symbol[id*="io_"] * { fill:#f8b155;}
 """
