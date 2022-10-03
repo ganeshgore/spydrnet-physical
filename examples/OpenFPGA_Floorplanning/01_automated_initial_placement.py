@@ -55,26 +55,26 @@ def main():
     # Convert wires to bus structure
     fpga.merge_all_grid_ios()
 
-    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    #           Floorplan visualization
-    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    fpga_grid = FPGAGridGen(
-        design_name="FPGA4x4",
-        layout="4x4",
-        arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
-        release_root=None,
-    )
+    # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    # #           Floorplan visualization
+    # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    # fpga_grid = FPGAGridGen(
+    #     design_name="FPGA4x4",
+    #     layout="4x4",
+    #     arch_file=f"{proj}/FPGA44_Task/arch/k6_N10_tileable.xml",
+    #     release_root=None,
+    # )
 
-    fpga.SC_HEIGHT = SC_HEIGHT
-    fpga.CPP = CPP
-    fpga.SC_GRID = CPP * SC_HEIGHT
+    # fpga.SC_HEIGHT = SC_HEIGHT
+    # fpga.CPP = CPP
+    # fpga.SC_GRID = CPP * SC_HEIGHT
 
-    fpga_grid.enumerate_grid()
-    fpga.load_grid(fpga_grid)
-    fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
+    # fpga_grid.enumerate_grid()
+    # fpga.load_grid(fpga_grid)
+    # fpga.annotate_area_information(f"{proj}/area_info.txt", skipline=1)
 
-    fpga.register_placement_creator(initial_hetero_placement)
-    fpga.show_utilization_data()
+    # fpga.register_placement_creator(initial_hetero_placement)
+    # fpga.show_utilization_data()
 
     # Uncomment this to set module dimensions
     # ====================================================================
@@ -90,63 +90,63 @@ def main():
     # fpga.placement_creator.update_shaping_param(m)
     # ====================================================================
 
-    fpga.placement_creator.derive_sb_paramters()
-    fpga.placement_creator.create_shapes()
+    # fpga.placement_creator.derive_sb_paramters()
+    # fpga.placement_creator.create_shapes()
 
-    # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    # #           Adding Margin
-    # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    shapes = fpga.placement_creator.module_shapes
+    # # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    # # #           Adding Margin
+    # # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    # shapes = fpga.placement_creator.module_shapes
 
-    for module in ["grid_clb"]:
-        shapes[module]["POINTS"][0] -= 16
-        shapes[module]["POINTS"][1] -= 2
-        shapes[module]["PLACEMENT"][0] += 8
-        shapes[module]["PLACEMENT"][1] += 1
+    # for module in ["grid_clb"]:
+    #     shapes[module]["POINTS"][0] -= 16
+    #     shapes[module]["POINTS"][1] -= 2
+    #     shapes[module]["PLACEMENT"][0] += 8
+    #     shapes[module]["PLACEMENT"][1] += 1
 
-    for module in ["cbx_1__0_", "cbx_1__1_", "cbx_1__4_"]:
-        shapes[module]["POINTS"][0] -= 16
-        shapes[module]["PLACEMENT"][0] += 8
+    # for module in ["cbx_1__0_", "cbx_1__1_", "cbx_1__4_"]:
+    #     shapes[module]["POINTS"][0] -= 16
+    #     shapes[module]["PLACEMENT"][0] += 8
 
-    for module in ["cby_0__1_", "cby_1__1_", "cby_4__1_"]:
-        shapes[module]["POINTS"][1] -= 2
-        shapes[module]["PLACEMENT"][1] += 1
+    # for module in ["cby_0__1_", "cby_1__1_", "cby_4__1_"]:
+    #     shapes[module]["POINTS"][1] -= 2
+    #     shapes[module]["PLACEMENT"][1] += 1
 
-    fpga.create_placement()
-    fpga.show_placement_data(filename="_homogeneous_placement.txt")
-    fpga.show_utilization_data()
-    fpga.design_top_stat()
-    fpga.save_shaping_data("*")
+    # fpga.create_placement()
+    # fpga.show_placement_data(filename="_homogeneous_placement.txt")
+    # fpga.show_utilization_data()
+    # fpga.design_top_stat()
+    # fpga.save_shaping_data("*")
 
-    fpga.update_module_label()
-    fpga.show_utilization_data()
+    # fpga.update_module_label()
+    # fpga.show_utilization_data()
 
-    fpga.update_module_label(
-        get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
-                            f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
-                            f"[{x.utilization:.2%}]")
-    fpga.show_utilization_data()
+    # fpga.update_module_label(
+    #     get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
+    #                         f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
+    #                         f"[{x.utilization:.2%}]")
+    # fpga.show_utilization_data()
 
-    # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    # #           Adjust Floorplan
-    # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    # # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    # # #           Adjust Floorplan
+    # # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-    fp = FloorPlanViz(fpga.top_module)
-    fp.compose(skip_connections=True, skip_pins=True)
-    fp.custom_style_sheet = STYLE_SHEET
-    dwg = fp.get_svg()
-    # This adds placment grid markers
-    dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
+    # fp = FloorPlanViz(fpga.top_module)
+    # fp.compose(skip_connections=True, skip_pins=True)
+    # fp.custom_style_sheet = STYLE_SHEET
+    # dwg = fp.get_svg()
+    # # This adds placment grid markers
+    # dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    # This standard cell grid
-    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
-                          patternUnits="userSpaceOnUse")
-    pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
-    pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
-    dwg.defs.add(pattern)
-    dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
+    # # This standard cell grid
+    # pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
+    #                       patternUnits="userSpaceOnUse")
+    # pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
+    # pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
+    # dwg.defs.add(pattern)
+    # dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 
-    dwg.saveas("_fpga_auto_initial_placement.svg", pretty=True, indent=4)
+    # dwg.saveas("_fpga_auto_initial_placement.svg", pretty=True, indent=4)
 
 
 if __name__ == "__main__":
