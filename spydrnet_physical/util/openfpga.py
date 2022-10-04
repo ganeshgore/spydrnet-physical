@@ -21,7 +21,7 @@ logger = logging.getLogger("spydrnet_logs")
 PROP = "VERILOG.InlineConstraints"
 
 
-class OpenFPGA:
+class OpenFPGA
     """
     This is top-level clas of OpenFPGa which provides methods for
     different generic netlist restructuring
@@ -811,7 +811,6 @@ class OpenFPGA:
             sdn.compose(
                 self._netlist,
                 filename=filepath,
-                sort_all=sort_print,
                 skip_constraints=skip_constraints,
                 definition_list=[definition.name],
                 write_blackbox=True,
