@@ -371,7 +371,7 @@ class Tile03(Tile01):
         try:
             clb, cbx0, cby0, sb0 = None, None, None, None
             clb = next(self._top_module.get_instances(
-                f"grid_io_right_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
+                f"grid_*_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
             cbx0 = next(self._top_module.get_instances(
                 f"cbx_{self.fpga_size[0]}__{self.fpga_size[1]}_"))
             cby0 = next(self._top_module.get_instances(
@@ -449,7 +449,7 @@ class Tile03(Tile01):
         get_instances = self._top_module.get_instances
 
         try:
-            clb = next(get_instances(f"grid_io_right_{W}__1_"))
+            clb = next(get_instances(f"grid_*_{W}__1_"))
 
             sb10 = next(get_instances(f"sb_{W}__0_"))
             sb11 = next(get_instances(f"sb_{W}__1_"))
