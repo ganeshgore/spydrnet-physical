@@ -1143,6 +1143,7 @@
         <span class="n">sort_cables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">sort_instances</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">sort_ports</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Save verilog files</span>
@@ -1166,7 +1167,7 @@
                 <span class="n">sort_all</span><span class="o">=</span><span class="n">sort_print</span><span class="p">,</span>
                 <span class="n">skip_constraints</span><span class="o">=</span><span class="n">skip_constraints</span><span class="p">,</span>
                 <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
-                <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">write_blackbox</span><span class="o">=</span><span class="n">write_blackbox</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">write_modules_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
