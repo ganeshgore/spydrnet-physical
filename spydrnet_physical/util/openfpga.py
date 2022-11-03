@@ -795,6 +795,7 @@ class OpenFPGA:
         sort_cables=False,
         sort_instances=False,
         sort_ports=False,
+        write_blackbox=True,
     ):
         """
         Save verilog files
@@ -818,7 +819,7 @@ class OpenFPGA:
                 sort_all=sort_print,
                 skip_constraints=skip_constraints,
                 definition_list=[definition.name],
-                write_blackbox=True,
+                write_blackbox=write_blackbox,
             )
             self.write_modules_paths.append(filepath)
             self.written_modules.append(definition.name)
