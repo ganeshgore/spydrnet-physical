@@ -781,8 +781,8 @@ class OpenFPGA:
 
     def write_include_file(self, filename, relative_from=None):
         relative_from = relative_from or os.environ.get("VERILOG_PROJ_DIR", "")
-        with open(filename, "w") as fp:
-            for filepath in self.write_modules_paths:
+        with open(filename, "w", encoding="UTF-8") as fp:
+            for filepath in sorted(self.write_modules_paths):
                 filepath = str(filepath).replace(relative_from, ".")
                 fp.write(f'`include "{filepath}"' + "\n")
 
