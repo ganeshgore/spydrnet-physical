@@ -353,9 +353,9 @@ class Definition(DefinitionBase):
             new_mod.data[PROP]["AREA_UM"] += each.reference.data[PROP].get(
                 "AREA_UM", 0)
         LOC_X = min([each.data[PROP].get("LOC_X", 0)
-                    for each in instances_list])
+                     for each in instances_list])
         LOC_Y = min([each.data[PROP].get("LOC_Y", 0)
-                    for each in instances_list])
+                     for each in instances_list])
         new_instance.data[PROP]["LOC_X"] = LOC_X
         new_instance.data[PROP]["LOC_Y"] = LOC_Y
         if outline:
@@ -548,7 +548,8 @@ class Definition(DefinitionBase):
 
         if not dry_run:
             for ports in duplicatePins[::-1]:
-
+                ports = sorted(ports, key=lambda x: str(x.direction),
+                               reverse=True)
                 for eachP1Pin in ports[0].pins:
                     ww = eachP1Pin.wire
                     for eachPort in ports[1:]:

@@ -262,7 +262,6 @@ class Tile03(Tile01):
                 instance_list[category] = instance_list.get(category, [])
                 instance_list[category].append(((clb, cbx, cby, sb),
                                                 f"tile_{i}__{self.fpga_size[1]}_"))
-                logger.info("top_tiles types %s", instance_list.keys())
             except StopIteration:
                 logger.debug("Missing instance at %s [right] %s %s %s %s",
                              i, clb, cbx, cby, sb)
@@ -416,11 +415,11 @@ class Tile03(Tile01):
             sb010 = next(get_instances("sb_1__0_"))
 
             instance_list.append(((grid_io, cby1, cbx1, sb1, sb0,
-                                 cby01, sb01, cbx10, sb010),
-                                "tile_1__1_"))
+                                   cby01, sb01, cbx10, sb010),
+                                  "tile_1__1_"))
         except StopIteration:
             logger.debug("Missing instance at left_bottom %s %s %s %s %s %s %s %s %s",
-                 grid_io, cby1, cbx1, sb1, sb0, cby01, sb01, cbx10, sb010)
+                         grid_io, cby1, cbx1, sb1, sb0, cby01, sb01, cbx10, sb010)
             return
 
         self.merge_and_update(instance_list, "left_bottom_tile")
@@ -460,7 +459,7 @@ class Tile03(Tile01):
             cby10 = next(get_instances(f"cby_{W}__1_"))
 
             instance_list.append(((clb, sb11, sb10, cbx00, cbx01, cby10),
-                                    f"tile_{W}__1_"))
+                                  f"tile_{W}__1_"))
         except StopIteration:
             logger.debug("Missing instance")
             return
