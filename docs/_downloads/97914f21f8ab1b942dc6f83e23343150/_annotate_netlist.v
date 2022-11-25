@@ -51,15 +51,15 @@ module top
     module2 inst_2_0
     (
         .in0({in0, in1}),
-        .in1(bus_in),
-        .out(wire_bus)
+        .in1({bus_in[1], bus_in[0]}),
+        .out({wire_bus[1], wire_bus[0]})
     );
 (* LOC_X = 150, LOC_Y = 150 *)
     module2 inst_2_1
     (
-        .in0(wire_bus),
-        .in1(wire_bus),
-        .out(bus_out)
+        .in0({wire_bus[1], wire_bus[0]}),
+        .in1({wire_bus[1], wire_bus[0]}),
+        .out({bus_out[1], bus_out[0]})
     );
 endmodule
 

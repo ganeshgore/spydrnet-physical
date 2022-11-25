@@ -364,10 +364,8 @@ connectivity of the current instances.</p>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.composers.svg.composer</span> <span class="kn">import</span> <span class="n">SVGComposer</span>
 
-
-
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"pin_opt"</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="example-1">
@@ -393,15 +391,50 @@ connectivity of the current instances.</p>
 <span class="s1">    `endcelldefine</span>
 <span class="s1">    '''</span><span class="p">)</span>
 
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"_simple_design.v"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'''</span>
+<span class="s1">    module top(in0, out);</span>
+<span class="s1">        input in0;</span>
+<span class="s1">        output out;</span>
+
+<span class="s1">        wire mid_out;</span>
+
+<span class="s1">        block1 instance1 (.in0(in0), .in1(mid_out), .out(out));</span>
+<span class="s1">        block2 instance2 (.in0(in0), .in1(mid_out), .in3(mid_out), .out(mid_out));</span>
+
+<span class="s1">    endmodule</span>
+
+<span class="s1">    `celldefine</span>
+<span class="s1">    module block1(in0, in1, out);</span>
+<span class="s1">        input in0;</span>
+<span class="s1">        input in1;</span>
+<span class="s1">        output out;</span>
+
+<span class="s1">    endmodule</span>
+<span class="s1">    `endcelldefine</span>
+
+<span class="s1">    `celldefine</span>
+<span class="s1">    module block2(in0, in1, in3, out);</span>
+<span class="s1">        input in0;</span>
+<span class="s1">        input in1;</span>
+<span class="s1">        input in3;</span>
+<span class="s1">        output out;</span>
+
+<span class="s1">    endmodule</span>
+<span class="s1">    `endcelldefine</span>
+<span class="s1">    '''</span><span class="p">)</span>
+
 <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">"_simple_design.v"</span><span class="p">)</span>
 
 <span class="n">composer</span> <span class="o">=</span> <span class="n">SVGComposer</span><span class="p">()</span>
 <span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_simple_design.svg"</span><span class="p">)</span>
 
-<span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"block1"</span><span class="p">))</span><span class="o">.</span><span class="n">OptPins</span><span class="p">()</span>
+<span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"block2"</span><span class="p">))</span><span class="o">.</span><span class="n">OptPins</span><span class="p">()</span>
 
 <span class="n">composer</span> <span class="o">=</span> <span class="n">SVGComposer</span><span class="p">()</span>
 <span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_simple_design_post_opt_pins.svg"</span><span class="p">)</span>
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_simple_design_post_opt_pins.v'</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
