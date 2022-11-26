@@ -548,8 +548,8 @@ class Definition(DefinitionBase):
 
         if not dry_run:
             for ports in duplicatePins[::-1]:
-                ports = sorted(ports, key=lambda x: str(x.direction),
-                               reverse=True)
+                ports.sort(key=lambda x: {sdn.IN: "1", sdn.OUT: "0"}[
+                           x.direction])
                 for eachP1Pin in ports[0].pins:
                     ww = eachP1Pin.wire
                     for eachPort in ports[1:]:
