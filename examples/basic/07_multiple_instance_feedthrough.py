@@ -6,8 +6,12 @@ Generating feedthrough from multiple instances
 ==============================================
 
 This example demonstrates how to generate feedthrough from multiple instances.
-If multiple instances belong to the same reference module it should reuser 
+If multiple instances belong to the same reference module it should reuser
 the feedthrough instead of creating independent feedthrough to pass through each instance.
+
+This example creates new wire ``A`` and create feedthrough port and connection
+from  ``inst_1_0`` and  ``inst_1_1`` in sequence.
+
 
 **Before feedthrough**
 
@@ -22,8 +26,6 @@ the feedthrough instead of creating independent feedthrough to pass through each
 """
 
 import logging
-from os import path
-from unicodedata import name
 import spydrnet as sdn
 import spydrnet_physical as sdnphy
 from spydrnet_physical.composers.html.composer import HTMLComposer
@@ -32,30 +34,31 @@ from spydrnet_physical.composers.svg.composer import SVGComposer
 logger = logging.getLogger('spydrnet_logs')
 sdn.enable_file_logging(LOG_LEVEL='INFO')
 
-#logger.warning("NotImplemented")
+# logger.warning("NotImplemented")
 
 
 netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
-
-top = netlist.top_instance.reference
-inst1 = next(top.get_instances('inst_1_0'))
-inst2 = next(top.get_instances('inst_1_1'))
-
 
 composer = HTMLComposer()
 composer.run(netlist, file_out="_basic_hierarchy_design.html")
 composer = SVGComposer()
 composer.run(netlist, file_out="_basic_hierarchy_design.svg")
 
-cable = top.create_cable(name= 'A')
-wire = cable.create_wire()
+top = netlist.top_instance.reference
+inst1 = next(top.get_instances('inst_1_0'))
+inst2 = next(top.get_instances('inst_1_1'))
 
-inst_list = [(cable,[inst1, inst2])]
+cable = top.create_cable(name='A', wires=1)
+top.create_port(name='A', direction=sdn.IN, pins=1)
+
+inst_list = [(cable, [inst1, inst2])]
 
 top.create_feedthrough_multiple(inst_list)
 top.create_unconn_wires()
-    
+
 composer = HTMLComposer()
 composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.html")
 composer = SVGComposer()
 composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.svg")
+sdn.compose(netlist, '_basic_hierarchy_after_multiple_feedthrough.v',
+            skip_constraints=True)
