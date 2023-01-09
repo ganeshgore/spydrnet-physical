@@ -38,18 +38,23 @@ sdn.enable_file_logging(LOG_LEVEL='INFO')
 
 
 netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
+top = netlist.top_instance.reference
+
+cable = top.create_cable(name='A', wires=1)
+top.create_port(name='A', direction=sdn.IN, pins=1)
+
+cable_out = top.create_cable(name='Aout', wires=1)
+top.create_port(name='Aout', direction=sdn.OUT, pins=1)
+cable_out.assign_cable(cable)
 
 composer = HTMLComposer()
 composer.run(netlist, file_out="_basic_hierarchy_design.html")
 composer = SVGComposer()
 composer.run(netlist, file_out="_basic_hierarchy_design.svg")
 
-top = netlist.top_instance.reference
+
 inst1 = next(top.get_instances('inst_1_0'))
 inst2 = next(top.get_instances('inst_1_1'))
-
-cable = top.create_cable(name='A', wires=1)
-top.create_port(name='A', direction=sdn.IN, pins=1)
 
 inst_list = [(cable, [inst1, inst2])]
 
