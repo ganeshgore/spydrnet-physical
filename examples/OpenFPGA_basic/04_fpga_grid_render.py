@@ -57,12 +57,12 @@ dwg = fpga.render_layout(
 fpga = FPGAGridGen(
     design_name="example_design",
     arch_file="../support_files/vpr_arch_render_demo.xml",
-    layout="small",
+    layout="complex",
 )
 fpga.enumerate_grid()
 fpga.default_parameters["cbx"][0] = 10
 fpga.default_parameters["cby"][1] = 10
-dwg = fpga.render_layout(grid_io=False)
+dwg = fpga.render_layout(grid_io=True)
 fpga.add_style("symbol[id='mcu'] * { fill:#ECCCB2;}")
 dwg.saveas("_ultimate_layout_render.svg", pretty=True, indent=4)
 
@@ -73,12 +73,12 @@ dwg.saveas("_ultimate_layout_render.svg", pretty=True, indent=4)
 #    :width: 60%
 #    :align: center
 
-fpga.get_symbol_of_instance("cbx_1__2_")
-fpga.get_symbol("mcu")
-surrounding_routing = ["mcu_1__1_"]
-surrounding_routing += ["cbx_1__2_", "sb_1__2_", "cbx_2__2_"]
-surrounding_routing += ["cbx_1__0_", "sb_1__0_", "cbx_2__0_"]
-fpga.merge_symbol(surrounding_routing, "new_mcu_module")
+# fpga.get_symbol_of_instance("cbx_1__2_")
+# fpga.get_symbol("mcu")
+# surrounding_routing = ["mcu_1__1_"]
+# surrounding_routing += ["cbx_1__2_", "sb_1__2_", "cbx_2__2_"]
+# surrounding_routing += ["cbx_1__0_", "sb_1__0_", "cbx_2__0_"]
+# fpga.merge_symbol(surrounding_routing, "new_mcu_module")
 
-fpga.add_style("symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
-dwg.saveas("_ultimate_layout_render_sized.svg", pretty=True, indent=4)
+# fpga.add_style("symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
+# dwg.saveas("_ultimate_layout_render_sized.svg", pretty=True, indent=4)

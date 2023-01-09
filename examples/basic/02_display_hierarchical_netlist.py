@@ -1,11 +1,12 @@
 """
-===============================
-Visualise Hierarchical Netlist
-===============================
+================================================
+Visualise Hierarchical Netlist (SVG/Interactive)
+================================================
 
 This example demonstrates how to visualize a netlist
-In SVG format, which uses Yosys and netlist SVG to render
-Interactive viewer, which render hierarchical SVG using the `d3-hwschematic` project
+
+- **SVG** format, which uses Yosys and netlist SVG to render
+- **Interactive** viewer, which render hierarchical SVG using the `d3-hwschematic` project
 
 .. image:: ../auto_sample_verilog/basic_hierarchy.svg
     :align: center

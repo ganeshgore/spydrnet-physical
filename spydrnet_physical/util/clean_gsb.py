@@ -250,6 +250,10 @@ def merge_fabric_bitstream(fabric_file, instance_list, output_dir="_split_bitstr
     #     fp.write("This file is auto generated")
 
 
+def generate_sdc_constraints(fabric_file, instance_list, output_dir="_constraints"):
+    pass
+
+
 if __name__ == "__main__":
     args = parse_argument()
     clean_gsb(args.instance_map, args.top_level_design, args.gsb_dir)

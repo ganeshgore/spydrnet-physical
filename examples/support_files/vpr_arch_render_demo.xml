@@ -6,9 +6,11 @@
         <tile name="io_bottom" capacity="6" area="0"/>
         <tile name="io_left" capacity="6" area="0"/>
         <tile name="clb" width="1" height="1" area="0"/>
-        <tile name="mcu" width="2" height="2" area="0"/>
+        <tile name="mcu" width="4" height="6" area="0"/>
+        <tile name="ddr" width="5" height="3" area="0"/>
+        <tile name="pll" width="3" height="3" area="0"/>
         <tile name="dsp" width="1" height="2" area="0"/>
-        <tile name="ram9k" width="2" area="0"/>
+        <tile name="ram9k" width="1" height="2" area="0"/>
     </tiles>
 
     <layout tileable="true" through_channel="true">
@@ -26,6 +28,27 @@
             <!--Row of RAM9K with 'EMPTY' blocks wherever a RAM9k does not fit. Vertical offset by 1 for perimeter.-->
             <!-- <row type="ram9k" startx="1" starty="4" repeaty="6" priority="20"/> -->
             <region type="ram9k" startx="1" starty="2" endy="3" priority="20"/>
+        </fixed_layout>
+        <fixed_layout name="complex" width="20" height="16">
+            <row type="io_top" starty="H-1" priority="100"/>
+            <row type="io_bottom" starty="0" priority="100"/>
+            <col type="io_left" startx="0" priority="100"/>
+            <col type="io_right" startx="W-1" priority="100"/>
+            <corners type="EMPTY" priority="101"/>
+            <fill type="clb" priority="10"/>
+            <col type="ram9k" startx="7" priority="90"/>
+            <col type="ram9k" startx="13" priority="90"/>
+            <col type="dsp" startx="10" priority="90"/>
+            <col type="dsp" startx="16" priority="90"/>
+            <single type="mcu" x="1" y="1" priority="110"/>
+            <single type="ddr" x="1" y="13" priority="110"/>
+            <single type="ddr" x="6" y="13" priority="110"/>
+            <single type="ddr" x="11" y="13" priority="110"/>
+            <single type="pll" x="16" y="13" priority="110"/>
+            <single type="EMPTY" x="0" y="13" priority="110"/>
+            <single type="EMPTY" x="0" y="14" priority="110"/>
+            <single type="EMPTY" x="19" y="13" priority="110"/>
+            <single type="EMPTY" x="19" y="14" priority="110"/>
         </fixed_layout>
         <fixed_layout name="ultimate" width="16" height="20">
             <row type="io_top" starty="H-1" priority="100"/>
