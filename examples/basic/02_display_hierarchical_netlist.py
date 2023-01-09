@@ -18,10 +18,10 @@ Interactive viewer, which render hierarchical SVG using the `d3-hwschematic` pro
 .. raw:: html
 
     <iframe width="100%" height="400" scrolling="no" frameBorder="1"
-    src="/_images/_initial_design.html"></iframe>
+    src="../_images/_initial_design.html"></iframe>
 
 
-`Open schematic in separate window </_images/_initial_design.html>`_
+`Open schematic in separate window <../_images/_initial_design.html>`_
 
 The renderer is used from this project
 `Nic30/d3-hwschematic <https://github.com/Nic30/d3-hwschematic>`_
