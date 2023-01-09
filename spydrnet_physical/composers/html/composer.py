@@ -203,6 +203,7 @@ class HTMLComposer:
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/elkjs@0.7.0/lib/elk.bundled.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/d3-hwschematic@0.1.6/dist/d3-hwschematic.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/d3-hwschematic@0.1.6/dist/d3-hwschematic.css" rel="stylesheet">
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' ">
         <style> body { margin: 0; background-color: white; } </style> </head>
         <body>
             <button type="button" onclick="download();">Download JSON</button>
