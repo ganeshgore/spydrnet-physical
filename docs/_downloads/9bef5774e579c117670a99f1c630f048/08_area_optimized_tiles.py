@@ -67,7 +67,8 @@ def main():
                 cable_list = []
                 for pin in p.pins[::-1]:
                     cable_list.append(i.pins[pin].wire.cable)
-                cable = fpga.top_module.combine_cables(f"{i.name}_{p.name}", cable_list)
+                cable = fpga.top_module.combine_cables(
+                    f"{i.name}_{p.name}", cable_list)
                 cable.is_downto = False
 
     # Before Creating Tiles

@@ -3,8 +3,8 @@
 Split CBs and SBs across fabric
 ===============================
 
-Given two set of channels, split all the CBs and SBs in the design 
-This script expects external input of how vertical and horizontal channels 
+Given two set of channels, split all the CBs and SBs in the design
+This script expects external input of how vertical and horizontal channels
 are grouped.
 
 Partitions are provided thoguh variable ``h_chan`` and ``v_chan``

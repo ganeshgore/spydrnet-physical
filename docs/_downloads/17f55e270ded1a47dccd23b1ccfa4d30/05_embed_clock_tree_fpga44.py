@@ -39,48 +39,76 @@ from spydrnet_physical.util.ConnectPoint import ConnectPoint
 # Generate Level-1 (top level) connectivity pattern
 # 4x4 FPGA grid is considered as a 9x9 grid during pattern generation
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-WIDTH = 9
-HEIGHT = 9
+WIDTH = 17
+HEIGHT = 17
 p_manager = ConnectionPattern(WIDTH, HEIGHT)
-l1_patt = p_manager.connections
-l1_patt.cursor = (int(WIDTH / 2) + 1, 0)
-l1_patt.move_y(steps=int(WIDTH / 2) + 1)
-l1_patt.merge(p_manager.get_htree(WIDTH))
-l1_patt.set_color("red")
+l2_patt = p_manager.connections
+l2_patt.cursor = (int(WIDTH / 2) + 1, 0)
+l2_patt.move_y(steps=int(WIDTH / 2) + 1)
+l2_patt.merge(p_manager.get_htree(WIDTH))
+l2_patt.set_color("red")
 # This is important step to indicate on which connection is transitioning
 # to the next level
 for x in range(2):
     for y in range(2):
-        l1_patt.push_connection_down((3 + (x * 4), 3 + (y * 4)))
-svg = p_manager.render_pattern(title="L1 Pattern")
-svg.saveas("_clock_tree_connections_l0.svg", pretty=True, indent=4)
+        l2_patt.push_connection_down((5 + (x * 8), 5 + (y * 8)))
+svg = p_manager.render_pattern(title="L2 Pattern")
+svg.saveas("_clock_tree_connections_l2.svg", pretty=True, indent=4)
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # Generate Level-0 connectivity pattern
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+p_manager = ConnectionPattern(WIDTH, HEIGHT)
+l1_patt = p_manager.connections
+for x in range(2):
+    for y in range(2):
+        xx, yy = 1 + (x * 8), 1 + (y * 8)
+        l1_patt.merge(p_manager.get_htree(8).translate(xx, yy))
+        l1_patt.push_connection_down((xx+2, yy+2))
+        l1_patt.push_connection_down((xx+2, yy+6))
+        l1_patt.push_connection_down((xx+6, yy+2))
+        l1_patt.push_connection_down((xx+6, yy+6))
+l1_patt.set_color("blue")
+svg = p_manager.render_pattern(title="L1 Pattern")
+svg.saveas("_clock_tree_connections_l1.svg", pretty=True, indent=4)
+
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# Generate Level-0 connectivity pattern
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
 p_manager = ConnectionPattern(WIDTH, HEIGHT)
 l0_patt = p_manager.connections
-l0_patt.merge(p_manager.get_htree(4).translate(1, 1))
-l0_patt.merge(p_manager.get_htree(4).translate(5, 1))
-l0_patt.merge(p_manager.get_htree(4).translate(5, 5))
-l0_patt.merge(p_manager.get_htree(4).translate(1, 5))
 
 for x in range(2):
     for y in range(2):
-        ydir = -1 if y else 1
-        pt = ConnectPoint(3 + (x * 4), 3 + (y * 4) + ydir, 3 + (x * 4), 3 + (y * 4))
+        xx, yy = 5 + (x * 8), 5 + (y * 8)
+        l0_patt.merge(p_manager.get_htree(4).translate(xx-4, yy-4))
+        l0_patt.merge(p_manager.get_htree(4).translate(xx, yy-4))
+        l0_patt.merge(p_manager.get_htree(4).translate(xx, yy))
+        l0_patt.merge(p_manager.get_htree(4).translate(xx-4, yy))
+
+for x in range(4):
+    for y in range(4):
+        ydir = -1 if y % 2 else 1
+        pt = ConnectPoint(3 + (x * 4), 3 + (y * 4) +
+                          ydir, 3 + (x * 4), 3 + (y * 4))
         l0_patt.add_connect_point(pt)
         l0_patt.pull_connection_up(pt)
 l0_patt.set_color("grey")
 svg = p_manager.render_pattern(title="L0 Pattern")
-svg.saveas("_clock_tree_connections_l1.svg", pretty=True, indent=4)
+svg.saveas("_clock_tree_connections_l0.svg", pretty=True, indent=4)
+
 
 p_manager = ConnectionPattern(WIDTH, HEIGHT)
 combine_pattern = p_manager.connections
 combine_pattern.merge(l0_patt)
 combine_pattern.merge(l1_patt)
+combine_pattern.merge(l2_patt)
 svg = p_manager.render_pattern(title="Combined Pattern")
 svg.saveas("_clock_tree_connections.svg", pretty=True, indent=4)
+exit()
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 #  Prepare cordinate mapping function for embedding
@@ -143,7 +171,8 @@ for i in chain(
             cable_list = []
             for pin in p.pins[::-1]:
                 cable_list.append(i.pins[pin].wire.cable)
-            cable = fpga.top_module.combine_cables(f"{i.name}_{p.name}", cable_list)
+            cable = fpga.top_module.combine_cables(
+                f"{i.name}_{p.name}", cable_list)
             cable.is_downto = False
 
 

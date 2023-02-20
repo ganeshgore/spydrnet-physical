@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.6. Combined definitions pins" href="09_combine_pins.html" /><link rel="prev" title="1.4. Generating feedthrough from multiple instances" href="07_multiple_instance_feedthrough.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>1.5. Generating feedthrough from multiple instances - SpyDrNet-Physical alpha documentation</title>
+        <title>Merging group of multiple instances - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -161,7 +161,7 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction/install.html">Install</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
@@ -216,20 +216,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/verilog_support.html">Verilog Language Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">1. Basic Restructuring Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="06_merge_multiple_instances.html">1.3. Merging group of instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_multiple_instance_feedthrough.html">1.4. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.5. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_combine_pins.html">1.6. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="10_combine_wires.html">1.7. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11_logging_mesages.html">1.8. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="12_buffer_net.html">1.9. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.10. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.11. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.12. Generating feedthrough from single instance</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -348,29 +346,56 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-basic-08-multiple-instance-feedthrough-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-sdnphy-mib-01-merge-multiple-instances-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="generating-feedthrough-from-multiple-instances">
-<span id="sphx-glr-auto-basic-08-multiple-instance-feedthrough-py"></span><h1><span class="section-number">1.5. </span>Generating feedthrough from multiple instances<a class="headerlink" href="#generating-feedthrough-from-multiple-instances" title="Permalink to this headline">¶</a></h1>
-<p>This example demostrates how to generate a feedthrough wire connection for
-a given scalar or vector wires.</p>
-<p><strong>Initial Design</strong></p>
-<img alt="../_images/basic_hierarchy.svg" class="align-center" src="../_images/basic_hierarchy.svg"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<section class="sphx-glr-example-title" id="merging-group-of-multiple-instances">
+<span id="sphx-glr-auto-sdnphy-mib-01-merge-multiple-instances-py"></span><h1>Merging group of multiple instances<a class="headerlink" href="#merging-group-of-multiple-instances" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrate how to merge group of instances in the design.</p>
+<p>Following example has four instances, <code class="docutils literal notranslate"><span class="pre">inst_1_0</span></code> and <code class="docutils literal notranslate"><span class="pre">inst_1_1</span></code> are instance of <code class="docutils literal notranslate"><span class="pre">module1</span></code>
+and <code class="docutils literal notranslate"><span class="pre">inst_2_0</span></code> and <code class="docutils literal notranslate"><span class="pre">inst_2_1</span></code> are instance of <code class="docutils literal notranslate"><span class="pre">module2</span></code>.</p>
+<p>This example merges <code class="docutils literal notranslate"><span class="pre">inst_1_0</span></code> and <code class="docutils literal notranslate"><span class="pre">inst_2_0</span></code>, <code class="docutils literal notranslate"><span class="pre">inst_1_1</span></code> and <code class="docutils literal notranslate"><span class="pre">inst_2_1</span></code> and replace with instance (<code class="docutils literal notranslate"><span class="pre">inst_3_0</span></code> and <code class="docutils literal notranslate"><span class="pre">inst_3_1</span></code>) of newly created defintion <code class="docutils literal notranslate"><span class="pre">module3</span></code></p>
+<p><strong>Before merging</strong></p>
+<img alt="../_images/_basic_inst_design.svg" class="align-center" src="../_images/_basic_inst_design.svg"/><p><strong>After merging</strong></p>
+<img alt="../_images/_merged_mul_inst_design.svg" class="align-center" src="../_images/_merged_mul_inst_design.svg"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.composers.html.composer</span> <span class="kn">import</span> <span class="n">HTMLComposer</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.composers.svg.composer</span> <span class="kn">import</span> <span class="n">SVGComposer</span>
 
-<span class="c1"># TODO</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"NotImplemented"</span><span class="p">)</span>
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s1">'basic_hierarchy'</span><span class="p">)</span>
+
+<span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span>
+<span class="n">inst1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s1">'inst_1_0'</span><span class="p">))</span>
+<span class="n">inst2</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s1">'inst_2_0'</span><span class="p">))</span>
+<span class="n">inst3</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s1">'inst_1_1'</span><span class="p">))</span>
+<span class="n">inst4</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s1">'inst_2_1'</span><span class="p">))</span>
+
+<span class="n">inst_tup_list</span> <span class="o">=</span> <span class="p">([</span><span class="n">inst1</span><span class="p">,</span> <span class="n">inst2</span><span class="p">],</span> <span class="s2">"inst_3_0"</span><span class="p">),</span> \
+                <span class="p">([</span><span class="n">inst3</span><span class="p">,</span> <span class="n">inst4</span><span class="p">],</span> <span class="s2">"inst_3_1"</span><span class="p">)</span>
+
+<span class="n">composer</span> <span class="o">=</span> <span class="n">HTMLComposer</span><span class="p">()</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_basic_inst_design.html"</span><span class="p">)</span>
+<span class="n">composer</span> <span class="o">=</span> <span class="n">SVGComposer</span><span class="p">()</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_basic_inst_design.svg"</span><span class="p">)</span>
+
+<span class="n">top</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">(</span><span class="n">inst_tup_list</span><span class="p">,</span> <span class="n">new_definition_name</span><span class="o">=</span><span class="s2">"module3"</span><span class="p">)</span>
+
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_merged_mul_inst_design.v'</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">composer</span> <span class="o">=</span> <span class="n">HTMLComposer</span><span class="p">()</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_merged_mul_inst_design.html"</span><span class="p">)</span>
+
+<span class="n">composer</span> <span class="o">=</span> <span class="n">SVGComposer</span><span class="p">()</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_merged_mul_inst_design.svg"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-basic-08-multiple-instance-feedthrough-py">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-sdnphy-mib-01-merge-multiple-instances-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/dd08c1c92df7d664011b6c3c5a297dff/08_multiple_instance_feedthrough.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">08_multiple_instance_feedthrough.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/c0735f4c3dc94b9d74b153f8ea2688b5/01_merge_multiple_instances.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_merge_multiple_instances.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/cbdd22f9ad07c370054e9cf291e7162c/08_multiple_instance_feedthrough.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">08_multiple_instance_feedthrough.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/34a945fb9a6f058d79f757242304a3f5/01_merge_multiple_instances.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_merge_multiple_instances.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -381,26 +406,8 @@ a given scalar or vector wires.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="09_combine_pins.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title"><span class="section-number">1.6. </span>Combined definitions pins</div>
-              </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="07_multiple_instance_feedthrough.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title"><span class="section-number">1.4. </span>Generating feedthrough from multiple instances</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
 
         <div class="related-information">
@@ -409,7 +416,7 @@ a given scalar or vector wires.</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_basic/08_multiple_instance_feedthrough.rst.txt"
+            <a class="muted-link" href="../_sources/auto_sdnphy_mib/01_merge_multiple_instances.rst.txt"
                rel="nofollow">
               Show Source
             </a>

@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="82" version="1.1" viewBox="0,-82,82,82" width="82">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="138" version="1.1" viewBox="0,-138,138,138" width="138">
     <defs>
         <style type="text/css"><![CDATA[
 .boundary{stroke:grey; fill:none; stroke-width:0.2}
 text{font-family: Lato; font-size:1.2px;}
-symbol * { stroke-width:0.1; stroke:black;}
+symbol { stroke-width:0.1; stroke:black;}
 .marker{stroke: red;opacity: 0.1;stroke-width: 0.1px;}
 symbol[id="cbx"] * { fill:#d9d9f3;}
 symbol[id="cby"] * { fill:#a8d0db;}
-symbol[id*="sb"] * { fill:#ceefe4;}
+symbol[id="sb00"] * { fill:#ceefe4;}
+symbol[id="sb01"] * { fill:#ceefe4;}
+symbol[id="sb02"] * { fill:#ceefe4;}
+symbol[id="sb03"] * { fill:#ceefe4;}
+symbol[id="sb04"] * { fill:#ceefe4;}
+symbol[id="sb05"] * { fill:#ceefe4;}
+symbol[id="sb06"] * { fill:#ceefe4;}
+symbol[id="sb07"] * { fill:#ceefe4;}
+symbol[id="sb08"] * { fill:#ceefe4;}
+symbol[id="sb09"] * { fill:#ceefe4;}
+symbol[id="sb10"] * { fill:#ceefe4;}
 rect[class="lb"] { fill:#f4f0e6; }
 symbol[id*="io_"] * { fill:#f8b155;}
 ]]></style>
         <symbol id="cbx">
-            <rect class="routing" height="4" width="8" x="1.0" y="0"/>
+            <rect class="routing" height="4" width="6" x="2.0" y="0"/>
         </symbol>
         <symbol id="cby">
-            <rect class="routing" height="8" width="4" x="0" y="1.0"/>
+            <rect class="routing" height="6" width="4" x="0" y="2.0"/>
         </symbol>
         <symbol id="io_top">
             <rect class="lb" height="10" width="10" x="0" y="0"/>
@@ -34,327 +44,339 @@ symbol[id*="io_"] * { fill:#f8b155;}
             <rect class="lb" height="10" width="10" x="0" y="0"/>
         </symbol>
         <symbol id="mcu">
-            <rect class="lb" height="24" width="24" x="0" y="0"/>
+            <rect class="lb" height="80" width="52" x="0" y="0"/>
+        </symbol>
+        <symbol id="ddr">
+            <rect class="lb" height="38" width="66" x="0" y="0"/>
+        </symbol>
+        <symbol id="pll">
+            <rect class="lb" height="38" width="38" x="0" y="0"/>
         </symbol>
         <symbol id="dsp">
             <rect class="lb" height="24" width="10" x="0" y="0"/>
         </symbol>
         <symbol id="ram9k">
-            <rect class="lb" height="10" width="24" x="0" y="0"/>
+            <rect class="lb" height="24" width="10" x="0" y="0"/>
         </symbol>
         <symbol id="sb" x="-0.0" y="-0.0">
-            <path d="M 1.0 0 v 1.0 h -1.0 v 4 h 1.0 v 1.0 h 4 v -1.0 h 1.0 v -4 h -1.0 v -1.0 z"/>
+            <path d="M 2.0 0 v 2.0 h -2.0 v 4 h 2.0 v 2.0 h 4 v -2.0 h 2.0 v -4 h -2.0 v -2.0 z"/>
         </symbol>
-        <symbol id="sb00" x="-1.0" y="-1.0">
-            <path d="M 1.0 0 v 1.0 h -1.0 v 4 h 1.0 v 1.0 h 4 v -1.0 h 1.0 v -4 h -1.0 v -1.0 z"/>
+        <symbol id="sb00" x="-2.0" y="-2.0">
+            <path d="M 2.0 0 v 2.0 h -2.0 v 4 h 2.0 v 2.0 h 4 v -2.0 h 2.0 v -4 h -2.0 v -2.0 z"/>
         </symbol>
         <symbol id="sb01" x="-0.0" y="-0.0">
-            <path d="M 0.0 0 v 0.0 h -0.0 v 4 h 0.0 v 1.0 h 4 v -1.0 h 1.0 v -4 h -1.0 v -0.0 z"/>
+            <path d="M 0.0 0 v 0.0 h -0.0 v 4 h 0.0 v 2.0 h 4 v -2.0 h 2.0 v -4 h -2.0 v -0.0 z"/>
         </symbol>
-        <symbol id="sb02" x="-0.0" y="-1.0">
-            <path d="M 0.0 0 v 1.0 h -0.0 v 4 h 0.0 v 1.0 h 4 v -1.0 h 1.0 v -4 h -1.0 v -1.0 z"/>
+        <symbol id="sb02" x="-0.0" y="-2.0">
+            <path d="M 0.0 0 v 2.0 h -0.0 v 4 h 0.0 v 2.0 h 4 v -2.0 h 2.0 v -4 h -2.0 v -2.0 z"/>
         </symbol>
-        <symbol id="sb03" x="-0.0" y="-1.0">
-            <path d="M 0.0 0 v 1.0 h -0.0 v 4 h 0.0 v 0.0 h 4 v -0.0 h 1.0 v -4 h -1.0 v -1.0 z"/>
+        <symbol id="sb03" x="-0.0" y="-2.0">
+            <path d="M 0.0 0 v 2.0 h -0.0 v 4 h 0.0 v 0.0 h 4 v -0.0 h 2.0 v -4 h -2.0 v -2.0 z"/>
         </symbol>
-        <symbol id="sb04" x="-1.0" y="-1.0">
-            <path d="M 1.0 0 v 1.0 h -1.0 v 4 h 1.0 v 0.0 h 4 v -0.0 h 1.0 v -4 h -1.0 v -1.0 z"/>
+        <symbol id="sb04" x="-2.0" y="-2.0">
+            <path d="M 2.0 0 v 2.0 h -2.0 v 4 h 2.0 v 0.0 h 4 v -0.0 h 2.0 v -4 h -2.0 v -2.0 z"/>
         </symbol>
-        <symbol id="sb05" x="-1.0" y="-1.0">
-            <path d="M 1.0 0 v 1.0 h -1.0 v 4 h 1.0 v 0.0 h 4 v -0.0 h 0.0 v -4 h -0.0 v -1.0 z"/>
+        <symbol id="sb05" x="-2.0" y="-2.0">
+            <path d="M 2.0 0 v 2.0 h -2.0 v 4 h 2.0 v 0.0 h 4 v -0.0 h 0.0 v -4 h -0.0 v -2.0 z"/>
         </symbol>
-        <symbol id="sb06" x="-1.0" y="-1.0">
-            <path d="M 1.0 0 v 1.0 h -1.0 v 4 h 1.0 v 1.0 h 4 v -1.0 h 0.0 v -4 h -0.0 v -1.0 z"/>
+        <symbol id="sb06" x="-2.0" y="-2.0">
+            <path d="M 2.0 0 v 2.0 h -2.0 v 4 h 2.0 v 2.0 h 4 v -2.0 h 0.0 v -4 h -0.0 v -2.0 z"/>
         </symbol>
-        <symbol id="sb07" x="-1.0" y="-0.0">
-            <path d="M 1.0 0 v 0.0 h -1.0 v 4 h 1.0 v 1.0 h 4 v -1.0 h 0.0 v -4 h -0.0 v -0.0 z"/>
+        <symbol id="sb07" x="-2.0" y="-0.0">
+            <path d="M 2.0 0 v 0.0 h -2.0 v 4 h 2.0 v 2.0 h 4 v -2.0 h 0.0 v -4 h -0.0 v -0.0 z"/>
         </symbol>
-        <symbol id="sb08" x="-1.0" y="-0.0">
-            <path d="M 1.0 0 v 0.0 h -1.0 v 4 h 1.0 v 1.0 h 4 v -1.0 h 1.0 v -4 h -1.0 v -0.0 z"/>
+        <symbol id="sb08" x="-2.0" y="-0.0">
+            <path d="M 2.0 0 v 0.0 h -2.0 v 4 h 2.0 v 2.0 h 4 v -2.0 h 2.0 v -4 h -2.0 v -0.0 z"/>
         </symbol>
-        <symbol id="sb09" x="-0.0" y="-1.0">
-            <path d="M 0.0 0 v 1.0 h -0.0 v 4 h 0.0 v 1.0 h 4 v -1.0 h 0.0 v -4 h -0.0 v -1.0 z"/>
+        <symbol id="sb09" x="-0.0" y="-2.0">
+            <path d="M 0.0 0 v 2.0 h -0.0 v 4 h 0.0 v 2.0 h 4 v -2.0 h 0.0 v -4 h -0.0 v -2.0 z"/>
         </symbol>
-        <symbol id="sb10" x="-1.0" y="-0.0">
-            <path d="M 1.0 0 v 0.0 h -1.0 v 4 h 1.0 v 0.0 h 4 v -0.0 h 1.0 v -4 h -1.0 v -0.0 z"/>
+        <symbol id="sb10" x="-2.0" y="-0.0">
+            <path d="M 2.0 0 v 0.0 h -2.0 v 4 h 2.0 v 0.0 h 4 v -0.0 h 2.0 v -4 h -2.0 v -0.0 z"/>
         </symbol>
     </defs>
     <g id="main" transform="scale(1,-1)">
-        <rect class="boundary" height="82" id="core_boundary" width="82" x="0" y="0"/>
+        <rect class="boundary" height="138" id="core_boundary" width="138" x="0" y="0"/>
         <g id="main_shapes">
-            <line class="marker" x1="0.0" x2="0.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
-            <use id="io_left_0__1_" x="0.0" xlink:href="#io_left" y="14.0"/>
-            <line class="marker" x1="0.0" x2="0.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="28.0" y2="28.0"/>
-            <use id="io_left_0__2_" x="0.0" xlink:href="#io_left" y="28.0"/>
-            <line class="marker" x1="0.0" x2="0.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
-            <use id="io_left_0__3_" x="0.0" xlink:href="#io_left" y="42.0"/>
-            <line class="marker" x1="0.0" x2="0.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
-            <use id="io_left_0__4_" x="0.0" xlink:href="#io_left" y="56.0"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
             <use id="sb_0__0_" x="10" xlink:href="#sb01" y="10"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
             <use id="cby_0__1_" x="10" xlink:href="#cby" y="14.0"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="24" y2="24"/>
-            <use id="sb_0__1_" x="10" xlink:href="#sb09" y="24"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="28.0" y2="28.0"/>
+            <use id="sb_0__1_" x="10" xlink:href="#sb02" y="24"/>
             <use id="cby_0__2_" x="10" xlink:href="#cby" y="28.0"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
             <use id="sb_0__2_" x="10" xlink:href="#sb02" y="38"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
             <use id="cby_0__3_" x="10" xlink:href="#cby" y="42.0"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
             <use id="sb_0__3_" x="10" xlink:href="#sb02" y="52"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
             <use id="cby_0__4_" x="10" xlink:href="#cby" y="56.0"/>
-            <line class="marker" x1="10" x2="10" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
-            <use id="sb_0__4_" x="10" xlink:href="#sb03" y="66"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="0.0" y2="0.0"/>
-            <use id="io_bottom_1__0_" x="14.0" xlink:href="#io_bottom" y="0.0"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
+            <use id="sb_0__4_" x="10" xlink:href="#sb02" y="66"/>
+            <use id="cby_0__5_" x="10" xlink:href="#cby" y="70.0"/>
+            <use id="sb_0__5_" x="10" xlink:href="#sb02" y="80"/>
+            <use id="cby_0__6_" x="10" xlink:href="#cby" y="84.0"/>
+            <use id="sb_0__6_" x="10" xlink:href="#sb02" y="94"/>
+            <use id="cby_0__7_" x="10" xlink:href="#cby" y="98.0"/>
+            <use id="sb_0__7_" x="10" xlink:href="#sb02" y="108"/>
+            <use id="cby_0__8_" x="10" xlink:href="#cby" y="112.0"/>
+            <use id="sb_0__8_" x="10" xlink:href="#sb03" y="122"/>
             <use id="cbx_1__0_" x="14.0" xlink:href="#cbx" y="10"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
-            <use id="mcu_1__1_" x="14.0" xlink:href="#mcu" y="14.0"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
+            <use id="io_left_1__1_" x="14.0" xlink:href="#io_left" y="14.0"/>
+            <use id="cbx_1__1_" x="14.0" xlink:href="#cbx" y="24"/>
+            <use id="io_left_1__2_" x="14.0" xlink:href="#io_left" y="28.0"/>
             <use id="cbx_1__2_" x="14.0" xlink:href="#cbx" y="38"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
-            <use id="clb_1__3_" x="14.0" xlink:href="#clb" y="42.0"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
+            <use id="io_left_1__3_" x="14.0" xlink:href="#io_left" y="42.0"/>
             <use id="cbx_1__3_" x="14.0" xlink:href="#cbx" y="52"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
-            <use id="clb_1__4_" x="14.0" xlink:href="#clb" y="56.0"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
+            <use id="io_left_1__4_" x="14.0" xlink:href="#io_left" y="56.0"/>
             <use id="cbx_1__4_" x="14.0" xlink:href="#cbx" y="66"/>
-            <line class="marker" x1="14.0" x2="14.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="70.0" y2="70.0"/>
-            <use id="io_top_1__5_" x="14.0" xlink:href="#io_top" y="70.0"/>
-            <line class="marker" x1="24" x2="24" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
-            <use id="sb_1__0_" x="24" xlink:href="#sb10" y="10"/>
-            <line class="marker" x1="24" x2="24" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
-            <use id="sb_1__2_" x="24" xlink:href="#sb08" y="38"/>
-            <line class="marker" x1="24" x2="24" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
+            <use id="io_left_1__5_" x="14.0" xlink:href="#io_left" y="70.0"/>
+            <use id="cbx_1__5_" x="14.0" xlink:href="#cbx" y="80"/>
+            <use id="io_left_1__6_" x="14.0" xlink:href="#io_left" y="84.0"/>
+            <use id="cbx_1__6_" x="14.0" xlink:href="#cbx" y="94"/>
+            <use id="io_left_1__7_" x="14.0" xlink:href="#io_left" y="98.0"/>
+            <use id="cbx_1__7_" x="14.0" xlink:href="#cbx" y="108"/>
+            <use id="io_left_1__8_" x="14.0" xlink:href="#io_left" y="112.0"/>
+            <use id="cbx_1__8_" x="14.0" xlink:href="#cbx" y="122"/>
+            <use id="sb_1__0_" x="24" xlink:href="#sb08" y="10"/>
+            <use id="cby_1__1_" x="24" xlink:href="#cby" y="14.0"/>
+            <use id="sb_1__1_" x="24" xlink:href="#sb00" y="24"/>
+            <use id="cby_1__2_" x="24" xlink:href="#cby" y="28.0"/>
+            <use id="sb_1__2_" x="24" xlink:href="#sb00" y="38"/>
             <use id="cby_1__3_" x="24" xlink:href="#cby" y="42.0"/>
-            <line class="marker" x1="24" x2="24" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
             <use id="sb_1__3_" x="24" xlink:href="#sb00" y="52"/>
-            <line class="marker" x1="24" x2="24" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
             <use id="cby_1__4_" x="24" xlink:href="#cby" y="56.0"/>
-            <line class="marker" x1="24" x2="24" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
-            <use id="sb_1__4_" x="24" xlink:href="#sb04" y="66"/>
-            <line class="marker" x1="28.0" x2="28.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="0.0" y2="0.0"/>
-            <use id="io_bottom_2__0_" x="28.0" xlink:href="#io_bottom" y="0.0"/>
-            <line class="marker" x1="28.0" x2="28.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
+            <use id="sb_1__4_" x="24" xlink:href="#sb00" y="66"/>
+            <use id="cby_1__5_" x="24" xlink:href="#cby" y="70.0"/>
+            <use id="sb_1__5_" x="24" xlink:href="#sb00" y="80"/>
+            <use id="cby_1__6_" x="24" xlink:href="#cby" y="84.0"/>
+            <use id="sb_1__6_" x="24" xlink:href="#sb00" y="94"/>
+            <use id="cby_1__7_" x="24" xlink:href="#cby" y="98.0"/>
+            <use id="sb_1__7_" x="24" xlink:href="#sb00" y="108"/>
+            <use id="cby_1__8_" x="24" xlink:href="#cby" y="112.0"/>
+            <use id="sb_1__8_" x="24" xlink:href="#sb04" y="122"/>
             <use id="cbx_2__0_" x="28.0" xlink:href="#cbx" y="10"/>
-            <line class="marker" x1="28.0" x2="28.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
+            <use id="io_bottom_2__1_" x="28.0" xlink:href="#io_bottom" y="14.0"/>
+            <use id="cbx_2__1_" x="28.0" xlink:href="#cbx" y="24"/>
+            <use id="clb_2__2_" x="28.0" xlink:href="#clb" y="28.0"/>
             <use id="cbx_2__2_" x="28.0" xlink:href="#cbx" y="38"/>
-            <line class="marker" x1="28.0" x2="28.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
             <use id="clb_2__3_" x="28.0" xlink:href="#clb" y="42.0"/>
-            <line class="marker" x1="28.0" x2="28.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
             <use id="cbx_2__3_" x="28.0" xlink:href="#cbx" y="52"/>
-            <line class="marker" x1="28.0" x2="28.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
             <use id="clb_2__4_" x="28.0" xlink:href="#clb" y="56.0"/>
-            <line class="marker" x1="28.0" x2="28.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
             <use id="cbx_2__4_" x="28.0" xlink:href="#cbx" y="66"/>
-            <line class="marker" x1="28.0" x2="28.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="70.0" y2="70.0"/>
-            <use id="io_top_2__5_" x="28.0" xlink:href="#io_top" y="70.0"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
+            <use id="clb_2__5_" x="28.0" xlink:href="#clb" y="70.0"/>
+            <use id="cbx_2__5_" x="28.0" xlink:href="#cbx" y="80"/>
+            <use id="clb_2__6_" x="28.0" xlink:href="#clb" y="84.0"/>
+            <use id="cbx_2__6_" x="28.0" xlink:href="#cbx" y="94"/>
+            <use id="clb_2__7_" x="28.0" xlink:href="#clb" y="98.0"/>
+            <use id="cbx_2__7_" x="28.0" xlink:href="#cbx" y="108"/>
+            <use id="io_top_2__8_" x="28.0" xlink:href="#io_top" y="112.0"/>
+            <use id="cbx_2__8_" x="28.0" xlink:href="#cbx" y="122"/>
             <use id="sb_2__0_" x="38" xlink:href="#sb08" y="10"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
             <use id="cby_2__1_" x="38" xlink:href="#cby" y="14.0"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="24" y2="24"/>
-            <use id="sb_2__1_" x="38" xlink:href="#sb02" y="24"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="28.0" y2="28.0"/>
+            <use id="sb_2__1_" x="38" xlink:href="#sb00" y="24"/>
             <use id="cby_2__2_" x="38" xlink:href="#cby" y="28.0"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
-            <use id="sb_2__2_" x="38" xlink:href="#sb00" y="38"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
+            <use id="sb_2__2_" x="38" xlink:href="#sb06" y="38"/>
             <use id="cby_2__3_" x="38" xlink:href="#cby" y="42.0"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
             <use id="sb_2__3_" x="38" xlink:href="#sb00" y="52"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
             <use id="cby_2__4_" x="38" xlink:href="#cby" y="56.0"/>
-            <line class="marker" x1="38" x2="38" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
-            <use id="sb_2__4_" x="38" xlink:href="#sb04" y="66"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="0.0" y2="0.0"/>
-            <use id="io_bottom_3__0_" x="42.0" xlink:href="#io_bottom" y="0.0"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
+            <use id="sb_2__4_" x="38" xlink:href="#sb06" y="66"/>
+            <use id="cby_2__5_" x="38" xlink:href="#cby" y="70.0"/>
+            <use id="sb_2__5_" x="38" xlink:href="#sb00" y="80"/>
+            <use id="cby_2__6_" x="38" xlink:href="#cby" y="84.0"/>
+            <use id="sb_2__6_" x="38" xlink:href="#sb06" y="94"/>
+            <use id="cby_2__7_" x="38" xlink:href="#cby" y="98.0"/>
+            <use id="sb_2__7_" x="38" xlink:href="#sb00" y="108"/>
+            <use id="cby_2__8_" x="38" xlink:href="#cby" y="112.0"/>
+            <use id="sb_2__8_" x="38" xlink:href="#sb04" y="122"/>
             <use id="cbx_3__0_" x="42.0" xlink:href="#cbx" y="10"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
-            <use id="clb_3__1_" x="42.0" xlink:href="#clb" y="14.0"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="24" y2="24"/>
+            <use id="io_bottom_3__1_" x="42.0" xlink:href="#io_bottom" y="14.0"/>
             <use id="cbx_3__1_" x="42.0" xlink:href="#cbx" y="24"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="28.0" y2="28.0"/>
-            <use id="clb_3__2_" x="42.0" xlink:href="#clb" y="28.0"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
-            <use id="cbx_3__2_" x="42.0" xlink:href="#cbx" y="38"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
-            <use id="clb_3__3_" x="42.0" xlink:href="#clb" y="42.0"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
+            <use id="dsp_3__2_" x="42.0" xlink:href="#dsp" y="28.0"/>
             <use id="cbx_3__3_" x="42.0" xlink:href="#cbx" y="52"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
-            <use id="clb_3__4_" x="42.0" xlink:href="#clb" y="56.0"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
-            <use id="cbx_3__4_" x="42.0" xlink:href="#cbx" y="66"/>
-            <line class="marker" x1="42.0" x2="42.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="70.0" y2="70.0"/>
-            <use id="io_top_3__5_" x="42.0" xlink:href="#io_top" y="70.0"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
+            <use id="dsp_3__4_" x="42.0" xlink:href="#dsp" y="56.0"/>
+            <use id="cbx_3__5_" x="42.0" xlink:href="#cbx" y="80"/>
+            <use id="dsp_3__6_" x="42.0" xlink:href="#dsp" y="84.0"/>
+            <use id="cbx_3__7_" x="42.0" xlink:href="#cbx" y="108"/>
+            <use id="io_top_3__8_" x="42.0" xlink:href="#io_top" y="112.0"/>
+            <use id="cbx_3__8_" x="42.0" xlink:href="#cbx" y="122"/>
             <use id="sb_3__0_" x="52" xlink:href="#sb08" y="10"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
             <use id="cby_3__1_" x="52" xlink:href="#cby" y="14.0"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="24" y2="24"/>
             <use id="sb_3__1_" x="52" xlink:href="#sb00" y="24"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="28.0" y2="28.0"/>
             <use id="cby_3__2_" x="52" xlink:href="#cby" y="28.0"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
-            <use id="sb_3__2_" x="52" xlink:href="#sb00" y="38"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
+            <use id="sb_3__2_" x="52" xlink:href="#sb02" y="38"/>
             <use id="cby_3__3_" x="52" xlink:href="#cby" y="42.0"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
             <use id="sb_3__3_" x="52" xlink:href="#sb00" y="52"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
             <use id="cby_3__4_" x="52" xlink:href="#cby" y="56.0"/>
-            <line class="marker" x1="52" x2="52" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
-            <use id="sb_3__4_" x="52" xlink:href="#sb04" y="66"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="0.0" y2="0.0"/>
-            <use id="io_bottom_4__0_" x="56.0" xlink:href="#io_bottom" y="0.0"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
+            <use id="sb_3__4_" x="52" xlink:href="#sb02" y="66"/>
+            <use id="cby_3__5_" x="52" xlink:href="#cby" y="70.0"/>
+            <use id="sb_3__5_" x="52" xlink:href="#sb00" y="80"/>
+            <use id="cby_3__6_" x="52" xlink:href="#cby" y="84.0"/>
+            <use id="sb_3__6_" x="52" xlink:href="#sb02" y="94"/>
+            <use id="cby_3__7_" x="52" xlink:href="#cby" y="98.0"/>
+            <use id="sb_3__7_" x="52" xlink:href="#sb00" y="108"/>
+            <use id="cby_3__8_" x="52" xlink:href="#cby" y="112.0"/>
+            <use id="sb_3__8_" x="52" xlink:href="#sb04" y="122"/>
             <use id="cbx_4__0_" x="56.0" xlink:href="#cbx" y="10"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
-            <use id="clb_4__1_" x="56.0" xlink:href="#clb" y="14.0"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="24" y2="24"/>
+            <use id="io_bottom_4__1_" x="56.0" xlink:href="#io_bottom" y="14.0"/>
             <use id="cbx_4__1_" x="56.0" xlink:href="#cbx" y="24"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="28.0" y2="28.0"/>
             <use id="clb_4__2_" x="56.0" xlink:href="#clb" y="28.0"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
             <use id="cbx_4__2_" x="56.0" xlink:href="#cbx" y="38"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
             <use id="clb_4__3_" x="56.0" xlink:href="#clb" y="42.0"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
             <use id="cbx_4__3_" x="56.0" xlink:href="#cbx" y="52"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
             <use id="clb_4__4_" x="56.0" xlink:href="#clb" y="56.0"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
             <use id="cbx_4__4_" x="56.0" xlink:href="#cbx" y="66"/>
-            <line class="marker" x1="56.0" x2="56.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="70.0" y2="70.0"/>
-            <use id="io_top_4__5_" x="56.0" xlink:href="#io_top" y="70.0"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="10" y2="10"/>
-            <use id="sb_4__0_" x="66" xlink:href="#sb07" y="10"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
+            <use id="clb_4__5_" x="56.0" xlink:href="#clb" y="70.0"/>
+            <use id="cbx_4__5_" x="56.0" xlink:href="#cbx" y="80"/>
+            <use id="clb_4__6_" x="56.0" xlink:href="#clb" y="84.0"/>
+            <use id="cbx_4__6_" x="56.0" xlink:href="#cbx" y="94"/>
+            <use id="clb_4__7_" x="56.0" xlink:href="#clb" y="98.0"/>
+            <use id="cbx_4__7_" x="56.0" xlink:href="#cbx" y="108"/>
+            <use id="io_top_4__8_" x="56.0" xlink:href="#io_top" y="112.0"/>
+            <use id="cbx_4__8_" x="56.0" xlink:href="#cbx" y="122"/>
+            <use id="sb_4__0_" x="66" xlink:href="#sb08" y="10"/>
             <use id="cby_4__1_" x="66" xlink:href="#cby" y="14.0"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="24" y2="24"/>
-            <use id="sb_4__1_" x="66" xlink:href="#sb06" y="24"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="28.0" y2="28.0"/>
+            <use id="sb_4__1_" x="66" xlink:href="#sb00" y="24"/>
             <use id="cby_4__2_" x="66" xlink:href="#cby" y="28.0"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="38" y2="38"/>
-            <use id="sb_4__2_" x="66" xlink:href="#sb06" y="38"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
+            <use id="sb_4__2_" x="66" xlink:href="#sb00" y="38"/>
             <use id="cby_4__3_" x="66" xlink:href="#cby" y="42.0"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="52" y2="52"/>
-            <use id="sb_4__3_" x="66" xlink:href="#sb06" y="52"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
+            <use id="sb_4__3_" x="66" xlink:href="#sb00" y="52"/>
             <use id="cby_4__4_" x="66" xlink:href="#cby" y="56.0"/>
-            <line class="marker" x1="66" x2="66" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="66" y2="66"/>
-            <use id="sb_4__4_" x="66" xlink:href="#sb05" y="66"/>
-            <line class="marker" x1="70.0" x2="70.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="14.0" y2="14.0"/>
-            <use id="io_right_5__1_" x="70.0" xlink:href="#io_right" y="14.0"/>
-            <line class="marker" x1="70.0" x2="70.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="28.0" y2="28.0"/>
-            <use id="io_right_5__2_" x="70.0" xlink:href="#io_right" y="28.0"/>
-            <line class="marker" x1="70.0" x2="70.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="42.0" y2="42.0"/>
-            <use id="io_right_5__3_" x="70.0" xlink:href="#io_right" y="42.0"/>
-            <line class="marker" x1="70.0" x2="70.0" y1="0" y2="82"/>
-            <line class="marker" x1="0" x2="82" y1="56.0" y2="56.0"/>
-            <use id="io_right_5__4_" x="70.0" xlink:href="#io_right" y="56.0"/>
+            <use id="sb_4__4_" x="66" xlink:href="#sb00" y="66"/>
+            <use id="cby_4__5_" x="66" xlink:href="#cby" y="70.0"/>
+            <use id="sb_4__5_" x="66" xlink:href="#sb00" y="80"/>
+            <use id="cby_4__6_" x="66" xlink:href="#cby" y="84.0"/>
+            <use id="sb_4__6_" x="66" xlink:href="#sb00" y="94"/>
+            <use id="cby_4__7_" x="66" xlink:href="#cby" y="98.0"/>
+            <use id="sb_4__7_" x="66" xlink:href="#sb00" y="108"/>
+            <use id="cby_4__8_" x="66" xlink:href="#cby" y="112.0"/>
+            <use id="sb_4__8_" x="66" xlink:href="#sb04" y="122"/>
+            <use id="cbx_5__0_" x="70.0" xlink:href="#cbx" y="10"/>
+            <use id="io_bottom_5__1_" x="70.0" xlink:href="#io_bottom" y="14.0"/>
+            <use id="cbx_5__1_" x="70.0" xlink:href="#cbx" y="24"/>
+            <use id="clb_5__2_" x="70.0" xlink:href="#clb" y="28.0"/>
+            <use id="cbx_5__2_" x="70.0" xlink:href="#cbx" y="38"/>
+            <use id="clb_5__3_" x="70.0" xlink:href="#clb" y="42.0"/>
+            <use id="cbx_5__3_" x="70.0" xlink:href="#cbx" y="52"/>
+            <use id="clb_5__4_" x="70.0" xlink:href="#clb" y="56.0"/>
+            <use id="cbx_5__4_" x="70.0" xlink:href="#cbx" y="66"/>
+            <use id="clb_5__5_" x="70.0" xlink:href="#clb" y="70.0"/>
+            <use id="cbx_5__5_" x="70.0" xlink:href="#cbx" y="80"/>
+            <use id="clb_5__6_" x="70.0" xlink:href="#clb" y="84.0"/>
+            <use id="cbx_5__6_" x="70.0" xlink:href="#cbx" y="94"/>
+            <use id="clb_5__7_" x="70.0" xlink:href="#clb" y="98.0"/>
+            <use id="cbx_5__7_" x="70.0" xlink:href="#cbx" y="108"/>
+            <use id="io_top_5__8_" x="70.0" xlink:href="#io_top" y="112.0"/>
+            <use id="cbx_5__8_" x="70.0" xlink:href="#cbx" y="122"/>
+            <use id="sb_5__0_" x="80" xlink:href="#sb08" y="10"/>
+            <use id="cby_5__1_" x="80" xlink:href="#cby" y="14.0"/>
+            <use id="sb_5__1_" x="80" xlink:href="#sb00" y="24"/>
+            <use id="cby_5__2_" x="80" xlink:href="#cby" y="28.0"/>
+            <use id="sb_5__2_" x="80" xlink:href="#sb06" y="38"/>
+            <use id="cby_5__3_" x="80" xlink:href="#cby" y="42.0"/>
+            <use id="sb_5__3_" x="80" xlink:href="#sb00" y="52"/>
+            <use id="cby_5__4_" x="80" xlink:href="#cby" y="56.0"/>
+            <use id="sb_5__4_" x="80" xlink:href="#sb06" y="66"/>
+            <use id="cby_5__5_" x="80" xlink:href="#cby" y="70.0"/>
+            <use id="sb_5__5_" x="80" xlink:href="#sb00" y="80"/>
+            <use id="cby_5__6_" x="80" xlink:href="#cby" y="84.0"/>
+            <use id="sb_5__6_" x="80" xlink:href="#sb06" y="94"/>
+            <use id="cby_5__7_" x="80" xlink:href="#cby" y="98.0"/>
+            <use id="sb_5__7_" x="80" xlink:href="#sb00" y="108"/>
+            <use id="cby_5__8_" x="80" xlink:href="#cby" y="112.0"/>
+            <use id="sb_5__8_" x="80" xlink:href="#sb04" y="122"/>
+            <use id="cbx_6__0_" x="84.0" xlink:href="#cbx" y="10"/>
+            <use id="io_bottom_6__1_" x="84.0" xlink:href="#io_bottom" y="14.0"/>
+            <use id="cbx_6__1_" x="84.0" xlink:href="#cbx" y="24"/>
+            <use id="ram9k_6__2_" x="84.0" xlink:href="#ram9k" y="28.0"/>
+            <use id="cbx_6__3_" x="84.0" xlink:href="#cbx" y="52"/>
+            <use id="ram9k_6__4_" x="84.0" xlink:href="#ram9k" y="56.0"/>
+            <use id="cbx_6__5_" x="84.0" xlink:href="#cbx" y="80"/>
+            <use id="ram9k_6__6_" x="84.0" xlink:href="#ram9k" y="84.0"/>
+            <use id="cbx_6__7_" x="84.0" xlink:href="#cbx" y="108"/>
+            <use id="io_top_6__8_" x="84.0" xlink:href="#io_top" y="112.0"/>
+            <use id="cbx_6__8_" x="84.0" xlink:href="#cbx" y="122"/>
+            <use id="sb_6__0_" x="94" xlink:href="#sb08" y="10"/>
+            <use id="cby_6__1_" x="94" xlink:href="#cby" y="14.0"/>
+            <use id="sb_6__1_" x="94" xlink:href="#sb00" y="24"/>
+            <use id="cby_6__2_" x="94" xlink:href="#cby" y="28.0"/>
+            <use id="sb_6__2_" x="94" xlink:href="#sb02" y="38"/>
+            <use id="cby_6__3_" x="94" xlink:href="#cby" y="42.0"/>
+            <use id="sb_6__3_" x="94" xlink:href="#sb00" y="52"/>
+            <use id="cby_6__4_" x="94" xlink:href="#cby" y="56.0"/>
+            <use id="sb_6__4_" x="94" xlink:href="#sb02" y="66"/>
+            <use id="cby_6__5_" x="94" xlink:href="#cby" y="70.0"/>
+            <use id="sb_6__5_" x="94" xlink:href="#sb00" y="80"/>
+            <use id="cby_6__6_" x="94" xlink:href="#cby" y="84.0"/>
+            <use id="sb_6__6_" x="94" xlink:href="#sb02" y="94"/>
+            <use id="cby_6__7_" x="94" xlink:href="#cby" y="98.0"/>
+            <use id="sb_6__7_" x="94" xlink:href="#sb00" y="108"/>
+            <use id="cby_6__8_" x="94" xlink:href="#cby" y="112.0"/>
+            <use id="sb_6__8_" x="94" xlink:href="#sb04" y="122"/>
+            <use id="cbx_7__0_" x="98.0" xlink:href="#cbx" y="10"/>
+            <use id="io_bottom_7__1_" x="98.0" xlink:href="#io_bottom" y="14.0"/>
+            <use id="cbx_7__1_" x="98.0" xlink:href="#cbx" y="24"/>
+            <use id="clb_7__2_" x="98.0" xlink:href="#clb" y="28.0"/>
+            <use id="cbx_7__2_" x="98.0" xlink:href="#cbx" y="38"/>
+            <use id="clb_7__3_" x="98.0" xlink:href="#clb" y="42.0"/>
+            <use id="cbx_7__3_" x="98.0" xlink:href="#cbx" y="52"/>
+            <use id="clb_7__4_" x="98.0" xlink:href="#clb" y="56.0"/>
+            <use id="cbx_7__4_" x="98.0" xlink:href="#cbx" y="66"/>
+            <use id="clb_7__5_" x="98.0" xlink:href="#clb" y="70.0"/>
+            <use id="cbx_7__5_" x="98.0" xlink:href="#cbx" y="80"/>
+            <use id="clb_7__6_" x="98.0" xlink:href="#clb" y="84.0"/>
+            <use id="cbx_7__6_" x="98.0" xlink:href="#cbx" y="94"/>
+            <use id="clb_7__7_" x="98.0" xlink:href="#clb" y="98.0"/>
+            <use id="cbx_7__7_" x="98.0" xlink:href="#cbx" y="108"/>
+            <use id="io_top_7__8_" x="98.0" xlink:href="#io_top" y="112.0"/>
+            <use id="cbx_7__8_" x="98.0" xlink:href="#cbx" y="122"/>
+            <use id="sb_7__0_" x="108" xlink:href="#sb08" y="10"/>
+            <use id="cby_7__1_" x="108" xlink:href="#cby" y="14.0"/>
+            <use id="sb_7__1_" x="108" xlink:href="#sb00" y="24"/>
+            <use id="cby_7__2_" x="108" xlink:href="#cby" y="28.0"/>
+            <use id="sb_7__2_" x="108" xlink:href="#sb00" y="38"/>
+            <use id="cby_7__3_" x="108" xlink:href="#cby" y="42.0"/>
+            <use id="sb_7__3_" x="108" xlink:href="#sb00" y="52"/>
+            <use id="cby_7__4_" x="108" xlink:href="#cby" y="56.0"/>
+            <use id="sb_7__4_" x="108" xlink:href="#sb00" y="66"/>
+            <use id="cby_7__5_" x="108" xlink:href="#cby" y="70.0"/>
+            <use id="sb_7__5_" x="108" xlink:href="#sb00" y="80"/>
+            <use id="cby_7__6_" x="108" xlink:href="#cby" y="84.0"/>
+            <use id="sb_7__6_" x="108" xlink:href="#sb00" y="94"/>
+            <use id="cby_7__7_" x="108" xlink:href="#cby" y="98.0"/>
+            <use id="sb_7__7_" x="108" xlink:href="#sb00" y="108"/>
+            <use id="cby_7__8_" x="108" xlink:href="#cby" y="112.0"/>
+            <use id="sb_7__8_" x="108" xlink:href="#sb04" y="122"/>
+            <use id="cbx_8__0_" x="112.0" xlink:href="#cbx" y="10"/>
+            <use id="io_right_8__1_" x="112.0" xlink:href="#io_right" y="14.0"/>
+            <use id="cbx_8__1_" x="112.0" xlink:href="#cbx" y="24"/>
+            <use id="io_right_8__2_" x="112.0" xlink:href="#io_right" y="28.0"/>
+            <use id="cbx_8__2_" x="112.0" xlink:href="#cbx" y="38"/>
+            <use id="io_right_8__3_" x="112.0" xlink:href="#io_right" y="42.0"/>
+            <use id="cbx_8__3_" x="112.0" xlink:href="#cbx" y="52"/>
+            <use id="io_right_8__4_" x="112.0" xlink:href="#io_right" y="56.0"/>
+            <use id="cbx_8__4_" x="112.0" xlink:href="#cbx" y="66"/>
+            <use id="io_right_8__5_" x="112.0" xlink:href="#io_right" y="70.0"/>
+            <use id="cbx_8__5_" x="112.0" xlink:href="#cbx" y="80"/>
+            <use id="io_right_8__6_" x="112.0" xlink:href="#io_right" y="84.0"/>
+            <use id="cbx_8__6_" x="112.0" xlink:href="#cbx" y="94"/>
+            <use id="io_right_8__7_" x="112.0" xlink:href="#io_right" y="98.0"/>
+            <use id="cbx_8__7_" x="112.0" xlink:href="#cbx" y="108"/>
+            <use id="io_right_8__8_" x="112.0" xlink:href="#io_right" y="112.0"/>
+            <use id="cbx_8__8_" x="112.0" xlink:href="#cbx" y="122"/>
+            <use id="sb_8__0_" x="122" xlink:href="#sb07" y="10"/>
+            <use id="cby_8__1_" x="122" xlink:href="#cby" y="14.0"/>
+            <use id="sb_8__1_" x="122" xlink:href="#sb06" y="24"/>
+            <use id="cby_8__2_" x="122" xlink:href="#cby" y="28.0"/>
+            <use id="sb_8__2_" x="122" xlink:href="#sb06" y="38"/>
+            <use id="cby_8__3_" x="122" xlink:href="#cby" y="42.0"/>
+            <use id="sb_8__3_" x="122" xlink:href="#sb06" y="52"/>
+            <use id="cby_8__4_" x="122" xlink:href="#cby" y="56.0"/>
+            <use id="sb_8__4_" x="122" xlink:href="#sb06" y="66"/>
+            <use id="cby_8__5_" x="122" xlink:href="#cby" y="70.0"/>
+            <use id="sb_8__5_" x="122" xlink:href="#sb06" y="80"/>
+            <use id="cby_8__6_" x="122" xlink:href="#cby" y="84.0"/>
+            <use id="sb_8__6_" x="122" xlink:href="#sb06" y="94"/>
+            <use id="cby_8__7_" x="122" xlink:href="#cby" y="98.0"/>
+            <use id="sb_8__7_" x="122" xlink:href="#sb06" y="108"/>
+            <use id="cby_8__8_" x="122" xlink:href="#cby" y="112.0"/>
+            <use id="sb_8__8_" x="122" xlink:href="#sb05" y="122"/>
         </g>
         <g id="main_text">
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="5.0" y="-19.0">io_left_0__1_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="5.0" y="-33.0">io_left_0__2_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="5.0" y="-47.0">io_left_0__3_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="5.0" y="-61.0">io_left_0__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-12.0">sb_0__0_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-19.0">cby_0__1_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-26.0">sb_0__1_</text>
@@ -364,29 +386,65 @@ symbol[id*="io_"] * { fill:#f8b155;}
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-54.0">sb_0__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-61.0">cby_0__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-68.0">sb_0__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-5.0">io_bottom_1__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-75.0">cby_0__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-82.0">sb_0__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-89.0">cby_0__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-96.0">sb_0__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-103.0">cby_0__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-110.0">sb_0__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-117.0">cby_0__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="12.0" y="-124.0">sb_0__8_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-12.0">cbx_1__0_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-26.0">mcu_1__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-19.0">io_left_1__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-26.0">cbx_1__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-33.0">io_left_1__2_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-40.0">cbx_1__2_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-47.0">clb_1__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-47.0">io_left_1__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-54.0">cbx_1__3_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-61.0">clb_1__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-61.0">io_left_1__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-68.0">cbx_1__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-75.0">io_top_1__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-75.0">io_left_1__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-82.0">cbx_1__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-89.0">io_left_1__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-96.0">cbx_1__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-103.0">io_left_1__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-110.0">cbx_1__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-117.0">io_left_1__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="19.0" y="-124.0">cbx_1__8_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-12.0">sb_1__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-19.0">cby_1__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-26.0">sb_1__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-33.0">cby_1__2_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-40.0">sb_1__2_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-47.0">cby_1__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-54.0">sb_1__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-61.0">cby_1__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-68.0">sb_1__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-5.0">io_bottom_2__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-75.0">cby_1__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-82.0">sb_1__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-89.0">cby_1__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-96.0">sb_1__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-103.0">cby_1__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-110.0">sb_1__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-117.0">cby_1__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="26.0" y="-124.0">sb_1__8_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-12.0">cbx_2__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-19.0">io_bottom_2__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-26.0">cbx_2__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-33.0">clb_2__2_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-40.0">cbx_2__2_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-47.0">clb_2__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-54.0">cbx_2__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-61.0">clb_2__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-68.0">cbx_2__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-75.0">io_top_2__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-75.0">clb_2__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-82.0">cbx_2__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-89.0">clb_2__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-96.0">cbx_2__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-103.0">clb_2__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-110.0">cbx_2__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-117.0">io_top_2__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="33.0" y="-124.0">cbx_2__8_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-12.0">sb_2__0_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-19.0">cby_2__1_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-26.0">sb_2__1_</text>
@@ -396,17 +454,25 @@ symbol[id*="io_"] * { fill:#f8b155;}
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-54.0">sb_2__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-61.0">cby_2__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-68.0">sb_2__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-5.0">io_bottom_3__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-75.0">cby_2__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-82.0">sb_2__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-89.0">cby_2__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-96.0">sb_2__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-103.0">cby_2__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-110.0">sb_2__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-117.0">cby_2__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="40.0" y="-124.0">sb_2__8_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-12.0">cbx_3__0_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-19.0">clb_3__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-19.0">io_bottom_3__1_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-26.0">cbx_3__1_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-33.0">clb_3__2_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-40.0">cbx_3__2_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-47.0">clb_3__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-40.0">dsp_3__2_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-54.0">cbx_3__3_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-61.0">clb_3__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-68.0">cbx_3__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-75.0">io_top_3__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-68.0">dsp_3__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-82.0">cbx_3__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-96.0">dsp_3__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-110.0">cbx_3__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-117.0">io_top_3__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="47.0" y="-124.0">cbx_3__8_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-12.0">sb_3__0_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-19.0">cby_3__1_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-26.0">sb_3__1_</text>
@@ -416,9 +482,16 @@ symbol[id*="io_"] * { fill:#f8b155;}
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-54.0">sb_3__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-61.0">cby_3__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-68.0">sb_3__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-5.0">io_bottom_4__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-75.0">cby_3__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-82.0">sb_3__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-89.0">cby_3__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-96.0">sb_3__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-103.0">cby_3__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-110.0">sb_3__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-117.0">cby_3__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="54.0" y="-124.0">sb_3__8_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-12.0">cbx_4__0_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-19.0">clb_4__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-19.0">io_bottom_4__1_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-26.0">cbx_4__1_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-33.0">clb_4__2_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-40.0">cbx_4__2_</text>
@@ -426,7 +499,14 @@ symbol[id*="io_"] * { fill:#f8b155;}
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-54.0">cbx_4__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-61.0">clb_4__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-68.0">cbx_4__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-75.0">io_top_4__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-75.0">clb_4__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-82.0">cbx_4__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-89.0">clb_4__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-96.0">cbx_4__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-103.0">clb_4__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-110.0">cbx_4__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-117.0">io_top_4__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="61.0" y="-124.0">cbx_4__8_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-12.0">sb_4__0_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-19.0">cby_4__1_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-26.0">sb_4__1_</text>
@@ -436,10 +516,144 @@ symbol[id*="io_"] * { fill:#f8b155;}
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-54.0">sb_4__3_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-61.0">cby_4__4_</text>
             <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-68.0">sb_4__4_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-19.0">io_right_5__1_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-33.0">io_right_5__2_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-47.0">io_right_5__3_</text>
-            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-61.0">io_right_5__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-75.0">cby_4__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-82.0">sb_4__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-89.0">cby_4__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-96.0">sb_4__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-103.0">cby_4__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-110.0">sb_4__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-117.0">cby_4__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="68.0" y="-124.0">sb_4__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-12.0">cbx_5__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-19.0">io_bottom_5__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-26.0">cbx_5__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-33.0">clb_5__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-40.0">cbx_5__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-47.0">clb_5__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-54.0">cbx_5__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-61.0">clb_5__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-68.0">cbx_5__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-75.0">clb_5__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-82.0">cbx_5__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-89.0">clb_5__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-96.0">cbx_5__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-103.0">clb_5__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-110.0">cbx_5__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-117.0">io_top_5__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="75.0" y="-124.0">cbx_5__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-12.0">sb_5__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-19.0">cby_5__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-26.0">sb_5__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-33.0">cby_5__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-40.0">sb_5__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-47.0">cby_5__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-54.0">sb_5__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-61.0">cby_5__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-68.0">sb_5__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-75.0">cby_5__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-82.0">sb_5__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-89.0">cby_5__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-96.0">sb_5__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-103.0">cby_5__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-110.0">sb_5__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-117.0">cby_5__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="82.0" y="-124.0">sb_5__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-12.0">cbx_6__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-19.0">io_bottom_6__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-26.0">cbx_6__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-40.0">ram9k_6__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-54.0">cbx_6__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-68.0">ram9k_6__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-82.0">cbx_6__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-96.0">ram9k_6__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-110.0">cbx_6__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-117.0">io_top_6__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="89.0" y="-124.0">cbx_6__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-12.0">sb_6__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-19.0">cby_6__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-26.0">sb_6__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-33.0">cby_6__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-40.0">sb_6__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-47.0">cby_6__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-54.0">sb_6__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-61.0">cby_6__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-68.0">sb_6__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-75.0">cby_6__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-82.0">sb_6__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-89.0">cby_6__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-96.0">sb_6__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-103.0">cby_6__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-110.0">sb_6__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-117.0">cby_6__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="96.0" y="-124.0">sb_6__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-12.0">cbx_7__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-19.0">io_bottom_7__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-26.0">cbx_7__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-33.0">clb_7__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-40.0">cbx_7__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-47.0">clb_7__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-54.0">cbx_7__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-61.0">clb_7__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-68.0">cbx_7__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-75.0">clb_7__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-82.0">cbx_7__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-89.0">clb_7__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-96.0">cbx_7__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-103.0">clb_7__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-110.0">cbx_7__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-117.0">io_top_7__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="103.0" y="-124.0">cbx_7__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-12.0">sb_7__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-19.0">cby_7__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-26.0">sb_7__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-33.0">cby_7__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-40.0">sb_7__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-47.0">cby_7__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-54.0">sb_7__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-61.0">cby_7__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-68.0">sb_7__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-75.0">cby_7__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-82.0">sb_7__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-89.0">cby_7__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-96.0">sb_7__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-103.0">cby_7__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-110.0">sb_7__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-117.0">cby_7__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="110.0" y="-124.0">sb_7__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-12.0">cbx_8__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-19.0">io_right_8__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-26.0">cbx_8__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-33.0">io_right_8__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-40.0">cbx_8__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-47.0">io_right_8__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-54.0">cbx_8__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-61.0">io_right_8__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-68.0">cbx_8__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-75.0">io_right_8__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-82.0">cbx_8__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-89.0">io_right_8__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-96.0">cbx_8__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-103.0">io_right_8__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-110.0">cbx_8__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-117.0">io_right_8__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="117.0" y="-124.0">cbx_8__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-12.0">sb_8__0_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-19.0">cby_8__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-26.0">sb_8__1_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-33.0">cby_8__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-40.0">sb_8__2_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-47.0">cby_8__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-54.0">sb_8__3_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-61.0">cby_8__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-68.0">sb_8__4_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-75.0">cby_8__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-82.0">sb_8__5_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-89.0">cby_8__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-96.0">sb_8__6_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-103.0">cby_8__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-110.0">sb_8__7_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-117.0">cby_8__8_</text>
+            <text alignment-baseline="middle" text-anchor="middle" transform="scale(1,-1)" x="124.0" y="-124.0">sb_8__8_</text>
         </g>
     </g>
 </svg>

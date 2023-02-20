@@ -60,22 +60,24 @@ clock signal planning
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-49
+.. GENERATED FROM PYTHON SOURCE LINES 39-51
 
 .. code-block:: default
 
     fpga = FPGAGridGen(
         design_name="example_design",
         arch_file="../support_files/vpr_arch_render_demo.xml",
-        layout="small",
+        layout="scalablehetero",
     )
     fpga.enumerate_grid()
+    fpga.default_parameters["cbx"][0] = 6
+    fpga.default_parameters["cby"][1] = 6
     dwg = fpga.render_layout(
-        filename="_small_layout_render.svg", grid_io=True, markers=True
+        filename="_small_layout_render.svg", grid_io=False, markers=False
     )
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-56
+.. GENERATED FROM PYTHON SOURCE LINES 52-58
 
 **Modify the dimensions**
 This example adds rectangular shape to all the modules in te design
@@ -84,46 +86,39 @@ This example adds rectangular shape to all the modules in te design
    :width: 60%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-69
+.. GENERATED FROM PYTHON SOURCE LINES 58-87
 
 .. code-block:: default
 
 
-    fpga = FPGAGridGen(
-        design_name="example_design",
-        arch_file="../support_files/vpr_arch_render_demo.xml",
-        layout="small",
-    )
-    fpga.enumerate_grid()
-    fpga.default_parameters["cbx"][0] = 10
-    fpga.default_parameters["cby"][1] = 10
-    dwg = fpga.render_layout(grid_io=False)
-    fpga.add_style("symbol[id='mcu'] * { fill:#ECCCB2;}")
-    dwg.saveas("_ultimate_layout_render.svg", pretty=True, indent=4)
+    # fpga = FPGAGridGen(
+    #     design_name="example_design",
+    #     arch_file="../support_files/vpr_arch_render_demo.xml",
+    #     layout="complex",
+    # )
+    # fpga.enumerate_grid()
+    # fpga.default_parameters["cbx"][0] = 10
+    # fpga.default_parameters["cby"][1] = 10
+    # dwg = fpga.render_layout(grid_io=True)
+    # fpga.add_style("symbol[id='mcu'] * { fill:#ECCCB2;}")
+    # dwg.saveas("_ultimate_layout_render.svg", pretty=True, indent=4)
 
+    # # %%
+    # # **Modify the structure**
+    # #
+    # # .. image:: ../../../examples/OpenFPGA_basic/_ultimate_layout_render_sized.svg
+    # #    :width: 60%
+    # #    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-75
+    # # fpga.get_symbol_of_instance("cbx_1__2_")
+    # # fpga.get_symbol("mcu")
+    # # surrounding_routing = ["mcu_1__1_"]
+    # # surrounding_routing += ["cbx_1__2_", "sb_1__2_", "cbx_2__2_"]
+    # # surrounding_routing += ["cbx_1__0_", "sb_1__0_", "cbx_2__0_"]
+    # # fpga.merge_symbol(surrounding_routing, "new_mcu_module")
 
-**Modify the structure**
-
-.. image:: ../../../examples/OpenFPGA_basic/_ultimate_layout_render_sized.svg
-   :width: 60%
-   :align: center
-
-.. GENERATED FROM PYTHON SOURCE LINES 75-85
-
-.. code-block:: default
-
-
-    fpga.get_symbol_of_instance("cbx_1__2_")
-    fpga.get_symbol("mcu")
-    surrounding_routing = ["mcu_1__1_"]
-    surrounding_routing += ["cbx_1__2_", "sb_1__2_", "cbx_2__2_"]
-    surrounding_routing += ["cbx_1__0_", "sb_1__0_", "cbx_2__0_"]
-    fpga.merge_symbol(surrounding_routing, "new_mcu_module")
-
-    fpga.add_style("symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
-    dwg.saveas("_ultimate_layout_render_sized.svg", pretty=True, indent=4)
+    # # fpga.add_style("symbol[id='new_mcu_module'] * { fill:#a8dd00; opacity: 0.5}")
+    # # dwg.saveas("_ultimate_layout_render_sized.svg", pretty=True, indent=4)
 
 
 .. rst-class:: sphx-glr-timing
