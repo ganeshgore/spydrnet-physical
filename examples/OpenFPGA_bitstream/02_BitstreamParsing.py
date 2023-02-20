@@ -1,22 +1,22 @@
 
-import pathlib
-import xml.etree.ElementTree as ET
-from glob import glob
-from bitstring import Bits, BitArray, BitStream
+# import pathlib
+# import xml.etree.ElementTree as ET
+# from glob import glob
+# from bitstring import Bits, BitArray, BitStream
 
 
-exit()
+# exit()
 
 # print(Bits(length=12).bin)
 # print(Bits(length=12)[2:3])
 
-s = BitArray(length=10)
-print(s.bin)
-s.overwrite('0b100', 4)
-print(s.bin)
-print(s[:5].bin)
-s.reverse()
-print(s.bin)
+# s = BitArray(length=10)
+# print(s.bin)
+# s.overwrite('0b100', 4)
+# print(s.bin)
+# print(s[:5].bin)
+# s.reverse()
+# print(s.bin)
 
 
 # # import yaml
