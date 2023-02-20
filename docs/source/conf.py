@@ -266,6 +266,7 @@ sphinx_gallery_conf = {
     # path to your example scripts
     "examples_dirs": [
         os.path.join("..", "..", "examples", "basic"),
+        os.path.join("..", "..", "examples", "sdnphy_mib"),
         os.path.join("..", "..", "examples", "OpenFPGA_basic"),
         os.path.join("..", "..", "examples", "OpenFPGA_Floorplanning"),
         os.path.join("..", "..", "examples", "OpenFPGA_clock_tree"),
@@ -276,6 +277,7 @@ sphinx_gallery_conf = {
     # path to where to save gallery generated output
     "gallery_dirs": [
         "auto_basic",
+        "auto_sdnphy_mib",
         "auto_openfpga_basic",
         "auto_openfpga_floorplanning",
         "auto_openfpga_clock_tree",

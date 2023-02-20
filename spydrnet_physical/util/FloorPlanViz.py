@@ -17,7 +17,7 @@ Detail of properties of different objects
   - ``WIDTH`` and ``HEIGHT`` = The rectangular dimension of the module
 
 - Parameters for ``cross``
-  
+
   - ``A``, ``B`` , ``C`` , ``D`` , ``E``, ``F``  =  Dimensions of the rectilinear block (as show in figure below)
 
 - Parameters for ``custom``
@@ -147,7 +147,7 @@ STYLE_SHEET = """
 
 class FloorPlanViz:
     '''
-    Implmenetation of SVG Visualiser `floorplan_visualizer <reference/visualization/floorplan_visualizer.rst>`_ 
+    Implmenetation of SVG Visualiser `floorplan_visualizer <reference/visualization/floorplan_visualizer.rst>`_
     '''
 
     def __init__(self, definition, viewbox=(0, 0, 1000, 1000)):
@@ -197,7 +197,7 @@ class FloorPlanViz:
 
         args:
             skip_connections(bool) : Skip rednering connections beetween modules
-            skip_pins(bool) :Skip rendering modules pins  
+            skip_pins(bool) :Skip rendering modules pins
             filter_cables(Callable): A callable function which filters the connections to redner
         '''
         # Create symbol for top-module and add in svg
@@ -246,7 +246,7 @@ class FloorPlanViz:
 
     def add_top_block(self, top_module):
         """
-        Adds top level block in the design 
+        Adds top level block in the design
         """
         name = top_module.name
         defDict = self.def_list[name]
@@ -320,7 +320,7 @@ class FloorPlanViz:
 
     def _get_label_location(self, instance) -> tuple:
         '''
-        Return the label location given the verilog instance 
+        Return the label location given the verilog instance
 
         Always in the center of the shape
         '''

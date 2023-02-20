@@ -21,7 +21,8 @@ Note: because the hierarchy function uses recursion, the maximum recursion depth
 
 **Output log**
 
-.. literalinclude: ../../../examples/basic/_netlist_info_spydrnet.log
+.. program-output:: bash -c "cd ../../examples/basic/ && cat _netlist_info_spydrnet.log"
+   :ellipsis: 50
 
 """
 

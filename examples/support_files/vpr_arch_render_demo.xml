@@ -79,5 +79,25 @@
             <corners type="EMPTY" priority="101"/>
             <fill type="clb" priority="10"/>
         </fixed_layout>
+        <fixed_layout name="scalable" width="10" height="10">
+            <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
+            <row type="io_top" starty="H-2" priority="100"/>
+            <row type="io_bottom" starty="1" priority="100"/>
+            <col type="io_left" startx="1" priority="100"/>
+            <col type="io_right" startx="W-2" priority="100"/>
+            <corners type="EMPTY" priority="101"/>
+            <fill type="clb" priority="10"/>
+        </fixed_layout>
+        <fixed_layout name="scalablehetero" width="10" height="10">
+            <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
+            <row type="io_top" starty="H-2" priority="100"/>
+            <row type="io_bottom" starty="1" priority="100"/>
+            <col type="io_left" startx="1" priority="100"/>
+            <col type="io_right" startx="W-2" priority="100"/>
+            <corners type="EMPTY" priority="101"/>
+            <fill type="clb" priority="10"/>
+            <region type="dsp" startx="3" endx="3" starty="2" incry="2" endy="H-4" priority="30"/>
+            <region type="ram9k" startx="6" endx="6" starty="2" incry="2" endy="H-4" priority="30"/>
+        </fixed_layout>
     </layout>
 </architecture>

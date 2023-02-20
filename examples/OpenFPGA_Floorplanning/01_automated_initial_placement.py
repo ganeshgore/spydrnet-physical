@@ -98,17 +98,11 @@ def main():
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     shapes = fpga.placement_creator.module_shapes
 
-    for module in ["grid_clb"]:
-        shapes[module]["POINTS"][0] -= 16
-        shapes[module]["POINTS"][1] -= 2
-        shapes[module]["PLACEMENT"][0] += 8
-        shapes[module]["PLACEMENT"][1] += 1
-
-    for module in ["cbx_1__0_", "cbx_1__1_", "cbx_1__4_"]:
+    for module in ["cbx_1__0_", "cbx_1__1_", "cbx_1__4_", "grid_clb"]:
         shapes[module]["POINTS"][0] -= 16
         shapes[module]["PLACEMENT"][0] += 8
 
-    for module in ["cby_0__1_", "cby_1__1_", "cby_4__1_"]:
+    for module in ["cby_0__1_", "cby_1__1_", "cby_4__1_", "grid_clb"]:
         shapes[module]["POINTS"][1] -= 2
         shapes[module]["PLACEMENT"][1] += 1
 
@@ -124,7 +118,7 @@ def main():
     fpga.update_module_label(
         get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
                             f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
-                            f"[{x.utilization:.2%}]")
+                            f"\n[{x.utilization:.0%}]")
     fpga.show_utilization_data()
 
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

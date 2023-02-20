@@ -75,11 +75,21 @@ def parse_argument() -> argparse.Namespace:
 CSS_STYLE = """
 .boundary{stroke:grey; fill:none; stroke-width:0.2}
 text{font-family: Lato; font-size:1.2px;}
-symbol * { stroke-width:0.1; stroke:black;}
+symbol { stroke-width:0.1; stroke:black;}
 .marker{stroke: red;opacity: 0.1;stroke-width: 0.1px;}
 symbol[id="cbx"] * { fill:#d9d9f3;}
 symbol[id="cby"] * { fill:#a8d0db;}
-symbol[id*="sb"] * { fill:#ceefe4;}
+symbol[id="sb00"] * { fill:#ceefe4;}
+symbol[id="sb01"] * { fill:#ceefe4;}
+symbol[id="sb02"] * { fill:#ceefe4;}
+symbol[id="sb03"] * { fill:#ceefe4;}
+symbol[id="sb04"] * { fill:#ceefe4;}
+symbol[id="sb05"] * { fill:#ceefe4;}
+symbol[id="sb06"] * { fill:#ceefe4;}
+symbol[id="sb07"] * { fill:#ceefe4;}
+symbol[id="sb08"] * { fill:#ceefe4;}
+symbol[id="sb09"] * { fill:#ceefe4;}
+symbol[id="sb10"] * { fill:#ceefe4;}
 rect[class="lb"] { fill:#f4f0e6; }
 symbol[id*="io_"] * { fill:#f8b155;}
 """

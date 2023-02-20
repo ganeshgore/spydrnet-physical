@@ -12,12 +12,12 @@ This example merges ``inst_1_0`` and ``inst_2_0``, ``inst_1_1`` and ``inst_2_1``
 
 **Before merging**
 
-.. image:: ../../../examples/basic/_basic_inst_design.svg
+.. image:: ../../../examples/sdnphy_mib/_basic_inst_design.svg
    :align: center
 
 **After merging**
 
-.. image:: ../../../examples/basic/_Merged_mul_inst_design.svg
+.. image:: ../../../examples/sdnphy_mib/_merged_mul_inst_design.svg
     :align: center
 
 """
@@ -48,7 +48,7 @@ top.merge_multiple_instance(inst_tup_list, new_definition_name="module3")
 sdn.compose(netlist, '_merged_mul_inst_design.v', skip_constraints=True)
 
 composer = HTMLComposer()
-composer.run(netlist, file_out="_Merged_mul_inst_design.html")
+composer.run(netlist, file_out="_merged_mul_inst_design.html")
 
 composer = SVGComposer()
-composer.run(netlist, file_out="_Merged_mul_inst_design.svg")
+composer.run(netlist, file_out="_merged_mul_inst_design.svg")
