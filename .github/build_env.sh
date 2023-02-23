@@ -2,6 +2,7 @@ pip install --upgrade pip
 pip install --upgrade Cython
 apt-get update
 apt-get -y install metis parallel libxml2-utils
+cp /usr/bin/netlistsvg /usr/bin/netlistsvg-hierarchy
 
 if [ -f "requirements.txt" ]; then
     python3 -m pip install --upgrade \

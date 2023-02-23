@@ -32,7 +32,8 @@ RUN apt-get -y install \
 # Install Node
 WORKDIR /tmp
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
-RUN apt-get install nodejs && npm install -g netlistsvg
+RUN apt-get install nodejs
+RUN npm install -g netlistsvg && npm install -g ganeshgore/netlistsvg#hierarchy
 COPY .github/build_docs.sh .
 COPY docs/requirements.txt docs/requirements.txt
 RUN bash build_docs.sh
