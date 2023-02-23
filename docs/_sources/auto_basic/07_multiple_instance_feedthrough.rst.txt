@@ -40,7 +40,7 @@ from  ``inst_1_0`` and  ``inst_1_1`` in sequence.
 .. image:: ../../../examples/basic/_Feedthrough_basic_hierarchy_design.svg
     :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-70
+.. GENERATED FROM PYTHON SOURCE LINES 27-72
 
 .. code-block:: default
 
@@ -84,7 +84,9 @@ from  ``inst_1_0`` and  ``inst_1_1`` in sequence.
     composer = HTMLComposer()
     composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.html")
     composer = SVGComposer()
-    composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.svg")
+    composer.expand(modules=["module1"])
+    composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.svg",
+                 netlistsvg="netlistsvg-hierarchy")
     sdn.compose(netlist, '_basic_hierarchy_after_multiple_feedthrough.v',
                 skip_constraints=True)
 

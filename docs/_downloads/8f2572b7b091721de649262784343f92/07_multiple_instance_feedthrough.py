@@ -64,6 +64,8 @@ top.create_unconn_wires()
 composer = HTMLComposer()
 composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.html")
 composer = SVGComposer()
-composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.svg")
+composer.expand(modules=["module1"])
+composer.run(netlist, file_out="_Feedthrough_basic_hierarchy_design.svg",
+             netlistsvg="netlistsvg-hierarchy")
 sdn.compose(netlist, '_basic_hierarchy_after_multiple_feedthrough.v',
             skip_constraints=True)

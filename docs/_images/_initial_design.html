@@ -75,205 +75,289 @@ hwSchematic.bindData(
   "ports": [],
   "children": [
     {
-      "id": "top_top",
+      "id": "top_wrapper",
       "ports": [
         {
-          "id": "top_top/in0",
+          "id": "top_wrapper/in0",
           "direction": "INPUT",
           "hwMeta": { "name": "in0"},
           "properties": { "index": 1, "side": "WEST"}},
         {
-          "id": "top_top/in1",
+          "id": "top_wrapper/in1",
           "direction": "INPUT",
           "hwMeta": { "name": "in1"},
           "properties": { "index": 1, "side": "WEST"}},
         {
-          "id": "top_top/in3",
+          "id": "top_wrapper/in3",
           "direction": "INPUT",
           "hwMeta": { "name": "in3"},
           "properties": { "index": 1, "side": "WEST"}},
         {
-          "id": "top_top/bus_in",
+          "id": "top_wrapper/bus_in",
           "direction": "INPUT",
           "hwMeta": { "name": "bus_in"},
           "properties": { "index": 1, "side": "WEST"}},
         {
-          "id": "top_top/out0",
+          "id": "top_wrapper/out0",
           "direction": "OUTPUT",
           "hwMeta": { "name": "out0"},
           "properties": { "index": 1, "side": "EAST"}},
         {
-          "id": "top_top/bus_out",
+          "id": "top_wrapper/bus_out",
           "direction": "OUTPUT",
           "hwMeta": { "name": "bus_out"},
           "properties": { "index": 1, "side": "EAST"}}
       ],
       "_children": [
         {
-          "id": "inst_2_1",
+          "id": "top_wrapper",
           "ports": [
             {
-              "id": "inst_2_1/in0",
+              "id": "top_wrapper/in0",
               "direction": "INPUT",
               "hwMeta": { "name": "in0"},
               "properties": { "index": 1, "side": "WEST"}},
             {
-              "id": "inst_2_1/in1",
+              "id": "top_wrapper/in1",
               "direction": "INPUT",
               "hwMeta": { "name": "in1"},
               "properties": { "index": 1, "side": "WEST"}},
             {
-              "id": "inst_2_1/out",
+              "id": "top_wrapper/in3",
+              "direction": "INPUT",
+              "hwMeta": { "name": "in3"},
+              "properties": { "index": 1, "side": "WEST"}},
+            {
+              "id": "top_wrapper/bus_in",
+              "direction": "INPUT",
+              "hwMeta": { "name": "bus_in"},
+              "properties": { "index": 1, "side": "WEST"}},
+            {
+              "id": "top_wrapper/out0",
               "direction": "OUTPUT",
-              "hwMeta": { "name": "out"},
+              "hwMeta": { "name": "out0"},
+              "properties": { "index": 1, "side": "EAST"}},
+            {
+              "id": "top_wrapper/bus_out",
+              "direction": "OUTPUT",
+              "hwMeta": { "name": "bus_out"},
               "properties": { "index": 1, "side": "EAST"}}
           ],
-          "_children": [],
-          "_edges": [],
-          "hwMeta": { "bodyText": "inst_2_1", "cls": "Process"},
-          "properties": {
-            "org.eclipse.elk.layered.mergeEdges": 1,
-            "org.eclipse.elk.portConstraints": "FIXED_SIDE"
-          }
-        },
-        {
-          "id": "inst_2_0",
-          "ports": [
+          "_children": [
             {
-              "id": "inst_2_0/in0",
-              "direction": "INPUT",
-              "hwMeta": { "name": "in0"},
-              "properties": { "index": 1, "side": "WEST"}},
+              "id": "top_wrapper/inst_2_1",
+              "ports": [
+                {
+                  "id": "top_wrapper/inst_2_1/in0",
+                  "direction": "INPUT",
+                  "hwMeta": { "name": "in0"},
+                  "properties": { "index": 1, "side": "WEST"}},
+                {
+                  "id": "top_wrapper/inst_2_1/in1",
+                  "direction": "INPUT",
+                  "hwMeta": { "name": "in1"},
+                  "properties": { "index": 1, "side": "WEST"}},
+                {
+                  "id": "top_wrapper/inst_2_1/out",
+                  "direction": "OUTPUT",
+                  "hwMeta": { "name": "out"},
+                  "properties": { "index": 1, "side": "EAST"}}
+              ],
+              "_children": [],
+              "_edges": [],
+              "hwMeta": { "bodyText": "inst_2_1", "cls": "Process"},
+              "properties": {
+                "org.eclipse.elk.layered.mergeEdges": 1,
+                "org.eclipse.elk.portConstraints": "FIXED_SIDE"
+              }
+            },
             {
-              "id": "inst_2_0/in1",
-              "direction": "INPUT",
-              "hwMeta": { "name": "in1"},
-              "properties": { "index": 1, "side": "WEST"}},
+              "id": "top_wrapper/inst_2_0",
+              "ports": [
+                {
+                  "id": "top_wrapper/inst_2_0/in0",
+                  "direction": "INPUT",
+                  "hwMeta": { "name": "in0"},
+                  "properties": { "index": 1, "side": "WEST"}},
+                {
+                  "id": "top_wrapper/inst_2_0/in1",
+                  "direction": "INPUT",
+                  "hwMeta": { "name": "in1"},
+                  "properties": { "index": 1, "side": "WEST"}},
+                {
+                  "id": "top_wrapper/inst_2_0/out",
+                  "direction": "OUTPUT",
+                  "hwMeta": { "name": "out"},
+                  "properties": { "index": 1, "side": "EAST"}}
+              ],
+              "_children": [],
+              "_edges": [],
+              "hwMeta": { "bodyText": "inst_2_0", "cls": "Process"},
+              "properties": {
+                "org.eclipse.elk.layered.mergeEdges": 1,
+                "org.eclipse.elk.portConstraints": "FIXED_SIDE"
+              }
+            },
             {
-              "id": "inst_2_0/out",
-              "direction": "OUTPUT",
-              "hwMeta": { "name": "out"},
-              "properties": { "index": 1, "side": "EAST"}}
+              "id": "top_wrapper/inst_1_1",
+              "ports": [
+                {
+                  "id": "top_wrapper/inst_1_1/in0",
+                  "direction": "INPUT",
+                  "hwMeta": { "name": "in0"},
+                  "properties": { "index": 1, "side": "WEST"}},
+                {
+                  "id": "top_wrapper/inst_1_1/in1",
+                  "direction": "INPUT",
+                  "hwMeta": { "name": "in1"},
+                  "properties": { "index": 1, "side": "WEST"}},
+                {
+                  "id": "top_wrapper/inst_1_1/out",
+                  "direction": "OUTPUT",
+                  "hwMeta": { "name": "out"},
+                  "properties": { "index": 1, "side": "EAST"}}
+              ],
+              "_children": [],
+              "_edges": [],
+              "hwMeta": { "bodyText": "inst_1_1", "cls": "Process"},
+              "properties": {
+                "org.eclipse.elk.layered.mergeEdges": 1,
+                "org.eclipse.elk.portConstraints": "FIXED_SIDE"
+              }
+            },
+            {
+              "id": "top_wrapper/inst_1_0",
+              "ports": [
+                {
+                  "id": "top_wrapper/inst_1_0/in0",
+                  "direction": "INPUT",
+                  "hwMeta": { "name": "in0"},
+                  "properties": { "index": 1, "side": "WEST"}},
+                {
+                  "id": "top_wrapper/inst_1_0/in1",
+                  "direction": "INPUT",
+                  "hwMeta": { "name": "in1"},
+                  "properties": { "index": 1, "side": "WEST"}},
+                {
+                  "id": "top_wrapper/inst_1_0/out",
+                  "direction": "OUTPUT",
+                  "hwMeta": { "name": "out"},
+                  "properties": { "index": 1, "side": "EAST"}}
+              ],
+              "_children": [],
+              "_edges": [],
+              "hwMeta": { "bodyText": "inst_1_0", "cls": "Process"},
+              "properties": {
+                "org.eclipse.elk.layered.mergeEdges": 1,
+                "org.eclipse.elk.portConstraints": "FIXED_SIDE"
+              }
+            }
           ],
-          "_children": [],
-          "_edges": [],
-          "hwMeta": { "bodyText": "inst_2_0", "cls": "Process"},
-          "properties": {
-            "org.eclipse.elk.layered.mergeEdges": 1,
-            "org.eclipse.elk.portConstraints": "FIXED_SIDE"
-          }
-        },
-        {
-          "id": "inst_1_1",
-          "ports": [
-            {
-              "id": "inst_1_1/in0",
-              "direction": "INPUT",
-              "hwMeta": { "name": "in0"},
-              "properties": { "index": 1, "side": "WEST"}},
-            {
-              "id": "inst_1_1/in1",
-              "direction": "INPUT",
-              "hwMeta": { "name": "in1"},
-              "properties": { "index": 1, "side": "WEST"}},
-            {
-              "id": "inst_1_1/out",
-              "direction": "OUTPUT",
-              "hwMeta": { "name": "out"},
-              "properties": { "index": 1, "side": "EAST"}}
-          ],
-          "_children": [],
           "_edges": [
             {
               "id": 1,
-              "hwMeta": { "name": "inst_1_1/in0", "cssClass": "link-style0"},
+              "hwMeta": { "name": "top_wrapper/in0", "cssClass": "link-style0"},
               "sources": [
                 [
-                  "inst_1_1",
-                  "inst_1_1/in0"
+                  "top_wrapper",
+                  "top_wrapper/in0"
                 ]
               ],
-              "targets": []},
+              "targets": [
+                [
+                  "top_wrapper/inst_1_0",
+                  "top_wrapper/inst_1_0/in0"
+                ],
+                [
+                  "top_wrapper/inst_2_0",
+                  "top_wrapper/inst_2_0/in0"
+                ]
+              ]},
             {
               "id": 2,
-              "hwMeta": { "name": "inst_1_1/in1", "cssClass": "link-style0"},
+              "hwMeta": { "name": "top_wrapper/in1", "cssClass": "link-style0"},
               "sources": [
                 [
-                  "inst_1_1",
-                  "inst_1_1/in1"
+                  "top_wrapper",
+                  "top_wrapper/in1"
                 ]
               ],
-              "targets": []},
+              "targets": [
+                [
+                  "top_wrapper/inst_1_0",
+                  "top_wrapper/inst_1_0/in1"
+                ],
+                [
+                  "top_wrapper/inst_2_0",
+                  "top_wrapper/inst_2_0/in0"
+                ]
+              ]},
             {
               "id": 3,
-              "hwMeta": { "name": "inst_1_1/out", "cssClass": "link-style0"},
+              "hwMeta": { "name": "top_wrapper/in3", "cssClass": "link-style0"},
               "sources": [
                 [
-                  "inst_1_1",
-                  "inst_1_1/out"
+                  "top_wrapper",
+                  "top_wrapper/in3"
                 ]
               ],
-              "targets": []}
-          ],
-          "hwMeta": { "bodyText": "inst_1_1", "cls": "Process"},
-          "properties": {
-            "org.eclipse.elk.layered.mergeEdges": 1,
-            "org.eclipse.elk.portConstraints": "FIXED_SIDE"
-          }
-        },
-        {
-          "id": "inst_1_0",
-          "ports": [
-            {
-              "id": "inst_1_0/in0",
-              "direction": "INPUT",
-              "hwMeta": { "name": "in0"},
-              "properties": { "index": 1, "side": "WEST"}},
-            {
-              "id": "inst_1_0/in1",
-              "direction": "INPUT",
-              "hwMeta": { "name": "in1"},
-              "properties": { "index": 1, "side": "WEST"}},
-            {
-              "id": "inst_1_0/out",
-              "direction": "OUTPUT",
-              "hwMeta": { "name": "out"},
-              "properties": { "index": 1, "side": "EAST"}}
-          ],
-          "_children": [],
-          "_edges": [
+              "targets": [
+                [
+                  "top_wrapper/inst_1_1",
+                  "top_wrapper/inst_1_1/in1"
+                ]
+              ]},
             {
               "id": 4,
-              "hwMeta": { "name": "inst_1_0/in0", "cssClass": "link-style0"},
+              "hwMeta": { "name": "top_wrapper/out0", "cssClass": "link-style0"},
               "sources": [
                 [
-                  "inst_1_0",
-                  "inst_1_0/in0"
+                  "top_wrapper",
+                  "top_wrapper/out0"
                 ]
               ],
-              "targets": []},
+              "targets": [
+                [
+                  "top_wrapper/inst_1_1",
+                  "top_wrapper/inst_1_1/out"
+                ]
+              ]},
             {
               "id": 5,
-              "hwMeta": { "name": "inst_1_0/in1", "cssClass": "link-style0"},
+              "hwMeta": { "name": "top_wrapper/wire0", "cssClass": "link-style0"},
               "sources": [
                 [
-                  "inst_1_0",
-                  "inst_1_0/in1"
+                  "top_wrapper/inst_1_0",
+                  "top_wrapper/inst_1_0/out"
                 ]
               ],
-              "targets": []},
+              "targets": [
+                [
+                  "top_wrapper/inst_1_1",
+                  "top_wrapper/inst_1_1/in0"
+                ]
+              ]},
             {
               "id": 6,
-              "hwMeta": { "name": "inst_1_0/out", "cssClass": "link-style0"},
+              "hwMeta": { "name": "top_wrapper/wire_bus", "cssClass": "link-style1"},
               "sources": [
                 [
-                  "inst_1_0",
-                  "inst_1_0/out"
+                  "top_wrapper/inst_2_0",
+                  "top_wrapper/inst_2_0/out"
                 ]
               ],
-              "targets": []}
+              "targets": [
+                [
+                  "top_wrapper/inst_2_1",
+                  "top_wrapper/inst_2_1/in0"
+                ],
+                [
+                  "top_wrapper/inst_2_1",
+                  "top_wrapper/inst_2_1/in1"
+                ]
+              ]}
           ],
-          "hwMeta": { "bodyText": "inst_1_0", "cls": "Process"},
+          "hwMeta": { "bodyText": "top_wrapper", "cls": "Process"},
           "properties": {
             "org.eclipse.elk.layered.mergeEdges": 1,
             "org.eclipse.elk.portConstraints": "FIXED_SIDE"
@@ -286,18 +370,14 @@ hwSchematic.bindData(
           "hwMeta": { "name": "in0", "cssClass": "link-style0"},
           "sources": [
             [
-              "top_top",
-              "top_top/in0"
+              "top_wrapper",
+              "top_wrapper/in0"
             ]
           ],
           "targets": [
             [
-              "inst_1_0",
-              "inst_1_0/in0"
-            ],
-            [
-              "inst_2_0",
-              "inst_2_0/in0"
+              "top_wrapper",
+              "top_wrapper/in0"
             ]
           ]},
         {
@@ -305,18 +385,14 @@ hwSchematic.bindData(
           "hwMeta": { "name": "in1", "cssClass": "link-style0"},
           "sources": [
             [
-              "top_top",
-              "top_top/in1"
+              "top_wrapper",
+              "top_wrapper/in1"
             ]
           ],
           "targets": [
             [
-              "inst_1_0",
-              "inst_1_0/in1"
-            ],
-            [
-              "inst_2_0",
-              "inst_2_0/in0"
+              "top_wrapper",
+              "top_wrapper/in1"
             ]
           ]},
         {
@@ -324,14 +400,14 @@ hwSchematic.bindData(
           "hwMeta": { "name": "in3", "cssClass": "link-style0"},
           "sources": [
             [
-              "top_top",
-              "top_top/in3"
+              "top_wrapper",
+              "top_wrapper/in3"
             ]
           ],
           "targets": [
             [
-              "inst_1_1",
-              "inst_1_1/in1"
+              "top_wrapper",
+              "top_wrapper/in3"
             ]
           ]},
         {
@@ -339,52 +415,18 @@ hwSchematic.bindData(
           "hwMeta": { "name": "out0", "cssClass": "link-style0"},
           "sources": [
             [
-              "top_top",
-              "top_top/out0"
+              "top_wrapper",
+              "top_wrapper/out0"
             ]
           ],
           "targets": [
             [
-              "inst_1_1",
-              "inst_1_1/out"
-            ]
-          ]},
-        {
-          "id": 11,
-          "hwMeta": { "name": "wire0", "cssClass": "link-style0"},
-          "sources": [
-            [
-              "inst_1_0",
-              "inst_1_0/out"
-            ]
-          ],
-          "targets": [
-            [
-              "inst_1_1",
-              "inst_1_1/in0"
-            ]
-          ]},
-        {
-          "id": 12,
-          "hwMeta": { "name": "wire_bus", "cssClass": "link-style1"},
-          "sources": [
-            [
-              "inst_2_0",
-              "inst_2_0/out"
-            ]
-          ],
-          "targets": [
-            [
-              "inst_2_1",
-              "inst_2_1/in0"
-            ],
-            [
-              "inst_2_1",
-              "inst_2_1/in1"
+              "top_wrapper",
+              "top_wrapper/out0"
             ]
           ]}
       ],
-      "hwMeta": { "bodyText": "top_top", "cls": "Process"},
+      "hwMeta": { "bodyText": "top_wrapper", "cls": "Process"},
       "properties": {
         "org.eclipse.elk.layered.mergeEdges": 1,
         "org.eclipse.elk.portConstraints": "FIXED_SIDE"
@@ -499,8 +541,8 @@ hwSchematic.bindData(
       "hwMeta": { "name": "in0_conn", "cssClass": "link-style0"},
       "sources": [
         [
-          "top_top",
-          "top_top/in0"
+          "top_wrapper",
+          "top_wrapper/in0"
         ]
       ],
       "targets": [
@@ -514,8 +556,8 @@ hwSchematic.bindData(
       "hwMeta": { "name": "in1_conn", "cssClass": "link-style0"},
       "sources": [
         [
-          "top_top",
-          "top_top/in1"
+          "top_wrapper",
+          "top_wrapper/in1"
         ]
       ],
       "targets": [
@@ -529,8 +571,8 @@ hwSchematic.bindData(
       "hwMeta": { "name": "in3_conn", "cssClass": "link-style0"},
       "sources": [
         [
-          "top_top",
-          "top_top/in3"
+          "top_wrapper",
+          "top_wrapper/in3"
         ]
       ],
       "targets": [
@@ -544,8 +586,8 @@ hwSchematic.bindData(
       "hwMeta": { "name": "bus_in_conn", "cssClass": "link-style0"},
       "sources": [
         [
-          "top_top",
-          "top_top/bus_in"
+          "top_wrapper",
+          "top_wrapper/bus_in"
         ]
       ],
       "targets": [
@@ -559,8 +601,8 @@ hwSchematic.bindData(
       "hwMeta": { "name": "out0_conn", "cssClass": "link-style0"},
       "sources": [
         [
-          "top_top",
-          "top_top/out0"
+          "top_wrapper",
+          "top_wrapper/out0"
         ]
       ],
       "targets": [
@@ -574,8 +616,8 @@ hwSchematic.bindData(
       "hwMeta": { "name": "bus_out_conn", "cssClass": "link-style0"},
       "sources": [
         [
-          "top_top",
-          "top_top/bus_out"
+          "top_wrapper",
+          "top_wrapper/bus_out"
         ]
       ],
       "targets": [
@@ -585,12 +627,12 @@ hwSchematic.bindData(
         ]
       ]}
   ],
-  "hwMeta": { "maxId": 13},
+  "hwMeta": { "maxId": 11},
   "properties": {
     "org.eclipse.elk.layered.mergeEdges": 1,
     "org.eclipse.elk.portConstraints": "FIXED_SIDE"
   }
-});var currentFileName = 'top_top.json';
+});var currentFileName = 'top_wrapper.json';
         </script>
         </body>
         </html>

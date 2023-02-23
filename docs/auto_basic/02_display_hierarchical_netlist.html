@@ -366,11 +366,16 @@ to download the full example code</p>
 
 <span class="n">netlist</span> <span class="o">=</span> <span class="n">sdnphy</span><span class="o">.</span><span class="n">load_netlist_by_name</span><span class="p">(</span><span class="s2">"basic_hierarchy"</span><span class="p">)</span>
 
+<span class="n">library</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">libraries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">library</span><span class="o">.</span><span class="n">create_top_wrapper</span><span class="p">(</span><span class="s2">"top_wrapper"</span><span class="p">,</span> <span class="n">inst_name</span><span class="o">=</span><span class="s2">"top_wrapper"</span><span class="p">)</span>
+
 <span class="n">composer</span> <span class="o">=</span> <span class="n">HTMLComposer</span><span class="p">()</span>
 <span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_initial_design.html"</span><span class="p">)</span>
 
 <span class="n">composer</span> <span class="o">=</span> <span class="n">SVGComposer</span><span class="p">()</span>
-<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_initial_design.svg"</span><span class="p">)</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">modules</span><span class="o">=</span><span class="p">[</span><span class="s2">"top"</span><span class="p">])</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_initial_design.svg"</span><span class="p">,</span>
+             <span class="n">netlistsvg</span><span class="o">=</span><span class="s2">"netlistsvg-hierarchy"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>

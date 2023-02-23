@@ -358,7 +358,7 @@ the feedthrough instead of creating independent feedthrough to pass through each
 from  <code class="docutils literal notranslate"><span class="pre">inst_1_0</span></code> and  <code class="docutils literal notranslate"><span class="pre">inst_1_1</span></code> in sequence.</p>
 <p><strong>Before feedthrough</strong></p>
 <img alt="../_images/_basic_hierarchy_design.svg" class="align-center" src="../_images/_basic_hierarchy_design.svg"/><p><strong>After feedthrough</strong></p>
-<img alt="../_images/_Feedthrough_basic_hierarchy_design.svg" class="align-center" src="../_images/_Feedthrough_basic_hierarchy_design.svg"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<img alt="../../examples/basic/_Feedthrough_basic_hierarchy_design.svg" class="align-center" src="../../examples/basic/_Feedthrough_basic_hierarchy_design.svg"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.composers.html.composer</span> <span class="kn">import</span> <span class="n">HTMLComposer</span>
@@ -397,7 +397,9 @@ from  <code class="docutils literal notranslate"><span class="pre">inst_1_0</spa
 <span class="n">composer</span> <span class="o">=</span> <span class="n">HTMLComposer</span><span class="p">()</span>
 <span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_Feedthrough_basic_hierarchy_design.html"</span><span class="p">)</span>
 <span class="n">composer</span> <span class="o">=</span> <span class="n">SVGComposer</span><span class="p">()</span>
-<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_Feedthrough_basic_hierarchy_design.svg"</span><span class="p">)</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">modules</span><span class="o">=</span><span class="p">[</span><span class="s2">"module1"</span><span class="p">])</span>
+<span class="n">composer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">file_out</span><span class="o">=</span><span class="s2">"_Feedthrough_basic_hierarchy_design.svg"</span><span class="p">,</span>
+             <span class="n">netlistsvg</span><span class="o">=</span><span class="s2">"netlistsvg-hierarchy"</span><span class="p">)</span>
 <span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="s1">'_basic_hierarchy_after_multiple_feedthrough.v'</span><span class="p">,</span>
             <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
