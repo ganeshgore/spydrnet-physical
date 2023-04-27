@@ -31,7 +31,8 @@ folder_path = path.normpath(
 for filename in glob.glob(path.join(folder_path, "**", "*"), recursive=True):
     if path.isfile(filename) and path.getsize(filename) < 1024 * 10:
         example_verilog_netlist.append(
-            "support_files/" + str(filename)[len(folder_path) + 1 :].replace("\\", "/")
+            "support_files/" +
+            str(filename)[len(folder_path) + 1:].replace("\\", "/")
         )
 
 extras_require = {
@@ -57,7 +58,8 @@ if __name__ == "__main__":
         url=release.url,
         project_urls=release.project_urls,
         classifiers=release.classifiers,
-        package_data={"spydrnet_physical": ["VERSION"] + example_verilog_netlist},
+        package_data={"spydrnet_physical": [
+            "VERSION"] + example_verilog_netlist},
         packages=setuptools.find_packages(),
         extras_require=extras_require,
         dependency_links=[
@@ -68,6 +70,7 @@ if __name__ == "__main__":
         entry_points={
             "console_scripts": [
                 "sdnphy = spydrnet_physical.util.shell:launch_shell",
+                "sdnphy-format = spydrnet_physical.util.format_file:format_verilog",
             ],
         },
     )
