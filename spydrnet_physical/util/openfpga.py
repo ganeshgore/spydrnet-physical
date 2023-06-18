@@ -223,7 +223,7 @@ class OpenFPGA:
             )
         )
         output.append(" = =" * 30)
-        for instance in self.top_module.get_instances(pattern):
+        for instance in sorted(list(self.top_module.get_instances(pattern)), key=lambda x:x.name):
             if "ASSIG" in instance.reference.name:
                 continue
             if instance.reference.name.startswith("const"):
@@ -782,8 +782,8 @@ class OpenFPGA:
     def write_include_file(self, filename, relative_from=None):
         relative_from = relative_from or os.environ.get("VERILOG_PROJ_DIR", "")
         with open(filename, "w", encoding="UTF-8") as fp:
-            for filepath in sorted(self.write_modules_paths):
-                filepath = str(filepath).replace(relative_from, ".")
+            for filepath in self.write_modules_paths:
+                filepath = Path(filepath).relative_to(relative_from)
                 fp.write(f'`include "{filepath}"' + "\n")
 
     def save_netlist(
@@ -800,7 +800,7 @@ class OpenFPGA:
         """
         Save verilog files
         """
-        for definition in self._library.get_definitions(patten):
+        for definition in sorted(list(self._library.get_definitions(patten)), key=lambda x: x.name):
             if definition.name in self.written_modules:
                 continue
             if sort_ports:
