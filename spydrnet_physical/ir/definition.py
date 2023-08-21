@@ -353,9 +353,9 @@ class Definition(DefinitionBase):
             new_mod.data[PROP]["AREA_UM"] += each.reference.data[PROP].get(
                 "AREA_UM", 0)
         LOC_X = min([each.data[PROP].get("LOC_X", 0)
-                     for each in instances_list])
+                     for each in instances_list] or [0])
         LOC_Y = min([each.data[PROP].get("LOC_Y", 0)
-                     for each in instances_list])
+                     for each in instances_list] or [0])
         new_instance.data[PROP]["LOC_X"] = LOC_X
         new_instance.data[PROP]["LOC_Y"] = LOC_Y
         if outline:
