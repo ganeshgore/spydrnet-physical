@@ -38,6 +38,7 @@ class OpenFPGA:
         grid,
         netlist=None,
         verilog_files=None,
+        cell_files=None,
         library="work",
         top_module="fpga_top",
         arch_xml=None,
@@ -59,6 +60,12 @@ class OpenFPGA:
                 for each_file in verilog_files:
                     with open(each_file, "r", encoding="UTF-8") as fpv:
                         fp.write(str.encode(" ".join(fpv.readlines())))
+                if cell_files:
+                    fp.write("`celldefine\n".encode())
+                    for each_file in cell_files:
+                        with open(each_file, "r", encoding="UTF-8") as fpv:
+                            fp.write(str.encode(" ".join(fpv.readlines())))
+                    fp.write("`endcelldefine\n".encode())
                 fp.seek(0)
                 self._netlist = sdn.parse(fp.name)
         else:
@@ -788,9 +795,9 @@ class OpenFPGA:
 
     def save_netlist(
         self,
-        patten="*",
+        pattern="*",
         location=".",
-        sort_print=False,
+        sort_all=False,
         skip_constraints=True,
         sort_cables=False,
         sort_instances=False,
@@ -800,23 +807,23 @@ class OpenFPGA:
         """
         Save verilog files
         """
-        for definition in sorted(list(self._library.get_definitions(patten)), key=lambda x: x.name):
+        for definition in sorted(list(self._library.get_definitions(pattern)), key=lambda x: x.name):
             if definition.name in self.written_modules:
                 continue
-            if sort_ports:
-                definition._ports.sort(
-                    key=lambda x: str(x._direction) + x.name)
-            if sort_cables:
-                definition._cables.sort(key=lambda x: x.name)
-            if sort_instances:
-                definition._children.sort(key=lambda x: x.name)
+            # if sort_ports:
+            #     definition._ports.sort(
+            #         key=lambda x: str(x._direction) + x.name)
+            # if sort_cables:
+            #     definition._cables.sort(key=lambda x: x.name)
+            # if sort_instances:
+            #     definition._children.sort(key=lambda x: x.name)
             logger.debug("Writing %s", definition.name)
             Path(location).mkdir(parents=True, exist_ok=True)
             filepath = os.path.join(location, f"{definition.name}.v")
             sdn.compose(
                 self._netlist,
                 filename=filepath,
-                sort_all=sort_print,
+                sort_all=sort_all,
                 skip_constraints=skip_constraints,
                 definition_list=[definition.name],
                 write_blackbox=write_blackbox,
