@@ -567,14 +567,14 @@ class OpenFPGA:
         """
         Convertes matching `in_patt` pins to bus with `out_patt` name
         """
-
+        new_port, new_cable = None, None
         def get_pins(x):
             return fnmatch(x.name, in_patt)
 
         ports = list(module.get_ports(filter=get_pins))
         if ports:
-            # ports = sorted(ports, key=sort_pins or (lambda x: x.name))
-            module.combine_ports(out_patt, ports)
+            new_port, new_cable = module.combine_ports(out_patt, ports)
+        return new_port, new_cable
 
     def create_grid_io_bus(self, inpad="inpad", outpad="outpad", sort_pins=None):
         """
