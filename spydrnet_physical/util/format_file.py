@@ -3,6 +3,8 @@ import tempfile
 import argparse
 import os
 import shutil
+from spydrnet_physical.util.shell import launch_shell
+from spydrnet_physical.util import get_names
 
 
 def format_verilog():
@@ -19,6 +21,17 @@ def format_verilog():
     # Read netlist and format
     netlist = sdn.parse(infile)
     netlist.name = "--"
+
+    # Change assign definition instance names
+    assign_lib = next(netlist.get_libraries("*SDN_VERILOG_ASSIGNMENT*"), None)
+    if assign_lib:
+        for instance in next(assign_lib.get_definitions()).references:
+            try:
+                instance.name = next(instance.get_port_pins("o")).wire.cable.name + \
+                str(next(instance.get_port_pins("o")).wire.index())
+            except StopIteration:
+                launch_shell()
+
     dirname = os.path.dirname(infile)
     basename = os.path.basename(infile)
     outfile_default = os.path.join(dirname, f"_{basename}")
