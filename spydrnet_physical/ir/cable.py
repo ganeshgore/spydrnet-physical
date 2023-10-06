@@ -1,5 +1,6 @@
 ''' Example plugin to extend functionality '''
 import typing
+import logging
 from spydrnet.ir.cable import Cable as CableBase
 from spydrnet.ir import Port, InnerPin, OuterPin
 
@@ -9,6 +10,7 @@ if typing.TYPE_CHECKING:
     from spydrnet_physical.ir.bundle import Bundle as BundlePhy
     CableBase = type("BundleBase", (CableSDN, BundlePhy), {})
 
+logger = logging.getLogger("spydrnet_logs")
 
 class Cable(CableBase):
     ''' This class extends the default Cable class '''
@@ -73,7 +75,7 @@ class Cable(CableBase):
             wire.connect_pin(instance.pins[port.pins[wire.get_index]])
 
     def assign_cable(self, cable: 'Cable', upper=None, lower=None, reverse=False,
-        assign_instance_name=None):
+        assign_instance_name=None, bitwise_assignment=False):
         ''' Create assignment beetween self and provided cable
 
         assign self = cable[upper:lower]
@@ -90,18 +92,37 @@ class Cable(CableBase):
 
         assign_lib = self.definition._get_assignment_library()
         assign_def = self.definition._get_assignment_definition(
-            assign_lib, self.size)
-        instance = self.definition.create_child(
-            assign_instance_name or f"{self.name}_{cable.name}_assign",
-            reference=assign_def)
-        in_port = next(assign_def.get_ports("o" if reverse else "i"))
-        self.connect_instance_port(instance, in_port)
+            assign_lib, 1 if bitwise_assignment else self.size)
+        if bitwise_assignment:
+            instances = []
+            for indx, wire1 in enumerate(self.wires):
+                if self.is_downto == cable.is_downto:
+                    wire2 = cable.wires[indx+lower]
+                else:
+                    wire2 = cable.wires[-1*(indx+lower+1)]
+                instance = self.definition.create_child(
+                    (assign_instance_name or f"{self.name}_{cable.name}_assign") + f"_{indx}",
+                    reference=assign_def)
+                i_pin = next(instance.get_port_pins("i"))
+                o_pin = next(instance.get_port_pins("o"))
+                wire1.connect_pin(o_pin if reverse else i_pin )
+                wire2.connect_pin(i_pin if reverse else o_pin )
+            return instances
+        else:
+            assert self.is_downto == cable.is_downto, \
+                "Can not assign little endian to big endian wire " + \
+                f"{self.name} is {self.is_downto} and {cable.name} is {cable.is_downto}"
+            instance = self.definition.create_child(
+                assign_instance_name or f"{self.name}_{cable.name}_assign",
+                reference=assign_def)
+            in_port = next(assign_def.get_ports("o" if reverse else "i"))
+            self.connect_instance_port(instance, in_port)
 
-        out_port = next(assign_def.get_ports("i" if reverse else "o"))
-        for indx, pin in enumerate(out_port.pins):
-            cable.wires[range(lower, upper+1)[indx]
-                        ].connect_pin(instance.pins[pin])
-        return instance
+            out_port = next(assign_def.get_ports("i" if reverse else "o"))
+            for indx, pin in enumerate(out_port.pins):
+                cable.wires[range(lower, upper+1)[indx]
+                            ].connect_pin(instance.pins[pin])
+            return instance
 
     def split(self, get_name=None):
         get_name = get_name or (lambda x: f"{self.name}_{x}")
