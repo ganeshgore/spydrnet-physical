@@ -47,3 +47,18 @@ class Wire(WireBase):
                 if pin.inner_pin.port.direction is sdn.OUT:
                     drivers.append(pin)
         return drivers
+
+    def assign_wire(self, wire, reverse=False, assign_instance_name=None):
+        '''
+        Perform single bit assignement of self to given wire
+        '''
+        assert self.cable is not None, "Wire do not have cable assigned"
+        assign_lib = self.cable.definition._get_assignment_library()
+        assign_def = self.cable.definition._get_assignment_definition(assign_lib, 1)
+        if assign_instance_name is None:
+            assign_instance_name = f"{self.cable.name}_{self.index()}_{wire.cable.name}_{wire.index()}_assign"
+        instance = self.cable.definition.create_child(assign_instance_name, reference=assign_def)
+        i_pin = next(instance.get_port_pins("i"))
+        o_pin = next(instance.get_port_pins("o"))
+        self.connect_pin(o_pin if reverse else i_pin )
+        wire.connect_pin(i_pin if reverse else o_pin )
