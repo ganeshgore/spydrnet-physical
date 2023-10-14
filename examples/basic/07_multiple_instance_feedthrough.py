@@ -56,7 +56,7 @@ composer.run(netlist, file_out="_basic_hierarchy_design.svg")
 inst1 = next(top.get_instances('inst_1_0'))
 inst2 = next(top.get_instances('inst_1_1'))
 
-inst_list = [(cable, [inst1, inst2])]
+inst_list = (cable, [inst1, inst2])
 
 top.create_feedthrough_multiple(inst_list)
 top.create_unconn_wires()

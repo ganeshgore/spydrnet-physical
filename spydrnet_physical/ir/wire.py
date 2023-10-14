@@ -2,7 +2,9 @@
 import typing
 import spydrnet as sdn
 from spydrnet.ir.wire import Wire as WireBase
-
+from spydrnet.ir.outerpin import OuterPin
+from spydrnet.ir.innerpin import InnerPin
+from spydrnet.ir.port import Port
 
 if typing.TYPE_CHECKING:
     from spydrnet.ir.wire import Wire as WireSDN
@@ -62,3 +64,15 @@ class Wire(WireBase):
         o_pin = next(instance.get_port_pins("o"))
         self.connect_pin(o_pin if reverse else i_pin )
         wire.connect_pin(i_pin if reverse else o_pin )
+
+    def isload(self, pin):
+        '''
+        '''
+        assert pin in self.pins, "Pin is not connected to wire"
+        return (isinstance(pin, OuterPin) and pin.port.direction == Port.Direction.IN) or \
+            (isinstance(pin, InnerPin) and pin.port.direction == Port.Direction.OUT)
+
+    def loads(self):
+        '''
+        '''
+        return (pin for pin in self.pins if self.isload(pin))

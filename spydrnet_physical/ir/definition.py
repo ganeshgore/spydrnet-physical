@@ -253,53 +253,47 @@ class Definition(DefinitionBase):
         parameters
         ----------
 
-        instances_list: [(Cable, (inst1, inst1, . . . .instn), ...
-                        (Cable, (inst1, inst1, . . . .instn))]
+        instances_list: (Cable, (inst1, inst1, . . . .instn)
         """
-        assert len(
-            instances_list) > 0, "Missing instances list to create feedthroughs"
+        cable, inst_tuple = instances_list
+        # Check if first item is Cable
+        assert isinstance(cable, sdn.Cable), \
+            "Cable object required"
+        # Check if cable belognt to the same definition
+        assert (cable.definition == self), \
+            "Cable {cable.name} does not belog to thos definition"
+        # Compare instance list is from same reference
+        for instance in inst_tuple:
+            assert isinstance(instance, sdn.Instance), \
+                "Found {type(instance) in the instances list}"
 
-        for cable, inst_tuple in instances_list:
-            assert isinstance(cable, sdn.Cable), "Cable object required"
-            assert (
-                cable.definition == self
-            ), "Cable {cable.name} does not belog to thos definition"
-            for indx, instance in enumerate(inst_tuple):
-                assert isinstance(
-                    instance, sdn.Instance
-                ), "Found {type(instance) in the instances list}"
-                assert (
-                    instance.reference == instances_list[0][1][indx].reference
-                ), f"Instances order does not match"
+        for definition  in set(inst.reference for inst in inst_tuple):
+            definition.create_feedthroughs_ports(cable, suffix="ft")
 
-        new_cables = []
-        port_map = []
-        for indx2, instance in enumerate(instances_list[0][1]):
-            inport, outport = instance.reference.create_feedthroughs_ports(
-                instances_list[0][0], suffix=f"ft_{indx2}"
-            )
-            port_map.append((inport, outport))
+        for indx, each_inst in enumerate(inst_tuple):
+            cable_name = f"{cable.name}_{each_inst.name}_ft"
 
-        for indx2, instances_list in enumerate(instances_list):
-            for indx, inst in enumerate(instances_list[1][::-1]):
-                cable = instances_list[0]
-                logger.debug("Iterating %s for inst %s", cable.name, inst.name)
+            if indx == 0:
+                port = next(each_inst.get_ports(f"{cable.name}_ft_in"))
+                cable.connect_instance_port(each_inst, port)
+            else:
+                new_cable = self.create_cable(cable_name, wires=cable.size)
+                outport = next(inst_tuple[indx-1].get_ports(f"{cable.name}_ft_out"))
+                inport = next(each_inst.get_ports(f"{cable.name}_ft_in"))
+                new_cable.connect_instance_port(inst_tuple[indx-1], outport)
+                new_cable.connect_instance_port(each_inst, inport)
 
-                new_cable = self.create_cable(f"{cable.name}_ft_{indx}")
-                new_cable.create_wires(cable.size)
+            if indx == len(inst_tuple)-1:
+                cable_name = f"{cable.name}_out"
+                new_cable = self.create_cable(cable_name, wires=cable.size)
+                outport = next(each_inst.get_ports(f"{cable.name}_ft_out"))
+                new_cable.connect_instance_port(each_inst, outport)
 
-                logger.debug(
-                    f"Created new cable {cable.name} {new_cable.name}")
-                new_cables.append(new_cable)
-                new_cable.connect_instance_port(inst, port_map[indx][1])
-                for each_w in cable.wires:
-                    for pin in each_w.pins:
-                        if pin.port.direction == sdn.IN:
-                            each_w.disconnect_pin(pin)
-                            new_cable.wires[pin.inner_pin.index()].connect_pin(
-                                pin)
-                cable.connect_instance_port(inst, port_map[indx][0])
-        return new_cables, port_map
+        for indx, wire in enumerate(cable.wires):
+            for eachpin in wire.loads():
+                eachpin.wire.disconnect_pin(eachpin)
+                new_cable.wires[indx].connect_pin(eachpin)
+
 
     def merge_multiple_instance(
         self, instances_list_tuple, new_definition_name=None, pin_map=None
