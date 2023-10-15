@@ -234,7 +234,7 @@ class TestFpgaGridGen(unittest.TestCase):
         grid_gen.enumerate_grid()
 
         tree = ET.Element(
-            "single", attrib={"type": "dsp", "x": 2, "y": 2, "priority": 200}
+            "single", attrib={"type": "dsp", "x": "2", "y": "2", "priority": "200"}
         )
         grid_gen.add_single(tree)
 
