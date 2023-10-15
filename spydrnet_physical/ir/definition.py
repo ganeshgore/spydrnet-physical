@@ -225,7 +225,7 @@ class Definition(DefinitionBase):
             new_cable = self.create_cable(cable_name, wires=cable.size)
             new_cable.connect_instance_port(instance, outport)
 
-            for each_w in cable.wires:
+            for indx, each_w in enumerate(cable.wires):
                 for pin in set(each_w.pins):
                     # These are loads and
                     if (
@@ -236,7 +236,7 @@ class Definition(DefinitionBase):
                             pin.port.direction == sdn.OUT)
                     ):
                         each_w.disconnect_pin(pin)
-                        new_cable.wires[pin.get_index].connect_pin(pin)
+                        new_cable.wires[indx].connect_pin(pin)
             cable.connect_instance_port(instance, inport)
             cable_list.append(new_cable)
         return cable_list
