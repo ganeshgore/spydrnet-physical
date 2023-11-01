@@ -108,9 +108,6 @@ PROJ_BASE_DIR = os.path.abspath(os.path.join(base_dir, ".."))
 
 PROP = "VERILOG.InlineConstraints"
 
-PIN_H = 4
-PIN_W = 4
-
 TOP_PIN = 1
 BOTTOM_PIN = 2
 LEFT_PIN = 3
@@ -149,6 +146,9 @@ class FloorPlanViz:
     '''
     Implmenetation of SVG Visualiser `floorplan_visualizer <reference/visualization/floorplan_visualizer.rst>`_
     '''
+    PIN_H = 4
+    PIN_W = 4
+
 
     def __init__(self, definition, viewbox=(0, 0, 1000, 1000)):
         """
@@ -395,8 +395,8 @@ class FloorPlanViz:
                     "center": (width*0.5, height*0.5, TOP_PIN)
                 }}[SIDE][SIDE2]
 
-            pin_w, pin_h, mult = (PIN_W, PIN_H, -1) if PIN_DIR in [LEFT_PIN, RIGHT_PIN] \
-                else (PIN_H, PIN_W, 1)
+            pin_w, pin_h, mult = (self.PIN_W, self.PIN_H, -1) if PIN_DIR in [LEFT_PIN, RIGHT_PIN] \
+                else (self.PIN_H, self.PIN_W, 1)
 
             new_def.add(self.dwg.rect(insert=(LOC_X-pin_w*0.5, LOC_Y-pin_h*0.5),
                                       size=(pin_w, pin_h),
@@ -502,23 +502,23 @@ class FloorPlanViz:
 
             if 'left' in SIDE:
                 LOC_X, LOC_Y = 2, OFFSET
-                pin_w, pin_h = PIN_W, PIN_H
+                pin_w, pin_h = self.PIN_W, self.PIN_H
                 mult = -1
             elif 'right' in SIDE:
                 LOC_X, LOC_Y = width-1, height-OFFSET
-                pin_w, pin_h = PIN_W, PIN_H
+                pin_w, pin_h = self.PIN_W, self.PIN_H
                 mult = -1
             elif 'bottom' in SIDE:
                 LOC_X, LOC_Y = width-OFFSET+1, 2
-                pin_w, pin_h = PIN_H, PIN_W
+                pin_w, pin_h = self.PIN_H, self.PIN_W
                 mult = 1
             elif 'top' in SIDE:
-                LOC_X, LOC_Y = width-OFFSET+1, height-1-PIN_W
-                pin_w, pin_h = PIN_H, PIN_W
+                LOC_X, LOC_Y = width-OFFSET+1, height-1-self.PIN_W
+                pin_w, pin_h = self.PIN_H, self.PIN_W
                 mult = 1
             else:
                 LOC_X, LOC_Y = width/2, height/2
-                pin_w, pin_h = PIN_W, PIN_H
+                pin_w, pin_h = self.PIN_W, self.PIN_H
                 mult = -1
             new_def.add(self.dwg.rect(insert=(LOC_X-pin_w*0.5, LOC_Y-pin_h*0.5),
                                       size=(pin_w, pin_h),
