@@ -39,7 +39,11 @@ class Library(LibraryBase):
 
         for each_port in top_instance.reference.ports:
             new_port = each_port.clone()
-            old_cable = each_port.pins[0].wire.cable
+            try:
+                old_cable = each_port.pins[0].wire.cable
+            except AttributeError as e:
+                logger.exception('Missing wire for port %s' % each_port.name)
+                exit(1)
             new_port.is_downto = old_cable.is_downto
             new_port.is_scalar = old_cable.is_scalar
             new_port.lower_index = old_cable.lower_index
