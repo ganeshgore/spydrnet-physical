@@ -241,6 +241,36 @@ class Definition(DefinitionBase):
             cable_list.append(new_cable)
         return cable_list
 
+    def create_parallel_feedthrough(self, instances_list):
+        # Same instances in each group
+        assert len(set((len(inst) for _, inst in instances_list))) == 1
+
+        # Create ports
+        ft_port_seq = []
+        for definition  in set(inst.reference for inst in instances_list[0][1]):
+            ft_port_seq.append(definition.create_feedthroughs_ports(instances_list[0][0], suffix="ft"))
+
+        # Create connection between instances
+        for cable, inst_list  in instances_list:
+            # disconnect and store load pins
+            store_load_pins = []
+            for wire in cable.wires:
+                store_load_pins.append(tuple(wire.loads()))
+                for pin in list(wire.loads()):
+                    wire.disconnect_pin(pin)
+
+            cable.connect_instance_port(inst_list[0],ft_port_seq[0][0])
+            for indx, inst in enumerate(inst_list):
+                new_cable = cable.clone()
+                new_cable.name = f"{inst.name}_{cable.name}"
+                self.add_cable(new_cable)
+                new_cable.connect_instance_port(inst,ft_port_seq[indx][1])
+
+            for indx, wire in enumerate(new_cable.wires):
+                for pin in store_load_pins[indx]:
+                    wire.connect_pin(pin)
+        return new_cable
+
     def create_ft_multiple(self, *args, **kwargs):
         """Alias to create_feedthrough_multiple"""
         return self.create_feedthrough_multiple(*args, **kwargs)
