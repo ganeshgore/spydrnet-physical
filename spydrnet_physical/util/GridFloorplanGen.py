@@ -11,7 +11,7 @@ STYLE_SHEET = """
 class GridFloorplanGen:
     '''
     This class genrates generic floorplan for the grided design
-    This is agnostics to the netlist or the design and just 
+    This is agnostics to the netlist or the design and just
     consideres the grid size.
 
     paramters:
@@ -48,9 +48,9 @@ class GridFloorplanGen:
         |          |          |          |          |   |
         |          |          |          |          | GRID_Y
         |          |          |          |          |   |
-        +----------+----------+----------+----------+   ᐯ 
+        +----------+----------+----------+----------+   ᐯ
 
-                    Grid Representation 
+                    Grid Representation
 
     '''
 
@@ -135,7 +135,7 @@ class GridFloorplanGen:
         return " ".join(map(str, self.grid_x_points)) + \
             "\n" + " ".join(map(str, self.grid_y_points))
 
-    def render_grid(self, return_group=False, filename=None):
+    def render_grid(self, return_group=False, filename=None, marker_width=1):
         # Default margin for the render
         margin_x = 100
         margin_y = 100
@@ -164,12 +164,14 @@ class GridFloorplanGen:
         for eachrow in self.grid_y_points:
             dwg_shapes.add(dwg.line(start=(self.offset_x, eachrow),
                                     end=(self.offset_x+self.width, eachrow),
-                                    stroke_width=1, stroke='red'))
+                                    class_="marker",
+                                    stroke_width=marker_width, stroke='red'))
         # Add vertical lines
         for eachcol in self.grid_x_points:
             dwg_shapes.add(dwg.line(start=(eachcol, self.offset_y),
+                                    class_="marker",
                                     end=(eachcol, self.offset_y+self.height),
-                                    stroke_width=1, stroke='red'))
+                                    stroke_width=marker_width, stroke='red'))
         if return_group:
             return dwg_shapes
         return dwg
