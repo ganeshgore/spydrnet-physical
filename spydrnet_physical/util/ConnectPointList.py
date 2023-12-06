@@ -142,8 +142,7 @@ class ConnectPointList:
                 if "up" in row[-1]:
                     self.pull_connection_up(point)
 
-    def load_points_from_svg(self, filename, grid=6.9*2, group="markers", append=False,
-                             same_color="black", down_color="red", up_color="green"):
+    def load_points_from_svg(self, filename, group="markers", append=False, connection_color=None):
         '''
         This method loads points from the SVG file.
         enabling UI based designing of connection file.
@@ -183,6 +182,9 @@ class ConnectPointList:
         for conn in root.getElementsByTagName("line"):
             conn_class = conn.getAttribute('class')
             if "connection" in conn_class:
+                if connection_color:
+                    if conn.getAttribute('stroke') != connection_color:
+                        continue
                 x1 = 1 + \
                     math.floor(
                         ((float(conn.getAttribute("x1")))-(x_origin))/x_grid)
