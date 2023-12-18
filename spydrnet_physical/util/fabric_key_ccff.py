@@ -22,7 +22,6 @@ class FabricKeyGenCCFF:
     bits_mapping: dict = {}
 
     def __init__(self, fpga_grid=None, design_name=None, arch_file=None, layout=None):
-
         if not fpga_grid:
             self.design_name = design_name
             self.arch_file = arch_file
@@ -84,7 +83,8 @@ class FabricKeyGenCCFF:
             filename (str): Fabric key filename
         """
         start = 0
-        key = ET.Element("fabric_key")
+        top = ET.Element("fabric_key")
+        key = ET.SubElement(top, "module", {"name": "fpga_top"})
         for index, region_elements in enumerate(self.fkey):
             region = ET.SubElement(key, "region", {"id": str(index)})
             for each in region_elements:
@@ -94,7 +94,7 @@ class FabricKeyGenCCFF:
                 ET.SubElement(region, "key", {"id": str(start), "alias": inst_name})
                 start += 1
         with open(filename, "w", encoding="UTF-8") as fptr:
-            rough_string = ET.tostring(key, "utf-8")
+            rough_string = ET.tostring(top, "utf-8")
             reparsed = minidom.parseString(rough_string)
             fptr.write(reparsed.toprettyxml(indent="  "))
 
@@ -213,7 +213,7 @@ class FabricKeyGenCCFF:
                 dwg.path(
                     d=f"M {points[0]} {points[1]} " + " ".join(points),
                     fill="none",
-                    class_ = f"region_{indx}",
+                    class_=f"region_{indx}",
                     marker_mid=marker.get_funciri(),
                     marker_end=marker.get_funciri(),
                     stroke_width="0.4px",
