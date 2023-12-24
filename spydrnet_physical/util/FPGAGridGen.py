@@ -562,7 +562,16 @@ class FPGAGridGen:
         for module, dims in rect_symbols.items():
             symbol = dwg.symbol(id=module)
             class_tag = "routing" if module in ("cbx", "cby") else "lb"
-            symbol.add(dwg.rect(size=dims[:2], class_=class_tag, insert=dims[2:]))
+            symbol.add(
+                dwg.rect(
+                    size=dims[:2],
+                    class_=class_tag,
+                    insert=dims[2:],
+                    style={"cbx": "fill:#d9d9f3;", "cby": "fill:#a8d0db;"}.get(
+                        module, "fill:#f8b155;"
+                    ),
+                )
+            )
             dwg.defs.add(symbol)
             sym_map[module] = {
                 "symbol": symbol,
@@ -584,7 +593,6 @@ class FPGAGridGen:
             "sb10": [1, 1, 0, 1, 1, 0, 1, 0],  # ━
         }
         for module, dims in sb_map.items():
-
             a, b, c, d, e, f, x, y = [a * b for a, b in zip(params["sb"], dims)]
             symbol = dwg.symbol(id=module)
             symbol["x"] = x
@@ -596,7 +604,8 @@ class FPGAGridGen:
                     + f"v {a} h {b} v {c} h {d} "
                     + f"v {-1*c} h {e} v {-1*a} h {-1*e} "
                     + f"v {-1*f}"
-                    + " z"
+                    + " z",
+                    style="fill:#ceefe4;",
                 )
             )
             dwg.defs.add(symbol)
@@ -608,7 +617,7 @@ class FPGAGridGen:
         u = [x for x in sequence if not (x in seen or seen.add(x))]
         return [val for sublist in u for val in sublist]
 
-    def merge_symbol(self, inst_list, new_symbol_name):
+    def merge_symbol(self, inst_list, new_symbol_name, style=None):
         points = []
 
         def add_point(direction, distance):
@@ -670,7 +679,7 @@ class FPGAGridGen:
             height=max_y - min_y,
             viewBox=f"{min_x} {min_y} {(max_x-min_x)} {(max_y-min_y)}",
         )
-        symbol.add(self.dwg.path(d=f"M {pt[1]} {pt[2]} {svg_path} z"))
+        symbol.add(self.dwg.path(d=f"M {pt[1]} {pt[2]} {svg_path} z", style=style))
         self.dwg.defs.add(symbol)
         self.dwg_shapes.add(self.dwg.use(symbol, insert=points[0]))
         # self.placement_db[symbol] = (points[0][0], points[0][1])
