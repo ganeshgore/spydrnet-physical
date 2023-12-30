@@ -809,7 +809,6 @@ class Definition(DefinitionBase):
         new_cable = self.create_cable(new_port_name)
 
         for port in list(port_sequence):
-            print(f"Adding wires from {port.name}")
             for pin in list(port.pins):
                 wire = pin.wire
                 port._pins.remove(pin)
@@ -820,8 +819,6 @@ class Definition(DefinitionBase):
                 new_cable.add_wire(wire)
             self.remove_cable(next(self.get_cables(port.name)))
             self.remove_port(port)
-            print(f"Total pins {len(new_port.pins)}")
-            print(f"Total wires  {len(new_port.pins)}")
             new_port.direction = port.direction
 
         return new_port
