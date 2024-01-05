@@ -809,7 +809,7 @@ class Definition(DefinitionBase):
         new_cable = self.create_cable(new_port_name)
 
         for port in list(port_sequence):
-            for pin in list(port.pins):
+            for pin in list(port.pins)[::-1]:
                 wire = pin.wire
                 port._pins.remove(pin)
                 pin._port = None
