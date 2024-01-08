@@ -1004,7 +1004,7 @@ class Definition(DefinitionBase):
                 logger.exception("%s instance not found during uniquifying", each)
         return new_def
 
-    def add_buffer(self, wire, buffer, instance_name, ports=("A", "Y")):
+    def add_buffer(self, wire, buffer, instance_name, ports=("A", "Y"), new_cable_name=None):
         """
         Adds buffer on the given net
         args:
@@ -1013,19 +1013,45 @@ class Definition(DefinitionBase):
             instance_name (sdn.Instance):
             ports tuple(str, str):
         """
-        pre_buffer_w = f"{instance_name}_pre_buffer"
+        pre_buffer_w = new_cable_name or f"{instance_name}_pre_buffer"
 
         if isinstance(wire, sdn.Cable):
             for each_wire in wire.wires:
                 self.add_buffer(each_wire, buffer, instance_name, ports)
             return
 
+        # Instantiate buffer
+        buffer = (
+            next(self.get_definitions(buffer)) if isinstance(buffer, str) else buffer
+        )
+        buffer_inst = self.create_child(name=instance_name, reference=buffer)
+        a_pin = next(buffer_inst.get_port_pins(ports[0]))
+        y_pin = next(buffer_inst.get_port_pins(ports[1]))
+
+
         if wire.cable.is_port_cable:
             driver_pin = list(
                 filter(lambda x: isinstance(x, sdn.InnerPin), wire.cable.wires[0].pins)
             )[0]
             if driver_pin.port.direction == sdn.IN:
-                raise NotImplementedError("Buffer on input net is not supported")
+                # if buffering input net
+                load_pins = list(wire.get_pins(
+                            selection="OUTSIDE",
+                            filter=lambda x: x.inner_pin.port.direction == sdn.IN,
+                        ))
+                post_buffer_w = new_cable_name or f"{instance_name}_post_buffer"
+                buffer_input_wire = self.create_cable(post_buffer_w, wires=1).wires[0]
+                for pin in load_pins:
+                    if pin.wire:
+                        pin.wire.disconnect_pin(pin)
+                        buffer_input_wire.connect_pin(pin)
+                buffer_input_wire.connect_pin(y_pin)
+                wire.connect_pin(a_pin)
+                logger.debug(
+                    "Added buffer in %s with instance name %s", self.name, buffer_inst.name
+                )
+                return
+                # raise NotImplementedError("Buffer on input net is not supported")
         driver_pin = next(
             wire.get_pins(
                 selection="OUTSIDE",
@@ -1033,13 +1059,6 @@ class Definition(DefinitionBase):
             )
         )
         driver_pin.wire.disconnect_pin(driver_pin)
-
-        buffer = (
-            next(self.get_definitions(buffer)) if isinstance(buffer, str) else buffer
-        )
-        buffer_inst = self.create_child(name=instance_name, reference=buffer)
-        a_pin = next(buffer_inst.get_port_pins(ports[0]))
-        y_pin = next(buffer_inst.get_port_pins(ports[1]))
 
         buffer_input_wire = self.create_cable(pre_buffer_w, wires=1).wires[0]
         buffer_input_wire.connect_pin(driver_pin)
