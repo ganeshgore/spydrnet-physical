@@ -149,7 +149,6 @@ class FloorPlanViz:
     PIN_H = 4
     PIN_W = 4
 
-
     def __init__(self, definition, viewbox=(0, 0, 1000, 1000)):
         """
         Initialise the class with definition to render.
@@ -293,20 +292,27 @@ class FloorPlanViz:
         loc_y = int(instance.data[PROP].get("LOC_Y", 0))
         inst_label = instance.data[PROP].get("LABEL", "")
 
-        self.dwgShapes.add(self.dwg.use(defDict["instance"],
-                                        class_=f"{instance.name}",
-                                        insert=(loc_x, loc_y)))
+        self.dwgShapes.add(
+            self.dwg.use(
+                defDict["instance"],
+                class_=f"{instance.name} {defDict['name']}",
+                insert=(loc_x, loc_y),
+            )
+        )
 
         module_name = self.dwg.tspan(text=f"[{instance.reference.name}]",
                                      insert=self._get_label_location(instance),
                                      dy=["1.2em", ])
 
-        module_text = self.dwg.text(f"{instance.name}",
-                                    insert=self._get_label_location(instance),
-                                    transform="scale(1,-1)",
-                                    fill="black",
-                                    alignment_baseline="middle",
-                                    text_anchor="middle")
+        module_text = self.dwg.text(
+            f"{instance.name}",
+            insert=self._get_label_location(instance),
+            transform="scale(1,-1)",
+            fill="black",
+            class_=f"{instance.name} {defDict['name']}",
+            alignment_baseline="middle",
+            text_anchor="middle",
+        )
         module_text.add(module_name)
 
         module_label = instance.reference.data[PROP].get('LABEL', None)
