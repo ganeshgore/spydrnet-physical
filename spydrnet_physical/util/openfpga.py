@@ -217,7 +217,7 @@ class OpenFPGA:
         u = [x for x in sequence if not (x in seen or seen.add(x))]
         return [val for sublist in u for val in sublist]
 
-    def save_shaping_data(self, pattern="*", scale=None, filename=None):
+    def save_shaping_data(self, pattern="*", scale=None, filename=None, custom_entry=None):
         """
         Save the shaping data
         """
@@ -268,7 +268,7 @@ class OpenFPGA:
         W = self.top_module.properties.get("WIDTH", 1000)
         H = self.top_module.properties.get("HEIGHT", 1000)
         output.append(
-            "{:^20} {:^20} {: 10.{precision}f} {: 10.{precision}f} {:^8} {:^5} {:20}\n".format(
+            "{:^20} {:^20} {: 10.{precision}f} {: 10.{precision}f} {:^8} {:^5} {:20}".format(
                 self.top_module.name,
                 self.top_module.name,
                 0,
@@ -279,9 +279,18 @@ class OpenFPGA:
                 precision=int(round(math.log(1 / scale, 10))),
             )
         )
+        if custom_entry:
+            for p in custom_entry:
+                output.append(
+                    "{:^20} {:^20} {: 10.{precision}f} {: 10.{precision}f} {:^8} {:^5} {:20}".format(
+                        *p,
+                        precision=int(round(math.log(1 / scale, 10))),
+                    )
+                )
         if filename:
             with open(filename, "w", encoding="UTF-8") as fp:
                 fp.write("\n".join(output))
+                fp.write("\n")
         return output
 
     def show_placement_data(self, pattern="*", filename=None):
