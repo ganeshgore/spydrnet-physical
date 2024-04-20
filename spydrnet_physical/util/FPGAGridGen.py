@@ -14,6 +14,7 @@ import argparse
 import logging
 import math
 from itertools import accumulate
+from fnmatch import fnmatch
 
 import svgwrite
 from svgwrite.container import Group
@@ -693,7 +694,8 @@ class FPGAGridGen:
 
     def get_instance(self, instance_name):
         for ele in self.dwg_shapes.elements:
-            if instance_name in ele.attribs.get("id", ""):
+            if fnmatch(ele.attribs.get("id", ""), instance_name):
+                # if instance_name in ele.attribs.get("id", ""):
                 return ele
         logger.error("No matching instance found in the SVG %s", instance_name)
 
