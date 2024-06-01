@@ -643,8 +643,6 @@ class FPGAGridGen:
                 ele = symbol.elements[0]
                 attrib = ele.attribs
                 pts = ele.attribs["d"].split()
-                print(pts)
-                print(pt)
                 points.append(
                     (
                         pt[0] + float(pts[1]) + attrib.get("x", 0),
@@ -794,6 +792,7 @@ class FPGAGridGen:
                 dwg_text.add(
                     dwg.text(
                         inst_name,
+                        id=inst_name,
                         insert=(x_pt_new + xct, (y_pt_new + yct) * -1),
                         transform="scale(1,-1)",
                         alignment_baseline="middle",
