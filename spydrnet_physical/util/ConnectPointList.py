@@ -92,7 +92,7 @@ class ConnectPointList:
         ''' Stores all points and its attributes in csv format in the file '''
         with open(filename, "w", encoding="UTF-8") as file_ptr:
             file_ptr.write("# Generated using SpyDrNet-physical plugin\n")
-            file_ptr.write("# fr_x  fr_y  to_x  to_y  type\n")
+            file_ptr.write("# fr_x  fr_y  to_x  to_y  type   buffer\n")
             file_ptr.write("= = "*10 + "\n")
             for point in self.points:
                 file_ptr.write(str(point)+"\n")
@@ -609,6 +609,7 @@ class ConnectPointList:
 
         # Add arrow marker
         dir_marker = dwg.marker(refX="30", refY="30",
+                                id="conn_marker",
                                 viewBox="0 0 120 120",
                                 markerUnits="strokeWidth",
                                 markerWidth="5", markerHeight="10", orient="auto")
@@ -616,38 +617,70 @@ class ConnectPointList:
         dwg.defs.add(dir_marker)
 
         # Add down connection marker
-        down_conn = dwg.marker(viewBox="-15 -15 30 30",
-                               markerUnits="strokeWidth",
-                               markerWidth="5", markerHeight="10", orient="auto")
+        down_conn = dwg.marker(
+            viewBox="-15 -15 30 30",
+            id="down_conn_marker",
+            markerUnits="strokeWidth",
+            markerWidth="5",
+            markerHeight="10",
+            orient="auto",
+        )
         down_conn.add(dwg.rect(insert=(-10, -10), size=(20, 20), fill="green"))
         down_conn.add(dwg.path(d="M 8 0 L -8 8 L -8 -8 z", fill="blue"))
         dwg.defs.add(down_conn)
 
         # Add up conenction marker
-        up_conn = dwg.marker(viewBox="-15 -15 30 30",
-                             markerUnits="strokeWidth",
-                             markerWidth="5", markerHeight="10", orient="auto")
+        up_conn = dwg.marker(
+            viewBox="-15 -15 30 30",
+            id="up_conn_marker",
+            markerUnits="strokeWidth",
+            markerWidth="5",
+            markerHeight="10",
+            orient="auto",
+        )
         up_conn.add(dwg.rect(insert=(-10, -10), size=(20, 20), fill="green"))
         up_conn.add(dwg.path(d="M 8 0 L -8 8 L -8 -8 z", fill="blue"))
         dwg.defs.add(up_conn)
 
         # Top connection marker
-        top_marker = dwg.marker(viewBox="-15 -15 30 30",
-                                markerUnits="strokeWidth",
-                                markerWidth="5",
-                                markerHeight="10",
-                                orient="auto")
+        top_marker = dwg.marker(
+            viewBox="-15 -15 30 30",
+            id="top_conn_marker",
+            markerUnits="strokeWidth",
+            markerWidth="5",
+            markerHeight="10",
+            orient="auto",
+        )
         top_marker.add(dwg.line(start=(0, -15), end=(0, 15),
                        stroke_width="5px",  stroke="red"))
         dwg.defs.add(top_marker)
 
-        dwg.defs.add(dwg.style("""
+        # Top connection marker
+        buffer_marker = dwg.marker(
+            viewBox="-15 -15 30 30",
+            id="buffer_marker",
+            markerUnits="strokeWidth",
+            markerWidth="30",
+            markerHeight="15",
+            orient="auto",
+        )
+        buffer_marker.add(
+            dwg.path(
+                d="M 8 0 L -8 8 L -8 -8 z", fill="red"
+            )
+        )
+        dwg.defs.add(buffer_marker)
+
+        dwg.defs.add(
+            dwg.style(
+                """
                 text{font-family: Lato;}
                 span{text-anchor: "middle"; alignment_baseline: "middle"}
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
                 .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
-                """ + f"""
-                .connection{{ opacity: 0.5;
+                """
+                + f"""
+                .connection{{ opacity: 0.75;
                             marker-end:url(#{dir_marker.get_id()});
                             stroke-width:1.2;}}
                 .down{{stroke-dasharray: 2;
@@ -656,17 +689,32 @@ class ConnectPointList:
                     marker-start:url(#{down_conn.get_id()});}}
                 .top{{stroke-dasharray: 2;
                     marker-start:url(#{top_marker.get_id()});}}
-                .buffer{{ filter: hue-rotate(90deg);
-                          stroke-width:2; stroke-dasharray:1;}}
-                """))
+                .buffer{{marker-mid:url(#{buffer_marker.get_id()});}}
+                """
+            )
+        )
 
         for conn in self._points:
             conn_new = conn*scale
             buffer = " buffer" if conn.buffer else ""
-            dwgMain.add(dwg.line(start=tuple(map(round, conn_new.from_connection)),
-                                 end=tuple(map(round, conn_new.to_connection)),
-                                 stroke=conn.color,
-                                 class_=f"connection {conn.level}{buffer}"))
+            from_conn = tuple(map(round, conn_new.from_connection))
+            to_conn = tuple(map(round, conn_new.to_connection))
+            dwgMain.add(
+                dwg.path(
+                    d="M %d %d " % from_conn
+                    + "L %d "
+                    % abs((from_conn[0] + to_conn[0]) / 2)
+                    + "%d "
+                    % abs((from_conn[1] + to_conn[1]) / 2)
+                    + "L %d %d" % to_conn,
+                    stroke=conn.color,
+                    class_=f"connection {conn.level}{buffer}",
+                )
+            )
+            # dwgMain.add(dwg.line(start=tuple(map(round, conn_new.from_connection)),
+            #                      end=tuple(map(round, conn_new.to_connection)),
+            #                      stroke=conn.color,
+            #                      class_=f"connection {conn.level}{buffer}"))
         return dwg
 
     def get_reference(self, netlist, x, y):
