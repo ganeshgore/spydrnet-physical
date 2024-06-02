@@ -670,18 +670,22 @@ class FPGAGridGen:
                 if pt[0] == "v"
                 else "h {} v {} ".format(*eachpt)
             )
-        symbol = self.dwg.symbol(
-            id=new_symbol_name,
-            x=min_x,
-            y=min_y,
-            width=max_x - min_x,
-            height=max_y - min_y,
-            viewBox=f"{min_x} {min_y} {(max_x-min_x)} {(max_y-min_y)}",
-        )
-        symbol.add(self.dwg.path(d=f"M {pt[1]} {pt[2]} {svg_path} z", style=style))
-        self.dwg.defs.add(symbol)
+
+        symbol = [d for d in self.dwg.defs.elements if d.attribs.get('id', '') == new_symbol_name]
+        if symbol:
+            symbol = symbol[0]
+        else:
+            symbol = self.dwg.symbol(
+                id=new_symbol_name,
+                x=min_x,
+                y=min_y,
+                width=max_x - min_x,
+                height=max_y - min_y,
+                viewBox=f"{min_x} {min_y} {(max_x-min_x)} {(max_y-min_y)}",
+            )
+            symbol.add(self.dwg.path(d=f"M {pt[1]} {pt[2]} {svg_path} z", style=style))
+            self.dwg.defs.add(symbol)
         self.dwg_shapes.add(self.dwg.use(symbol, insert=points[0]))
-        # self.placement_db[symbol] = (points[0][0], points[0][1])
         return symbol
 
     def add_style(self, style):
