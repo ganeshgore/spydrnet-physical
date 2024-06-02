@@ -33,7 +33,7 @@ class ConnectPoint:
         self.to_dir = ""
         self._level = level
         self._color = color
-        self._buffer = False
+        self._buffer = ""
         self._update_direction()
 
     @property
@@ -74,7 +74,7 @@ class ConnectPoint:
 
     @property
     def buffer(self):
-        ''' Returns connection level '''
+        ''' Returns buffer value '''
         return bool(self._buffer)
 
     @property
@@ -84,7 +84,7 @@ class ConnectPoint:
 
     @buffer.setter
     def buffer(self, value):
-        self._buffer = bool(value)
+        self._buffer = str(value)
 
     @from_connection.setter
     def from_connection(self, points):
@@ -237,8 +237,8 @@ class ConnectPoint:
         yield from self.connection
 
     def __str__(self):
-        return "%5d %5d %5d %5d [%s]" % \
-            (self.from_x, self.from_y, self.to_x, self.to_y, self._level)
+        return "%5d %5d %5d %5d [%s] [%s]" % \
+            (self.from_x, self.from_y, self.to_x, self.to_y, self._level, self._buffer)
 
     def __mul__(self, scale):
         '''
