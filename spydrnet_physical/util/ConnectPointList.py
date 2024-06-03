@@ -181,41 +181,48 @@ class ConnectPointList:
             "x1                 x2                 y1                 y2")
         for conn in root.getElementsByTagName("line"):
             conn_class = conn.getAttribute('class')
-            if "connection" in conn_class:
-                if connection_color:
-                    if conn.getAttribute('stroke') != connection_color:
-                        continue
-                x1 = 1 + \
-                    math.floor(
-                        ((float(conn.getAttribute("x1")))-(x_origin))/x_grid)
-                x2 = 1 + \
-                    math.floor(
-                        ((float(conn.getAttribute("x2")))-(x_origin))/x_grid)
-                y1 = 1 + \
-                    math.floor(
-                        ((float(conn.getAttribute("y1")))-(y_origin))/y_grid)
-                y2 = 1 + \
-                    math.floor(
-                        ((float(conn.getAttribute("y2")))-(y_origin))/y_grid)
+            x1 = 1 + \
+                math.floor(
+                    ((abs(float(conn.getAttribute("x1"))))-(x_origin))/x_grid)
+            x2 = 1 + \
+                math.floor(
+                    ((abs(float(conn.getAttribute("x2"))))-(x_origin))/x_grid)
+            y1 = 1 + \
+                math.floor(
+                    ((abs(float(conn.getAttribute("y1"))))-(y_origin))/y_grid)
+            y2 = 1 + \
+                math.floor(
+                    ((abs(float(conn.getAttribute("y2"))))-(y_origin))/y_grid)
+            if (x1 < 1 and x2 < 1) or (y1 < 1 and y2 < 1):
+                continue
+            if (x1 > self.sizex and x2 > self.sizex) or (y1 > self.sizey and y2 > self.sizey):
+                continue
 
-                if abs(y1 - y2) > abs(x1 - x2):
-                    direction = "top" if y2 > y1 else "bottom"
-                elif abs(x1 - x2) > abs(y1 - y2):
-                    direction = "right" if x2 > x1 else "left"
-                else:
-                    logger.warning("Can not identify the connection direction %s [Dx %.2f, Dy %.2f]",
-                                   conn.attributes.items(), abs(x1 - x2), abs(y1 - y2))
+            if abs(y1 - y2) > abs(x1 - x2):
+                direction = "top" if y2 > y1 else "bottom"
+            elif abs(x1 - x2) > abs(y1 - y2):
+                direction = "right" if x2 > x1 else "left"
+            else:
+                logger.warning("Can not identify the connection direction %s [Dx %.2f, Dy %.2f]",
+                                conn.attributes.items(), abs(x1 - x2), abs(y1 - y2))
+                continue
+            conn_type = "up" if "up" in conn_class else "down" \
+                if "down" in conn_class else "same"
+            points_info = f"{x1:8.2f}[{conn.getAttribute('x1'):14s}]  " + \
+                f"{y1:8.2f}[{conn.getAttribute('y1'):14s}]  " + \
+                f"{x2:8.2f}[{conn.getAttribute('x2'):14s}]  " + \
+                f"{y2:8.2f}[{conn.getAttribute('y2'):14s}]  " + \
+                f"-> {direction:>8s}[{conn_type:^4s}]"
+
+            if connection_color:
+                color = [tag for tag in conn.getAttribute("style").split(";") if "stroke" in tag]
+                color = color if color else  conn.getAttribute("stroke")
+                if not (connection_color in str(color)):
                     continue
-                conn_type = "up" if "up" in conn_class else "down" \
-                    if "down" in conn_class else "same"
-                points_info = f"{x1:8.2f}[{conn.getAttribute('x1'):8s}]  " + \
-                    f"{y1:8.2f}[{conn.getAttribute('y1'):8s}]  " + \
-                    f"{x2:8.2f}[{conn.getAttribute('x2'):8s}]  " + \
-                    f"{y2:8.2f}[{conn.getAttribute('y2'):8s}]  " + \
-                    f"-> {direction:>8s}[{conn_type:^4s}]"
+            if "connection" in conn_class:
                 try:
-                    point = self.add_connection(abs(x1), self.sizey+1-abs(y1),
-                                                abs(x2), self.sizey+1-abs(y2))
+                    point = self.add_connection(abs(x1), abs(y1),
+                                                abs(x2), abs(y2))
                     logger.debug("%s Added", points_info)
                 except AssertionError as error:
                     logger.debug("%s Skipped (%8s, %8s) : %s", points_info,
@@ -226,8 +233,32 @@ class ConnectPointList:
                     self.push_connection_down(point)
                 if "up" in conn_class:
                     self.pull_connection_up(point)
+            elif conn_class.startswith("buffer"):
+                point = self.search_point((abs(x1), abs(y1), abs(x2), abs(y2)))
+                if point is None:
+                    logger.error("Buffer connection not found")
+                else:
+                    point.buffer = conn_class
+                    logger.debug("%s Added buffer", points_info)
 
-        # raise NotImplementedError
+    def search_point(self, points):
+        '''
+        Search for connection going out of this point
+
+        Note: Returns the first point
+
+        Args:
+            point (tuple): Point to search
+
+        Returns:
+            ConnectionPoint:
+        '''
+        for pts in self._points:
+            if (pts.from_connection == points[:2]) and (
+                pts.to_connection == points[2:]
+            ):
+                return pts
+        return None
 
     def search_from_point(self, point):
         '''
