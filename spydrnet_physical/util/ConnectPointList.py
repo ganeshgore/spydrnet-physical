@@ -135,11 +135,11 @@ class ConnectPointList:
             _ = [next(spamreader) for _ in range(skiplines)]
             for row in spamreader:
                 point = self.add_connection(*row[:4])
-                if "top" in row[-1]:
+                if "top" in row[4]:
                     self.make_top_connection(point)
-                if "down" in row[-1]:
+                if "down" in row[4]:
                     self.push_connection_down(point)
-                if "up" in row[-1]:
+                if "up" in row[4]:
                     self.pull_connection_up(point)
 
     def load_points_from_svg(self, filename, group="markers", append=False, connection_color=None):
