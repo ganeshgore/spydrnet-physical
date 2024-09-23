@@ -13,6 +13,7 @@ from spydrnet_physical.util.tile01 import (Tile01, config_chain_01,
 from spydrnet_physical.util.tile02 import Tile02
 from spydrnet_physical.util.tile03 import Tile03
 from spydrnet_physical.util.tile04 import Tile04
+from spydrnet_physical.util.HeteroSuperTile import HeteroSuperTile
 # from spydrnet_physical.util.tile02 import (Tile02, config_chain_02)
 from spydrnet_physical.util.FPGAGridGen import FPGAGridGen
 from spydrnet_physical.util.openfpga import OpenFPGA
