@@ -811,11 +811,11 @@ class ConnectPointList:
                 fp.write("\n".join(output))
         return output
 
-    def show_stats(self, netlist):
+    def show_stats(self, netlist, additional_ports=None):
         '''
         Extracts the connectivity statistics for port and connection creation
         '''
-        mstat = {}
+        mstat = additional_ports if additional_ports else {}
         for point in self._points:
 
             if point.level in ["same", "down"]:
@@ -830,10 +830,9 @@ class ConnectPointList:
                 mstat[to_conn]["in"] = mstat[to_conn].get(
                     "in", {"left": 0, "right": 0, "top": 0, "bottom": 0})
                 mstat[to_conn]["in"][point.direction(reverse=False)] += 1
-
         return OrderedDict((module, mstat[module]) for module in sorted(mstat))
 
-    def create_ft_ports(self, netlist: sdn.Netlist, port_name: str, cable: sdn.Cable):
+    def create_ft_ports(self, netlist: sdn.Netlist, port_name: str, cable: sdn.Cable, additional_ports: None):
         '''
         Create feedthrough port on the given module
 
@@ -842,7 +841,7 @@ class ConnectPointList:
             port (str): port name on each module
         '''
 
-        for m_name, values in self.show_stats(netlist).items():
+        for m_name, values in self.show_stats(netlist, additional_ports).items():
             if m_name == "top":
                 continue
             # Get current module
