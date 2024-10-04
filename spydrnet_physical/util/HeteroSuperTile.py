@@ -28,35 +28,65 @@ class HeteroSuperTile(Tile01):
                     logger.warning(f"grid not found at {x} {y}")
 
         instance_list = {}
-        for x in range(0, self.fpga_size[0]+1):
-            for y in range(0, self.fpga_size[1]+1):
+        curr_y = 1
+        for indx_row, each_row in enumerate(self.TILE_ROW_HEIGHT):
+            curr_x = 1
+            for indx_col, each_col in enumerate(self.TILE_COL_WIDTH):
+                # print(f"({each_row:2d}, {each_col:2d})", end=" ")
+                # print(f"({curr_y:3d}, {curr_x:3d})", end=" :")
                 inst = []
-                if instance_grid[x][y] is None:
-                    continue
-                elif instance_grid[x][y].reference.name == "bram_tile":
-                    inst.append(instance_grid[x][y])
-                    logger.info(f"= = = = = = BRAM_TILE {x} {y} = = = = = = ")
-                    for height in range(6):
-                        for width in range(1,6):
-                            inst.append(instance_grid[x - width][y + height])
-                            print(instance_grid[x - width][y + height])
-                    uname = "bram_stile"
+                for c in range(curr_x, curr_x+each_col):
+                    for r in range(curr_y, curr_y + each_row):
+                        # print(f"{c}-{r}", end=" ")
+                        if instance_grid[c][r] is None:
+                            continue
+                        else:
+                            inst.append(instance_grid[c][r])
+                if len(inst):
+                    uname = inst[-1].reference.name.replace("tile","stile")
+                    # print(uname, end=" ")
+                    uname = uname + ":" + "_".join([i.reference.name for i in inst])
 
-                elif instance_grid[x][y].reference.name == "dsp_tile":
-                    inst.append(instance_grid[x][y])
-                    logger.info(f"= = = = = = DSP_TILE {x} {y} = = = = = = ")
-                    for height in range(3):
-                        for width in range(1,6):
-                            inst.append(instance_grid[x - width][y + height])
-                            print(instance_grid[x - width][y + height])
-                    uname = "dsp_stile"
-                else:
-                    continue
+                    instance_list[uname] = instance_list.get(uname, [])
+                    instance_list[uname].append(
+                        (tuple(inst), f"stile_{indx_row}__{indx_col}_")
+                    )
+                    # print(uname, end=" ")
 
-                uname = uname + ":" + "_".join([i.reference.name for i in inst])
+                # print()
+                curr_x+=each_col
+            curr_y+=each_row
 
-                instance_list[uname] = instance_list.get(uname, [])
-                instance_list[uname].append((tuple(inst),f"stile_{x}__{y}_"))
+        # instance_list = {}
+        # for x in range(0, self.fpga_size[0]+1):
+        #     for y in range(0, self.fpga_size[1]+1):
+        #         inst = []
+        #         if instance_grid[x][y] is None:
+        #             continue
+        #         elif instance_grid[x][y].reference.name == "bram_tile":
+        #             inst.append(instance_grid[x][y])
+        #             logger.info(f"= = = = = = BRAM_TILE {x} {y} = = = = = = ")
+        #             for height in range(6):
+        #                 for width in range(1,6):
+        #                     inst.append(instance_grid[x - width][y + height])
+        #                     print(instance_grid[x - width][y + height])
+        #             uname = "bram_stile"
+
+        #         elif instance_grid[x][y].reference.name == "dsp_tile":
+        #             inst.append(instance_grid[x][y])
+        #             logger.info(f"= = = = = = DSP_TILE {x} {y} = = = = = = ")
+        #             for height in range(3):
+        #                 for width in range(1,6):
+        #                     inst.append(instance_grid[x - width][y + height])
+        #                     print(instance_grid[x - width][y + height])
+        #             uname = "dsp_stile"
+        #         else:
+        #             continue
+
+        #         uname = uname + ":" + "_".join([i.reference.name for i in inst])
+
+        #         instance_list[uname] = instance_list.get(uname, [])
+        #         instance_list[uname].append((tuple(inst),f"stile_{x}__{y}_"))
 
         keys = sorted(
             instance_list.keys(), reverse=True, key=lambda x: len(instance_list[x])
