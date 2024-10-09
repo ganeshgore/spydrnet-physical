@@ -268,14 +268,19 @@ if __name__ == "__main__":
 
     fpga = ConnectionPattern(5, 5)
     left_tree = fpga.connections
-    left_tree = fpga.get_fishbone(5,5,x_margin=(0, 0))
-    left_tree.scale(2, anchor=(1, 1))
+    left_tree.merge(fpga.get_fishbone(5,5,x_margin=(0, 0)))
     svg = fpga.render_pattern()
     svg.saveas("_test_fishbone.svg", pretty=True, indent=4)
+
+    fpga = ConnectionPattern(5, 5)
+    left_tree = fpga.connections
+    left_tree.merge(fpga.get_fishbone(5,5,x_margin=(0, 0)))
+    left_tree.scale(2, anchor=(1, 1))
 
     fpga = ConnectionPattern(10, 10)
     conn_list = fpga.connections
     conn_list.merge(left_tree)
     conn_list.crop_edges()
     conn_list.sample_connections()
-    fpga.render_pattern().save(pretty=True, indent=4)
+    svg = fpga.render_pattern()
+    svg.saveas("_test_scale_fishbone.svg", pretty=True, indent=4)
