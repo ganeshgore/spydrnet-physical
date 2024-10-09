@@ -94,7 +94,7 @@ class HeteroSuperTile(Tile01):
 
         module_names = []
         for indx, key in enumerate(keys):
-            module_name = f"{key.split(':')[0]}_tile"
+            module_name = f"{key.split(':')[0]}"
             indx = 0
             while module_name in module_names:
                 indx = indx + 1
