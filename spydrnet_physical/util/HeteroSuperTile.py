@@ -98,7 +98,7 @@ class HeteroSuperTile(Tile01):
             indx = 0
             while module_name in module_names:
                 indx = indx + 1
-                module_name = f"{key.split(':')[0]}_stile_{indx}"
+                module_name = f"{key.split(':')[0]}_{indx}"
 
             logger.info(
                 f"Creating {module_name} with {len(instance_list[key])} instances"
