@@ -159,7 +159,8 @@ class ConnectionPattern:
         self._connect = ConnectPointList(sizex=self.sizex,
                                          sizey=self.sizey)
 
-    def get_fishbone(self, width=None, height=None, steps=1, x_margin=(0, 0), y_margin=(0, 0)):
+    @staticmethod
+    def get_fishbone(width, height, steps=1, xbias=0, x_margin=(0, 0), y_margin=(0, 0)):
         '''
         Returns fishbone pattern for the given grid size
 
@@ -169,11 +170,9 @@ class ConnectionPattern:
         x_margin(tuple(int, int)): Skips the repective grid connectivity
         y_margin(tuple(int, int)): Skips the repective grid connectivity
         '''
-        width = width or self.sizex
-        height = height or self.sizey
-        points = self._connect
+        points = ConnectPointList(sizex=width, sizey=height)
         x_center = ((width+1)*0.5)
-        x_pt = math.ceil(x_center) if self.xbias else math.floor(x_center)
+        x_pt = math.ceil(x_center) if xbias else math.floor(x_center)
         y_pt = (1+y_margin[0])
         points.add_connection(x_pt, 0, x_pt, y_pt)
         points.cursor = (x_pt, y_pt)
@@ -269,7 +268,13 @@ if __name__ == "__main__":
 
     fpga = ConnectionPattern(5, 5)
     left_tree = fpga.connections
-    left_tree = fpga.get_fishbone(x_margin=(0, 0))
+    left_tree.merge(fpga.get_fishbone(5,5,x_margin=(0, 0)))
+    svg = fpga.render_pattern()
+    svg.saveas("_test_fishbone.svg", pretty=True, indent=4)
+
+    fpga = ConnectionPattern(5, 5)
+    left_tree = fpga.connections
+    left_tree.merge(fpga.get_fishbone(5,5,x_margin=(0, 0)))
     left_tree.scale(2, anchor=(1, 1))
 
     fpga = ConnectionPattern(10, 10)
@@ -277,4 +282,5 @@ if __name__ == "__main__":
     conn_list.merge(left_tree)
     conn_list.crop_edges()
     conn_list.sample_connections()
-    fpga.render_pattern().save(pretty=True, indent=4)
+    svg = fpga.render_pattern()
+    svg.saveas("_test_scale_fishbone.svg", pretty=True, indent=4)
