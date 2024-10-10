@@ -38,7 +38,7 @@ usng transformations like ``rotate``, ``transalate``, ``margin``, ``merge``,
 from spydrnet_physical.util import ConnectionPattern
 
 p_manager = ConnectionPattern(5, 5)
-fishbone_pattern = p_manager.get_fishbone().set_color("green")
+fishbone_pattern = p_manager.get_fishbone(5, 5).set_color("green")
 svg = p_manager.render_pattern(title="Fishbone Pattern")
 svg.saveas("_fishbone_pattern.svg", pretty=True, indent=4)
 
@@ -53,7 +53,7 @@ svg.saveas("_fishbone_pattern_90.svg", pretty=True, indent=4)
 #        Margin Example
 # ===============================
 p_manager.reset()
-fishbone_pattern = p_manager.get_fishbone(x_margin=(1, 1))
+fishbone_pattern = p_manager.get_fishbone(5, 5, x_margin=(1, 1))
 svg = p_manager.render_pattern(title="Margin option")
 svg.saveas("_fishbone_pattern_margin.svg", pretty=True, indent=4)
 
@@ -62,12 +62,12 @@ svg.saveas("_fishbone_pattern_margin.svg", pretty=True, indent=4)
 # ===============================
 p_manager = ConnectionPattern(5, 5)
 left_tree = p_manager.connections
-left_tree = p_manager.get_fishbone(x_margin=(1, 1))
+left_tree = p_manager.get_fishbone(5, 5, x_margin=(1, 1))
 left_tree.translate(-1, 0)
 
 p_manager = ConnectionPattern(5, 5)
 right_tree = p_manager.connections
-right_tree = p_manager.get_fishbone(x_margin=(1, 2))
+right_tree = p_manager.get_fishbone(5, 5, x_margin=(1, 2))
 right_tree.translate(2, 0)
 right_tree.merge(left_tree)
 svg = p_manager.render_pattern(title="Merging option")
@@ -78,7 +78,7 @@ svg.saveas("_fishbone_pattern_merging.svg", pretty=True, indent=4)
 # ===============================
 p_manager = ConnectionPattern(3, 3)
 left_tree = p_manager.connections
-left_tree = p_manager.get_fishbone()
+left_tree = p_manager.get_fishbone(3, 3)
 svg = p_manager.render_pattern(title="Original")
 svg.saveas("_fishbone_pattern_scaling1.svg", pretty=True, indent=4)
 left_tree.scale(2, anchor=(1, 1))
@@ -102,7 +102,7 @@ svg.saveas("_fishbone_pattern_sampling.svg", pretty=True, indent=4)
 #        Up down connection with buffer
 # =========================================
 p_manager.reset()
-fishbone_pattern = p_manager.get_fishbone(x_margin=(1, 1), steps=2)
+fishbone_pattern = p_manager.get_fishbone(5, 5, x_margin=(1, 1), steps=2)
 fishbone_pattern.add_connection(2, 2, 3, 2)
 fishbone_pattern.make_top_connection(fishbone_pattern.points[0])
 fishbone_pattern.push_connection_down(fishbone_pattern.points[-1])

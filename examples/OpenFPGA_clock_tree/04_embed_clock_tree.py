@@ -54,7 +54,7 @@ top_definition = netlist.top_instance.reference
 
 # Pattern
 p_manager = ConnectionPattern(4, 4)
-fishbone_pattern = p_manager.get_fishbone()
+fishbone_pattern = p_manager.get_fishbone(4, 4)
 svg = p_manager.render_pattern(title="Merging option")
 svg.saveas("_fishbone_pattern_0.svg", pretty=True, indent=4)
 
