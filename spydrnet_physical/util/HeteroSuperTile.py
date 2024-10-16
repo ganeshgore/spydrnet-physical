@@ -49,7 +49,7 @@ class HeteroSuperTile(Tile01):
 
                     instance_list[uname] = instance_list.get(uname, [])
                     instance_list[uname].append(
-                        (tuple(inst), f"stile_{indx_row}__{indx_col}_")
+                        (tuple(inst), f"stile_{indx_col+1}__{indx_row+1}_")
                     )
                     # print(uname, end=" ")
 
