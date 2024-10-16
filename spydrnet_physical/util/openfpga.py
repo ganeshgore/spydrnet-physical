@@ -265,8 +265,9 @@ class OpenFPGA:
                 )
             )
 
-        W = self.top_module.properties.get("WIDTH", 1000)
-        H = self.top_module.properties.get("HEIGHT", 1000)
+        W = float(self.top_module.properties.get("WIDTH", 1000))
+        H = float(self.top_module.properties.get("HEIGHT", 1000))
+
         output.append(
             "{:^20} {:^20} {: 10.{precision}f} {: 10.{precision}f} {:^8} {:^5} {:20}".format(
                 self.top_module.name,
@@ -902,6 +903,34 @@ class OpenFPGA:
                 except StopIteration:
                     logger.warning(
                         "Area annotation: %s not found in the netlist ", module
+                    )
+
+    def annotate_shaping_information(self, filename, skipline=2):
+        """
+        This method annotated the area infomration on each
+        definition of the top level module
+        """
+        with open(filename, "r", encoding="UTF-8") as fp:
+            for line in fp.readlines()[skipline:]:
+                if not (line):
+                    continue
+                line = line.replace(",", " ")
+                INSTANCE, MODULE, LOC_X, LOC_Y = line.split()[:4]
+                points = line.split()[7:]
+                try:
+                    inst = next(self.top_module.get_instances(INSTANCE))
+
+                    inst.data[PROP]["LOC_X"] = int(float(LOC_X) * self.GLOBAL_SCALE)
+                    inst.data[PROP]["LOC_Y"] = int(float(LOC_Y) * self.GLOBAL_SCALE)
+
+                    inst.reference[PROP]["WIDTH"] = int(float(points[4])*self.GLOBAL_SCALE)
+                    inst.reference[PROP]["HEIGHT"] = int(float(points[5])*self.GLOBAL_SCALE)
+
+                except StopIteration:
+                    logger.warning(
+                        "shaping annotation: %s[%s] not found in the netlist ",
+                        INSTANCE,
+                        MODULE,
                     )
 
     # print the hierarchy of a netlist
