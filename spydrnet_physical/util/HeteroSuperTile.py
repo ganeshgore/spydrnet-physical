@@ -113,7 +113,7 @@ class HeteroSuperTile(Tile01):
         self._top_module.merge_multiple_instance(instance_list,
                                                  new_definition_name=tile_name)
         tile = next(self._library.get_definitions(tile_name))
-        tile.OptPins()
+        tile.OptPins(remove_unconn=True)
         self._update_placement(instance_list)
         width, height = self._get_width_height(instance_list)
         tile.properties["WIDTH"], tile.properties["HEIGHT"] = width, height

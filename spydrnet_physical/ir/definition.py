@@ -500,7 +500,7 @@ class Definition(DefinitionBase):
         self._call_merged_instance(new_mod, merged_module, instances_list)
         return new_mod, merged_module, rename_map
 
-    def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True):
+    def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True, remove_unconn=False):
         """
         This method optimizes the definitions pins bu inspecting all the
         instances of the definition
@@ -512,9 +512,11 @@ class Definition(DefinitionBase):
         pins: only consider specific pins, provide filter function
         absorb: if two pins are only connected to each other they will be absorbed and internal connection will be made
         merge: if two pins are connected to each other and few other instances, one of the pin will be absorbed and other will exist
+        remove_unconn: Remove unconnected pins
         """
         duplicatePins = []  # Set of all pins which can be merged or absorbed
         absorbPins = []  # Subset of duplicate pins
+        unused_ports = []  # Subset of duplicate pins
         defPort = list([x for x in self.get_ports() if pins(x.name)])
 
         # Iterate over all the ports pairs of the definition
@@ -559,6 +561,15 @@ class Definition(DefinitionBase):
                         duplicatePins.append(portPair)
                     if singleWire:
                         absorbPins.append(portPair)
+        if remove_unconn:
+            for ports in defPort:
+                is_wired = False
+                for eachInst in self.references:
+                    if not all([(eachInst.pins[pin].wire is None) for pin in ports.pins]):
+                        is_wired = True
+                        break
+                if not is_wired:
+                    unused_ports.append(ports)
 
         if not dry_run:
             for ports in duplicatePins[::-1]:
@@ -581,6 +592,9 @@ class Definition(DefinitionBase):
                 if ports in absorbPins:
                     self.remove_port(ports[0])
                     logger.debug(f"Absorbed port {ports[0].name}")
+            if remove_unconn:
+                for eachPort in unused_ports:
+                    self.remove_port(eachPort)
 
         return duplicatePins if merge else absorbPins if absorb else None
 
@@ -1027,7 +1041,6 @@ class Definition(DefinitionBase):
         buffer_inst = self.create_child(name=instance_name, reference=buffer)
         a_pin = next(buffer_inst.get_port_pins(ports[0]))
         y_pin = next(buffer_inst.get_port_pins(ports[1]))
-
 
         if wire.cable.is_port_cable:
             driver_pin = list(
