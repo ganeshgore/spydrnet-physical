@@ -918,10 +918,13 @@ class OpenFPGA:
                 INSTANCE, MODULE, LOC_X, LOC_Y = line.split()[:4]
                 points = line.split()[7:]
                 try:
-                    inst = next(self.top_module.get_instances(INSTANCE))
+                    if self.top_module.name == INSTANCE:
+                        inst = self.netlist.top_instance
+                    else:
+                        inst = next(self.top_module.get_instances(INSTANCE))
 
-                    inst.data[PROP]["LOC_X"] = int(float(LOC_X) * self.GLOBAL_SCALE)
-                    inst.data[PROP]["LOC_Y"] = int(float(LOC_Y) * self.GLOBAL_SCALE)
+                        inst.data[PROP]["LOC_X"] = int(float(LOC_X) * self.GLOBAL_SCALE)
+                        inst.data[PROP]["LOC_Y"] = int(float(LOC_Y) * self.GLOBAL_SCALE)
 
                     inst.reference[PROP]["WIDTH"] = int(float(points[4])*self.GLOBAL_SCALE)
                     inst.reference[PROP]["HEIGHT"] = int(float(points[5])*self.GLOBAL_SCALE)
