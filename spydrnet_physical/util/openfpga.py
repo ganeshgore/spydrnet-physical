@@ -916,7 +916,7 @@ class OpenFPGA:
                     continue
                 line = line.replace(",", " ")
                 INSTANCE, MODULE, LOC_X, LOC_Y = line.split()[:4]
-                points = line.split()[7:]
+                points = line.split()[6:]
                 try:
                     if self.top_module.name == INSTANCE:
                         inst = self.netlist.top_instance
@@ -926,8 +926,8 @@ class OpenFPGA:
                         inst.data[PROP]["LOC_X"] = int(float(LOC_X) * self.GLOBAL_SCALE)
                         inst.data[PROP]["LOC_Y"] = int(float(LOC_Y) * self.GLOBAL_SCALE)
 
-                    inst.reference[PROP]["WIDTH"] = int(float(points[4])*self.GLOBAL_SCALE)
-                    inst.reference[PROP]["HEIGHT"] = int(float(points[5])*self.GLOBAL_SCALE)
+                    inst.reference[PROP]["WIDTH"] = int(float(points[5])*self.GLOBAL_SCALE)
+                    inst.reference[PROP]["HEIGHT"] = int(float(points[4])*self.GLOBAL_SCALE)
 
                 except StopIteration:
                     logger.warning(
