@@ -926,8 +926,8 @@ class OpenFPGA:
                         inst.data[PROP]["LOC_X"] = int(float(LOC_X) * self.GLOBAL_SCALE)
                         inst.data[PROP]["LOC_Y"] = int(float(LOC_Y) * self.GLOBAL_SCALE)
 
-                    inst.reference[PROP]["WIDTH"] = int(float(points[5])*self.GLOBAL_SCALE)
-                    inst.reference[PROP]["HEIGHT"] = int(float(points[4])*self.GLOBAL_SCALE)
+                    inst.reference[PROP]["WIDTH"] = int(float(points[4])*self.GLOBAL_SCALE)
+                    inst.reference[PROP]["HEIGHT"] = int(float(points[5])*self.GLOBAL_SCALE)
 
                 except StopIteration:
                     logger.warning(
