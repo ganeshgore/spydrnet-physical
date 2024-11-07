@@ -618,7 +618,7 @@ class FPGAGridGen:
         u = [x for x in sequence if not (x in seen or seen.add(x))]
         return [val for sublist in u for val in sublist]
 
-    def merge_symbol(self, inst_list, new_symbol_name, style=None):
+    def merge_symbol(self, inst_list, new_symbol_name, style=None, instance_cache=None, symbol_cache=None):
         points = []
 
         def add_point(direction, distance):
@@ -629,8 +629,8 @@ class FPGAGridGen:
             points.append(new_pt)
 
         for each in inst_list:
-            inst = self.get_instance(each)
-            symbol = self.get_symbol_of_instance(each)
+            inst =  instance_cache[each] if instance_cache else self.get_instance(each)
+            symbol =  symbol_cache[each] if symbol_cache else self.get_symbol_of_instance(each)
             pt = (inst.attribs["x"], inst.attribs["y"])
             if symbol.elements[0].elementname == "rect":
                 ele = symbol.elements[0]
