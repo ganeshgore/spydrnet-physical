@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.2. Visualise Hierarchical Netlist (SVG/Interactive)" href="02_display_hierarchical_netlist.html" /><link rel="prev" title="1. Basic Restructuring Examples" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.9. Grouping ungrouping cells" href="group_ungroup_cells.html" /><link rel="prev" title="1.7. Generating feedthrough from multiple instances" href="13_create_parallel_feedthrough.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>1.1. Display Netlist Information Functions - SpyDrNet-Physical alpha documentation</title>
+        <title>1.8. Merging one or more ports - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -218,16 +218,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">1. Basic Restructuring Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -256,6 +257,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -346,162 +348,86 @@
         <article role="main">
           <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-basic-01-display-info-py"><span class="std std-ref">here</span></a>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-basic-14-merge-ports-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="display-netlist-information-functions">
-<span id="sphx-glr-auto-basic-01-display-info-py"></span><h1><span class="section-number">1.1. </span>Display Netlist Information Functions<a class="headerlink" href="#display-netlist-information-functions" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This example is taken from SpyDrNet respository</p>
-</div>
-<dl class="simple">
-<dt>Some example functions that can be run to display information in a netlist:</dt><dd><ol class="arabic simple">
-<li><p>print the hierarchy in a netlist</p></li>
-<li><p>print each library with its definitions in a netlist</p></li>
-<li><p>print connections between ports of each instance in a netlist</p></li>
-<li><p>print the number of times each primitive is instanced</p></li>
-</ol>
-</dd>
-</dl>
-<p>Note: because the hierarchy function uses recursion, the maximum recursion depth may be exceeded if used for large designs</p>
-<div class="line-block">
-<div class="line">For an even simpler display of netlist information, try using these functions with the Minimal Script example.</div>
-</div>
-<div class="line-block">
-<div class="line">Also, JensRestemeier (not affiliated with BYU CCL) created a tool to generate images of netlists. See his <a class="reference external" href="https://github.com/JensRestemeier/EdifTests">github repository</a>.</div>
-</div>
-<p><strong>Output log</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> INFO 01_display_info.py:91 (MainThread) - HIERARCHY:
- INFO 01_display_info.py:40 (MainThread) -   0 --instance of fourBitCounter fourBitCounter --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of clk_IBUF_BUFG_inst BUFG --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of clk_IBUF_inst IBUF --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of enable_IBUF_inst IBUF --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of inc_dec_IBUF_inst IBUF --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out[0]_i_1 LUT1 --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out[1]_i_1 LUT3 --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out[2]_i_1 LUT4 --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out[3]_i_1 LUT5 --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out_OBUF[0]_inst OBUF --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out_OBUF[1]_inst OBUF --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out_OBUF[2]_inst OBUF --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out_OBUF[3]_inst OBUF --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out_reg[0] FDCE --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out_reg[1] FDCE --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out_reg[2] FDCE --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of out_reg[3] FDCE --
- INFO 01_display_info.py:40 (MainThread) -        1 --instance of rst_IBUF_inst IBUF --
- INFO 01_display_info.py:52 (MainThread) - DEFINITIONS IN 'hdi_primitives': ['BUFG', 'IBUF', 'LUT1', 'LUT3', 'LUT4', 'LUT5', 'OBUF', 'FDCE', 'INV']
- INFO 01_display_info.py:52 (MainThread) - DEFINITIONS IN 'work': ['fourBitCounter']
- INFO 01_display_info.py:58 (MainThread) - CONNECTIONS:
- INFO 01_display_info.py:60 (MainThread) - Instance name: clk_IBUF_BUFG_inst
- INFO 01_display_info.py:65 (MainThread) - 	 Port O ----&gt; ['C of out_reg[3]', 'C of out_reg[2]', 'C of out_reg[1]', 'C of out_reg[0]']
- INFO 01_display_info.py:73 (MainThread) - 	 ['O of clk_IBUF_inst'] ----&gt; Port I
- INFO 01_display_info.py:60 (MainThread) - Instance name: clk_IBUF_inst
- INFO 01_display_info.py:65 (MainThread) - 	 Port O ----&gt; ['I of clk_IBUF_BUFG_inst']
- INFO 01_display_info.py:73 (MainThread) - 	 ['clk of fourBitCounter'] ----&gt; Port I
- INFO 01_display_info.py:60 (MainThread) - Instance name: enable_IBUF_inst
- INFO 01_display_info.py:65 (MainThread) - 	 Port O ----&gt; ['CE of out_reg[3]', 'CE of out_reg[2]', 'CE of out_reg[1]', 'CE of out_reg[0]']
- INFO 01_display_info.py:73 (MainThread) - 	 ['enable of fourBitCounter'] ----&gt; Port I
- INFO 01_display_info.py:60 (MainThread) - Instance name: inc_dec_IBUF_inst
- INFO 01_display_info.py:65 (MainThread) - 	 Port O ----&gt; ['I1 of out[2]_i_1', 'I1 of out[1]_i_1', 'I0 of out[3]_i_1']
- INFO 01_display_info.py:73 (MainThread) - 	 ['inc_dec of fourBitCounter'] ----&gt; Port I
- INFO 01_display_info.py:60 (MainThread) - Instance name: out[0]_i_1
- INFO 01_display_info.py:65 (MainThread) - 	 Port O ----&gt; ['D of out_reg[0]']
- INFO 01_display_info.py:73 (MainThread) - 	 ['Q of out_reg[0]'] ----&gt; Port I0
- INFO 01_display_info.py:60 (MainThread) - Instance name: out[1]_i_1
- INFO 01_display_info.py:65 (MainThread) - 	 Port O ----&gt; ['D of out_reg[1]']
- INFO 01_display_info.py:73 (MainThread) - 	 ['Q of out_reg[1]'] ----&gt; Port I2
- INFO 01_display_info.py:73 (MainThread) - 	 ['O of inc_dec_IBUF_inst'] ----&gt; Port I1
- INFO 01_display_info.py:73 (MainThread) - 	 ['Q of out_reg[0]'] ----&gt; Port I0
- INFO 01_display_info.py:60 (MainThread) - Instance name: out[2]_i_1
- INFO 01_display_info.py:65 (MainThread) - 	 Port O ----&gt; ['D of out_reg[2]']
- INFO 01_display_info.py:73 (MainThread) - 	 ['Q of out_reg[1]'] ----&gt; Port I3
- INFO 01_display_info.py:73 (MainThread) - 	 ['Q of out_reg[2]'] ----&gt; Port I2
- INFO 01_display_info.py:73 (MainThread) - 	 ['O of inc_dec_IBUF_inst'] ----&gt; Port I1
- INFO 01_display_info.py:73 (MainThread) - 	 ['Q of out_reg[0]'] ----&gt; Port I0
- INFO 01_display_info.py:60 (MainThread) - Instance name: out[3]_i_1
- INFO 01_display_info.py:65 (MainThread) - 	 Port O ----&gt; ['D of out_reg[3]']
-...
+<section class="sphx-glr-example-title" id="merging-one-or-more-ports">
+<span id="sphx-glr-auto-basic-14-merge-ports-py"></span><h1><span class="section-number">1.8. </span>Merging one or more ports<a class="headerlink" href="#merging-one-or-more-ports" title="Permalink to this headline">¶</a></h1>
+<p>This example demonstrate how to merge two instance in the design to create a new
+merged definition</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
+<span class="kn">from</span> <span class="nn">spydrnet_physical.util</span> <span class="kn">import</span> <span class="n">get_names</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"_temp_merge_ports.v"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">    module top();</span>
+<span class="sd">        wire [4:0] mode;</span>
+
+<span class="sd">        module1 inst1 (.wire1(mode[4]), .wire2(mode[3]), .wire3(mode[2:0]));</span>
+<span class="sd">    endmodule</span>
+
+<span class="sd">    module module1(wire1, wire2, wire3);</span>
+<span class="sd">        input wire1;</span>
+<span class="sd">        input wire2;</span>
+<span class="sd">        input [2:0]wire3;</span>
+
+<span class="sd">    endmodule</span>
+<span class="sd">    """</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">merge_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_port_name</span><span class="p">,</span> <span class="n">port_sequence</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">new_port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_port</span><span class="p">(</span><span class="n">new_port_name</span><span class="p">)</span>
+    <span class="n">new_cable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_cable</span><span class="p">(</span><span class="n">new_port_name</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">port_sequence</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Adding wires from </span><span class="si">{</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">pins</span><span class="p">):</span>
+            <span class="n">wire</span> <span class="o">=</span> <span class="n">pin</span><span class="o">.</span><span class="n">wire</span>
+            <span class="n">port</span><span class="o">.</span><span class="n">_pins</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+            <span class="n">pin</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_port</span><span class="o">.</span><span class="n">add_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span>
+
+            <span class="n">wire</span><span class="o">.</span><span class="n">_cable</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_cable</span><span class="o">.</span><span class="n">add_wire</span><span class="p">(</span><span class="n">wire</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="n">port</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total pins </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">new_port</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total wires  </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">new_port</span><span class="o">.</span><span class="n">pins</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">new_port</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">direction</span>
+
+    <span class="k">return</span> <span class="n">new_port</span>
+
+
+<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">"_temp_merge_ports.v"</span><span class="p">)</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span>
+<span class="n">module</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"top"</span><span class="p">))</span>
+<span class="n">module1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"module1"</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">()))</span>
+<span class="n">merge_ports</span><span class="p">(</span><span class="n">module1</span><span class="p">,</span>
+    <span class="s2">"merged_port"</span><span class="p">,</span>
+    <span class="n">chain</span><span class="p">(</span>
+        <span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"wire3*"</span><span class="p">),</span>
+        <span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"wire2*"</span><span class="p">),</span>
+        <span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"wire1*"</span><span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_names</span><span class="p">(</span><span class="n">module1</span><span class="o">.</span><span class="n">get_ports</span><span class="p">()))</span>
+
+<span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
+    <span class="n">netlist</span><span class="p">,</span> <span class="s2">"_temp_merge_ports_rewrite.v"</span><span class="p">,</span> <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
-<span class="kn">from</span> <span class="nn">spydrnet.util.selection</span> <span class="kn">import</span> <span class="n">Selection</span>
-
-<span class="c1"># print the hierarchy of a netlist</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'spydrnet_logs'</span><span class="p">)</span>
-<span class="n">sdn</span><span class="o">.</span><span class="n">enable_file_logging</span><span class="p">(</span><span class="n">LOG_LEVEL</span><span class="o">=</span><span class="s1">'INFO'</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"netlist_info"</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">hierarchy</span><span class="p">(</span><span class="n">current_instance</span><span class="p">,</span> <span class="n">indentation</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">" </span><span class="si">%s</span><span class="s2"> </span><span class="si">%d</span><span class="s2"> --instance of </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> --"</span><span class="p">,</span> <span class="n">indentation</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span>
-                <span class="n">current_instance</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">current_instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">current_instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
-        <span class="n">hierarchy</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">indentation</span><span class="o">+</span><span class="s2">"     "</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># print a list of all libraries and definitions in a netlist</span>
-
-
-<span class="k">def</span> <span class="nf">libraries_definitions</span><span class="p">(</span><span class="n">my_netlist</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">library</span> <span class="ow">in</span> <span class="n">my_netlist</span><span class="o">.</span><span class="n">libraries</span><span class="p">:</span>
-        <span class="n">definitions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-            <span class="n">definition</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">library</span><span class="o">.</span><span class="n">definitions</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"DEFINITIONS IN '</span><span class="si">%s</span><span class="s2">': </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">library</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">definitions</span><span class="p">)</span>
-
-<span class="c1"># prints each instance and it's connections (what inputs to it and what it outputs to)</span>
-
-
-<span class="k">def</span> <span class="nf">print_connections</span><span class="p">(</span><span class="n">current_netlist</span><span class="p">):</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"CONNECTIONS:"</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">current_netlist</span><span class="o">.</span><span class="n">get_instances</span><span class="p">():</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Instance name: </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">out_going_pin</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="n">Selection</span><span class="o">.</span><span class="n">OUTSIDE</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">out_going_pin</span><span class="o">.</span><span class="n">wire</span><span class="p">:</span>
-                <span class="n">next_instances</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pin2</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">' of '</span> <span class="o">+</span> <span class="n">pin2</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                                      <span class="k">for</span> <span class="n">pin2</span> <span class="ow">in</span> <span class="n">out_going_pin</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="n">Selection</span><span class="o">.</span><span class="n">OUTSIDE</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">out_going_pin</span><span class="p">))</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1"> Port </span><span class="si">%s</span><span class="s1"> ----&gt; </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span>
-                            <span class="n">out_going_pin</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">next_instances</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">in_coming_pin</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="n">Selection</span><span class="o">.</span><span class="n">OUTSIDE</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">IN</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">in_coming_pin</span><span class="o">.</span><span class="n">wire</span><span class="p">:</span>
-                <span class="n">previous_instances</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pin2</span> <span class="k">for</span> <span class="n">pin2</span> <span class="ow">in</span> <span class="n">in_coming_pin</span><span class="o">.</span><span class="n">wire</span><span class="o">.</span><span class="n">get_pins</span><span class="p">(</span>
-                    <span class="n">selection</span><span class="o">=</span><span class="n">Selection</span><span class="o">.</span><span class="n">OUTSIDE</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">in_coming_pin</span><span class="p">))</span>
-                <span class="n">checked_previous_instances</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">' of '</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">previous_instances</span> <span class="k">if</span> <span class="p">(</span>
-                    <span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">OUT</span> <span class="ow">or</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">direction</span> <span class="ow">is</span> <span class="n">sdn</span><span class="o">.</span><span class="n">IN</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">()))</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> ----&gt; Port </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span> <span class="n">checked_previous_instances</span><span class="p">,</span>
-                            <span class="n">in_coming_pin</span><span class="o">.</span><span class="n">inner_pin</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">instance_count</span><span class="p">(</span><span class="n">current_netlist</span><span class="p">):</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Number of times each primitive is instanced:"</span><span class="p">)</span>
-    <span class="n">primitives_library</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
-        <span class="n">current_netlist</span><span class="o">.</span><span class="n">get_libraries</span><span class="p">(</span><span class="s2">"hdi_primitives"</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">primitive</span> <span class="ow">in</span> <span class="n">primitives_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">():</span>
-        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">current_netlist</span><span class="o">.</span><span class="n">get_instances</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">primitive</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"</span><span class="se">\t</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> : </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">primitive</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-
-
-<span class="n">netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">load_example_netlist_by_name</span><span class="p">(</span><span class="s2">"fourBitCounter"</span><span class="p">)</span>
-
-<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"HIERARCHY:"</span><span class="p">)</span>
-<span class="n">hierarchy</span><span class="p">(</span><span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="p">)</span>
-<span class="n">libraries_definitions</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
-<span class="n">print_connections</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
-<span class="n">instance_count</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Output log</strong></p>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-basic-01-display-info-py">
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-basic-14-merge-ports-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/bcd31452c962d18fc7336fdde4ccedd1/01_display_info.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_display_info.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/874074d990efbdd4a1f56f2941bc675c/14_merge_ports.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">14_merge_ports.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/c8250917600f5b7ba01af8ccb6f41543/01_display_info.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_display_info.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/eb134df70ebe49a37c7bc3cac6d83177/14_merge_ports.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">14_merge_ports.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -512,23 +438,23 @@ to download the full example code</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="02_display_hierarchical_netlist.html">
+          <a class="next-page" href="group_ungroup_cells.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">1.2. </span>Visualise Hierarchical Netlist (SVG/Interactive)</div>
+                <div class="title"><span class="section-number">1.9. </span>Grouping ungrouping cells</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="13_create_parallel_feedthrough.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">1. </span>Basic Restructuring Examples</div>
+                <div class="title"><span class="section-number">1.7. </span>Generating feedthrough from multiple instances</div>
                 
               </div>
             </a>
@@ -540,7 +466,7 @@ to download the full example code</p>
               and
               <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
               <a href="https://github.com/pradyunsg/furo">Furo theme</a>. |
-            <a class="muted-link" href="../_sources/auto_basic/01_display_info.rst.txt"
+            <a class="muted-link" href="../_sources/auto_basic/14_merge_ports.rst.txt"
                rel="nofollow">
               Show Source
             </a>

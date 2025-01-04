@@ -217,16 +217,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -255,6 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -355,12 +357,12 @@
 
 
 <div class="viewcode-block" id="Tile02"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02">[docs]</a><span class="k">class</span> <span class="nc">Tile02</span><span class="p">(</span><span class="n">Tile01</span><span class="p">):</span>
-    <span class="sd">"""</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Creates Tile02 style tiling structure</span>
 <span class="sd">    """</span>
 
 <div class="viewcode-block" id="Tile02.create_tiles"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02.create_tiles">[docs]</a>    <span class="k">def</span> <span class="nf">create_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Creates tiles</span>
 <span class="sd">        '''</span>
         <span class="c1"># ##############  Main Tiles  ##############</span>
@@ -383,7 +385,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="Tile02.merge_and_update_wrapper"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02.merge_and_update_wrapper">[docs]</a>    <span class="k">def</span> <span class="nf">merge_and_update_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_list</span><span class="p">,</span> <span class="n">tile_name</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        This method takes the group of list of instances and create a multiple</span>
 <span class="sd">        instances list</span>
 <span class="sd">        '''</span>
@@ -398,7 +400,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update</span><span class="p">(</span><span class="n">instance_list</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tile_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">indx</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02.merge_and_update"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02.merge_and_update">[docs]</a>    <span class="k">def</span> <span class="nf">merge_and_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_list</span><span class="p">,</span> <span class="n">tile_name</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Merges given list of instances and updates width and height parameter</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span>
@@ -443,7 +445,7 @@
                          <span class="n">new_inst</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"LOC_Y"</span><span class="p">])</span>
 
 <div class="viewcode-block" id="Tile02._main_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._main_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_main_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''Create main Tiles</span>
+<span class="w">        </span><span class="sd">'''Create main Tiles</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 
@@ -488,7 +490,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update_wrapper</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02._left_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._left_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_left_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Create Left Tiles</span>
+<span class="w">        </span><span class="sd">''' Create Left Tiles</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 
@@ -523,7 +525,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update_wrapper</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"left_tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02._right_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._right_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_right_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''    Create Right Tiles</span>
+<span class="w">        </span><span class="sd">'''    Create Right Tiles</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 
@@ -567,7 +569,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update_wrapper</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"right_tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02._top_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._top_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_top_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''     Create Top Tiles</span>
+<span class="w">        </span><span class="sd">'''     Create Top Tiles</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 
@@ -611,7 +613,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update_wrapper</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"top_tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02._bottom_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._bottom_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_bottom_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''   Create Bottom Tiles</span>
+<span class="w">        </span><span class="sd">'''   Create Bottom Tiles</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 
@@ -641,7 +643,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update_wrapper</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"bottom_tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02._top_left_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._top_left_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_top_left_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''       Create top left tile</span>
+<span class="w">        </span><span class="sd">'''       Create top left tile</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 
@@ -673,7 +675,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"top_left_tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02._top_right_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._top_right_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_top_right_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''          Create top right tile</span>
+<span class="w">        </span><span class="sd">'''          Create top right tile</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 
@@ -713,7 +715,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"top_right_tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02._bottom_left_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._bottom_left_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_bottom_left_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''      Create bottom left tile</span>
+<span class="w">        </span><span class="sd">'''      Create bottom left tile</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 
@@ -738,7 +740,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">merge_and_update</span><span class="p">(</span><span class="n">instance_list</span><span class="p">,</span> <span class="s2">"bottom_left_tile"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Tile02._bottom_right_tile"><a class="viewcode-back" href="../../../reference/openfpga/tile02.html#spydrnet_physical.util.Tile02._bottom_right_tile">[docs]</a>    <span class="k">def</span> <span class="nf">_bottom_right_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Create bottom right tile</span>
+<span class="w">        </span><span class="sd">''' Create bottom right tile</span>
 
 <span class="sd">        .. rst-class:: ascii</span>
 

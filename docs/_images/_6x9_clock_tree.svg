@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="480" version="1.1" viewBox="0,-450.0,320,480" width="320">
-    <defs id="id5">
-        <marker id="id1" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
+    <defs id="id1">
+        <marker id="conn_marker" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
             <path d="M 0 0 L 60 30 L 0 60 z" fill="blue"/>
         </marker>
-        <marker id="id2" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
+        <marker id="down_conn_marker" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
             <rect fill="green" height="20" width="20" x="-10" y="-10"/>
             <path d="M 8 0 L -8 8 L -8 -8 z" fill="blue"/>
         </marker>
-        <marker id="id3" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
+        <marker id="up_conn_marker" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
             <rect fill="green" height="20" width="20" x="-10" y="-10"/>
             <path d="M 8 0 L -8 8 L -8 -8 z" fill="blue"/>
         </marker>
-        <marker id="id4" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
+        <marker id="top_conn_marker" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
             <line stroke="red" stroke-width="5px" x1="0" x2="0" y1="-15" y2="15"/>
+        </marker>
+        <marker id="buffer_marker" markerHeight="15" markerUnits="strokeWidth" markerWidth="30" orient="auto" viewBox="-15 -15 30 30">
+            <path d="M 8 0 L -8 8 L -8 -8 z" fill="red"/>
         </marker>
         <style type="text/css"><![CDATA[
                 text{font-family: Lato;}
@@ -21,17 +24,16 @@
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
                 .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
                 
-                .connection{ opacity: 0.5;
-                            marker-end:url(#id1);
+                .connection{ opacity: 0.75;
+                            marker-end:url(#conn_marker);
                             stroke-width:1.2;}
                 .down{stroke-dasharray: 2;
-                    marker-end:url(#id3);}
+                    marker-end:url(#up_conn_marker);}
                 .up{stroke-dasharray: 2;
-                    marker-start:url(#id2);}
+                    marker-start:url(#down_conn_marker);}
                 .top{stroke-dasharray: 2;
-                    marker-start:url(#id4);}
-                .buffer{ filter: hue-rotate(90deg);
-                          stroke-width:2; stroke-dasharray:1;}
+                    marker-start:url(#top_conn_marker);}
+                .buffer{marker-mid:url(#buffer_marker);}
                 ]]></style>
     </defs>
     <g id="markers" transform="scale(1,-1)">
@@ -75,217 +77,217 @@
         <line class="gridmarker" x1="10" x2="310" y1="430" y2="430"/>
     </g>
     <g id="main" transform="scale(1,-1)">
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="240" y2="260"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="280" y2="300"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="300" y2="320"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="320" y2="340"/>
-        <line class="connection same" stroke="blue" x1="160" x2="140" y1="340" y2="340"/>
-        <line class="connection same" stroke="blue" x1="140" x2="120" y1="340" y2="340"/>
-        <line class="connection same" stroke="blue" x1="120" x2="100" y1="340" y2="340"/>
-        <line class="connection same" stroke="blue" x1="160" x2="180" y1="340" y2="340"/>
-        <line class="connection same" stroke="blue" x1="180" x2="200" y1="340" y2="340"/>
-        <line class="connection same" stroke="blue" x1="200" x2="220" y1="340" y2="340"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="200" y2="180"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="160" y2="140"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="140" y2="120"/>
-        <line class="connection same" stroke="blue" x1="160" x2="160" y1="120" y2="100"/>
-        <line class="connection same" stroke="blue" x1="160" x2="140" y1="100" y2="100"/>
-        <line class="connection same" stroke="blue" x1="140" x2="120" y1="100" y2="100"/>
-        <line class="connection same" stroke="blue" x1="120" x2="100" y1="100" y2="100"/>
-        <line class="connection same" stroke="blue" x1="160" x2="180" y1="100" y2="100"/>
-        <line class="connection same" stroke="blue" x1="180" x2="200" y1="100" y2="100"/>
-        <line class="connection same" stroke="blue" x1="200" x2="220" y1="100" y2="100"/>
-        <line class="connection same" stroke="blue" x1="320" x2="300" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="300" x2="280" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="280" x2="260" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="260" x2="240" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="240" x2="220" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="220" x2="200" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="200" x2="180" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="180" x2="160" y1="220" y2="220"/>
-        <line class="connection same" stroke="red" x1="220" x2="220" y1="100" y2="120"/>
-        <line class="connection same" stroke="red" x1="220" x2="220" y1="120" y2="140"/>
-        <line class="connection same" stroke="red" x1="220" x2="200" y1="140" y2="140"/>
-        <line class="connection same" stroke="red" x1="200" x2="180" y1="140" y2="140"/>
-        <line class="connection same" stroke="red" x1="220" x2="240" y1="140" y2="140"/>
-        <line class="connection same" stroke="red" x1="240" x2="260" y1="140" y2="140"/>
-        <line class="connection same" stroke="red" x1="220" x2="220" y1="100" y2="80"/>
-        <line class="connection same" stroke="red" x1="220" x2="220" y1="80" y2="60"/>
-        <line class="connection same" stroke="red" x1="220" x2="200" y1="60" y2="60"/>
-        <line class="connection same" stroke="red" x1="200" x2="180" y1="60" y2="60"/>
-        <line class="connection same" stroke="red" x1="220" x2="240" y1="60" y2="60"/>
-        <line class="connection same" stroke="red" x1="240" x2="260" y1="60" y2="60"/>
-        <line class="connection same" stroke="red" x1="100" x2="100" y1="100" y2="120"/>
-        <line class="connection same" stroke="red" x1="100" x2="100" y1="120" y2="140"/>
-        <line class="connection same" stroke="red" x1="100" x2="80" y1="140" y2="140"/>
-        <line class="connection same" stroke="red" x1="80" x2="60" y1="140" y2="140"/>
-        <line class="connection same" stroke="red" x1="100" x2="120" y1="140" y2="140"/>
-        <line class="connection same" stroke="red" x1="120" x2="140" y1="140" y2="140"/>
-        <line class="connection same" stroke="red" x1="100" x2="100" y1="100" y2="80"/>
-        <line class="connection same" stroke="red" x1="100" x2="100" y1="80" y2="60"/>
-        <line class="connection same" stroke="red" x1="100" x2="80" y1="60" y2="60"/>
-        <line class="connection same" stroke="red" x1="80" x2="60" y1="60" y2="60"/>
-        <line class="connection same" stroke="red" x1="100" x2="120" y1="60" y2="60"/>
-        <line class="connection same" stroke="red" x1="120" x2="140" y1="60" y2="60"/>
-        <line class="connection same" stroke="red" x1="220" x2="220" y1="340" y2="360"/>
-        <line class="connection same" stroke="red" x1="220" x2="220" y1="360" y2="380"/>
-        <line class="connection same" stroke="red" x1="220" x2="200" y1="380" y2="380"/>
-        <line class="connection same" stroke="red" x1="200" x2="180" y1="380" y2="380"/>
-        <line class="connection same" stroke="red" x1="220" x2="240" y1="380" y2="380"/>
-        <line class="connection same" stroke="red" x1="240" x2="260" y1="380" y2="380"/>
-        <line class="connection same" stroke="red" x1="220" x2="220" y1="340" y2="320"/>
-        <line class="connection same" stroke="red" x1="220" x2="220" y1="320" y2="300"/>
-        <line class="connection same" stroke="red" x1="220" x2="200" y1="300" y2="300"/>
-        <line class="connection same" stroke="red" x1="200" x2="180" y1="300" y2="300"/>
-        <line class="connection same" stroke="red" x1="220" x2="240" y1="300" y2="300"/>
-        <line class="connection same" stroke="red" x1="240" x2="260" y1="300" y2="300"/>
-        <line class="connection same" stroke="red" x1="100" x2="100" y1="340" y2="360"/>
-        <line class="connection same" stroke="red" x1="100" x2="100" y1="360" y2="380"/>
-        <line class="connection same" stroke="red" x1="100" x2="80" y1="380" y2="380"/>
-        <line class="connection same" stroke="red" x1="80" x2="60" y1="380" y2="380"/>
-        <line class="connection same" stroke="red" x1="100" x2="120" y1="380" y2="380"/>
-        <line class="connection same" stroke="red" x1="120" x2="140" y1="380" y2="380"/>
-        <line class="connection same" stroke="red" x1="100" x2="100" y1="340" y2="320"/>
-        <line class="connection same" stroke="red" x1="100" x2="100" y1="320" y2="300"/>
-        <line class="connection same" stroke="red" x1="100" x2="80" y1="300" y2="300"/>
-        <line class="connection same" stroke="red" x1="80" x2="60" y1="300" y2="300"/>
-        <line class="connection same" stroke="red" x1="100" x2="120" y1="300" y2="300"/>
-        <line class="connection same" stroke="red" x1="120" x2="140" y1="300" y2="300"/>
-        <line class="connection same" stroke="green" x1="260" x2="260" y1="60" y2="80"/>
-        <line class="connection same" stroke="green" x1="260" x2="240" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="260" x2="280" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="260" x2="260" y1="60" y2="40"/>
-        <line class="connection same" stroke="green" x1="260" x2="240" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="260" x2="280" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="60" x2="60" y1="60" y2="80"/>
-        <line class="connection same" stroke="green" x1="60" x2="40" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="60" x2="80" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="60" x2="60" y1="60" y2="40"/>
-        <line class="connection same" stroke="green" x1="60" x2="40" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="60" x2="80" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="260" x2="260" y1="140" y2="160"/>
-        <line class="connection same" stroke="green" x1="260" x2="240" y1="160" y2="160"/>
-        <line class="connection same" stroke="green" x1="260" x2="280" y1="160" y2="160"/>
-        <line class="connection same" stroke="green" x1="260" x2="260" y1="140" y2="120"/>
-        <line class="connection same" stroke="green" x1="260" x2="240" y1="120" y2="120"/>
-        <line class="connection same" stroke="green" x1="260" x2="280" y1="120" y2="120"/>
-        <line class="connection same" stroke="green" x1="60" x2="60" y1="140" y2="160"/>
-        <line class="connection same" stroke="green" x1="60" x2="40" y1="160" y2="160"/>
-        <line class="connection same" stroke="green" x1="60" x2="80" y1="160" y2="160"/>
-        <line class="connection same" stroke="green" x1="60" x2="60" y1="140" y2="120"/>
-        <line class="connection same" stroke="green" x1="60" x2="40" y1="120" y2="120"/>
-        <line class="connection same" stroke="green" x1="60" x2="80" y1="120" y2="120"/>
-        <line class="connection same" stroke="green" x1="260" x2="260" y1="300" y2="320"/>
-        <line class="connection same" stroke="green" x1="260" x2="240" y1="320" y2="320"/>
-        <line class="connection same" stroke="green" x1="260" x2="280" y1="320" y2="320"/>
-        <line class="connection same" stroke="green" x1="260" x2="260" y1="300" y2="280"/>
-        <line class="connection same" stroke="green" x1="260" x2="240" y1="280" y2="280"/>
-        <line class="connection same" stroke="green" x1="260" x2="280" y1="280" y2="280"/>
-        <line class="connection same" stroke="green" x1="60" x2="60" y1="300" y2="320"/>
-        <line class="connection same" stroke="green" x1="60" x2="40" y1="320" y2="320"/>
-        <line class="connection same" stroke="green" x1="60" x2="80" y1="320" y2="320"/>
-        <line class="connection same" stroke="green" x1="60" x2="60" y1="300" y2="280"/>
-        <line class="connection same" stroke="green" x1="60" x2="40" y1="280" y2="280"/>
-        <line class="connection same" stroke="green" x1="60" x2="80" y1="280" y2="280"/>
-        <line class="connection same" stroke="green" x1="260" x2="260" y1="380" y2="400"/>
-        <line class="connection same" stroke="green" x1="260" x2="240" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="260" x2="280" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="260" x2="260" y1="380" y2="360"/>
-        <line class="connection same" stroke="green" x1="260" x2="240" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="260" x2="280" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="60" x2="60" y1="380" y2="400"/>
-        <line class="connection same" stroke="green" x1="60" x2="40" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="60" x2="80" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="60" x2="60" y1="380" y2="360"/>
-        <line class="connection same" stroke="green" x1="60" x2="40" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="60" x2="80" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="180" x2="180" y1="60" y2="80"/>
-        <line class="connection same" stroke="green" x1="180" x2="180" y1="60" y2="40"/>
-        <line class="connection same" stroke="green" x1="140" x2="140" y1="60" y2="80"/>
-        <line class="connection same" stroke="green" x1="140" x2="140" y1="60" y2="40"/>
-        <line class="connection same" stroke="green" x1="180" x2="180" y1="140" y2="160"/>
-        <line class="connection same" stroke="green" x1="180" x2="180" y1="140" y2="120"/>
-        <line class="connection same" stroke="green" x1="140" x2="140" y1="140" y2="160"/>
-        <line class="connection same" stroke="green" x1="140" x2="140" y1="140" y2="120"/>
-        <line class="connection same" stroke="green" x1="180" x2="180" y1="300" y2="320"/>
-        <line class="connection same" stroke="green" x1="180" x2="180" y1="300" y2="280"/>
-        <line class="connection same" stroke="green" x1="140" x2="140" y1="300" y2="320"/>
-        <line class="connection same" stroke="green" x1="140" x2="140" y1="300" y2="280"/>
-        <line class="connection same" stroke="green" x1="180" x2="180" y1="380" y2="400"/>
-        <line class="connection same" stroke="green" x1="180" x2="180" y1="380" y2="360"/>
-        <line class="connection same" stroke="green" x1="160" x2="140" y1="380" y2="380"/>
-        <line class="connection same" stroke="green" x1="140" x2="140" y1="380" y2="400"/>
-        <line class="connection same" stroke="green" x1="140" x2="140" y1="380" y2="360"/>
-        <line class="connection same" stroke="green" x1="140" x2="120" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="140" x2="120" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="140" x2="120" y1="120" y2="120"/>
-        <line class="connection same" stroke="green" x1="140" x2="120" y1="160" y2="160"/>
-        <line class="connection same" stroke="green" x1="140" x2="120" y1="280" y2="280"/>
-        <line class="connection same" stroke="green" x1="140" x2="120" y1="320" y2="320"/>
-        <line class="connection same" stroke="green" x1="140" x2="120" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="140" x2="120" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="180" x2="200" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="180" x2="200" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="180" x2="200" y1="120" y2="120"/>
-        <line class="connection same" stroke="green" x1="180" x2="200" y1="160" y2="160"/>
-        <line class="connection same" stroke="green" x1="180" x2="200" y1="280" y2="280"/>
-        <line class="connection same" stroke="green" x1="180" x2="200" y1="320" y2="320"/>
-        <line class="connection same" stroke="green" x1="180" x2="200" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="180" x2="200" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="40" x2="40" y1="280" y2="240"/>
-        <line class="connection same" stroke="green" x1="40" x2="40" y1="160" y2="200"/>
-        <line class="connection same" stroke="green" x1="80" x2="80" y1="280" y2="240"/>
-        <line class="connection same" stroke="green" x1="80" x2="80" y1="160" y2="200"/>
-        <line class="connection same" stroke="green" x1="120" x2="120" y1="280" y2="240"/>
-        <line class="connection same" stroke="green" x1="120" x2="120" y1="160" y2="200"/>
-        <line class="connection same" stroke="green" x1="200" x2="200" y1="280" y2="240"/>
-        <line class="connection same" stroke="green" x1="200" x2="200" y1="160" y2="200"/>
-        <line class="connection same" stroke="green" x1="240" x2="240" y1="280" y2="240"/>
-        <line class="connection same" stroke="green" x1="240" x2="240" y1="160" y2="200"/>
-        <line class="connection same" stroke="green" x1="280" x2="280" y1="280" y2="240"/>
-        <line class="connection same" stroke="green" x1="280" x2="280" y1="160" y2="200"/>
-        <line class="connection same" stroke="green" x1="140" x2="160" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="140" x2="160" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="180" x2="160" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="180" x2="160" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="40" y2="40"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="80" y2="80"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="120" y2="120"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="120" y2="120"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="160" y2="160"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="160" y2="160"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="200" y2="200"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="200" y2="200"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="240" y2="240"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="240" y2="240"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="280" y2="280"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="280" y2="280"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="320" y2="320"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="320" y2="320"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="360" y2="360"/>
-        <line class="connection same" stroke="green" x1="40" x2="20" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="280" x2="300" y1="400" y2="400"/>
-        <line class="connection same" stroke="green" x1="40" x2="40" y1="40" y2="20"/>
-        <line class="connection same" stroke="green" x1="40" x2="40" y1="400" y2="420"/>
-        <line class="connection same" stroke="green" x1="80" x2="80" y1="40" y2="20"/>
-        <line class="connection same" stroke="green" x1="80" x2="80" y1="400" y2="420"/>
-        <line class="connection same" stroke="green" x1="120" x2="120" y1="40" y2="20"/>
-        <line class="connection same" stroke="green" x1="120" x2="120" y1="400" y2="420"/>
-        <line class="connection same" stroke="green" x1="160" x2="160" y1="40" y2="20"/>
-        <line class="connection same" stroke="green" x1="160" x2="160" y1="400" y2="420"/>
-        <line class="connection same" stroke="green" x1="200" x2="200" y1="40" y2="20"/>
-        <line class="connection same" stroke="green" x1="200" x2="200" y1="400" y2="420"/>
-        <line class="connection same" stroke="green" x1="240" x2="240" y1="40" y2="20"/>
-        <line class="connection same" stroke="green" x1="240" x2="240" y1="400" y2="420"/>
-        <line class="connection same" stroke="green" x1="280" x2="280" y1="40" y2="20"/>
-        <line class="connection same" stroke="green" x1="280" x2="280" y1="400" y2="420"/>
+        <path class="connection same" d="M 160 220 L 160 230 L 160 240" stroke="blue"/>
+        <path class="connection same" d="M 160 240 L 160 250 L 160 260" stroke="blue"/>
+        <path class="connection same" d="M 160 260 L 160 270 L 160 280" stroke="blue"/>
+        <path class="connection same" d="M 160 280 L 160 290 L 160 300" stroke="blue"/>
+        <path class="connection same" d="M 160 300 L 160 310 L 160 320" stroke="blue"/>
+        <path class="connection same" d="M 160 320 L 160 330 L 160 340" stroke="blue"/>
+        <path class="connection same" d="M 160 340 L 150 340 L 140 340" stroke="blue"/>
+        <path class="connection same" d="M 140 340 L 130 340 L 120 340" stroke="blue"/>
+        <path class="connection same" d="M 120 340 L 110 340 L 100 340" stroke="blue"/>
+        <path class="connection same" d="M 160 340 L 170 340 L 180 340" stroke="blue"/>
+        <path class="connection same" d="M 180 340 L 190 340 L 200 340" stroke="blue"/>
+        <path class="connection same" d="M 200 340 L 210 340 L 220 340" stroke="blue"/>
+        <path class="connection same" d="M 160 220 L 160 210 L 160 200" stroke="blue"/>
+        <path class="connection same" d="M 160 200 L 160 190 L 160 180" stroke="blue"/>
+        <path class="connection same" d="M 160 180 L 160 170 L 160 160" stroke="blue"/>
+        <path class="connection same" d="M 160 160 L 160 150 L 160 140" stroke="blue"/>
+        <path class="connection same" d="M 160 140 L 160 130 L 160 120" stroke="blue"/>
+        <path class="connection same" d="M 160 120 L 160 110 L 160 100" stroke="blue"/>
+        <path class="connection same" d="M 160 100 L 150 100 L 140 100" stroke="blue"/>
+        <path class="connection same" d="M 140 100 L 130 100 L 120 100" stroke="blue"/>
+        <path class="connection same" d="M 120 100 L 110 100 L 100 100" stroke="blue"/>
+        <path class="connection same" d="M 160 100 L 170 100 L 180 100" stroke="blue"/>
+        <path class="connection same" d="M 180 100 L 190 100 L 200 100" stroke="blue"/>
+        <path class="connection same" d="M 200 100 L 210 100 L 220 100" stroke="blue"/>
+        <path class="connection same" d="M 320 220 L 310 220 L 300 220" stroke="blue"/>
+        <path class="connection same" d="M 300 220 L 290 220 L 280 220" stroke="blue"/>
+        <path class="connection same" d="M 280 220 L 270 220 L 260 220" stroke="blue"/>
+        <path class="connection same" d="M 260 220 L 250 220 L 240 220" stroke="blue"/>
+        <path class="connection same" d="M 240 220 L 230 220 L 220 220" stroke="blue"/>
+        <path class="connection same" d="M 220 220 L 210 220 L 200 220" stroke="blue"/>
+        <path class="connection same" d="M 200 220 L 190 220 L 180 220" stroke="blue"/>
+        <path class="connection same" d="M 180 220 L 170 220 L 160 220" stroke="blue"/>
+        <path class="connection same" d="M 220 100 L 220 110 L 220 120" stroke="red"/>
+        <path class="connection same" d="M 220 120 L 220 130 L 220 140" stroke="red"/>
+        <path class="connection same" d="M 220 140 L 210 140 L 200 140" stroke="red"/>
+        <path class="connection same" d="M 200 140 L 190 140 L 180 140" stroke="red"/>
+        <path class="connection same" d="M 220 140 L 230 140 L 240 140" stroke="red"/>
+        <path class="connection same" d="M 240 140 L 250 140 L 260 140" stroke="red"/>
+        <path class="connection same" d="M 220 100 L 220 90 L 220 80" stroke="red"/>
+        <path class="connection same" d="M 220 80 L 220 70 L 220 60" stroke="red"/>
+        <path class="connection same" d="M 220 60 L 210 60 L 200 60" stroke="red"/>
+        <path class="connection same" d="M 200 60 L 190 60 L 180 60" stroke="red"/>
+        <path class="connection same" d="M 220 60 L 230 60 L 240 60" stroke="red"/>
+        <path class="connection same" d="M 240 60 L 250 60 L 260 60" stroke="red"/>
+        <path class="connection same" d="M 100 100 L 100 110 L 100 120" stroke="red"/>
+        <path class="connection same" d="M 100 120 L 100 130 L 100 140" stroke="red"/>
+        <path class="connection same" d="M 100 140 L 90 140 L 80 140" stroke="red"/>
+        <path class="connection same" d="M 80 140 L 70 140 L 60 140" stroke="red"/>
+        <path class="connection same" d="M 100 140 L 110 140 L 120 140" stroke="red"/>
+        <path class="connection same" d="M 120 140 L 130 140 L 140 140" stroke="red"/>
+        <path class="connection same" d="M 100 100 L 100 90 L 100 80" stroke="red"/>
+        <path class="connection same" d="M 100 80 L 100 70 L 100 60" stroke="red"/>
+        <path class="connection same" d="M 100 60 L 90 60 L 80 60" stroke="red"/>
+        <path class="connection same" d="M 80 60 L 70 60 L 60 60" stroke="red"/>
+        <path class="connection same" d="M 100 60 L 110 60 L 120 60" stroke="red"/>
+        <path class="connection same" d="M 120 60 L 130 60 L 140 60" stroke="red"/>
+        <path class="connection same" d="M 220 340 L 220 350 L 220 360" stroke="red"/>
+        <path class="connection same" d="M 220 360 L 220 370 L 220 380" stroke="red"/>
+        <path class="connection same" d="M 220 380 L 210 380 L 200 380" stroke="red"/>
+        <path class="connection same" d="M 200 380 L 190 380 L 180 380" stroke="red"/>
+        <path class="connection same" d="M 220 380 L 230 380 L 240 380" stroke="red"/>
+        <path class="connection same" d="M 240 380 L 250 380 L 260 380" stroke="red"/>
+        <path class="connection same" d="M 220 340 L 220 330 L 220 320" stroke="red"/>
+        <path class="connection same" d="M 220 320 L 220 310 L 220 300" stroke="red"/>
+        <path class="connection same" d="M 220 300 L 210 300 L 200 300" stroke="red"/>
+        <path class="connection same" d="M 200 300 L 190 300 L 180 300" stroke="red"/>
+        <path class="connection same" d="M 220 300 L 230 300 L 240 300" stroke="red"/>
+        <path class="connection same" d="M 240 300 L 250 300 L 260 300" stroke="red"/>
+        <path class="connection same" d="M 100 340 L 100 350 L 100 360" stroke="red"/>
+        <path class="connection same" d="M 100 360 L 100 370 L 100 380" stroke="red"/>
+        <path class="connection same" d="M 100 380 L 90 380 L 80 380" stroke="red"/>
+        <path class="connection same" d="M 80 380 L 70 380 L 60 380" stroke="red"/>
+        <path class="connection same" d="M 100 380 L 110 380 L 120 380" stroke="red"/>
+        <path class="connection same" d="M 120 380 L 130 380 L 140 380" stroke="red"/>
+        <path class="connection same" d="M 100 340 L 100 330 L 100 320" stroke="red"/>
+        <path class="connection same" d="M 100 320 L 100 310 L 100 300" stroke="red"/>
+        <path class="connection same" d="M 100 300 L 90 300 L 80 300" stroke="red"/>
+        <path class="connection same" d="M 80 300 L 70 300 L 60 300" stroke="red"/>
+        <path class="connection same" d="M 100 300 L 110 300 L 120 300" stroke="red"/>
+        <path class="connection same" d="M 120 300 L 130 300 L 140 300" stroke="red"/>
+        <path class="connection same" d="M 260 60 L 260 70 L 260 80" stroke="green"/>
+        <path class="connection same" d="M 260 80 L 250 80 L 240 80" stroke="green"/>
+        <path class="connection same" d="M 260 80 L 270 80 L 280 80" stroke="green"/>
+        <path class="connection same" d="M 260 60 L 260 50 L 260 40" stroke="green"/>
+        <path class="connection same" d="M 260 40 L 250 40 L 240 40" stroke="green"/>
+        <path class="connection same" d="M 260 40 L 270 40 L 280 40" stroke="green"/>
+        <path class="connection same" d="M 60 60 L 60 70 L 60 80" stroke="green"/>
+        <path class="connection same" d="M 60 80 L 50 80 L 40 80" stroke="green"/>
+        <path class="connection same" d="M 60 80 L 70 80 L 80 80" stroke="green"/>
+        <path class="connection same" d="M 60 60 L 60 50 L 60 40" stroke="green"/>
+        <path class="connection same" d="M 60 40 L 50 40 L 40 40" stroke="green"/>
+        <path class="connection same" d="M 60 40 L 70 40 L 80 40" stroke="green"/>
+        <path class="connection same" d="M 260 140 L 260 150 L 260 160" stroke="green"/>
+        <path class="connection same" d="M 260 160 L 250 160 L 240 160" stroke="green"/>
+        <path class="connection same" d="M 260 160 L 270 160 L 280 160" stroke="green"/>
+        <path class="connection same" d="M 260 140 L 260 130 L 260 120" stroke="green"/>
+        <path class="connection same" d="M 260 120 L 250 120 L 240 120" stroke="green"/>
+        <path class="connection same" d="M 260 120 L 270 120 L 280 120" stroke="green"/>
+        <path class="connection same" d="M 60 140 L 60 150 L 60 160" stroke="green"/>
+        <path class="connection same" d="M 60 160 L 50 160 L 40 160" stroke="green"/>
+        <path class="connection same" d="M 60 160 L 70 160 L 80 160" stroke="green"/>
+        <path class="connection same" d="M 60 140 L 60 130 L 60 120" stroke="green"/>
+        <path class="connection same" d="M 60 120 L 50 120 L 40 120" stroke="green"/>
+        <path class="connection same" d="M 60 120 L 70 120 L 80 120" stroke="green"/>
+        <path class="connection same" d="M 260 300 L 260 310 L 260 320" stroke="green"/>
+        <path class="connection same" d="M 260 320 L 250 320 L 240 320" stroke="green"/>
+        <path class="connection same" d="M 260 320 L 270 320 L 280 320" stroke="green"/>
+        <path class="connection same" d="M 260 300 L 260 290 L 260 280" stroke="green"/>
+        <path class="connection same" d="M 260 280 L 250 280 L 240 280" stroke="green"/>
+        <path class="connection same" d="M 260 280 L 270 280 L 280 280" stroke="green"/>
+        <path class="connection same" d="M 60 300 L 60 310 L 60 320" stroke="green"/>
+        <path class="connection same" d="M 60 320 L 50 320 L 40 320" stroke="green"/>
+        <path class="connection same" d="M 60 320 L 70 320 L 80 320" stroke="green"/>
+        <path class="connection same" d="M 60 300 L 60 290 L 60 280" stroke="green"/>
+        <path class="connection same" d="M 60 280 L 50 280 L 40 280" stroke="green"/>
+        <path class="connection same" d="M 60 280 L 70 280 L 80 280" stroke="green"/>
+        <path class="connection same" d="M 260 380 L 260 390 L 260 400" stroke="green"/>
+        <path class="connection same" d="M 260 400 L 250 400 L 240 400" stroke="green"/>
+        <path class="connection same" d="M 260 400 L 270 400 L 280 400" stroke="green"/>
+        <path class="connection same" d="M 260 380 L 260 370 L 260 360" stroke="green"/>
+        <path class="connection same" d="M 260 360 L 250 360 L 240 360" stroke="green"/>
+        <path class="connection same" d="M 260 360 L 270 360 L 280 360" stroke="green"/>
+        <path class="connection same" d="M 60 380 L 60 390 L 60 400" stroke="green"/>
+        <path class="connection same" d="M 60 400 L 50 400 L 40 400" stroke="green"/>
+        <path class="connection same" d="M 60 400 L 70 400 L 80 400" stroke="green"/>
+        <path class="connection same" d="M 60 380 L 60 370 L 60 360" stroke="green"/>
+        <path class="connection same" d="M 60 360 L 50 360 L 40 360" stroke="green"/>
+        <path class="connection same" d="M 60 360 L 70 360 L 80 360" stroke="green"/>
+        <path class="connection same" d="M 180 60 L 180 70 L 180 80" stroke="green"/>
+        <path class="connection same" d="M 180 60 L 180 50 L 180 40" stroke="green"/>
+        <path class="connection same" d="M 140 60 L 140 70 L 140 80" stroke="green"/>
+        <path class="connection same" d="M 140 60 L 140 50 L 140 40" stroke="green"/>
+        <path class="connection same" d="M 180 140 L 180 150 L 180 160" stroke="green"/>
+        <path class="connection same" d="M 180 140 L 180 130 L 180 120" stroke="green"/>
+        <path class="connection same" d="M 140 140 L 140 150 L 140 160" stroke="green"/>
+        <path class="connection same" d="M 140 140 L 140 130 L 140 120" stroke="green"/>
+        <path class="connection same" d="M 180 300 L 180 310 L 180 320" stroke="green"/>
+        <path class="connection same" d="M 180 300 L 180 290 L 180 280" stroke="green"/>
+        <path class="connection same" d="M 140 300 L 140 310 L 140 320" stroke="green"/>
+        <path class="connection same" d="M 140 300 L 140 290 L 140 280" stroke="green"/>
+        <path class="connection same" d="M 180 380 L 180 390 L 180 400" stroke="green"/>
+        <path class="connection same" d="M 180 380 L 180 370 L 180 360" stroke="green"/>
+        <path class="connection same" d="M 160 380 L 150 380 L 140 380" stroke="green"/>
+        <path class="connection same" d="M 140 380 L 140 390 L 140 400" stroke="green"/>
+        <path class="connection same" d="M 140 380 L 140 370 L 140 360" stroke="green"/>
+        <path class="connection same" d="M 140 40 L 130 40 L 120 40" stroke="green"/>
+        <path class="connection same" d="M 140 80 L 130 80 L 120 80" stroke="green"/>
+        <path class="connection same" d="M 140 120 L 130 120 L 120 120" stroke="green"/>
+        <path class="connection same" d="M 140 160 L 130 160 L 120 160" stroke="green"/>
+        <path class="connection same" d="M 140 280 L 130 280 L 120 280" stroke="green"/>
+        <path class="connection same" d="M 140 320 L 130 320 L 120 320" stroke="green"/>
+        <path class="connection same" d="M 140 360 L 130 360 L 120 360" stroke="green"/>
+        <path class="connection same" d="M 140 400 L 130 400 L 120 400" stroke="green"/>
+        <path class="connection same" d="M 180 40 L 190 40 L 200 40" stroke="green"/>
+        <path class="connection same" d="M 180 80 L 190 80 L 200 80" stroke="green"/>
+        <path class="connection same" d="M 180 120 L 190 120 L 200 120" stroke="green"/>
+        <path class="connection same" d="M 180 160 L 190 160 L 200 160" stroke="green"/>
+        <path class="connection same" d="M 180 280 L 190 280 L 200 280" stroke="green"/>
+        <path class="connection same" d="M 180 320 L 190 320 L 200 320" stroke="green"/>
+        <path class="connection same" d="M 180 360 L 190 360 L 200 360" stroke="green"/>
+        <path class="connection same" d="M 180 400 L 190 400 L 200 400" stroke="green"/>
+        <path class="connection same" d="M 40 280 L 40 260 L 40 240" stroke="green"/>
+        <path class="connection same" d="M 40 160 L 40 180 L 40 200" stroke="green"/>
+        <path class="connection same" d="M 80 280 L 80 260 L 80 240" stroke="green"/>
+        <path class="connection same" d="M 80 160 L 80 180 L 80 200" stroke="green"/>
+        <path class="connection same" d="M 120 280 L 120 260 L 120 240" stroke="green"/>
+        <path class="connection same" d="M 120 160 L 120 180 L 120 200" stroke="green"/>
+        <path class="connection same" d="M 200 280 L 200 260 L 200 240" stroke="green"/>
+        <path class="connection same" d="M 200 160 L 200 180 L 200 200" stroke="green"/>
+        <path class="connection same" d="M 240 280 L 240 260 L 240 240" stroke="green"/>
+        <path class="connection same" d="M 240 160 L 240 180 L 240 200" stroke="green"/>
+        <path class="connection same" d="M 280 280 L 280 260 L 280 240" stroke="green"/>
+        <path class="connection same" d="M 280 160 L 280 180 L 280 200" stroke="green"/>
+        <path class="connection same" d="M 140 40 L 150 40 L 160 40" stroke="green"/>
+        <path class="connection same" d="M 140 400 L 150 400 L 160 400" stroke="green"/>
+        <path class="connection same" d="M 180 80 L 170 80 L 160 80" stroke="green"/>
+        <path class="connection same" d="M 180 360 L 170 360 L 160 360" stroke="green"/>
+        <path class="connection same" d="M 40 40 L 30 40 L 20 40" stroke="green"/>
+        <path class="connection same" d="M 280 40 L 290 40 L 300 40" stroke="green"/>
+        <path class="connection same" d="M 40 80 L 30 80 L 20 80" stroke="green"/>
+        <path class="connection same" d="M 280 80 L 290 80 L 300 80" stroke="green"/>
+        <path class="connection same" d="M 40 120 L 30 120 L 20 120" stroke="green"/>
+        <path class="connection same" d="M 280 120 L 290 120 L 300 120" stroke="green"/>
+        <path class="connection same" d="M 40 160 L 30 160 L 20 160" stroke="green"/>
+        <path class="connection same" d="M 280 160 L 290 160 L 300 160" stroke="green"/>
+        <path class="connection same" d="M 40 200 L 30 200 L 20 200" stroke="green"/>
+        <path class="connection same" d="M 280 200 L 290 200 L 300 200" stroke="green"/>
+        <path class="connection same" d="M 40 240 L 30 240 L 20 240" stroke="green"/>
+        <path class="connection same" d="M 280 240 L 290 240 L 300 240" stroke="green"/>
+        <path class="connection same" d="M 40 280 L 30 280 L 20 280" stroke="green"/>
+        <path class="connection same" d="M 280 280 L 290 280 L 300 280" stroke="green"/>
+        <path class="connection same" d="M 40 320 L 30 320 L 20 320" stroke="green"/>
+        <path class="connection same" d="M 280 320 L 290 320 L 300 320" stroke="green"/>
+        <path class="connection same" d="M 40 360 L 30 360 L 20 360" stroke="green"/>
+        <path class="connection same" d="M 280 360 L 290 360 L 300 360" stroke="green"/>
+        <path class="connection same" d="M 40 400 L 30 400 L 20 400" stroke="green"/>
+        <path class="connection same" d="M 280 400 L 290 400 L 300 400" stroke="green"/>
+        <path class="connection same" d="M 40 40 L 40 30 L 40 20" stroke="green"/>
+        <path class="connection same" d="M 40 400 L 40 410 L 40 420" stroke="green"/>
+        <path class="connection same" d="M 80 40 L 80 30 L 80 20" stroke="green"/>
+        <path class="connection same" d="M 80 400 L 80 410 L 80 420" stroke="green"/>
+        <path class="connection same" d="M 120 40 L 120 30 L 120 20" stroke="green"/>
+        <path class="connection same" d="M 120 400 L 120 410 L 120 420" stroke="green"/>
+        <path class="connection same" d="M 160 40 L 160 30 L 160 20" stroke="green"/>
+        <path class="connection same" d="M 160 400 L 160 410 L 160 420" stroke="green"/>
+        <path class="connection same" d="M 200 40 L 200 30 L 200 20" stroke="green"/>
+        <path class="connection same" d="M 200 400 L 200 410 L 200 420" stroke="green"/>
+        <path class="connection same" d="M 240 40 L 240 30 L 240 20" stroke="green"/>
+        <path class="connection same" d="M 240 400 L 240 410 L 240 420" stroke="green"/>
+        <path class="connection same" d="M 280 40 L 280 30 L 280 20" stroke="green"/>
+        <path class="connection same" d="M 280 400 L 280 410 L 280 420" stroke="green"/>
         <g id="text">
             <text alignment-baseline="middle" class="moduleLabel" fill="black" font-size="42.0" text-anchor="middle" transform="scale(1,-1)" x="160.0" y="10.0">6X9 CT</text>
         </g>

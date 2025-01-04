@@ -217,16 +217,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -255,6 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -384,17 +386,17 @@
 
 
 <div class="viewcode-block" id="sram_configuration"><a class="viewcode-back" href="../../reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration">[docs]</a><span class="k">class</span> <span class="nc">sram_configuration</span><span class="p">(</span><span class="n">OpenFPGA_Config_Generator</span><span class="p">):</span>
-    <span class="sd">"""</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This example demonstrate how configuration chain can be restructured after</span>
 <span class="sd">    the tile tranformation. This method is better suited while creating</span>
 <span class="sd">    a configuration after the physical tranformation. However mapping the</span>
 <span class="sd">    sequence back to the original sequence could require complex scripting.</span>
 <span class="sd">    """</span>
     <span class="n">word_line_rows</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="sd">"""Stores number of word lines in each row """</span>
+<span class="w">    </span><span class="sd">"""Stores number of word lines in each row """</span>
 
     <span class="n">bit_line_cols</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="sd">"""Stores number of bit lines in each column """</span>
+<span class="w">    </span><span class="sd">"""Stores number of bit lines in each column """</span>
 
     <span class="n">_config_bits_matrix</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -413,7 +415,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">annotate_configuration_bits</span><span class="p">()</span>
 
 <div class="viewcode-block" id="sram_configuration.print_configuration_bit_matrix"><a class="viewcode-back" href="../../reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration.print_configuration_bit_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">print_configuration_bit_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Print the configuration bits matrix extracted from the fabric </span>
 <span class="sd">        """</span>
         <span class="n">matrix</span> <span class="o">=</span> <span class="n">matrix</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_bits_matrix</span>
@@ -424,11 +426,11 @@
             <span class="nb">print</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="sram_configuration.get_tile"><a class="viewcode-back" href="../../reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration.get_tile">[docs]</a>    <span class="k">def</span> <span class="nf">get_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_pt</span><span class="p">,</span> <span class="n">y_pt</span><span class="p">):</span>
-        <span class="sd">"""Returns the instance associated with the specific x and y cordinate"""</span>
+<span class="w">        </span><span class="sd">"""Returns the instance associated with the specific x and y cordinate"""</span>
         <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="sa">f</span><span class="s2">"*_</span><span class="si">{</span><span class="n">x_pt</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y_pt</span><span class="si">}</span><span class="s2">_*"</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="sram_configuration.annotate_configuration_bits"><a class="viewcode-back" href="../../reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration.annotate_configuration_bits">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_configuration_bits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Adds number of configuration bit information to the each modules</span>
 <span class="sd">        property</span>
 <span class="sd">        '''</span>
@@ -447,7 +449,7 @@
                         <span class="s2">"CONFIG_BITS"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="sram_configuration.add_configuration_scheme"><a class="viewcode-back" href="../../reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration.add_configuration_scheme">[docs]</a>    <span class="k">def</span> <span class="nf">add_configuration_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Creates configuration chain '''</span>
+<span class="w">        </span><span class="sd">''' Creates configuration chain '''</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Adding memory configuration protocol"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"wl*"</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">remove_port</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="s2">"bl*"</span><span class="p">)))</span>
@@ -532,7 +534,7 @@
             <span class="n">out_cable</span><span class="o">.</span><span class="n">connect_instance_port</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_create_bl_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create BL lines in each row</span>
 
 <span class="sd">        TODO: Change method to identify the port size on eachmodule and then create</span>
@@ -577,7 +579,7 @@
                 <span class="n">bl_in_cables</span><span class="o">.</span><span class="n">assign_cable</span><span class="p">(</span><span class="n">bl_out_cables</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_create_wl_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create WL lines in each row</span>
 
 <span class="sd">        TODO: Change method to identify the port size on eachmodule and then create</span>
@@ -622,7 +624,7 @@
                 <span class="n">wl_in_cables</span><span class="o">.</span><span class="n">assign_cable</span><span class="p">(</span><span class="n">wl_out_cables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="sram_configuration.set_wl_distribution"><a class="viewcode-back" href="../../reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration.set_wl_distribution">[docs]</a>    <span class="k">def</span> <span class="nf">set_wl_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Sets fixed number of word lines for each row of the FPGA grid.</span>
 
 <span class="sd">        Args:</span>
@@ -639,7 +641,7 @@
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="sram_configuration.write_fabric_key"><a class="viewcode-back" href="../../reference/utility_classes/sram_configuration.html#util.sram_configuration_protocol.sram_configuration.write_fabric_key">[docs]</a>    <span class="k">def</span> <span class="nf">write_fabric_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        This will be extendned in the class</span>
 <span class="sd">        '''</span>
         <span class="k">return</span></div>

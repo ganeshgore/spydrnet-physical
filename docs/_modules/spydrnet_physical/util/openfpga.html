@@ -217,16 +217,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -255,6 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -368,7 +370,7 @@
 
 
 <div class="viewcode-block" id="OpenFPGA"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA</span><span class="p">:</span>
-    <span class="sd">"""</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This is top-level clas of OpenFPGa which provides methods for</span>
 <span class="sd">    different generic netlist restructuring</span>
 
@@ -384,11 +386,12 @@
         <span class="n">grid</span><span class="p">,</span>
         <span class="n">netlist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">verilog_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">cell_files</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">library</span><span class="o">=</span><span class="s2">"work"</span><span class="p">,</span>
         <span class="n">top_module</span><span class="o">=</span><span class="s2">"fpga_top"</span><span class="p">,</span>
         <span class="n">arch_xml</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Init class with OpenFPGA netlist</span>
 
 <span class="sd">        args:</span>
@@ -405,11 +408,16 @@
                 <span class="k">for</span> <span class="n">each_file</span> <span class="ow">in</span> <span class="n">verilog_files</span><span class="p">:</span>
                     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">each_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fpv</span><span class="p">:</span>
                         <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpv</span><span class="o">.</span><span class="n">readlines</span><span class="p">())))</span>
+                <span class="k">if</span> <span class="n">cell_files</span><span class="p">:</span>
+                    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"`celldefine</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+                    <span class="k">for</span> <span class="n">each_file</span> <span class="ow">in</span> <span class="n">cell_files</span><span class="p">:</span>
+                        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">each_file</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fpv</span><span class="p">:</span>
+                            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fpv</span><span class="o">.</span><span class="n">readlines</span><span class="p">())))</span>
+                    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"`endcelldefine</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
                 <span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span> <span class="o">=</span> <span class="n">sdn</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">"Provide verilog either verilog files or netlist object"</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Provide verilog either verilog files or netlist object"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_library</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span><span class="o">.</span><span class="n">get_libraries</span><span class="p">(</span><span class="n">library</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">top_module</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span><span class="o">.</span><span class="n">top_instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span>
@@ -425,27 +433,27 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">netlist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns library</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">library</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns library</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">top_module</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Definition</span><span class="p">:</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns top_module</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span>
 
 <div class="viewcode-block" id="OpenFPGA.register_tile_generator"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.register_tile_generator">[docs]</a>    <span class="k">def</span> <span class="nf">register_tile_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This registers the tile generator class to OpenFPGA base class</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tile_creator</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
@@ -458,7 +466,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.register_config_generator"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.register_config_generator">[docs]</a>    <span class="k">def</span> <span class="nf">register_config_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This registers the tile generator class to OpenFPGA base class</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config_creator</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
@@ -471,7 +479,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.register_placement_creator"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.register_placement_creator">[docs]</a>    <span class="k">def</span> <span class="nf">register_placement_creator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This registers the tile generator class to OpenFPGA base class</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">placement_creator</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
@@ -482,7 +490,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">SC_GRID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CPP</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SC_HEIGHT</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.create_tiles"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_tiles">[docs]</a>    <span class="k">def</span> <span class="nf">create_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        proxy function to create_tiles method of  tile_creator class</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tile_creator</span><span class="p">:</span>
@@ -490,7 +498,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tile_creator</span><span class="o">.</span><span class="n">create_tiles</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.add_configuration_scheme"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.add_configuration_scheme">[docs]</a>    <span class="k">def</span> <span class="nf">add_configuration_scheme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        proxy function to create_tiles method of tile_creator class</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_creator</span><span class="p">:</span>
@@ -498,7 +506,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_creator</span><span class="o">.</span><span class="n">add_configuration_scheme</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.create_placement"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_placement">[docs]</a>    <span class="k">def</span> <span class="nf">create_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Proxy fucntion to add placement and shaping information to each instance</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">placement_creator</span><span class="p">:</span>
@@ -506,13 +514,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">placement_creator</span><span class="o">.</span><span class="n">create_placement</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.place_pins"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.place_pins">[docs]</a>    <span class="k">def</span> <span class="nf">place_pins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This adds pin placment nforamtion to tile instances</span>
 <span class="sd">        """</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.render_floorplan"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.render_floorplan">[docs]</a>    <span class="k">def</span> <span class="nf">render_floorplan</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""This method runs the fpga render class to assign</span>
+<span class="w">        </span><span class="sd">"""This method runs the fpga render class to assign</span>
 <span class="sd">        shape and location to each module instance"""</span>
         <span class="k">pass</span></div>
 
@@ -557,8 +565,8 @@
         <span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">seen</span> <span class="ow">or</span> <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">u</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
 
-<div class="viewcode-block" id="OpenFPGA.save_shaping_data"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.save_shaping_data">[docs]</a>    <span class="k">def</span> <span class="nf">save_shaping_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<div class="viewcode-block" id="OpenFPGA.save_shaping_data"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.save_shaping_data">[docs]</a>    <span class="k">def</span> <span class="nf">save_shaping_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">custom_entry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Save the shaping data</span>
 <span class="sd">        """</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
@@ -569,7 +577,9 @@
             <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">" = ="</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">pattern</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">):</span>
             <span class="k">if</span> <span class="s2">"ASSIG"</span> <span class="ow">in</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"const"</span><span class="p">):</span>
@@ -599,32 +609,41 @@
                     <span class="n">S</span><span class="p">,</span>
                     <span class="mi">4</span> <span class="k">if</span> <span class="n">S</span> <span class="o">==</span> <span class="s2">"rect"</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
                     <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="o">*</span><span class="n">scale</span><span class="si">:</span><span class="s2"> 6.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">points</span><span class="p">)),</span>
-                    <span class="n">precision</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">scale</span><span class="p">,</span><span class="mi">10</span><span class="p">)))</span>
+                    <span class="n">precision</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">scale</span><span class="p">,</span> <span class="mi">10</span><span class="p">))),</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-        <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"HEIGHT"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"WIDTH"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"HEIGHT"</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+
         <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="s2">"</span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{:^20}</span><span class="s2"> {: 10.</span><span class="si">{precision}</span><span class="s2">f} {: 10.</span><span class="si">{precision}</span><span class="s2">f} </span><span class="si">{:^8}</span><span class="s2"> </span><span class="si">{:^5}</span><span class="s2"> </span><span class="si">{:20}</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="s2">"</span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{:^20}</span><span class="s2"> {: 10.</span><span class="si">{precision}</span><span class="s2">f} {: 10.</span><span class="si">{precision}</span><span class="s2">f} </span><span class="si">{:^8}</span><span class="s2"> </span><span class="si">{:^5}</span><span class="s2"> </span><span class="si">{:20}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                 <span class="mi">0</span><span class="p">,</span>
                 <span class="mi">0</span><span class="p">,</span>
                 <span class="s2">"rect"</span><span class="p">,</span>
                 <span class="mi">4</span><span class="p">,</span>
-                <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                    <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="o">*</span><span class="n">scale</span><span class="si">:</span><span class="s2"> 6.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="mi">0</span><span class="p">))),</span>
-                <span class="n">precision</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">scale</span><span class="p">,</span> <span class="mi">10</span><span class="p">)))</span>
+                <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="o">*</span><span class="n">scale</span><span class="si">:</span><span class="s2"> 6.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="mi">0</span><span class="p">))),</span>
+                <span class="n">precision</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">scale</span><span class="p">,</span> <span class="mi">10</span><span class="p">))),</span>
             <span class="p">)</span>
         <span class="p">)</span>
+        <span class="k">if</span> <span class="n">custom_entry</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">custom_entry</span><span class="p">:</span>
+                <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="s2">"</span><span class="si">{:^20}</span><span class="s2"> </span><span class="si">{:^20}</span><span class="s2"> {: 10.</span><span class="si">{precision}</span><span class="s2">f} {: 10.</span><span class="si">{precision}</span><span class="s2">f} </span><span class="si">{:^8}</span><span class="s2"> </span><span class="si">{:^5}</span><span class="s2"> </span><span class="si">{:20}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="o">*</span><span class="n">p</span><span class="p">,</span>
+                        <span class="n">precision</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">scale</span><span class="p">,</span> <span class="mi">10</span><span class="p">))),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
         <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
+                <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.show_placement_data"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.show_placement_data">[docs]</a>    <span class="k">def</span> <span class="nf">show_placement_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This shows  the placement data of each instance on the screen</span>
 <span class="sd">        """</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
@@ -639,11 +658,11 @@
             <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2"> "</span>
                 <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2"> "</span>
-                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOC_X'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2"> 5d</span><span class="si">}</span><span class="s2"> "</span>
-                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOC_Y'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2"> 5d</span><span class="si">}</span><span class="s2"> "</span>
-                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'WIDTH'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> "</span>
-                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HEIGHT'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> "</span>
-                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'SHAPE'</span><span class="p">,</span> <span class="s1">'--'</span><span class="p">)</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOC_X'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2"> 5d</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'LOC_Y'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2"> 5d</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'WIDTH'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'HEIGHT'</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="s2">5d</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'SHAPE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'--'</span><span class="p">)</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2"> "</span>
             <span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
@@ -651,7 +670,7 @@
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.show_utilization_data"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.show_utilization_data">[docs]</a>    <span class="k">def</span> <span class="nf">show_utilization_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Show the utilization of the modules</span>
 <span class="sd">        """</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
@@ -691,7 +710,7 @@
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.design_instance_map"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.design_instance_map">[docs]</a>    <span class="k">def</span> <span class="nf">design_instance_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns instance current netlist instance map</span>
 <span class="sd">        """</span>
         <span class="n">design</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span>
@@ -708,7 +727,7 @@
         <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">inst_cnt</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.design_top_stat"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.design_top_stat">[docs]</a>    <span class="k">def</span> <span class="nf">design_top_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="p">()):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Get statistics of the top module</span>
 
 <span class="sd">        Reference       Count</span>
@@ -723,8 +742,7 @@
             <span class="k">if</span> <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"const"</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
-                <span class="n">inst_cnt</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
-                    <span class="n">inst_cnt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">inst_cnt</span><span class="p">[</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">inst_cnt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">inst_cnt</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span>
             <span class="nb">sorted</span><span class="p">(</span><span class="n">inst_cnt</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="p">)</span>
@@ -733,8 +751,7 @@
         <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"= = "</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
         <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    top_module : </span><span class="si">{</span><span class="n">design</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    definitions: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">inst_cnt</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"    instances  : </span><span class="si">{</span><span class="nb">sum</span><span class="p">([</span><span class="n">v</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inst_cnt</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    instances  : </span><span class="si">{</span><span class="nb">sum</span><span class="p">([</span><span class="n">v</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">inst_cnt</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"= = "</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
         <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"</span><span class="si">{: &gt;20}</span><span class="s2"> </span><span class="si">{: &gt;8}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">"References"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">))</span>
         <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"- - "</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
@@ -742,8 +759,7 @@
             <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">def_</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
                 <span class="n">output_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="s2">"</span><span class="si">{: &gt;20}</span><span class="s2"> </span><span class="si">{: &gt;8}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">def_</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span>
-                            <span class="n">def_</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"...</span><span class="si">{</span><span class="n">def_</span><span class="p">[</span><span class="o">-</span><span class="mi">17</span><span class="p">:]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">inst_cnt</span><span class="p">[</span><span class="n">def_</span><span class="p">]</span>
+                        <span class="n">def_</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">def_</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"...</span><span class="si">{</span><span class="n">def_</span><span class="p">[</span><span class="o">-</span><span class="mi">17</span><span class="p">:]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">inst_cnt</span><span class="p">[</span><span class="n">def_</span><span class="p">]</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
             <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">function</span><span class="p">:</span>
@@ -756,11 +772,10 @@
         <span class="k">return</span> <span class="n">inst_cnt</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.remove_direct_interc"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.remove_direct_interc">[docs]</a>    <span class="k">def</span> <span class="nf">remove_direct_interc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Removes direct interconnects from the OpenFPGA netlist</span>
 <span class="sd">        """</span>
-        <span class="n">direct_interc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"direct_*"</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">direct_interc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="s2">"direct_*"</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">direct_interc</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">ports</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">direct_interc</span><span class="o">.</span><span class="n">get_ports</span><span class="p">()}</span>
@@ -773,7 +788,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">remove_child</span><span class="p">(</span><span class="n">each</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.merge_all_grid_ios"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.merge_all_grid_ios">[docs]</a>    <span class="k">def</span> <span class="nf">merge_all_grid_ios</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method creates the group of ``grid_io`` and neighbouring ``connection_box``</span>
 <span class="sd">        whichcna be merge.</span>
 
@@ -786,8 +801,7 @@
         <span class="n">WIDTH</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">HEIGHT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">label</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="p">[</span><span class="s2">"cby*"</span><span class="p">]</span> <span class="o">*</span> <span class="n">HEIGHT</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"cbx*"</span><span class="p">]</span> <span class="o">*</span> <span class="n">WIDTH</span> <span class="o">+</span>
-            <span class="p">[</span><span class="s2">"cby*"</span><span class="p">]</span> <span class="o">*</span> <span class="n">HEIGHT</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"cbx*"</span><span class="p">]</span> <span class="o">*</span> <span class="n">WIDTH</span>
+            <span class="p">[</span><span class="s2">"cby*"</span><span class="p">]</span> <span class="o">*</span> <span class="n">HEIGHT</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"cbx*"</span><span class="p">]</span> <span class="o">*</span> <span class="n">WIDTH</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"cby*"</span><span class="p">]</span> <span class="o">*</span> <span class="n">HEIGHT</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"cbx*"</span><span class="p">]</span> <span class="o">*</span> <span class="n">WIDTH</span>
         <span class="p">)</span>
         <span class="n">x_pts</span> <span class="o">=</span> <span class="p">(</span>
             <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">HEIGHT</span>
@@ -821,8 +835,7 @@
             <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
             <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">WIDTH</span>
         <span class="p">)</span>
-        <span class="n">grid_io_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">__</span><span class="si">%d</span><span class="s2">_"</span> <span class="o">%</span> <span class="p">(</span><span class="n">each</span><span class="p">)</span>
-                        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">x_pts</span><span class="p">,</span> <span class="n">y_pts</span><span class="p">)]</span>
+        <span class="n">grid_io_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">__</span><span class="si">%d</span><span class="s2">_"</span> <span class="o">%</span> <span class="p">(</span><span class="n">each</span><span class="p">)</span> <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">x_pts</span><span class="p">,</span> <span class="n">y_pts</span><span class="p">)]</span>
 
         <span class="n">merge_list</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">cb</span><span class="p">,</span> <span class="n">io</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cb_list</span><span class="p">,</span> <span class="n">grid_io_list</span><span class="p">):</span>
@@ -842,18 +855,16 @@
             <span class="n">mainDef</span><span class="p">,</span> <span class="n">instance_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">merge_multiple_instance</span><span class="p">(</span>
                 <span class="n">instance_list</span><span class="p">,</span> <span class="n">new_definition_name</span><span class="o">=</span><span class="n">new_module_name</span>
             <span class="p">)</span>
-            <span class="n">new_defs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">new_module_name</span><span class="p">)))</span>
+            <span class="n">new_defs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">new_module_name</span><span class="p">)))</span>
             <span class="n">new_defs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">OptPins</span><span class="p">()</span>
-            <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span>
-                <span class="n">mainDef</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]))</span><span class="o">.</span><span class="n">name</span> <span class="o">+=</span> <span class="s2">"_old"</span>
+            <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">mainDef</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]))</span><span class="o">.</span><span class="n">name</span> <span class="o">+=</span> <span class="s2">"_old"</span>
             <span class="n">mainDef</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">mainDef</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">inst</span> <span class="ow">in</span> <span class="n">instance_list</span><span class="p">:</span>
                 <span class="n">inst</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">inst</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">new_defs</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.remove_config_chain"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.remove_config_chain">[docs]</a>    <span class="k">def</span> <span class="nf">remove_config_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"ccff_"</span><span class="p">):</span>
-        <span class="sd">"""Remove configuration chain from design"""</span>
+<span class="w">        </span><span class="sd">"""Remove configuration chain from design"""</span>
         <span class="n">cable_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">cable</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_cables</span><span class="p">(</span><span class="sa">f</span><span class="s2">"*</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">*"</span><span class="p">)):</span>
             <span class="n">cable_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cable</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -865,7 +876,7 @@
         <span class="k">return</span> <span class="n">cable_list</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.remove_undriven_nets"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.remove_undriven_nets">[docs]</a>    <span class="k">def</span> <span class="nf">remove_undriven_nets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Removes undriven/floating nets from the top level</span>
 
 <span class="sd">        the net name with undriven keyword in the name is considered as floating nets</span>
@@ -902,21 +913,25 @@
         <span class="n">in_patt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">out_patt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">sort_pins</span><span class="p">:</span> <span class="p">(</span><span class="n">Callable</span><span class="p">)</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">is_downto</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Convertes matching `in_patt` pins to bus with `out_patt` name</span>
 <span class="sd">        """</span>
+        <span class="n">new_port</span><span class="p">,</span> <span class="n">new_cable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
         <span class="k">def</span> <span class="nf">get_pins</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">in_patt</span><span class="p">)</span>
 
         <span class="n">ports</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="n">get_pins</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">sort_pins</span><span class="p">:</span>
+            <span class="n">ports</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ports</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">sort_pins</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ports</span><span class="p">:</span>
-            <span class="c1"># ports = sorted(ports, key=sort_pins or (lambda x: x.name))</span>
-            <span class="n">module</span><span class="o">.</span><span class="n">combine_ports</span><span class="p">(</span><span class="n">out_patt</span><span class="p">,</span> <span class="n">ports</span><span class="p">)</span>
+            <span class="n">new_port</span><span class="p">,</span> <span class="n">new_cable</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">combine_ports</span><span class="p">(</span><span class="n">out_patt</span><span class="p">,</span> <span class="n">ports</span><span class="p">,</span> <span class="n">is_downto</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_port</span><span class="p">,</span> <span class="n">new_cable</span>
 
 <div class="viewcode-block" id="OpenFPGA.create_grid_io_bus"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_grid_io_bus">[docs]</a>    <span class="k">def</span> <span class="nf">create_grid_io_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inpad</span><span class="o">=</span><span class="s2">"inpad"</span><span class="p">,</span> <span class="n">outpad</span><span class="o">=</span><span class="s2">"outpad"</span><span class="p">,</span> <span class="n">sort_pins</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Convert `grid_io` Input/Output pins to bus structure</span>
 <span class="sd">        ::</span>
 <span class="sd">           # Input Pins</span>
@@ -952,7 +967,7 @@
                 <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.create_grid_clb_bus"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_grid_clb_bus">[docs]</a>    <span class="k">def</span> <span class="nf">create_grid_clb_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid_module</span><span class="o">=</span><span class="s2">"grid_clb"</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Convert `grid_clb` Input/Output pins to bus structure</span>
 <span class="sd">        ::</span>
 <span class="sd">          # Input Pins</span>
@@ -982,7 +997,7 @@
                     <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.create_sb_bus"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_sb_bus">[docs]</a>    <span class="k">def</span> <span class="nf">create_sb_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Convert `sb` Input pins to bus structure</span>
 <span class="sd">        ::</span>
 <span class="sd">          # Input Pins</span>
@@ -1011,7 +1026,7 @@
                         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.create_cb_bus"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_cb_bus">[docs]</a>    <span class="k">def</span> <span class="nf">create_cb_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pins</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Convert `cb` Input pins to bus structure</span>
 <span class="sd">        ::</span>
 
@@ -1051,8 +1066,7 @@
                 <span class="s2">"top"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"cbx_</span><span class="si">{</span><span class="n">x</span><span class="o">+</span><span class="mi">0</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="o">+</span><span class="mi">0</span><span class="si">}</span><span class="s2">_"</span><span class="p">,</span>
                 <span class="s2">"bottom"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"cbx_</span><span class="si">{</span><span class="n">x</span><span class="o">+</span><span class="mi">0</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2">_"</span><span class="p">,</span>
             <span class="p">}[</span><span class="n">side</span><span class="p">]</span>
-            <span class="n">through_inst</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">through_inst_name</span><span class="p">))</span>
+            <span class="n">through_inst</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">through_inst_name</span><span class="p">))</span>
             <span class="n">ref_name</span> <span class="o">=</span> <span class="n">through_inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span>
             <span class="n">ft_map</span><span class="p">[</span><span class="n">ref_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ft_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ref_name</span><span class="p">,</span> <span class="p">[])</span>
             <span class="n">ft_map</span><span class="p">[</span><span class="n">ref_name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cable</span><span class="p">,</span> <span class="p">(</span><span class="n">through_inst</span><span class="p">,)))</span>
@@ -1078,7 +1092,7 @@
             <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">ref_name</span><span class="p">))</span><span class="o">.</span><span class="n">OptPins</span><span class="p">()</span>
 
 <div class="viewcode-block" id="OpenFPGA.create_grid_clb_feedthroughs"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.create_grid_clb_feedthroughs">[docs]</a>    <span class="k">def</span> <span class="nf">create_grid_clb_feedthroughs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Creates feedthrough for ``grid_clb`` outputs, to convert digonal</span>
 <span class="sd">        connections to horizontal and vertical</span>
 
@@ -1128,41 +1142,43 @@
     <span class="k">def</span> <span class="nf">write_include_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">relative_from</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">relative_from</span> <span class="o">=</span> <span class="n">relative_from</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"VERILOG_PROJ_DIR"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">write_modules_paths</span><span class="p">):</span>
-                <span class="n">filepath</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">relative_from</span><span class="p">,</span> <span class="s2">"."</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_modules_paths</span><span class="p">:</span>
+                <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">relative_from</span><span class="p">)</span>
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">'`include "</span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s1">"'</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OpenFPGA.save_netlist"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.save_netlist">[docs]</a>    <span class="k">def</span> <span class="nf">save_netlist</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">patten</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span>
+        <span class="n">pattern</span><span class="o">=</span><span class="s2">"*"</span><span class="p">,</span>
         <span class="n">location</span><span class="o">=</span><span class="s2">"."</span><span class="p">,</span>
-        <span class="n">sort_print</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sort_all</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">skip_constraints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">sort_cables</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">sort_instances</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">sort_ports</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">write_blackbox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Save verilog files</span>
 <span class="sd">        """</span>
-        <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">patten</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">pattern</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">):</span>
             <span class="k">if</span> <span class="n">definition</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">written_modules</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="k">if</span> <span class="n">sort_ports</span><span class="p">:</span>
-                <span class="n">definition</span><span class="o">.</span><span class="n">_ports</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span>
-                    <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">_direction</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">sort_cables</span><span class="p">:</span>
-                <span class="n">definition</span><span class="o">.</span><span class="n">_cables</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">sort_instances</span><span class="p">:</span>
-                <span class="n">definition</span><span class="o">.</span><span class="n">_children</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="c1"># if sort_ports:</span>
+            <span class="c1">#     definition._ports.sort(</span>
+            <span class="c1">#         key=lambda x: str(x._direction) + x.name)</span>
+            <span class="c1"># if sort_cables:</span>
+            <span class="c1">#     definition._cables.sort(key=lambda x: x.name)</span>
+            <span class="c1"># if sort_instances:</span>
+            <span class="c1">#     definition._children.sort(key=lambda x: x.name)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Writing </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="n">Path</span><span class="p">(</span><span class="n">location</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.v"</span><span class="p">)</span>
             <span class="n">sdn</span><span class="o">.</span><span class="n">compose</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_netlist</span><span class="p">,</span>
                 <span class="n">filename</span><span class="o">=</span><span class="n">filepath</span><span class="p">,</span>
-                <span class="n">sort_all</span><span class="o">=</span><span class="n">sort_print</span><span class="p">,</span>
+                <span class="n">sort_all</span><span class="o">=</span><span class="n">sort_all</span><span class="p">,</span>
                 <span class="n">skip_constraints</span><span class="o">=</span><span class="n">skip_constraints</span><span class="p">,</span>
                 <span class="n">definition_list</span><span class="o">=</span><span class="p">[</span><span class="n">definition</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
                 <span class="n">write_blackbox</span><span class="o">=</span><span class="n">write_blackbox</span><span class="p">,</span>
@@ -1179,7 +1195,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">fpga_grid</span><span class="p">:</span> <span class="n">FPGAGridGen</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OpenFPGA.get_top_instance"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.get_top_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method generates the grid instance information given the</span>
 <span class="sd">        cordinate points</span>
 <span class="sd">        """</span>
@@ -1188,7 +1204,7 @@
 <div class="viewcode-block" id="OpenFPGA.fix_grid_pin_names"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.fix_grid_pin_names">[docs]</a>    <span class="k">def</span> <span class="nf">fix_grid_pin_names</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">".*__pin_(.*)_0_"</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">"grid_*"</span><span class="p">,</span> <span class="n">name_map</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method is used to fix the pin names on the grid modules</span>
 
 <span class="sd">        Args:</span>
@@ -1207,7 +1223,7 @@
                     <span class="n">top_port</span><span class="o">.</span><span class="n">change_name</span><span class="p">(</span><span class="n">pin_name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA.annotate_area_information"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.annotate_area_information">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_area_information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">skipline</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method annotated the area infomration on each</span>
 <span class="sd">        definition of the top level module</span>
 <span class="sd">        """</span>
@@ -1219,8 +1235,7 @@
                 <span class="n">module</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">area</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="mi">0</span>
                 <span class="n">area_grid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
-                    <span class="nb">float</span><span class="p">(</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SC_HEIGHT</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">CPP</span><span class="p">)</span>
+                    <span class="nb">float</span><span class="p">(</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SC_HEIGHT</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">CPP</span><span class="p">)</span>
                 <span class="p">)</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">ref</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">(</span><span class="n">module</span><span class="p">))</span>
@@ -1232,10 +1247,42 @@
                         <span class="nb">float</span><span class="p">(</span><span class="n">area</span><span class="p">),</span>
                     <span class="p">)</span>
                     <span class="n">ref</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"AREA"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">area_grid</span><span class="p">)</span>
-                    <span class="n">ref</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"AREA_UM"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
-                        <span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="n">ref</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"AREA_UM"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">area</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Area annotation: </span><span class="si">%s</span><span class="s2"> not found in the netlist "</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span></div>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s2">"Area annotation: </span><span class="si">%s</span><span class="s2"> not found in the netlist "</span><span class="p">,</span> <span class="n">module</span>
+                    <span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenFPGA.annotate_shaping_information"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.annotate_shaping_information">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_shaping_information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">skipline</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        This method annotated the area infomration on each</span>
+<span class="sd">        definition of the top level module</span>
+<span class="sd">        """</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="n">skipline</span><span class="p">:]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">line</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span>
+                <span class="n">INSTANCE</span><span class="p">,</span> <span class="n">MODULE</span><span class="p">,</span> <span class="n">LOC_X</span><span class="p">,</span> <span class="n">LOC_Y</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">6</span><span class="p">:]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">INSTANCE</span><span class="p">:</span>
+                        <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">inst</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="n">INSTANCE</span><span class="p">))</span>
+
+                        <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"LOC_X"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">LOC_X</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="p">)</span>
+                        <span class="n">inst</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"LOC_Y"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">LOC_Y</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="p">)</span>
+
+                    <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"WIDTH"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="p">)</span>
+                    <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="n">PROP</span><span class="p">][</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">GLOBAL_SCALE</span><span class="p">)</span>
+
+                <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="s2">"shaping annotation: </span><span class="si">%s</span><span class="s2">[</span><span class="si">%s</span><span class="s2">] not found in the netlist "</span><span class="p">,</span>
+                        <span class="n">INSTANCE</span><span class="p">,</span>
+                        <span class="n">MODULE</span><span class="p">,</span>
+                    <span class="p">)</span></div>
 
     <span class="c1"># print the hierarchy of a netlist</span>
     <span class="k">def</span> <span class="nf">hierarchy</span><span class="p">(</span>
@@ -1249,12 +1296,10 @@
             <span class="k">else</span> <span class="n">current_instance</span>
         <span class="p">)</span>
         <span class="n">inst_name</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">current_instance</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
-                <span class="n">current_instance</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">)</span> <span class="k">else</span> <span class="s2">""</span>
+            <span class="n">current_instance</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_instance</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">)</span> <span class="k">else</span> <span class="s2">""</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="s2">"SDN_VERILOG"</span> <span class="ow">in</span> <span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
-            <span class="n">line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">indentation</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">inst_name</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> \
-                <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">indentation</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">inst_name</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">"</span>
             <span class="n">output</span> <span class="o">+=</span> <span class="n">line</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">reference</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
@@ -1268,7 +1313,7 @@
         <span class="k">return</span> <span class="n">output</span>
 
 <div class="viewcode-block" id="OpenFPGA.update_module_label"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.update_module_label">[docs]</a>    <span class="k">def</span> <span class="nf">update_module_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Adde area information to label</span>
 <span class="sd">        """</span>
 
@@ -1285,16 +1330,17 @@
             <span class="c1">#     ADDITIONAL_STYLES += f".{ref.name}" + \</span>
             <span class="c1">#         "{fill:#b22222 !important;}\n"</span>
 
-<div class="viewcode-block" id="OpenFPGA.get_overutils_styles"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.get_overutils_styles">[docs]</a>    <span class="k">def</span> <span class="nf">get_overutils_styles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#D60B00'</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<div class="viewcode-block" id="OpenFPGA.get_overutils_styles"><a class="viewcode-back" href="../../../reference/openfpga/base.html#spydrnet_physical.util.OpenFPGA.get_overutils_styles">[docs]</a>    <span class="k">def</span> <span class="nf">get_overutils_styles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#D60B00"</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Analyzes utilisation of each module and returns CSS string to highlight</span>
 <span class="sd">        in the SVG</span>
 <span class="sd">        """</span>
         <span class="n">additional_styles</span> <span class="o">=</span> <span class="s2">""</span>
         <span class="k">for</span> <span class="n">eachmdoule</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">top_module</span><span class="o">.</span><span class="n">get_definitions</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">eachmdoule</span><span class="o">.</span><span class="n">utilization</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
-                <span class="n">additional_styles</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">.</span><span class="si">{</span><span class="n">eachmdoule</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> \
-                    <span class="sa">f</span><span class="s2">"</span><span class="se">{{</span><span class="s2"> fill: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2"> !important </span><span class="se">}}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">"</span>
+                <span class="n">additional_styles</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">.</span><span class="si">{</span><span class="n">eachmdoule</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">"</span><span class="se">{{</span><span class="s2"> fill: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s2"> !important </span><span class="se">}}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">"</span>
+                <span class="p">)</span>
         <span class="k">return</span> <span class="n">additional_styles</span></div></div>
 </pre></div>
         </article>

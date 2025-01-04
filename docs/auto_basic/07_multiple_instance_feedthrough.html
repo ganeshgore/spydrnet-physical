@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.4. Combined definitions pins" href="09_combine_pins.html" /><link rel="prev" title="1.2. Visualise Hierarchical Netlist (SVG/Interactive)" href="02_display_hierarchical_netlist.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.3. Combined definitions pins" href="09_combine_pins.html" /><link rel="prev" title="1.1. Visualise Hierarchical Netlist (SVG/Interactive)" href="02_display_hierarchical_netlist.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
-        <title>1.3. Generating feedthrough from multiple instances - SpyDrNet-Physical alpha documentation</title>
+        <title>1.2. Generating feedthrough from multiple instances - SpyDrNet-Physical alpha documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -218,16 +218,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">1. Basic Restructuring Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -256,6 +257,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -350,7 +352,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="generating-feedthrough-from-multiple-instances">
-<span id="sphx-glr-auto-basic-07-multiple-instance-feedthrough-py"></span><h1><span class="section-number">1.3. </span>Generating feedthrough from multiple instances<a class="headerlink" href="#generating-feedthrough-from-multiple-instances" title="Permalink to this headline">¶</a></h1>
+<span id="sphx-glr-auto-basic-07-multiple-instance-feedthrough-py"></span><h1><span class="section-number">1.2. </span>Generating feedthrough from multiple instances<a class="headerlink" href="#generating-feedthrough-from-multiple-instances" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrates how to generate feedthrough from multiple instances.
 If multiple instances belong to the same reference module it should reuser
 the feedthrough instead of creating independent feedthrough to pass through each instance.</p>
@@ -358,7 +360,7 @@ the feedthrough instead of creating independent feedthrough to pass through each
 from  <code class="docutils literal notranslate"><span class="pre">inst_1_0</span></code> and  <code class="docutils literal notranslate"><span class="pre">inst_1_1</span></code> in sequence.</p>
 <p><strong>Before feedthrough</strong></p>
 <img alt="../_images/_basic_hierarchy_design.svg" class="align-center" src="../_images/_basic_hierarchy_design.svg"/><p><strong>After feedthrough</strong></p>
-<img alt="../../examples/basic/_Feedthrough_basic_hierarchy_design.svg" class="align-center" src="../../examples/basic/_Feedthrough_basic_hierarchy_design.svg"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<img alt="../_images/_Feedthrough_basic_hierarchy_design.svg" class="align-center" src="../_images/_Feedthrough_basic_hierarchy_design.svg"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">spydrnet</span> <span class="k">as</span> <span class="nn">sdn</span>
 <span class="kn">import</span> <span class="nn">spydrnet_physical</span> <span class="k">as</span> <span class="nn">sdnphy</span>
 <span class="kn">from</span> <span class="nn">spydrnet_physical.composers.html.composer</span> <span class="kn">import</span> <span class="n">HTMLComposer</span>
@@ -389,7 +391,7 @@ from  <code class="docutils literal notranslate"><span class="pre">inst_1_0</spa
 <span class="n">inst1</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s1">'inst_1_0'</span><span class="p">))</span>
 <span class="n">inst2</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">get_instances</span><span class="p">(</span><span class="s1">'inst_1_1'</span><span class="p">))</span>
 
-<span class="n">inst_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">cable</span><span class="p">,</span> <span class="p">[</span><span class="n">inst1</span><span class="p">,</span> <span class="n">inst2</span><span class="p">])]</span>
+<span class="n">inst_list</span> <span class="o">=</span> <span class="p">(</span><span class="n">cable</span><span class="p">,</span> <span class="p">[</span><span class="n">inst1</span><span class="p">,</span> <span class="n">inst2</span><span class="p">])</span>
 
 <span class="n">top</span><span class="o">.</span><span class="n">create_feedthrough_multiple</span><span class="p">(</span><span class="n">inst_list</span><span class="p">)</span>
 <span class="n">top</span><span class="o">.</span><span class="n">create_unconn_wires</span><span class="p">()</span>
@@ -426,7 +428,7 @@ from  <code class="docutils literal notranslate"><span class="pre">inst_1_0</spa
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">1.4. </span>Combined definitions pins</div>
+                <div class="title"><span class="section-number">1.3. </span>Combined definitions pins</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -437,7 +439,7 @@ from  <code class="docutils literal notranslate"><span class="pre">inst_1_0</spa
                   <span>Previous</span>
                 </div>
                 
-                <div class="title"><span class="section-number">1.2. </span>Visualise Hierarchical Netlist (SVG/Interactive)</div>
+                <div class="title"><span class="section-number">1.1. </span>Visualise Hierarchical Netlist (SVG/Interactive)</div>
                 
               </div>
             </a>

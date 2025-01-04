@@ -217,16 +217,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -255,6 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -355,7 +357,7 @@
 
 
 <div class="viewcode-block" id="OpenFPGA_Arch"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch">[docs]</a><span class="k">class</span> <span class="nc">OpenFPGA_Arch</span><span class="p">:</span>
-    <span class="sd">"""</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    This is an architecture parser which parses the VPR and OpenFPGA XML files</span>
 <span class="sd">    and provides easy interface APIs</span>
 
@@ -387,17 +389,17 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">pb_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Returns list of pb_types in the architecture"""</span>
+<span class="w">        </span><span class="sd">"""Returns list of pb_types in the architecture"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pb_types</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Returns list of tiles in the architecture"""</span>
+<span class="w">        </span><span class="sd">"""Returns list of tiles in the architecture"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tiles</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Returns selected layout name"""</span>
+<span class="w">        </span><span class="sd">"""Returns selected layout name"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_layout</span>
 
     <span class="k">def</span> <span class="nf">_get_pb_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -413,15 +415,15 @@
         <span class="p">}</span>
 
 <div class="viewcode-block" id="OpenFPGA_Arch.get_width"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Return width of selected layout"""</span>
+<span class="w">        </span><span class="sd">"""Return width of selected layout"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">2</span></div>
 
 <div class="viewcode-block" id="OpenFPGA_Arch.get_height"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.get_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Return height of selected layout"""</span>
+<span class="w">        </span><span class="sd">"""Return height of selected layout"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="mi">2</span></div>
 
 <div class="viewcode-block" id="OpenFPGA_Arch.get_layouts"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.get_layouts">[docs]</a>    <span class="k">def</span> <span class="nf">get_layouts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the dictionary of avaialble layouts in the architecture</span>
 
 <span class="sd">        Returns:</span>
@@ -433,7 +435,7 @@
         <span class="k">return</span> <span class="n">layout</span></div>
 
 <div class="viewcode-block" id="OpenFPGA_Arch.set_layout"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.set_layout">[docs]</a>    <span class="k">def</span> <span class="nf">set_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout_name</span><span class="p">):</span>
-        <span class="sd">"""Set specific layout as primary layout"""</span>
+<span class="w">        </span><span class="sd">"""Set specific layout as primary layout"""</span>
         <span class="n">layouts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layouts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         <span class="k">assert</span> <span class="p">(</span>
             <span class="n">layout_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layouts</span><span class="p">()</span>
@@ -445,7 +447,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_layout</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"height"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="OpenFPGA_Arch.is_homogeneous"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.is_homogeneous">[docs]</a>    <span class="k">def</span> <span class="nf">is_homogeneous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Checks if the device is homogeneous device or heterogenous</span>
 
 <span class="sd">        if layout section contains anything other than `corner`, `periphery` and</span>
@@ -454,13 +456,13 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"Not implemented yet"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="OpenFPGA_Arch.get_hetero_columns"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.get_hetero_columns">[docs]</a>    <span class="k">def</span> <span class="nf">get_hetero_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pb_type</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns columns numbers of given heterogenesous pb_type</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="OpenFPGA_Arch.get_hetero_rows"><a class="viewcode-back" href="../../reference/utility_classes/openfpga_arch.html#util.openfpga_arch.OpenFPGA_Arch.get_hetero_rows">[docs]</a>    <span class="k">def</span> <span class="nf">get_hetero_rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pb_type</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns row numbers of given heterogenesous pb_type</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="p">[]</span></div></div>

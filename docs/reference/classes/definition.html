@@ -218,16 +218,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -256,6 +257,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -376,34 +378,40 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.create_feedthrough" title="spydrnet_physical.ir.definition.Definition.create_feedthrough"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_feedthrough</span></code></a></p></td>
 <td><p>Creates a feedthrough for a single cable passing through list of instances</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.create_ft_multiple" title="spydrnet_physical.ir.definition.Definition.create_ft_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_ft_multiple</span></code></a></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_parallel_feedthrough</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.create_ft_multiple" title="spydrnet_physical.ir.definition.Definition.create_ft_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_ft_multiple</span></code></a></p></td>
 <td><p>Alias to create_feedthrough_multiple</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.create_feedthrough_multiple" title="spydrnet_physical.ir.definition.Definition.create_feedthrough_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_feedthrough_multiple</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.create_feedthrough_multiple" title="spydrnet_physical.ir.definition.Definition.create_feedthrough_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_feedthrough_multiple</span></code></a></p></td>
 <td><p>This creates feedthough from list of instances on multiple locations Expects the list of tuples in following format</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.merge_multiple_instance" title="spydrnet_physical.ir.definition.Definition.merge_multiple_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_multiple_instance</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.merge_multiple_instance" title="spydrnet_physical.ir.definition.Definition.merge_multiple_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_multiple_instance</span></code></a></p></td>
 <td><p>This method can merge multiple group of instances having same order of reference definition.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.merge_instance" title="spydrnet_physical.ir.definition.Definition.merge_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_instance</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.merge_instance" title="spydrnet_physical.ir.definition.Definition.merge_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_instance</span></code></a></p></td>
 <td><p>Merges the list of instances to unique definition</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.OptPins" title="spydrnet_physical.ir.definition.Definition.OptPins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OptPins</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.OptPins" title="spydrnet_physical.ir.definition.Definition.OptPins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OptPins</span></code></a></p></td>
 <td><p>This method optimizes the definitions pins bu inspecting all the instances of the definition</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.OptWires" title="spydrnet_physical.ir.definition.Definition.OptWires"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OptWires</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.OptWires" title="spydrnet_physical.ir.definition.Definition.OptWires"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OptWires</span></code></a></p></td>
 <td><p>List the wires which can be optimised based on different constraints</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.duplicate_port" title="spydrnet_physical.ir.definition.Definition.duplicate_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duplicate_port</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.duplicate_port" title="spydrnet_physical.ir.definition.Definition.duplicate_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duplicate_port</span></code></a></p></td>
 <td><p>Duplicates existing port in the definition Uses assign block beetween to short two cables If post in output port <code class="docutils literal notranslate"><span class="pre">assign</span> <span class="pre">new_port</span> <span class="pre">=</span> <span class="pre">initial_port</span></code> else <code class="docutils literal notranslate"><span class="pre">assign</span> <span class="pre">initial_port</span> <span class="pre">=</span> <span class="pre">new_port</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.combine_cables" title="spydrnet_physical.ir.definition.Definition.combine_cables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combine_cables</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.combine_cables" title="spydrnet_physical.ir.definition.Definition.combine_cables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combine_cables</span></code></a></p></td>
 <td><p>Combines multiple cables to new cable.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.combine_ports" title="spydrnet_physical.ir.definition.Definition.combine_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combine_ports</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.combine_ports" title="spydrnet_physical.ir.definition.Definition.combine_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combine_ports</span></code></a></p></td>
 <td><p>This method can combine multiple input or output ports togther to create a bus structure.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_unconn_wires</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_unconn_wires</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_ports</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.split_port" title="spydrnet_physical.ir.definition.Definition.split_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_port</span></code></a></p></td>
@@ -659,7 +667,7 @@ feedthrough from</p></li>
 Expects the list of tuples in following format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>instances_list</strong> (<em>[(Cable, (inst1, inst1, … .instn), …</em>) – (Cable, (inst1, inst1, … .instn))]</p>
+<dd class="field-odd"><p><strong>instances_list</strong> (<em>(Cable, (inst1, inst1, … .instn)</em>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -703,7 +711,7 @@ get_pin_name(&lt;definition_name:&lt;str&gt;, &lt;pin_name:&lt;str&gt;,
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.OptPins">
-<span class="sig-name descname"><span class="pre">OptPins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pins=&lt;function</span> <span class="pre">Definition.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absorb=True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.OptPins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.OptPins" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">OptPins</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pins=&lt;function</span> <span class="pre">Definition.&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absorb=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_unconn=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.OptPins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.OptPins" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method optimizes the definitions pins bu inspecting all the
 instances of the definition</p>
 <dl class="field-list simple">
@@ -713,6 +721,7 @@ instances of the definition</p>
 <li><p><strong>pins</strong> (<em>only consider specific pins, provide filter function</em>)</p></li>
 <li><p><strong>absorb</strong> (<em>if two pins are only connected to each other they will be absorbed and internal connection will be made</em>)</p></li>
 <li><p><strong>merge</strong> (<em>if two pins are connected to each other and few other instances, one of the pin will be absorbed and other will exist</em>)</p></li>
+<li><p><strong>remove_unconn</strong> (<em>Remove unconnected pins</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -764,7 +773,7 @@ Helpful in creating Bus/Vector from scalar wires</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.combine_ports">
-<span class="sig-name descname"><span class="pre">combine_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ports</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.combine_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.combine_ports" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">combine_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ports</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_downto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.combine_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.combine_ports" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method can combine multiple input or output ports togther
 to create a bus structure.</p>
 <p>It does create a cable for internal wires, but does not
@@ -819,7 +828,7 @@ each cell is represented as as node and nets are represented as edges</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.add_buffer">
-<span class="sig-name descname"><span class="pre">add_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wire</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('A',</span> <span class="pre">'Y')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.add_buffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wire</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('A',</span> <span class="pre">'Y')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_cable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.add_buffer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds buffer on the given net
 :Parameters: * <strong>wire</strong> (<em>sdn.Wire, sdn.Cable</em>) – Cable or a wire to be buffered</p>
 <blockquote>

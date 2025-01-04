@@ -1,5 +1,5 @@
 {
-  "creator": "Yosys 0.19 (git sha1 UNKNOWN, ccache clang 11.0.0-2~ubuntu20.04.1 -Os -flto -flto)",
+  "creator": "Yosys 0.26 (git sha1 UNKNOWN, ccache clang 14.0.0-1ubuntu1 -Os -flto -flto)",
   "modules": {
     "BUF_X1": {
       "attributes": {
@@ -142,12 +142,10 @@
         },
         "grid_top_out": {
           "direction": "output",
-          "upto": 1,
           "bits": [ 47, 48, 49, 50, 51, 52, 53, 54, 55, 56 ]
         },
         "grid_bottom_out": {
           "direction": "output",
-          "upto": 1,
           "bits": [ 57, 58, 59, 60, 61, 62, 63, 64, 65, 66 ]
         }
       },
@@ -169,7 +167,7 @@
           },
           "connections": {
             "in": [ 26, 6, 32, 12, 38, 18, 44, 24 ],
-            "out": [ 56 ],
+            "out": [ 47 ],
             "sram": [ 67, 68, 69, 70 ],
             "sram_inv": [ 71, 72, 73, 74 ]
           }
@@ -191,7 +189,7 @@
           },
           "connections": {
             "in": [ 25, 5, 31, 11, 37, 17, 43, 23 ],
-            "out": [ 55 ],
+            "out": [ 48 ],
             "sram": [ 75, 76, 77, 78 ],
             "sram_inv": [ 79, 80, 81, 82 ]
           }
@@ -213,7 +211,7 @@
           },
           "connections": {
             "in": [ 30, 10, 36, 16, 42, 22, 44, 24 ],
-            "out": [ 54 ],
+            "out": [ 49 ],
             "sram": [ 83, 84, 85, 86 ],
             "sram_inv": [ 87, 88, 89, 90 ]
           }
@@ -235,7 +233,7 @@
           },
           "connections": {
             "in": [ 29, 9, 35, 15, 41, 21, 43, 23 ],
-            "out": [ 53 ],
+            "out": [ 50 ],
             "sram": [ 91, 92, 93, 94 ],
             "sram_inv": [ 95, 96, 97, 98 ]
           }
@@ -257,7 +255,7 @@
           },
           "connections": {
             "in": [ 28, 8, 34, 14, 40, 20, 42, 22 ],
-            "out": [ 52 ],
+            "out": [ 51 ],
             "sram": [ 99, 100, 101, 102 ],
             "sram_inv": [ 103, 104, 105, 106 ]
           }
@@ -279,7 +277,7 @@
           },
           "connections": {
             "in": [ 27, 7, 33, 13, 39, 19, 41, 21 ],
-            "out": [ 51 ],
+            "out": [ 52 ],
             "sram": [ 107, 108, 109, 110 ],
             "sram_inv": [ 111, 112, 113, 114 ]
           }
@@ -301,7 +299,7 @@
           },
           "connections": {
             "in": [ 26, 6, 32, 12, 38, 18, 40, 20 ],
-            "out": [ 50 ],
+            "out": [ 53 ],
             "sram": [ 115, 116, 117, 118 ],
             "sram_inv": [ 119, 120, 121, 122 ]
           }
@@ -323,7 +321,7 @@
           },
           "connections": {
             "in": [ 25, 5, 31, 11, 37, 17, 39, 19 ],
-            "out": [ 49 ],
+            "out": [ 54 ],
             "sram": [ 123, 124, 125, 126 ],
             "sram_inv": [ 127, 128, 129, 130 ]
           }
@@ -345,7 +343,7 @@
           },
           "connections": {
             "in": [ 30, 10, 36, 16, 38, 18, 44, 24 ],
-            "out": [ 48 ],
+            "out": [ 55 ],
             "sram": [ 131, 132, 133, 134 ],
             "sram_inv": [ 135, 136, 137, 138 ]
           }
@@ -367,7 +365,7 @@
           },
           "connections": {
             "in": [ 29, 9, 35, 15, 37, 17, 43, 23 ],
-            "out": [ 47 ],
+            "out": [ 56 ],
             "sram": [ 139, 140, 141, 142 ],
             "sram_inv": [ 143, 144, 145, 146 ]
           }
@@ -389,7 +387,7 @@
           },
           "connections": {
             "in": [ 28, 8, 34, 14, 36, 16, 42, 22 ],
-            "out": [ 66 ],
+            "out": [ 57 ],
             "sram": [ 147, 148, 149, 150 ],
             "sram_inv": [ 151, 152, 153, 154 ]
           }
@@ -411,7 +409,7 @@
           },
           "connections": {
             "in": [ 27, 7, 33, 13, 35, 15, 41, 21 ],
-            "out": [ 65 ],
+            "out": [ 58 ],
             "sram": [ 155, 156, 157, 158 ],
             "sram_inv": [ 159, 160, 161, 162 ]
           }
@@ -433,7 +431,7 @@
           },
           "connections": {
             "in": [ 26, 6, 32, 12, 34, 14, 40, 20 ],
-            "out": [ 64 ],
+            "out": [ 59 ],
             "sram": [ 163, 164, 165, 166 ],
             "sram_inv": [ 167, 168, 169, 170 ]
           }
@@ -455,7 +453,7 @@
           },
           "connections": {
             "in": [ 25, 5, 31, 11, 33, 13, 39, 19 ],
-            "out": [ 63 ],
+            "out": [ 60 ],
             "sram": [ 171, 172, 173, 174 ],
             "sram_inv": [ 175, 176, 177, 178 ]
           }
@@ -477,7 +475,7 @@
           },
           "connections": {
             "in": [ 30, 10, 32, 12, 38, 18, 44, 24 ],
-            "out": [ 62 ],
+            "out": [ 61 ],
             "sram": [ 179, 180, 181, 182 ],
             "sram_inv": [ 183, 184, 185, 186 ]
           }
@@ -499,7 +497,7 @@
           },
           "connections": {
             "in": [ 29, 9, 31, 11, 37, 17, 43, 23 ],
-            "out": [ 61 ],
+            "out": [ 62 ],
             "sram": [ 187, 188, 189, 190 ],
             "sram_inv": [ 191, 192, 193, 194 ]
           }
@@ -521,7 +519,7 @@
           },
           "connections": {
             "in": [ 28, 8, 30, 10, 36, 16, 42, 22 ],
-            "out": [ 60 ],
+            "out": [ 63 ],
             "sram": [ 195, 196, 197, 198 ],
             "sram_inv": [ 199, 200, 201, 202 ]
           }
@@ -543,7 +541,7 @@
           },
           "connections": {
             "in": [ 27, 7, 29, 9, 35, 15, 41, 21 ],
-            "out": [ 59 ],
+            "out": [ 64 ],
             "sram": [ 203, 204, 205, 206 ],
             "sram_inv": [ 207, 208, 209, 210 ]
           }
@@ -565,7 +563,7 @@
           },
           "connections": {
             "in": [ 26, 6, 28, 8, 34, 14, 40, 20 ],
-            "out": [ 58 ],
+            "out": [ 65 ],
             "sram": [ 211, 212, 213, 214 ],
             "sram_inv": [ 215, 216, 217, 218 ]
           }
@@ -587,7 +585,7 @@
           },
           "connections": {
             "in": [ 25, 5, 27, 7, 33, 13, 39, 19 ],
-            "out": [ 57 ],
+            "out": [ 66 ],
             "sram": [ 219, 220, 221, 222 ],
             "sram_inv": [ 223, 224, 225, 226 ]
           }
@@ -650,7 +648,6 @@
         "grid_bottom_out": {
           "hide_name": 0,
           "bits": [ 57, 58, 59, 60, 61, 62, 63, 64, 65, 66 ],
-          "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:28.17-28.32"
           }
@@ -658,7 +655,6 @@
         "grid_top_out": {
           "hide_name": 0,
           "bits": [ 47, 48, 49, 50, 51, 52, 53, 54, 55, 56 ],
-          "upto": 1,
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:27.17-27.29"
           }
@@ -668,7 +664,7 @@
           "bits": [ 67, 68, 69, 70 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:39.15-39.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:90.15-90.32"
           }
         },
         "mux2_size8_0_sram_inv": {
@@ -676,7 +672,7 @@
           "bits": [ 71, 72, 73, 74 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:40.15-40.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:89.15-89.36"
           }
         },
         "mux2_size8_10_sram": {
@@ -684,7 +680,7 @@
           "bits": [ 147, 148, 149, 150 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:41.15-41.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:88.15-88.33"
           }
         },
         "mux2_size8_10_sram_inv": {
@@ -692,7 +688,7 @@
           "bits": [ 151, 152, 153, 154 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:42.15-42.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:87.15-87.37"
           }
         },
         "mux2_size8_11_sram": {
@@ -700,7 +696,7 @@
           "bits": [ 155, 156, 157, 158 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:43.15-43.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:86.15-86.33"
           }
         },
         "mux2_size8_11_sram_inv": {
@@ -708,7 +704,7 @@
           "bits": [ 159, 160, 161, 162 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:44.15-44.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:85.15-85.37"
           }
         },
         "mux2_size8_12_sram": {
@@ -716,7 +712,7 @@
           "bits": [ 163, 164, 165, 166 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:45.15-45.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:84.15-84.33"
           }
         },
         "mux2_size8_12_sram_inv": {
@@ -724,7 +720,7 @@
           "bits": [ 167, 168, 169, 170 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:46.15-46.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:83.15-83.37"
           }
         },
         "mux2_size8_13_sram": {
@@ -732,7 +728,7 @@
           "bits": [ 171, 172, 173, 174 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:47.15-47.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:82.15-82.33"
           }
         },
         "mux2_size8_13_sram_inv": {
@@ -740,7 +736,7 @@
           "bits": [ 175, 176, 177, 178 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:48.15-48.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:81.15-81.37"
           }
         },
         "mux2_size8_14_sram": {
@@ -748,7 +744,7 @@
           "bits": [ 179, 180, 181, 182 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:49.15-49.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:80.15-80.33"
           }
         },
         "mux2_size8_14_sram_inv": {
@@ -756,7 +752,7 @@
           "bits": [ 183, 184, 185, 186 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:50.15-50.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:79.15-79.37"
           }
         },
         "mux2_size8_15_sram": {
@@ -764,7 +760,7 @@
           "bits": [ 187, 188, 189, 190 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:51.15-51.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:78.15-78.33"
           }
         },
         "mux2_size8_15_sram_inv": {
@@ -772,7 +768,7 @@
           "bits": [ 191, 192, 193, 194 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:52.15-52.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:77.15-77.37"
           }
         },
         "mux2_size8_16_sram": {
@@ -780,7 +776,7 @@
           "bits": [ 195, 196, 197, 198 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:53.15-53.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:76.15-76.33"
           }
         },
         "mux2_size8_16_sram_inv": {
@@ -788,7 +784,7 @@
           "bits": [ 199, 200, 201, 202 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:54.15-54.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:75.15-75.37"
           }
         },
         "mux2_size8_17_sram": {
@@ -796,7 +792,7 @@
           "bits": [ 203, 204, 205, 206 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:55.15-55.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:74.15-74.33"
           }
         },
         "mux2_size8_17_sram_inv": {
@@ -804,7 +800,7 @@
           "bits": [ 207, 208, 209, 210 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:56.15-56.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:73.15-73.37"
           }
         },
         "mux2_size8_18_sram": {
@@ -812,7 +808,7 @@
           "bits": [ 211, 212, 213, 214 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:57.15-57.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:72.15-72.33"
           }
         },
         "mux2_size8_18_sram_inv": {
@@ -820,7 +816,7 @@
           "bits": [ 215, 216, 217, 218 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:58.15-58.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:71.15-71.37"
           }
         },
         "mux2_size8_19_sram": {
@@ -828,7 +824,7 @@
           "bits": [ 219, 220, 221, 222 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:59.15-59.33"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:70.15-70.33"
           }
         },
         "mux2_size8_19_sram_inv": {
@@ -836,7 +832,7 @@
           "bits": [ 223, 224, 225, 226 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:60.15-60.37"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:69.15-69.37"
           }
         },
         "mux2_size8_1_sram": {
@@ -844,7 +840,7 @@
           "bits": [ 75, 76, 77, 78 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:61.15-61.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:68.15-68.32"
           }
         },
         "mux2_size8_1_sram_inv": {
@@ -852,7 +848,7 @@
           "bits": [ 79, 80, 81, 82 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:62.15-62.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:67.15-67.36"
           }
         },
         "mux2_size8_2_sram": {
@@ -860,7 +856,7 @@
           "bits": [ 83, 84, 85, 86 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:63.15-63.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:66.15-66.32"
           }
         },
         "mux2_size8_2_sram_inv": {
@@ -868,7 +864,7 @@
           "bits": [ 87, 88, 89, 90 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:64.15-64.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:65.15-65.36"
           }
         },
         "mux2_size8_3_sram": {
@@ -876,7 +872,7 @@
           "bits": [ 91, 92, 93, 94 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:65.15-65.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:64.15-64.32"
           }
         },
         "mux2_size8_3_sram_inv": {
@@ -884,7 +880,7 @@
           "bits": [ 95, 96, 97, 98 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:66.15-66.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:63.15-63.36"
           }
         },
         "mux2_size8_4_sram": {
@@ -892,7 +888,7 @@
           "bits": [ 99, 100, 101, 102 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:67.15-67.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:62.15-62.32"
           }
         },
         "mux2_size8_4_sram_inv": {
@@ -900,7 +896,7 @@
           "bits": [ 103, 104, 105, 106 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:68.15-68.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:61.15-61.36"
           }
         },
         "mux2_size8_5_sram": {
@@ -908,7 +904,7 @@
           "bits": [ 107, 108, 109, 110 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:69.15-69.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:60.15-60.32"
           }
         },
         "mux2_size8_5_sram_inv": {
@@ -916,7 +912,7 @@
           "bits": [ 111, 112, 113, 114 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:70.15-70.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:59.15-59.36"
           }
         },
         "mux2_size8_6_sram": {
@@ -924,7 +920,7 @@
           "bits": [ 115, 116, 117, 118 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:71.15-71.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:58.15-58.32"
           }
         },
         "mux2_size8_6_sram_inv": {
@@ -932,7 +928,7 @@
           "bits": [ 119, 120, 121, 122 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:72.15-72.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:57.15-57.36"
           }
         },
         "mux2_size8_7_sram": {
@@ -940,7 +936,7 @@
           "bits": [ 123, 124, 125, 126 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:73.15-73.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:56.15-56.32"
           }
         },
         "mux2_size8_7_sram_inv": {
@@ -948,7 +944,7 @@
           "bits": [ 127, 128, 129, 130 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:74.15-74.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:55.15-55.36"
           }
         },
         "mux2_size8_8_sram": {
@@ -956,7 +952,7 @@
           "bits": [ 131, 132, 133, 134 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:75.15-75.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:54.15-54.32"
           }
         },
         "mux2_size8_8_sram_inv": {
@@ -964,7 +960,7 @@
           "bits": [ 135, 136, 137, 138 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:76.15-76.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:53.15-53.36"
           }
         },
         "mux2_size8_9_sram": {
@@ -972,7 +968,7 @@
           "bits": [ 139, 140, 141, 142 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:77.15-77.32"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:52.15-52.32"
           }
         },
         "mux2_size8_9_sram_inv": {
@@ -980,7 +976,7 @@
           "bits": [ 143, 144, 145, 146 ],
           "upto": 1,
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:78.15-78.36"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/./_tmp/cbx_1__1_.v:51.15-51.36"
           }
         },
         "prog_clk": {

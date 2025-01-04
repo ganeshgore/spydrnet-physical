@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="720" version="1.1" viewBox="0,-690.0,1000,720" width="1000">
-    <defs id="id5">
-        <marker id="id1" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
+    <defs id="id1">
+        <marker id="conn_marker" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" refX="30" refY="30" viewBox="0 0 120 120">
             <path d="M 0 0 L 60 30 L 0 60 z" fill="blue"/>
         </marker>
-        <marker id="id2" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
+        <marker id="down_conn_marker" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
             <rect fill="green" height="20" width="20" x="-10" y="-10"/>
             <path d="M 8 0 L -8 8 L -8 -8 z" fill="blue"/>
         </marker>
-        <marker id="id3" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
+        <marker id="up_conn_marker" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
             <rect fill="green" height="20" width="20" x="-10" y="-10"/>
             <path d="M 8 0 L -8 8 L -8 -8 z" fill="blue"/>
         </marker>
-        <marker id="id4" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
+        <marker id="top_conn_marker" markerHeight="10" markerUnits="strokeWidth" markerWidth="5" orient="auto" viewBox="-15 -15 30 30">
             <line stroke="red" stroke-width="5px" x1="0" x2="0" y1="-15" y2="15"/>
+        </marker>
+        <marker id="buffer_marker" markerHeight="15" markerUnits="strokeWidth" markerWidth="30" orient="auto" viewBox="-15 -15 30 30">
+            <path d="M 8 0 L -8 8 L -8 -8 z" fill="red"/>
         </marker>
         <style type="text/css"><![CDATA[
                 text{font-family: Lato;}
@@ -21,17 +24,16 @@
                 .gridLabels{fill: grey;font-style: italic;font-weight: 900}
                 .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}
                 
-                .connection{ opacity: 0.5;
-                            marker-end:url(#id1);
+                .connection{ opacity: 0.75;
+                            marker-end:url(#conn_marker);
                             stroke-width:1.2;}
                 .down{stroke-dasharray: 2;
-                    marker-end:url(#id3);}
+                    marker-end:url(#up_conn_marker);}
                 .up{stroke-dasharray: 2;
-                    marker-start:url(#id2);}
+                    marker-start:url(#down_conn_marker);}
                 .top{stroke-dasharray: 2;
-                    marker-start:url(#id4);}
-                .buffer{ filter: hue-rotate(90deg);
-                          stroke-width:2; stroke-dasharray:1;}
+                    marker-start:url(#top_conn_marker);}
+                .buffer{marker-mid:url(#buffer_marker);}
                 ]]></style>
     </defs>
     <g id="markers" transform="scale(1,-1)">
@@ -121,1058 +123,1058 @@
         <line class="gridmarker" x1="10" x2="990" y1="670" y2="670"/>
     </g>
     <g id="main" transform="scale(1,-1)">
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="20" y2="40"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="40" y2="60"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="60" y2="80"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="80" y2="100"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="100" y2="120"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="120" y2="140"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="140" y2="160"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="160" y2="180"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="180" y2="200"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="200" y2="220"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="220" y2="240"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="240" y2="260"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="260" y2="280"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="280" y2="300"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="300" y2="320"/>
-        <line class="connection same" stroke="red" x1="500" x2="500" y1="320" y2="340"/>
-        <line class="connection same" stroke="red" x1="500" x2="520" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="520" x2="540" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="540" x2="560" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="560" x2="580" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="580" x2="600" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="600" x2="620" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="620" x2="640" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="640" x2="660" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="660" x2="680" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="680" x2="700" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="700" x2="720" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="720" x2="740" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="340" y2="360"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="360" y2="380"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="380" y2="400"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="400" y2="420"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="420" y2="440"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="440" y2="460"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="460" y2="480"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="480" y2="500"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="500" y2="520"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="520" y2="540"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="540" y2="560"/>
-        <line class="connection down" stroke="red" x1="740" x2="740" y1="560" y2="580"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="340" y2="320"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="320" y2="300"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="300" y2="280"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="280" y2="260"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="260" y2="240"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="240" y2="220"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="220" y2="200"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="200" y2="180"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="180" y2="160"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="160" y2="140"/>
-        <line class="connection same" stroke="red" x1="740" x2="740" y1="140" y2="120"/>
-        <line class="connection down" stroke="red" x1="740" x2="740" y1="120" y2="100"/>
-        <line class="connection same" stroke="red" x1="500" x2="480" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="480" x2="460" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="460" x2="440" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="440" x2="420" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="420" x2="400" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="400" x2="380" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="380" x2="360" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="360" x2="340" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="340" x2="320" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="320" x2="300" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="300" x2="280" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="280" x2="260" y1="340" y2="340"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="340" y2="360"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="360" y2="380"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="380" y2="400"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="400" y2="420"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="420" y2="440"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="440" y2="460"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="460" y2="480"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="480" y2="500"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="500" y2="520"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="520" y2="540"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="540" y2="560"/>
-        <line class="connection down" stroke="red" x1="260" x2="260" y1="560" y2="580"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="340" y2="320"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="320" y2="300"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="300" y2="280"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="280" y2="260"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="260" y2="240"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="240" y2="220"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="220" y2="200"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="200" y2="180"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="180" y2="160"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="160" y2="140"/>
-        <line class="connection same" stroke="red" x1="260" x2="260" y1="140" y2="120"/>
-        <line class="connection down" stroke="red" x1="260" x2="260" y1="120" y2="100"/>
-        <line class="connection same" stroke="brown" x1="80" x2="100" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="100" x2="120" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="80" x2="60" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="60" x2="40" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="80" x2="100" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="100" x2="120" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="80" x2="60" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="60" x2="40" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="80" x2="100" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="100" x2="120" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="80" x2="60" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="60" x2="40" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="80" x2="100" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="100" x2="120" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="80" x2="60" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="60" x2="40" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="200" x2="220" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="220" x2="240" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="200" x2="180" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="180" x2="160" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="200" x2="220" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="220" x2="240" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="200" x2="180" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="180" x2="160" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="200" x2="220" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="220" x2="240" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="200" x2="180" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="180" x2="160" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="200" x2="220" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="220" x2="240" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="200" x2="180" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="180" x2="160" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="320" x2="340" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="340" x2="360" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="320" x2="300" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="300" x2="280" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="320" x2="340" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="340" x2="360" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="320" x2="300" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="300" x2="280" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="320" x2="340" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="340" x2="360" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="320" x2="300" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="300" x2="280" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="320" x2="340" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="340" x2="360" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="320" x2="300" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="300" x2="280" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="440" x2="460" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="460" x2="480" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="440" x2="420" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="420" x2="400" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="440" x2="460" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="460" x2="480" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="440" x2="420" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="420" x2="400" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="440" x2="460" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="460" x2="480" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="440" x2="420" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="420" x2="400" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="440" x2="460" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="460" x2="480" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="440" x2="420" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="420" x2="400" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="560" x2="580" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="580" x2="600" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="560" x2="540" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="540" x2="520" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="560" x2="580" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="580" x2="600" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="560" x2="540" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="540" x2="520" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="560" x2="580" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="580" x2="600" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="560" x2="540" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="540" x2="520" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="560" x2="580" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="580" x2="600" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="560" x2="540" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="540" x2="520" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="680" x2="700" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="700" x2="720" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="680" x2="660" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="660" x2="640" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="680" x2="700" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="700" x2="720" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="680" x2="660" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="660" x2="640" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="680" x2="700" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="700" x2="720" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="680" x2="660" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="660" x2="640" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="680" x2="700" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="700" x2="720" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="680" x2="660" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="660" x2="640" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="800" x2="820" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="820" x2="840" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="800" x2="780" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="780" x2="760" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="800" x2="820" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="820" x2="840" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="800" x2="780" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="780" x2="760" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="800" x2="820" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="820" x2="840" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="800" x2="780" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="780" x2="760" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="800" x2="820" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="820" x2="840" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="800" x2="780" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="780" x2="760" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="920" x2="940" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="940" x2="960" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="920" x2="900" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="900" x2="880" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="160" y2="180"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="180" y2="200"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="920" x2="940" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="940" x2="960" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="920" x2="900" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="900" x2="880" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="280" y2="260"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="260" y2="240"/>
-        <line class="connection same" stroke="brown" x1="920" x2="940" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="940" x2="960" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="920" x2="900" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="900" x2="880" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="400" y2="420"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="420" y2="440"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="920" x2="940" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="940" x2="960" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="920" x2="900" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="900" x2="880" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="520" y2="500"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="500" y2="480"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="560" y2="580"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="580" y2="600"/>
-        <line class="connection same" stroke="brown" x1="80" x2="120" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="80" x2="40" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="600" y2="660"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="560" y2="600"/>
-        <line class="connection same" stroke="brown" x1="200" x2="240" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="200" x2="160" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="600" y2="660"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="560" y2="600"/>
-        <line class="connection same" stroke="brown" x1="320" x2="360" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="320" x2="280" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="600" y2="660"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="560" y2="580"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="580" y2="600"/>
-        <line class="connection same" stroke="brown" x1="440" x2="480" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="440" x2="400" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="600" y2="660"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="560" y2="580"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="580" y2="600"/>
-        <line class="connection same" stroke="brown" x1="560" x2="600" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="560" x2="520" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="600" y2="660"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="560" y2="600"/>
-        <line class="connection same" stroke="brown" x1="680" x2="720" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="680" x2="640" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="600" y2="660"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="560" y2="600"/>
-        <line class="connection same" stroke="brown" x1="800" x2="840" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="800" x2="760" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="600" y2="660"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="560" y2="580"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="580" y2="600"/>
-        <line class="connection same" stroke="brown" x1="920" x2="960" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="920" x2="880" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="600" y2="660"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="600" y2="620"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="620" y2="640"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="640" y2="660"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="120" y2="100"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="100" y2="80"/>
-        <line class="connection same" stroke="brown" x1="80" x2="120" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="80" x2="40" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="80" y2="20"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="120" x2="120" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="40" x2="40" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="120" y2="80"/>
-        <line class="connection same" stroke="brown" x1="200" x2="240" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="200" x2="160" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="80" y2="20"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="240" x2="240" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="160" x2="160" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="120" y2="80"/>
-        <line class="connection same" stroke="brown" x1="320" x2="360" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="320" x2="280" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="80" y2="20"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="360" x2="360" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="280" x2="280" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="120" y2="100"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="100" y2="80"/>
-        <line class="connection same" stroke="brown" x1="440" x2="480" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="440" x2="400" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="80" y2="20"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="480" x2="480" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="400" x2="400" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="120" y2="100"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="100" y2="80"/>
-        <line class="connection same" stroke="brown" x1="560" x2="600" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="560" x2="520" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="80" y2="20"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="600" x2="600" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="520" x2="520" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="120" y2="80"/>
-        <line class="connection same" stroke="brown" x1="680" x2="720" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="680" x2="640" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="80" y2="20"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="720" x2="720" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="640" x2="640" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="120" y2="80"/>
-        <line class="connection same" stroke="brown" x1="800" x2="840" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="800" x2="760" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="80" y2="20"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="840" x2="840" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="760" x2="760" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="120" y2="100"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="100" y2="80"/>
-        <line class="connection same" stroke="brown" x1="920" x2="960" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="920" x2="880" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="80" y2="20"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="960" x2="960" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="80" y2="60"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="60" y2="40"/>
-        <line class="connection same" stroke="brown" x1="880" x2="880" y1="40" y2="20"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="40" y2="40"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="120" y2="120"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="200" y2="200"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="240" y2="240"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="320" y2="320"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="360" y2="360"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="440" y2="440"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="480" y2="480"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="560" y2="560"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="40" x2="20" y1="640" y2="640"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="40" y2="40"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="80" y2="80"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="120" y2="120"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="160" y2="160"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="200" y2="200"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="240" y2="240"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="280" y2="280"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="320" y2="320"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="360" y2="360"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="400" y2="400"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="440" y2="440"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="480" y2="480"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="520" y2="520"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="560" y2="560"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="600" y2="600"/>
-        <line class="connection same" stroke="brown" x1="960" x2="980" y1="640" y2="640"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="280" y2="300"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="300" y2="320"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="520" y2="540"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="540" y2="560"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="80" x2="80" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="200" x2="200" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="320" x2="320" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="440" x2="440" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="560" x2="560" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="680" x2="680" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="800" x2="800" y1="380" y2="360"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="160" y2="140"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="140" y2="120"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="400" y2="380"/>
-        <line class="connection same" stroke="brown" x1="920" x2="920" y1="380" y2="360"/>
-        <line class="connection up" stroke="brown" x1="80" x2="80" y1="180" y2="160"/>
-        <line class="connection up" stroke="brown" x1="80" x2="80" y1="260" y2="280"/>
-        <line class="connection up" stroke="brown" x1="80" x2="80" y1="420" y2="400"/>
-        <line class="connection up" stroke="brown" x1="80" x2="80" y1="500" y2="520"/>
-        <line class="connection up" stroke="brown" x1="200" x2="200" y1="180" y2="160"/>
-        <line class="connection up" stroke="brown" x1="200" x2="200" y1="260" y2="280"/>
-        <line class="connection up" stroke="brown" x1="200" x2="200" y1="420" y2="400"/>
-        <line class="connection up" stroke="brown" x1="200" x2="200" y1="500" y2="520"/>
-        <line class="connection up" stroke="brown" x1="320" x2="320" y1="180" y2="160"/>
-        <line class="connection up" stroke="brown" x1="320" x2="320" y1="260" y2="280"/>
-        <line class="connection up" stroke="brown" x1="320" x2="320" y1="420" y2="400"/>
-        <line class="connection up" stroke="brown" x1="320" x2="320" y1="500" y2="520"/>
-        <line class="connection up" stroke="brown" x1="440" x2="440" y1="180" y2="160"/>
-        <line class="connection up" stroke="brown" x1="440" x2="440" y1="260" y2="280"/>
-        <line class="connection up" stroke="brown" x1="440" x2="440" y1="420" y2="400"/>
-        <line class="connection up" stroke="brown" x1="440" x2="440" y1="500" y2="520"/>
-        <line class="connection up" stroke="brown" x1="560" x2="560" y1="180" y2="160"/>
-        <line class="connection up" stroke="brown" x1="560" x2="560" y1="260" y2="280"/>
-        <line class="connection up" stroke="brown" x1="560" x2="560" y1="420" y2="400"/>
-        <line class="connection up" stroke="brown" x1="560" x2="560" y1="500" y2="520"/>
-        <line class="connection up" stroke="brown" x1="680" x2="680" y1="180" y2="160"/>
-        <line class="connection up" stroke="brown" x1="680" x2="680" y1="260" y2="280"/>
-        <line class="connection up" stroke="brown" x1="680" x2="680" y1="420" y2="400"/>
-        <line class="connection up" stroke="brown" x1="680" x2="680" y1="500" y2="520"/>
-        <line class="connection up" stroke="brown" x1="800" x2="800" y1="180" y2="160"/>
-        <line class="connection up" stroke="brown" x1="800" x2="800" y1="260" y2="280"/>
-        <line class="connection up" stroke="brown" x1="800" x2="800" y1="420" y2="400"/>
-        <line class="connection up" stroke="brown" x1="800" x2="800" y1="500" y2="520"/>
-        <line class="connection up" stroke="brown" x1="920" x2="920" y1="180" y2="160"/>
-        <line class="connection up" stroke="brown" x1="920" x2="920" y1="260" y2="280"/>
-        <line class="connection up" stroke="brown" x1="920" x2="920" y1="420" y2="400"/>
-        <line class="connection up" stroke="brown" x1="920" x2="920" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="140" x2="160" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="160" x2="180" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="180" x2="200" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="200" x2="200" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="200" x2="200" y1="240" y2="260"/>
-        <line class="connection down" stroke="blue" x1="200" x2="200" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="200" x2="200" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="200" x2="200" y1="200" y2="180"/>
-        <line class="connection down" stroke="blue" x1="200" x2="200" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="140" x2="120" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="120" x2="100" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="100" x2="80" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="80" x2="80" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="80" x2="80" y1="240" y2="260"/>
-        <line class="connection down" stroke="blue" x1="80" x2="80" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="80" x2="80" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="80" x2="80" y1="200" y2="180"/>
-        <line class="connection down" stroke="blue" x1="80" x2="80" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="140" x2="160" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="160" x2="180" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="180" x2="200" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="200" x2="200" y1="460" y2="480"/>
-        <line class="connection same" stroke="blue" x1="200" x2="200" y1="480" y2="500"/>
-        <line class="connection down" stroke="blue" x1="200" x2="200" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="200" x2="200" y1="460" y2="440"/>
-        <line class="connection same" stroke="blue" x1="200" x2="200" y1="440" y2="420"/>
-        <line class="connection down" stroke="blue" x1="200" x2="200" y1="420" y2="400"/>
-        <line class="connection same" stroke="blue" x1="140" x2="120" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="120" x2="100" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="100" x2="80" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="80" x2="80" y1="460" y2="480"/>
-        <line class="connection same" stroke="blue" x1="80" x2="80" y1="480" y2="500"/>
-        <line class="connection down" stroke="blue" x1="80" x2="80" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="80" x2="80" y1="460" y2="440"/>
-        <line class="connection same" stroke="blue" x1="80" x2="80" y1="440" y2="420"/>
-        <line class="connection down" stroke="blue" x1="80" x2="80" y1="420" y2="400"/>
-        <line class="connection same" stroke="blue" x1="380" x2="400" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="400" x2="420" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="420" x2="440" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="440" x2="440" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="440" x2="440" y1="240" y2="260"/>
-        <line class="connection down" stroke="blue" x1="440" x2="440" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="440" x2="440" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="440" x2="440" y1="200" y2="180"/>
-        <line class="connection down" stroke="blue" x1="440" x2="440" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="380" x2="360" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="360" x2="340" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="340" x2="320" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="320" x2="320" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="320" x2="320" y1="240" y2="260"/>
-        <line class="connection down" stroke="blue" x1="320" x2="320" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="320" x2="320" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="320" x2="320" y1="200" y2="180"/>
-        <line class="connection down" stroke="blue" x1="320" x2="320" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="380" x2="400" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="400" x2="420" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="420" x2="440" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="440" x2="440" y1="460" y2="480"/>
-        <line class="connection same" stroke="blue" x1="440" x2="440" y1="480" y2="500"/>
-        <line class="connection down" stroke="blue" x1="440" x2="440" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="440" x2="440" y1="460" y2="440"/>
-        <line class="connection same" stroke="blue" x1="440" x2="440" y1="440" y2="420"/>
-        <line class="connection down" stroke="blue" x1="440" x2="440" y1="420" y2="400"/>
-        <line class="connection same" stroke="blue" x1="380" x2="360" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="360" x2="340" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="340" x2="320" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="320" x2="320" y1="460" y2="480"/>
-        <line class="connection same" stroke="blue" x1="320" x2="320" y1="480" y2="500"/>
-        <line class="connection down" stroke="blue" x1="320" x2="320" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="320" x2="320" y1="460" y2="440"/>
-        <line class="connection same" stroke="blue" x1="320" x2="320" y1="440" y2="420"/>
-        <line class="connection down" stroke="blue" x1="320" x2="320" y1="420" y2="400"/>
-        <line class="connection same" stroke="blue" x1="620" x2="640" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="640" x2="660" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="660" x2="680" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="680" x2="680" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="680" x2="680" y1="240" y2="260"/>
-        <line class="connection down" stroke="blue" x1="680" x2="680" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="680" x2="680" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="680" x2="680" y1="200" y2="180"/>
-        <line class="connection down" stroke="blue" x1="680" x2="680" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="620" x2="600" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="600" x2="580" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="580" x2="560" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="560" x2="560" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="560" x2="560" y1="240" y2="260"/>
-        <line class="connection down" stroke="blue" x1="560" x2="560" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="560" x2="560" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="560" x2="560" y1="200" y2="180"/>
-        <line class="connection down" stroke="blue" x1="560" x2="560" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="620" x2="640" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="640" x2="660" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="660" x2="680" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="680" x2="680" y1="460" y2="480"/>
-        <line class="connection same" stroke="blue" x1="680" x2="680" y1="480" y2="500"/>
-        <line class="connection down" stroke="blue" x1="680" x2="680" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="680" x2="680" y1="460" y2="440"/>
-        <line class="connection same" stroke="blue" x1="680" x2="680" y1="440" y2="420"/>
-        <line class="connection down" stroke="blue" x1="680" x2="680" y1="420" y2="400"/>
-        <line class="connection same" stroke="blue" x1="620" x2="600" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="600" x2="580" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="580" x2="560" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="560" x2="560" y1="460" y2="480"/>
-        <line class="connection same" stroke="blue" x1="560" x2="560" y1="480" y2="500"/>
-        <line class="connection down" stroke="blue" x1="560" x2="560" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="560" x2="560" y1="460" y2="440"/>
-        <line class="connection same" stroke="blue" x1="560" x2="560" y1="440" y2="420"/>
-        <line class="connection down" stroke="blue" x1="560" x2="560" y1="420" y2="400"/>
-        <line class="connection same" stroke="blue" x1="860" x2="880" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="880" x2="900" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="900" x2="920" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="920" x2="920" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="920" x2="920" y1="240" y2="260"/>
-        <line class="connection down" stroke="blue" x1="920" x2="920" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="920" x2="920" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="920" x2="920" y1="200" y2="180"/>
-        <line class="connection down" stroke="blue" x1="920" x2="920" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="860" x2="840" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="840" x2="820" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="820" x2="800" y1="220" y2="220"/>
-        <line class="connection same" stroke="blue" x1="800" x2="800" y1="220" y2="240"/>
-        <line class="connection same" stroke="blue" x1="800" x2="800" y1="240" y2="260"/>
-        <line class="connection down" stroke="blue" x1="800" x2="800" y1="260" y2="280"/>
-        <line class="connection same" stroke="blue" x1="800" x2="800" y1="220" y2="200"/>
-        <line class="connection same" stroke="blue" x1="800" x2="800" y1="200" y2="180"/>
-        <line class="connection down" stroke="blue" x1="800" x2="800" y1="180" y2="160"/>
-        <line class="connection same" stroke="blue" x1="860" x2="880" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="880" x2="900" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="900" x2="920" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="920" x2="920" y1="460" y2="480"/>
-        <line class="connection same" stroke="blue" x1="920" x2="920" y1="480" y2="500"/>
-        <line class="connection down" stroke="blue" x1="920" x2="920" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="920" x2="920" y1="460" y2="440"/>
-        <line class="connection same" stroke="blue" x1="920" x2="920" y1="440" y2="420"/>
-        <line class="connection down" stroke="blue" x1="920" x2="920" y1="420" y2="400"/>
-        <line class="connection same" stroke="blue" x1="860" x2="840" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="840" x2="820" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="820" x2="800" y1="460" y2="460"/>
-        <line class="connection same" stroke="blue" x1="800" x2="800" y1="460" y2="480"/>
-        <line class="connection same" stroke="blue" x1="800" x2="800" y1="480" y2="500"/>
-        <line class="connection down" stroke="blue" x1="800" x2="800" y1="500" y2="520"/>
-        <line class="connection same" stroke="blue" x1="800" x2="800" y1="460" y2="440"/>
-        <line class="connection same" stroke="blue" x1="800" x2="800" y1="440" y2="420"/>
-        <line class="connection down" stroke="blue" x1="800" x2="800" y1="420" y2="400"/>
-        <line class="connection up" stroke="blue" x1="140" x2="140" y1="200" y2="220"/>
-        <line class="connection up" stroke="blue" x1="140" x2="140" y1="480" y2="460"/>
-        <line class="connection up" stroke="blue" x1="380" x2="380" y1="200" y2="220"/>
-        <line class="connection up" stroke="blue" x1="380" x2="380" y1="480" y2="460"/>
-        <line class="connection up" stroke="blue" x1="620" x2="620" y1="200" y2="220"/>
-        <line class="connection up" stroke="blue" x1="620" x2="620" y1="480" y2="460"/>
-        <line class="connection up" stroke="blue" x1="860" x2="860" y1="200" y2="220"/>
-        <line class="connection up" stroke="blue" x1="860" x2="860" y1="480" y2="460"/>
-        <line class="connection same" stroke="black" x1="260" x2="280" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="280" x2="300" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="300" x2="320" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="320" x2="340" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="340" x2="360" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="360" x2="380" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="100" y2="120"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="120" y2="140"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="140" y2="160"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="160" y2="180"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="180" y2="200"/>
-        <line class="connection down" stroke="black" x1="380" x2="380" y1="200" y2="220"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="100" y2="80"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="80" y2="60"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="60" y2="40"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="40" y2="20"/>
-        <line class="connection same" stroke="black" x1="260" x2="240" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="240" x2="220" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="220" x2="200" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="200" x2="180" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="180" x2="160" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="160" x2="140" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="100" y2="120"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="120" y2="140"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="140" y2="160"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="160" y2="180"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="180" y2="200"/>
-        <line class="connection down" stroke="black" x1="140" x2="140" y1="200" y2="220"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="100" y2="80"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="80" y2="60"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="60" y2="40"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="40" y2="20"/>
-        <line class="connection same" stroke="black" x1="260" x2="280" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="280" x2="300" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="300" x2="320" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="320" x2="340" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="340" x2="360" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="360" x2="380" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="580" y2="600"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="600" y2="620"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="620" y2="640"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="640" y2="660"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="580" y2="560"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="560" y2="540"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="540" y2="520"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="520" y2="500"/>
-        <line class="connection same" stroke="black" x1="380" x2="380" y1="500" y2="480"/>
-        <line class="connection down" stroke="black" x1="380" x2="380" y1="480" y2="460"/>
-        <line class="connection same" stroke="black" x1="260" x2="240" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="240" x2="220" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="220" x2="200" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="200" x2="180" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="180" x2="160" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="160" x2="140" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="580" y2="600"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="600" y2="620"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="620" y2="640"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="640" y2="660"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="580" y2="560"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="560" y2="540"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="540" y2="520"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="520" y2="500"/>
-        <line class="connection same" stroke="black" x1="140" x2="140" y1="500" y2="480"/>
-        <line class="connection down" stroke="black" x1="140" x2="140" y1="480" y2="460"/>
-        <line class="connection same" stroke="black" x1="740" x2="760" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="760" x2="780" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="780" x2="800" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="800" x2="820" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="820" x2="840" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="840" x2="860" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="100" y2="120"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="120" y2="140"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="140" y2="160"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="160" y2="180"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="180" y2="200"/>
-        <line class="connection down" stroke="black" x1="860" x2="860" y1="200" y2="220"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="100" y2="80"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="80" y2="60"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="60" y2="40"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="40" y2="20"/>
-        <line class="connection same" stroke="black" x1="740" x2="720" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="720" x2="700" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="700" x2="680" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="680" x2="660" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="660" x2="640" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="640" x2="620" y1="100" y2="100"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="100" y2="120"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="120" y2="140"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="140" y2="160"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="160" y2="180"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="180" y2="200"/>
-        <line class="connection down" stroke="black" x1="620" x2="620" y1="200" y2="220"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="100" y2="80"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="80" y2="60"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="60" y2="40"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="40" y2="20"/>
-        <line class="connection same" stroke="black" x1="740" x2="760" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="760" x2="780" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="780" x2="800" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="800" x2="820" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="820" x2="840" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="840" x2="860" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="580" y2="600"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="600" y2="620"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="620" y2="640"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="640" y2="660"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="580" y2="560"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="560" y2="540"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="540" y2="520"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="520" y2="500"/>
-        <line class="connection same" stroke="black" x1="860" x2="860" y1="500" y2="480"/>
-        <line class="connection down" stroke="black" x1="860" x2="860" y1="480" y2="460"/>
-        <line class="connection same" stroke="black" x1="740" x2="720" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="720" x2="700" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="700" x2="680" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="680" x2="660" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="660" x2="640" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="640" x2="620" y1="580" y2="580"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="580" y2="600"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="600" y2="620"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="620" y2="640"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="640" y2="660"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="580" y2="560"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="560" y2="540"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="540" y2="520"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="520" y2="500"/>
-        <line class="connection same" stroke="black" x1="620" x2="620" y1="500" y2="480"/>
-        <line class="connection down" stroke="black" x1="620" x2="620" y1="480" y2="460"/>
-        <line class="connection up" stroke="black" x1="260" x2="260" y1="120" y2="100"/>
-        <line class="connection up" stroke="black" x1="260" x2="260" y1="560" y2="580"/>
-        <line class="connection up" stroke="black" x1="740" x2="740" y1="120" y2="100"/>
-        <line class="connection up" stroke="black" x1="740" x2="740" y1="560" y2="580"/>
+        <path class="connection same" d="M 500 20 L 500 30 L 500 40" stroke="red"/>
+        <path class="connection same" d="M 500 40 L 500 50 L 500 60" stroke="red"/>
+        <path class="connection same" d="M 500 60 L 500 70 L 500 80" stroke="red"/>
+        <path class="connection same" d="M 500 80 L 500 90 L 500 100" stroke="red"/>
+        <path class="connection same" d="M 500 100 L 500 110 L 500 120" stroke="red"/>
+        <path class="connection same" d="M 500 120 L 500 130 L 500 140" stroke="red"/>
+        <path class="connection same" d="M 500 140 L 500 150 L 500 160" stroke="red"/>
+        <path class="connection same" d="M 500 160 L 500 170 L 500 180" stroke="red"/>
+        <path class="connection same" d="M 500 180 L 500 190 L 500 200" stroke="red"/>
+        <path class="connection same" d="M 500 200 L 500 210 L 500 220" stroke="red"/>
+        <path class="connection same" d="M 500 220 L 500 230 L 500 240" stroke="red"/>
+        <path class="connection same" d="M 500 240 L 500 250 L 500 260" stroke="red"/>
+        <path class="connection same" d="M 500 260 L 500 270 L 500 280" stroke="red"/>
+        <path class="connection same" d="M 500 280 L 500 290 L 500 300" stroke="red"/>
+        <path class="connection same" d="M 500 300 L 500 310 L 500 320" stroke="red"/>
+        <path class="connection same" d="M 500 320 L 500 330 L 500 340" stroke="red"/>
+        <path class="connection same" d="M 500 340 L 510 340 L 520 340" stroke="red"/>
+        <path class="connection same" d="M 520 340 L 530 340 L 540 340" stroke="red"/>
+        <path class="connection same" d="M 540 340 L 550 340 L 560 340" stroke="red"/>
+        <path class="connection same" d="M 560 340 L 570 340 L 580 340" stroke="red"/>
+        <path class="connection same" d="M 580 340 L 590 340 L 600 340" stroke="red"/>
+        <path class="connection same" d="M 600 340 L 610 340 L 620 340" stroke="red"/>
+        <path class="connection same" d="M 620 340 L 630 340 L 640 340" stroke="red"/>
+        <path class="connection same" d="M 640 340 L 650 340 L 660 340" stroke="red"/>
+        <path class="connection same" d="M 660 340 L 670 340 L 680 340" stroke="red"/>
+        <path class="connection same" d="M 680 340 L 690 340 L 700 340" stroke="red"/>
+        <path class="connection same" d="M 700 340 L 710 340 L 720 340" stroke="red"/>
+        <path class="connection same" d="M 720 340 L 730 340 L 740 340" stroke="red"/>
+        <path class="connection same" d="M 740 340 L 740 350 L 740 360" stroke="red"/>
+        <path class="connection same" d="M 740 360 L 740 370 L 740 380" stroke="red"/>
+        <path class="connection same" d="M 740 380 L 740 390 L 740 400" stroke="red"/>
+        <path class="connection same" d="M 740 400 L 740 410 L 740 420" stroke="red"/>
+        <path class="connection same" d="M 740 420 L 740 430 L 740 440" stroke="red"/>
+        <path class="connection same" d="M 740 440 L 740 450 L 740 460" stroke="red"/>
+        <path class="connection same" d="M 740 460 L 740 470 L 740 480" stroke="red"/>
+        <path class="connection same" d="M 740 480 L 740 490 L 740 500" stroke="red"/>
+        <path class="connection same" d="M 740 500 L 740 510 L 740 520" stroke="red"/>
+        <path class="connection same" d="M 740 520 L 740 530 L 740 540" stroke="red"/>
+        <path class="connection same" d="M 740 540 L 740 550 L 740 560" stroke="red"/>
+        <path class="connection down" d="M 740 560 L 740 570 L 740 580" stroke="red"/>
+        <path class="connection same" d="M 740 340 L 740 330 L 740 320" stroke="red"/>
+        <path class="connection same" d="M 740 320 L 740 310 L 740 300" stroke="red"/>
+        <path class="connection same" d="M 740 300 L 740 290 L 740 280" stroke="red"/>
+        <path class="connection same" d="M 740 280 L 740 270 L 740 260" stroke="red"/>
+        <path class="connection same" d="M 740 260 L 740 250 L 740 240" stroke="red"/>
+        <path class="connection same" d="M 740 240 L 740 230 L 740 220" stroke="red"/>
+        <path class="connection same" d="M 740 220 L 740 210 L 740 200" stroke="red"/>
+        <path class="connection same" d="M 740 200 L 740 190 L 740 180" stroke="red"/>
+        <path class="connection same" d="M 740 180 L 740 170 L 740 160" stroke="red"/>
+        <path class="connection same" d="M 740 160 L 740 150 L 740 140" stroke="red"/>
+        <path class="connection same" d="M 740 140 L 740 130 L 740 120" stroke="red"/>
+        <path class="connection down" d="M 740 120 L 740 110 L 740 100" stroke="red"/>
+        <path class="connection same" d="M 500 340 L 490 340 L 480 340" stroke="red"/>
+        <path class="connection same" d="M 480 340 L 470 340 L 460 340" stroke="red"/>
+        <path class="connection same" d="M 460 340 L 450 340 L 440 340" stroke="red"/>
+        <path class="connection same" d="M 440 340 L 430 340 L 420 340" stroke="red"/>
+        <path class="connection same" d="M 420 340 L 410 340 L 400 340" stroke="red"/>
+        <path class="connection same" d="M 400 340 L 390 340 L 380 340" stroke="red"/>
+        <path class="connection same" d="M 380 340 L 370 340 L 360 340" stroke="red"/>
+        <path class="connection same" d="M 360 340 L 350 340 L 340 340" stroke="red"/>
+        <path class="connection same" d="M 340 340 L 330 340 L 320 340" stroke="red"/>
+        <path class="connection same" d="M 320 340 L 310 340 L 300 340" stroke="red"/>
+        <path class="connection same" d="M 300 340 L 290 340 L 280 340" stroke="red"/>
+        <path class="connection same" d="M 280 340 L 270 340 L 260 340" stroke="red"/>
+        <path class="connection same" d="M 260 340 L 260 350 L 260 360" stroke="red"/>
+        <path class="connection same" d="M 260 360 L 260 370 L 260 380" stroke="red"/>
+        <path class="connection same" d="M 260 380 L 260 390 L 260 400" stroke="red"/>
+        <path class="connection same" d="M 260 400 L 260 410 L 260 420" stroke="red"/>
+        <path class="connection same" d="M 260 420 L 260 430 L 260 440" stroke="red"/>
+        <path class="connection same" d="M 260 440 L 260 450 L 260 460" stroke="red"/>
+        <path class="connection same" d="M 260 460 L 260 470 L 260 480" stroke="red"/>
+        <path class="connection same" d="M 260 480 L 260 490 L 260 500" stroke="red"/>
+        <path class="connection same" d="M 260 500 L 260 510 L 260 520" stroke="red"/>
+        <path class="connection same" d="M 260 520 L 260 530 L 260 540" stroke="red"/>
+        <path class="connection same" d="M 260 540 L 260 550 L 260 560" stroke="red"/>
+        <path class="connection down" d="M 260 560 L 260 570 L 260 580" stroke="red"/>
+        <path class="connection same" d="M 260 340 L 260 330 L 260 320" stroke="red"/>
+        <path class="connection same" d="M 260 320 L 260 310 L 260 300" stroke="red"/>
+        <path class="connection same" d="M 260 300 L 260 290 L 260 280" stroke="red"/>
+        <path class="connection same" d="M 260 280 L 260 270 L 260 260" stroke="red"/>
+        <path class="connection same" d="M 260 260 L 260 250 L 260 240" stroke="red"/>
+        <path class="connection same" d="M 260 240 L 260 230 L 260 220" stroke="red"/>
+        <path class="connection same" d="M 260 220 L 260 210 L 260 200" stroke="red"/>
+        <path class="connection same" d="M 260 200 L 260 190 L 260 180" stroke="red"/>
+        <path class="connection same" d="M 260 180 L 260 170 L 260 160" stroke="red"/>
+        <path class="connection same" d="M 260 160 L 260 150 L 260 140" stroke="red"/>
+        <path class="connection same" d="M 260 140 L 260 130 L 260 120" stroke="red"/>
+        <path class="connection down" d="M 260 120 L 260 110 L 260 100" stroke="red"/>
+        <path class="connection same" d="M 80 160 L 90 160 L 100 160" stroke="brown"/>
+        <path class="connection same" d="M 100 160 L 110 160 L 120 160" stroke="brown"/>
+        <path class="connection same" d="M 120 160 L 120 170 L 120 180" stroke="brown"/>
+        <path class="connection same" d="M 120 180 L 120 190 L 120 200" stroke="brown"/>
+        <path class="connection same" d="M 120 160 L 120 150 L 120 140" stroke="brown"/>
+        <path class="connection same" d="M 120 140 L 120 130 L 120 120" stroke="brown"/>
+        <path class="connection same" d="M 80 160 L 70 160 L 60 160" stroke="brown"/>
+        <path class="connection same" d="M 60 160 L 50 160 L 40 160" stroke="brown"/>
+        <path class="connection same" d="M 40 160 L 40 170 L 40 180" stroke="brown"/>
+        <path class="connection same" d="M 40 180 L 40 190 L 40 200" stroke="brown"/>
+        <path class="connection same" d="M 40 160 L 40 150 L 40 140" stroke="brown"/>
+        <path class="connection same" d="M 40 140 L 40 130 L 40 120" stroke="brown"/>
+        <path class="connection same" d="M 80 280 L 90 280 L 100 280" stroke="brown"/>
+        <path class="connection same" d="M 100 280 L 110 280 L 120 280" stroke="brown"/>
+        <path class="connection same" d="M 120 280 L 120 290 L 120 300" stroke="brown"/>
+        <path class="connection same" d="M 120 300 L 120 310 L 120 320" stroke="brown"/>
+        <path class="connection same" d="M 120 280 L 120 270 L 120 260" stroke="brown"/>
+        <path class="connection same" d="M 120 260 L 120 250 L 120 240" stroke="brown"/>
+        <path class="connection same" d="M 80 280 L 70 280 L 60 280" stroke="brown"/>
+        <path class="connection same" d="M 60 280 L 50 280 L 40 280" stroke="brown"/>
+        <path class="connection same" d="M 40 280 L 40 290 L 40 300" stroke="brown"/>
+        <path class="connection same" d="M 40 300 L 40 310 L 40 320" stroke="brown"/>
+        <path class="connection same" d="M 40 280 L 40 270 L 40 260" stroke="brown"/>
+        <path class="connection same" d="M 40 260 L 40 250 L 40 240" stroke="brown"/>
+        <path class="connection same" d="M 80 400 L 90 400 L 100 400" stroke="brown"/>
+        <path class="connection same" d="M 100 400 L 110 400 L 120 400" stroke="brown"/>
+        <path class="connection same" d="M 120 400 L 120 410 L 120 420" stroke="brown"/>
+        <path class="connection same" d="M 120 420 L 120 430 L 120 440" stroke="brown"/>
+        <path class="connection same" d="M 120 400 L 120 390 L 120 380" stroke="brown"/>
+        <path class="connection same" d="M 120 380 L 120 370 L 120 360" stroke="brown"/>
+        <path class="connection same" d="M 80 400 L 70 400 L 60 400" stroke="brown"/>
+        <path class="connection same" d="M 60 400 L 50 400 L 40 400" stroke="brown"/>
+        <path class="connection same" d="M 40 400 L 40 410 L 40 420" stroke="brown"/>
+        <path class="connection same" d="M 40 420 L 40 430 L 40 440" stroke="brown"/>
+        <path class="connection same" d="M 40 400 L 40 390 L 40 380" stroke="brown"/>
+        <path class="connection same" d="M 40 380 L 40 370 L 40 360" stroke="brown"/>
+        <path class="connection same" d="M 80 520 L 90 520 L 100 520" stroke="brown"/>
+        <path class="connection same" d="M 100 520 L 110 520 L 120 520" stroke="brown"/>
+        <path class="connection same" d="M 120 520 L 120 530 L 120 540" stroke="brown"/>
+        <path class="connection same" d="M 120 540 L 120 550 L 120 560" stroke="brown"/>
+        <path class="connection same" d="M 120 520 L 120 510 L 120 500" stroke="brown"/>
+        <path class="connection same" d="M 120 500 L 120 490 L 120 480" stroke="brown"/>
+        <path class="connection same" d="M 80 520 L 70 520 L 60 520" stroke="brown"/>
+        <path class="connection same" d="M 60 520 L 50 520 L 40 520" stroke="brown"/>
+        <path class="connection same" d="M 40 520 L 40 530 L 40 540" stroke="brown"/>
+        <path class="connection same" d="M 40 540 L 40 550 L 40 560" stroke="brown"/>
+        <path class="connection same" d="M 40 520 L 40 510 L 40 500" stroke="brown"/>
+        <path class="connection same" d="M 40 500 L 40 490 L 40 480" stroke="brown"/>
+        <path class="connection same" d="M 200 160 L 210 160 L 220 160" stroke="brown"/>
+        <path class="connection same" d="M 220 160 L 230 160 L 240 160" stroke="brown"/>
+        <path class="connection same" d="M 240 160 L 240 170 L 240 180" stroke="brown"/>
+        <path class="connection same" d="M 240 180 L 240 190 L 240 200" stroke="brown"/>
+        <path class="connection same" d="M 240 160 L 240 150 L 240 140" stroke="brown"/>
+        <path class="connection same" d="M 240 140 L 240 130 L 240 120" stroke="brown"/>
+        <path class="connection same" d="M 200 160 L 190 160 L 180 160" stroke="brown"/>
+        <path class="connection same" d="M 180 160 L 170 160 L 160 160" stroke="brown"/>
+        <path class="connection same" d="M 160 160 L 160 170 L 160 180" stroke="brown"/>
+        <path class="connection same" d="M 160 180 L 160 190 L 160 200" stroke="brown"/>
+        <path class="connection same" d="M 160 160 L 160 150 L 160 140" stroke="brown"/>
+        <path class="connection same" d="M 160 140 L 160 130 L 160 120" stroke="brown"/>
+        <path class="connection same" d="M 200 280 L 210 280 L 220 280" stroke="brown"/>
+        <path class="connection same" d="M 220 280 L 230 280 L 240 280" stroke="brown"/>
+        <path class="connection same" d="M 240 280 L 240 290 L 240 300" stroke="brown"/>
+        <path class="connection same" d="M 240 300 L 240 310 L 240 320" stroke="brown"/>
+        <path class="connection same" d="M 240 280 L 240 270 L 240 260" stroke="brown"/>
+        <path class="connection same" d="M 240 260 L 240 250 L 240 240" stroke="brown"/>
+        <path class="connection same" d="M 200 280 L 190 280 L 180 280" stroke="brown"/>
+        <path class="connection same" d="M 180 280 L 170 280 L 160 280" stroke="brown"/>
+        <path class="connection same" d="M 160 280 L 160 290 L 160 300" stroke="brown"/>
+        <path class="connection same" d="M 160 300 L 160 310 L 160 320" stroke="brown"/>
+        <path class="connection same" d="M 160 280 L 160 270 L 160 260" stroke="brown"/>
+        <path class="connection same" d="M 160 260 L 160 250 L 160 240" stroke="brown"/>
+        <path class="connection same" d="M 200 400 L 210 400 L 220 400" stroke="brown"/>
+        <path class="connection same" d="M 220 400 L 230 400 L 240 400" stroke="brown"/>
+        <path class="connection same" d="M 240 400 L 240 410 L 240 420" stroke="brown"/>
+        <path class="connection same" d="M 240 420 L 240 430 L 240 440" stroke="brown"/>
+        <path class="connection same" d="M 240 400 L 240 390 L 240 380" stroke="brown"/>
+        <path class="connection same" d="M 240 380 L 240 370 L 240 360" stroke="brown"/>
+        <path class="connection same" d="M 200 400 L 190 400 L 180 400" stroke="brown"/>
+        <path class="connection same" d="M 180 400 L 170 400 L 160 400" stroke="brown"/>
+        <path class="connection same" d="M 160 400 L 160 410 L 160 420" stroke="brown"/>
+        <path class="connection same" d="M 160 420 L 160 430 L 160 440" stroke="brown"/>
+        <path class="connection same" d="M 160 400 L 160 390 L 160 380" stroke="brown"/>
+        <path class="connection same" d="M 160 380 L 160 370 L 160 360" stroke="brown"/>
+        <path class="connection same" d="M 200 520 L 210 520 L 220 520" stroke="brown"/>
+        <path class="connection same" d="M 220 520 L 230 520 L 240 520" stroke="brown"/>
+        <path class="connection same" d="M 240 520 L 240 530 L 240 540" stroke="brown"/>
+        <path class="connection same" d="M 240 540 L 240 550 L 240 560" stroke="brown"/>
+        <path class="connection same" d="M 240 520 L 240 510 L 240 500" stroke="brown"/>
+        <path class="connection same" d="M 240 500 L 240 490 L 240 480" stroke="brown"/>
+        <path class="connection same" d="M 200 520 L 190 520 L 180 520" stroke="brown"/>
+        <path class="connection same" d="M 180 520 L 170 520 L 160 520" stroke="brown"/>
+        <path class="connection same" d="M 160 520 L 160 530 L 160 540" stroke="brown"/>
+        <path class="connection same" d="M 160 540 L 160 550 L 160 560" stroke="brown"/>
+        <path class="connection same" d="M 160 520 L 160 510 L 160 500" stroke="brown"/>
+        <path class="connection same" d="M 160 500 L 160 490 L 160 480" stroke="brown"/>
+        <path class="connection same" d="M 320 160 L 330 160 L 340 160" stroke="brown"/>
+        <path class="connection same" d="M 340 160 L 350 160 L 360 160" stroke="brown"/>
+        <path class="connection same" d="M 360 160 L 360 170 L 360 180" stroke="brown"/>
+        <path class="connection same" d="M 360 180 L 360 190 L 360 200" stroke="brown"/>
+        <path class="connection same" d="M 360 160 L 360 150 L 360 140" stroke="brown"/>
+        <path class="connection same" d="M 360 140 L 360 130 L 360 120" stroke="brown"/>
+        <path class="connection same" d="M 320 160 L 310 160 L 300 160" stroke="brown"/>
+        <path class="connection same" d="M 300 160 L 290 160 L 280 160" stroke="brown"/>
+        <path class="connection same" d="M 280 160 L 280 170 L 280 180" stroke="brown"/>
+        <path class="connection same" d="M 280 180 L 280 190 L 280 200" stroke="brown"/>
+        <path class="connection same" d="M 280 160 L 280 150 L 280 140" stroke="brown"/>
+        <path class="connection same" d="M 280 140 L 280 130 L 280 120" stroke="brown"/>
+        <path class="connection same" d="M 320 280 L 330 280 L 340 280" stroke="brown"/>
+        <path class="connection same" d="M 340 280 L 350 280 L 360 280" stroke="brown"/>
+        <path class="connection same" d="M 360 280 L 360 290 L 360 300" stroke="brown"/>
+        <path class="connection same" d="M 360 300 L 360 310 L 360 320" stroke="brown"/>
+        <path class="connection same" d="M 360 280 L 360 270 L 360 260" stroke="brown"/>
+        <path class="connection same" d="M 360 260 L 360 250 L 360 240" stroke="brown"/>
+        <path class="connection same" d="M 320 280 L 310 280 L 300 280" stroke="brown"/>
+        <path class="connection same" d="M 300 280 L 290 280 L 280 280" stroke="brown"/>
+        <path class="connection same" d="M 280 280 L 280 290 L 280 300" stroke="brown"/>
+        <path class="connection same" d="M 280 300 L 280 310 L 280 320" stroke="brown"/>
+        <path class="connection same" d="M 280 280 L 280 270 L 280 260" stroke="brown"/>
+        <path class="connection same" d="M 280 260 L 280 250 L 280 240" stroke="brown"/>
+        <path class="connection same" d="M 320 400 L 330 400 L 340 400" stroke="brown"/>
+        <path class="connection same" d="M 340 400 L 350 400 L 360 400" stroke="brown"/>
+        <path class="connection same" d="M 360 400 L 360 410 L 360 420" stroke="brown"/>
+        <path class="connection same" d="M 360 420 L 360 430 L 360 440" stroke="brown"/>
+        <path class="connection same" d="M 360 400 L 360 390 L 360 380" stroke="brown"/>
+        <path class="connection same" d="M 360 380 L 360 370 L 360 360" stroke="brown"/>
+        <path class="connection same" d="M 320 400 L 310 400 L 300 400" stroke="brown"/>
+        <path class="connection same" d="M 300 400 L 290 400 L 280 400" stroke="brown"/>
+        <path class="connection same" d="M 280 400 L 280 410 L 280 420" stroke="brown"/>
+        <path class="connection same" d="M 280 420 L 280 430 L 280 440" stroke="brown"/>
+        <path class="connection same" d="M 280 400 L 280 390 L 280 380" stroke="brown"/>
+        <path class="connection same" d="M 280 380 L 280 370 L 280 360" stroke="brown"/>
+        <path class="connection same" d="M 320 520 L 330 520 L 340 520" stroke="brown"/>
+        <path class="connection same" d="M 340 520 L 350 520 L 360 520" stroke="brown"/>
+        <path class="connection same" d="M 360 520 L 360 530 L 360 540" stroke="brown"/>
+        <path class="connection same" d="M 360 540 L 360 550 L 360 560" stroke="brown"/>
+        <path class="connection same" d="M 360 520 L 360 510 L 360 500" stroke="brown"/>
+        <path class="connection same" d="M 360 500 L 360 490 L 360 480" stroke="brown"/>
+        <path class="connection same" d="M 320 520 L 310 520 L 300 520" stroke="brown"/>
+        <path class="connection same" d="M 300 520 L 290 520 L 280 520" stroke="brown"/>
+        <path class="connection same" d="M 280 520 L 280 530 L 280 540" stroke="brown"/>
+        <path class="connection same" d="M 280 540 L 280 550 L 280 560" stroke="brown"/>
+        <path class="connection same" d="M 280 520 L 280 510 L 280 500" stroke="brown"/>
+        <path class="connection same" d="M 280 500 L 280 490 L 280 480" stroke="brown"/>
+        <path class="connection same" d="M 440 160 L 450 160 L 460 160" stroke="brown"/>
+        <path class="connection same" d="M 460 160 L 470 160 L 480 160" stroke="brown"/>
+        <path class="connection same" d="M 480 160 L 480 170 L 480 180" stroke="brown"/>
+        <path class="connection same" d="M 480 180 L 480 190 L 480 200" stroke="brown"/>
+        <path class="connection same" d="M 480 160 L 480 150 L 480 140" stroke="brown"/>
+        <path class="connection same" d="M 480 140 L 480 130 L 480 120" stroke="brown"/>
+        <path class="connection same" d="M 440 160 L 430 160 L 420 160" stroke="brown"/>
+        <path class="connection same" d="M 420 160 L 410 160 L 400 160" stroke="brown"/>
+        <path class="connection same" d="M 400 160 L 400 170 L 400 180" stroke="brown"/>
+        <path class="connection same" d="M 400 180 L 400 190 L 400 200" stroke="brown"/>
+        <path class="connection same" d="M 400 160 L 400 150 L 400 140" stroke="brown"/>
+        <path class="connection same" d="M 400 140 L 400 130 L 400 120" stroke="brown"/>
+        <path class="connection same" d="M 440 280 L 450 280 L 460 280" stroke="brown"/>
+        <path class="connection same" d="M 460 280 L 470 280 L 480 280" stroke="brown"/>
+        <path class="connection same" d="M 480 280 L 480 290 L 480 300" stroke="brown"/>
+        <path class="connection same" d="M 480 300 L 480 310 L 480 320" stroke="brown"/>
+        <path class="connection same" d="M 480 280 L 480 270 L 480 260" stroke="brown"/>
+        <path class="connection same" d="M 480 260 L 480 250 L 480 240" stroke="brown"/>
+        <path class="connection same" d="M 440 280 L 430 280 L 420 280" stroke="brown"/>
+        <path class="connection same" d="M 420 280 L 410 280 L 400 280" stroke="brown"/>
+        <path class="connection same" d="M 400 280 L 400 290 L 400 300" stroke="brown"/>
+        <path class="connection same" d="M 400 300 L 400 310 L 400 320" stroke="brown"/>
+        <path class="connection same" d="M 400 280 L 400 270 L 400 260" stroke="brown"/>
+        <path class="connection same" d="M 400 260 L 400 250 L 400 240" stroke="brown"/>
+        <path class="connection same" d="M 440 400 L 450 400 L 460 400" stroke="brown"/>
+        <path class="connection same" d="M 460 400 L 470 400 L 480 400" stroke="brown"/>
+        <path class="connection same" d="M 480 400 L 480 410 L 480 420" stroke="brown"/>
+        <path class="connection same" d="M 480 420 L 480 430 L 480 440" stroke="brown"/>
+        <path class="connection same" d="M 480 400 L 480 390 L 480 380" stroke="brown"/>
+        <path class="connection same" d="M 480 380 L 480 370 L 480 360" stroke="brown"/>
+        <path class="connection same" d="M 440 400 L 430 400 L 420 400" stroke="brown"/>
+        <path class="connection same" d="M 420 400 L 410 400 L 400 400" stroke="brown"/>
+        <path class="connection same" d="M 400 400 L 400 410 L 400 420" stroke="brown"/>
+        <path class="connection same" d="M 400 420 L 400 430 L 400 440" stroke="brown"/>
+        <path class="connection same" d="M 400 400 L 400 390 L 400 380" stroke="brown"/>
+        <path class="connection same" d="M 400 380 L 400 370 L 400 360" stroke="brown"/>
+        <path class="connection same" d="M 440 520 L 450 520 L 460 520" stroke="brown"/>
+        <path class="connection same" d="M 460 520 L 470 520 L 480 520" stroke="brown"/>
+        <path class="connection same" d="M 480 520 L 480 530 L 480 540" stroke="brown"/>
+        <path class="connection same" d="M 480 540 L 480 550 L 480 560" stroke="brown"/>
+        <path class="connection same" d="M 480 520 L 480 510 L 480 500" stroke="brown"/>
+        <path class="connection same" d="M 480 500 L 480 490 L 480 480" stroke="brown"/>
+        <path class="connection same" d="M 440 520 L 430 520 L 420 520" stroke="brown"/>
+        <path class="connection same" d="M 420 520 L 410 520 L 400 520" stroke="brown"/>
+        <path class="connection same" d="M 400 520 L 400 530 L 400 540" stroke="brown"/>
+        <path class="connection same" d="M 400 540 L 400 550 L 400 560" stroke="brown"/>
+        <path class="connection same" d="M 400 520 L 400 510 L 400 500" stroke="brown"/>
+        <path class="connection same" d="M 400 500 L 400 490 L 400 480" stroke="brown"/>
+        <path class="connection same" d="M 560 160 L 570 160 L 580 160" stroke="brown"/>
+        <path class="connection same" d="M 580 160 L 590 160 L 600 160" stroke="brown"/>
+        <path class="connection same" d="M 600 160 L 600 170 L 600 180" stroke="brown"/>
+        <path class="connection same" d="M 600 180 L 600 190 L 600 200" stroke="brown"/>
+        <path class="connection same" d="M 600 160 L 600 150 L 600 140" stroke="brown"/>
+        <path class="connection same" d="M 600 140 L 600 130 L 600 120" stroke="brown"/>
+        <path class="connection same" d="M 560 160 L 550 160 L 540 160" stroke="brown"/>
+        <path class="connection same" d="M 540 160 L 530 160 L 520 160" stroke="brown"/>
+        <path class="connection same" d="M 520 160 L 520 170 L 520 180" stroke="brown"/>
+        <path class="connection same" d="M 520 180 L 520 190 L 520 200" stroke="brown"/>
+        <path class="connection same" d="M 520 160 L 520 150 L 520 140" stroke="brown"/>
+        <path class="connection same" d="M 520 140 L 520 130 L 520 120" stroke="brown"/>
+        <path class="connection same" d="M 560 280 L 570 280 L 580 280" stroke="brown"/>
+        <path class="connection same" d="M 580 280 L 590 280 L 600 280" stroke="brown"/>
+        <path class="connection same" d="M 600 280 L 600 290 L 600 300" stroke="brown"/>
+        <path class="connection same" d="M 600 300 L 600 310 L 600 320" stroke="brown"/>
+        <path class="connection same" d="M 600 280 L 600 270 L 600 260" stroke="brown"/>
+        <path class="connection same" d="M 600 260 L 600 250 L 600 240" stroke="brown"/>
+        <path class="connection same" d="M 560 280 L 550 280 L 540 280" stroke="brown"/>
+        <path class="connection same" d="M 540 280 L 530 280 L 520 280" stroke="brown"/>
+        <path class="connection same" d="M 520 280 L 520 290 L 520 300" stroke="brown"/>
+        <path class="connection same" d="M 520 300 L 520 310 L 520 320" stroke="brown"/>
+        <path class="connection same" d="M 520 280 L 520 270 L 520 260" stroke="brown"/>
+        <path class="connection same" d="M 520 260 L 520 250 L 520 240" stroke="brown"/>
+        <path class="connection same" d="M 560 400 L 570 400 L 580 400" stroke="brown"/>
+        <path class="connection same" d="M 580 400 L 590 400 L 600 400" stroke="brown"/>
+        <path class="connection same" d="M 600 400 L 600 410 L 600 420" stroke="brown"/>
+        <path class="connection same" d="M 600 420 L 600 430 L 600 440" stroke="brown"/>
+        <path class="connection same" d="M 600 400 L 600 390 L 600 380" stroke="brown"/>
+        <path class="connection same" d="M 600 380 L 600 370 L 600 360" stroke="brown"/>
+        <path class="connection same" d="M 560 400 L 550 400 L 540 400" stroke="brown"/>
+        <path class="connection same" d="M 540 400 L 530 400 L 520 400" stroke="brown"/>
+        <path class="connection same" d="M 520 400 L 520 410 L 520 420" stroke="brown"/>
+        <path class="connection same" d="M 520 420 L 520 430 L 520 440" stroke="brown"/>
+        <path class="connection same" d="M 520 400 L 520 390 L 520 380" stroke="brown"/>
+        <path class="connection same" d="M 520 380 L 520 370 L 520 360" stroke="brown"/>
+        <path class="connection same" d="M 560 520 L 570 520 L 580 520" stroke="brown"/>
+        <path class="connection same" d="M 580 520 L 590 520 L 600 520" stroke="brown"/>
+        <path class="connection same" d="M 600 520 L 600 530 L 600 540" stroke="brown"/>
+        <path class="connection same" d="M 600 540 L 600 550 L 600 560" stroke="brown"/>
+        <path class="connection same" d="M 600 520 L 600 510 L 600 500" stroke="brown"/>
+        <path class="connection same" d="M 600 500 L 600 490 L 600 480" stroke="brown"/>
+        <path class="connection same" d="M 560 520 L 550 520 L 540 520" stroke="brown"/>
+        <path class="connection same" d="M 540 520 L 530 520 L 520 520" stroke="brown"/>
+        <path class="connection same" d="M 520 520 L 520 530 L 520 540" stroke="brown"/>
+        <path class="connection same" d="M 520 540 L 520 550 L 520 560" stroke="brown"/>
+        <path class="connection same" d="M 520 520 L 520 510 L 520 500" stroke="brown"/>
+        <path class="connection same" d="M 520 500 L 520 490 L 520 480" stroke="brown"/>
+        <path class="connection same" d="M 680 160 L 690 160 L 700 160" stroke="brown"/>
+        <path class="connection same" d="M 700 160 L 710 160 L 720 160" stroke="brown"/>
+        <path class="connection same" d="M 720 160 L 720 170 L 720 180" stroke="brown"/>
+        <path class="connection same" d="M 720 180 L 720 190 L 720 200" stroke="brown"/>
+        <path class="connection same" d="M 720 160 L 720 150 L 720 140" stroke="brown"/>
+        <path class="connection same" d="M 720 140 L 720 130 L 720 120" stroke="brown"/>
+        <path class="connection same" d="M 680 160 L 670 160 L 660 160" stroke="brown"/>
+        <path class="connection same" d="M 660 160 L 650 160 L 640 160" stroke="brown"/>
+        <path class="connection same" d="M 640 160 L 640 170 L 640 180" stroke="brown"/>
+        <path class="connection same" d="M 640 180 L 640 190 L 640 200" stroke="brown"/>
+        <path class="connection same" d="M 640 160 L 640 150 L 640 140" stroke="brown"/>
+        <path class="connection same" d="M 640 140 L 640 130 L 640 120" stroke="brown"/>
+        <path class="connection same" d="M 680 280 L 690 280 L 700 280" stroke="brown"/>
+        <path class="connection same" d="M 700 280 L 710 280 L 720 280" stroke="brown"/>
+        <path class="connection same" d="M 720 280 L 720 290 L 720 300" stroke="brown"/>
+        <path class="connection same" d="M 720 300 L 720 310 L 720 320" stroke="brown"/>
+        <path class="connection same" d="M 720 280 L 720 270 L 720 260" stroke="brown"/>
+        <path class="connection same" d="M 720 260 L 720 250 L 720 240" stroke="brown"/>
+        <path class="connection same" d="M 680 280 L 670 280 L 660 280" stroke="brown"/>
+        <path class="connection same" d="M 660 280 L 650 280 L 640 280" stroke="brown"/>
+        <path class="connection same" d="M 640 280 L 640 290 L 640 300" stroke="brown"/>
+        <path class="connection same" d="M 640 300 L 640 310 L 640 320" stroke="brown"/>
+        <path class="connection same" d="M 640 280 L 640 270 L 640 260" stroke="brown"/>
+        <path class="connection same" d="M 640 260 L 640 250 L 640 240" stroke="brown"/>
+        <path class="connection same" d="M 680 400 L 690 400 L 700 400" stroke="brown"/>
+        <path class="connection same" d="M 700 400 L 710 400 L 720 400" stroke="brown"/>
+        <path class="connection same" d="M 720 400 L 720 410 L 720 420" stroke="brown"/>
+        <path class="connection same" d="M 720 420 L 720 430 L 720 440" stroke="brown"/>
+        <path class="connection same" d="M 720 400 L 720 390 L 720 380" stroke="brown"/>
+        <path class="connection same" d="M 720 380 L 720 370 L 720 360" stroke="brown"/>
+        <path class="connection same" d="M 680 400 L 670 400 L 660 400" stroke="brown"/>
+        <path class="connection same" d="M 660 400 L 650 400 L 640 400" stroke="brown"/>
+        <path class="connection same" d="M 640 400 L 640 410 L 640 420" stroke="brown"/>
+        <path class="connection same" d="M 640 420 L 640 430 L 640 440" stroke="brown"/>
+        <path class="connection same" d="M 640 400 L 640 390 L 640 380" stroke="brown"/>
+        <path class="connection same" d="M 640 380 L 640 370 L 640 360" stroke="brown"/>
+        <path class="connection same" d="M 680 520 L 690 520 L 700 520" stroke="brown"/>
+        <path class="connection same" d="M 700 520 L 710 520 L 720 520" stroke="brown"/>
+        <path class="connection same" d="M 720 520 L 720 530 L 720 540" stroke="brown"/>
+        <path class="connection same" d="M 720 540 L 720 550 L 720 560" stroke="brown"/>
+        <path class="connection same" d="M 720 520 L 720 510 L 720 500" stroke="brown"/>
+        <path class="connection same" d="M 720 500 L 720 490 L 720 480" stroke="brown"/>
+        <path class="connection same" d="M 680 520 L 670 520 L 660 520" stroke="brown"/>
+        <path class="connection same" d="M 660 520 L 650 520 L 640 520" stroke="brown"/>
+        <path class="connection same" d="M 640 520 L 640 530 L 640 540" stroke="brown"/>
+        <path class="connection same" d="M 640 540 L 640 550 L 640 560" stroke="brown"/>
+        <path class="connection same" d="M 640 520 L 640 510 L 640 500" stroke="brown"/>
+        <path class="connection same" d="M 640 500 L 640 490 L 640 480" stroke="brown"/>
+        <path class="connection same" d="M 800 160 L 810 160 L 820 160" stroke="brown"/>
+        <path class="connection same" d="M 820 160 L 830 160 L 840 160" stroke="brown"/>
+        <path class="connection same" d="M 840 160 L 840 170 L 840 180" stroke="brown"/>
+        <path class="connection same" d="M 840 180 L 840 190 L 840 200" stroke="brown"/>
+        <path class="connection same" d="M 840 160 L 840 150 L 840 140" stroke="brown"/>
+        <path class="connection same" d="M 840 140 L 840 130 L 840 120" stroke="brown"/>
+        <path class="connection same" d="M 800 160 L 790 160 L 780 160" stroke="brown"/>
+        <path class="connection same" d="M 780 160 L 770 160 L 760 160" stroke="brown"/>
+        <path class="connection same" d="M 760 160 L 760 170 L 760 180" stroke="brown"/>
+        <path class="connection same" d="M 760 180 L 760 190 L 760 200" stroke="brown"/>
+        <path class="connection same" d="M 760 160 L 760 150 L 760 140" stroke="brown"/>
+        <path class="connection same" d="M 760 140 L 760 130 L 760 120" stroke="brown"/>
+        <path class="connection same" d="M 800 280 L 810 280 L 820 280" stroke="brown"/>
+        <path class="connection same" d="M 820 280 L 830 280 L 840 280" stroke="brown"/>
+        <path class="connection same" d="M 840 280 L 840 290 L 840 300" stroke="brown"/>
+        <path class="connection same" d="M 840 300 L 840 310 L 840 320" stroke="brown"/>
+        <path class="connection same" d="M 840 280 L 840 270 L 840 260" stroke="brown"/>
+        <path class="connection same" d="M 840 260 L 840 250 L 840 240" stroke="brown"/>
+        <path class="connection same" d="M 800 280 L 790 280 L 780 280" stroke="brown"/>
+        <path class="connection same" d="M 780 280 L 770 280 L 760 280" stroke="brown"/>
+        <path class="connection same" d="M 760 280 L 760 290 L 760 300" stroke="brown"/>
+        <path class="connection same" d="M 760 300 L 760 310 L 760 320" stroke="brown"/>
+        <path class="connection same" d="M 760 280 L 760 270 L 760 260" stroke="brown"/>
+        <path class="connection same" d="M 760 260 L 760 250 L 760 240" stroke="brown"/>
+        <path class="connection same" d="M 800 400 L 810 400 L 820 400" stroke="brown"/>
+        <path class="connection same" d="M 820 400 L 830 400 L 840 400" stroke="brown"/>
+        <path class="connection same" d="M 840 400 L 840 410 L 840 420" stroke="brown"/>
+        <path class="connection same" d="M 840 420 L 840 430 L 840 440" stroke="brown"/>
+        <path class="connection same" d="M 840 400 L 840 390 L 840 380" stroke="brown"/>
+        <path class="connection same" d="M 840 380 L 840 370 L 840 360" stroke="brown"/>
+        <path class="connection same" d="M 800 400 L 790 400 L 780 400" stroke="brown"/>
+        <path class="connection same" d="M 780 400 L 770 400 L 760 400" stroke="brown"/>
+        <path class="connection same" d="M 760 400 L 760 410 L 760 420" stroke="brown"/>
+        <path class="connection same" d="M 760 420 L 760 430 L 760 440" stroke="brown"/>
+        <path class="connection same" d="M 760 400 L 760 390 L 760 380" stroke="brown"/>
+        <path class="connection same" d="M 760 380 L 760 370 L 760 360" stroke="brown"/>
+        <path class="connection same" d="M 800 520 L 810 520 L 820 520" stroke="brown"/>
+        <path class="connection same" d="M 820 520 L 830 520 L 840 520" stroke="brown"/>
+        <path class="connection same" d="M 840 520 L 840 530 L 840 540" stroke="brown"/>
+        <path class="connection same" d="M 840 540 L 840 550 L 840 560" stroke="brown"/>
+        <path class="connection same" d="M 840 520 L 840 510 L 840 500" stroke="brown"/>
+        <path class="connection same" d="M 840 500 L 840 490 L 840 480" stroke="brown"/>
+        <path class="connection same" d="M 800 520 L 790 520 L 780 520" stroke="brown"/>
+        <path class="connection same" d="M 780 520 L 770 520 L 760 520" stroke="brown"/>
+        <path class="connection same" d="M 760 520 L 760 530 L 760 540" stroke="brown"/>
+        <path class="connection same" d="M 760 540 L 760 550 L 760 560" stroke="brown"/>
+        <path class="connection same" d="M 760 520 L 760 510 L 760 500" stroke="brown"/>
+        <path class="connection same" d="M 760 500 L 760 490 L 760 480" stroke="brown"/>
+        <path class="connection same" d="M 920 160 L 930 160 L 940 160" stroke="brown"/>
+        <path class="connection same" d="M 940 160 L 950 160 L 960 160" stroke="brown"/>
+        <path class="connection same" d="M 960 160 L 960 170 L 960 180" stroke="brown"/>
+        <path class="connection same" d="M 960 180 L 960 190 L 960 200" stroke="brown"/>
+        <path class="connection same" d="M 960 160 L 960 150 L 960 140" stroke="brown"/>
+        <path class="connection same" d="M 960 140 L 960 130 L 960 120" stroke="brown"/>
+        <path class="connection same" d="M 920 160 L 910 160 L 900 160" stroke="brown"/>
+        <path class="connection same" d="M 900 160 L 890 160 L 880 160" stroke="brown"/>
+        <path class="connection same" d="M 880 160 L 880 170 L 880 180" stroke="brown"/>
+        <path class="connection same" d="M 880 180 L 880 190 L 880 200" stroke="brown"/>
+        <path class="connection same" d="M 880 160 L 880 150 L 880 140" stroke="brown"/>
+        <path class="connection same" d="M 880 140 L 880 130 L 880 120" stroke="brown"/>
+        <path class="connection same" d="M 920 280 L 930 280 L 940 280" stroke="brown"/>
+        <path class="connection same" d="M 940 280 L 950 280 L 960 280" stroke="brown"/>
+        <path class="connection same" d="M 960 280 L 960 290 L 960 300" stroke="brown"/>
+        <path class="connection same" d="M 960 300 L 960 310 L 960 320" stroke="brown"/>
+        <path class="connection same" d="M 960 280 L 960 270 L 960 260" stroke="brown"/>
+        <path class="connection same" d="M 960 260 L 960 250 L 960 240" stroke="brown"/>
+        <path class="connection same" d="M 920 280 L 910 280 L 900 280" stroke="brown"/>
+        <path class="connection same" d="M 900 280 L 890 280 L 880 280" stroke="brown"/>
+        <path class="connection same" d="M 880 280 L 880 290 L 880 300" stroke="brown"/>
+        <path class="connection same" d="M 880 300 L 880 310 L 880 320" stroke="brown"/>
+        <path class="connection same" d="M 880 280 L 880 270 L 880 260" stroke="brown"/>
+        <path class="connection same" d="M 880 260 L 880 250 L 880 240" stroke="brown"/>
+        <path class="connection same" d="M 920 400 L 930 400 L 940 400" stroke="brown"/>
+        <path class="connection same" d="M 940 400 L 950 400 L 960 400" stroke="brown"/>
+        <path class="connection same" d="M 960 400 L 960 410 L 960 420" stroke="brown"/>
+        <path class="connection same" d="M 960 420 L 960 430 L 960 440" stroke="brown"/>
+        <path class="connection same" d="M 960 400 L 960 390 L 960 380" stroke="brown"/>
+        <path class="connection same" d="M 960 380 L 960 370 L 960 360" stroke="brown"/>
+        <path class="connection same" d="M 920 400 L 910 400 L 900 400" stroke="brown"/>
+        <path class="connection same" d="M 900 400 L 890 400 L 880 400" stroke="brown"/>
+        <path class="connection same" d="M 880 400 L 880 410 L 880 420" stroke="brown"/>
+        <path class="connection same" d="M 880 420 L 880 430 L 880 440" stroke="brown"/>
+        <path class="connection same" d="M 880 400 L 880 390 L 880 380" stroke="brown"/>
+        <path class="connection same" d="M 880 380 L 880 370 L 880 360" stroke="brown"/>
+        <path class="connection same" d="M 920 520 L 930 520 L 940 520" stroke="brown"/>
+        <path class="connection same" d="M 940 520 L 950 520 L 960 520" stroke="brown"/>
+        <path class="connection same" d="M 960 520 L 960 530 L 960 540" stroke="brown"/>
+        <path class="connection same" d="M 960 540 L 960 550 L 960 560" stroke="brown"/>
+        <path class="connection same" d="M 960 520 L 960 510 L 960 500" stroke="brown"/>
+        <path class="connection same" d="M 960 500 L 960 490 L 960 480" stroke="brown"/>
+        <path class="connection same" d="M 920 520 L 910 520 L 900 520" stroke="brown"/>
+        <path class="connection same" d="M 900 520 L 890 520 L 880 520" stroke="brown"/>
+        <path class="connection same" d="M 880 520 L 880 530 L 880 540" stroke="brown"/>
+        <path class="connection same" d="M 880 540 L 880 550 L 880 560" stroke="brown"/>
+        <path class="connection same" d="M 880 520 L 880 510 L 880 500" stroke="brown"/>
+        <path class="connection same" d="M 880 500 L 880 490 L 880 480" stroke="brown"/>
+        <path class="connection same" d="M 80 560 L 80 570 L 80 580" stroke="brown"/>
+        <path class="connection same" d="M 80 580 L 80 590 L 80 600" stroke="brown"/>
+        <path class="connection same" d="M 80 600 L 100 600 L 120 600" stroke="brown"/>
+        <path class="connection same" d="M 80 600 L 60 600 L 40 600" stroke="brown"/>
+        <path class="connection same" d="M 80 600 L 80 630 L 80 660" stroke="brown"/>
+        <path class="connection same" d="M 120 600 L 120 610 L 120 620" stroke="brown"/>
+        <path class="connection same" d="M 120 620 L 120 630 L 120 640" stroke="brown"/>
+        <path class="connection same" d="M 120 640 L 120 650 L 120 660" stroke="brown"/>
+        <path class="connection same" d="M 40 600 L 40 610 L 40 620" stroke="brown"/>
+        <path class="connection same" d="M 40 620 L 40 630 L 40 640" stroke="brown"/>
+        <path class="connection same" d="M 40 640 L 40 650 L 40 660" stroke="brown"/>
+        <path class="connection same" d="M 200 560 L 200 580 L 200 600" stroke="brown"/>
+        <path class="connection same" d="M 200 600 L 220 600 L 240 600" stroke="brown"/>
+        <path class="connection same" d="M 200 600 L 180 600 L 160 600" stroke="brown"/>
+        <path class="connection same" d="M 200 600 L 200 630 L 200 660" stroke="brown"/>
+        <path class="connection same" d="M 240 600 L 240 610 L 240 620" stroke="brown"/>
+        <path class="connection same" d="M 240 620 L 240 630 L 240 640" stroke="brown"/>
+        <path class="connection same" d="M 240 640 L 240 650 L 240 660" stroke="brown"/>
+        <path class="connection same" d="M 160 600 L 160 610 L 160 620" stroke="brown"/>
+        <path class="connection same" d="M 160 620 L 160 630 L 160 640" stroke="brown"/>
+        <path class="connection same" d="M 160 640 L 160 650 L 160 660" stroke="brown"/>
+        <path class="connection same" d="M 320 560 L 320 580 L 320 600" stroke="brown"/>
+        <path class="connection same" d="M 320 600 L 340 600 L 360 600" stroke="brown"/>
+        <path class="connection same" d="M 320 600 L 300 600 L 280 600" stroke="brown"/>
+        <path class="connection same" d="M 320 600 L 320 630 L 320 660" stroke="brown"/>
+        <path class="connection same" d="M 360 600 L 360 610 L 360 620" stroke="brown"/>
+        <path class="connection same" d="M 360 620 L 360 630 L 360 640" stroke="brown"/>
+        <path class="connection same" d="M 360 640 L 360 650 L 360 660" stroke="brown"/>
+        <path class="connection same" d="M 280 600 L 280 610 L 280 620" stroke="brown"/>
+        <path class="connection same" d="M 280 620 L 280 630 L 280 640" stroke="brown"/>
+        <path class="connection same" d="M 280 640 L 280 650 L 280 660" stroke="brown"/>
+        <path class="connection same" d="M 440 560 L 440 570 L 440 580" stroke="brown"/>
+        <path class="connection same" d="M 440 580 L 440 590 L 440 600" stroke="brown"/>
+        <path class="connection same" d="M 440 600 L 460 600 L 480 600" stroke="brown"/>
+        <path class="connection same" d="M 440 600 L 420 600 L 400 600" stroke="brown"/>
+        <path class="connection same" d="M 440 600 L 440 630 L 440 660" stroke="brown"/>
+        <path class="connection same" d="M 480 600 L 480 610 L 480 620" stroke="brown"/>
+        <path class="connection same" d="M 480 620 L 480 630 L 480 640" stroke="brown"/>
+        <path class="connection same" d="M 480 640 L 480 650 L 480 660" stroke="brown"/>
+        <path class="connection same" d="M 400 600 L 400 610 L 400 620" stroke="brown"/>
+        <path class="connection same" d="M 400 620 L 400 630 L 400 640" stroke="brown"/>
+        <path class="connection same" d="M 400 640 L 400 650 L 400 660" stroke="brown"/>
+        <path class="connection same" d="M 560 560 L 560 570 L 560 580" stroke="brown"/>
+        <path class="connection same" d="M 560 580 L 560 590 L 560 600" stroke="brown"/>
+        <path class="connection same" d="M 560 600 L 580 600 L 600 600" stroke="brown"/>
+        <path class="connection same" d="M 560 600 L 540 600 L 520 600" stroke="brown"/>
+        <path class="connection same" d="M 560 600 L 560 630 L 560 660" stroke="brown"/>
+        <path class="connection same" d="M 600 600 L 600 610 L 600 620" stroke="brown"/>
+        <path class="connection same" d="M 600 620 L 600 630 L 600 640" stroke="brown"/>
+        <path class="connection same" d="M 600 640 L 600 650 L 600 660" stroke="brown"/>
+        <path class="connection same" d="M 520 600 L 520 610 L 520 620" stroke="brown"/>
+        <path class="connection same" d="M 520 620 L 520 630 L 520 640" stroke="brown"/>
+        <path class="connection same" d="M 520 640 L 520 650 L 520 660" stroke="brown"/>
+        <path class="connection same" d="M 680 560 L 680 580 L 680 600" stroke="brown"/>
+        <path class="connection same" d="M 680 600 L 700 600 L 720 600" stroke="brown"/>
+        <path class="connection same" d="M 680 600 L 660 600 L 640 600" stroke="brown"/>
+        <path class="connection same" d="M 680 600 L 680 630 L 680 660" stroke="brown"/>
+        <path class="connection same" d="M 720 600 L 720 610 L 720 620" stroke="brown"/>
+        <path class="connection same" d="M 720 620 L 720 630 L 720 640" stroke="brown"/>
+        <path class="connection same" d="M 720 640 L 720 650 L 720 660" stroke="brown"/>
+        <path class="connection same" d="M 640 600 L 640 610 L 640 620" stroke="brown"/>
+        <path class="connection same" d="M 640 620 L 640 630 L 640 640" stroke="brown"/>
+        <path class="connection same" d="M 640 640 L 640 650 L 640 660" stroke="brown"/>
+        <path class="connection same" d="M 800 560 L 800 580 L 800 600" stroke="brown"/>
+        <path class="connection same" d="M 800 600 L 820 600 L 840 600" stroke="brown"/>
+        <path class="connection same" d="M 800 600 L 780 600 L 760 600" stroke="brown"/>
+        <path class="connection same" d="M 800 600 L 800 630 L 800 660" stroke="brown"/>
+        <path class="connection same" d="M 840 600 L 840 610 L 840 620" stroke="brown"/>
+        <path class="connection same" d="M 840 620 L 840 630 L 840 640" stroke="brown"/>
+        <path class="connection same" d="M 840 640 L 840 650 L 840 660" stroke="brown"/>
+        <path class="connection same" d="M 760 600 L 760 610 L 760 620" stroke="brown"/>
+        <path class="connection same" d="M 760 620 L 760 630 L 760 640" stroke="brown"/>
+        <path class="connection same" d="M 760 640 L 760 650 L 760 660" stroke="brown"/>
+        <path class="connection same" d="M 920 560 L 920 570 L 920 580" stroke="brown"/>
+        <path class="connection same" d="M 920 580 L 920 590 L 920 600" stroke="brown"/>
+        <path class="connection same" d="M 920 600 L 940 600 L 960 600" stroke="brown"/>
+        <path class="connection same" d="M 920 600 L 900 600 L 880 600" stroke="brown"/>
+        <path class="connection same" d="M 920 600 L 920 630 L 920 660" stroke="brown"/>
+        <path class="connection same" d="M 960 600 L 960 610 L 960 620" stroke="brown"/>
+        <path class="connection same" d="M 960 620 L 960 630 L 960 640" stroke="brown"/>
+        <path class="connection same" d="M 960 640 L 960 650 L 960 660" stroke="brown"/>
+        <path class="connection same" d="M 880 600 L 880 610 L 880 620" stroke="brown"/>
+        <path class="connection same" d="M 880 620 L 880 630 L 880 640" stroke="brown"/>
+        <path class="connection same" d="M 880 640 L 880 650 L 880 660" stroke="brown"/>
+        <path class="connection same" d="M 80 120 L 80 110 L 80 100" stroke="brown"/>
+        <path class="connection same" d="M 80 100 L 80 90 L 80 80" stroke="brown"/>
+        <path class="connection same" d="M 80 80 L 100 80 L 120 80" stroke="brown"/>
+        <path class="connection same" d="M 80 80 L 60 80 L 40 80" stroke="brown"/>
+        <path class="connection same" d="M 80 80 L 80 50 L 80 20" stroke="brown"/>
+        <path class="connection same" d="M 120 80 L 120 70 L 120 60" stroke="brown"/>
+        <path class="connection same" d="M 120 60 L 120 50 L 120 40" stroke="brown"/>
+        <path class="connection same" d="M 120 40 L 120 30 L 120 20" stroke="brown"/>
+        <path class="connection same" d="M 40 80 L 40 70 L 40 60" stroke="brown"/>
+        <path class="connection same" d="M 40 60 L 40 50 L 40 40" stroke="brown"/>
+        <path class="connection same" d="M 40 40 L 40 30 L 40 20" stroke="brown"/>
+        <path class="connection same" d="M 200 120 L 200 100 L 200 80" stroke="brown"/>
+        <path class="connection same" d="M 200 80 L 220 80 L 240 80" stroke="brown"/>
+        <path class="connection same" d="M 200 80 L 180 80 L 160 80" stroke="brown"/>
+        <path class="connection same" d="M 200 80 L 200 50 L 200 20" stroke="brown"/>
+        <path class="connection same" d="M 240 80 L 240 70 L 240 60" stroke="brown"/>
+        <path class="connection same" d="M 240 60 L 240 50 L 240 40" stroke="brown"/>
+        <path class="connection same" d="M 240 40 L 240 30 L 240 20" stroke="brown"/>
+        <path class="connection same" d="M 160 80 L 160 70 L 160 60" stroke="brown"/>
+        <path class="connection same" d="M 160 60 L 160 50 L 160 40" stroke="brown"/>
+        <path class="connection same" d="M 160 40 L 160 30 L 160 20" stroke="brown"/>
+        <path class="connection same" d="M 320 120 L 320 100 L 320 80" stroke="brown"/>
+        <path class="connection same" d="M 320 80 L 340 80 L 360 80" stroke="brown"/>
+        <path class="connection same" d="M 320 80 L 300 80 L 280 80" stroke="brown"/>
+        <path class="connection same" d="M 320 80 L 320 50 L 320 20" stroke="brown"/>
+        <path class="connection same" d="M 360 80 L 360 70 L 360 60" stroke="brown"/>
+        <path class="connection same" d="M 360 60 L 360 50 L 360 40" stroke="brown"/>
+        <path class="connection same" d="M 360 40 L 360 30 L 360 20" stroke="brown"/>
+        <path class="connection same" d="M 280 80 L 280 70 L 280 60" stroke="brown"/>
+        <path class="connection same" d="M 280 60 L 280 50 L 280 40" stroke="brown"/>
+        <path class="connection same" d="M 280 40 L 280 30 L 280 20" stroke="brown"/>
+        <path class="connection same" d="M 440 120 L 440 110 L 440 100" stroke="brown"/>
+        <path class="connection same" d="M 440 100 L 440 90 L 440 80" stroke="brown"/>
+        <path class="connection same" d="M 440 80 L 460 80 L 480 80" stroke="brown"/>
+        <path class="connection same" d="M 440 80 L 420 80 L 400 80" stroke="brown"/>
+        <path class="connection same" d="M 440 80 L 440 50 L 440 20" stroke="brown"/>
+        <path class="connection same" d="M 480 80 L 480 70 L 480 60" stroke="brown"/>
+        <path class="connection same" d="M 480 60 L 480 50 L 480 40" stroke="brown"/>
+        <path class="connection same" d="M 480 40 L 480 30 L 480 20" stroke="brown"/>
+        <path class="connection same" d="M 400 80 L 400 70 L 400 60" stroke="brown"/>
+        <path class="connection same" d="M 400 60 L 400 50 L 400 40" stroke="brown"/>
+        <path class="connection same" d="M 400 40 L 400 30 L 400 20" stroke="brown"/>
+        <path class="connection same" d="M 560 120 L 560 110 L 560 100" stroke="brown"/>
+        <path class="connection same" d="M 560 100 L 560 90 L 560 80" stroke="brown"/>
+        <path class="connection same" d="M 560 80 L 580 80 L 600 80" stroke="brown"/>
+        <path class="connection same" d="M 560 80 L 540 80 L 520 80" stroke="brown"/>
+        <path class="connection same" d="M 560 80 L 560 50 L 560 20" stroke="brown"/>
+        <path class="connection same" d="M 600 80 L 600 70 L 600 60" stroke="brown"/>
+        <path class="connection same" d="M 600 60 L 600 50 L 600 40" stroke="brown"/>
+        <path class="connection same" d="M 600 40 L 600 30 L 600 20" stroke="brown"/>
+        <path class="connection same" d="M 520 80 L 520 70 L 520 60" stroke="brown"/>
+        <path class="connection same" d="M 520 60 L 520 50 L 520 40" stroke="brown"/>
+        <path class="connection same" d="M 520 40 L 520 30 L 520 20" stroke="brown"/>
+        <path class="connection same" d="M 680 120 L 680 100 L 680 80" stroke="brown"/>
+        <path class="connection same" d="M 680 80 L 700 80 L 720 80" stroke="brown"/>
+        <path class="connection same" d="M 680 80 L 660 80 L 640 80" stroke="brown"/>
+        <path class="connection same" d="M 680 80 L 680 50 L 680 20" stroke="brown"/>
+        <path class="connection same" d="M 720 80 L 720 70 L 720 60" stroke="brown"/>
+        <path class="connection same" d="M 720 60 L 720 50 L 720 40" stroke="brown"/>
+        <path class="connection same" d="M 720 40 L 720 30 L 720 20" stroke="brown"/>
+        <path class="connection same" d="M 640 80 L 640 70 L 640 60" stroke="brown"/>
+        <path class="connection same" d="M 640 60 L 640 50 L 640 40" stroke="brown"/>
+        <path class="connection same" d="M 640 40 L 640 30 L 640 20" stroke="brown"/>
+        <path class="connection same" d="M 800 120 L 800 100 L 800 80" stroke="brown"/>
+        <path class="connection same" d="M 800 80 L 820 80 L 840 80" stroke="brown"/>
+        <path class="connection same" d="M 800 80 L 780 80 L 760 80" stroke="brown"/>
+        <path class="connection same" d="M 800 80 L 800 50 L 800 20" stroke="brown"/>
+        <path class="connection same" d="M 840 80 L 840 70 L 840 60" stroke="brown"/>
+        <path class="connection same" d="M 840 60 L 840 50 L 840 40" stroke="brown"/>
+        <path class="connection same" d="M 840 40 L 840 30 L 840 20" stroke="brown"/>
+        <path class="connection same" d="M 760 80 L 760 70 L 760 60" stroke="brown"/>
+        <path class="connection same" d="M 760 60 L 760 50 L 760 40" stroke="brown"/>
+        <path class="connection same" d="M 760 40 L 760 30 L 760 20" stroke="brown"/>
+        <path class="connection same" d="M 920 120 L 920 110 L 920 100" stroke="brown"/>
+        <path class="connection same" d="M 920 100 L 920 90 L 920 80" stroke="brown"/>
+        <path class="connection same" d="M 920 80 L 940 80 L 960 80" stroke="brown"/>
+        <path class="connection same" d="M 920 80 L 900 80 L 880 80" stroke="brown"/>
+        <path class="connection same" d="M 920 80 L 920 50 L 920 20" stroke="brown"/>
+        <path class="connection same" d="M 960 80 L 960 70 L 960 60" stroke="brown"/>
+        <path class="connection same" d="M 960 60 L 960 50 L 960 40" stroke="brown"/>
+        <path class="connection same" d="M 960 40 L 960 30 L 960 20" stroke="brown"/>
+        <path class="connection same" d="M 880 80 L 880 70 L 880 60" stroke="brown"/>
+        <path class="connection same" d="M 880 60 L 880 50 L 880 40" stroke="brown"/>
+        <path class="connection same" d="M 880 40 L 880 30 L 880 20" stroke="brown"/>
+        <path class="connection same" d="M 40 40 L 30 40 L 20 40" stroke="brown"/>
+        <path class="connection same" d="M 40 80 L 30 80 L 20 80" stroke="brown"/>
+        <path class="connection same" d="M 40 120 L 30 120 L 20 120" stroke="brown"/>
+        <path class="connection same" d="M 40 160 L 30 160 L 20 160" stroke="brown"/>
+        <path class="connection same" d="M 40 200 L 30 200 L 20 200" stroke="brown"/>
+        <path class="connection same" d="M 40 240 L 30 240 L 20 240" stroke="brown"/>
+        <path class="connection same" d="M 40 280 L 30 280 L 20 280" stroke="brown"/>
+        <path class="connection same" d="M 40 320 L 30 320 L 20 320" stroke="brown"/>
+        <path class="connection same" d="M 40 360 L 30 360 L 20 360" stroke="brown"/>
+        <path class="connection same" d="M 40 400 L 30 400 L 20 400" stroke="brown"/>
+        <path class="connection same" d="M 40 440 L 30 440 L 20 440" stroke="brown"/>
+        <path class="connection same" d="M 40 480 L 30 480 L 20 480" stroke="brown"/>
+        <path class="connection same" d="M 40 520 L 30 520 L 20 520" stroke="brown"/>
+        <path class="connection same" d="M 40 560 L 30 560 L 20 560" stroke="brown"/>
+        <path class="connection same" d="M 40 600 L 30 600 L 20 600" stroke="brown"/>
+        <path class="connection same" d="M 40 640 L 30 640 L 20 640" stroke="brown"/>
+        <path class="connection same" d="M 960 40 L 970 40 L 980 40" stroke="brown"/>
+        <path class="connection same" d="M 960 80 L 970 80 L 980 80" stroke="brown"/>
+        <path class="connection same" d="M 960 120 L 970 120 L 980 120" stroke="brown"/>
+        <path class="connection same" d="M 960 160 L 970 160 L 980 160" stroke="brown"/>
+        <path class="connection same" d="M 960 200 L 970 200 L 980 200" stroke="brown"/>
+        <path class="connection same" d="M 960 240 L 970 240 L 980 240" stroke="brown"/>
+        <path class="connection same" d="M 960 280 L 970 280 L 980 280" stroke="brown"/>
+        <path class="connection same" d="M 960 320 L 970 320 L 980 320" stroke="brown"/>
+        <path class="connection same" d="M 960 360 L 970 360 L 980 360" stroke="brown"/>
+        <path class="connection same" d="M 960 400 L 970 400 L 980 400" stroke="brown"/>
+        <path class="connection same" d="M 960 440 L 970 440 L 980 440" stroke="brown"/>
+        <path class="connection same" d="M 960 480 L 970 480 L 980 480" stroke="brown"/>
+        <path class="connection same" d="M 960 520 L 970 520 L 980 520" stroke="brown"/>
+        <path class="connection same" d="M 960 560 L 970 560 L 980 560" stroke="brown"/>
+        <path class="connection same" d="M 960 600 L 970 600 L 980 600" stroke="brown"/>
+        <path class="connection same" d="M 960 640 L 970 640 L 980 640" stroke="brown"/>
+        <path class="connection same" d="M 80 280 L 80 290 L 80 300" stroke="brown"/>
+        <path class="connection same" d="M 80 300 L 80 310 L 80 320" stroke="brown"/>
+        <path class="connection same" d="M 80 520 L 80 530 L 80 540" stroke="brown"/>
+        <path class="connection same" d="M 80 540 L 80 550 L 80 560" stroke="brown"/>
+        <path class="connection same" d="M 200 280 L 200 290 L 200 300" stroke="brown"/>
+        <path class="connection same" d="M 200 300 L 200 310 L 200 320" stroke="brown"/>
+        <path class="connection same" d="M 200 520 L 200 530 L 200 540" stroke="brown"/>
+        <path class="connection same" d="M 200 540 L 200 550 L 200 560" stroke="brown"/>
+        <path class="connection same" d="M 320 280 L 320 290 L 320 300" stroke="brown"/>
+        <path class="connection same" d="M 320 300 L 320 310 L 320 320" stroke="brown"/>
+        <path class="connection same" d="M 320 520 L 320 530 L 320 540" stroke="brown"/>
+        <path class="connection same" d="M 320 540 L 320 550 L 320 560" stroke="brown"/>
+        <path class="connection same" d="M 440 280 L 440 290 L 440 300" stroke="brown"/>
+        <path class="connection same" d="M 440 300 L 440 310 L 440 320" stroke="brown"/>
+        <path class="connection same" d="M 440 520 L 440 530 L 440 540" stroke="brown"/>
+        <path class="connection same" d="M 440 540 L 440 550 L 440 560" stroke="brown"/>
+        <path class="connection same" d="M 560 280 L 560 290 L 560 300" stroke="brown"/>
+        <path class="connection same" d="M 560 300 L 560 310 L 560 320" stroke="brown"/>
+        <path class="connection same" d="M 560 520 L 560 530 L 560 540" stroke="brown"/>
+        <path class="connection same" d="M 560 540 L 560 550 L 560 560" stroke="brown"/>
+        <path class="connection same" d="M 680 280 L 680 290 L 680 300" stroke="brown"/>
+        <path class="connection same" d="M 680 300 L 680 310 L 680 320" stroke="brown"/>
+        <path class="connection same" d="M 680 520 L 680 530 L 680 540" stroke="brown"/>
+        <path class="connection same" d="M 680 540 L 680 550 L 680 560" stroke="brown"/>
+        <path class="connection same" d="M 800 280 L 800 290 L 800 300" stroke="brown"/>
+        <path class="connection same" d="M 800 300 L 800 310 L 800 320" stroke="brown"/>
+        <path class="connection same" d="M 800 520 L 800 530 L 800 540" stroke="brown"/>
+        <path class="connection same" d="M 800 540 L 800 550 L 800 560" stroke="brown"/>
+        <path class="connection same" d="M 920 280 L 920 290 L 920 300" stroke="brown"/>
+        <path class="connection same" d="M 920 300 L 920 310 L 920 320" stroke="brown"/>
+        <path class="connection same" d="M 920 520 L 920 530 L 920 540" stroke="brown"/>
+        <path class="connection same" d="M 920 540 L 920 550 L 920 560" stroke="brown"/>
+        <path class="connection same" d="M 80 160 L 80 150 L 80 140" stroke="brown"/>
+        <path class="connection same" d="M 80 140 L 80 130 L 80 120" stroke="brown"/>
+        <path class="connection same" d="M 80 400 L 80 390 L 80 380" stroke="brown"/>
+        <path class="connection same" d="M 80 380 L 80 370 L 80 360" stroke="brown"/>
+        <path class="connection same" d="M 200 160 L 200 150 L 200 140" stroke="brown"/>
+        <path class="connection same" d="M 200 140 L 200 130 L 200 120" stroke="brown"/>
+        <path class="connection same" d="M 200 400 L 200 390 L 200 380" stroke="brown"/>
+        <path class="connection same" d="M 200 380 L 200 370 L 200 360" stroke="brown"/>
+        <path class="connection same" d="M 320 160 L 320 150 L 320 140" stroke="brown"/>
+        <path class="connection same" d="M 320 140 L 320 130 L 320 120" stroke="brown"/>
+        <path class="connection same" d="M 320 400 L 320 390 L 320 380" stroke="brown"/>
+        <path class="connection same" d="M 320 380 L 320 370 L 320 360" stroke="brown"/>
+        <path class="connection same" d="M 440 160 L 440 150 L 440 140" stroke="brown"/>
+        <path class="connection same" d="M 440 140 L 440 130 L 440 120" stroke="brown"/>
+        <path class="connection same" d="M 440 400 L 440 390 L 440 380" stroke="brown"/>
+        <path class="connection same" d="M 440 380 L 440 370 L 440 360" stroke="brown"/>
+        <path class="connection same" d="M 560 160 L 560 150 L 560 140" stroke="brown"/>
+        <path class="connection same" d="M 560 140 L 560 130 L 560 120" stroke="brown"/>
+        <path class="connection same" d="M 560 400 L 560 390 L 560 380" stroke="brown"/>
+        <path class="connection same" d="M 560 380 L 560 370 L 560 360" stroke="brown"/>
+        <path class="connection same" d="M 680 160 L 680 150 L 680 140" stroke="brown"/>
+        <path class="connection same" d="M 680 140 L 680 130 L 680 120" stroke="brown"/>
+        <path class="connection same" d="M 680 400 L 680 390 L 680 380" stroke="brown"/>
+        <path class="connection same" d="M 680 380 L 680 370 L 680 360" stroke="brown"/>
+        <path class="connection same" d="M 800 160 L 800 150 L 800 140" stroke="brown"/>
+        <path class="connection same" d="M 800 140 L 800 130 L 800 120" stroke="brown"/>
+        <path class="connection same" d="M 800 400 L 800 390 L 800 380" stroke="brown"/>
+        <path class="connection same" d="M 800 380 L 800 370 L 800 360" stroke="brown"/>
+        <path class="connection same" d="M 920 160 L 920 150 L 920 140" stroke="brown"/>
+        <path class="connection same" d="M 920 140 L 920 130 L 920 120" stroke="brown"/>
+        <path class="connection same" d="M 920 400 L 920 390 L 920 380" stroke="brown"/>
+        <path class="connection same" d="M 920 380 L 920 370 L 920 360" stroke="brown"/>
+        <path class="connection up" d="M 80 180 L 80 170 L 80 160" stroke="brown"/>
+        <path class="connection up" d="M 80 260 L 80 270 L 80 280" stroke="brown"/>
+        <path class="connection up" d="M 80 420 L 80 410 L 80 400" stroke="brown"/>
+        <path class="connection up" d="M 80 500 L 80 510 L 80 520" stroke="brown"/>
+        <path class="connection up" d="M 200 180 L 200 170 L 200 160" stroke="brown"/>
+        <path class="connection up" d="M 200 260 L 200 270 L 200 280" stroke="brown"/>
+        <path class="connection up" d="M 200 420 L 200 410 L 200 400" stroke="brown"/>
+        <path class="connection up" d="M 200 500 L 200 510 L 200 520" stroke="brown"/>
+        <path class="connection up" d="M 320 180 L 320 170 L 320 160" stroke="brown"/>
+        <path class="connection up" d="M 320 260 L 320 270 L 320 280" stroke="brown"/>
+        <path class="connection up" d="M 320 420 L 320 410 L 320 400" stroke="brown"/>
+        <path class="connection up" d="M 320 500 L 320 510 L 320 520" stroke="brown"/>
+        <path class="connection up" d="M 440 180 L 440 170 L 440 160" stroke="brown"/>
+        <path class="connection up" d="M 440 260 L 440 270 L 440 280" stroke="brown"/>
+        <path class="connection up" d="M 440 420 L 440 410 L 440 400" stroke="brown"/>
+        <path class="connection up" d="M 440 500 L 440 510 L 440 520" stroke="brown"/>
+        <path class="connection up" d="M 560 180 L 560 170 L 560 160" stroke="brown"/>
+        <path class="connection up" d="M 560 260 L 560 270 L 560 280" stroke="brown"/>
+        <path class="connection up" d="M 560 420 L 560 410 L 560 400" stroke="brown"/>
+        <path class="connection up" d="M 560 500 L 560 510 L 560 520" stroke="brown"/>
+        <path class="connection up" d="M 680 180 L 680 170 L 680 160" stroke="brown"/>
+        <path class="connection up" d="M 680 260 L 680 270 L 680 280" stroke="brown"/>
+        <path class="connection up" d="M 680 420 L 680 410 L 680 400" stroke="brown"/>
+        <path class="connection up" d="M 680 500 L 680 510 L 680 520" stroke="brown"/>
+        <path class="connection up" d="M 800 180 L 800 170 L 800 160" stroke="brown"/>
+        <path class="connection up" d="M 800 260 L 800 270 L 800 280" stroke="brown"/>
+        <path class="connection up" d="M 800 420 L 800 410 L 800 400" stroke="brown"/>
+        <path class="connection up" d="M 800 500 L 800 510 L 800 520" stroke="brown"/>
+        <path class="connection up" d="M 920 180 L 920 170 L 920 160" stroke="brown"/>
+        <path class="connection up" d="M 920 260 L 920 270 L 920 280" stroke="brown"/>
+        <path class="connection up" d="M 920 420 L 920 410 L 920 400" stroke="brown"/>
+        <path class="connection up" d="M 920 500 L 920 510 L 920 520" stroke="brown"/>
+        <path class="connection same" d="M 140 220 L 150 220 L 160 220" stroke="blue"/>
+        <path class="connection same" d="M 160 220 L 170 220 L 180 220" stroke="blue"/>
+        <path class="connection same" d="M 180 220 L 190 220 L 200 220" stroke="blue"/>
+        <path class="connection same" d="M 200 220 L 200 230 L 200 240" stroke="blue"/>
+        <path class="connection same" d="M 200 240 L 200 250 L 200 260" stroke="blue"/>
+        <path class="connection down" d="M 200 260 L 200 270 L 200 280" stroke="blue"/>
+        <path class="connection same" d="M 200 220 L 200 210 L 200 200" stroke="blue"/>
+        <path class="connection same" d="M 200 200 L 200 190 L 200 180" stroke="blue"/>
+        <path class="connection down" d="M 200 180 L 200 170 L 200 160" stroke="blue"/>
+        <path class="connection same" d="M 140 220 L 130 220 L 120 220" stroke="blue"/>
+        <path class="connection same" d="M 120 220 L 110 220 L 100 220" stroke="blue"/>
+        <path class="connection same" d="M 100 220 L 90 220 L 80 220" stroke="blue"/>
+        <path class="connection same" d="M 80 220 L 80 230 L 80 240" stroke="blue"/>
+        <path class="connection same" d="M 80 240 L 80 250 L 80 260" stroke="blue"/>
+        <path class="connection down" d="M 80 260 L 80 270 L 80 280" stroke="blue"/>
+        <path class="connection same" d="M 80 220 L 80 210 L 80 200" stroke="blue"/>
+        <path class="connection same" d="M 80 200 L 80 190 L 80 180" stroke="blue"/>
+        <path class="connection down" d="M 80 180 L 80 170 L 80 160" stroke="blue"/>
+        <path class="connection same" d="M 140 460 L 150 460 L 160 460" stroke="blue"/>
+        <path class="connection same" d="M 160 460 L 170 460 L 180 460" stroke="blue"/>
+        <path class="connection same" d="M 180 460 L 190 460 L 200 460" stroke="blue"/>
+        <path class="connection same" d="M 200 460 L 200 470 L 200 480" stroke="blue"/>
+        <path class="connection same" d="M 200 480 L 200 490 L 200 500" stroke="blue"/>
+        <path class="connection down" d="M 200 500 L 200 510 L 200 520" stroke="blue"/>
+        <path class="connection same" d="M 200 460 L 200 450 L 200 440" stroke="blue"/>
+        <path class="connection same" d="M 200 440 L 200 430 L 200 420" stroke="blue"/>
+        <path class="connection down" d="M 200 420 L 200 410 L 200 400" stroke="blue"/>
+        <path class="connection same" d="M 140 460 L 130 460 L 120 460" stroke="blue"/>
+        <path class="connection same" d="M 120 460 L 110 460 L 100 460" stroke="blue"/>
+        <path class="connection same" d="M 100 460 L 90 460 L 80 460" stroke="blue"/>
+        <path class="connection same" d="M 80 460 L 80 470 L 80 480" stroke="blue"/>
+        <path class="connection same" d="M 80 480 L 80 490 L 80 500" stroke="blue"/>
+        <path class="connection down" d="M 80 500 L 80 510 L 80 520" stroke="blue"/>
+        <path class="connection same" d="M 80 460 L 80 450 L 80 440" stroke="blue"/>
+        <path class="connection same" d="M 80 440 L 80 430 L 80 420" stroke="blue"/>
+        <path class="connection down" d="M 80 420 L 80 410 L 80 400" stroke="blue"/>
+        <path class="connection same" d="M 380 220 L 390 220 L 400 220" stroke="blue"/>
+        <path class="connection same" d="M 400 220 L 410 220 L 420 220" stroke="blue"/>
+        <path class="connection same" d="M 420 220 L 430 220 L 440 220" stroke="blue"/>
+        <path class="connection same" d="M 440 220 L 440 230 L 440 240" stroke="blue"/>
+        <path class="connection same" d="M 440 240 L 440 250 L 440 260" stroke="blue"/>
+        <path class="connection down" d="M 440 260 L 440 270 L 440 280" stroke="blue"/>
+        <path class="connection same" d="M 440 220 L 440 210 L 440 200" stroke="blue"/>
+        <path class="connection same" d="M 440 200 L 440 190 L 440 180" stroke="blue"/>
+        <path class="connection down" d="M 440 180 L 440 170 L 440 160" stroke="blue"/>
+        <path class="connection same" d="M 380 220 L 370 220 L 360 220" stroke="blue"/>
+        <path class="connection same" d="M 360 220 L 350 220 L 340 220" stroke="blue"/>
+        <path class="connection same" d="M 340 220 L 330 220 L 320 220" stroke="blue"/>
+        <path class="connection same" d="M 320 220 L 320 230 L 320 240" stroke="blue"/>
+        <path class="connection same" d="M 320 240 L 320 250 L 320 260" stroke="blue"/>
+        <path class="connection down" d="M 320 260 L 320 270 L 320 280" stroke="blue"/>
+        <path class="connection same" d="M 320 220 L 320 210 L 320 200" stroke="blue"/>
+        <path class="connection same" d="M 320 200 L 320 190 L 320 180" stroke="blue"/>
+        <path class="connection down" d="M 320 180 L 320 170 L 320 160" stroke="blue"/>
+        <path class="connection same" d="M 380 460 L 390 460 L 400 460" stroke="blue"/>
+        <path class="connection same" d="M 400 460 L 410 460 L 420 460" stroke="blue"/>
+        <path class="connection same" d="M 420 460 L 430 460 L 440 460" stroke="blue"/>
+        <path class="connection same" d="M 440 460 L 440 470 L 440 480" stroke="blue"/>
+        <path class="connection same" d="M 440 480 L 440 490 L 440 500" stroke="blue"/>
+        <path class="connection down" d="M 440 500 L 440 510 L 440 520" stroke="blue"/>
+        <path class="connection same" d="M 440 460 L 440 450 L 440 440" stroke="blue"/>
+        <path class="connection same" d="M 440 440 L 440 430 L 440 420" stroke="blue"/>
+        <path class="connection down" d="M 440 420 L 440 410 L 440 400" stroke="blue"/>
+        <path class="connection same" d="M 380 460 L 370 460 L 360 460" stroke="blue"/>
+        <path class="connection same" d="M 360 460 L 350 460 L 340 460" stroke="blue"/>
+        <path class="connection same" d="M 340 460 L 330 460 L 320 460" stroke="blue"/>
+        <path class="connection same" d="M 320 460 L 320 470 L 320 480" stroke="blue"/>
+        <path class="connection same" d="M 320 480 L 320 490 L 320 500" stroke="blue"/>
+        <path class="connection down" d="M 320 500 L 320 510 L 320 520" stroke="blue"/>
+        <path class="connection same" d="M 320 460 L 320 450 L 320 440" stroke="blue"/>
+        <path class="connection same" d="M 320 440 L 320 430 L 320 420" stroke="blue"/>
+        <path class="connection down" d="M 320 420 L 320 410 L 320 400" stroke="blue"/>
+        <path class="connection same" d="M 620 220 L 630 220 L 640 220" stroke="blue"/>
+        <path class="connection same" d="M 640 220 L 650 220 L 660 220" stroke="blue"/>
+        <path class="connection same" d="M 660 220 L 670 220 L 680 220" stroke="blue"/>
+        <path class="connection same" d="M 680 220 L 680 230 L 680 240" stroke="blue"/>
+        <path class="connection same" d="M 680 240 L 680 250 L 680 260" stroke="blue"/>
+        <path class="connection down" d="M 680 260 L 680 270 L 680 280" stroke="blue"/>
+        <path class="connection same" d="M 680 220 L 680 210 L 680 200" stroke="blue"/>
+        <path class="connection same" d="M 680 200 L 680 190 L 680 180" stroke="blue"/>
+        <path class="connection down" d="M 680 180 L 680 170 L 680 160" stroke="blue"/>
+        <path class="connection same" d="M 620 220 L 610 220 L 600 220" stroke="blue"/>
+        <path class="connection same" d="M 600 220 L 590 220 L 580 220" stroke="blue"/>
+        <path class="connection same" d="M 580 220 L 570 220 L 560 220" stroke="blue"/>
+        <path class="connection same" d="M 560 220 L 560 230 L 560 240" stroke="blue"/>
+        <path class="connection same" d="M 560 240 L 560 250 L 560 260" stroke="blue"/>
+        <path class="connection down" d="M 560 260 L 560 270 L 560 280" stroke="blue"/>
+        <path class="connection same" d="M 560 220 L 560 210 L 560 200" stroke="blue"/>
+        <path class="connection same" d="M 560 200 L 560 190 L 560 180" stroke="blue"/>
+        <path class="connection down" d="M 560 180 L 560 170 L 560 160" stroke="blue"/>
+        <path class="connection same" d="M 620 460 L 630 460 L 640 460" stroke="blue"/>
+        <path class="connection same" d="M 640 460 L 650 460 L 660 460" stroke="blue"/>
+        <path class="connection same" d="M 660 460 L 670 460 L 680 460" stroke="blue"/>
+        <path class="connection same" d="M 680 460 L 680 470 L 680 480" stroke="blue"/>
+        <path class="connection same" d="M 680 480 L 680 490 L 680 500" stroke="blue"/>
+        <path class="connection down" d="M 680 500 L 680 510 L 680 520" stroke="blue"/>
+        <path class="connection same" d="M 680 460 L 680 450 L 680 440" stroke="blue"/>
+        <path class="connection same" d="M 680 440 L 680 430 L 680 420" stroke="blue"/>
+        <path class="connection down" d="M 680 420 L 680 410 L 680 400" stroke="blue"/>
+        <path class="connection same" d="M 620 460 L 610 460 L 600 460" stroke="blue"/>
+        <path class="connection same" d="M 600 460 L 590 460 L 580 460" stroke="blue"/>
+        <path class="connection same" d="M 580 460 L 570 460 L 560 460" stroke="blue"/>
+        <path class="connection same" d="M 560 460 L 560 470 L 560 480" stroke="blue"/>
+        <path class="connection same" d="M 560 480 L 560 490 L 560 500" stroke="blue"/>
+        <path class="connection down" d="M 560 500 L 560 510 L 560 520" stroke="blue"/>
+        <path class="connection same" d="M 560 460 L 560 450 L 560 440" stroke="blue"/>
+        <path class="connection same" d="M 560 440 L 560 430 L 560 420" stroke="blue"/>
+        <path class="connection down" d="M 560 420 L 560 410 L 560 400" stroke="blue"/>
+        <path class="connection same" d="M 860 220 L 870 220 L 880 220" stroke="blue"/>
+        <path class="connection same" d="M 880 220 L 890 220 L 900 220" stroke="blue"/>
+        <path class="connection same" d="M 900 220 L 910 220 L 920 220" stroke="blue"/>
+        <path class="connection same" d="M 920 220 L 920 230 L 920 240" stroke="blue"/>
+        <path class="connection same" d="M 920 240 L 920 250 L 920 260" stroke="blue"/>
+        <path class="connection down" d="M 920 260 L 920 270 L 920 280" stroke="blue"/>
+        <path class="connection same" d="M 920 220 L 920 210 L 920 200" stroke="blue"/>
+        <path class="connection same" d="M 920 200 L 920 190 L 920 180" stroke="blue"/>
+        <path class="connection down" d="M 920 180 L 920 170 L 920 160" stroke="blue"/>
+        <path class="connection same" d="M 860 220 L 850 220 L 840 220" stroke="blue"/>
+        <path class="connection same" d="M 840 220 L 830 220 L 820 220" stroke="blue"/>
+        <path class="connection same" d="M 820 220 L 810 220 L 800 220" stroke="blue"/>
+        <path class="connection same" d="M 800 220 L 800 230 L 800 240" stroke="blue"/>
+        <path class="connection same" d="M 800 240 L 800 250 L 800 260" stroke="blue"/>
+        <path class="connection down" d="M 800 260 L 800 270 L 800 280" stroke="blue"/>
+        <path class="connection same" d="M 800 220 L 800 210 L 800 200" stroke="blue"/>
+        <path class="connection same" d="M 800 200 L 800 190 L 800 180" stroke="blue"/>
+        <path class="connection down" d="M 800 180 L 800 170 L 800 160" stroke="blue"/>
+        <path class="connection same" d="M 860 460 L 870 460 L 880 460" stroke="blue"/>
+        <path class="connection same" d="M 880 460 L 890 460 L 900 460" stroke="blue"/>
+        <path class="connection same" d="M 900 460 L 910 460 L 920 460" stroke="blue"/>
+        <path class="connection same" d="M 920 460 L 920 470 L 920 480" stroke="blue"/>
+        <path class="connection same" d="M 920 480 L 920 490 L 920 500" stroke="blue"/>
+        <path class="connection down" d="M 920 500 L 920 510 L 920 520" stroke="blue"/>
+        <path class="connection same" d="M 920 460 L 920 450 L 920 440" stroke="blue"/>
+        <path class="connection same" d="M 920 440 L 920 430 L 920 420" stroke="blue"/>
+        <path class="connection down" d="M 920 420 L 920 410 L 920 400" stroke="blue"/>
+        <path class="connection same" d="M 860 460 L 850 460 L 840 460" stroke="blue"/>
+        <path class="connection same" d="M 840 460 L 830 460 L 820 460" stroke="blue"/>
+        <path class="connection same" d="M 820 460 L 810 460 L 800 460" stroke="blue"/>
+        <path class="connection same" d="M 800 460 L 800 470 L 800 480" stroke="blue"/>
+        <path class="connection same" d="M 800 480 L 800 490 L 800 500" stroke="blue"/>
+        <path class="connection down" d="M 800 500 L 800 510 L 800 520" stroke="blue"/>
+        <path class="connection same" d="M 800 460 L 800 450 L 800 440" stroke="blue"/>
+        <path class="connection same" d="M 800 440 L 800 430 L 800 420" stroke="blue"/>
+        <path class="connection down" d="M 800 420 L 800 410 L 800 400" stroke="blue"/>
+        <path class="connection up" d="M 140 200 L 140 210 L 140 220" stroke="blue"/>
+        <path class="connection up" d="M 140 480 L 140 470 L 140 460" stroke="blue"/>
+        <path class="connection up" d="M 380 200 L 380 210 L 380 220" stroke="blue"/>
+        <path class="connection up" d="M 380 480 L 380 470 L 380 460" stroke="blue"/>
+        <path class="connection up" d="M 620 200 L 620 210 L 620 220" stroke="blue"/>
+        <path class="connection up" d="M 620 480 L 620 470 L 620 460" stroke="blue"/>
+        <path class="connection up" d="M 860 200 L 860 210 L 860 220" stroke="blue"/>
+        <path class="connection up" d="M 860 480 L 860 470 L 860 460" stroke="blue"/>
+        <path class="connection same" d="M 260 100 L 270 100 L 280 100" stroke="black"/>
+        <path class="connection same" d="M 280 100 L 290 100 L 300 100" stroke="black"/>
+        <path class="connection same" d="M 300 100 L 310 100 L 320 100" stroke="black"/>
+        <path class="connection same" d="M 320 100 L 330 100 L 340 100" stroke="black"/>
+        <path class="connection same" d="M 340 100 L 350 100 L 360 100" stroke="black"/>
+        <path class="connection same" d="M 360 100 L 370 100 L 380 100" stroke="black"/>
+        <path class="connection same" d="M 380 100 L 380 110 L 380 120" stroke="black"/>
+        <path class="connection same" d="M 380 120 L 380 130 L 380 140" stroke="black"/>
+        <path class="connection same" d="M 380 140 L 380 150 L 380 160" stroke="black"/>
+        <path class="connection same" d="M 380 160 L 380 170 L 380 180" stroke="black"/>
+        <path class="connection same" d="M 380 180 L 380 190 L 380 200" stroke="black"/>
+        <path class="connection down" d="M 380 200 L 380 210 L 380 220" stroke="black"/>
+        <path class="connection same" d="M 380 100 L 380 90 L 380 80" stroke="black"/>
+        <path class="connection same" d="M 380 80 L 380 70 L 380 60" stroke="black"/>
+        <path class="connection same" d="M 380 60 L 380 50 L 380 40" stroke="black"/>
+        <path class="connection same" d="M 380 40 L 380 30 L 380 20" stroke="black"/>
+        <path class="connection same" d="M 260 100 L 250 100 L 240 100" stroke="black"/>
+        <path class="connection same" d="M 240 100 L 230 100 L 220 100" stroke="black"/>
+        <path class="connection same" d="M 220 100 L 210 100 L 200 100" stroke="black"/>
+        <path class="connection same" d="M 200 100 L 190 100 L 180 100" stroke="black"/>
+        <path class="connection same" d="M 180 100 L 170 100 L 160 100" stroke="black"/>
+        <path class="connection same" d="M 160 100 L 150 100 L 140 100" stroke="black"/>
+        <path class="connection same" d="M 140 100 L 140 110 L 140 120" stroke="black"/>
+        <path class="connection same" d="M 140 120 L 140 130 L 140 140" stroke="black"/>
+        <path class="connection same" d="M 140 140 L 140 150 L 140 160" stroke="black"/>
+        <path class="connection same" d="M 140 160 L 140 170 L 140 180" stroke="black"/>
+        <path class="connection same" d="M 140 180 L 140 190 L 140 200" stroke="black"/>
+        <path class="connection down" d="M 140 200 L 140 210 L 140 220" stroke="black"/>
+        <path class="connection same" d="M 140 100 L 140 90 L 140 80" stroke="black"/>
+        <path class="connection same" d="M 140 80 L 140 70 L 140 60" stroke="black"/>
+        <path class="connection same" d="M 140 60 L 140 50 L 140 40" stroke="black"/>
+        <path class="connection same" d="M 140 40 L 140 30 L 140 20" stroke="black"/>
+        <path class="connection same" d="M 260 580 L 270 580 L 280 580" stroke="black"/>
+        <path class="connection same" d="M 280 580 L 290 580 L 300 580" stroke="black"/>
+        <path class="connection same" d="M 300 580 L 310 580 L 320 580" stroke="black"/>
+        <path class="connection same" d="M 320 580 L 330 580 L 340 580" stroke="black"/>
+        <path class="connection same" d="M 340 580 L 350 580 L 360 580" stroke="black"/>
+        <path class="connection same" d="M 360 580 L 370 580 L 380 580" stroke="black"/>
+        <path class="connection same" d="M 380 580 L 380 590 L 380 600" stroke="black"/>
+        <path class="connection same" d="M 380 600 L 380 610 L 380 620" stroke="black"/>
+        <path class="connection same" d="M 380 620 L 380 630 L 380 640" stroke="black"/>
+        <path class="connection same" d="M 380 640 L 380 650 L 380 660" stroke="black"/>
+        <path class="connection same" d="M 380 580 L 380 570 L 380 560" stroke="black"/>
+        <path class="connection same" d="M 380 560 L 380 550 L 380 540" stroke="black"/>
+        <path class="connection same" d="M 380 540 L 380 530 L 380 520" stroke="black"/>
+        <path class="connection same" d="M 380 520 L 380 510 L 380 500" stroke="black"/>
+        <path class="connection same" d="M 380 500 L 380 490 L 380 480" stroke="black"/>
+        <path class="connection down" d="M 380 480 L 380 470 L 380 460" stroke="black"/>
+        <path class="connection same" d="M 260 580 L 250 580 L 240 580" stroke="black"/>
+        <path class="connection same" d="M 240 580 L 230 580 L 220 580" stroke="black"/>
+        <path class="connection same" d="M 220 580 L 210 580 L 200 580" stroke="black"/>
+        <path class="connection same" d="M 200 580 L 190 580 L 180 580" stroke="black"/>
+        <path class="connection same" d="M 180 580 L 170 580 L 160 580" stroke="black"/>
+        <path class="connection same" d="M 160 580 L 150 580 L 140 580" stroke="black"/>
+        <path class="connection same" d="M 140 580 L 140 590 L 140 600" stroke="black"/>
+        <path class="connection same" d="M 140 600 L 140 610 L 140 620" stroke="black"/>
+        <path class="connection same" d="M 140 620 L 140 630 L 140 640" stroke="black"/>
+        <path class="connection same" d="M 140 640 L 140 650 L 140 660" stroke="black"/>
+        <path class="connection same" d="M 140 580 L 140 570 L 140 560" stroke="black"/>
+        <path class="connection same" d="M 140 560 L 140 550 L 140 540" stroke="black"/>
+        <path class="connection same" d="M 140 540 L 140 530 L 140 520" stroke="black"/>
+        <path class="connection same" d="M 140 520 L 140 510 L 140 500" stroke="black"/>
+        <path class="connection same" d="M 140 500 L 140 490 L 140 480" stroke="black"/>
+        <path class="connection down" d="M 140 480 L 140 470 L 140 460" stroke="black"/>
+        <path class="connection same" d="M 740 100 L 750 100 L 760 100" stroke="black"/>
+        <path class="connection same" d="M 760 100 L 770 100 L 780 100" stroke="black"/>
+        <path class="connection same" d="M 780 100 L 790 100 L 800 100" stroke="black"/>
+        <path class="connection same" d="M 800 100 L 810 100 L 820 100" stroke="black"/>
+        <path class="connection same" d="M 820 100 L 830 100 L 840 100" stroke="black"/>
+        <path class="connection same" d="M 840 100 L 850 100 L 860 100" stroke="black"/>
+        <path class="connection same" d="M 860 100 L 860 110 L 860 120" stroke="black"/>
+        <path class="connection same" d="M 860 120 L 860 130 L 860 140" stroke="black"/>
+        <path class="connection same" d="M 860 140 L 860 150 L 860 160" stroke="black"/>
+        <path class="connection same" d="M 860 160 L 860 170 L 860 180" stroke="black"/>
+        <path class="connection same" d="M 860 180 L 860 190 L 860 200" stroke="black"/>
+        <path class="connection down" d="M 860 200 L 860 210 L 860 220" stroke="black"/>
+        <path class="connection same" d="M 860 100 L 860 90 L 860 80" stroke="black"/>
+        <path class="connection same" d="M 860 80 L 860 70 L 860 60" stroke="black"/>
+        <path class="connection same" d="M 860 60 L 860 50 L 860 40" stroke="black"/>
+        <path class="connection same" d="M 860 40 L 860 30 L 860 20" stroke="black"/>
+        <path class="connection same" d="M 740 100 L 730 100 L 720 100" stroke="black"/>
+        <path class="connection same" d="M 720 100 L 710 100 L 700 100" stroke="black"/>
+        <path class="connection same" d="M 700 100 L 690 100 L 680 100" stroke="black"/>
+        <path class="connection same" d="M 680 100 L 670 100 L 660 100" stroke="black"/>
+        <path class="connection same" d="M 660 100 L 650 100 L 640 100" stroke="black"/>
+        <path class="connection same" d="M 640 100 L 630 100 L 620 100" stroke="black"/>
+        <path class="connection same" d="M 620 100 L 620 110 L 620 120" stroke="black"/>
+        <path class="connection same" d="M 620 120 L 620 130 L 620 140" stroke="black"/>
+        <path class="connection same" d="M 620 140 L 620 150 L 620 160" stroke="black"/>
+        <path class="connection same" d="M 620 160 L 620 170 L 620 180" stroke="black"/>
+        <path class="connection same" d="M 620 180 L 620 190 L 620 200" stroke="black"/>
+        <path class="connection down" d="M 620 200 L 620 210 L 620 220" stroke="black"/>
+        <path class="connection same" d="M 620 100 L 620 90 L 620 80" stroke="black"/>
+        <path class="connection same" d="M 620 80 L 620 70 L 620 60" stroke="black"/>
+        <path class="connection same" d="M 620 60 L 620 50 L 620 40" stroke="black"/>
+        <path class="connection same" d="M 620 40 L 620 30 L 620 20" stroke="black"/>
+        <path class="connection same" d="M 740 580 L 750 580 L 760 580" stroke="black"/>
+        <path class="connection same" d="M 760 580 L 770 580 L 780 580" stroke="black"/>
+        <path class="connection same" d="M 780 580 L 790 580 L 800 580" stroke="black"/>
+        <path class="connection same" d="M 800 580 L 810 580 L 820 580" stroke="black"/>
+        <path class="connection same" d="M 820 580 L 830 580 L 840 580" stroke="black"/>
+        <path class="connection same" d="M 840 580 L 850 580 L 860 580" stroke="black"/>
+        <path class="connection same" d="M 860 580 L 860 590 L 860 600" stroke="black"/>
+        <path class="connection same" d="M 860 600 L 860 610 L 860 620" stroke="black"/>
+        <path class="connection same" d="M 860 620 L 860 630 L 860 640" stroke="black"/>
+        <path class="connection same" d="M 860 640 L 860 650 L 860 660" stroke="black"/>
+        <path class="connection same" d="M 860 580 L 860 570 L 860 560" stroke="black"/>
+        <path class="connection same" d="M 860 560 L 860 550 L 860 540" stroke="black"/>
+        <path class="connection same" d="M 860 540 L 860 530 L 860 520" stroke="black"/>
+        <path class="connection same" d="M 860 520 L 860 510 L 860 500" stroke="black"/>
+        <path class="connection same" d="M 860 500 L 860 490 L 860 480" stroke="black"/>
+        <path class="connection down" d="M 860 480 L 860 470 L 860 460" stroke="black"/>
+        <path class="connection same" d="M 740 580 L 730 580 L 720 580" stroke="black"/>
+        <path class="connection same" d="M 720 580 L 710 580 L 700 580" stroke="black"/>
+        <path class="connection same" d="M 700 580 L 690 580 L 680 580" stroke="black"/>
+        <path class="connection same" d="M 680 580 L 670 580 L 660 580" stroke="black"/>
+        <path class="connection same" d="M 660 580 L 650 580 L 640 580" stroke="black"/>
+        <path class="connection same" d="M 640 580 L 630 580 L 620 580" stroke="black"/>
+        <path class="connection same" d="M 620 580 L 620 590 L 620 600" stroke="black"/>
+        <path class="connection same" d="M 620 600 L 620 610 L 620 620" stroke="black"/>
+        <path class="connection same" d="M 620 620 L 620 630 L 620 640" stroke="black"/>
+        <path class="connection same" d="M 620 640 L 620 650 L 620 660" stroke="black"/>
+        <path class="connection same" d="M 620 580 L 620 570 L 620 560" stroke="black"/>
+        <path class="connection same" d="M 620 560 L 620 550 L 620 540" stroke="black"/>
+        <path class="connection same" d="M 620 540 L 620 530 L 620 520" stroke="black"/>
+        <path class="connection same" d="M 620 520 L 620 510 L 620 500" stroke="black"/>
+        <path class="connection same" d="M 620 500 L 620 490 L 620 480" stroke="black"/>
+        <path class="connection down" d="M 620 480 L 620 470 L 620 460" stroke="black"/>
+        <path class="connection up" d="M 260 120 L 260 110 L 260 100" stroke="black"/>
+        <path class="connection up" d="M 260 560 L 260 570 L 260 580" stroke="black"/>
+        <path class="connection up" d="M 740 120 L 740 110 L 740 100" stroke="black"/>
+        <path class="connection up" d="M 740 560 L 740 570 L 740 580" stroke="black"/>
         <g id="text">
             <text alignment-baseline="middle" class="moduleLabel" fill="black" font-size="66.0" text-anchor="middle" transform="scale(1,-1)" x="500.0" y="10.0">-</text>
         </g>

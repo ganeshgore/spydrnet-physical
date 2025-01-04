@@ -217,16 +217,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -255,6 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -360,6 +362,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">accumulate</span>
+<span class="kn">from</span> <span class="nn">fnmatch</span> <span class="kn">import</span> <span class="n">fnmatch</span>
 
 <span class="kn">import</span> <span class="nn">svgwrite</span>
 <span class="kn">from</span> <span class="nn">svgwrite.container</span> <span class="kn">import</span> <span class="n">Group</span>
@@ -381,7 +384,7 @@
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Execute when this file called as a script</span>
 <span class="sd">    """</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">parse_argument</span><span class="p">()</span>
@@ -391,7 +394,7 @@
 
 
 <span class="k">def</span> <span class="nf">parse_argument</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
-    <span class="sd">"""</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Parse commnad line arguement</span>
 <span class="sd">    """</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">formatter_class</span><span class="o">=</span><span class="n">formatter</span><span class="p">)</span>
@@ -442,7 +445,7 @@
 
 
 <div class="viewcode-block" id="FPGAGridGen"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen">[docs]</a><span class="k">class</span> <span class="nc">FPGAGridGen</span><span class="p">:</span>
-    <span class="sd">"""This class generates the 2D lsit of the FPGA grid,</span>
+<span class="w">    </span><span class="sd">"""This class generates the 2D lsit of the FPGA grid,</span>
 <span class="sd">    based on the provided VPR architecture file.</span>
 <span class="sd">    This class generate two grid</span>
 
@@ -475,19 +478,19 @@
 <span class="sd">    """</span>
 
     <span class="n">design_name</span> <span class="o">=</span> <span class="s2">""</span>
-    <span class="sd">"""str: Design name"""</span>
+<span class="w">    </span><span class="sd">"""str: Design name"""</span>
 
     <span class="n">grid</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">"""list(list): 2-Dimentional grid for logic blocks grid[0] bottom most row"""</span>
+<span class="w">    </span><span class="sd">"""list(list): 2-Dimentional grid for logic blocks grid[0] bottom most row"""</span>
 
     <span class="n">full_grid</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">"""list(list): 2-Dimentional grid for logic block and routing elements"""</span>
+<span class="w">    </span><span class="sd">"""list(list): 2-Dimentional grid for logic block and routing elements"""</span>
 
     <span class="n">fpga_arch</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">"""OpenFPGA_Arch: Instance of OpenFPGA_Arch class"""</span>
+<span class="w">    </span><span class="sd">"""OpenFPGA_Arch: Instance of OpenFPGA_Arch class"""</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design_name</span><span class="p">,</span> <span class="n">arch_file</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">release_root</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initiliaze the FPGA grid generator class</span>
 
 <span class="sd">        args:</span>
@@ -517,15 +520,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">placement_db</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="FPGAGridGen.get_width"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Get width of FPGA"""</span>
+<span class="w">        </span><span class="sd">"""Get width of FPGA"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">2</span></div>
 
 <div class="viewcode-block" id="FPGAGridGen.get_height"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""Get height of FPGA"""</span>
+<span class="w">        </span><span class="sd">"""Get height of FPGA"""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="mi">2</span></div>
 
 <div class="viewcode-block" id="FPGAGridGen.print_grid"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.print_grid">[docs]</a>    <span class="k">def</span> <span class="nf">print_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="s2">"grid"</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Prints logic block grid</span>
 <span class="sd">        """</span>
         <span class="n">grid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="k">if</span> <span class="n">grid</span> <span class="o">==</span> <span class="s2">"grid"</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_grid</span>
@@ -538,7 +541,7 @@
         <span class="k">return</span> <span class="n">output</span></div>
 
 <div class="viewcode-block" id="FPGAGridGen.get_block"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_block">[docs]</a>    <span class="k">def</span> <span class="nf">get_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method returns the module present in specific x and y</span>
 <span class="sd">        cordinate. The return value contains module name and</span>
 <span class="sd">        adjusted X and Y cordianates</span>
@@ -559,7 +562,7 @@
         <span class="k">return</span> <span class="n">value</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span></div>
 
 <div class="viewcode-block" id="FPGAGridGen.get_top_instance"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.get_top_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method generates the grid instance information given the</span>
 <span class="sd">        cordinate points</span>
 <span class="sd">        """</span>
@@ -603,7 +606,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_resolve_string</span><span class="p">(</span><span class="n">ele</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">{}):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Parses the startx, starty, repeatx and repeaty variables to integer</span>
 
 <span class="sd">        Variables are passed in `variables` variable,</span>
@@ -618,7 +621,7 @@
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">variables</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="nf">_set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Sets value in the FPGA grid</span>
 <span class="sd">        """</span>
         <span class="k">try</span><span class="p">:</span>
@@ -637,7 +640,7 @@
             <span class="k">return</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="FPGAGridGen.add_fill"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_fill">[docs]</a>    <span class="k">def</span> <span class="nf">add_fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fill the grid with given element</span>
 
 <span class="sd">        Args:</span>
@@ -652,7 +655,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FPGAGridGen.add_perimeter"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_perimeter">[docs]</a>    <span class="k">def</span> <span class="nf">add_perimeter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Add given element on the periphery of the grid</span>
 
 <span class="sd">        Args:</span>
@@ -670,7 +673,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FPGAGridGen.add_corners"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_corners">[docs]</a>    <span class="k">def</span> <span class="nf">add_corners</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Add given element on the corners of the grid</span>
 
 <span class="sd">        Args:</span>
@@ -685,7 +688,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FPGAGridGen.add_single"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.add_single">[docs]</a>    <span class="k">def</span> <span class="nf">add_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Add given element to the specifica location of the grid</span>
 
 <span class="sd">        Args:</span>
@@ -696,8 +699,14 @@
 <span class="sd">        """</span>
         <span class="n">ele_type</span> <span class="o">=</span> <span class="n">ele</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span>
         <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">tiles</span><span class="p">[</span><span class="n">ele_type</span><span class="p">]</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"x"</span><span class="p">])</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">"y"</span><span class="p">])</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"w"</span><span class="p">:</span> <span class="n">ele_w</span><span class="p">,</span>
+            <span class="s2">"h"</span><span class="p">:</span> <span class="n">ele_h</span><span class="p">,</span>
+            <span class="s2">"W"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="s2">"H"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpga_arch</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_string</span><span class="p">(</span><span class="n">ele</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_string</span><span class="p">(</span><span class="n">ele</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">add_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="p">):</span>
@@ -759,7 +768,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">_set_value</span><span class="p">(</span><span class="n">xstep</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="n">ystep</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">ele_type</span><span class="p">,</span> <span class="n">ele_w</span><span class="p">,</span> <span class="n">ele_h</span><span class="p">)</span>
 
 <div class="viewcode-block" id="FPGAGridGen.enumerate_grid"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.enumerate_grid">[docs]</a>    <span class="k">def</span> <span class="nf">enumerate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Enumerates the FPGA grid</span>
 
 <span class="sd">        Returns:</span>
@@ -839,7 +848,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">full_grid</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">module</span>
 
 <div class="viewcode-block" id="FPGAGridGen.validate_grid"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.validate_grid">[docs]</a>    <span class="k">def</span> <span class="nf">validate_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Checks for the correctness of the grid</span>
 <span class="sd">            - if right and up arrows are placed correctly in the grid</span>
 <span class="sd">            - if the boundry blocks has correct grid value</span>
@@ -854,7 +863,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_default_shaping_param</span><span class="p">():</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns default shaping parameters for rendering</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -902,7 +911,16 @@
         <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">dims</span> <span class="ow">in</span> <span class="n">rect_symbols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">symbol</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">module</span><span class="p">)</span>
             <span class="n">class_tag</span> <span class="o">=</span> <span class="s2">"routing"</span> <span class="k">if</span> <span class="n">module</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"cbx"</span><span class="p">,</span> <span class="s2">"cby"</span><span class="p">)</span> <span class="k">else</span> <span class="s2">"lb"</span>
-            <span class="n">symbol</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">dims</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">class_</span><span class="o">=</span><span class="n">class_tag</span><span class="p">,</span> <span class="n">insert</span><span class="o">=</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">:]))</span>
+            <span class="n">symbol</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span>
+                    <span class="n">size</span><span class="o">=</span><span class="n">dims</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span>
+                    <span class="n">class_</span><span class="o">=</span><span class="n">class_tag</span><span class="p">,</span>
+                    <span class="n">insert</span><span class="o">=</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span>
+                    <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s2">"cbx"</span><span class="p">:</span> <span class="s2">"fill:#d9d9f3;"</span><span class="p">,</span> <span class="s2">"cby"</span><span class="p">:</span> <span class="s2">"fill:#a8d0db;"</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                        <span class="n">module</span><span class="p">,</span> <span class="s2">"fill:#f8b155;"</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
             <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
             <span class="n">sym_map</span><span class="p">[</span><span class="n">module</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">"symbol"</span><span class="p">:</span> <span class="n">symbol</span><span class="p">,</span>
@@ -924,7 +942,6 @@
             <span class="s2">"sb10"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>  <span class="c1"># ━</span>
         <span class="p">}</span>
         <span class="k">for</span> <span class="n">module</span><span class="p">,</span> <span class="n">dims</span> <span class="ow">in</span> <span class="n">sb_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
             <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">"sb"</span><span class="p">],</span> <span class="n">dims</span><span class="p">)]</span>
             <span class="n">symbol</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">module</span><span class="p">)</span>
             <span class="n">symbol</span><span class="p">[</span><span class="s2">"x"</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
@@ -936,7 +953,8 @@
                     <span class="o">+</span> <span class="sa">f</span><span class="s2">"v </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2"> "</span>
                     <span class="o">+</span> <span class="sa">f</span><span class="s2">"v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">c</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2"> v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">a</span><span class="si">}</span><span class="s2"> h </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">e</span><span class="si">}</span><span class="s2"> "</span>
                     <span class="o">+</span> <span class="sa">f</span><span class="s2">"v </span><span class="si">{</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">f</span><span class="si">}</span><span class="s2">"</span>
-                    <span class="o">+</span> <span class="s2">" z"</span>
+                    <span class="o">+</span> <span class="s2">" z"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="s2">"fill:#ceefe4;"</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="p">)</span>
             <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
@@ -948,7 +966,7 @@
         <span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">in</span> <span class="n">seen</span> <span class="ow">or</span> <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">x</span><span class="p">))]</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">u</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">merge_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst_list</span><span class="p">,</span> <span class="n">new_symbol_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">merge_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst_list</span><span class="p">,</span> <span class="n">new_symbol_name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">instance_cache</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">symbol_cache</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">def</span> <span class="nf">add_point</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">distance</span><span class="p">):</span>
@@ -959,8 +977,8 @@
             <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_pt</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">inst_list</span><span class="p">:</span>
-            <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
-            <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_symbol_of_instance</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+            <span class="n">inst</span> <span class="o">=</span>  <span class="n">instance_cache</span><span class="p">[</span><span class="n">each</span><span class="p">]</span> <span class="k">if</span> <span class="n">instance_cache</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+            <span class="n">symbol</span> <span class="o">=</span>  <span class="n">symbol_cache</span><span class="p">[</span><span class="n">each</span><span class="p">]</span> <span class="k">if</span> <span class="n">symbol_cache</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_symbol_of_instance</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
             <span class="n">pt</span> <span class="o">=</span> <span class="p">(</span><span class="n">inst</span><span class="o">.</span><span class="n">attribs</span><span class="p">[</span><span class="s2">"x"</span><span class="p">],</span> <span class="n">inst</span><span class="o">.</span><span class="n">attribs</span><span class="p">[</span><span class="s2">"y"</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">symbol</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">elementname</span> <span class="o">==</span> <span class="s2">"rect"</span><span class="p">:</span>
                 <span class="n">ele</span> <span class="o">=</span> <span class="n">symbol</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -973,8 +991,6 @@
                 <span class="n">ele</span> <span class="o">=</span> <span class="n">symbol</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">attrib</span> <span class="o">=</span> <span class="n">ele</span><span class="o">.</span><span class="n">attribs</span>
                 <span class="n">pts</span> <span class="o">=</span> <span class="n">ele</span><span class="o">.</span><span class="n">attribs</span><span class="p">[</span><span class="s2">"d"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>
                 <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="p">(</span>
                         <span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">attrib</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"x"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
@@ -1002,18 +1018,22 @@
                 <span class="k">if</span> <span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"v"</span>
                 <span class="k">else</span> <span class="s2">"h </span><span class="si">{}</span><span class="s2"> v </span><span class="si">{}</span><span class="s2"> "</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">eachpt</span><span class="p">)</span>
             <span class="p">)</span>
-        <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span>
-            <span class="nb">id</span><span class="o">=</span><span class="n">new_symbol_name</span><span class="p">,</span>
-            <span class="n">x</span><span class="o">=</span><span class="n">min_x</span><span class="p">,</span>
-            <span class="n">y</span><span class="o">=</span><span class="n">min_y</span><span class="p">,</span>
-            <span class="n">width</span><span class="o">=</span><span class="n">max_x</span> <span class="o">-</span> <span class="n">min_x</span><span class="p">,</span>
-            <span class="n">height</span><span class="o">=</span><span class="n">max_y</span> <span class="o">-</span> <span class="n">min_y</span><span class="p">,</span>
-            <span class="n">viewBox</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">min_x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">min_y</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="p">(</span><span class="n">max_x</span><span class="o">-</span><span class="n">min_x</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="p">(</span><span class="n">max_y</span><span class="o">-</span><span class="n">min_y</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">symbol</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="sa">f</span><span class="s2">"M </span><span class="si">{</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">svg_path</span><span class="si">}</span><span class="s2"> z"</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+
+        <span class="n">symbol</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">elements</span> <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span> <span class="o">==</span> <span class="n">new_symbol_name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">symbol</span><span class="p">:</span>
+            <span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">symbol</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="n">new_symbol_name</span><span class="p">,</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">min_x</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">min_y</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">max_x</span> <span class="o">-</span> <span class="n">min_x</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">max_y</span> <span class="o">-</span> <span class="n">min_y</span><span class="p">,</span>
+                <span class="n">viewBox</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">min_x</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">min_y</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="p">(</span><span class="n">max_x</span><span class="o">-</span><span class="n">min_x</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="p">(</span><span class="n">max_y</span><span class="o">-</span><span class="n">min_y</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">symbol</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="sa">f</span><span class="s2">"M </span><span class="si">{</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">svg_path</span><span class="si">}</span><span class="s2"> z"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dwg_shapes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dwg</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">insert</span><span class="o">=</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="c1"># self.placement_db[symbol] = (points[0][0], points[0][1])</span>
         <span class="k">return</span> <span class="n">symbol</span>
 
     <span class="k">def</span> <span class="nf">add_style</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">):</span>
@@ -1024,7 +1044,8 @@
 
     <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">ele</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dwg_shapes</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">instance_name</span> <span class="ow">in</span> <span class="n">ele</span><span class="o">.</span><span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">""</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">fnmatch</span><span class="p">(</span><span class="n">ele</span><span class="o">.</span><span class="n">attribs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span> <span class="n">instance_name</span><span class="p">):</span>
+                <span class="c1"># if instance_name in ele.attribs.get("id", ""):</span>
                 <span class="k">return</span> <span class="n">ele</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"No matching instance found in the SVG </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">)</span>
 
@@ -1041,7 +1062,7 @@
                 <span class="k">return</span> <span class="n">ele</span>
 
 <div class="viewcode-block" id="FPGAGridGen.render_layout"><a class="viewcode-back" href="../../reference/utility_classes/FPGAGridGen.html#util.FPGAGridGen.FPGAGridGen.render_layout">[docs]</a>    <span class="k">def</span> <span class="nf">render_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">grid_io</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Renders the given layout</span>
 <span class="sd">        """</span>
         <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_shaping_param</span><span class="p">()</span>
@@ -1123,6 +1144,7 @@
                 <span class="n">dwg_text</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
                     <span class="n">dwg</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
                         <span class="n">inst_name</span><span class="p">,</span>
+                        <span class="nb">id</span><span class="o">=</span><span class="n">inst_name</span><span class="p">,</span>
                         <span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="n">x_pt_new</span> <span class="o">+</span> <span class="n">xct</span><span class="p">,</span> <span class="p">(</span><span class="n">y_pt_new</span> <span class="o">+</span> <span class="n">yct</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
                         <span class="n">transform</span><span class="o">=</span><span class="s2">"scale(1,-1)"</span><span class="p">,</span>
                         <span class="n">alignment_baseline</span><span class="o">=</span><span class="s2">"middle"</span><span class="p">,</span>

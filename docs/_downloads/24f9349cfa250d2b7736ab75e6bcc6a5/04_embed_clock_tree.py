@@ -54,7 +54,8 @@ top_definition = netlist.top_instance.reference
 
 # Pattern
 p_manager = ConnectionPattern(4, 4)
-fishbone_pattern = p_manager.get_fishbone()
+fishbone_pattern = p_manager.connections.merge(p_manager.get_fishbone(4, 4))
+print([points.connection for points in fishbone_pattern])
 svg = p_manager.render_pattern(title="Merging option")
 svg.saveas("_fishbone_pattern_0.svg", pretty=True, indent=4)
 
@@ -68,7 +69,7 @@ def get_top_instance_name(x, y):
 fishbone_pattern.get_top_instance_name = get_top_instance_name
 clk_cable = top_definition.create_cable("clk", wires=1)
 pprint(fishbone_pattern.show_stats(netlist))
-fishbone_pattern.create_ft_ports(netlist, "clk", clk_cable)
+fishbone_pattern.create_ft_ports(netlist, "clk", clk_cable, None)
 fishbone_pattern.create_ft_connection(netlist, clk_cable)
 fishbone_pattern.print_instance_grid_map()
 print()

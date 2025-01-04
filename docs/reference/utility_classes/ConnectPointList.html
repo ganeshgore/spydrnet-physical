@@ -218,16 +218,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -256,6 +257,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -378,109 +380,112 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.load_points_from_svg" title="util.ConnectPointList.ConnectPointList.load_points_from_svg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_points_from_svg</span></code></a></p></td>
 <td><p>This method loads points from the SVG file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.search_from_point" title="util.ConnectPointList.ConnectPointList.search_from_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_from_point</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.search_point" title="util.ConnectPointList.ConnectPointList.search_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_point</span></code></a></p></td>
 <td><p>Search for connection going out of this point</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.search_to_point" title="util.ConnectPointList.ConnectPointList.search_to_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_to_point</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.search_from_point" title="util.ConnectPointList.ConnectPointList.search_from_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_from_point</span></code></a></p></td>
+<td><p>Search for connection going out of this point</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.search_to_point" title="util.ConnectPointList.ConnectPointList.search_to_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_to_point</span></code></a></p></td>
 <td><p>Search for connection coming into this point</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.push_connection_down" title="util.ConnectPointList.ConnectPointList.push_connection_down"><code class="xref py py-obj docutils literal notranslate"><span class="pre">push_connection_down</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.push_connection_down" title="util.ConnectPointList.ConnectPointList.push_connection_down"><code class="xref py py-obj docutils literal notranslate"><span class="pre">push_connection_down</span></code></a></p></td>
 <td><p>Push given connection one-level down</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.pull_connection_up" title="util.ConnectPointList.ConnectPointList.pull_connection_up"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pull_connection_up</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.pull_connection_up" title="util.ConnectPointList.ConnectPointList.pull_connection_up"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pull_connection_up</span></code></a></p></td>
 <td><p>Pull given connections one-level up</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.make_top_connection" title="util.ConnectPointList.ConnectPointList.make_top_connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_top_connection</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.make_top_connection" title="util.ConnectPointList.ConnectPointList.make_top_connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_top_connection</span></code></a></p></td>
 <td><p>Make connection with the top layer</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.reset_level" title="util.ConnectPointList.ConnectPointList.reset_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_level</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.reset_level" title="util.ConnectPointList.ConnectPointList.reset_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_level</span></code></a></p></td>
 <td><p>Resets the level of the connections</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.hold_cursor" title="util.ConnectPointList.ConnectPointList.hold_cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hold_cursor</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.hold_cursor" title="util.ConnectPointList.ConnectPointList.hold_cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hold_cursor</span></code></a></p></td>
 <td><p>Holds the cursor at current position</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.release_cursor" title="util.ConnectPointList.ConnectPointList.release_cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">release_cursor</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.release_cursor" title="util.ConnectPointList.ConnectPointList.release_cursor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">release_cursor</span></code></a></p></td>
 <td><p>Releases cursor and moves with each point addition</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.flip" title="util.ConnectPointList.ConnectPointList.flip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.flip" title="util.ConnectPointList.ConnectPointList.flip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip</span></code></a></p></td>
 <td><p>Flips all the points horizontally or vertically</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.sample_connections" title="util.ConnectPointList.ConnectPointList.sample_connections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_connections</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.sample_connections" title="util.ConnectPointList.ConnectPointList.sample_connections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_connections</span></code></a></p></td>
 <td><p>This method splits all the connections longer that <code class="docutils literal notranslate"><span class="pre">max_distance</span></code> to at max <code class="docutils literal notranslate"><span class="pre">max_distance</span></code> length</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.crop_edges" title="util.ConnectPointList.ConnectPointList.crop_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crop_edges</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.crop_edges" title="util.ConnectPointList.ConnectPointList.crop_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crop_edges</span></code></a></p></td>
 <td><p>Crops all the connections going out of grid</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trim_borders</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">trim_borders</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.create_graph" title="util.ConnectPointList.ConnectPointList.create_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_graph</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.create_graph" title="util.ConnectPointList.ConnectPointList.create_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_graph</span></code></a></p></td>
 <td><p>Returns networksx object of the given connection point list</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.merge" title="util.ConnectPointList.ConnectPointList.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.merge" title="util.ConnectPointList.ConnectPointList.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a></p></td>
 <td><p>Merges different ConnectPointList together into one Connect Point List</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.scale" title="util.ConnectPointList.ConnectPointList.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.scale" title="util.ConnectPointList.ConnectPointList.scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale</span></code></a></p></td>
 <td><p>Scales the connect point list from an anchor position</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.translate" title="util.ConnectPointList.ConnectPointList.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.translate" title="util.ConnectPointList.ConnectPointList.translate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code></a></p></td>
 <td><p>Moves the connect point list in x y coordinates</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.rotate" title="util.ConnectPointList.ConnectPointList.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.rotate" title="util.ConnectPointList.ConnectPointList.rotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code></a></p></td>
 <td><p>Rotates the connect point list at right angles</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.add_next_point" title="util.ConnectPointList.ConnectPointList.add_next_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_next_point</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.add_next_point" title="util.ConnectPointList.ConnectPointList.add_next_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_next_point</span></code></a></p></td>
 <td><p>Adds the next point in the connect point list</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.move_cursor_x" title="util.ConnectPointList.ConnectPointList.move_cursor_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_cursor_x</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.move_cursor_x" title="util.ConnectPointList.ConnectPointList.move_cursor_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_cursor_x</span></code></a></p></td>
 <td><p>Places the cursor on the specified x coordinate without connection</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.move_cursor_y" title="util.ConnectPointList.ConnectPointList.move_cursor_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_cursor_y</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.move_cursor_y" title="util.ConnectPointList.ConnectPointList.move_cursor_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_cursor_y</span></code></a></p></td>
 <td><p>Places the cursor on the specified y coordinate without connection</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.move_x" title="util.ConnectPointList.ConnectPointList.move_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_x</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.move_x" title="util.ConnectPointList.ConnectPointList.move_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_x</span></code></a></p></td>
 <td><p>Moves cursor in x direction by specified steps times by specified value</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.move_y" title="util.ConnectPointList.ConnectPointList.move_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_y</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.move_y" title="util.ConnectPointList.ConnectPointList.move_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_y</span></code></a></p></td>
 <td><p>Moves cursor in y direction by specified steps times by specified value</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.add_connect_point" title="util.ConnectPointList.ConnectPointList.add_connect_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_connect_point</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.add_connect_point" title="util.ConnectPointList.ConnectPointList.add_connect_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_connect_point</span></code></a></p></td>
 <td><p>Adds a connect point in the connect point list</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.add_connection" title="util.ConnectPointList.ConnectPointList.add_connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_connection</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.add_connection" title="util.ConnectPointList.ConnectPointList.add_connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_connection</span></code></a></p></td>
 <td><p>Creates a new connection at the given from and to points and add it to the connect point list</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.render_pattern" title="util.ConnectPointList.ConnectPointList.render_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_pattern</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.render_pattern" title="util.ConnectPointList.ConnectPointList.render_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render_pattern</span></code></a></p></td>
 <td><p>This renderes connection points list in a SVG format</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.get_reference" title="util.ConnectPointList.ConnectPointList.get_reference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reference</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.get_reference" title="util.ConnectPointList.ConnectPointList.get_reference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reference</span></code></a></p></td>
 <td><p>Return reference for the given tile location</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.get_top_instance" title="util.ConnectPointList.ConnectPointList.get_top_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.get_top_instance" title="util.ConnectPointList.ConnectPointList.get_top_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance</span></code></a></p></td>
 <td><p>Return reference for the given tile location</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.get_top_instance_name" title="util.ConnectPointList.ConnectPointList.get_top_instance_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance_name</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.get_top_instance_name" title="util.ConnectPointList.ConnectPointList.get_top_instance_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_top_instance_name</span></code></a></p></td>
 <td><p>Returns the instance from top_level design</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.print_port_stat" title="util.ConnectPointList.ConnectPointList.print_port_stat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_port_stat</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.print_port_stat" title="util.ConnectPointList.ConnectPointList.print_port_stat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_port_stat</span></code></a></p></td>
 <td><p>This print ports generation statistics</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.show_stats" title="util.ConnectPointList.ConnectPointList.show_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_stats</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.show_stats" title="util.ConnectPointList.ConnectPointList.show_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_stats</span></code></a></p></td>
 <td><p>Extracts the connectivity statistics for port and connection creation</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.create_ft_ports" title="util.ConnectPointList.ConnectPointList.create_ft_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_ft_ports</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.create_ft_ports" title="util.ConnectPointList.ConnectPointList.create_ft_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_ft_ports</span></code></a></p></td>
 <td><p>Create feedthrough port on the given module</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.create_ft_connection" title="util.ConnectPointList.ConnectPointList.create_ft_connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_ft_connection</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.create_ft_connection" title="util.ConnectPointList.ConnectPointList.create_ft_connection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_ft_connection</span></code></a></p></td>
 <td><p>Performs top level connection using connection file</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.print_instance_grid_map" title="util.ConnectPointList.ConnectPointList.print_instance_grid_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_instance_grid_map</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.print_instance_grid_map" title="util.ConnectPointList.ConnectPointList.print_instance_grid_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_instance_grid_map</span></code></a></p></td>
 <td><p>Prints mapping beetween grid cordinates and top level instances</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.print_reference_grid_map" title="util.ConnectPointList.ConnectPointList.print_reference_grid_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_reference_grid_map</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.print_reference_grid_map" title="util.ConnectPointList.ConnectPointList.print_reference_grid_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_reference_grid_map</span></code></a></p></td>
 <td><p>Prints mapping beetween grid cordinates and top level instance refereneces</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.short_through" title="util.ConnectPointList.ConnectPointList.short_through"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short_through</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#util.ConnectPointList.ConnectPointList.short_through" title="util.ConnectPointList.ConnectPointList.short_through"><code class="xref py py-obj docutils literal notranslate"><span class="pre">short_through</span></code></a></p></td>
 <td><p>Short all the incoming connections to this point with outgoing connections</p></td>
 </tr>
 </tbody>
@@ -581,9 +586,23 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="util.ConnectPointList.ConnectPointList.load_points_from_svg">
-<span class="sig-name descname"><span class="pre">load_points_from_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'markers'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">same_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">down_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'green'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectPointList.html#ConnectPointList.load_points_from_svg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectPointList.ConnectPointList.load_points_from_svg" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load_points_from_svg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'markers'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectPointList.html#ConnectPointList.load_points_from_svg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectPointList.ConnectPointList.load_points_from_svg" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method loads points from the SVG file.
 enabling UI based designing of connection file.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="util.ConnectPointList.ConnectPointList.search_point">
+<span class="sig-name descname"><span class="pre">search_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectPointList.html#ConnectPointList.search_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectPointList.ConnectPointList.search_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for connection going out of this point</p>
+<p>Note: Returns the first point</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> (<em>tuple</em>) – Point to search</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ConnectionPoint</p>
+</dd>
+</dl>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="util.ConnectPointList.ConnectPointList.search_from_point">
@@ -947,12 +966,12 @@ and add it to the connect point list</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="util.ConnectPointList.ConnectPointList.show_stats">
-<span class="sig-name descname"><span class="pre">show_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectPointList.html#ConnectPointList.show_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectPointList.ConnectPointList.show_stats" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">show_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectPointList.html#ConnectPointList.show_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectPointList.ConnectPointList.show_stats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts the connectivity statistics for port and connection creation</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="util.ConnectPointList.ConnectPointList.create_ft_ports">
-<span class="sig-name descname"><span class="pre">create_ft_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netlist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet.ir.Netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet.ir.Cable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectPointList.html#ConnectPointList.create_ft_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectPointList.ConnectPointList.create_ft_ports" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_ft_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">netlist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet.ir.Netlist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">spydrnet.ir.Cable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/util/ConnectPointList.html#ConnectPointList.create_ft_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.ConnectPointList.ConnectPointList.create_ft_ports" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create feedthrough port on the given module</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

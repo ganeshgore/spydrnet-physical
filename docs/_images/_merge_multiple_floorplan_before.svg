@@ -68,26 +68,26 @@
     <g id="mainframe">
         <g id="mainShapes" transform="scale(1,-1)">
             <use class="topModule" x="0" xlink:href="#top" y="0"/>
-            <use class="inst_1_0" x="50" xlink:href="#module1" y="20"/>
-            <use class="inst_1_1" x="50" xlink:href="#module1" y="170"/>
-            <use class="inst_2_0" x="130" xlink:href="#module2" y="20"/>
-            <use class="inst_2_1" x="130" xlink:href="#module2" y="170"/>
+            <use class="inst_1_0 module1" x="50" xlink:href="#module1" y="20"/>
+            <use class="inst_1_1 module1" x="50" xlink:href="#module1" y="170"/>
+            <use class="inst_2_0 module2" x="130" xlink:href="#module2" y="20"/>
+            <use class="inst_2_1 module2" x="130" xlink:href="#module2" y="170"/>
         </g>
         <g id="mainText" transform="scale(1,-1)">
             <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="125.0" y="-30.0">top</text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="90.0" y="-60.0">
+            <text alignment-baseline="middle" class="inst_1_0 module1" fill="black" text-anchor="middle" transform="scale(1,-1)" x="90.0" y="-60.0">
                 inst_1_0
                 <tspan dy="1.2em" x="90.0" y="-60.0">[module1]</tspan>
             </text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="90.0" y="-210.0">
+            <text alignment-baseline="middle" class="inst_1_1 module1" fill="black" text-anchor="middle" transform="scale(1,-1)" x="90.0" y="-210.0">
                 inst_1_1
                 <tspan dy="1.2em" x="90.0" y="-210.0">[module1]</tspan>
             </text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="160.0" y="-40.0">
+            <text alignment-baseline="middle" class="inst_2_0 module2" fill="black" text-anchor="middle" transform="scale(1,-1)" x="160.0" y="-40.0">
                 inst_2_0
                 <tspan dy="1.2em" x="160.0" y="-40.0">[module2]</tspan>
             </text>
-            <text alignment-baseline="middle" fill="black" text-anchor="middle" transform="scale(1,-1)" x="160.0" y="-190.0">
+            <text alignment-baseline="middle" class="inst_2_1 module2" fill="black" text-anchor="middle" transform="scale(1,-1)" x="160.0" y="-190.0">
                 inst_2_1
                 <tspan dy="1.2em" x="160.0" y="-190.0">[module2]</tspan>
             </text>

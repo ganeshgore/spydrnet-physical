@@ -217,16 +217,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -255,6 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -475,21 +477,21 @@
 <div class="viewcode-block" id="initial_placement"><a class="viewcode-back" href="../../reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement">[docs]</a><span class="k">class</span> <span class="nc">initial_placement</span><span class="p">(</span><span class="n">OpenFPGA_Placement_Generator</span><span class="p">):</span>
 
     <span class="n">CPP</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="sd">"""int: ``Contated-poly-pitch`` (`default`=2) """</span>
+<span class="w">    </span><span class="sd">"""int: ``Contated-poly-pitch`` (`default`=2) """</span>
 
     <span class="n">SC_HEIGHT</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="sd">"""int: ``Standard cell height`` (`default`=10) """</span>
+<span class="w">    </span><span class="sd">"""int: ``Standard cell height`` (`default`=10) """</span>
 
     <span class="n">SCALE</span> <span class="o">=</span> <span class="mi">100</span>
-    <span class="sd">"""int: Module level variable documented inline. (`default`=100) """</span>
+<span class="w">    </span><span class="sd">"""int: Module level variable documented inline. (`default`=100) """</span>
 
     <span class="c1"># TODO: Check if its correct</span>
     <span class="n">PlacementDB</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="sd">"""list: Stores list of modules i uppose"""</span>
+<span class="w">    </span><span class="sd">"""list: Stores list of modules i uppose"""</span>
 
     <span class="c1"># TODO: Store paramters for each module</span>
     <span class="n">PlacementDBKey</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="sd">"""dict: Module level variable documented inline. (`default`=100) """</span>
+<span class="w">    </span><span class="sd">"""dict: Module level variable documented inline. (`default`=100) """</span>
 
 <div class="viewcode-block" id="initial_placement.__init__"><a class="viewcode-back" href="../../reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">fpga_grid</span><span class="p">:</span> <span class="n">FPGAGridGen</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">areaFile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">padFile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gridIO</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">shapingConf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -526,7 +528,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">update_configuration</span><span class="p">(</span><span class="n">shapingConf</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="initial_placement.create_placement"><a class="viewcode-back" href="../../reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement.create_placement">[docs]</a>    <span class="k">def</span> <span class="nf">create_placement</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Overrides the base method to create placement information</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">PlacementDB</span><span class="p">:</span>
@@ -570,7 +572,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_top_module</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"HEIGHT"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">500</span><span class="o">*</span><span class="n">SC_HEIGHT</span></div>
 
 <div class="viewcode-block" id="initial_placement.update_configuration"><a class="viewcode-back" href="../../reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement.update_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">update_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shapingConf</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Overwrite default configuration variables</span>
 <span class="sd">        '''</span>
         <span class="n">new_values</span> <span class="o">=</span> <span class="kc">None</span>
@@ -862,7 +864,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">u</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
 
 <div class="viewcode-block" id="initial_placement.add_sb"><a class="viewcode-back" href="../../reference/utility_classes/initial_placement.html#util.initial_placement.initial_placement.add_sb">[docs]</a>    <span class="k">def</span> <span class="nf">add_sb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Adds switch-blocks in the placement database</span>
 
 <span class="sd">        .. rst-class:: ascii</span>

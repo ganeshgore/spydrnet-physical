@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.1. Display Netlist Information Functions" href="01_display_info.html" /><link rel="prev" title="Examples" href="../example.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="1.1. Visualise Hierarchical Netlist (SVG/Interactive)" href="02_display_hierarchical_netlist.html" /><link rel="prev" title="Examples" href="../example.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
         <title>1. Basic Restructuring Examples - SpyDrNet-Physical alpha documentation</title>
@@ -218,16 +218,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../example.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">1. Basic Restructuring Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -256,6 +257,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -346,10 +348,7 @@
         <article role="main">
           <section id="basic-restructuring-examples">
 <h1><span class="section-number">1. </span>Basic Restructuring Examples<a class="headerlink" href="#basic-restructuring-examples" title="Permalink to this headline">¶</a></h1>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip=" Some example functions that can be run to display information in a netlist:     1) print the h..."><img alt="Display Netlist Information Functions" src="../_images/sphx_glr_01_display_info_thumb.png"/>
-<p><a class="reference internal" href="01_display_info.html#sphx-glr-auto-basic-01-display-info-py"><span class="std std-ref">Display Netlist Information Functions</span></a></p>
-<div class="sphx-glr-thumbnail-title">Display Netlist Information Functions</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to visualize a netlist"><img alt="Visualise Hierarchical Netlist (SVG/Interactive)" src="../_images/sphx_glr_02_display_hierarchical_netlist_thumb.png"/>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to visualize a netlist"><img alt="Visualise Hierarchical Netlist (SVG/Interactive)" src="../_images/sphx_glr_02_display_hierarchical_netlist_thumb.png"/>
 <p><a class="reference internal" href="02_display_hierarchical_netlist.html#sphx-glr-auto-basic-02-display-hierarchical-netlist-py"><span class="std std-ref">Visualise Hierarchical Netlist (SVG/Interactive)</span></a></p>
 <div class="sphx-glr-thumbnail-title">Visualise Hierarchical Netlist (SVG/Interactive)</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to generate feedthrough from multiple instances. If multiple inst..."><img alt="Generating feedthrough from multiple instances" src="../_images/sphx_glr_07_multiple_instance_feedthrough_thumb.png"/>
@@ -367,6 +366,12 @@
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to buffer a net with single fan_in and single fan_out"><img alt="Buffering net" src="../_images/sphx_glr_12_buffer_net_thumb.png"/>
 <p><a class="reference internal" href="12_buffer_net.html#sphx-glr-auto-basic-12-buffer-net-py"><span class="std std-ref">Buffering net</span></a></p>
 <div class="sphx-glr-thumbnail-title">Buffering net</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to generate feedthrough from multiple instances. If multiple inst..."><img alt="Generating feedthrough from multiple instances" src="../_images/sphx_glr_13_create_parallel_feedthrough_thumb.png"/>
+<p><a class="reference internal" href="13_create_parallel_feedthrough.html#sphx-glr-auto-basic-13-create-parallel-feedthrough-py"><span class="std std-ref">Generating feedthrough from multiple instances</span></a></p>
+<div class="sphx-glr-thumbnail-title">Generating feedthrough from multiple instances</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrate how to merge two instance in the design to create a new merged definit..."><img alt="Merging one or more ports" src="../_images/sphx_glr_14_merge_ports_thumb.png"/>
+<p><a class="reference internal" href="14_merge_ports.html#sphx-glr-auto-basic-14-merge-ports-py"><span class="std std-ref">Merging one or more ports</span></a></p>
+<div class="sphx-glr-thumbnail-title">Merging one or more ports</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example demostrates how to generate a feedthrough wire connection for a given scalar or ve..."><img alt="Grouping ungrouping cells" src="../_images/sphx_glr_group_ungroup_cells_thumb.png"/>
 <p><a class="reference internal" href="group_ungroup_cells.html#sphx-glr-auto-basic-group-ungroup-cells-py"><span class="std std-ref">Grouping ungrouping cells</span></a></p>
 <div class="sphx-glr-thumbnail-title">Grouping ungrouping cells</div>
@@ -394,12 +399,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="01_display_info.html">
+          <a class="next-page" href="02_display_hierarchical_netlist.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><span class="section-number">1.1. </span>Display Netlist Information Functions</div>
+                <div class="title"><span class="section-number">1.1. </span>Visualise Hierarchical Netlist (SVG/Interactive)</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

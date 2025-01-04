@@ -217,16 +217,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -255,6 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -366,13 +368,13 @@
 
 
 <div class="viewcode-block" id="ConnectionPattern"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern">[docs]</a><span class="k">class</span> <span class="nc">ConnectionPattern</span><span class="p">:</span>
-    <span class="sd">'''</span>
+<span class="w">    </span><span class="sd">'''</span>
 <span class="sd">    This creates a connection patterns (`ConnectPointList`) based on pre-defined rule</span>
 
 <span class="sd">    '''</span>
 
 <div class="viewcode-block" id="ConnectionPattern.__init__"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sizex</span><span class="p">,</span> <span class="n">sizey</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Initialise FPGA parameters</span>
 
 <span class="sd">        args:</span>
@@ -388,7 +390,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">svg_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the svgwrite drawing object,</span>
 <span class="sd">        call after running ``render_pattern``</span>
 <span class="sd">        """</span>
@@ -396,7 +398,7 @@
 
     <span class="o">@</span> <span class="nb">property</span>
     <span class="k">def</span> <span class="nf">connections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">""" Returns the ConnectPointList in current pattern """</span>
+<span class="w">        </span><span class="sd">""" Returns the ConnectPointList in current pattern """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span>
 
     <span class="o">@</span> <span class="n">connections</span><span class="o">.</span><span class="n">setter</span>
@@ -421,7 +423,7 @@
 
 <div class="viewcode-block" id="ConnectionPattern.get_htree"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.get_htree">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_htree</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Returns H-Tree of specific size</span>
 
 <span class="sd">        Args:</span>
@@ -468,7 +470,7 @@
         <span class="k">return</span> <span class="n">points</span></div>
 
 <div class="viewcode-block" id="ConnectionPattern.auto_select"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.auto_select">[docs]</a>    <span class="k">def</span> <span class="nf">auto_select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Auto implements the global tree with crop and scale operations</span>
 
 <span class="sd">        TODO: NotImplemented</span>
@@ -476,7 +478,7 @@
         <span class="ne">NotImplementedError</span></div>
 
 <div class="viewcode-block" id="ConnectionPattern.add_htree"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.add_htree">[docs]</a>    <span class="k">def</span> <span class="nf">add_htree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Returns HTree pattern fo the given grid size</span>
 
 <span class="sd">        This method auto creates multiple levels of HTree from the given grid size.</span>
@@ -501,12 +503,13 @@
         <span class="c1"># print(x_center, y_center)</span>
 
 <div class="viewcode-block" id="ConnectionPattern.reset"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">""" Removes all the ConnectionPoints from the pattern """</span>
+<span class="w">        </span><span class="sd">""" Removes all the ConnectionPoints from the pattern """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">,</span>
                                          <span class="n">sizey</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ConnectionPattern.get_fishbone"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.get_fishbone">[docs]</a>    <span class="k">def</span> <span class="nf">get_fishbone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">y_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
-        <span class="sd">'''</span>
+<div class="viewcode-block" id="ConnectionPattern.get_fishbone"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.get_fishbone">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_fishbone</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">xbias</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">y_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Returns fishbone pattern for the given grid size</span>
 
 <span class="sd">        Spine is created at the center of the grid, to change bias when grid</span>
@@ -515,11 +518,9 @@
 <span class="sd">        x_margin(tuple(int, int)): Skips the repective grid connectivity</span>
 <span class="sd">        y_margin(tuple(int, int)): Skips the repective grid connectivity</span>
 <span class="sd">        '''</span>
-        <span class="n">width</span> <span class="o">=</span> <span class="n">width</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="n">height</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">ConnectPointList</span><span class="p">(</span><span class="n">sizex</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
         <span class="n">x_center</span> <span class="o">=</span> <span class="p">((</span><span class="n">width</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="n">x_pt</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x_center</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xbias</span> <span class="k">else</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x_center</span><span class="p">)</span>
+        <span class="n">x_pt</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x_center</span><span class="p">)</span> <span class="k">if</span> <span class="n">xbias</span> <span class="k">else</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x_center</span><span class="p">)</span>
         <span class="n">y_pt</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">y_margin</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">points</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="n">x_pt</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x_pt</span><span class="p">,</span> <span class="n">y_pt</span><span class="p">)</span>
         <span class="n">points</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_pt</span><span class="p">,</span> <span class="n">y_pt</span><span class="p">)</span>
@@ -536,7 +537,7 @@
         <span class="k">return</span> <span class="n">points</span></div>
 
 <div class="viewcode-block" id="ConnectionPattern.render_pattern"><a class="viewcode-back" href="../../reference/utility_classes/ConnectionPattern.html#util.ConnectionPattern.ConnectionPattern.render_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">render_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">add_module_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Renders the connection points</span>
 
 <span class="sd">        """</span>
@@ -615,7 +616,13 @@
 
     <span class="n">fpga</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">left_tree</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">connections</span>
-    <span class="n">left_tree</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">left_tree</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="n">svg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">()</span>
+    <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_test_fishbone.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">fpga</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">left_tree</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">connections</span>
+    <span class="n">left_tree</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fpga</span><span class="o">.</span><span class="n">get_fishbone</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">x_margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
     <span class="n">left_tree</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
     <span class="n">fpga</span> <span class="o">=</span> <span class="n">ConnectionPattern</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -623,7 +630,8 @@
     <span class="n">conn_list</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left_tree</span><span class="p">)</span>
     <span class="n">conn_list</span><span class="o">.</span><span class="n">crop_edges</span><span class="p">()</span>
     <span class="n">conn_list</span><span class="o">.</span><span class="n">sample_connections</span><span class="p">()</span>
-    <span class="n">fpga</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">svg</span> <span class="o">=</span> <span class="n">fpga</span><span class="o">.</span><span class="n">render_pattern</span><span class="p">()</span>
+    <span class="n">svg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="s2">"_test_scale_fishbone.svg"</span><span class="p">,</span> <span class="n">pretty</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
         </article>
       </div>

@@ -1,5 +1,5 @@
 {
-  "creator": "Yosys 0.19 (git sha1 UNKNOWN, ccache clang 11.0.0-2~ubuntu20.04.1 -Os -flto -flto)",
+  "creator": "Yosys 0.26 (git sha1 UNKNOWN, ccache clang 14.0.0-1ubuntu1 -Os -flto -flto)",
   "modules": {
     "module1": {
       "attributes": {
@@ -70,7 +70,7 @@
         },
         "bus_in_ft_out": {
           "direction": "output",
-          "bits": [ 8, 9 ]
+          "bits": [ 9, 8 ]
         }
       },
       "cells": {
@@ -85,7 +85,7 @@
         },
         "bus_in_ft_out": {
           "hide_name": 0,
-          "bits": [ 8, 9 ],
+          "bits": [ 9, 8 ],
           "attributes": {
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:91.17-91.30"
           }
@@ -247,7 +247,7 @@
           "hide_name": 0,
           "bits": [ 11, 12 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:28.15-28.29"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:21.15-21.29"
           }
         },
         "bus_out": {
@@ -289,7 +289,7 @@
           "hide_name": 0,
           "bits": [ 19, 15, 16, 17, 18 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:29.15-29.21",
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:20.15-20.21",
             "unused_bits": "0 3 4"
           }
         },
@@ -297,14 +297,14 @@
           "hide_name": 0,
           "bits": [ 10 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:26.10-26.15"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:23.10-23.15"
           }
         },
         "wire_bus": {
           "hide_name": 0,
           "bits": [ 13, 14 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:27.15-27.23"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/basic/_output_bus.v:22.15-22.23"
           }
         }
       }

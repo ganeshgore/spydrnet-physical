@@ -1,5 +1,5 @@
 {
-  "creator": "Yosys 0.19 (git sha1 UNKNOWN, ccache clang 11.0.0-2~ubuntu20.04.1 -Os -flto -flto)",
+  "creator": "Yosys 0.26 (git sha1 UNKNOWN, ccache clang 14.0.0-1ubuntu1 -Os -flto -flto)",
   "modules": {
     "module1": {
       "attributes": {
@@ -47,7 +47,7 @@
           "hide_name": 0,
           "bits": [ 4 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:241.10-241.13"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:247.10-247.13"
           }
         },
         "clk_bottom_in": {
@@ -631,18 +631,26 @@
         }
       },
       "netnames": {
+        "$auto$wreduce.cc:455:run$4": {
+          "hide_name": 1,
+          "bits": [ 37, 58, 82, 103 ],
+          "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:35.15-35.19",
+            "unused_bits": "3"
+          }
+        },
         "clk": {
           "hide_name": 0,
           "bits": [ 38 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:28.10-28.13"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:34.10-34.13"
           }
         },
         "clk_ft": {
           "hide_name": 0,
           "bits": [ 38, 41, 62, 13, 42, 46, 68, 20, 47, 51, 74, 27, 52, 56, 80, 34 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:29.16-29.22"
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:33.16-33.22"
           }
         },
         "in_0": {
@@ -721,15 +729,15 @@
         },
         "row4": {
           "hide_name": 0,
-          "bits": [ 37, 58, 82 ],
+          "bits": [ 37 ],
           "attributes": {
           }
         },
         "unconn": {
           "hide_name": 0,
-          "bits": [ 103, 11, 10, 15, 14, 12, 39, 40, 61, 59, 63, 60, 85, 83, 87, 86, 84, 18, 17, 22, 21, 19, 44, 45, 67, 65, 69, 66, 90, 88, 92, 91, 89, 25, 24, 29, 28, 26, 49, 50, 73, 71, 75, 72, 95, 93, 97, 96, 94, 32, 31, 36, 35, 33, 54, 55, 57, 79, 77, 81, 78, 100, 98, 102, 101, 99 ],
+          "bits": [ 104, 11, 10, 15, 14, 12, 39, 40, 61, 59, 63, 60, 85, 83, 87, 86, 84, 18, 17, 22, 21, 19, 44, 45, 67, 65, 69, 66, 90, 88, 92, 91, 89, 25, 24, 29, 28, 26, 49, 50, 73, 71, 75, 72, 95, 93, 97, 96, 94, 32, 31, 36, 35, 33, 54, 55, 57, 79, 77, 81, 78, 100, 98, 102, 101, 99 ],
           "attributes": {
-            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:38.16-38.22",
+            "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_clock_tree/_post_clock_embedding.v:24.16-24.22",
             "unused_bits": "0 3 4 5 10 11 14 15 16 19 20 21 26 27 30 31 32 35 36 37 42 43 46 47 48 51 52 53 56 59 60 63 64 65"
           }
         }

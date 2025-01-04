@@ -217,16 +217,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/01_display_info.html">1.1. Display Netlist Information Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.2. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.3. Generating feedthrough from multiple instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.4. Combined definitions pins</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.5. Combined independent nets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.6. Logging and debuging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.7. Buffering net</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.8. Grouping ungrouping cells</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.9. Merging two instances in the design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.10. Generating feedthrough from single instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -255,6 +256,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../auto_openfpga_floorplanning/07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -366,7 +368,7 @@
 
 
 <div class="viewcode-block" id="ConnectPointList"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList">[docs]</a><span class="k">class</span> <span class="nc">ConnectPointList</span><span class="p">:</span>
-    <span class="sd">''' This stores list of connection points  '''</span>
+<span class="w">    </span><span class="sd">''' This stores list of connection points  '''</span>
 
 <div class="viewcode-block" id="ConnectPointList.__init__"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sizex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sizey</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span> <span class="o">=</span> <span class="n">sizex</span>
@@ -389,7 +391,7 @@
 
     <span class="nd">@cursor</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Cursor is placed at the specified point</span>
 
 <span class="sd">        Args:</span>
@@ -405,11 +407,11 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">get_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' returns y location of cursor '''</span>
+<span class="w">        </span><span class="sd">''' returns y location of cursor '''</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
 <div class="viewcode-block" id="ConnectPointList.set_cursor"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.set_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">set_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Sets cursor at given x, y coordinate</span>
 
 <span class="sd">        Args:</span>
@@ -423,7 +425,7 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.set_color"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.set_color">[docs]</a>    <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Set color to all the points in the connection list</span>
 
 <span class="sd">        Args:</span>
@@ -435,16 +437,16 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.store_points"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.store_points">[docs]</a>    <span class="k">def</span> <span class="nf">store_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">''' Stores all points and its attributes in csv format in the file '''</span>
+<span class="w">        </span><span class="sd">''' Stores all points and its attributes in csv format in the file '''</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"UTF-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_ptr</span><span class="p">:</span>
             <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"# Generated using SpyDrNet-physical plugin</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-            <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"# fr_x  fr_y  to_x  to_y  type</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"# fr_x  fr_y  to_x  to_y  type   buffer</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
             <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"= = "</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span><span class="p">:</span>
                 <span class="n">file_ptr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">point</span><span class="p">)</span><span class="o">+</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.validate_connectivity"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.validate_connectivity">[docs]</a>    <span class="k">def</span> <span class="nf">validate_connectivity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This fucntion checks following</span>
 
 <span class="sd">        * If there is any connection coming outside from range (0-sizex+1) or (0-sizey+1)</span>
@@ -468,7 +470,7 @@
             <span class="n">in_mapping</span><span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">to_x</span><span class="p">][</span><span class="n">point</span><span class="o">.</span><span class="n">to_y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.load_points"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points">[docs]</a>    <span class="k">def</span> <span class="nf">load_points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">" "</span><span class="p">,</span> <span class="n">skiplines</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Loads all points and its attributes from the given csv file</span>
 
 <span class="sd">        Format: from_x, from_y, to_x, to_y, level, color</span>
@@ -481,16 +483,15 @@
             <span class="n">_</span> <span class="o">=</span> <span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="n">spamreader</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">skiplines</span><span class="p">)]</span>
             <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">spamreader</span><span class="p">:</span>
                 <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="o">*</span><span class="n">row</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
-                <span class="k">if</span> <span class="s2">"top"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="s2">"top"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">make_top_connection</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
-                <span class="k">if</span> <span class="s2">"down"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="s2">"down"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">push_connection_down</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
-                <span class="k">if</span> <span class="s2">"up"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="s2">"up"</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.load_points_from_svg"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points_from_svg">[docs]</a>    <span class="k">def</span> <span class="nf">load_points_from_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="mf">6.9</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"markers"</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                             <span class="n">same_color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">down_color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">up_color</span><span class="o">=</span><span class="s2">"green"</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<div class="viewcode-block" id="ConnectPointList.load_points_from_svg"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.load_points_from_svg">[docs]</a>    <span class="k">def</span> <span class="nf">load_points_from_svg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">"markers"</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">connection_color</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        This method loads points from the SVG file.</span>
 <span class="sd">        enabling UI based designing of connection file.</span>
 <span class="sd">        '''</span>
@@ -528,38 +529,48 @@
             <span class="s2">"x1                 x2                 y1                 y2"</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s2">"line"</span><span class="p">):</span>
             <span class="n">conn_class</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'class'</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s2">"connection"</span> <span class="ow">in</span> <span class="n">conn_class</span><span class="p">:</span>
-                <span class="n">x1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
-                    <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
-                        <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"x1"</span><span class="p">)))</span><span class="o">-</span><span class="p">(</span><span class="n">x_origin</span><span class="p">))</span><span class="o">/</span><span class="n">x_grid</span><span class="p">)</span>
-                <span class="n">x2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
-                    <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
-                        <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"x2"</span><span class="p">)))</span><span class="o">-</span><span class="p">(</span><span class="n">x_origin</span><span class="p">))</span><span class="o">/</span><span class="n">x_grid</span><span class="p">)</span>
-                <span class="n">y1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
-                    <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
-                        <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"y1"</span><span class="p">)))</span><span class="o">-</span><span class="p">(</span><span class="n">y_origin</span><span class="p">))</span><span class="o">/</span><span class="n">y_grid</span><span class="p">)</span>
-                <span class="n">y2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
-                    <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
-                        <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"y2"</span><span class="p">)))</span><span class="o">-</span><span class="p">(</span><span class="n">y_origin</span><span class="p">))</span><span class="o">/</span><span class="n">y_grid</span><span class="p">)</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
+                <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
+                    <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"x1"</span><span class="p">))))</span><span class="o">-</span><span class="p">(</span><span class="n">x_origin</span><span class="p">))</span><span class="o">/</span><span class="n">x_grid</span><span class="p">)</span>
+            <span class="n">x2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
+                <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
+                    <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"x2"</span><span class="p">))))</span><span class="o">-</span><span class="p">(</span><span class="n">x_origin</span><span class="p">))</span><span class="o">/</span><span class="n">x_grid</span><span class="p">)</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
+                <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
+                    <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"y1"</span><span class="p">))))</span><span class="o">-</span><span class="p">(</span><span class="n">y_origin</span><span class="p">))</span><span class="o">/</span><span class="n">y_grid</span><span class="p">)</span>
+            <span class="n">y2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> \
+                <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span>
+                    <span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"y2"</span><span class="p">))))</span><span class="o">-</span><span class="p">(</span><span class="n">y_origin</span><span class="p">))</span><span class="o">/</span><span class="n">y_grid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">x2</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">y1</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">y2</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span> <span class="ow">and</span> <span class="n">x2</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">y1</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span> <span class="ow">and</span> <span class="n">y2</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">):</span>
+                <span class="k">continue</span>
 
-                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">):</span>
-                    <span class="n">direction</span> <span class="o">=</span> <span class="s2">"top"</span> <span class="k">if</span> <span class="n">y2</span> <span class="o">&gt;</span> <span class="n">y1</span> <span class="k">else</span> <span class="s2">"bottom"</span>
-                <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">):</span>
-                    <span class="n">direction</span> <span class="o">=</span> <span class="s2">"right"</span> <span class="k">if</span> <span class="n">x2</span> <span class="o">&gt;</span> <span class="n">x1</span> <span class="k">else</span> <span class="s2">"left"</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Can not identify the connection direction </span><span class="si">%s</span><span class="s2"> [Dx </span><span class="si">%.2f</span><span class="s2">, Dy </span><span class="si">%.2f</span><span class="s2">]"</span><span class="p">,</span>
-                                   <span class="n">conn</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">):</span>
+                <span class="n">direction</span> <span class="o">=</span> <span class="s2">"top"</span> <span class="k">if</span> <span class="n">y2</span> <span class="o">&gt;</span> <span class="n">y1</span> <span class="k">else</span> <span class="s2">"bottom"</span>
+            <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">):</span>
+                <span class="n">direction</span> <span class="o">=</span> <span class="s2">"right"</span> <span class="k">if</span> <span class="n">x2</span> <span class="o">&gt;</span> <span class="n">x1</span> <span class="k">else</span> <span class="s2">"left"</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Can not identify the connection direction </span><span class="si">%s</span><span class="s2"> [Dx </span><span class="si">%.2f</span><span class="s2">, Dy </span><span class="si">%.2f</span><span class="s2">]"</span><span class="p">,</span>
+                                <span class="n">conn</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">))</span>
+                <span class="k">continue</span>
+            <span class="n">conn_type</span> <span class="o">=</span> <span class="s2">"up"</span> <span class="k">if</span> <span class="s2">"up"</span> <span class="ow">in</span> <span class="n">conn_class</span> <span class="k">else</span> <span class="s2">"down"</span> \
+                <span class="k">if</span> <span class="s2">"down"</span> <span class="ow">in</span> <span class="n">conn_class</span> <span class="k">else</span> <span class="s2">"same"</span>
+            <span class="n">points_info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x1</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'x1'</span><span class="p">)</span><span class="si">:</span><span class="s2">14s</span><span class="si">}</span><span class="s2">]  "</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y1</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'y1'</span><span class="p">)</span><span class="si">:</span><span class="s2">14s</span><span class="si">}</span><span class="s2">]  "</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x2</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'x2'</span><span class="p">)</span><span class="si">:</span><span class="s2">14s</span><span class="si">}</span><span class="s2">]  "</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y2</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'y2'</span><span class="p">)</span><span class="si">:</span><span class="s2">14s</span><span class="si">}</span><span class="s2">]  "</span> <span class="o">+</span> \
+                <span class="sa">f</span><span class="s2">"-&gt; </span><span class="si">{</span><span class="n">direction</span><span class="si">:</span><span class="s2">&gt;8s</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn_type</span><span class="si">:</span><span class="s2">^4s</span><span class="si">}</span><span class="s2">]"</span>
+
+            <span class="k">if</span> <span class="n">connection_color</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="n">tag</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"style"</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">";"</span><span class="p">)</span> <span class="k">if</span> <span class="s2">"stroke"</span> <span class="ow">in</span> <span class="n">tag</span><span class="p">]</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">color</span> <span class="k">if</span> <span class="n">color</span> <span class="k">else</span>  <span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s2">"stroke"</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">connection_color</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">color</span><span class="p">)):</span>
                     <span class="k">continue</span>
-                <span class="n">conn_type</span> <span class="o">=</span> <span class="s2">"up"</span> <span class="k">if</span> <span class="s2">"up"</span> <span class="ow">in</span> <span class="n">conn_class</span> <span class="k">else</span> <span class="s2">"down"</span> \
-                    <span class="k">if</span> <span class="s2">"down"</span> <span class="ow">in</span> <span class="n">conn_class</span> <span class="k">else</span> <span class="s2">"same"</span>
-                <span class="n">points_info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x1</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'x1'</span><span class="p">)</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2">]  "</span> <span class="o">+</span> \
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y1</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'y1'</span><span class="p">)</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2">]  "</span> <span class="o">+</span> \
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x2</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'x2'</span><span class="p">)</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2">]  "</span> <span class="o">+</span> \
-                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y2</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">getAttribute</span><span class="p">(</span><span class="s1">'y2'</span><span class="p">)</span><span class="si">:</span><span class="s2">8s</span><span class="si">}</span><span class="s2">]  "</span> <span class="o">+</span> \
-                    <span class="sa">f</span><span class="s2">"-&gt; </span><span class="si">{</span><span class="n">direction</span><span class="si">:</span><span class="s2">&gt;8s</span><span class="si">}</span><span class="s2">[</span><span class="si">{</span><span class="n">conn_type</span><span class="si">:</span><span class="s2">^4s</span><span class="si">}</span><span class="s2">]"</span>
+            <span class="k">if</span> <span class="s2">"connection"</span> <span class="ow">in</span> <span class="n">conn_class</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">y1</span><span class="p">),</span>
-                                                <span class="nb">abs</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">y2</span><span class="p">))</span>
+                    <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_connection</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span><span class="p">),</span>
+                                                <span class="nb">abs</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y2</span><span class="p">))</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> Added"</span><span class="p">,</span> <span class="n">points_info</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> Skipped (</span><span class="si">%8s</span><span class="s2">, </span><span class="si">%8s</span><span class="s2">) : </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">points_info</span><span class="p">,</span>
@@ -569,12 +580,36 @@
                 <span class="k">if</span> <span class="s2">"down"</span> <span class="ow">in</span> <span class="n">conn_class</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">push_connection_down</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
                 <span class="k">if</span> <span class="s2">"up"</span> <span class="ow">in</span> <span class="n">conn_class</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">point</span><span class="p">)</span></div>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pull_connection_up</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">conn_class</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"buffer"</span><span class="p">):</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_point</span><span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y1</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y2</span><span class="p">)))</span>
+                <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Buffer connection not found"</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">point</span><span class="o">.</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">conn_class</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> Added buffer"</span><span class="p">,</span> <span class="n">points_info</span><span class="p">)</span></div>
 
-        <span class="c1"># raise NotImplementedError</span>
+<div class="viewcode-block" id="ConnectPointList.search_point"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.search_point">[docs]</a>    <span class="k">def</span> <span class="nf">search_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">'''</span>
+<span class="sd">        Search for connection going out of this point</span>
+
+<span class="sd">        Note: Returns the first point</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            point (tuple): Point to search</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ConnectionPoint:</span>
+<span class="sd">        '''</span>
+        <span class="k">for</span> <span class="n">pts</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">pts</span><span class="o">.</span><span class="n">from_connection</span> <span class="o">==</span> <span class="n">points</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">pts</span><span class="o">.</span><span class="n">to_connection</span> <span class="o">==</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="n">pts</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.search_from_point"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.search_from_point">[docs]</a>    <span class="k">def</span> <span class="nf">search_from_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Search for connection going out of this point</span>
 
 <span class="sd">        Note: Returns the first point</span>
@@ -591,7 +626,7 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.search_to_point"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.search_to_point">[docs]</a>    <span class="k">def</span> <span class="nf">search_to_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Search for connection coming into this point</span>
 
 <span class="sd">        Note: Returns the first point</span>
@@ -608,7 +643,7 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.push_connection_down"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.push_connection_down">[docs]</a>    <span class="k">def</span> <span class="nf">push_connection_down</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Push given connection one-level down</span>
 
 <span class="sd">        'Push down' connection indicates that this connection is going down from</span>
@@ -626,7 +661,7 @@
         <span class="k">return</span> <span class="n">point</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.pull_connection_up"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.pull_connection_up">[docs]</a>    <span class="k">def</span> <span class="nf">pull_connection_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Pull given connections one-level up</span>
 
 <span class="sd">        'Pull up' connection indicates that this connection is coming from</span>
@@ -641,7 +676,7 @@
         <span class="k">return</span> <span class="n">point</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.make_top_connection"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.make_top_connection">[docs]</a>    <span class="k">def</span> <span class="nf">make_top_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Make connection with the top layer</span>
 
 <span class="sd">        Args:</span>
@@ -656,7 +691,7 @@
         <span class="k">return</span> <span class="n">point</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.reset_level"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.reset_level">[docs]</a>    <span class="k">def</span> <span class="nf">reset_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Resets the level of the connections</span>
 
 <span class="sd">        Args:</span>
@@ -667,15 +702,15 @@
         <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="s2">"same"</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.hold_cursor"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.hold_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">hold_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Holds the cursor at current position '''</span>
+<span class="w">        </span><span class="sd">''' Holds the cursor at current position '''</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.release_cursor"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.release_cursor">[docs]</a>    <span class="k">def</span> <span class="nf">release_cursor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Releases cursor and moves with each point addition '''</span>
+<span class="w">        </span><span class="sd">''' Releases cursor and moves with each point addition '''</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor_state</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.flip"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.flip">[docs]</a>    <span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"H"</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Flips all the points horizontally or vertically</span>
 
 <span class="sd">        Args:</span>
@@ -686,7 +721,7 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.sample_connections"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.sample_connections">[docs]</a>    <span class="k">def</span> <span class="nf">sample_connections</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_distance</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        This method splits all the connections longer that ``max_distance`` to</span>
 <span class="sd">        at max ``max_distance`` length</span>
 
@@ -710,7 +745,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="n">cursor_backup</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.crop_edges"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.crop_edges">[docs]</a>    <span class="k">def</span> <span class="nf">crop_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">''' Crops all the connections going out of grid '''</span>
+<span class="w">        </span><span class="sd">''' Crops all the connections going out of grid '''</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">eachp</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'from_x'</span><span class="p">,</span> <span class="s1">'to_x'</span><span class="p">):</span>
                 <span class="n">pt</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">eachp</span><span class="p">)</span>
@@ -736,7 +771,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
 <div class="viewcode-block" id="ConnectPointList.create_graph"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.create_graph">[docs]</a>    <span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns networksx object of the given connection point list</span>
 
 <span class="sd">        Returns:</span>
@@ -751,7 +786,7 @@
         <span class="k">return</span> <span class="n">graph</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.merge"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connectlist</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Merges different ConnectPointList together into one Connect Point List</span>
 
 <span class="sd">        Args:</span>
@@ -764,7 +799,7 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.scale"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Scales the connect point list from an anchor position</span>
 
 <span class="sd">        Args:</span>
@@ -779,7 +814,7 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.translate"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Moves the connect point list in x y coordinates</span>
 
 <span class="sd">        Args:</span>
@@ -791,7 +826,7 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.rotate"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.rotate">[docs]</a>    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Rotates the connect point list at right angles</span>
 
 <span class="sd">        Args:</span>
@@ -807,7 +842,7 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.add_next_point"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.add_next_point">[docs]</a>    <span class="k">def</span> <span class="nf">add_next_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Adds the next point in the connect point list</span>
 
 <span class="sd">        Args:</span>
@@ -824,7 +859,7 @@
         <span class="k">return</span> <span class="n">point</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.move_cursor_x"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.move_cursor_x">[docs]</a>    <span class="k">def</span> <span class="nf">move_cursor_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Places the cursor on the specified x coordinate without connection</span>
 
 <span class="sd">        Args:</span>
@@ -833,7 +868,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.move_cursor_y"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.move_cursor_y">[docs]</a>    <span class="k">def</span> <span class="nf">move_cursor_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Places the cursor on the specified y coordinate without connection</span>
 
 <span class="sd">        Args:</span>
@@ -842,7 +877,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">value</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.move_x"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.move_x">[docs]</a>    <span class="k">def</span> <span class="nf">move_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
-        <span class="sd">''' Moves cursor in x direction by specified steps times by specified value</span>
+<span class="w">        </span><span class="sd">''' Moves cursor in x direction by specified steps times by specified value</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            value: specified value by which cursor moves in the x-axis</span>
@@ -862,7 +897,7 @@
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.move_y"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.move_y">[docs]</a>    <span class="k">def</span> <span class="nf">move_y</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Moves cursor in y direction by specified steps times by specified value</span>
 
 <span class="sd">        Args:</span>
@@ -895,7 +930,7 @@
         <span class="k">return</span> <span class="n">lines</span>
 
 <div class="viewcode-block" id="ConnectPointList.add_connect_point"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.add_connect_point">[docs]</a>    <span class="k">def</span> <span class="nf">add_connect_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Adds a connect point in the connect point list</span>
 
 <span class="sd">        Args:</span>
@@ -911,7 +946,7 @@
         <span class="k">return</span> <span class="n">point</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.add_connection"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.add_connection">[docs]</a>    <span class="k">def</span> <span class="nf">add_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_x</span><span class="p">,</span> <span class="n">from_y</span><span class="p">,</span> <span class="n">to_x</span><span class="p">,</span> <span class="n">to_y</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Creates a new connection at the given from and to points</span>
 <span class="sd">        and add it to the connect point list</span>
 
@@ -930,7 +965,7 @@
         <span class="k">return</span> <span class="n">point</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.render_pattern"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.render_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">render_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        This renderes connection points list in a SVG format</span>
 
 <span class="sd">        Args:</span>
@@ -953,6 +988,7 @@
 
         <span class="c1"># Add arrow marker</span>
         <span class="n">dir_marker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">refX</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span> <span class="n">refY</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span>
+                                <span class="nb">id</span><span class="o">=</span><span class="s2">"conn_marker"</span><span class="p">,</span>
                                 <span class="n">viewBox</span><span class="o">=</span><span class="s2">"0 0 120 120"</span><span class="p">,</span>
                                 <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
                                 <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span> <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">)</span>
@@ -960,68 +996,115 @@
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dir_marker</span><span class="p">)</span>
 
         <span class="c1"># Add down connection marker</span>
-        <span class="n">down_conn</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">viewBox</span><span class="o">=</span><span class="s2">"-15 -15 30 30"</span><span class="p">,</span>
-                               <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
-                               <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span> <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">)</span>
+        <span class="n">down_conn</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span>
+            <span class="n">viewBox</span><span class="o">=</span><span class="s2">"-15 -15 30 30"</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"down_conn_marker"</span><span class="p">,</span>
+            <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
+            <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span>
+            <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span>
+            <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">down_conn</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"green"</span><span class="p">))</span>
         <span class="n">down_conn</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="s2">"M 8 0 L -8 8 L -8 -8 z"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">))</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">down_conn</span><span class="p">)</span>
 
         <span class="c1"># Add up conenction marker</span>
-        <span class="n">up_conn</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">viewBox</span><span class="o">=</span><span class="s2">"-15 -15 30 30"</span><span class="p">,</span>
-                             <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
-                             <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span> <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">)</span>
+        <span class="n">up_conn</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span>
+            <span class="n">viewBox</span><span class="o">=</span><span class="s2">"-15 -15 30 30"</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"up_conn_marker"</span><span class="p">,</span>
+            <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
+            <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span>
+            <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span>
+            <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">up_conn</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">insert</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"green"</span><span class="p">))</span>
         <span class="n">up_conn</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="s2">"M 8 0 L -8 8 L -8 -8 z"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">))</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">up_conn</span><span class="p">)</span>
 
         <span class="c1"># Top connection marker</span>
-        <span class="n">top_marker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span><span class="n">viewBox</span><span class="o">=</span><span class="s2">"-15 -15 30 30"</span><span class="p">,</span>
-                                <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
-                                <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span>
-                                <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span>
-                                <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">)</span>
+        <span class="n">top_marker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span>
+            <span class="n">viewBox</span><span class="o">=</span><span class="s2">"-15 -15 30 30"</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"top_conn_marker"</span><span class="p">,</span>
+            <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
+            <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"5"</span><span class="p">,</span>
+            <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"10"</span><span class="p">,</span>
+            <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">top_marker</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
                        <span class="n">stroke_width</span><span class="o">=</span><span class="s2">"5px"</span><span class="p">,</span>  <span class="n">stroke</span><span class="o">=</span><span class="s2">"red"</span><span class="p">))</span>
         <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">top_marker</span><span class="p">)</span>
 
-        <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">"""</span>
-<span class="s2">                text{font-family: Lato;}</span>
-<span class="s2">                span{text-anchor: "middle"; alignment_baseline: "middle"}</span>
-<span class="s2">                .gridLabels{fill: grey;font-style: italic;font-weight: 900}</span>
-<span class="s2">                .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}</span>
-<span class="s2">                """</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">"""</span>
-<span class="s2">                .connection</span><span class="se">{{</span><span class="s2"> opacity: 0.5;</span>
+        <span class="c1"># Top connection marker</span>
+        <span class="n">buffer_marker</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">marker</span><span class="p">(</span>
+            <span class="n">viewBox</span><span class="o">=</span><span class="s2">"-15 -15 30 30"</span><span class="p">,</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s2">"buffer_marker"</span><span class="p">,</span>
+            <span class="n">markerUnits</span><span class="o">=</span><span class="s2">"strokeWidth"</span><span class="p">,</span>
+            <span class="n">markerWidth</span><span class="o">=</span><span class="s2">"30"</span><span class="p">,</span>
+            <span class="n">markerHeight</span><span class="o">=</span><span class="s2">"15"</span><span class="p">,</span>
+            <span class="n">orient</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">buffer_marker</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span>
+                <span class="n">d</span><span class="o">=</span><span class="s2">"M 8 0 L -8 8 L -8 -8 z"</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s2">"red"</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">buffer_marker</span><span class="p">)</span>
+
+        <span class="n">dwg</span><span class="o">.</span><span class="n">defs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">dwg</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+<span class="w">                </span><span class="sd">"""</span>
+<span class="sd">                text{font-family: Lato;}</span>
+<span class="sd">                span{text-anchor: "middle"; alignment_baseline: "middle"}</span>
+<span class="sd">                .gridLabels{fill: grey;font-style: italic;font-weight: 900}</span>
+<span class="sd">                .gridmarker{stroke:red; stroke-width:0.2; opacity: 0.7;}</span>
+<span class="sd">                """</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">                .connection</span><span class="se">{{</span><span class="s2"> opacity: 0.75;</span>
 <span class="s2">                            marker-end:url(#</span><span class="si">{</span><span class="n">dir_marker</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="si">}</span><span class="s2">);</span>
-<span class="s2">                            stroke-width:1.2;</span><span class="se">}}</span><span class="s2"></span>
+<span class="s2">                            stroke-width:1.2;</span><span class="se">}}</span>
 <span class="s2">                .down</span><span class="se">{{</span><span class="s2">stroke-dasharray: 2;</span>
-<span class="s2">                    marker-end:url(#</span><span class="si">{</span><span class="n">up_conn</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="si">}</span><span class="s2">);</span><span class="se">}}</span><span class="s2"></span>
+<span class="s2">                    marker-end:url(#</span><span class="si">{</span><span class="n">up_conn</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="si">}</span><span class="s2">);</span><span class="se">}}</span>
 <span class="s2">                .up</span><span class="se">{{</span><span class="s2">stroke-dasharray: 2;</span>
-<span class="s2">                    marker-start:url(#</span><span class="si">{</span><span class="n">down_conn</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="si">}</span><span class="s2">);</span><span class="se">}}</span><span class="s2"></span>
+<span class="s2">                    marker-start:url(#</span><span class="si">{</span><span class="n">down_conn</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="si">}</span><span class="s2">);</span><span class="se">}}</span>
 <span class="s2">                .top</span><span class="se">{{</span><span class="s2">stroke-dasharray: 2;</span>
-<span class="s2">                    marker-start:url(#</span><span class="si">{</span><span class="n">top_marker</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="si">}</span><span class="s2">);</span><span class="se">}}</span><span class="s2"></span>
-<span class="s2">                .buffer</span><span class="se">{{</span><span class="s2"> filter: hue-rotate(90deg);</span>
-<span class="s2">                          stroke-width:2; stroke-dasharray:1;</span><span class="se">}}</span><span class="s2"></span>
-<span class="s2">                """</span><span class="p">))</span>
+<span class="s2">                    marker-start:url(#</span><span class="si">{</span><span class="n">top_marker</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="si">}</span><span class="s2">);</span><span class="se">}}</span>
+<span class="s2">                .buffer</span><span class="se">{{</span><span class="s2">marker-mid:url(#</span><span class="si">{</span><span class="n">buffer_marker</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span><span class="si">}</span><span class="s2">);</span><span class="se">}}</span>
+<span class="s2">                """</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
             <span class="n">conn_new</span> <span class="o">=</span> <span class="n">conn</span><span class="o">*</span><span class="n">scale</span>
             <span class="n">buffer</span> <span class="o">=</span> <span class="s2">" buffer"</span> <span class="k">if</span> <span class="n">conn</span><span class="o">.</span><span class="n">buffer</span> <span class="k">else</span> <span class="s2">""</span>
-            <span class="n">dwgMain</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dwg</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">round</span><span class="p">,</span> <span class="n">conn_new</span><span class="o">.</span><span class="n">from_connection</span><span class="p">)),</span>
-                                 <span class="n">end</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">round</span><span class="p">,</span> <span class="n">conn_new</span><span class="o">.</span><span class="n">to_connection</span><span class="p">)),</span>
-                                 <span class="n">stroke</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
-                                 <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"connection </span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">level</span><span class="si">}{</span><span class="n">buffer</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span>
+            <span class="n">from_conn</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">round</span><span class="p">,</span> <span class="n">conn_new</span><span class="o">.</span><span class="n">from_connection</span><span class="p">))</span>
+            <span class="n">to_conn</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">round</span><span class="p">,</span> <span class="n">conn_new</span><span class="o">.</span><span class="n">to_connection</span><span class="p">))</span>
+            <span class="n">dwgMain</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">dwg</span><span class="o">.</span><span class="n">path</span><span class="p">(</span>
+                    <span class="n">d</span><span class="o">=</span><span class="s2">"M </span><span class="si">%d</span><span class="s2"> </span><span class="si">%d</span><span class="s2"> "</span> <span class="o">%</span> <span class="n">from_conn</span>
+                    <span class="o">+</span> <span class="s2">"L </span><span class="si">%d</span><span class="s2"> "</span>
+                    <span class="o">%</span> <span class="nb">abs</span><span class="p">((</span><span class="n">from_conn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">to_conn</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">"</span><span class="si">%d</span><span class="s2"> "</span>
+                    <span class="o">%</span> <span class="nb">abs</span><span class="p">((</span><span class="n">from_conn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">to_conn</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">"L </span><span class="si">%d</span><span class="s2"> </span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">to_conn</span><span class="p">,</span>
+                    <span class="n">stroke</span><span class="o">=</span><span class="n">conn</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
+                    <span class="n">class_</span><span class="o">=</span><span class="sa">f</span><span class="s2">"connection </span><span class="si">{</span><span class="n">conn</span><span class="o">.</span><span class="n">level</span><span class="si">}{</span><span class="n">buffer</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># dwgMain.add(dwg.line(start=tuple(map(round, conn_new.from_connection)),</span>
+            <span class="c1">#                      end=tuple(map(round, conn_new.to_connection)),</span>
+            <span class="c1">#                      stroke=conn.color,</span>
+            <span class="c1">#                      class_=f"connection {conn.level}{buffer}"))</span>
         <span class="k">return</span> <span class="n">dwg</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.get_reference"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_reference">[docs]</a>    <span class="k">def</span> <span class="nf">get_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Return reference for the given tile location</span>
 <span class="sd">        '''</span>
         <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_top_instance</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">inst</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">)</span> <span class="k">else</span> <span class="n">inst</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.get_top_instance"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_top_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Return reference for the given tile location</span>
 
 <span class="sd">        Returns:</span>
@@ -1036,7 +1119,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">"Instance not found </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.get_top_instance_name"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.get_top_instance_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_top_instance_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Returns the instance from top_level design</span>
 
 <span class="sd">        Returns:</span>
@@ -1045,7 +1128,7 @@
         <span class="k">return</span> <span class="s2">"PlaceholderModule"</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.print_port_stat"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_port_stat">[docs]</a>    <span class="k">def</span> <span class="nf">print_port_stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        This print ports generation statistics</span>
 <span class="sd">        '''</span>
         <span class="n">stat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_stats</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span>
@@ -1076,11 +1159,11 @@
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.show_stats"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.show_stats">[docs]</a>    <span class="k">def</span> <span class="nf">show_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<div class="viewcode-block" id="ConnectPointList.show_stats"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.show_stats">[docs]</a>    <span class="k">def</span> <span class="nf">show_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">,</span> <span class="n">additional_ports</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Extracts the connectivity statistics for port and connection creation</span>
 <span class="sd">        '''</span>
-        <span class="n">mstat</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">mstat</span> <span class="o">=</span> <span class="n">additional_ports</span> <span class="k">if</span> <span class="n">additional_ports</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span><span class="p">:</span>
 
             <span class="k">if</span> <span class="n">point</span><span class="o">.</span><span class="n">level</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"same"</span><span class="p">,</span> <span class="s2">"down"</span><span class="p">]:</span>
@@ -1095,11 +1178,10 @@
                 <span class="n">mstat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">][</span><span class="s2">"in"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mstat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
                     <span class="s2">"in"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"left"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
                 <span class="n">mstat</span><span class="p">[</span><span class="n">to_conn</span><span class="p">][</span><span class="s2">"in"</span><span class="p">][</span><span class="n">point</span><span class="o">.</span><span class="n">direction</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
-
         <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">((</span><span class="n">module</span><span class="p">,</span> <span class="n">mstat</span><span class="p">[</span><span class="n">module</span><span class="p">])</span> <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mstat</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="ConnectPointList.create_ft_ports"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.create_ft_ports">[docs]</a>    <span class="k">def</span> <span class="nf">create_ft_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<div class="viewcode-block" id="ConnectPointList.create_ft_ports"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.create_ft_ports">[docs]</a>    <span class="k">def</span> <span class="nf">create_ft_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Cable</span><span class="p">,</span> <span class="n">additional_ports</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Create feedthrough port on the given module</span>
 
 <span class="sd">        Args:</span>
@@ -1107,7 +1189,7 @@
 <span class="sd">            port (str): port name on each module</span>
 <span class="sd">        '''</span>
 
-        <span class="k">for</span> <span class="n">m_name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_stats</span><span class="p">(</span><span class="n">netlist</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">m_name</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_stats</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">additional_ports</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">m_name</span> <span class="o">==</span> <span class="s2">"top"</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="c1"># Get current module</span>
@@ -1151,7 +1233,7 @@
 
 <div class="viewcode-block" id="ConnectPointList.create_ft_connection"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.create_ft_connection">[docs]</a>    <span class="k">def</span> <span class="nf">create_ft_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">,</span> <span class="n">signal_cable</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Instance</span><span class="p">,</span>
                              <span class="n">down_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">up_port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">top_cable</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">''' Performs top level connection using connection file</span>
+<span class="w">        </span><span class="sd">''' Performs top level connection using connection file</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            netlist(sdn.Netlist): Top level netlist</span>
@@ -1210,24 +1292,24 @@
             <span class="n">netlist</span><span class="o">.</span><span class="n">top_instance</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">remove_cable</span><span class="p">(</span><span class="n">cable</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.print_instance_grid_map"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_instance_grid_map">[docs]</a>    <span class="k">def</span> <span class="nf">print_instance_grid_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">""" Prints mapping beetween grid cordinates and top level instances """</span>
+<span class="w">        </span><span class="sd">""" Prints mapping beetween grid cordinates and top level instances """</span>
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_top_instance_name</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_top_instance_name</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ConnectPointList.print_reference_grid_map"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.print_reference_grid_map">[docs]</a>    <span class="k">def</span> <span class="nf">print_reference_grid_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">netlist</span><span class="p">:</span> <span class="n">sdn</span><span class="o">.</span><span class="n">Netlist</span><span class="p">):</span>
-        <span class="sd">""" Prints mapping beetween grid cordinates and top level instance refereneces """</span>
+<span class="w">        </span><span class="sd">""" Prints mapping beetween grid cordinates and top level instance refereneces """</span>
         <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizey</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizex</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_reference</span><span class="p">(</span><span class="n">netlist</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">" "</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_points</span>
 
 <div class="viewcode-block" id="ConnectPointList.short_through"><a class="viewcode-back" href="../../reference/utility_classes/ConnectPointList.html#util.ConnectPointList.ConnectPointList.short_through">[docs]</a>    <span class="k">def</span> <span class="nf">short_through</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">through_point</span><span class="p">):</span>
-        <span class="sd">'''</span>
+<span class="w">        </span><span class="sd">'''</span>
 <span class="sd">        Short all the incoming connections to this point with outgoing connections</span>
 
 <span class="sd">        Note: Connects the last found incoming and outgoing point in the list</span>

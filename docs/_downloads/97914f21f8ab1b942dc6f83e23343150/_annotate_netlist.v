@@ -24,14 +24,14 @@ module top
 (* SIDE = right, OFFSET = 40 *)
     output [1:0]bus_out;
 
-    wire in0;
-    wire in1;
-    wire in3;
-    wire [1:0]bus_in;
-    wire out0;
-    wire [1:0]bus_out;
-    wire wire0;
     wire [1:0]wire_bus;
+    wire wire0;
+    wire [1:0]bus_out;
+    wire out0;
+    wire [1:0]bus_in;
+    wire in3;
+    wire in1;
+    wire in0;
 
 (* LOC_X = 50, LOC_Y = 50 *)
     module1 inst_1_0
@@ -51,15 +51,15 @@ module top
     module2 inst_2_0
     (
         .in0({in0, in1}),
-        .in1({bus_in[1], bus_in[0]}),
-        .out({wire_bus[1], wire_bus[0]})
+        .in1(bus_in[1:0]),
+        .out(wire_bus[1:0])
     );
 (* LOC_X = 150, LOC_Y = 150 *)
     module2 inst_2_1
     (
-        .in0({wire_bus[1], wire_bus[0]}),
-        .in1({wire_bus[1], wire_bus[0]}),
-        .out({bus_out[1], bus_out[0]})
+        .in0(wire_bus[1:0]),
+        .in1(wire_bus[1:0]),
+        .out(bus_out[1:0])
     );
 endmodule
 
@@ -78,9 +78,9 @@ module module1
 (* SIDE = right, OFFSET = 20 *)
     output out;
 
-    wire in0;
-    wire in1;
     wire out;
+    wire in1;
+    wire in0;
 
 endmodule
 
@@ -99,9 +99,9 @@ module module2
 (* SIDE = right, OFFSET = 20 *)
     output [1:0]out;
 
-    wire [1:0]in0;
-    wire [1:0]in1;
     wire [1:0]out;
+    wire [1:0]in1;
+    wire [1:0]in0;
 
 endmodule
 
