@@ -6,7 +6,7 @@ jobs:
     container: ghcr.io/ganeshgore/sdpphy-docs-image:latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup doc enviroment
         shell: bash
         run: |
@@ -32,7 +32,7 @@ jobs:
           cat .gitignore
       - name: Upload regression results
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: docs_build
           retention-days: 2
