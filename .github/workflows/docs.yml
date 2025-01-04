@@ -67,14 +67,14 @@ jobs:
           destination_dir: docs
           exclude_assets: "doctrees"
       # https://github.community/t/triggering-by-other-repository/16163/12
-      - name: Workflow Dispatch Notification
-        # if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/main')) }}
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.PAT_TOKEN }}
-          script: |
-            await github.rest.repos.createDispatchEvent({
-              owner: 'ganeshgore',
-              repo: 'spydrnet-physical',
-              event_type: 'deployment',
-            });
+      # - name: Workflow Dispatch Notification
+      #   # if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/main')) }}
+      #   uses: actions/github-script@v6
+      #   with:
+      #     github-token: ${{ secrets.PAT_TOKEN }}
+      #     script: |
+      #       await github.rest.repos.createDispatchEvent({
+      #         owner: 'ganeshgore',
+      #         repo: 'spydrnet-physical',
+      #         event_type: 'deployment',
+      #       });
