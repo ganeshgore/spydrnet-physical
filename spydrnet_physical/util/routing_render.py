@@ -506,7 +506,7 @@ class RoutingRender:
         }[side]
         arr = np.empty(
             shape=[0, self.chanx_len if side in ["top", "bottom"] else self.chany_len],
-            dtype=np.str,
+            dtype=str,
         )
         for chan in items:
             ChanX = ["_"] * self.chanx_len
