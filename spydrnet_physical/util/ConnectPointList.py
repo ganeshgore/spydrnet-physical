@@ -832,7 +832,7 @@ class ConnectPointList:
                 mstat[to_conn]["in"][point.direction(reverse=False)] += 1
         return OrderedDict((module, mstat[module]) for module in sorted(mstat))
 
-    def create_ft_ports(self, netlist: sdn.Netlist, port_name: str, cable: sdn.Cable, additional_ports: None):
+    def create_ft_ports(self, netlist: sdn.Netlist, port_name: str, cable: sdn.Cable, additional_ports=None):
         '''
         Create feedthrough port on the given module
 
