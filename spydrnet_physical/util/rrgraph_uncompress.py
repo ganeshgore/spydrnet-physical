@@ -92,3 +92,22 @@ class rrgraph_bin2xml:
             switch_root.append(sizing)
             xml_root.append(switch_root)
         return xml_root
+
+    @staticmethod
+    def _segments_bin2xml(segments, xml_root=None):
+        if xml_root is None:
+            xml_root = XML("<segments></segments>")
+        for segment_bin in segments:
+            segment_root = Element(
+                "segment",
+                id=str(segment_bin.id),
+                name=str(segment_bin.name),
+                length=str(segment_bin.length)
+            )
+            if not segment_bin.resType == "uxsdInvalid":
+                segment_root.res_type= segment_bin.resType
+
+            timing = update_attr(Element("timing"), segment_bin.timing.to_dict())
+            segment_root.append(timing)
+            xml_root.append(segment_root)
+        return xml_root

@@ -21,6 +21,7 @@ class rrgraph(rrgraph_bin2xml):
         self.channels = {}
         self.channels["X"] = list(routing_chan for _ in range(width))
         self.channels["Y"] = list(routing_chan for _ in range(width))
+        self.segments = []
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
         self.create_channels()
 
@@ -87,6 +88,23 @@ class rrgraph(rrgraph_bin2xml):
         )
         self.node_lookup[x - 1][y - 1].append(node)
         return node
+
+    def create_segment(self, name, length, res_type="uxsdInvalid", c_per_meter=0, r_per_meter=0):
+        rr = self.rrgraph_bin
+        rr.segments = rr_capnp.Segments.new_message()
+
+        segment_ux = rr_capnp.Segment.new_message(
+            id=len(self.segments),
+            name=name,
+            length=int(length),
+            resType=res_type,
+            timing=rr_capnp.SegmentTiming.new_message(
+                cPerMeter=c_per_meter,
+                rPerMeter=r_per_meter
+            )
+        )
+        self.segments.append(segment_ux)
+        return segment_ux
 
     def create_channels(self):
         # Channels
@@ -172,7 +190,7 @@ class rrgraph(rrgraph_bin2xml):
         # channels = etree.Element("channels")
         channels = self._channels_bin2xml(self.rrgraph_bin.channels)
         switches = self._switches_bin2xml(self.switches)
-        # switches = self._switches_bin2xml(self.rrgraph_bin.switches)
+        segments = self._segments_bin2xml(self.segments)
         # rrgraph_segments_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
         # rrgraph_block_types_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
         # rrgraph_grid_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
@@ -180,6 +198,7 @@ class rrgraph(rrgraph_bin2xml):
         # rrgraph_rr_edges_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
         root.append(channels)
         root.append(switches)
+        root.append(segments)
         return root
 
     def write_rrgraph_xml(

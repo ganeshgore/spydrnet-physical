@@ -154,7 +154,7 @@ class test_rrgraph(unittest.TestCase):
         - The root element's "tool_version" attribute matches the generated tool_version.
         """
 
-        rrgraph_bin = rrgraph(6, 6, "vpr_arch", "routing_chan")
+        rrgraph_bin = rrgraph(6, 6, "vpr_arch", 160)
 
         tool_comment = self._gen_random_string(50)
         tool_name = self._gen_random_string(10)
