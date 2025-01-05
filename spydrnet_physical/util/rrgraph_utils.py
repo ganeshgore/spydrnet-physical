@@ -6,7 +6,7 @@ from lxml import etree
 import pandas as pd
 
 import capnp  # noqa: F401
-from spydrnet_physical.util import rr_graph_uxsdcxx_capnp
+from spydrnet_physical.util import rr_graph_uxsdcxx_capnp as rr_capnp
 from spydrnet_physical.util.rrgraph_uncompress import rrgraph_bin2xml
 
 
@@ -15,9 +15,14 @@ class rrgraph(rrgraph_bin2xml):
     def __init__(self, width, height, vpr_arch, routing_chan):
         self.width = width
         self.height = height
+        self.routing_chan = routing_chan
         self.node_lookup = [[[] for _ in range(height)] for _ in range(width)]
         self.switches = []
-        self.rrgraph_bin = rr_graph_uxsdcxx_capnp.RrGraph.new_message()
+        self.channels = {}
+        self.channels["X"] = list(routing_chan for _ in range(width))
+        self.channels["Y"] = list(routing_chan for _ in range(width))
+        self.rrgraph_bin = rr_capnp.RrGraph.new_message()
+        self.create_channels()
 
     def _compute_cordinates(self, direction, index, length):
         pass
@@ -64,12 +69,12 @@ class rrgraph(rrgraph_bin2xml):
             )
         )
 
-        node = rr_graph_uxsdcxx_capnp.Node.new_message(
+        node = rr_capnp.Node.new_message(
             id=node_id,
             capacity=1,
             type=["chanx", "chany"][int(side in ("Top", "Bottom"))],
             direction=["incDir", "decDir"][int(side in ("Left", "Bottom"))],
-            loc=rr_graph_uxsdcxx_capnp.NodeLoc.new_message(
+            loc=rr_capnp.NodeLoc.new_message(
                 xlow=xlow,
                 xhigh=xhigh,
                 ylow=ylow,
@@ -77,14 +82,37 @@ class rrgraph(rrgraph_bin2xml):
                 twist=2,
                 ptc=ptc_sequence,
             ),
-            timing=rr_graph_uxsdcxx_capnp.NodeTiming.new_message(r=0, c=0),
-            segment=rr_graph_uxsdcxx_capnp.NodeSegment.new_message(),
+            timing=rr_capnp.NodeTiming.new_message(r=0, c=0),
+            segment=rr_capnp.NodeSegment.new_message(),
         )
         self.node_lookup[x - 1][y - 1].append(node)
         return node
 
-    def create_switch(
+    def create_channels(self):
+        # Channels
+        rr = self.rrgraph_bin
+        rr.channels = rr_capnp.Channels.new_message()
+        rr.channels.channel = rr_capnp.Channel.new_message(
+            xMax=max(self.channels["X"]),
+            xMin=min(self.channels["X"]),
+            yMax=max(self.channels["Y"]),
+            yMin=min(self.channels["Y"]),
+            chanWidthMax=max(rr.channels.channel.xMax, rr.channels.channel.yMax),
+        )
+        x_lists, y_lists = [], []
+        for indx, chan in enumerate(self.channels["X"]):
+            x_lists.append(
+                rr_capnp.XList.new_message(index=indx, info=chan)
+            )
+        for indx, chan in enumerate(self.channels["Y"]):
+            y_lists.append(
+                rr_capnp.YList.new_message(index=indx, info=chan)
+            )
+        rr.channels.xLists = x_lists
+        rr.channels.yLists = y_lists
+        return rr.channels
 
+    def create_switch(
         self,
         sw_name,
         sw_type,
@@ -97,29 +125,29 @@ class rrgraph(rrgraph_bin2xml):
         mux_trans_size=0,
     ):
         """
-                Create a new switch and add it to the list of switches.
-                Args:
-                    sw_name (str): Name of the switch.
-                    sw_type (str): Type of the switch. [uxsdInvalid mux tristate passGate short buffer]
-                    cin (float, optional): Input capacitance. Defaults to 0.
-                    cinternal (float, optional): Internal capacitance. Defaults to 0.
-                    cout (float, optional): Output capacitance. Defaults to 0.
-                    r (float, optional): Resistance. Defaults to 0.
-                    tdel (float, optional): Time delay. Defaults to 0.
-                    buf_size (float, optional): Buffer size. Defaults to 0.
-                    mux_trans_size (float, optional): Multiplexer transistor size. Defaults to 0.
-                Returns:
-                    rr_graph_uxsdcxx_capnp.Switch: The created switch object.
+        Create a new switch and add it to the list of switches.
+        Args:
+            sw_name (str): Name of the switch.
+            sw_type (str): Type of the switch. [uxsdInvalid mux tristate passGate short buffer]
+            cin (float, optional): Input capacitance. Defaults to 0.
+            cinternal (float, optional): Internal capacitance. Defaults to 0.
+            cout (float, optional): Output capacitance. Defaults to 0.
+            r (float, optional): Resistance. Defaults to 0.
+            tdel (float, optional): Time delay. Defaults to 0.
+            buf_size (float, optional): Buffer size. Defaults to 0.
+            mux_trans_size (float, optional): Multiplexer transistor size. Defaults to 0.
+        Returns:
+            rr_capnp.Switch: The created switch object.
         """
 
-        switch = rr_graph_uxsdcxx_capnp.Switch.new_message(
+        switch = rr_capnp.Switch.new_message(
             id=len(self.switches),
             name=sw_name,
             type=sw_type,
-            timing=rr_graph_uxsdcxx_capnp.Timing.new_message(
+            timing=rr_capnp.Timing.new_message(
                 cin=cin, cinternal=cinternal, cout=cout, r=r, tdel=tdel
             ),
-            sizing=rr_graph_uxsdcxx_capnp.Sizing.new_message(
+            sizing=rr_capnp.Sizing.new_message(
                 bufSize=buf_size, muxTransSize=mux_trans_size
             ),
         )
@@ -142,8 +170,7 @@ class rrgraph(rrgraph_bin2xml):
         root.attrib["tool_version"] = tool_version
         # Channels
         # channels = etree.Element("channels")
-        # self._channels_bin2xml(self.rrgraph_bin.channels, channels)
-
+        channels = self._channels_bin2xml(self.rrgraph_bin.channels)
         switches = self._switches_bin2xml(self.switches)
         # switches = self._switches_bin2xml(self.rrgraph_bin.switches)
         # rrgraph_segments_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
@@ -151,6 +178,7 @@ class rrgraph(rrgraph_bin2xml):
         # rrgraph_grid_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
         # rrgraph_rr_nodes_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
         # rrgraph_rr_edges_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
+        root.append(channels)
         root.append(switches)
         return root
 

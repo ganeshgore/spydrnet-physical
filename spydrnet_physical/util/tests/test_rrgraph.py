@@ -16,7 +16,7 @@ class test_rrgraph(unittest.TestCase):
     """
 
     def setUp(self) -> None:
-        self.rrgraph = rrgraph(6, 6, "vpr_arch", "routing_chan")
+        self.rrgraph = rrgraph(6, 6, "vpr_arch", 160)
 
     @staticmethod
     def _gen_random_string(length):
