@@ -1,19 +1,22 @@
 """
 This script is a placeholder for the rrgraph utility functions that will be used to read and write rrgraph files.
 """
+
 from lxml import etree
 import pandas as pd
 
 import capnp  # noqa: F401
 from spydrnet_physical.util import rr_graph_uxsdcxx_capnp
+from spydrnet_physical.util.rrgraph_uncompress import rrgraph_bin2xml
 
 
-class rrgraph:
+class rrgraph(rrgraph_bin2xml):
 
     def __init__(self, width, height, vpr_arch, routing_chan):
         self.width = width
         self.height = height
-        self.node_lookup = []
+        self.node_lookup = [[[] for _ in range(height)] for _ in range(width)]
+        self.switches = []
         self.rrgraph_bin = rr_graph_uxsdcxx_capnp.RrGraph.new_message()
 
     def _compute_cordinates(self, direction, index, length):
@@ -48,7 +51,7 @@ class rrgraph:
 
         # Compute the ptc_start point
         ptc_start *= 2
-        ptc_start += ((2*length)-1) if side in ("Left", "Bottom") else 0
+        ptc_start += ((2 * length) - 1) if side in ("Left", "Bottom") else 0
         ptc_end = int(ptc_start + (direction_sign * ((length * 2) + 2)))
         ptc_sequence = ",".join(
             map(
@@ -77,10 +80,51 @@ class rrgraph:
             timing=rr_graph_uxsdcxx_capnp.NodeTiming.new_message(r=0, c=0),
             segment=rr_graph_uxsdcxx_capnp.NodeSegment.new_message(),
         )
+        self.node_lookup[x - 1][y - 1].append(node)
         return node
 
-    def create_switch(self):
-        pass
+    def create_switch(
+
+        self,
+        sw_name,
+        sw_type,
+        cin=0,
+        cinternal=0,
+        cout=0,
+        r=0,
+        tdel=0,
+        buf_size=0,
+        mux_trans_size=0,
+    ):
+        """
+                Create a new switch and add it to the list of switches.
+                Args:
+                    sw_name (str): Name of the switch.
+                    sw_type (str): Type of the switch. [uxsdInvalid mux tristate passGate short buffer]
+                    cin (float, optional): Input capacitance. Defaults to 0.
+                    cinternal (float, optional): Internal capacitance. Defaults to 0.
+                    cout (float, optional): Output capacitance. Defaults to 0.
+                    r (float, optional): Resistance. Defaults to 0.
+                    tdel (float, optional): Time delay. Defaults to 0.
+                    buf_size (float, optional): Buffer size. Defaults to 0.
+                    mux_trans_size (float, optional): Multiplexer transistor size. Defaults to 0.
+                Returns:
+                    rr_graph_uxsdcxx_capnp.Switch: The created switch object.
+        """
+
+        switch = rr_graph_uxsdcxx_capnp.Switch.new_message(
+            id=len(self.switches),
+            name=sw_name,
+            type=sw_type,
+            timing=rr_graph_uxsdcxx_capnp.Timing.new_message(
+                cin=cin, cinternal=cinternal, cout=cout, r=r, tdel=tdel
+            ),
+            sizing=rr_graph_uxsdcxx_capnp.Sizing.new_message(
+                bufSize=buf_size, muxTransSize=mux_trans_size
+            ),
+        )
+        self.switches.append(switch)
+        return switch
 
     def read_rrgraph_xml(self, filename):
         pass
@@ -88,8 +132,45 @@ class rrgraph:
     def read_rrgraph_bin(self, filename):
         pass
 
-    def write_rrgraph_xml(self, filename):
-        pass
+    def _gen_rrgraph_xml(
+        self, tool_comment="", tool_name="openfpga-physical", tool_version="v1.0"
+    ):
+        root = etree.XML("<rr_graph></rr_graph>")
+        # Basic information
+        root.attrib["tool_comment"] = tool_comment
+        root.attrib["tool_name"] = tool_name
+        root.attrib["tool_version"] = tool_version
+        # Channels
+        # channels = etree.Element("channels")
+        # self._channels_bin2xml(self.rrgraph_bin.channels, channels)
+
+        switches = self._switches_bin2xml(self.switches)
+        # switches = self._switches_bin2xml(self.rrgraph_bin.switches)
+        # rrgraph_segments_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
+        # rrgraph_block_types_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
+        # rrgraph_grid_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
+        # rrgraph_rr_nodes_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
+        # rrgraph_rr_edges_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
+        root.append(switches)
+        return root
+
+    def write_rrgraph_xml(
+        self, filename, tool_comment="", tool_name="", tool_version=""
+    ):
+        """
+        Writes the routing resource graph (RRGraph) to an XML file.
+        Args:
+            filename (str): The path to the output XML file.
+            tool_comment (str): A comment or description of the tool generating the RRGraph.
+            tool_name (str): The name of the tool generating the RRGraph.
+            tool_version (str): The version of the tool generating the RRGraph.
+        Returns:
+            None
+        """
+
+        root = self._gen_rrgraph_xml(tool_comment, tool_name, tool_version)
+        with open(filename, "w", encoding="UTF-8") as fp:
+            fp.write(etree.tostring(root, pretty_print=True).decode())
 
     def write_rrgraph_bin(self, filename):
         pass
