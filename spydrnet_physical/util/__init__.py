@@ -8,6 +8,7 @@ from spydrnet_physical.util.sram_configuration_protocol import sram_configuratio
 
 from spydrnet_physical.util.get_names import get_attr, get_names
 from spydrnet_physical.util.openfpga_arch import OpenFPGA_Arch
+from spydrnet_physical.util.rrgraph_utils import rrgraph
 from spydrnet_physical.util.tile01 import (Tile01, config_chain_01,
                                            config_chain_simple)
 from spydrnet_physical.util.tile02 import Tile02
