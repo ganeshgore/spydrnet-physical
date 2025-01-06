@@ -55,23 +55,12 @@ class rrgraph_bin2xml:
         if xml_root is None:
             xml_root = XML("<channels></channels>")
         # elements = []
-        xml_root.append(
-            update_attr(
-                Element("channel"),
-                channels.channel.to_dict()
-            )
+        xml_root.append(update_attr(Element("channel"), channels.channel.to_dict()))
+        xml_root.extend(
+            [update_attr(Element("x_list"), each.to_dict()) for each in channels.xLists]
         )
         xml_root.extend(
-            [
-                update_attr(Element("x_list"), each.to_dict())
-                for each in channels.xLists
-            ]
-        )
-        xml_root.extend(
-            [
-                update_attr(Element("y_list"), each.to_dict())
-                for each in channels.yLists
-            ]
+            [update_attr(Element("y_list"), each.to_dict()) for each in channels.yLists]
         )
         return xml_root
 
@@ -102,12 +91,42 @@ class rrgraph_bin2xml:
                 "segment",
                 id=str(segment_bin.id),
                 name=str(segment_bin.name),
-                length=str(segment_bin.length)
+                length=str(segment_bin.length),
             )
             if not segment_bin.resType == "uxsdInvalid":
-                segment_root.res_type= segment_bin.resType
+                segment_root.res_type = segment_bin.resType
 
             timing = update_attr(Element("timing"), segment_bin.timing.to_dict())
             segment_root.append(timing)
             xml_root.append(segment_root)
+        return xml_root
+
+    @staticmethod
+    def _block_types_bin2xml(block_types, xml_root=None):
+        if xml_root is None:
+            xml_root = XML("<block_types></block_types>")
+        for block_type in block_types:
+            block_types_root = Element(
+                "block_type",
+                id=str(block_type.id),
+                name=str(block_type.name),
+                width=str(block_type.width),
+                height=str(block_type.height),
+            )
+
+            for pin_class_ux in block_type.pinClasses:
+                pin_class = update_attr(
+                    Element("pin_class"),
+                    pin_class_ux.to_dict(),
+                    ("pins"),
+                    upper_case_fields=("type"),
+                )
+                for p in pin_class_ux.pins:
+                    pin = update_attr(
+                        Element("pin"), p.to_dict(), attrib_map, ("value")
+                    )
+                    pin.text = p.value
+                    pin_class.append(pin)
+                block_types_root.append(pin_class)
+            xml_root.append(block_types_root)
         return xml_root

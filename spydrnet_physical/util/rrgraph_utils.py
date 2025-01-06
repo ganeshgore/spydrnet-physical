@@ -4,6 +4,7 @@ This script is a placeholder for the rrgraph utility functions that will be used
 
 from lxml import etree
 import pandas as pd
+import re
 
 import capnp  # noqa: F401
 from spydrnet_physical.util import rr_graph_uxsdcxx_capnp as rr_capnp
@@ -22,6 +23,7 @@ class rrgraph(rrgraph_bin2xml):
         self.channels["X"] = list(routing_chan for _ in range(width))
         self.channels["Y"] = list(routing_chan for _ in range(width))
         self.segments = []
+        self.block_types = []
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
         self.create_channels()
 
@@ -89,7 +91,55 @@ class rrgraph(rrgraph_bin2xml):
         self.node_lookup[x - 1][y - 1].append(node)
         return node
 
-    def create_segment(self, name, length, res_type="uxsdInvalid", c_per_meter=0, r_per_meter=0):
+    def create_block(
+        self,
+        block_name,
+        pins,
+        height=1,
+        width=1,
+    ):
+        # Block Types
+        rr = self.rrgraph_bin
+
+        block_type_ux = rr_capnp.BlockType.new_message(
+            id=len(rr.blockTypes.blockTypes),
+            height=height,
+            name=block_name,
+            width=width,
+        )
+
+        ptc = 0
+        pinClasses = []
+        for pin in pins:
+            pin_direction = {"I": "INPUT", "O": "OUTPUT"}[pin[0]]
+            match = re.search("[0-9]*:[0-9]*", pin[1])
+
+            pins_list = []
+            if match:
+                for p in range(*map(int, match.group().split(":"))):
+                    pins_list.append(pin[1].replace(match.group(), f"{p}"))
+            else:
+                pins_list.append(pin[1])
+
+            pinClasses.append(
+                rr_capnp.PinClass.new_message(
+                    type=pin_direction.lower(),
+                    pins=[
+                        rr_capnp.Pin.new_message(ptc=ptc + indx, value=each)
+                        for indx, each in enumerate(pins_list)
+                    ],
+                )
+            )
+            ptc += len(pins_list)
+        block_type_ux.pinClasses = pinClasses
+
+        self.block_types.append(block_type_ux)
+        rr.blockTypes.blockTypes = self.block_types
+        return block_type_ux
+
+    def create_segment(
+        self, name, length, res_type="uxsdInvalid", c_per_meter=0, r_per_meter=0
+    ):
         rr = self.rrgraph_bin
         rr.segments = rr_capnp.Segments.new_message()
 
@@ -99,9 +149,8 @@ class rrgraph(rrgraph_bin2xml):
             length=int(length),
             resType=res_type,
             timing=rr_capnp.SegmentTiming.new_message(
-                cPerMeter=c_per_meter,
-                rPerMeter=r_per_meter
-            )
+                cPerMeter=c_per_meter, rPerMeter=r_per_meter
+            ),
         )
         self.segments.append(segment_ux)
         return segment_ux
@@ -119,13 +168,9 @@ class rrgraph(rrgraph_bin2xml):
         )
         x_lists, y_lists = [], []
         for indx, chan in enumerate(self.channels["X"]):
-            x_lists.append(
-                rr_capnp.XList.new_message(index=indx, info=chan)
-            )
+            x_lists.append(rr_capnp.XList.new_message(index=indx, info=chan))
         for indx, chan in enumerate(self.channels["Y"]):
-            y_lists.append(
-                rr_capnp.YList.new_message(index=indx, info=chan)
-            )
+            y_lists.append(rr_capnp.YList.new_message(index=indx, info=chan))
         rr.channels.xLists = x_lists
         rr.channels.yLists = y_lists
         return rr.channels
@@ -186,11 +231,12 @@ class rrgraph(rrgraph_bin2xml):
         root.attrib["tool_comment"] = tool_comment
         root.attrib["tool_name"] = tool_name
         root.attrib["tool_version"] = tool_version
-        # Channels
-        # channels = etree.Element("channels")
+
+        # Add elements to rrgraph
         channels = self._channels_bin2xml(self.rrgraph_bin.channels)
         switches = self._switches_bin2xml(self.switches)
         segments = self._segments_bin2xml(self.segments)
+        block_types = self._block_types_bin2xml(self.rrgraph_bin.blockTypes.blockTypes)
         # rrgraph_segments_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
         # rrgraph_block_types_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
         # rrgraph_grid_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
@@ -199,6 +245,7 @@ class rrgraph(rrgraph_bin2xml):
         root.append(channels)
         root.append(switches)
         root.append(segments)
+        root.append(block_types)
         return root
 
     def write_rrgraph_xml(
