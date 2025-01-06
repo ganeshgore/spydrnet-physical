@@ -60,23 +60,47 @@ class rrgraph(rrgraph_bin2xml):
             )
 
         # Adding block types
+        self.create_block(
+            "EMPTY",
+            (),
+            height=1,
+            width=1,
+        )
+
         tile_dim = {}
         for tile in root.findall("tiles/tile"):
+            tile_name = tile.attrib["name"]
             tile_dim[tile.attrib["name"]] = {
                 "width": tile.attrib.get("width", 1),
                 "height": tile.attrib.get("height", 1),
             }
 
             pins = []
-            for pin in tile.findall("sub_tile/input"):
-                pin_name = pin.attrib["name"]
-                pin_number = int(pin.attrib.get("num_pins", 1))
-                pins.append(("I", f"{pin_name}[0:{pin_number}]"))
+            block_capacity = int(tile.find("sub_tile").attrib.get("capacity", 1))
+            for t_idx in range(block_capacity):
+                t_idx = f"[{t_idx}]" if block_capacity > 1 else ""
+                for pin in tile.findall("sub_tile/input"):
+                    p_name = pin.attrib["name"]
+                    p_num = int(pin.attrib.get("num_pins", 1))
+                    if pin.attrib.get("equivalent", "none") == "full":
+                        pins.append(("I", f"{tile_name}{t_idx}.{p_name}[0:{p_num}]"))
+                    else:
+                        for p_num in range(p_num):
+                            pins.append(("I", f"{tile_name}{t_idx}.{p_name}[{p_num}]"))
 
-            for pin in tile.findall("sub_tile/output"):
-                pin_name = pin.attrib["name"]
-                pin_number = int(pin.attrib.get("num_pins", 1))
-                pins.append(("O", f"{pin_name}[0:{pin_number}]"))
+                for pin in tile.findall("sub_tile/output"):
+                    p_name = pin.attrib["name"]
+                    p_num = int(pin.attrib.get("num_pins", 1))
+                    if pin.attrib.get("equivalent", "none") == "full":
+                        pins.append(("O", f"{tile_name}{t_idx}.{p_name}[0:{p_num}]"))
+                    else:
+                        for p_num in range(p_num):
+                            pins.append(("O", f"{tile_name}{t_idx}.{p_name}[{p_num}]"))
+
+                for pin in tile.findall("sub_tile/clock"):
+                    p_name = pin.attrib["name"]
+                    for p_num in range(int(pin.attrib.get("num_pins", 1))):
+                        pins.append(("I", f"{tile_name}{t_idx}.{p_name}[{p_num}]"))
 
             self.create_block(
                 tile.attrib["name"],
@@ -233,8 +257,8 @@ class rrgraph(rrgraph_bin2xml):
 
         segment_ux = rr_capnp.Segment.new_message(
             id=len(self.segments),
-            name=name,
             length=int(length),
+            name=name,
             resType=res_type,
             timing=rr_capnp.SegmentTiming.new_message(
                 cPerMeter=c_per_meter, rPerMeter=r_per_meter
@@ -252,7 +276,7 @@ class rrgraph(rrgraph_bin2xml):
             xMin=min(self.channels["X"]),
             yMax=max(self.channels["Y"]),
             yMin=min(self.channels["Y"]),
-            chanWidthMax=max(rr.channels.channel.xMax, rr.channels.channel.yMax),
+            chanWidthMax=max(self.channels["X"] + self.channels["Y"]),
         )
         x_lists, y_lists = [], []
         for indx, chan in enumerate(self.channels["X"]):

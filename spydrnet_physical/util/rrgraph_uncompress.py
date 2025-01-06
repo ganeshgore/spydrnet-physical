@@ -29,9 +29,26 @@ attrib_map = {
     "segmentId": "segment_id",
 }
 
+default_values = ["0", "0.0", "uxsdInvalid"]
+skip_if_default = [
+    "cin",
+    "cinternal",
+    "r",
+    "c",
+    "cout",
+    "tdel",
+    "cPerMeter",
+    "rPerMeter",
+]
+
 
 def update_attr(element, attribs, skip_keys=(), upper_case_fields=()):
     for k, v in attribs.items():
+        if (str(k) in skip_if_default) and (v in default_values):
+            continue
+        if (str(k) in skip_if_default) and isinstance(v, float):
+            if float(v) <= 0:
+                continue
         if str(v) != "uxsdInvalid":
             if not k in skip_keys:
                 element.attrib[attrib_map.get(k, k)] = (
@@ -99,11 +116,11 @@ class rrgraph_bin2xml:
             segment_root = Element(
                 "segment",
                 id=str(segment_bin.id),
-                name=str(segment_bin.name),
                 length=str(segment_bin.length),
+                name=str(segment_bin.name),
             )
             if not segment_bin.resType == "uxsdInvalid":
-                segment_root.attrib["res_type"] = str(segment_bin.resType)
+                segment_root.attrib["res_type"] = str(segment_bin.resType).upper()
 
             timing = update_attr(Element("timing"), segment_bin.timing.to_dict())
             segment_root.append(timing)
@@ -117,10 +134,10 @@ class rrgraph_bin2xml:
         for block_type in block_types:
             block_types_root = Element(
                 "block_type",
+                height=str(block_type.height),
                 id=str(block_type.id),
                 name=str(block_type.name),
                 width=str(block_type.width),
-                height=str(block_type.height),
             )
 
             for pin_class_ux in block_type.pinClasses:
@@ -131,9 +148,7 @@ class rrgraph_bin2xml:
                     upper_case_fields=("type"),
                 )
                 for p in pin_class_ux.pins:
-                    pin = update_attr(
-                        Element("pin"), p.to_dict(), attrib_map, ("value")
-                    )
+                    pin = update_attr(Element("pin"), p.to_dict(), ("value"))
                     pin.text = p.value
                     pin_class.append(pin)
                 block_types_root.append(pin_class)
@@ -159,19 +174,12 @@ class rrgraph_bin2xml:
             loc = update_attr(
                 Element("loc"),
                 node_ux.loc.to_dict(),
-                attrib_map,
                 upper_case_fields=("side"),
             )
             node.append(loc)
-            node.append(
-                update_attr(Element("timing"), node_ux.timing.to_dict(), attrib_map)
-            )
+            node.append(update_attr(Element("timing"), node_ux.timing.to_dict()))
             if str(node_ux.type).startswith("chan"):
-                node.append(
-                    update_attr(
-                        Element("segment"), node_ux.segment.to_dict(), attrib_map
-                    )
-                )
+                node.append(update_attr(Element("segment"), node_ux.segment.to_dict()))
             xml_root.append(node)
         return xml_root
 
