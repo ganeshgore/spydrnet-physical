@@ -51,6 +51,18 @@ def update_attr(element, attribs, skip_keys=(), upper_case_fields=()):
 class rrgraph_bin2xml:
 
     @staticmethod
+    def _grid_bin2xml(grids, xml_root=None):
+        if xml_root is None:
+            xml_root = XML("<grid></grid>")
+        xml_root.extend(
+            [
+                update_attr(Element("grid_loc"), g_loc.to_dict())
+                for g_loc in grids
+            ]
+        )
+        return xml_root
+
+    @staticmethod
     def _channels_bin2xml(channels, xml_root=None):
         if xml_root is None:
             xml_root = XML("<channels></channels>")
