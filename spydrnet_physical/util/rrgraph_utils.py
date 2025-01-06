@@ -18,6 +18,7 @@ class rrgraph(rrgraph_bin2xml):
         self.height = height
         self.routing_chan = routing_chan
         self.node_lookup = [[[] for _ in range(height)] for _ in range(width)]
+        self.edges = []
         self.switches = []
         self.channels = {}
         self.channels["X"] = list(routing_chan for _ in range(width))
@@ -91,6 +92,25 @@ class rrgraph(rrgraph_bin2xml):
         )
         self.node_lookup[x - 1][y - 1].append(node)
         return node
+
+    def create_edge(self, source, destination, swith_id):
+        """
+        Creates an edge between a source node and a destination node with a specified switch ID.
+        Args:
+            source (int): The source node identifier.
+            destination (int): The destination node identifier.
+            swith_id (int): The switch ID to be used for the edge.
+        Returns:
+            rr_capnp.Edge: The created edge object.
+        """
+
+        edge = rr_capnp.Edge.new_message(
+            sinkNode=int(destination),
+            srcNode=int(source),
+            switchId=int(swith_id),
+        )
+        self.edges.append(edge)
+        return edge
 
     def create_block(
         self,
@@ -247,16 +267,22 @@ class rrgraph(rrgraph_bin2xml):
         root.attrib["tool_name"] = tool_name
         root.attrib["tool_version"] = tool_version
 
-        # Add elements to rrgraph
+        # Add blocks related information to the graph
         channels = self._channels_bin2xml(self.rrgraph_bin.channels)
         switches = self._switches_bin2xml(self.switches)
         segments = self._segments_bin2xml(self.segments)
         block_types = self._block_types_bin2xml(self.rrgraph_bin.blockTypes.blockTypes)
         grids = self._grid_bin2xml(self.rrgraph_bin.grid.gridLocs)
 
-        # Add nodes datastructure
-        self.rrgraph_bin.rrNodes.nodes = [n for col in self.node_lookup for row in col for n in row]
+        # Add nodes
+        self.rrgraph_bin.rrNodes.nodes = [
+            n for col in self.node_lookup for row in col for n in row
+        ]
         rr_nodes = self._nodes_bin2xml(self.rrgraph_bin.rrNodes.nodes)
+
+        # Add edges
+        self.rrgraph_bin.rrEdges.edges = self.edges
+        rr_edges = self._edges_bin2xml(self.rrgraph_bin.rrEdges.edges)
 
         root.append(channels)
         root.append(switches)
@@ -264,6 +290,7 @@ class rrgraph(rrgraph_bin2xml):
         root.append(block_types)
         root.append(grids)
         root.append(rr_nodes)
+        root.append(rr_edges)
         return root
 
     def write_rrgraph_xml(

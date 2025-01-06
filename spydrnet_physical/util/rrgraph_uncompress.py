@@ -55,10 +55,7 @@ class rrgraph_bin2xml:
         if xml_root is None:
             xml_root = XML("<grid></grid>")
         xml_root.extend(
-            [
-                update_attr(Element("grid_loc"), g_loc.to_dict())
-                for g_loc in grids
-            ]
+            [update_attr(Element("grid_loc"), g_loc.to_dict()) for g_loc in grids]
         )
         return xml_root
 
@@ -156,7 +153,9 @@ class rrgraph_bin2xml:
                 upper_case_fields=("type"),
             )
             if node.attrib.get("direction", None):
-                node.attrib["direction"] = node.attrib["direction"].upper().replace("DIR","_DIR")
+                node.attrib["direction"] = (
+                    node.attrib["direction"].upper().replace("DIR", "_DIR")
+                )
             loc = update_attr(
                 Element("loc"),
                 node_ux.loc.to_dict(),
@@ -174,4 +173,21 @@ class rrgraph_bin2xml:
                     )
                 )
             xml_root.append(node)
+        return xml_root
+
+    @staticmethod
+    def _edges_bin2xml(edges, xml_root=None):
+        if xml_root is None:
+            xml_root = XML("<rr_edges></rr_edges>")
+
+        xml_root.extend(
+            [
+                update_attr(
+                    Element("edge"),
+                    edge_ux.to_dict(),
+                    ("metadata"),
+                )
+                for edge_ux in edges
+            ]
+        )
         return xml_root
