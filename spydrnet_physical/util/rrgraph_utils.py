@@ -15,23 +15,22 @@ from spydrnet_physical.util.rrgraph_uncompress import rrgraph_bin2xml
 
 class rrgraph(rrgraph_bin2xml):
 
-    def __init__(self, width, height, vpr_arch, routing_chan, layout=None):
-        self.width = width
-        self.height = height
+    def __init__(self, vpr_arch, routing_chan, layout=None):
+
         self.routing_chan = routing_chan
-        self.node_lookup = [[[] for _ in range(height)] for _ in range(width)]
+
         self.edges = []
         self.switches = []
         self.channels = {}
-        self.channels["X"] = list(routing_chan for _ in range(width))
-        self.channels["Y"] = list(routing_chan for _ in range(width))
         self.segments = []
         self.block_types = []
         self.grid_locs = []
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
+        self.enumerate_rrgraph(vpr_arch, layout)
+        self.node_lookup = [[[] for _ in range(self.height)] for _ in range(self.width)]
+        self.channels["X"] = list(routing_chan for _ in range(self.width))
+        self.channels["Y"] = list(routing_chan for _ in range(self.width))
         self.create_channels()
-        if vpr_arch:
-            self.enumerate_rrgraph(vpr_arch, layout)
 
     def enumerate_rrgraph(self, filename, layout):
         """
@@ -40,6 +39,9 @@ class rrgraph(rrgraph_bin2xml):
         parser = XMLParser(remove_comments=True, remove_blank_text=True)
         tree = parse(filename, parser)
         root = tree.getroot()
+
+        self.width = int(root.find(f".//fixed_layout[@name=\"{layout}\"]").attrib["width"])
+        self.height = int(root.find(f".//fixed_layout[@name=\"{layout}\"]").attrib["height"])
 
         # Adding switchlist
         self.create_switch("__vpr_delayless_switch__", "mux")
