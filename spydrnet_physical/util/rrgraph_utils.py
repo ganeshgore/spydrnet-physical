@@ -9,12 +9,13 @@ import re
 
 import capnp  # noqa: F401
 from spydrnet_physical.util import rr_graph_uxsdcxx_capnp as rr_capnp
+from spydrnet_physical.util.FPGAGridGen import FPGAGridGen
 from spydrnet_physical.util.rrgraph_uncompress import rrgraph_bin2xml
 
 
 class rrgraph(rrgraph_bin2xml):
 
-    def __init__(self, width, height, vpr_arch, routing_chan):
+    def __init__(self, width, height, vpr_arch, routing_chan, layout=None):
         self.width = width
         self.height = height
         self.routing_chan = routing_chan
@@ -30,9 +31,12 @@ class rrgraph(rrgraph_bin2xml):
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
         self.create_channels()
         if vpr_arch:
-            self.enumerate_rrgraph(vpr_arch)
+            self.enumerate_rrgraph(vpr_arch, layout)
 
-    def enumerate_rrgraph(self, filename):
+    def enumerate_rrgraph(self, filename, layout):
+        """
+        Enumerate the routing resource graph (RRGraph) from a VPR architecture file.
+        """
         parser = XMLParser(remove_comments=True, remove_blank_text=True)
         tree = parse(filename, parser)
         root = tree.getroot()
@@ -108,6 +112,20 @@ class rrgraph(rrgraph_bin2xml):
                 height=tile.attrib.get("height", 1),
                 width=tile.attrib.get("width", 1),
             )
+
+        # Adding block instances
+        fpga_grid = FPGAGridGen(
+            design_name="example_design",
+            arch_file=filename,
+            release_root="_release",
+            layout=layout,
+        )
+        fpga_grid.enumerate_grid()
+        for x in range(self.width):
+            for y in range(self.height):
+                self.add_grid_block(
+                    fpga_grid.grid[y][x], x, y, layer=0, x_offset=0, y_offset=0
+                )
 
     def create_node(self, x, y, node_id, ptc_start, seg_type, side, tap=1):
         """
@@ -236,8 +254,9 @@ class rrgraph(rrgraph_bin2xml):
         return block_type_ux
 
     def add_grid_block(self, block, x, y, layer=0, x_offset=0, y_offset=0):
+        block_id = [b.name for b in self.block_types].index(block)
         grid = rr_capnp.GridLoc.new_message(
-            blockTypeId=block,
+            blockTypeId=block_id,
             x=x,
             y=y,
             heightOffset=y_offset,
