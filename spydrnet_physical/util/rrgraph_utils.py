@@ -253,16 +253,17 @@ class rrgraph(rrgraph_bin2xml):
         segments = self._segments_bin2xml(self.segments)
         block_types = self._block_types_bin2xml(self.rrgraph_bin.blockTypes.blockTypes)
         grids = self._grid_bin2xml(self.rrgraph_bin.grid.gridLocs)
-        # rrgraph_segments_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
-        # rrgraph_block_types_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
-        # rrgraph_grid_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
-        # rrgraph_rr_nodes_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
-        # rrgraph_rr_edges_bin2xml(self.rrgraph_bin.channels, etree.Element("channels"))
+
+        # Add nodes datastructure
+        self.rrgraph_bin.rrNodes.nodes = [n for col in self.node_lookup for row in col for n in row]
+        rr_nodes = self._nodes_bin2xml(self.rrgraph_bin.rrNodes.nodes)
+
         root.append(channels)
         root.append(switches)
         root.append(segments)
         root.append(block_types)
         root.append(grids)
+        root.append(rr_nodes)
         return root
 
     def write_rrgraph_xml(

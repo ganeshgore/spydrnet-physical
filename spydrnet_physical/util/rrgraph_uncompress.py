@@ -142,3 +142,36 @@ class rrgraph_bin2xml:
                 block_types_root.append(pin_class)
             xml_root.append(block_types_root)
         return xml_root
+
+    @staticmethod
+    def _nodes_bin2xml(nodes, xml_root=None):
+        if xml_root is None:
+            xml_root = XML("<rr_nodes></rr_nodes>")
+
+        for node_ux in nodes:
+            node = update_attr(
+                Element("node"),
+                node_ux.to_dict(),
+                ("loc", "timing", "segment"),
+                upper_case_fields=("type"),
+            )
+            if node.attrib.get("direction", None):
+                node.attrib["direction"] = node.attrib["direction"].upper().replace("DIR","_DIR")
+            loc = update_attr(
+                Element("loc"),
+                node_ux.loc.to_dict(),
+                attrib_map,
+                upper_case_fields=("side"),
+            )
+            node.append(loc)
+            node.append(
+                update_attr(Element("timing"), node_ux.timing.to_dict(), attrib_map)
+            )
+            if str(node_ux.type).startswith("chan"):
+                node.append(
+                    update_attr(
+                        Element("segment"), node_ux.segment.to_dict(), attrib_map
+                    )
+                )
+            xml_root.append(node)
+        return xml_root
