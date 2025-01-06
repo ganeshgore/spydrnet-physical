@@ -59,6 +59,32 @@ class rrgraph(rrgraph_bin2xml):
                 segments.attrib["name"], segments.attrib["length"], res_type="general"
             )
 
+        # Adding block types
+        tile_dim = {}
+        for tile in root.findall("tiles/tile"):
+            tile_dim[tile.attrib["name"]] = {
+                "width": tile.attrib.get("width", 1),
+                "height": tile.attrib.get("height", 1),
+            }
+
+            pins = []
+            for pin in tile.findall("sub_tile/input"):
+                pin_name = pin.attrib["name"]
+                pin_number = int(pin.attrib.get("num_pins", 1))
+                pins.append(("I", f"{pin_name}[0:{pin_number}]"))
+
+            for pin in tile.findall("sub_tile/output"):
+                pin_name = pin.attrib["name"]
+                pin_number = int(pin.attrib.get("num_pins", 1))
+                pins.append(("O", f"{pin_name}[0:{pin_number}]"))
+
+            self.create_block(
+                tile.attrib["name"],
+                pins,
+                height=tile.attrib.get("height", 1),
+                width=tile.attrib.get("width", 1),
+            )
+
     def create_node(self, x, y, node_id, ptc_start, seg_type, side, tap=1):
         """
         index: 0
