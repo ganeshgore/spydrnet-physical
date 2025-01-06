@@ -2,7 +2,8 @@
 This script is a placeholder for the rrgraph utility functions that will be used to read and write rrgraph files.
 """
 
-from lxml import etree
+from lxml.etree import XML, parse, XMLParser
+from lxml.etree import tostring as etree_tostring
 import pandas as pd
 import re
 
@@ -25,12 +26,38 @@ class rrgraph(rrgraph_bin2xml):
         self.channels["Y"] = list(routing_chan for _ in range(width))
         self.segments = []
         self.block_types = []
-        self.gridLocs = []
+        self.grid_locs = []
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
         self.create_channels()
+        if vpr_arch:
+            self.enumerate_rrgraph(vpr_arch)
 
-    def _compute_cordinates(self, direction, index, length):
-        pass
+    def enumerate_rrgraph(self, filename):
+        parser = XMLParser(remove_comments=True, remove_blank_text=True)
+        tree = parse(filename, parser)
+        root = tree.getroot()
+
+        # Adding switchlist
+        self.create_switch("__vpr_delayless_switch__", "mux")
+        for switch in root.find("switchlist"):
+            # Pre calculation
+            buf_size = switch.attrib.get("buf_size", 0)
+            self.create_switch(
+                switch.attrib["name"],
+                switch.attrib["type"],
+                cin=float(switch.attrib.get("Cin", 0)),
+                cout=float(switch.attrib.get("Cout", 0)),
+                r=float(switch.attrib.get("R", 0)),
+                tdel=float(switch.attrib.get("Tdel", 0)),
+                buf_size=0 if buf_size == "auto" else float(buf_size),
+                mux_trans_size=float(switch.attrib.get("mux_trans_size", 0)),
+            )
+
+        # Adding segments
+        for segments in root.find("segmentlist"):
+            self.create_segment(
+                segments.attrib["name"], segments.attrib["length"], res_type="general"
+            )
 
     def create_node(self, x, y, node_id, ptc_start, seg_type, side, tap=1):
         """
@@ -167,9 +194,9 @@ class rrgraph(rrgraph_bin2xml):
             widthOffset=x_offset,
             layer=layer,
         )
-        self.gridLocs.append(grid)
+        self.grid_locs.append(grid)
         self.rrgraph_bin.grid = rr_capnp.GridLocs.new_message()
-        self.rrgraph_bin.grid.gridLocs = self.gridLocs
+        self.rrgraph_bin.grid.gridLocs = self.grid_locs
         return grid
 
     def create_segment(
@@ -261,7 +288,7 @@ class rrgraph(rrgraph_bin2xml):
     def _gen_rrgraph_xml(
         self, tool_comment="", tool_name="openfpga-physical", tool_version="v1.0"
     ):
-        root = etree.XML("<rr_graph></rr_graph>")
+        root = XML("<rr_graph></rr_graph>")
         # Basic information
         root.attrib["tool_comment"] = tool_comment
         root.attrib["tool_name"] = tool_name
@@ -309,7 +336,7 @@ class rrgraph(rrgraph_bin2xml):
 
         root = self._gen_rrgraph_xml(tool_comment, tool_name, tool_version)
         with open(filename, "w", encoding="UTF-8") as fp:
-            fp.write(etree.tostring(root, pretty_print=True).decode())
+            fp.write(etree_tostring(root, pretty_print=True).decode())
 
     def write_rrgraph_bin(self, filename):
         pass

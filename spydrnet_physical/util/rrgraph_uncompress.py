@@ -103,7 +103,7 @@ class rrgraph_bin2xml:
                 length=str(segment_bin.length),
             )
             if not segment_bin.resType == "uxsdInvalid":
-                segment_root.res_type = segment_bin.resType
+                segment_root.attrib["res_type"] = str(segment_bin.resType)
 
             timing = update_attr(Element("timing"), segment_bin.timing.to_dict())
             segment_root.append(timing)

@@ -16,7 +16,7 @@ class test_rrgraph(unittest.TestCase):
     """
 
     def setUp(self) -> None:
-        self.rrgraph = rrgraph(6, 6, "vpr_arch", 160)
+        self.rrgraph = rrgraph(6, 6, None, 160)
 
     @staticmethod
     def _gen_random_string(length):
@@ -154,7 +154,7 @@ class test_rrgraph(unittest.TestCase):
         - The root element's "tool_version" attribute matches the generated tool_version.
         """
 
-        rrgraph_bin = rrgraph(6, 6, "vpr_arch", 160)
+        rrgraph_bin = rrgraph(6, 6, None, 160)
 
         tool_comment = self._gen_random_string(50)
         tool_name = self._gen_random_string(10)
