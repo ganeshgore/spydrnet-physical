@@ -16,7 +16,48 @@ class test_rrgraph(unittest.TestCase):
     """
 
     def setUp(self) -> None:
-        self.rrgraph = rrgraph(6, 6, None, 160)
+        self.layout = b"""
+            <architecture>
+                <tiles>
+                    <tile name="io_top"> <sub_tile name="io_top" capacity="20"/> </tile>
+                    <tile name="io_bottom"><sub_tile name="io_top" capacity="20"/></tile>
+                    <tile name="io_left"><sub_tile name="io_top" capacity="20"/></tile>
+                    <tile name="io_right"><sub_tile name="io_top" capacity="20"/></tile>
+                    <tile name="corner_left_bottom"><sub_tile name="io_top" capacity="20"/></tile>
+                    <tile name="corner_left_top"><sub_tile name="io_top" capacity="20"/></tile>
+                    <tile name="corner_right_bottom"><sub_tile name="io_top" capacity="20"/></tile>
+                    <tile name="corner_right_top"><sub_tile name="io_top" capacity="20"/></tile>
+                    <tile name="clb"><sub_tile name="clb" capacity="1"/></tile>
+                </tiles>
+                <segmentlist></segmentlist>
+                <switchlist></switchlist>
+                <layout>
+                    <fixed_layout name="FPGA44" width="6" height="6">
+                        <row type="io_top" starty="H-2" priority="100"/>
+                        <row type="io_bottom" starty="1" priority="100"/>
+                        <col type="io_left" startx="1" priority="100"/>
+                        <col type="io_right" startx="W-2" priority="100"/>
+                        <single type="corner_left_bottom" x="1" y="1" priority="110"/>
+                        <single type="corner_left_top" x="1" y="H-2" priority="110"/>
+                        <single type="corner_right_bottom" x="W-2" y="1" priority="110"/>
+                        <single type="corner_right_top" x="W-2" y="H-2" priority="110"/>
+                        <row type="EMPTY" starty="H-1" priority="100"/>
+                        <row type="EMPTY" starty="0" priority="100"/>
+                        <col type="EMPTY" startx="0" priority="100"/>
+                        <col type="EMPTY" startx="W-1" priority="100"/>
+                        <corners type="EMPTY" priority="101"/>
+                        <fill type="clb" priority="10"/>
+                    </fixed_layout>
+                </layout>
+                <complexblocklist>
+                    <pb_type name="io"/>
+                    <pb_type name="clb"/>
+                </complexblocklist>
+            </architecture>
+        """
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".xml") as temp_file:
+            temp_file.write(self.layout)
+        self.rrgraph = rrgraph(temp_file.name, 160, "FPGA44")
 
     @staticmethod
     def _gen_random_string(length):
@@ -131,7 +172,7 @@ class test_rrgraph(unittest.TestCase):
         sw_name = self._gen_random_string(15)
         sw_type = "mux"
         switch = self.rrgraph.create_switch(sw_name, sw_type)
-        self.assertEqual(switch.id, 0)
+        self.assertEqual(switch.id, 1)
         self.assertEqual(switch.name, sw_name)
         self.assertEqual(switch.type, sw_type)
 
@@ -154,7 +195,9 @@ class test_rrgraph(unittest.TestCase):
         - The root element's "tool_version" attribute matches the generated tool_version.
         """
 
-        rrgraph_bin = rrgraph(6, 6, None, 160)
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".xml") as temp_file:
+            temp_file.write(self.layout)
+        rrgraph_bin = rrgraph(temp_file.name, 160, "FPGA44")
 
         tool_comment = self._gen_random_string(50)
         tool_name = self._gen_random_string(10)

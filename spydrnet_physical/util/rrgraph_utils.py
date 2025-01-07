@@ -26,11 +26,13 @@ class rrgraph(rrgraph_bin2xml):
         self.block_types = []
         self.grid_locs = []
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
-        self.enumerate_rrgraph(vpr_arch, layout)
-        self.node_lookup = [[[] for _ in range(self.height)] for _ in range(self.width)]
-        self.channels["X"] = list(routing_chan for _ in range(self.width))
-        self.channels["Y"] = list(routing_chan for _ in range(self.width))
-        self.create_channels()
+        if vpr_arch:
+            self.enumerate_rrgraph(vpr_arch, layout)
+            self.node_lookup = [[[] for _ in range(self.height)] for _ in range(self.width)]
+            self.channels["X"] = list(routing_chan for _ in range(self.width))
+            self.channels["Y"] = list(routing_chan for _ in range(self.width))
+            self.create_channels()
+
 
     def enumerate_rrgraph(self, filename, layout):
         """
