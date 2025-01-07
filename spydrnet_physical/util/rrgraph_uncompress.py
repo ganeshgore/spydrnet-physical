@@ -177,7 +177,8 @@ class rrgraph_bin2xml:
                 upper_case_fields=("side"),
             )
             node.append(loc)
-            node.append(update_attr(Element("timing"), node_ux.timing.to_dict()))
+            if node_ux.timing.r != 0 or node_ux.timing.c != 0:
+                node.append(update_attr(Element("timing"), node_ux.timing.to_dict()))
             if str(node_ux.type).startswith("chan"):
                 node.append(update_attr(Element("segment"), node_ux.segment.to_dict()))
             xml_root.append(node)
