@@ -136,6 +136,21 @@ class rrgraph(rrgraph_bin2xml):
                     fpga_grid.grid[y][x], x, y, layer=0, x_offset=0, y_offset=0
                 )
 
+    def _print_node_metrics(self):
+        """
+        Print the metrix of the nodes in the rrgraph.
+        """
+        for row in range(self.height-2)[::-1]:
+            # print(self.node_lookup[0][row])
+            print(
+                " ".join(
+                    [
+                        f"{len(self.node_lookup[col][row]):4d} [{col:2d},{row:2d}]"
+                        for col in range(self.width - 2)
+                    ]
+                )
+            )
+
     def create_node(self, x, y, node_id, ptc_start, seg_type, side, tap=1):
         """
         index: 0
@@ -157,8 +172,8 @@ class rrgraph(rrgraph_bin2xml):
         # Truncate wire length on edges
         xlow = max(xlow, 1)
         ylow = max(ylow, 1)
-        xhigh = min(xhigh, self.width-2)
-        yhigh = min(yhigh, self.height-2)
+        xhigh = min(xhigh, self.width - 2)
+        yhigh = min(yhigh, self.height - 2)
 
         phy_length = (xhigh - xlow) + (yhigh - ylow)
         direction_sign = -1 if side in ("Left", "Bottom") else 1
@@ -195,7 +210,11 @@ class rrgraph(rrgraph_bin2xml):
             segment=rr_capnp.NodeSegment.new_message(),
         )
         # Instead of doing calculation again take hashid as an argument
-        hash_id = ptc_start if direction_sign == 1 else ptc_sequence.rsplit(",", maxsplit=1)[-1]
+        hash_id = (
+            ptc_start
+            if direction_sign == 1
+            else ptc_sequence.rsplit(",", maxsplit=1)[-1]
+        )
         self.node_lookup[x - 1][y - 1][(int(hash_id), side)] = node
         return node
 
@@ -383,10 +402,7 @@ class rrgraph(rrgraph_bin2xml):
 
         # Add nodes
         self.rrgraph_bin.rrNodes.nodes = [
-            n
-            for col in self.node_lookup
-            for row in col
-            for n in row.values()
+            n for col in self.node_lookup for row in col for n in row.values()
         ]
         rr_nodes = self._nodes_bin2xml(self.rrgraph_bin.rrNodes.nodes)
 
