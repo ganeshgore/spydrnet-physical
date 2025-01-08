@@ -1,7 +1,5 @@
-"""
-===========================================
-Generate RRGraph from VPR architecture file
-===========================================
+""" ===========================================
+Generate RRGraph from VPR architecture file ===========================================
 
 """
 
@@ -30,11 +28,11 @@ SB_MAPS = OrderedDict(
         "SB_1__1_": None,
         "SB_1__6_": None,
         "SB_6__1_": None,
-        "SB_1__*_": "./baseline_l4/switchbox_left.xlsx",
-        "SB_6__*_": "./baseline_l4/switchbox_right.xlsx",
-        "SB_*__1_": "./baseline_l4/switchbox_bottom.xlsx",
-        "SB_*__6_": "./baseline_l4/switchbox_top.xlsx",
-        "SB_*__*_": "./baseline_l4/switchbox_main.xlsx",
+        # "SB_1__*_": "./baseline_l4/switchbox_left.xlsx",
+        "SB_6__3_": "./baseline_l4/switchbox_right.xlsx",
+        # "SB_*__1_": "./baseline_l4/switchbox_bottom.xlsx",
+        # "SB_*__6_": "./baseline_l4/switchbox_top.xlsx",
+        # "SB_*__*_": "./baseline_l4/switchbox_main.xlsx",
     }
 )
 
@@ -75,10 +73,9 @@ def main():
         sb_df[k] = dataframe
 
         # Create nodes
-
         node_id = 0
-        for X in range(1, FPGA_GRID_X):
-            for Y in range(1, FPGA_GRID_Y):
+        for X in range(1, rrgraph_bin.width - 1):
+            for Y in range(1, rrgraph_bin.height - 1):
                 sw_name = f"SB_{X}__{Y}_"
                 sb_patt = [key for key in SB_MAPS.keys() if fnmatch(sw_name, key)]
                 if len(sb_patt) and (sb_patt[0] in sb_df.keys()):
@@ -97,18 +94,68 @@ def main():
                     ):
                         side, seg_type, _, index, tap = row
                         if side in ("Left", "Right", "Top", "Bottom"):
-                            rrgraph_bin.create_node(
+                            node = rrgraph_bin.create_node(
                                 x=X,
                                 y=Y,
                                 node_id=node_id,
-                                ptc_start=(index-1)*4 + (tap - 1),
+                                ptc_start=(index - 1) * 4 + (tap - 1),
                                 seg_type=seg_type,
                                 side=side,
                                 tap=tap,
                             )
+                            # print((index - 1) * 4 + (tap - 1), node.loc.ptc)
                             node_id += 1
 
     # Create edges
+    # Build edges
+    args = []
+    connections_seq = {}
+    node_storage = {}
+    for X in range(1, FPGA_GRID_X):
+        for Y in range(1, FPGA_GRID_Y):
+            sw_name = f"SB_{X}__{Y}_"
+            sb_patt = [key for key in SB_MAPS.keys() if fnmatch(sw_name, key)]
+            if len(sb_patt) and (sb_patt[0] in sb_df.keys()):
+
+                logger.info(
+                    "Creating edge %s %s at locations %d %d",
+                    sb_patt[0],
+                    Path(SB_MAPS[sb_patt[0]]).name,
+                    X,
+                    Y,
+                )
+                df = sb_df[sb_patt[0]]
+
+                # Find node for horizontal values
+                for col in range(MERGE_COLS, df.shape[-1]):
+                    side = df.iloc[0, col]
+                    seg_type = df.iloc[1, col]
+                    seg_indx = int(df.iloc[3, col])
+                    tap = (
+                        int(df.iloc[4, col])
+                        if side in ("Left", "Right", "Top", "Bottom")
+                        else 1
+                    )
+
+                    if side in ("Right", "Top"):
+                        id_node = rrgraph_bin.node_lookup[X - 1][Y - 1][
+                            (((seg_indx - 1) * 4) + ((tap - 1) * 2), side)
+                        ].id
+                    if side in ("Left", "Right"):
+                        id_node = rrgraph_bin.node_lookup[X - 1][Y - 1][
+                            (((seg_indx * 4) * 2 - 2 * (tap - 1) - 1), side)
+                        ].id
+
+                # # Find node for vertical columns
+                # for row in range(MERGE_ROWS, df.shape[0]):
+                #     side = df.iloc[row, 0]
+                #     seg_type = df.iloc[row, 1]
+                #     seg_indx = int(df.iloc[row, 2])
+                #     tap = int(df.iloc[row, 3])
+
+                source_id = 0
+                destination_id = 0
+                rrgraph_bin.create_edge(source_id, destination_id, 0)
 
     # Write rrgraph to file
     rrgraph_bin.write_rrgraph_xml("_rrgraph_generated.xml")

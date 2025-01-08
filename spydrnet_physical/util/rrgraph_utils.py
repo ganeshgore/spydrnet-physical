@@ -28,11 +28,12 @@ class rrgraph(rrgraph_bin2xml):
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
         if vpr_arch:
             self.enumerate_rrgraph(vpr_arch, layout)
-            self.node_lookup = [[[] for _ in range(self.height)] for _ in range(self.width)]
+            self.node_lookup = [
+                [{} for _ in range(self.height)] for _ in range(self.width)
+            ]
             self.channels["X"] = list(routing_chan for _ in range(self.width))
             self.channels["Y"] = list(routing_chan for _ in range(self.width))
             self.create_channels()
-
 
     def enumerate_rrgraph(self, filename, layout):
         """
@@ -42,8 +43,12 @@ class rrgraph(rrgraph_bin2xml):
         tree = parse(filename, parser)
         root = tree.getroot()
 
-        self.width = int(root.find(f".//fixed_layout[@name=\"{layout}\"]").attrib["width"])
-        self.height = int(root.find(f".//fixed_layout[@name=\"{layout}\"]").attrib["height"])
+        self.width = int(
+            root.find(f'.//fixed_layout[@name="{layout}"]').attrib["width"]
+        )
+        self.height = int(
+            root.find(f'.//fixed_layout[@name="{layout}"]').attrib["height"]
+        )
 
         # Adding switchlist
         self.create_switch("__vpr_delayless_switch__", "mux")
@@ -152,8 +157,8 @@ class rrgraph(rrgraph_bin2xml):
         # Truncate wire length on edges
         xlow = max(xlow, 1)
         ylow = max(ylow, 1)
-        xhigh = min(xhigh, self.width)
-        yhigh = min(yhigh, self.height)
+        xhigh = min(xhigh, self.width-2)
+        yhigh = min(yhigh, self.height-2)
 
         phy_length = (xhigh - xlow) + (yhigh - ylow)
         direction_sign = -1 if side in ("Left", "Bottom") else 1
@@ -189,7 +194,9 @@ class rrgraph(rrgraph_bin2xml):
             timing=rr_capnp.NodeTiming.new_message(r=0, c=0),
             segment=rr_capnp.NodeSegment.new_message(),
         )
-        self.node_lookup[x - 1][y - 1].append(node)
+        # Instead of doing calculation again take hashid as an argument
+        hash_id = ptc_start if direction_sign == 1 else ptc_sequence.rsplit(",", maxsplit=1)[-1]
+        self.node_lookup[x - 1][y - 1][(int(hash_id), side)] = node
         return node
 
     def create_edge(self, source, destination, swith_id):
@@ -376,7 +383,10 @@ class rrgraph(rrgraph_bin2xml):
 
         # Add nodes
         self.rrgraph_bin.rrNodes.nodes = [
-            n for col in self.node_lookup for row in col for n in row
+            n
+            for col in self.node_lookup
+            for row in col
+            for n in row.values()
         ]
         rr_nodes = self._nodes_bin2xml(self.rrgraph_bin.rrNodes.nodes)
 
