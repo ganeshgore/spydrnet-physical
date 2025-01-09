@@ -32,7 +32,7 @@ class test_rrgraph(unittest.TestCase):
                 <segmentlist></segmentlist>
                 <switchlist></switchlist>
                 <layout>
-                    <fixed_layout name="FPGA44" width="6" height="6">
+                    <fixed_layout name="FPGA44" width="8" height="8">
                         <row type="io_top" starty="H-2" priority="100"/>
                         <row type="io_bottom" starty="1" priority="100"/>
                         <col type="io_left" startx="1" priority="100"/>
