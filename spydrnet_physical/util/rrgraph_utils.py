@@ -140,7 +140,7 @@ class rrgraph(rrgraph_bin2xml):
         """
         Print the metrix of the nodes in the rrgraph.
         """
-        for row in range(self.height-2)[::-1]:
+        for row in range(self.height - 2)[::-1]:
             # print(self.node_lookup[0][row])
             print(
                 " ".join(
@@ -175,7 +175,7 @@ class rrgraph(rrgraph_bin2xml):
         xhigh = min(xhigh, self.width - 2)
         yhigh = min(yhigh, self.height - 2)
 
-        phy_length = (xhigh - xlow) + (yhigh - ylow)
+        phy_length = int((xhigh - xlow) + (yhigh - ylow))
         direction_sign = -1 if side in ("Left", "Bottom") else 1
 
         # Compute the ptc_start point
@@ -186,7 +186,7 @@ class rrgraph(rrgraph_bin2xml):
             map(
                 str,
                 range(
-                    ptc_start,
+                    int(ptc_start),
                     ptc_end,
                     2 * direction_sign,
                 )[:phy_length],
