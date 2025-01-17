@@ -433,4 +433,12 @@ class rrgraph(rrgraph_bin2xml):
             fp.write(etree_tostring(root, pretty_print=True).decode())
 
     def write_rrgraph_bin(self, filename):
-        pass
+        """Write the routing resource graph (RRGraph) to a binary file."""
+        if len(self.rrgraph_bin.rrNodes.nodes) == 0:
+            self.rrgraph_bin.rrNodes.nodes = [
+                n for col in self.node_lookup for row in col for n in row.values()
+            ]
+        if len(self.rrgraph_bin.rrEdges.edges) == 0:
+            self.rrgraph_bin.rrEdges.edges = self.edges
+        with open(filename, "w", encoding="UTF-8") as fp:
+            self.rrgraph_bin.write(fp)

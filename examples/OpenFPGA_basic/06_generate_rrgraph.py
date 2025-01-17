@@ -232,6 +232,7 @@ def main():
 
     # Write rrgraph to file
     rrgraph_bin.write_rrgraph_xml("_rrgraph_generated.xml")
+    rrgraph_bin.write_rrgraph_bin("_rrgraph_generated.bin")
 
 
 def process_dataframe(df, merge_row=1, merge_cols=1):
