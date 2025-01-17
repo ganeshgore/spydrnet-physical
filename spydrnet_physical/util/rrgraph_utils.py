@@ -181,7 +181,7 @@ class rrgraph(rrgraph_bin2xml):
         # Compute the index point
         ptc_start = index * 2
         ptc_start += ((2 * length) - 1) if side in ("Left", "Bottom") else 0
-        ptc_end = int(ptc_start + (direction_sign * ((length * 2) + 2)))
+        ptc_end = int(ptc_start + (direction_sign * ((length * 2) + 2 + tap)))
         ptc_sequence = ",".join(
             map(
                 str,
@@ -189,7 +189,7 @@ class rrgraph(rrgraph_bin2xml):
                     int(ptc_start),
                     ptc_end,
                     2 * direction_sign,
-                )[:phy_length],
+                )[tap - 1 : phy_length + tap - 1],
             )
         )
 

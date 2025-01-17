@@ -92,7 +92,7 @@ def main():
                             x=X,
                             y=Y,
                             node_id=node_id,
-                            index=index,
+                            index=(index - 1) * 4,
                             seg_type=seg_type,
                             side=side,
                             tap=tap,
@@ -155,7 +155,9 @@ def main():
             try:
                 if side in ("Left", "Right", "Top", "Bottom"):
                     sink_nodes.append(
-                        rrgraph_bin.node_lookup[X - 1][Y - 1][(seg_indx, tap, side)].id
+                        rrgraph_bin.node_lookup[X - 1][Y - 1][
+                            ((seg_indx - 1) * 4, tap, side)
+                        ].id
                     )
             except KeyError:
                 pprint(rrgraph_bin.node_lookup[X - 1][Y - 1].keys())
@@ -193,7 +195,7 @@ def main():
                     source_nodes.append(
                         rrgraph_bin.node_lookup[x_shift][y_shift][
                             (
-                                seg_indx,
+                                (seg_indx - 1) * 4,
                                 1 + abs(trunc),
                                 {
                                     "Left": "Right",
@@ -212,7 +214,7 @@ def main():
                     )
                     raise KeyError
 
-        # print(f"Source Nodes: {source_nodes}")
+        print(f"Source Nodes: {source_nodes}")
         print(f"Sink Nodes: {sink_nodes}")
 
         for eachrow in df.itertuples(index=True):
