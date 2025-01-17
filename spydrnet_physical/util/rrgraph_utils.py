@@ -151,7 +151,7 @@ class rrgraph(rrgraph_bin2xml):
                 )
             )
 
-    def create_node(self, x, y, node_id, ptc_start, seg_type, side, tap=1):
+    def create_node(self, x, y, node_id, index, seg_type, side, tap=1):
         """
         index: 0
         seg_type: L4
@@ -178,8 +178,8 @@ class rrgraph(rrgraph_bin2xml):
         phy_length = int((xhigh - xlow) + (yhigh - ylow))
         direction_sign = -1 if side in ("Left", "Bottom") else 1
 
-        # Compute the ptc_start point
-        ptc_start *= 2
+        # Compute the index point
+        ptc_start = index * 2
         ptc_start += ((2 * length) - 1) if side in ("Left", "Bottom") else 0
         ptc_end = int(ptc_start + (direction_sign * ((length * 2) + 2)))
         ptc_sequence = ",".join(
@@ -210,12 +210,7 @@ class rrgraph(rrgraph_bin2xml):
             segment=rr_capnp.NodeSegment.new_message(),
         )
         # Instead of doing calculation again take hashid as an argument
-        hash_id = (
-            ptc_start
-            if direction_sign == 1
-            else ptc_sequence.rsplit(",", maxsplit=1)[-1]
-        )
-        self.node_lookup[x - 1][y - 1][(int(hash_id), side)] = node
+        self.node_lookup[x - 1][y - 1][(int(index), int(tap), side)] = node
         return node
 
     def create_edge(self, source, destination, swith_id):

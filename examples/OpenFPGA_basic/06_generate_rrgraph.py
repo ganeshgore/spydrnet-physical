@@ -9,7 +9,9 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 from fnmatch import fnmatch
+from pprint import pprint
 from collections import OrderedDict
+from itertools import product
 
 
 logger = logging.getLogger("rrgraph_generation")
@@ -43,6 +45,7 @@ FPGA_GRID_Y = 7
 
 
 def main():
+    global SB_MAPS
     # Read all excel file and process them to create a sb_df map
     rrgraph_bin = rrgraph("vpr-rendered.xml", 16, "FPGA44")
     sb_df = {}
@@ -72,90 +75,160 @@ def main():
             exit(1)
         sb_df[k] = dataframe
 
-        # Create nodes
-        node_id = 0
-        for X in range(1, rrgraph_bin.width - 1):
-            for Y in range(1, rrgraph_bin.height - 1):
-                sw_name = f"SB_{X}__{Y}_"
-                sb_patt = [key for key in SB_MAPS.keys() if fnmatch(sw_name, key)]
-                if len(sb_patt) and (sb_patt[0] in sb_df.keys()):
-                    logger.info(
-                        "Adding pattern %12s %s at locations %d %d",
-                        sb_patt[0],
-                        Path(SB_MAPS[sb_patt[0]]).name,
-                        X,
-                        Y,
+    # Create nodes
+    node_id = 0
+    for X in range(1, rrgraph_bin.width - 1):
+        for Y in range(1, rrgraph_bin.height - 1):
+            sw_name = f"SB_{X}__{Y}_"
+            sb_patt = [key for key in SB_MAPS.keys() if fnmatch(sw_name, key)]
+            if len(sb_patt) and (sb_patt[0] in sb_df.keys()):
+                for row in (
+                    sb_df[sb_patt[0]].iloc[:5, :].transpose().itertuples(index=False)
+                ):
+                    side, seg_type, _, index, tap = row
+                    if side in ("Left", "Right", "Top", "Bottom"):
+                        index, tap = int(index), int(tap)
+                        node = rrgraph_bin.create_node(
+                            x=X,
+                            y=Y,
+                            node_id=node_id,
+                            index=index,
+                            seg_type=seg_type,
+                            side=side,
+                            tap=tap,
+                        )
+                        node_id += 1
+                logger.info(
+                    "Creating Nodes %12s %s at locations %d %d [%d-%d nodes]",
+                    sb_patt[0],
+                    Path(SB_MAPS[sb_patt[0]]).name,
+                    X - 1,
+                    Y - 1,
+                    node_id,
+                    len(
+                        [
+                            n
+                            for col in rrgraph_bin.node_lookup
+                            for row in col
+                            for n in row.values()
+                        ]
+                    ),
+                )
+
+    rrgraph_bin._print_node_metrics()
+    # print([f"{i.id:2d}" for i in rrgraph_bin.node_lookup[0][1].values()])
+    # print([f"{i.id:2d}" for i in rrgraph_bin.node_lookup[0][2].values()])
+    # print([f"{i.id:2d}" for i in rrgraph_bin.node_lookup[0][3].values()])
+    # print([f"{i.id:2d}" for i in rrgraph_bin.node_lookup[0][4].values()])
+    # exit(1)
+
+    # Create edges
+    for X, Y in product(range(1, FPGA_GRID_X), range(1, FPGA_GRID_Y)):
+        # for X, Y in ((1, 2), (1, 3)):
+        sw_name = f"SB_{X}__{Y}_"
+        sb_patt = [key for key in SB_MAPS.keys() if fnmatch(sw_name, key)]
+        # Skip is pattern is not found
+        if not (len(sb_patt) and (sb_patt[0] in sb_df.keys())):
+            continue
+
+        logger.info(
+            "Creating edge %s %s at locations %d %d",
+            sb_patt[0],
+            Path(SB_MAPS[sb_patt[0]]).name,
+            X - 1,
+            Y - 1,
+        )
+        source_nodes = []
+        sink_nodes = []
+        df = sb_df[sb_patt[0]]
+
+        # Find node for horizontal values
+        for col in range(MERGE_COLS, df.shape[-1]):
+            side = df.iloc[0, col]
+            seg_type = df.iloc[1, col]
+            seg_indx = int(df.iloc[3, col])
+            tap = (
+                int(df.iloc[4, col])
+                if side in ("Left", "Right", "Top", "Bottom")
+                else 1
+            )
+            try:
+                if side in ("Left", "Right", "Top", "Bottom"):
+                    sink_nodes.append(
+                        rrgraph_bin.node_lookup[X - 1][Y - 1][(seg_indx, tap, side)].id
                     )
-                    for row in (
-                        sb_df[sb_patt[0]]
-                        .iloc[:5, :]
-                        .transpose()
-                        .itertuples(index=False)
-                    ):
-                        side, seg_type, _, index, tap = row
-                        if side in ("Left", "Right", "Top", "Bottom"):
-                            node = rrgraph_bin.create_node(
-                                x=X,
-                                y=Y,
-                                node_id=node_id,
-                                ptc_start=((index - 1) * 4 + (tap - 1)),
-                                seg_type=seg_type,
-                                side=side,
-                                tap=tap,
+            except KeyError:
+                pprint(rrgraph_bin.node_lookup[X - 1][Y - 1].keys())
+                raise KeyError
+
+        # Find node for vertical columns
+        for row in range(MERGE_ROWS, df.shape[0])[:7]:
+            side = df.iloc[row, 0]
+            seg_type = df.iloc[row, 1]
+            seg_indx = int(df.iloc[row, 2])
+            tap = (
+                int(df.iloc[row, 3])
+                if side in ("Left", "Right", "Top", "Bottom")
+                else 1
+            )
+            if side in ("Left", "Right", "Top", "Bottom"):
+                x_shift = {
+                    "Left": X - tap - 1,
+                    "Right": X + tap,
+                    "Bottom": X - 1,
+                    "Top": X - 1,
+                }[side]
+                y_shift = {
+                    "Left": Y - 1,
+                    "Right": Y - 1,
+                    "Bottom": Y - tap - 1,
+                    "Top": Y + tap,
+                }[side]
+                trunc = 0
+                trunc = x_shift - max(0, min(x_shift, rrgraph_bin.width - 1))
+                x_shift = max(0, min(x_shift, rrgraph_bin.width - 1))
+                y_shift = max(0, min(y_shift, rrgraph_bin.height - 1))
+
+                try:
+                    source_nodes.append(
+                        rrgraph_bin.node_lookup[x_shift][y_shift][
+                            (
+                                seg_indx,
+                                1 + abs(trunc),
+                                {
+                                    "Left": "Right",
+                                    "Right": "Left",
+                                    "Bottom": "Top",
+                                    "Top": "Bottom",
+                                }[side],
                             )
-                            # print((index - 1) * 4 + (tap - 1), node.loc.ptc)
-                            node_id += 1
+                        ].id
+                    )
+                except KeyError:
+                    print(
+                        x_shift,
+                        y_shift,
+                        rrgraph_bin.node_lookup[x_shift][y_shift].keys(),
+                    )
+                    raise KeyError
 
-    # # Create edges
-    # # Build edges
-    # args = []
-    # connections_seq = {}
-    # node_storage = {}
-    # for X in range(1, FPGA_GRID_X):
-    #     for Y in range(1, FPGA_GRID_Y):
-    #         sw_name = f"SB_{X}__{Y}_"
-    #         sb_patt = [key for key in SB_MAPS.keys() if fnmatch(sw_name, key)]
-    #         if len(sb_patt) and (sb_patt[0] in sb_df.keys()):
+        # print(f"Source Nodes: {source_nodes}")
+        print(f"Sink Nodes: {sink_nodes}")
 
-    #             logger.info(
-    #                 "Creating edge %s %s at locations %d %d",
-    #                 sb_patt[0],
-    #                 Path(SB_MAPS[sb_patt[0]]).name,
-    #                 X,
-    #                 Y,
-    #             )
-    #             df = sb_df[sb_patt[0]]
-
-    #             # Find node for horizontal values
-    #             for col in range(MERGE_COLS, df.shape[-1]):
-    #                 side = df.iloc[0, col]
-    #                 seg_type = df.iloc[1, col]
-    #                 seg_indx = int(df.iloc[3, col])
-    #                 tap = (
-    #                     int(df.iloc[4, col])
-    #                     if side in ("Left", "Right", "Top", "Bottom")
-    #                     else 1
-    #                 )
-
-    #                 if side in ("Right", "Top"):
-    #                     id_node = rrgraph_bin.node_lookup[X - 1][Y - 1][
-    #                         (((seg_indx - 1) * 4) + ((tap - 1) * 2), side)
-    #                     ].id
-    #                 if side in ("Left", "Right"):
-    #                     id_node = rrgraph_bin.node_lookup[X - 1][Y - 1][
-    #                         (((seg_indx * 4) * 2 - 2 * (tap - 1) - 1), side)
-    #                     ].id
-
-    #             # # Find node for vertical columns
-    #             # for row in range(MERGE_ROWS, df.shape[0]):
-    #             #     side = df.iloc[row, 0]
-    #             #     seg_type = df.iloc[row, 1]
-    #             #     seg_indx = int(df.iloc[row, 2])
-    #             #     tap = int(df.iloc[row, 3])
-
-    #             source_id = 0
-    #             destination_id = 0
-    #             rrgraph_bin.create_edge(source_id, destination_id, 0)
+        for eachrow in df.itertuples(index=True):
+            col_indx = eachrow[0]
+            if col_indx < MERGE_ROWS:
+                continue
+            for row_indx, df_value in enumerate(eachrow):
+                if row_indx <= MERGE_COLS:
+                    continue
+                row_indx -= 1
+                if not pd.isna(df_value):
+                    col_i, row_i = col_indx - MERGE_ROWS, row_indx - MERGE_COLS
+                    switch_id = 1 if isinstance(df_value, str) else int(df_value)
+                    rrgraph_bin.create_edge(
+                        source_nodes[col_i], sink_nodes[row_i], switch_id
+                    )
 
     # Write rrgraph to file
     rrgraph_bin.write_rrgraph_xml("_rrgraph_generated.xml")
