@@ -123,8 +123,8 @@ def main():
     # exit(1)
 
     # Create edges
-    for X, Y in product(range(1, FPGA_GRID_X), range(1, FPGA_GRID_Y)):
-        # for X, Y in ((1, 2), (1, 3)):
+    # for X, Y in product(range(1, FPGA_GRID_X), range(1, FPGA_GRID_Y)):
+    for X, Y in ((2, 2),):
         sw_name = f"SB_{X}__{Y}_"
         sb_patt = [key for key in SB_MAPS.keys() if fnmatch(sw_name, key)]
         # Skip is pattern is not found
@@ -157,14 +157,14 @@ def main():
                     sink_nodes.append(
                         rrgraph_bin.node_lookup[X - 1][Y - 1][
                             ((seg_indx - 1) * 4, tap, side)
-                        ].id
+                        ]
                     )
             except KeyError:
                 pprint(rrgraph_bin.node_lookup[X - 1][Y - 1].keys())
                 raise KeyError
 
         # Find node for vertical columns
-        for row in range(MERGE_ROWS, df.shape[0])[:7]:
+        for row in range(MERGE_ROWS, df.shape[0]):
             side = df.iloc[row, 0]
             seg_type = df.iloc[row, 1]
             seg_indx = int(df.iloc[row, 2])
@@ -173,6 +173,7 @@ def main():
                 if side in ("Left", "Right", "Top", "Bottom")
                 else 1
             )
+
             if side in ("Left", "Right", "Top", "Bottom"):
                 x_shift = {
                     "Left": X - tap - 1,
@@ -187,10 +188,9 @@ def main():
                     "Top": Y + tap,
                 }[side]
                 trunc = 0
-                trunc = x_shift - max(0, min(x_shift, rrgraph_bin.width - 1))
-                x_shift = max(0, min(x_shift, rrgraph_bin.width - 1))
-                y_shift = max(0, min(y_shift, rrgraph_bin.height - 1))
-
+                x_shift = max(0, min(x_shift, rrgraph_bin.width - 3))
+                y_shift = max(0, min(y_shift, rrgraph_bin.height - 3))
+                trunc = x_shift - max(0, min(x_shift, rrgraph_bin.width - 3))
                 try:
                     source_nodes.append(
                         rrgraph_bin.node_lookup[x_shift][y_shift][
@@ -204,7 +204,7 @@ def main():
                                     "Top": "Bottom",
                                 }[side],
                             )
-                        ].id
+                        ]
                     )
                 except KeyError:
                     print(
@@ -214,8 +214,8 @@ def main():
                     )
                     raise KeyError
 
-        print(f"Source Nodes: {source_nodes}")
-        print(f"Sink Nodes: {sink_nodes}")
+        print(f"Source Nodes: {[i.id for i in source_nodes]}")
+        print(f"Sink Nodes: {[i.id for i in sink_nodes]}")
 
         for eachrow in df.itertuples(index=True):
             col_indx = eachrow[0]
@@ -229,7 +229,7 @@ def main():
                     col_i, row_i = col_indx - MERGE_ROWS, row_indx - MERGE_COLS
                     switch_id = 1 if isinstance(df_value, str) else int(df_value)
                     rrgraph_bin.create_edge(
-                        source_nodes[col_i], sink_nodes[row_i], switch_id
+                        source_nodes[col_i].id, sink_nodes[row_i].id, switch_id
                     )
 
     # Write rrgraph to file
