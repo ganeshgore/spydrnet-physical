@@ -30,10 +30,14 @@ SB_MAPS = OrderedDict(
         "SB_1__1_": None,
         "SB_1__6_": None,
         "SB_6__1_": None,
+        # "SB_1__*_": None,
+        # "SB_*__1_": None,
+        # "SB_*__6_": None,
+        # "SB_6__*_": None,
         "SB_1__*_": "./baseline_l4/switchbox_left.xlsx",
-        "SB_6__*_": "./baseline_l4/switchbox_right.xlsx",
         "SB_*__1_": "./baseline_l4/switchbox_bottom.xlsx",
         "SB_*__6_": "./baseline_l4/switchbox_top.xlsx",
+        "SB_6__*_": "./baseline_l4/switchbox_right.xlsx",
         "SB_*__*_": "./baseline_l4/switchbox_main.xlsx",
     }
 )
@@ -98,6 +102,8 @@ def main():
                             tap=tap,
                         )
                         node_id += 1
+                        index_n = (index - 1) * 4
+                        # print(f"{side=} {seg_type=} {index_n=} {tap=} {node.loc.ptc=}")
                 logger.info(
                     "Creating Nodes %12s %s at locations %d %d [%d-%d nodes]",
                     sb_patt[0],
@@ -116,11 +122,6 @@ def main():
                 )
 
     rrgraph_bin._print_node_metrics()
-    # print([f"{i.id:2d}" for i in rrgraph_bin.node_lookup[0][1].values()])
-    # print([f"{i.id:2d}" for i in rrgraph_bin.node_lookup[0][2].values()])
-    # print([f"{i.id:2d}" for i in rrgraph_bin.node_lookup[0][3].values()])
-    # print([f"{i.id:2d}" for i in rrgraph_bin.node_lookup[0][4].values()])
-    # exit(1)
 
     # Create edges
     # for X, Y in product(range(1, FPGA_GRID_X), range(1, FPGA_GRID_Y)):
@@ -138,6 +139,7 @@ def main():
             X - 1,
             Y - 1,
         )
+
         source_nodes = []
         sink_nodes = []
         df = sb_df[sb_patt[0]]
@@ -176,27 +178,26 @@ def main():
 
             if side in ("Left", "Right", "Top", "Bottom"):
                 x_shift = {
-                    "Left": X - tap - 1,
+                    "Left": X - tap,
                     "Right": X + tap,
-                    "Bottom": X - 1,
-                    "Top": X - 1,
-                }[side]
+                    "Bottom": X,
+                    "Top": X,
+                }[side] - 1
                 y_shift = {
-                    "Left": Y - 1,
-                    "Right": Y - 1,
-                    "Bottom": Y - tap - 1,
+                    "Left": Y,
+                    "Right": Y,
+                    "Bottom": Y - tap,
                     "Top": Y + tap,
-                }[side]
-                trunc = 0
-                x_shift = max(0, min(x_shift, rrgraph_bin.width - 3))
-                y_shift = max(0, min(y_shift, rrgraph_bin.height - 3))
-                trunc = x_shift - max(0, min(x_shift, rrgraph_bin.width - 3))
+                }[side] - 1
+                x_shift_src = max(0, min(x_shift, rrgraph_bin.width - 3))
+                y_shift_src = max(0, min(y_shift, rrgraph_bin.height - 3))
+                trunc = abs((x_shift - x_shift_src) + (y_shift - y_shift_src)) + 1
                 try:
                     source_nodes.append(
-                        rrgraph_bin.node_lookup[x_shift][y_shift][
+                        rrgraph_bin.node_lookup[x_shift_src][y_shift_src][
                             (
                                 (seg_indx - 1) * 4,
-                                1 + abs(trunc),
+                                trunc,
                                 {
                                     "Left": "Right",
                                     "Right": "Left",
