@@ -82,7 +82,7 @@ def main():
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     #                           Create nodes
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    node_id = 0
+    node_id = rrgraph_bin.node_id
     for X in range(1, rrgraph_bin.width - 1):
         for Y in range(1, rrgraph_bin.height - 1):
             sw_name = f"SB_{X}__{Y}_"

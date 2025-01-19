@@ -5,6 +5,7 @@ This script is a placeholder for the rrgraph utility functions that will be used
 from lxml.etree import XML, parse, XMLParser
 from lxml.etree import tostring as etree_tostring
 import pandas as pd
+from itertools import product
 import re
 
 import capnp  # noqa: F401
@@ -28,12 +29,6 @@ class rrgraph(rrgraph_bin2xml):
         self.node_id = 0
         if vpr_arch:
             self.enumerate_rrgraph(vpr_arch, layout)
-            self.chan_node_lookup = [
-                [{} for _ in range(self.height)] for _ in range(self.width)
-            ]
-            self.pin_node_lookup = [
-                [{} for _ in range(self.height)] for _ in range(self.width)
-            ]
             self.channels["X"] = list(routing_chan for _ in range(self.width))
             self.channels["Y"] = list(routing_chan for _ in range(self.width))
             self.create_channels()
@@ -86,12 +81,13 @@ class rrgraph(rrgraph_bin2xml):
         tile_dim = {}
         for tile in root.findall("tiles/tile"):
             tile_name = tile.attrib["name"]
+            pins = []
             tile_dim[tile.attrib["name"]] = {
                 "width": tile.attrib.get("width", 1),
                 "height": tile.attrib.get("height", 1),
+                "pins": pins,
             }
 
-            pins = []
             block_capacity = int(tile.find("sub_tile").attrib.get("capacity", 1))
             for t_idx in range(block_capacity):
                 t_idx = f"[{t_idx}]" if block_capacity > 1 else ""
@@ -118,6 +114,9 @@ class rrgraph(rrgraph_bin2xml):
                     for p_num in range(int(pin.attrib.get("num_pins", 1))):
                         pins.append(("I", f"{tile_name}{t_idx}.{p_name}[{p_num}]"))
 
+                # Sort as output pins first and input later
+                pins.sort(reverse=True)
+
             self.create_block(
                 tile.attrib["name"],
                 pins,
@@ -139,6 +138,20 @@ class rrgraph(rrgraph_bin2xml):
                     fpga_grid.grid[y][x], x, y, layer=0, x_offset=0, y_offset=0
                 )
 
+        # Create IPIN and OPIN nodes
+        self.chan_node_lookup = [
+            [{} for _ in range(self.height)] for _ in range(self.width)
+        ]
+        self.pin_node_lookup = [
+            [{} for _ in range(self.height)] for _ in range(self.width)
+        ]
+
+        # for x, y in product(range(self.width), range(self.height)):
+        for x, y in ((2, 2),):
+            if fpga_grid.grid[y][x] == "EMPTY":
+                continue
+            self.create_block_pins(x, y, tile_dim[fpga_grid.grid[y][x]]["pins"])
+
     def _print_node_metrics(self):
         """
         Print the metrix of the nodes in the rrgraph.
@@ -154,21 +167,21 @@ class rrgraph(rrgraph_bin2xml):
                 )
             )
 
-    def create_ipin_node(self, x, y, node_id, side, ptc):
+    def create_ipin_nodes(self, x, y, side, ptc):
         """
         Create an IPIN (input pin) node in the RR graph.
         Alias for create_pin_node
         """
-        self.create_pin_node(x, y, node_id, side, ptc, node_type="ipin")
+        return self.create_pin_node(x, y, side, ptc, node_type="ipin")
 
-    def create_opin_node(self, x, y, node_id, side, ptc):
+    def create_opin_nodes(self, x, y, side, ptc):
         """
         Create an OPIN (output pin) node in the RR graph.
         Alias for create_pin_node
         """
-        self.create_pin_node(x, y, node_id, side, ptc, node_type="opin")
+        return self.create_pin_node(x, y, side, ptc, node_type="opin")
 
-    def create_pin_node(self, x, y, node_id, side, ptc, node_type="ipin"):
+    def create_pin_node(self, x, y, side, ptc, node_type="ipin"):
         """
         Creates a pin node with the specified parameters and adds it to
         the pin node lookup.
@@ -183,21 +196,23 @@ class rrgraph(rrgraph_bin2xml):
             rr_capnp.Node: The created pin node.
         """
         node = rr_capnp.Node.new_message(
-            id=node_id,
+            id=self.node_id,
             capacity=1,
             type=node_type.lower(),
-            side=side,
             loc=rr_capnp.NodeLoc.new_message(
                 xlow=x,
                 xhigh=x,
                 ylow=y,
                 yhigh=y,
-                ptc=ptc,
+                ptc=str(ptc),
             ),
             timing=rr_capnp.NodeTiming.new_message(r=0, c=0),
             segment=rr_capnp.NodeSegment.new_message(),
         )
+        if node_type.lower() in ("ipin", "opin"):
+            node.loc.side = side
         self.pin_node_lookup[x - 1][y - 1][(int(ptc), side)] = node
+        self.node_id += 1
         return node
 
     def create_chan_node(self, x, y, node_id, index, seg_type, side, tap=1):
@@ -282,6 +297,39 @@ class rrgraph(rrgraph_bin2xml):
         )
         self.edges.append(edge)
         return edge
+
+    def create_block_pins(self, x, y, pins):
+        ptc = 0
+        pinClasses = []
+        pin_nodes = [None] * len(pins)
+
+        for indx, pin in enumerate(pins):
+            node = self.create_pin_node(
+                x, y, None, ptc, node_type={"I": "sink", "O": "source"}[pin[0]]
+            )
+            pin_nodes[indx] = node.id
+            ptc += 1
+
+        ptc = 0
+        for indx, pin in enumerate(pins):
+            pin_direction = {"I": "INPUT", "O": "OUTPUT"}[pin[0]]
+            match = re.search("[0-9]*:[0-9]*", pin[1])
+
+            pins_list = []
+            if match:
+                for p in range(*map(int, match.group().split(":"))):
+                    pins_list.append(pin[1].replace(match.group(), f"{p}"))
+            else:
+                pins_list.append(pin[1])
+
+            for i in pins_list:
+                if pin[0] == "I":
+                    node = self.create_ipin_nodes(x, y, "top", ptc)
+                    self.create_edge(node.id, pin_nodes[indx], 0)
+                else:
+                    node = self.create_opin_nodes(x, y, "top", ptc)
+                    self.create_edge(pin_nodes[indx], node.id, 0)
+                ptc += 1
 
     def create_block(
         self,

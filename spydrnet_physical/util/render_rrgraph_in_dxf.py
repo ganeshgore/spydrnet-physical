@@ -102,7 +102,7 @@ def main():
             logger.debug(
                 f"Adding opin to chan edge {str(srcNode.type)=}[{edge.srcNode}] {str(sinkNode.type)=}[{edge.sinkNode}]"
             )
-            draw_edge(msp, srcNode, sinkNode, instance_map)
+            # draw_edge(msp, srcNode, sinkNode, instance_map)
             # cnt2 += 1
         # chan to ipin
         elif (str(srcNode.type) in ("chanx", "chany")) and (
@@ -111,7 +111,7 @@ def main():
             logger.debug(
                 f"Adding chan to ipin edge {str(srcNode.type)=}[{edge.srcNode}] {str(sinkNode.type)=}[{edge.sinkNode}]"
             )
-            draw_edge(msp, srcNode, sinkNode, instance_map)
+            # draw_edge(msp, srcNode, sinkNode, instance_map)
             # cnt3 += 1
         # if cnt1 > 10 and cnt3 > 10:
         #     break
