@@ -79,7 +79,9 @@ def main():
             exit(1)
         sb_df[k] = dataframe
 
-    # Create nodes
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+    #                           Create nodes
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     node_id = 0
     for X in range(1, rrgraph_bin.width - 1):
         for Y in range(1, rrgraph_bin.height - 1):
@@ -92,7 +94,7 @@ def main():
                     side, seg_type, _, index, tap = row
                     if side in ("Left", "Right", "Top", "Bottom"):
                         index, tap = int(index), int(tap)
-                        node = rrgraph_bin.create_node(
+                        node = rrgraph_bin.create_chan_node(
                             x=X,
                             y=Y,
                             node_id=node_id,
@@ -102,8 +104,6 @@ def main():
                             tap=tap,
                         )
                         node_id += 1
-                        index_n = (index - 1) * 4
-                        # print(f"{side=} {seg_type=} {index_n=} {tap=} {node.loc.ptc=}")
                 logger.info(
                     "Creating Nodes %12s %s at locations %d %d [%d-%d nodes]",
                     sb_patt[0],
@@ -114,7 +114,7 @@ def main():
                     len(
                         [
                             n
-                            for col in rrgraph_bin.node_lookup
+                            for col in rrgraph_bin.chan_node_lookup
                             for row in col
                             for n in row.values()
                         ]
@@ -123,7 +123,9 @@ def main():
 
     rrgraph_bin._print_node_metrics()
 
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # Create edges
+    # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # for X, Y in product(range(1, FPGA_GRID_X), range(1, FPGA_GRID_Y)):
     for X, Y in ((2, 2),):
         sw_name = f"SB_{X}__{Y}_"
@@ -157,12 +159,12 @@ def main():
             try:
                 if side in ("Left", "Right", "Top", "Bottom"):
                     sink_nodes.append(
-                        rrgraph_bin.node_lookup[X - 1][Y - 1][
+                        rrgraph_bin.chan_node_lookup[X - 1][Y - 1][
                             ((seg_indx - 1) * 4, tap, side)
                         ]
                     )
             except KeyError:
-                pprint(rrgraph_bin.node_lookup[X - 1][Y - 1].keys())
+                pprint(rrgraph_bin.chan_node_lookup[X - 1][Y - 1].keys())
                 raise KeyError
 
         # Find node for vertical columns
@@ -194,7 +196,7 @@ def main():
                 trunc = abs((x_shift - x_shift_src) + (y_shift - y_shift_src)) + 1
                 try:
                     source_nodes.append(
-                        rrgraph_bin.node_lookup[x_shift_src][y_shift_src][
+                        rrgraph_bin.chan_node_lookup[x_shift_src][y_shift_src][
                             (
                                 (seg_indx - 1) * 4,
                                 trunc,
@@ -211,7 +213,7 @@ def main():
                     print(
                         x_shift,
                         y_shift,
-                        rrgraph_bin.node_lookup[x_shift][y_shift].keys(),
+                        rrgraph_bin.chan_node_lookup[x_shift][y_shift].keys(),
                     )
                     raise KeyError
 

@@ -18,7 +18,6 @@ class rrgraph(rrgraph_bin2xml):
     def __init__(self, vpr_arch, routing_chan, layout=None):
 
         self.routing_chan = routing_chan
-
         self.edges = []
         self.switches = []
         self.channels = {}
@@ -26,9 +25,13 @@ class rrgraph(rrgraph_bin2xml):
         self.block_types = []
         self.grid_locs = []
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
+        self.node_id = 0
         if vpr_arch:
             self.enumerate_rrgraph(vpr_arch, layout)
-            self.node_lookup = [
+            self.chan_node_lookup = [
+                [{} for _ in range(self.height)] for _ in range(self.width)
+            ]
+            self.pin_node_lookup = [
                 [{} for _ in range(self.height)] for _ in range(self.width)
             ]
             self.channels["X"] = list(routing_chan for _ in range(self.width))
@@ -141,17 +144,63 @@ class rrgraph(rrgraph_bin2xml):
         Print the metrix of the nodes in the rrgraph.
         """
         for row in range(self.height - 2)[::-1]:
-            # print(self.node_lookup[0][row])
+            # print(self.chan_node_lookup[0][row])
             print(
                 " ".join(
                     [
-                        f"{len(self.node_lookup[col][row]):4d} [{col:2d},{row:2d}]"
+                        f"{len(self.chan_node_lookup[col][row]):4d} [{col:2d},{row:2d}]"
                         for col in range(self.width - 2)
                     ]
                 )
             )
 
-    def create_node(self, x, y, node_id, index, seg_type, side, tap=1):
+    def create_ipin_node(self, x, y, node_id, side, ptc):
+        """
+        Create an IPIN (input pin) node in the RR graph.
+        Alias for create_pin_node
+        """
+        self.create_pin_node(x, y, node_id, side, ptc, node_type="ipin")
+
+    def create_opin_node(self, x, y, node_id, side, ptc):
+        """
+        Create an OPIN (output pin) node in the RR graph.
+        Alias for create_pin_node
+        """
+        self.create_pin_node(x, y, node_id, side, ptc, node_type="opin")
+
+    def create_pin_node(self, x, y, node_id, side, ptc, node_type="ipin"):
+        """
+        Creates a pin node with the specified parameters and adds it to
+        the pin node lookup.
+        Args:
+            x (int): The x-coordinate of the node.
+            y (int): The y-coordinate of the node.
+            node_type (str): The type of the node.
+            node_id (int): The unique identifier for the node.
+            side (str): The side of the node.
+            ptc (int): The pin-to-channel index.
+        Returns:
+            rr_capnp.Node: The created pin node.
+        """
+        node = rr_capnp.Node.new_message(
+            id=node_id,
+            capacity=1,
+            type=node_type.lower(),
+            side=side,
+            loc=rr_capnp.NodeLoc.new_message(
+                xlow=x,
+                xhigh=x,
+                ylow=y,
+                yhigh=y,
+                ptc=ptc,
+            ),
+            timing=rr_capnp.NodeTiming.new_message(r=0, c=0),
+            segment=rr_capnp.NodeSegment.new_message(),
+        )
+        self.pin_node_lookup[x - 1][y - 1][(int(ptc), side)] = node
+        return node
+
+    def create_chan_node(self, x, y, node_id, index, seg_type, side, tap=1):
         """
         index: 0
         seg_type: L4
@@ -212,7 +261,7 @@ class rrgraph(rrgraph_bin2xml):
             segment=rr_capnp.NodeSegment.new_message(),
         )
         # Instead of doing calculation again take hashid as an argument
-        self.node_lookup[x - 1][y - 1][(int(index), int(tap), side)] = node
+        self.chan_node_lookup[x - 1][y - 1][(int(index), int(tap), side)] = node
         return node
 
     def create_edge(self, source, destination, swith_id):
@@ -375,11 +424,25 @@ class rrgraph(rrgraph_bin2xml):
         self.switches.append(switch)
         return switch
 
+    # Reading and writing related methods
     def read_rrgraph_xml(self, filename):
         pass
 
     def read_rrgraph_bin(self, filename):
         pass
+
+    def _update_nodes_edges(self):
+        # Add nodes
+        if len(self.rrgraph_bin.rrNodes.nodes) == 0:
+            self.rrgraph_bin.rrNodes.nodes = [
+                n for col in self.pin_node_lookup for row in col for n in row.values()
+            ] + [
+                n for col in self.chan_node_lookup for row in col for n in row.values()
+            ]
+
+        # Add edges
+        if len(self.rrgraph_bin.rrEdges.edges) == 0:
+            self.rrgraph_bin.rrEdges.edges = self.edges
 
     def _gen_rrgraph_xml(
         self, tool_comment="", tool_name="openfpga-physical", tool_version="v1.0"
@@ -397,14 +460,11 @@ class rrgraph(rrgraph_bin2xml):
         block_types = self._block_types_bin2xml(self.rrgraph_bin.blockTypes.blockTypes)
         grids = self._grid_bin2xml(self.rrgraph_bin.grid.gridLocs)
 
-        # Add nodes
-        self.rrgraph_bin.rrNodes.nodes = [
-            n for col in self.node_lookup for row in col for n in row.values()
-        ]
-        rr_nodes = self._nodes_bin2xml(self.rrgraph_bin.rrNodes.nodes)
+        # Update_nodes and edges
+        self._update_nodes_edges()
 
-        # Add edges
-        self.rrgraph_bin.rrEdges.edges = self.edges
+        # Add nodes and edges to XML file
+        rr_nodes = self._nodes_bin2xml(self.rrgraph_bin.rrNodes.nodes)
         rr_edges = self._edges_bin2xml(self.rrgraph_bin.rrEdges.edges)
 
         root.append(channels)
@@ -436,11 +496,6 @@ class rrgraph(rrgraph_bin2xml):
 
     def write_rrgraph_bin(self, filename):
         """Write the routing resource graph (RRGraph) to a binary file."""
-        if len(self.rrgraph_bin.rrNodes.nodes) == 0:
-            self.rrgraph_bin.rrNodes.nodes = [
-                n for col in self.node_lookup for row in col for n in row.values()
-            ]
-        if len(self.rrgraph_bin.rrEdges.edges) == 0:
-            self.rrgraph_bin.rrEdges.edges = self.edges
+        self._update_nodes_edges()
         with open(filename, "w", encoding="UTF-8") as fp:
             self.rrgraph_bin.write(fp)
