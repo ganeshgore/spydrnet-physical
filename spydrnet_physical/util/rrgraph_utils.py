@@ -145,9 +145,11 @@ class rrgraph(rrgraph_bin2xml):
         self.pin_node_lookup = [
             [{} for _ in range(self.height)] for _ in range(self.width)
         ]
+        self.source_sink_node_lookup = [
+            [{} for _ in range(self.height)] for _ in range(self.width)
+        ]
 
-        # for x, y in product(range(self.width), range(self.height)):
-        for x, y in ((2, 2),):
+        for x, y in product(range(self.width), range(self.height)):
             if fpga_grid.grid[y][x] == "EMPTY":
                 continue
             self.create_block_pins(x, y, tile_dim[fpga_grid.grid[y][x]]["pins"])
@@ -161,7 +163,9 @@ class rrgraph(rrgraph_bin2xml):
             print(
                 " ".join(
                     [
-                        f"{len(self.chan_node_lookup[col][row]):4d} [{col:2d},{row:2d}]"
+                        f"{len(self.chan_node_lookup[col][row]):4d}-"
+                        + f"{len(self.pin_node_lookup[col][row]):<4d}"
+                        + f"[{col:2d},{row:2d}]"
                         for col in range(self.width - 2)
                     ]
                 )
@@ -211,7 +215,9 @@ class rrgraph(rrgraph_bin2xml):
         )
         if node_type.lower() in ("ipin", "opin"):
             node.loc.side = side
-        self.pin_node_lookup[x - 1][y - 1][(int(ptc), side)] = node
+            self.pin_node_lookup[x - 1][y - 1][(int(ptc), None)] = node
+        else:
+            self.source_sink_node_lookup[x - 1][y - 1][(int(ptc), None)] = node
         self.node_id += 1
         return node
 
@@ -482,11 +488,26 @@ class rrgraph(rrgraph_bin2xml):
     def _update_nodes_edges(self):
         # Add nodes
         if len(self.rrgraph_bin.rrNodes.nodes) == 0:
-            self.rrgraph_bin.rrNodes.nodes = [
-                n for col in self.pin_node_lookup for row in col for n in row.values()
-            ] + [
-                n for col in self.chan_node_lookup for row in col for n in row.values()
-            ]
+            self.rrgraph_bin.rrNodes.nodes = (
+                [
+                    n
+                    for col in self.source_sink_node_lookup
+                    for row in col
+                    for n in row.values()
+                ]
+                + [
+                    n
+                    for col in self.pin_node_lookup
+                    for row in col
+                    for n in row.values()
+                ]
+                + [
+                    n
+                    for col in self.chan_node_lookup
+                    for row in col
+                    for n in row.values()
+                ]
+            )
 
         # Add edges
         if len(self.rrgraph_bin.rrEdges.edges) == 0:

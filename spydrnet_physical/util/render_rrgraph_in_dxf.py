@@ -80,41 +80,16 @@ def main():
         if node.type in ("chanx", "chany"):
             draw_routing_node(msp, node)
         node_lookup[node.id] = node
-    # cnt1 = 0
-    # cnt2 = 0
-    # cnt3 = 0
+
     for edge in rrgraph_bin.rrEdges.edges:
         sinkNode = node_lookup[edge.sinkNode]
         srcNode = node_lookup[edge.srcNode]
-        # chan to chan
-        if (str(srcNode.type) in ("chanx", "chany")) and (
-            str(sinkNode.type) in ("chanx", "chany")
-        ):
-            logger.debug(
-                f"Adding chan to chan edge {str(srcNode.type)=}[{edge.srcNode}] {str(sinkNode.type)=}[{edge.sinkNode}]"
-            )
-            draw_edge(msp, srcNode, sinkNode)
-            # cnt1 += 1
-        # opin to chan
-        elif (str(srcNode.type) == "opin") and (
-            str(sinkNode.type) in ("chanx", "chany")
-        ):
-            logger.debug(
-                f"Adding opin to chan edge {str(srcNode.type)=}[{edge.srcNode}] {str(sinkNode.type)=}[{edge.sinkNode}]"
-            )
-            # draw_edge(msp, srcNode, sinkNode, instance_map)
-            # cnt2 += 1
-        # chan to ipin
-        elif (str(srcNode.type) in ("chanx", "chany")) and (
-            str(sinkNode.type) == "ipin"
-        ):
-            logger.debug(
-                f"Adding chan to ipin edge {str(srcNode.type)=}[{edge.srcNode}] {str(sinkNode.type)=}[{edge.sinkNode}]"
-            )
-            # draw_edge(msp, srcNode, sinkNode, instance_map)
-            # cnt3 += 1
-        # if cnt1 > 10 and cnt3 > 10:
-        #     break
+
+        # Skip drawing edges from source to sink
+        if (str(srcNode.type) == "source") or (str(sinkNode.type) == "sink"):
+            continue
+
+        draw_edge(msp, srcNode, sinkNode, instance_map)
     doc.saveas(ROUTING_RENDER_FILE)
 
 
@@ -133,41 +108,57 @@ def draw_edge(canvas, src_node, sink_node, instance_map=None):
     None
     """
 
-    # Get Source and destination point
-    src_pt = {
-        "incDir": (src_node.loc.xlow, src_node.loc.ylow),
-        "decDir": (src_node.loc.xhigh, src_node.loc.yhigh),
-    }[src_node.direction]
-    dst_pt = {
-        "incDir": (sink_node.loc.xlow, sink_node.loc.ylow),
-        "decDir": (sink_node.loc.xhigh, sink_node.loc.yhigh),
-    }[sink_node.direction]
-
-    # Find distance between source and destination node grid location
-    distance = abs(src_pt[0] - dst_pt[0]) + abs(src_pt[1] - dst_pt[1])
-
     # Get starting location of source and destination node
     src_ptc = get_node_location(src_node, instance_map)
     dst_ptc = get_node_location(sink_node, instance_map)
 
-    # Convert source direction to a signed integer
-    direction_sign = {
-        "incDir": 1,
-        "decDir": -1,
-    }[src_node.direction]
+    if str(src_node.type) in ("chanx", "chany"):
+        # Convert source direction to a signed integer
+        direction_sign = {
+            "incDir": 1,
+            "decDir": -1,
+        }[src_node.direction]
 
-    # Transalate source node location to destination grid location
-    if src_node.type == "chany":
-        src_ptc[0] += (distance - 1) * direction_sign * 2
-        src_ptc[1] += ((BLOCK_WIDTH + CHAN_SPACING) * (distance - 1)) * direction_sign
-        src_ptc[1] += CHAN_SPACING * direction_sign
-    if src_node.type == "chanx":
-        src_ptc[1] += (distance - 1) * direction_sign * 2
-        src_ptc[0] += ((BLOCK_WIDTH + CHAN_SPACING) * (distance - 1)) * direction_sign
-        src_ptc[0] += CHAN_SPACING * direction_sign
+        # Get Source and destination point
+        src_pt = {
+            "incDir": (src_node.loc.xlow, src_node.loc.ylow),
+            "decDir": (src_node.loc.xhigh, src_node.loc.yhigh),
+        }[src_node.direction]
+
+        if str(sink_node.type) == "ipin":
+            dst_pt = (sink_node.loc.xlow, sink_node.loc.ylow)
+        else:
+            dst_pt = {
+                "incDir": (sink_node.loc.xlow, sink_node.loc.ylow),
+                "decDir": (sink_node.loc.xhigh, sink_node.loc.yhigh),
+            }[sink_node.direction]
+
+        # Find distance between source and destination node grid location
+        distance = abs(src_pt[0] - dst_pt[0]) + abs(src_pt[1] - dst_pt[1])
+
+        # Transalate source node location to destination grid location
+        if src_node.type == "chany":
+            src_ptc[0] += (distance - 1) * direction_sign * 2
+            src_ptc[1] += (
+                (BLOCK_WIDTH + CHAN_SPACING) * (distance - 1)
+            ) * direction_sign
+            src_ptc[1] += CHAN_SPACING * direction_sign
+        if src_node.type == "chanx":
+            src_ptc[1] += (distance - 1) * direction_sign * 2
+            src_ptc[0] += (
+                (BLOCK_WIDTH + CHAN_SPACING) * (distance - 1)
+            ) * direction_sign
+            src_ptc[0] += CHAN_SPACING * direction_sign
 
     # Add conenction line in the canvas
-    canvas.add_lwpolyline((src_ptc, dst_ptc), dxfattribs={"layer": "ROUTING_CONN"})
+    if str(src_node.type) in ("chanx", "chany") and str(sink_node.type) in (
+        "chanx",
+        "chany",
+    ):
+        dxfattribs = {"layer": "ROUTING_CONN"}
+    else:
+        dxfattribs = {"layer": "TILE_CONN"}
+    canvas.add_lwpolyline((src_ptc, dst_ptc), dxfattribs=dxfattribs)
 
     # Add direction arrow on 0.1x of the line
     angle = math.atan2(dst_ptc[1] - src_ptc[1], dst_ptc[0] - src_ptc[0])
