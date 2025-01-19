@@ -158,11 +158,11 @@ def draw_edge(canvas, src_node, sink_node, instance_map=None):
 
     # Transalate source node location to destination grid location
     if src_node.type == "chany":
-        src_ptc[0] += (distance - 1) * direction_sign
+        src_ptc[0] += (distance - 1) * direction_sign * 2
         src_ptc[1] += ((BLOCK_WIDTH + CHAN_SPACING) * (distance - 1)) * direction_sign
         src_ptc[1] += CHAN_SPACING * direction_sign
     if src_node.type == "chanx":
-        src_ptc[1] += (distance - 1) * direction_sign
+        src_ptc[1] += (distance - 1) * direction_sign * 2
         src_ptc[0] += ((BLOCK_WIDTH + CHAN_SPACING) * (distance - 1)) * direction_sign
         src_ptc[0] += CHAN_SPACING * direction_sign
 
