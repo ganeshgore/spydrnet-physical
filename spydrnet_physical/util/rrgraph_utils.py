@@ -156,6 +156,7 @@ class rrgraph(rrgraph_bin2xml):
         index: 0
         seg_type: L4
         side: Left/Right/Top/Bottom
+        tap: Represents the truncation at the source
         """
         # Get the segment expected length
         length = int(seg_type[1:]) - tap + 1
@@ -179,17 +180,18 @@ class rrgraph(rrgraph_bin2xml):
         direction_sign = -1 if side in ("Left", "Bottom") else 1
 
         # Compute the index point
-        ptc_start = index * 2
-        ptc_start += ((2 * length) - 1) if side in ("Left", "Bottom") else 0
-        ptc_end = int(ptc_start + (direction_sign * ((length * 2) + 2 + tap)))
+        ptc_start = ((index + tap - 1) * 2) + (1 if side in ("Left", "Bottom") else 0)
+        ptc_end = int(ptc_start + (length * 2))
         ptc_sequence = ",".join(
             map(
                 str,
                 range(
                     int(ptc_start),
                     ptc_end,
-                    2 * direction_sign,
-                )[tap - 1 : phy_length + tap - 1],
+                    2,
+                )[
+                    :phy_length
+                ][::direction_sign],
             )
         )
 

@@ -120,7 +120,7 @@ class test_rrgraph(unittest.TestCase):
         node = self.rrgraph.create_node(2, 1, 8000, 0, "L4", "Left", 1)
         self.assertEqual(node.id, 8000)
         self.assertEqual(node.loc.twist, 2)
-        self.assertEqual(node.loc.ptc, "7")
+        self.assertEqual(node.loc.ptc, "1")
         pts = (node.loc.xlow, node.loc.xhigh, node.loc.ylow, node.loc.yhigh)
         self.assertTupleEqual(pts, (1, 2, 1, 1))
 
@@ -128,7 +128,7 @@ class test_rrgraph(unittest.TestCase):
         node = self.rrgraph.create_node(1, 2, 8000, 0, "L4", "Bottom", 1)
         self.assertEqual(node.id, 8000)
         self.assertEqual(node.loc.twist, 2)
-        self.assertEqual(node.loc.ptc, "7")
+        self.assertEqual(node.loc.ptc, "1")
         pts = (node.loc.xlow, node.loc.xhigh, node.loc.ylow, node.loc.yhigh)
         self.assertTupleEqual(pts, (1, 1, 1, 2))
 
@@ -138,7 +138,7 @@ class test_rrgraph(unittest.TestCase):
         node = self.rrgraph.create_node(1, 1, 8000, 0, "L4", "Right", 2)
         self.assertEqual(node.id, 8000)
         self.assertEqual(node.loc.twist, 2)
-        self.assertEqual(node.loc.ptc, "0,2,4")
+        self.assertEqual(node.loc.ptc, "2,4,6")
         pts = (node.loc.xlow, node.loc.xhigh, node.loc.ylow, node.loc.yhigh)
         self.assertTupleEqual(pts, (1, 4, 1, 1))
 
@@ -146,7 +146,7 @@ class test_rrgraph(unittest.TestCase):
         node = self.rrgraph.create_node(1, 1, 8000, 0, "L4", "Top", 2)
         self.assertEqual(node.id, 8000)
         self.assertEqual(node.loc.twist, 2)
-        self.assertEqual(node.loc.ptc, "0,2,4")
+        self.assertEqual(node.loc.ptc, "2,4,6")
         pts = (node.loc.xlow, node.loc.xhigh, node.loc.ylow, node.loc.yhigh)
         self.assertTupleEqual(pts, (1, 1, 1, 4))
 
@@ -154,7 +154,7 @@ class test_rrgraph(unittest.TestCase):
         node = self.rrgraph.create_node(6, 1, 8000, 0, "L4", "Left", 2)
         self.assertEqual(node.id, 8000)
         self.assertEqual(node.loc.twist, 2)
-        self.assertEqual(node.loc.ptc, "5,3,1")
+        self.assertEqual(node.loc.ptc, "7,5,3")
         pts = (node.loc.xlow, node.loc.xhigh, node.loc.ylow, node.loc.yhigh)
         self.assertTupleEqual(pts, (3, 6, 1, 1))
 
@@ -162,7 +162,7 @@ class test_rrgraph(unittest.TestCase):
         node = self.rrgraph.create_node(6, 6, 8000, 0, "L4", "Bottom", 3)
         self.assertEqual(node.id, 8000)
         self.assertEqual(node.loc.twist, 2)
-        self.assertEqual(node.loc.ptc, "3,1")
+        self.assertEqual(node.loc.ptc, "7,5")
         pts = (node.loc.xlow, node.loc.xhigh, node.loc.ylow, node.loc.yhigh)
         self.assertTupleEqual(pts, (6, 6, 4, 6))
 

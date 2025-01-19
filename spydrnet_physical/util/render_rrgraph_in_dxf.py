@@ -118,102 +118,64 @@ def main():
     doc.saveas(ROUTING_RENDER_FILE)
 
 
-def draw_edge(canvas, srcNode, sinkNode, instance_map={}):
-    # logger.debug(f"\t {srcNode.type=}     {srcNode.direction=}")
-    # logger.debug(f"\t {sinkNode.type=}    {sinkNode.direction=}")
+def draw_edge(canvas, src_node, sink_node, instance_map=None):
+    """
+    Draws an edge between two nodes on a given canvas. The destination point is
+    fixed and Source node is transalated from any other grid location to
+    the destination node grid location,.
 
-    if srcNode.direction == "incDir":
-        src_pt = (srcNode.loc.xlow, srcNode.loc.ylow)
-    else:
-        src_pt = (srcNode.loc.xhigh, srcNode.loc.yhigh)
-    if sinkNode.direction == "incDir":
-        dst_pt = (sinkNode.loc.xlow, sinkNode.loc.ylow)
-    else:
-        dst_pt = (sinkNode.loc.xhigh, sinkNode.loc.yhigh)
+    Parameters:
+    canvas (Canvas): The canvas object where the edge will be drawn.
+    src_node (Node): The source node from which the edge originates.
+    sink_node (Node): The sink node where the edge terminates.
+    instance_map (dict, optional): A dictionary mapping node instances to their locations. Defaults to an empty dictionary.
+    Returns:
+    None
+    """
 
+    # Get Source and destination point
+    src_pt = {
+        "incDir": (src_node.loc.xlow, src_node.loc.ylow),
+        "decDir": (src_node.loc.xhigh, src_node.loc.yhigh),
+    }[src_node.direction]
+    dst_pt = {
+        "incDir": (sink_node.loc.xlow, sink_node.loc.ylow),
+        "decDir": (sink_node.loc.xhigh, sink_node.loc.yhigh),
+    }[sink_node.direction]
+
+    # Find distance between source and destination node grid location
     distance = abs(src_pt[0] - dst_pt[0]) + abs(src_pt[1] - dst_pt[1])
-    distance += (
-        1 if (sinkNode.direction == "decDir" or str(sinkNode.type) == "ipin") else 0
-    )
-    # distance -= 1 if srcNode.direction == "decDir" else 0
-    logger.debug(f"{distance=} {dst_pt=} {src_pt=}")
 
-    src_incr = 1 if srcNode.direction == "incDir" else -1
-    src_side = 1 if srcNode.type == "chanx" else -1
-    src_ptc = [get_node_location(srcNode, instance_map)]
-    dst_ptc = get_node_location(sinkNode, instance_map)
-    ptc = list()
-    if str(srcNode.type) == "opin":
-        ptc.append(src_ptc[0])
-        ptc.append(dst_ptc)
-        # logger.debug(f'ptc: {ptc}')
-        dxfattribs = {"layer": "TILE_OUT_CONN"}
-        canvas.add_lwpolyline(ptc, dxfattribs=dxfattribs)
-        arrow_layer = "TILE_OUT_CONN_ARROW"
-        for i in range(len(ptc) - 1):
-            start = ptc[i]
-            end = ptc[i + 1]
-            # Calculate direction angle
-            angle = math.atan2(end[1] - start[1], end[0] - start[0])
-            # Add arrowhead at a fraction (e.g., 80%) of the segment length
-            position = (
-                start[0] + 0.8 * (end[0] - start[0]),
-                start[1] + 0.8 * (end[1] - start[1]),
-            )
-            add_arrowhead(canvas, position, angle, arrow_layer)
-        return 1
-    src_ptc.append(
-        list(sum(x) for x in zip(src_ptc[-1], (src_incr * CHAN_SPACING, 0)[::src_side]))
+    # Get starting location of source and destination node
+    src_ptc = get_node_location(src_node, instance_map)
+    dst_ptc = get_node_location(sink_node, instance_map)
+
+    # Convert source direction to a signed integer
+    direction_sign = {
+        "incDir": 1,
+        "decDir": -1,
+    }[src_node.direction]
+
+    # Transalate source node location to destination grid location
+    if src_node.type == "chany":
+        src_ptc[0] += (distance - 1) * direction_sign
+        src_ptc[1] += ((BLOCK_WIDTH + CHAN_SPACING) * (distance - 1)) * direction_sign
+        src_ptc[1] += CHAN_SPACING * direction_sign
+    if src_node.type == "chanx":
+        src_ptc[1] += (distance - 1) * direction_sign
+        src_ptc[0] += ((BLOCK_WIDTH + CHAN_SPACING) * (distance - 1)) * direction_sign
+        src_ptc[0] += CHAN_SPACING * direction_sign
+
+    # Add conenction line in the canvas
+    canvas.add_lwpolyline((src_ptc, dst_ptc), dxfattribs={"layer": "ROUTING_CONN"})
+
+    # Add direction arrow on 0.1x of the line
+    angle = math.atan2(dst_ptc[1] - src_ptc[1], dst_ptc[0] - src_ptc[0])
+    position = (
+        src_ptc[0] + 0.1 * (dst_ptc[0] - src_ptc[0]),
+        src_ptc[1] + 0.1 * (dst_ptc[1] - src_ptc[1]),
     )
-    for i in range(0, distance - 1):
-        src_ptc.append(
-            list(
-                sum(x)
-                for x in zip(
-                    src_ptc[-1], (src_incr * BLOCK_WIDTH, 2 * src_incr)[::src_side]
-                )
-            )
-        )
-        src_ptc.append(
-            list(
-                sum(x)
-                for x in zip(src_ptc[-1], (src_incr * CHAN_SPACING, 0)[::src_side])
-            )
-        )
-    logger.debug(f"src_ptc: {src_ptc}")
-    last_ptc_index = -1 if srcNode.direction == "incDir" else (distance - 1) * 2 - 1
-    if last_ptc_index < -1:
-        last_ptc_index = -1
-    last_ptc_part = src_ptc[last_ptc_index]
-    # last_ptc_part = src_ptc[-1]
-    logger.debug(f"last_src_ptc_part: {last_ptc_part}")
-    logger.debug(f"dst_ptc: {dst_ptc}")
-    ptc.append(last_ptc_part)
-    ptc.append(dst_ptc)
-    # logger.debug(f'ptc: {ptc}')
-    dxfattribs = (
-        {"layer": "TILE_IN_CONN"}
-        if str(sinkNode.type) == "ipin"
-        else {"layer": "ROUTING_CONN"}
-    )
-    arrow_layer = {
-        "TILE_IN_CONN": "TILE_IN_CONN_ARROW",
-        "TILE_OUT_CONN": "TILE_OUT_CONN_ARROW",
-        "ROUTING_CONN": "ROUTING_CONN_ARROW",
-    }[dxfattribs["layer"]]
-    canvas.add_lwpolyline(ptc, dxfattribs=dxfattribs)
-    for i in range(len(ptc) - 1):
-        start = ptc[i]
-        end = ptc[i + 1]
-        # Calculate direction angle
-        angle = math.atan2(end[1] - start[1], end[0] - start[0])
-        # Add arrowhead at a fraction (e.g., 80%) of the segment length
-        position = (
-            start[0] + 0.8 * (end[0] - start[0]),
-            start[1] + 0.8 * (end[1] - start[1]),
-        )
-        add_arrowhead(canvas, position, angle, arrow_layer)
-    return 1
+    add_arrowhead(canvas, position, angle, "ROUTING_CONN")
 
 
 def add_arrowhead(
@@ -247,7 +209,7 @@ def add_arrowhead(
     )
 
 
-def get_node_location(node, instance_map={}):
+def get_node_location(node, instance_map=None):
     if node.direction == "incDir":
         if node.type == "chanx":
             instance_llx = ((node.loc.xlow) * GRID_X, node.loc.ylow * GRID_Y)
@@ -258,8 +220,8 @@ def get_node_location(node, instance_map={}):
     if str(node.type) in ("opin", "ipin"):
         instance_llx = ((node.loc.xlow) * GRID_X, (node.loc.ylow) * GRID_Y)
         key = f"_{node.loc.xlow}__{node.loc.ylow}_"
-        delta = instance_map[key]["block"]["pin_map"][int(node.loc.ptc)]
-        # logger.debug(f"delta: {delta}")
+        if instance_map:
+            delta = instance_map[key]["block"]["pin_map"][int(node.loc.ptc)]
     else:
         first_ptc = (
             int(node.loc.ptc.split(",")[0])
@@ -286,7 +248,6 @@ def draw_routing_node(canvas, node):
     incr = 1 if node.direction == "incDir" else -1
     side = 1 if node.type == "chanx" else -1
     length = abs(node.loc.xlow - node.loc.xhigh) + abs(node.loc.ylow - node.loc.yhigh)
-    # length += 1
     ptc = [get_node_location(node)]
     ptc.append(list(sum(x) for x in zip(ptc[-1], (incr * CHAN_SPACING, 0)[::side])))
     for i in range(length - 1):
@@ -298,6 +259,7 @@ def draw_routing_node(canvas, node):
     layer = f"{node.type}_{node.direction}_TRACKS"
     dxfattribs = {"layer": layer}
     canvas.add_lwpolyline(ptc[: length * 2], dxfattribs=dxfattribs)
+
     for i in range(len(ptc[: length * 2]) - 1):
         start = ptc[i]
         end = ptc[i + 1]
@@ -309,38 +271,6 @@ def draw_routing_node(canvas, node):
             start[1] + 0.8 * (end[1] - start[1]),
         )
         add_arrowhead(canvas, position, angle, f"{layer}_ARROW")
-
-
-def create_block_routing_in_dxf(X, Y, canvas, block, df):
-    pin_map = {}
-    for col in range(MERGE_COLS, df.shape[-1]):
-        side = df.iloc[0, col]
-        length = int(df.iloc[1, col][1:])
-        seg_indx = int(df.iloc[3, col])
-        tap = (
-            1
-            if (pd.isna(df.iloc[4, col]) or not isinstance(df.iloc[4, col], Number))
-            else int(df.iloc[4, col])
-        )
-        low = X if side in ("Left", "Right") else Y
-        high = low + length if side in ("Right", "Top") else low + length
-        ptc = seg_indx * length * 2 + (tap - 1) + (0 if side in ("Right", "Top") else 1)
-
-        # Create track here
-        if not side in ("Left", "Right", "Top", "Bottom"):
-            continue
-        start = {
-            "Left": (0, ptc + 4),
-            "Right": (BLOCK_WIDTH, ptc + 4),
-            "Top": (ptc + 4, BLOCK_HEIGHT),
-            "Bottom": (ptc + 4, 0),
-        }[side]
-        print(f"{side=} {length=} {seg_indx=} {tap=} {low=} {high=} {start=}")
-        canvas.add_lwpolyline(
-            [(BLOCK_WIDTH * 0.5, BLOCK_HEIGHT * 0.5), start],
-            dxfattribs={"layer": "ROUTING_TRACKS", "lineweight": 2},
-        )
-    return pin_map
 
 
 def build_hash(node):
