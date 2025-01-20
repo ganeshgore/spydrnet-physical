@@ -126,8 +126,8 @@ def main():
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # Create edges
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-    # for X, Y in product(range(1, FPGA_GRID_X), range(1, FPGA_GRID_Y)):
-    for X, Y in ((2, 2),):
+    for X, Y in product(range(1, FPGA_GRID_X), range(1, FPGA_GRID_Y)):
+        # for X, Y in ((2, 2),):
         sw_name = f"SB_{X}__{Y}_"
         sb_patt = [key for key in SB_MAPS.keys() if fnmatch(sw_name, key)]
         # Skip is pattern is not found

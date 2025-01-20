@@ -429,11 +429,11 @@ class rrgraph(rrgraph_bin2xml):
         rr = self.rrgraph_bin
         rr.channels = rr_capnp.Channels.new_message()
         rr.channels.channel = rr_capnp.Channel.new_message(
-            xMax=max(self.channels["X"]),
-            xMin=min(self.channels["X"]),
-            yMax=max(self.channels["Y"]),
-            yMin=min(self.channels["Y"]),
-            chanWidthMax=max(self.channels["X"] + self.channels["Y"]),
+            xMax=max(self.channels["X"]) * 2,
+            xMin=min(self.channels["X"]) * 2,
+            yMax=max(self.channels["Y"]) * 2,
+            yMin=min(self.channels["Y"]) * 2,
+            chanWidthMax=max(self.channels["X"] + self.channels["Y"]) * 2,
         )
         x_lists, y_lists = [], []
         for indx, chan in enumerate(self.channels["X"]):
