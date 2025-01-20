@@ -314,7 +314,7 @@ def create_block_in_dxf(canvas, block):
                     (pt_x, pt_y), radius=1, dxfattribs={"color": colors.GREEN}
                 )
                 canvas.add_text(
-                    pin.value, dxfattribs={"layer": "PINTEXTLAYER"}
+                    pin.value.split(".")[-1], dxfattribs={"layer": "PINTEXTLAYER"}
                 ).set_placement((pt_x, pt_y), align=TextEntityAlignment.CENTER)
                 input_pt[1] += 1
                 if input_pt[1] > 10:
@@ -329,7 +329,7 @@ def create_block_in_dxf(canvas, block):
                     (pt_x, pt_y), radius=1, dxfattribs={"color": colors.BLUE}
                 )
                 canvas.add_text(
-                    pin.value, dxfattribs={"layer": "PINTEXTLAYER"}
+                    pin.value.split(".")[-1], dxfattribs={"layer": "PINTEXTLAYER"}
                 ).set_placement((pt_x, pt_y), align=TextEntityAlignment.CENTER)
                 output_pt[1] += 1
                 if output_pt[1] > 10:
