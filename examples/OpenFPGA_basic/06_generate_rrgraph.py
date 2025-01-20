@@ -122,13 +122,6 @@ def main():
                 )
 
     rrgraph_bin._print_node_metrics()
-    print(rrgraph_bin.pin_node_lookup[1][1].keys())
-    print(
-        list(
-            (ptc[0], node.id, str(node.type), str(node.loc.ptc))
-            for ptc, node in rrgraph_bin.pin_node_lookup[1][1].items()
-        )
-    )
 
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # Create edges
@@ -172,9 +165,10 @@ def main():
                     )
                 elif side.lower() == "ipin":
                     sink_nodes.append(
-                        rrgraph_bin.pin_node_lookup[X - 1][Y - 1][(int(seg_indx), None)]
+                        rrgraph_bin.pin_node_lookup[X - 1][Y - 1][
+                            (int(rrgraph_bin.pin_to_ptc[seg_type]), None)
+                        ]
                     )
-                    print("IPIN", sink_nodes[-1].type, (int(seg_indx), None))
                 else:
                     print("Unknown name")
             except KeyError:
@@ -232,12 +226,10 @@ def main():
                     raise KeyError
             elif side.lower() == "opin":
                 source_nodes.append(
-                    rrgraph_bin.pin_node_lookup[X - 1][Y - 1][(int(seg_indx), None)]
+                    rrgraph_bin.pin_node_lookup[X - 1][Y - 1][
+                        (int(rrgraph_bin.pin_to_ptc[seg_type]), None)
+                    ]
                 )
-                print("OPIN", source_nodes[-1].type, (int(seg_indx), None))
-
-        print(f"Source Nodes: {[i.id for i in source_nodes]}")
-        print(f"Sink Nodes: {[i.id for i in sink_nodes]}")
 
         for eachrow in df.itertuples(index=True):
             col_indx = eachrow[0]

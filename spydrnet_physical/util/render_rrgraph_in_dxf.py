@@ -166,7 +166,7 @@ def draw_edge(canvas, src_node, sink_node, instance_map=None):
         src_ptc[0] + 0.1 * (dst_ptc[0] - src_ptc[0]),
         src_ptc[1] + 0.1 * (dst_ptc[1] - src_ptc[1]),
     )
-    add_arrowhead(canvas, position, angle, "ROUTING_CONN")
+    add_arrowhead(canvas, position, angle, dxfattribs["layer"])
 
 
 def add_arrowhead(

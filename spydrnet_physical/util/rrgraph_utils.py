@@ -27,6 +27,7 @@ class rrgraph(rrgraph_bin2xml):
         self.grid_locs = []
         self.rrgraph_bin = rr_capnp.RrGraph.new_message()
         self.node_id = 0
+        self.pin_to_ptc = {}
         if vpr_arch:
             self.enumerate_rrgraph(vpr_arch, layout)
             self.channels["X"] = list(routing_chan for _ in range(self.width))
@@ -316,7 +317,6 @@ class rrgraph(rrgraph_bin2xml):
             pin_nodes[indx] = node.id
             ptc += 1
 
-        ptc = 0
         for indx, pin in enumerate(pins):
             pin_direction = {"I": "INPUT", "O": "OUTPUT"}[pin[0]]
             match = re.search("[0-9]*:[0-9]*", pin[1])
@@ -330,12 +330,11 @@ class rrgraph(rrgraph_bin2xml):
 
             for i in pins_list:
                 if pin[0] == "I":
-                    node = self.create_ipin_nodes(x, y, "top", ptc)
+                    node = self.create_ipin_nodes(x, y, "top", self.pin_to_ptc[i])
                     self.create_edge(node.id, pin_nodes[indx], 0)
                 else:
-                    node = self.create_opin_nodes(x, y, "top", ptc)
+                    node = self.create_opin_nodes(x, y, "top", self.pin_to_ptc[i])
                     self.create_edge(pin_nodes[indx], node.id, 0)
-                ptc += 1
 
     def create_block(
         self,
@@ -375,6 +374,9 @@ class rrgraph(rrgraph_bin2xml):
                         for indx, each in enumerate(pins_list)
                     ],
                 )
+            )
+            self.pin_to_ptc.update(
+                {pin: (ptc + indx) for indx, pin in enumerate(pins_list)}
             )
             ptc += len(pins_list)
         block_type_ux.pinClasses = pinClasses
