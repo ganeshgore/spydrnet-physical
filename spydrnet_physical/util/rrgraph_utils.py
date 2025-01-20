@@ -494,6 +494,14 @@ class rrgraph(rrgraph_bin2xml):
         pass
 
     def _update_nodes_edges(self):
+        # Add switches
+        if len(self.rrgraph_bin.switches.switches) == 0:
+            self.rrgraph_bin.switches.switches = self.switches
+
+        # Add segments
+        if len(self.rrgraph_bin.segments.segments) == 0:
+            self.rrgraph_bin.segments.segments = self.segments
+
         # Add nodes
         if len(self.rrgraph_bin.rrNodes.nodes) == 0:
             print(
@@ -512,6 +520,9 @@ class rrgraph(rrgraph_bin2xml):
     def _gen_rrgraph_xml(
         self, tool_comment="", tool_name="openfpga-physical", tool_version="v1.0"
     ):
+        # Update_nodes and edges
+        self._update_nodes_edges()
+
         root = XML("<rr_graph></rr_graph>")
         # Basic information
         root.attrib["tool_comment"] = tool_comment
@@ -520,13 +531,10 @@ class rrgraph(rrgraph_bin2xml):
 
         # Add blocks related information to the graph
         channels = self._channels_bin2xml(self.rrgraph_bin.channels)
-        switches = self._switches_bin2xml(self.switches)
-        segments = self._segments_bin2xml(self.segments)
+        switches = self._switches_bin2xml(self.rrgraph_bin.switches.switches)
+        segments = self._segments_bin2xml(self.rrgraph_bin.segments.segments)
         block_types = self._block_types_bin2xml(self.rrgraph_bin.blockTypes.blockTypes)
         grids = self._grid_bin2xml(self.rrgraph_bin.grid.gridLocs)
-
-        # Update_nodes and edges
-        self._update_nodes_edges()
 
         # Add nodes and edges to XML file
         rr_nodes = self._nodes_bin2xml(self.rrgraph_bin.rrNodes.nodes)
