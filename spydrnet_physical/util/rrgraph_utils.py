@@ -66,7 +66,9 @@ class rrgraph(rrgraph_bin2xml):
             )
 
         # Adding segments
-        for segments in root.find("segmentlist"):
+        for segments in sorted(
+            root.find("segmentlist"), key=lambda x: int(x.attrib["length"])
+        ):
             self.create_segment(
                 segments.attrib["name"], segments.attrib["length"], res_type="general"
             )
@@ -114,9 +116,6 @@ class rrgraph(rrgraph_bin2xml):
                     p_name = pin.attrib["name"]
                     for p_num in range(int(pin.attrib.get("num_pins", 1))):
                         pins.append(("I", f"{tile_name}{t_idx}.{p_name}[{p_num}]"))
-
-                # Sort as output pins first and input later
-                pins.sort(reverse=True)
 
             self.create_block(
                 tile.attrib["name"],
@@ -306,18 +305,18 @@ class rrgraph(rrgraph_bin2xml):
         return edge
 
     def create_block_pins(self, x, y, pins):
-        ptc = 0
+        ptc = 1
         pinClasses = []
-        pin_nodes = [None] * len(pins)
+        pin_nodes = {}
 
-        for indx, pin in enumerate(pins):
+        for pin in sorted(pins, reverse=True, key=lambda x: x[0]):
             node = self.create_pin_node(
                 x, y, None, ptc, node_type={"I": "sink", "O": "source"}[pin[0]]
             )
-            pin_nodes[indx] = node.id
+            pin_nodes[pin] = node.id
             ptc += 1
 
-        for indx, pin in enumerate(pins):
+        for pin in sorted(pins, reverse=True, key=lambda x: x[0]):
             pin_direction = {"I": "INPUT", "O": "OUTPUT"}[pin[0]]
             match = re.search("[0-9]*:[0-9]*", pin[1])
 
@@ -331,10 +330,10 @@ class rrgraph(rrgraph_bin2xml):
             for i in pins_list:
                 if pin[0] == "I":
                     node = self.create_ipin_nodes(x, y, "top", self.pin_to_ptc[i])
-                    self.create_edge(node.id, pin_nodes[indx], 0)
+                    self.create_edge(node.id, pin_nodes[pin], 0)
                 else:
                     node = self.create_opin_nodes(x, y, "top", self.pin_to_ptc[i])
-                    self.create_edge(pin_nodes[indx], node.id, 0)
+                    self.create_edge(pin_nodes[pin], node.id, 0)
 
     def create_block(
         self,

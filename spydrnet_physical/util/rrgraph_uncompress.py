@@ -29,7 +29,7 @@ attrib_map = {
     "segmentId": "segment_id",
 }
 
-default_values = ["0", "0.0", "uxsdInvalid"]
+default_values = ["0", "0.0", 0, "uxsdInvalid"]
 skip_if_default = [
     "cin",
     "cinternal",
@@ -39,6 +39,7 @@ skip_if_default = [
     "tdel",
     "cPerMeter",
     "rPerMeter",
+    "twist",
 ]
 
 
