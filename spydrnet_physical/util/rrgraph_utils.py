@@ -496,6 +496,9 @@ class rrgraph(rrgraph_bin2xml):
     def _update_nodes_edges(self):
         # Add nodes
         if len(self.rrgraph_bin.rrNodes.nodes) == 0:
+            print(
+                f"pin_node_lookup={len([n for col in self.pin_node_lookup for row in col for n in row.values()])}"
+            )
             self.rrgraph_bin.rrNodes.nodes = [
                 n for col in self.pin_node_lookup for row in col for n in row.values()
             ] + [
