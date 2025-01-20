@@ -166,7 +166,7 @@ def main():
                 elif side.lower() == "ipin":
                     sink_nodes.append(
                         rrgraph_bin.pin_node_lookup[X - 1][Y - 1][
-                            (int(rrgraph_bin.pin_to_ptc[seg_type]), None)
+                            (int(rrgraph_bin.pin_to_ptc[seg_type]), "ipin")
                         ]
                     )
                 else:
@@ -227,7 +227,7 @@ def main():
             elif side.lower() == "opin":
                 source_nodes.append(
                     rrgraph_bin.pin_node_lookup[X - 1][Y - 1][
-                        (int(rrgraph_bin.pin_to_ptc[seg_type]), None)
+                        (int(rrgraph_bin.pin_to_ptc[seg_type]), "opin")
                     ]
                 )
 

@@ -7,156 +7,156 @@
   <models>
     <model name="io">
       <input_ports>
-        <port name="clk" is_clock="1"/>
-        <port name="outpad"/>
+        <port name="clk" is_clock="1" />
+        <port name="outpad" />
       </input_ports>
       <output_ports>
-        <port name="inpad"/>
+        <port name="inpad" />
       </output_ports>
     </model>
     <model name="io_scff">
       <input_ports>
-        <port name="D" clock="clk"/>
-        <port name="SI" clock="clk"/>
-        <port name="clk" is_clock="1"/>
-        <port name="reset" clock="clk"/>
+        <port name="D" clock="clk" />
+        <port name="SI" clock="clk" />
+        <port name="clk" is_clock="1" />
+        <port name="reset" clock="clk" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="clk"/>
+        <port name="Q" clock="clk" />
       </output_ports>
     </model>
     <model name="adder_carry">
       <input_ports>
-        <port name="cin" combinational_sink_ports="sumout cout"/>
-        <port name="g" combinational_sink_ports="sumout cout"/>
-        <port name="p" combinational_sink_ports="sumout cout"/>
+        <port name="cin" combinational_sink_ports="sumout cout" />
+        <port name="g" combinational_sink_ports="sumout cout" />
+        <port name="p" combinational_sink_ports="sumout cout" />
       </input_ports>
       <output_ports>
-        <port name="cout"/>
-        <port name="sumout"/>
+        <port name="cout" />
+        <port name="sumout" />
       </output_ports>
     </model>
     <model name="frac_lut6">
       <input_ports>
-        <port name="in" combinational_sink_ports="lut4_out lut5_out lut6_out"/>
+        <port name="in" combinational_sink_ports="lut4_out lut5_out lut6_out" />
       </input_ports>
       <output_ports>
-        <port name="lut4_out"/>
-        <port name="lut5_out"/>
-        <port name="lut6_out"/>
+        <port name="lut4_out" />
+        <port name="lut5_out" />
+        <port name="lut6_out" />
       </output_ports>
     </model>
     <model name="lut6">
       <input_ports>
-        <port name="in" combinational_sink_ports="out"/>
+        <port name="in" combinational_sink_ports="out" />
       </input_ports>
       <output_ports>
-        <port name="out"/>
+        <port name="out" />
       </output_ports>
     </model>
     <model name="dff">
       <input_ports>
-        <port name="C" is_clock="1"/>
-        <port name="D" clock="C"/>
+        <port name="C" is_clock="1" />
+        <port name="D" clock="C" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="C"/>
+        <port name="Q" clock="C" />
       </output_ports>
     </model>
     <model name="dffn">
       <input_ports>
-        <port name="C" is_clock="1"/>
-        <port name="D" clock="C"/>
+        <port name="C" is_clock="1" />
+        <port name="D" clock="C" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="C"/>
+        <port name="Q" clock="C" />
       </output_ports>
     </model>
     <model name="dffnre">
       <input_ports>
-        <port name="C" is_clock="1"/>
-        <port name="D" clock="C"/>
-        <port name="E" clock="C"/>
-        <port name="R" clock="C"/>
+        <port name="C" is_clock="1" />
+        <port name="D" clock="C" />
+        <port name="E" clock="C" />
+        <port name="R" clock="C" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="C"/>
+        <port name="Q" clock="C" />
       </output_ports>
     </model>
     <model name="dffre">
       <input_ports>
-        <port name="C" is_clock="1"/>
-        <port name="D" clock="C"/>
-        <port name="E" clock="C"/>
-        <port name="R" clock="C"/>
+        <port name="C" is_clock="1" />
+        <port name="D" clock="C" />
+        <port name="E" clock="C" />
+        <port name="R" clock="C" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="C"/>
+        <port name="Q" clock="C" />
       </output_ports>
     </model>
     <model name="scff">
       <input_ports>
-        <port name="D" clock="clk"/>
-        <port name="E" clock="clk"/>
-        <port name="LR" clock="clk"/>
-        <port name="R" clock="clk"/>
-        <port name="SI" clock="clk"/>
-        <port name="clk" is_clock="1"/>
+        <port name="D" clock="clk" />
+        <port name="E" clock="clk" />
+        <port name="LR" clock="clk" />
+        <port name="R" clock="clk" />
+        <port name="SI" clock="clk" />
+        <port name="clk" is_clock="1" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="clk"/>
-        <port name="SO" clock="clk"/>
+        <port name="Q" clock="clk" />
+        <port name="SO" clock="clk" />
       </output_ports>
     </model>
     <model name="sdffnre">
       <input_ports>
-        <port name="C" is_clock="1"/>
-        <port name="D" clock="C"/>
-        <port name="E" clock="C"/>
-        <port name="R" clock="C"/>
+        <port name="C" is_clock="1" />
+        <port name="D" clock="C" />
+        <port name="E" clock="C" />
+        <port name="R" clock="C" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="C"/>
+        <port name="Q" clock="C" />
       </output_ports>
     </model>
     <model name="sdffre">
       <input_ports>
-        <port name="C" is_clock="1"/>
-        <port name="D" clock="C"/>
-        <port name="E" clock="C"/>
-        <port name="R" clock="C"/>
+        <port name="C" is_clock="1" />
+        <port name="D" clock="C" />
+        <port name="E" clock="C" />
+        <port name="R" clock="C" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="C"/>
+        <port name="Q" clock="C" />
       </output_ports>
     </model>
     <model name="sh_dffnre">
       <input_ports>
-        <port name="C" is_clock="1"/>
-        <port name="D" clock="C"/>
-        <port name="E" clock="C"/>
-        <port name="R" clock="C"/>
+        <port name="C" is_clock="1" />
+        <port name="D" clock="C" />
+        <port name="E" clock="C" />
+        <port name="R" clock="C" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="C"/>
+        <port name="Q" clock="C" />
       </output_ports>
     </model>
     <model name="sh_dffre">
       <input_ports>
-        <port name="C" is_clock="1"/>
-        <port name="D" clock="C"/>
-        <port name="E" clock="C"/>
-        <port name="R" clock="C"/>
+        <port name="C" is_clock="1" />
+        <port name="D" clock="C" />
+        <port name="E" clock="C" />
+        <port name="R" clock="C" />
       </input_ports>
       <output_ports>
-        <port name="Q" clock="C"/>
+        <port name="Q" clock="C" />
       </output_ports>
     </model>
     <model name="const0">
       <input_ports>
-		</input_ports>
+      </input_ports>
       <output_ports>
-        <port name="out"/>
+        <port name="out" />
       </output_ports>
     </model>
   </models>
@@ -165,214 +165,210 @@
     <tile name="io_top" area="0">
       <sub_tile name="io_top" capacity="20">
         <equivalent_sites>
-          <site pb_type="io"/>
+          <site pb_type="io" />
         </equivalent_sites>
-        <clock name="clk" num_pins="4"/>
-        <input name="f2a_i" num_pins="1"/>
-        <output name="a2f_o" num_pins="1"/>
-        <input name="sc_in" num_pins="1"/>
-        <output name="sc_out" num_pins="1"/>
-        <input name="reset" num_pins="1" is_non_clock_global="true"/>
-        <input name="scan_reset" num_pins="1" is_non_clock_global="true"/>
+        <clock name="clk" num_pins="4" />
+        <input name="f2a_i" num_pins="1" />
+        <output name="a2f_o" num_pins="1" />
+        <input name="sc_in" num_pins="1" />
+        <output name="sc_out" num_pins="1" />
+        <input name="reset" num_pins="1" is_non_clock_global="true" />
+        <input name="scan_reset" num_pins="1" is_non_clock_global="true" />
         <fc in_type="frac" in_val="1" out_type="frac" out_val="1">
-          <fc_override port_name="clk" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="reset" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0"/>
+          <fc_override port_name="clk" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
+          <fc_override port_name="reset" fc_type="frac" fc_val="0" />
+          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0" />
         </fc>
         <pinlocations pattern="custom">
-          <loc side="bottom">io_top.scan_reset io_top.clk io_top.sc_in io_top.sc_out io_top.reset</loc>
-          <loc side="right">io_top.f2a_i io_top.a2f_o</loc>
+          <loc side="top">io_top.scan_reset io_top.clk io_top.sc_in io_top.sc_out io_top.reset
+            io_top.f2a_i io_top.a2f_o</loc>
         </pinlocations>
       </sub_tile>
     </tile>
     <tile name="io_right" area="0">
       <sub_tile name="io_right" capacity="20">
         <equivalent_sites>
-          <site pb_type="io"/>
+          <site pb_type="io" />
         </equivalent_sites>
-        <clock name="clk" num_pins="4"/>
-        <input name="f2a_i" num_pins="1"/>
-        <output name="a2f_o" num_pins="1"/>
-        <input name="sc_in" num_pins="1"/>
-        <output name="sc_out" num_pins="1"/>
-        <input name="reset" num_pins="1" is_non_clock_global="true"/>
-        <input name="scan_reset" num_pins="1" is_non_clock_global="true"/>
+        <clock name="clk" num_pins="4" />
+        <input name="f2a_i" num_pins="1" />
+        <output name="a2f_o" num_pins="1" />
+        <input name="sc_in" num_pins="1" />
+        <output name="sc_out" num_pins="1" />
+        <input name="reset" num_pins="1" is_non_clock_global="true" />
+        <input name="scan_reset" num_pins="1" is_non_clock_global="true" />
         <fc in_type="frac" in_val="1" out_type="frac" out_val="1">
-          <fc_override port_name="clk" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="reset" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0"/>
+          <fc_override port_name="clk" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
+          <fc_override port_name="reset" fc_type="frac" fc_val="0" />
+          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0" />
         </fc>
         <pinlocations pattern="custom">
-          <loc side="bottom">io_right.scan_reset io_right.clk io_right.sc_in io_right.sc_out io_right.reset</loc>
-          <loc side="top">io_right.f2a_i io_right.a2f_o</loc>
+          <loc side="top">io_right.scan_reset io_right.clk io_right.sc_in io_right.sc_out
+            io_right.reset io_right.f2a_i io_right.a2f_o</loc>
         </pinlocations>
       </sub_tile>
     </tile>
     <tile name="io_bottom" area="0">
       <sub_tile name="io_bottom" capacity="20">
         <equivalent_sites>
-          <site pb_type="io"/>
+          <site pb_type="io" />
         </equivalent_sites>
-        <clock name="clk" num_pins="4"/>
-        <input name="f2a_i" num_pins="1"/>
-        <output name="a2f_o" num_pins="1"/>
-        <input name="sc_in" num_pins="1"/>
-        <output name="sc_out" num_pins="1"/>
-        <input name="reset" num_pins="1" is_non_clock_global="true"/>
-        <input name="scan_reset" num_pins="1" is_non_clock_global="true"/>
+        <clock name="clk" num_pins="4" />
+        <input name="f2a_i" num_pins="1" />
+        <output name="a2f_o" num_pins="1" />
+        <input name="sc_in" num_pins="1" />
+        <output name="sc_out" num_pins="1" />
+        <input name="reset" num_pins="1" is_non_clock_global="true" />
+        <input name="scan_reset" num_pins="1" is_non_clock_global="true" />
         <fc in_type="frac" in_val="1" out_type="frac" out_val="1">
-          <fc_override port_name="clk" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="reset" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0"/>
+          <fc_override port_name="clk" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
+          <fc_override port_name="reset" fc_type="frac" fc_val="0" />
+          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0" />
         </fc>
         <pinlocations pattern="custom">
-          <loc side="bottom">io_bottom.scan_reset io_bottom.clk io_bottom.sc_in io_bottom.sc_out io_bottom.reset</loc>
-          <loc side="right">io_bottom.f2a_i io_bottom.a2f_o</loc>
+          <loc side="top">io_bottom.scan_reset io_bottom.clk io_bottom.sc_in io_bottom.sc_out
+            io_bottom.reset io_bottom.f2a_i io_bottom.a2f_o</loc>
         </pinlocations>
       </sub_tile>
     </tile>
     <tile name="io_left" area="0">
       <sub_tile name="io_left" capacity="20">
         <equivalent_sites>
-          <site pb_type="io"/>
+          <site pb_type="io" />
         </equivalent_sites>
-        <clock name="clk" num_pins="4"/>
-        <input name="f2a_i" num_pins="1"/>
-        <output name="a2f_o" num_pins="1"/>
-        <input name="sc_in" num_pins="1"/>
-        <output name="sc_out" num_pins="1"/>
-        <input name="reset" num_pins="1" is_non_clock_global="true"/>
-        <input name="scan_reset" num_pins="1" is_non_clock_global="true"/>
+        <clock name="clk" num_pins="4" />
+        <input name="f2a_i" num_pins="1" />
+        <output name="a2f_o" num_pins="1" />
+        <input name="sc_in" num_pins="1" />
+        <output name="sc_out" num_pins="1" />
+        <input name="reset" num_pins="1" is_non_clock_global="true" />
+        <input name="scan_reset" num_pins="1" is_non_clock_global="true" />
         <fc in_type="frac" in_val="1" out_type="frac" out_val="1">
-          <fc_override port_name="clk" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="reset" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0"/>
+          <fc_override port_name="clk" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
+          <fc_override port_name="reset" fc_type="frac" fc_val="0" />
+          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0" />
         </fc>
         <pinlocations pattern="custom">
-          <loc side="bottom">io_left.scan_reset io_left.clk io_left.sc_in io_left.sc_out io_left.reset</loc>
-          <loc side="top">io_left.f2a_i io_left.a2f_o</loc>
+          <loc side="top">io_left.scan_reset io_left.clk io_left.sc_in io_left.sc_out
+            io_left.reset io_left.f2a_i io_left.a2f_o</loc>
         </pinlocations>
       </sub_tile>
     </tile>
     <tile name="corner_left_top" area="0">
       <sub_tile name="io_left" capacity="20">
         <equivalent_sites>
-          <site pb_type="io_empty"/>
+          <site pb_type="io_empty" />
         </equivalent_sites>
-        <output name="a2f_o" num_pins="1"/>
-        <input name="sc_in" num_pins="1"/>
-        <output name="sc_out" num_pins="1"/>
+        <output name="a2f_o" num_pins="1" />
+        <input name="sc_in" num_pins="1" />
+        <output name="sc_out" num_pins="1" />
         <fc in_type="frac" in_val="0.15" out_type="frac" out_val="0.15">
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
         </fc>
         <pinlocations pattern="custom">
-          <loc side="bottom">io_left.sc_in io_left.sc_out</loc>
-          <loc side="top">io_left[9:0].a2f_o</loc>
-          <loc side="right">io_left[19:10].a2f_o</loc>
+          <loc side="top">io_left.sc_in io_left.sc_out io_left[9:0].a2f_o io_left[19:10].a2f_o</loc>
         </pinlocations>
       </sub_tile>
     </tile>
     <tile name="corner_left_bottom" area="0">
       <sub_tile name="io_left" capacity="20">
         <equivalent_sites>
-          <site pb_type="io_empty"/>
+          <site pb_type="io_empty" />
         </equivalent_sites>
-        <output name="a2f_o" num_pins="1"/>
-        <input name="sc_in" num_pins="1"/>
-        <output name="sc_out" num_pins="1"/>
+        <output name="a2f_o" num_pins="1" />
+        <input name="sc_in" num_pins="1" />
+        <output name="sc_out" num_pins="1" />
         <fc in_type="frac" in_val="0.15" out_type="frac" out_val="0.15">
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
         </fc>
         <pinlocations pattern="custom">
-          <loc side="bottom">io_left.sc_in io_left.sc_out</loc>
-          <loc side="top">io_left[9:0].a2f_o</loc>
-          <loc side="right">io_left[19:10].a2f_o</loc>
+          <loc side="top">io_left.sc_in io_left.sc_out io_left[9:0].a2f_o io_left[19:10].a2f_o</loc>
         </pinlocations>
       </sub_tile>
     </tile>
     <tile name="corner_right_top" area="0">
       <sub_tile name="io_right" capacity="20">
         <equivalent_sites>
-          <site pb_type="io_empty"/>
+          <site pb_type="io_empty" />
         </equivalent_sites>
-        <output name="a2f_o" num_pins="1"/>
-        <input name="sc_in" num_pins="1"/>
-        <output name="sc_out" num_pins="1"/>
+        <output name="a2f_o" num_pins="1" />
+        <input name="sc_in" num_pins="1" />
+        <output name="sc_out" num_pins="1" />
         <fc in_type="frac" in_val="0.15" out_type="frac" out_val="0.15">
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
         </fc>
         <pinlocations pattern="custom">
-          <loc side="bottom">io_right.sc_in io_right.sc_out</loc>
-          <loc side="top">io_right[9:0].a2f_o</loc>
-          <loc side="right">io_right[19:10].a2f_o</loc>
+          <loc side="top">io_right.sc_in io_right.sc_out io_right[9:0].a2f_o io_right[19:10].a2f_o</loc>
         </pinlocations>
       </sub_tile>
     </tile>
     <tile name="corner_right_bottom" area="0">
       <sub_tile name="io_right" capacity="20">
         <equivalent_sites>
-          <site pb_type="io_empty"/>
+          <site pb_type="io_empty" />
         </equivalent_sites>
-        <output name="a2f_o" num_pins="1"/>
-        <input name="sc_in" num_pins="1"/>
-        <output name="sc_out" num_pins="1"/>
+        <output name="a2f_o" num_pins="1" />
+        <input name="sc_in" num_pins="1" />
+        <output name="sc_out" num_pins="1" />
         <fc in_type="frac" in_val="0.15" out_type="frac" out_val="0.15">
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
         </fc>
         <pinlocations pattern="custom">
-          <loc side="bottom">io_right.sc_in io_right.sc_out</loc>
-          <loc side="top">io_right[9:0].a2f_o</loc>
-          <loc side="right">io_right[19:10].a2f_o</loc>
+          <loc side="top">io_right.sc_in io_right.sc_out io_right[9:0].a2f_o io_right[19:10].a2f_o</loc>
         </pinlocations>
       </sub_tile>
     </tile>
     <tile name="clb" area="0">
       <sub_tile name="clb">
         <equivalent_sites>
-          <site pb_type="clb"/>
+          <site pb_type="clb" />
         </equivalent_sites>
-        <input name="I00" num_pins="10" equivalent="full"/>
-        <input name="I01" num_pins="10" equivalent="full"/>
-        <input name="I02" num_pins="10" equivalent="full"/>
-        <input name="I03" num_pins="10" equivalent="full"/>
-        <input name="IC0" num_pins="3" equivalent="none"/>
-        <output name="O0" num_pins="20" equivalent="none"/>
-        <input name="sc_in" num_pins="1"/>
-        <input name="cin" num_pins="1"/>
-        <input name="reset" num_pins="1" is_non_clock_global="true"/>
-        <input name="scan_reset" num_pins="1" is_non_clock_global="true"/>
-        <!--input name="reg_in" num_pins="1"/-->
-        <output name="sc_out" num_pins="1"/>
-        <output name="cout" num_pins="1"/>
-        <!--output name="reg_out" num_pins="1"/-->
-        <clock name="clk" num_pins="4"/>
+        <input name="I00" num_pins="10" equivalent="full" />
+        <input name="I01" num_pins="10" equivalent="full" />
+        <input name="I02" num_pins="10" equivalent="full" />
+        <input name="I03" num_pins="10" equivalent="full" />
+        <input name="IC0" num_pins="3" equivalent="none" />
+        <output name="O0" num_pins="20" equivalent="none" />
+        <input name="sc_in" num_pins="1" />
+        <input name="cin" num_pins="1" />
+        <input name="reset" num_pins="1" is_non_clock_global="true" />
+        <input name="scan_reset" num_pins="1" is_non_clock_global="true" />
+        <!--input
+        name="reg_in" num_pins="1"/-->
+        <output name="sc_out" num_pins="1" />
+        <output name="cout" num_pins="1" />
+        <!--output
+        name="reg_out" num_pins="1"/-->
+        <clock name="clk" num_pins="4" />
         <!-- Each input of the tile can be driven by 15% of routing tracks
            Each output of the tile can drive 15% of routing tracks
            There are two pins (sc_in, sc_out) has not connection
            to routing tracks. There are directed wired from/to adjacent CLBs
         -->
         <fc in_type="frac" in_val="0.15" out_type="frac" out_val="0.15">
-          <fc_override port_name="sc_in" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="sc_out" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="cin" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="cout" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="clk" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="reset" fc_type="frac" fc_val="0"/>
-          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0"/>
-          <!--fc_override port_name="reg_in" fc_type="frac" fc_val="0"/-->
-          <!--fc_override port_name="reg_out" fc_type="frac" fc_val="0"/-->
+          <fc_override port_name="sc_in" fc_type="frac" fc_val="0" />
+          <fc_override port_name="sc_out" fc_type="frac" fc_val="0" />
+          <fc_override port_name="cin" fc_type="frac" fc_val="0" />
+          <fc_override port_name="cout" fc_type="frac" fc_val="0" />
+          <fc_override port_name="clk" fc_type="frac" fc_val="0" />
+          <fc_override port_name="reset" fc_type="frac" fc_val="0" />
+          <fc_override port_name="scan_reset" fc_type="frac" fc_val="0" />
+          <!--fc_override
+          port_name="reg_in" fc_type="frac" fc_val="0"/-->
+          <!--fc_override
+          port_name="reg_out" fc_type="frac" fc_val="0"/-->
         </fc>
         <!-- Highly recommand to customize pin location when direct connection is used!!! -->
         <!-- To ensure best tileable routing architecture (minimize the number of unique SBs
@@ -380,112 +376,124 @@
                Top side pins are mainly for direct connections
             -->
         <pinlocations pattern="custom">
-          <loc side="left">  clb.sc_in clb.sc_out clb.cin clb.cout clb.clk
-                                  clb.reset clb.scan_reset</loc>
-          <loc side="top">   clb.I00[9:0] clb.I01[9:0] clb.O0[19:10]</loc>
-          <loc side="right"> clb.I02[9:0] clb.I03[9:0] clb.O0[9:0] clb.IC0[2:0]</loc>
-          <loc side="bottom"/>
+          <loc side="top"> clb.sc_in clb.sc_out clb.cin clb.cout clb.clk
+            clb.reset clb.scan_reset clb.I00[9:0] clb.I01[9:0] clb.O0[19:10] clb.I02[9:0]
+            clb.I03[9:0] clb.O0[9:0] clb.IC0[2:0]</loc>
         </pinlocations>
       </sub_tile>
     </tile>
   </tiles>
   <device>
-    <sizing R_minW_nmos="8926" R_minW_pmos="16067"/>
-    <!-- The grid_logic_tile_area below will be used for all blocks that do not explicitly set their own (non-routing)
+    <sizing R_minW_nmos="8926" R_minW_pmos="16067" />
+    <!-- The grid_logic_tile_area below will be used for all blocks that do not explicitly set their
+    own (non-routing)
          area; set to 0 since we explicitly set the area of all blocks currently in this architecture file.
       -->
-    <area grid_logic_tile_area="0"/>
+    <area grid_logic_tile_area="0" />
     <chan_width_distr>
-      <x distr="uniform" peak="1.000000"/>
-      <y distr="uniform" peak="1.000000"/>
+      <x distr="uniform" peak="1.000000" />
+      <y distr="uniform" peak="1.000000" />
     </chan_width_distr>
     <!-- Use Wilton-style connecting pattern in switch block
          Each routing track has access to only three other routing tracks
          (one per each side of the switch block except the side where the routing track locates)
       -->
-    <switch_block type="wilton" fs="3" sub_type="subset" sub_fs="3"/>
-    <connection_block input_switch_name="ipin_cblock"/>
+    <switch_block type="wilton" fs="3" sub_type="subset" sub_fs="3" />
+    <connection_block input_switch_name="ipin_cblock" />
   </device>
   <switchlist>
-    <switch type="mux" name="ipin_cblock" R="0." Cout="0." Cin="0" Tdel="9.999e-08" mux_trans_size="1.222260" buf_size="auto"/>
-    <!--switch type="mux" name="L2_mux" R="0." Cin=".77e-15" Cout="0." Tdel="9.999e-08" mux_trans_size="2.630740" buf_size="27.645901"/-->
-    <switch type="mux" name="L4_mux" R="0." Cin=".77e-15" Cout="0." Tdel="9.999e-08" mux_trans_size="2.630740" buf_size="27.645901"/>
-    <switch type="mux" name="L1_mux" R="0." Cin=".77e-15" Cout="0." Tdel="9.999e-08" mux_trans_size="2.630740" buf_size="27.645901"/>
+    <switch type="mux" name="ipin_cblock" R="0." Cout="0." Cin="0" Tdel="9.999e-08"
+      mux_trans_size="1.222260" buf_size="auto" />
+    <!--switch
+    type="mux" name="L2_mux" R="0." Cin=".77e-15" Cout="0." Tdel="9.999e-08"
+    mux_trans_size="2.630740" buf_size="27.645901"/-->
+    <switch type="mux" name="L4_mux" R="0." Cin=".77e-15" Cout="0." Tdel="9.999e-08"
+      mux_trans_size="2.630740" buf_size="27.645901" />
+    <switch type="mux" name="L1_mux" R="0." Cin=".77e-15" Cout="0." Tdel="9.999e-08"
+      mux_trans_size="2.630740" buf_size="27.645901" />
   </switchlist>
   <segmentlist>
     <segment name="L4" freq="1" length="4" type="unidir" Rmetal="0" Cmetal="0">
-      <mux name="L4_mux"/>
+      <mux name="L4_mux" />
       <sb type="pattern">1 1 1 1 1</sb>
       <cb type="pattern">1 1 1 1</cb>
     </segment>
   </segmentlist>
   <directlist>
-    <direct name="carry_chain" from_pin="clb.cout" to_pin="clb.cin" x_offset="0" y_offset="-1" z_offset="0"/>
-    <direct name="scff_chain" from_pin="clb.sc_out" to_pin="clb.sc_in" x_offset="0" y_offset="-1" z_offset="0"/>
+    <direct name="carry_chain" from_pin="clb.cout" to_pin="clb.cin" x_offset="0" y_offset="-1"
+      z_offset="0" />
+    <direct name="scff_chain" from_pin="clb.sc_out" to_pin="clb.sc_in" x_offset="0" y_offset="-1"
+      z_offset="0" />
   </directlist>
   <complexblocklist>
     <pb_type name="io">
-      <clock name="clk" num_pins="4"/>
-      <input name="f2a_i" num_pins="1"/>
-      <output name="a2f_o" num_pins="1"/>
-      <input name="sc_in" num_pins="1"/>
-      <output name="sc_out" num_pins="1"/>
-      <input name="reset" num_pins="1" is_non_clock_global="true"/>
-      <input name="scan_reset" num_pins="1" is_non_clock_global="true"/>
+      <clock name="clk" num_pins="4" />
+      <input name="f2a_i" num_pins="1" />
+      <output name="a2f_o" num_pins="1" />
+      <input name="sc_in" num_pins="1" />
+      <output name="sc_out" num_pins="1" />
+      <input name="reset" num_pins="1" is_non_clock_global="true" />
+      <input name="scan_reset" num_pins="1" is_non_clock_global="true" />
     </pb_type>
     <pb_type name="io_empty">
-      <output name="a2f_o" num_pins="1"/>
-      <input name="sc_in" num_pins="1"/>
-      <output name="sc_out" num_pins="1"/>
+      <output name="a2f_o" num_pins="1" />
+      <input name="sc_in" num_pins="1" />
+      <output name="sc_out" num_pins="1" />
     </pb_type>
     <pb_type name="clb">
-      <input name="I00" num_pins="10" equivalent="full"/>
-      <input name="I01" num_pins="10" equivalent="full"/>
-      <input name="I02" num_pins="10" equivalent="full"/>
-      <input name="I03" num_pins="10" equivalent="full"/>
-      <input name="IC0" num_pins="3" equivalent="none"/>
-      <output name="O0" num_pins="20" equivalent="none"/>
-      <input name="sc_in" num_pins="1"/>
-      <input name="cin" num_pins="1"/>
-      <input name="reset" num_pins="1" is_non_clock_global="true"/>
-      <input name="scan_reset" num_pins="1" is_non_clock_global="true"/>
-      <!--input name="reg_in" num_pins="1"/-->
-      <output name="sc_out" num_pins="1"/>
-      <output name="cout" num_pins="1"/>
-      <!--output name="reg_out" num_pins="1"/-->
-      <clock name="clk" num_pins="4"/>
+      <input name="I00" num_pins="10" equivalent="full" />
+      <input name="I01" num_pins="10" equivalent="full" />
+      <input name="I02" num_pins="10" equivalent="full" />
+      <input name="I03" num_pins="10" equivalent="full" />
+      <input name="IC0" num_pins="3" equivalent="none" />
+      <output name="O0" num_pins="20" equivalent="none" />
+      <input name="sc_in" num_pins="1" />
+      <input name="cin" num_pins="1" />
+      <input name="reset" num_pins="1" is_non_clock_global="true" />
+      <input name="scan_reset" num_pins="1" is_non_clock_global="true" />
+      <!--input
+      name="reg_in" num_pins="1"/-->
+      <output name="sc_out" num_pins="1" />
+      <output name="cout" num_pins="1" />
+      <!--output
+      name="reg_out" num_pins="1"/-->
+      <clock name="clk" num_pins="4" />
     </pb_type>
   </complexblocklist>
   <layout tileable="true" through_channel="true">
     <auto_layout aspect_ratio="1.0">
-      <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
-      <row type="io_top" starty="H-1" priority="100"/>
-      <row type="io_bottom" starty="0" priority="100"/>
-      <col type="io_left" startx="0" priority="100"/>
-      <col type="io_right" startx="W-1" priority="100"/>
-      <corners type="EMPTY" priority="101"/>
-      <!--Fill with 'clb'-->
-      <fill type="clb" priority="10"/>
+      <!--Perimeter
+      of 'io' blocks with 'EMPTY' blocks at corners-->
+      <row type="io_top" starty="H-1" priority="100" />
+      <row type="io_bottom" starty="0" priority="100" />
+      <col type="io_left" startx="0" priority="100" />
+      <col type="io_right" startx="W-1" priority="100" />
+      <corners type="EMPTY" priority="101" />
+      <!--Fill
+      with 'clb'-->
+      <fill type="clb" priority="10" />
     </auto_layout>
     <fixed_layout name="FPGA44" width="8" height="8">
-      <!--Default perimeter to 'io' blocks (then add 'EMPTY' blocks at corners)-->
-      <row type="io_top" starty="H-2" priority="100"/>
-      <row type="io_bottom" starty="1" priority="100"/>
-      <col type="io_left" startx="1" priority="100"/>
-      <col type="io_right" startx="W-2" priority="100"/>
+      <!--Default
+      perimeter to 'io' blocks (then add 'EMPTY' blocks at corners)-->
+      <row type="io_top" starty="H-2" priority="100" />
+      <row type="io_bottom" starty="1" priority="100" />
+      <col type="io_left" startx="1" priority="100" />
+      <col type="io_right" startx="W-2" priority="100" />
       <!-- Corner IOs -->
-      <single type="corner_left_bottom" x="1" y="1" priority="110"/>
-      <single type="corner_left_top" x="1" y="H-2" priority="110"/>
-      <single type="corner_right_bottom" x="W-2" y="1" priority="110"/>
-      <single type="corner_right_top" x="W-2" y="H-2" priority="110"/>
+      <single type="corner_left_bottom" x="1" y="1" priority="110" />
+      <single type="corner_left_top" x="1" y="H-2" priority="110" />
+      <single type="corner_right_bottom" x="W-2" y="1" priority="110" />
+      <single type="corner_right_top" x="W-2" y="H-2" priority="110" />
       <!-- Empty -->
-      <row type="EMPTY" starty="H-1" priority="100"/>
-      <row type="EMPTY" starty="0" priority="100"/>
-      <col type="EMPTY" startx="0" priority="100"/>
-      <col type="EMPTY" startx="W-1" priority="100"/>
-      <corners type="EMPTY" priority="101"/>
-      <!--Fill with 'clb'-->
-      <fill type="clb" priority="10"/>
+      <row type="EMPTY" starty="H-1" priority="100" />
+      <row type="EMPTY" starty="0" priority="100" />
+      <col type="EMPTY" startx="0" priority="100" />
+      <col type="EMPTY" startx="W-1" priority="100" />
+      <corners type="EMPTY" priority="101" />
+      <!--Fill
+      with 'clb'-->
+      <fill type="clb" priority="10" />
     </fixed_layout>
   </layout>
 </architecture>

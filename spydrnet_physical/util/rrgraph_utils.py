@@ -83,7 +83,7 @@ class rrgraph(rrgraph_bin2xml):
 
         tile_dim = {}
         for tile in root.findall("tiles/tile"):
-            tile_name = tile.attrib["name"]
+            t_name = tile.attrib["name"]
             pins = []
             tile_dim[tile.attrib["name"]] = {
                 "width": tile.attrib.get("width", 1),
@@ -92,30 +92,40 @@ class rrgraph(rrgraph_bin2xml):
             }
 
             block_capacity = int(tile.find("sub_tile").attrib.get("capacity", 1))
+            ptc = 0
             for t_idx in range(block_capacity):
                 t_idx = f"[{t_idx}]" if block_capacity > 1 else ""
                 for pin in tile.findall("sub_tile/input"):
                     p_name = pin.attrib["name"]
                     p_num = int(pin.attrib.get("num_pins", 1))
                     if pin.attrib.get("equivalent", "none") == "full":
-                        pins.append(("I", f"{tile_name}{t_idx}.{p_name}[0:{p_num}]"))
+                        pins.append(("I", f"{t_name}{t_idx}.{p_name}[0:{p_num}]", ptc))
+                        ptc += 1
                     else:
                         for p_num in range(p_num):
-                            pins.append(("I", f"{tile_name}{t_idx}.{p_name}[{p_num}]"))
+                            pins.append(
+                                ("I", f"{t_name}{t_idx}.{p_name}[{p_num}]", ptc)
+                            )
+                            ptc += 1
 
                 for pin in tile.findall("sub_tile/output"):
                     p_name = pin.attrib["name"]
                     p_num = int(pin.attrib.get("num_pins", 1))
                     if pin.attrib.get("equivalent", "none") == "full":
-                        pins.append(("O", f"{tile_name}{t_idx}.{p_name}[0:{p_num}]"))
+                        pins.append(("O", f"{t_name}{t_idx}.{p_name}[0:{p_num}]", ptc))
+                        ptc += 1
                     else:
                         for p_num in range(p_num):
-                            pins.append(("O", f"{tile_name}{t_idx}.{p_name}[{p_num}]"))
+                            pins.append(
+                                ("O", f"{t_name}{t_idx}.{p_name}[{p_num}]", ptc)
+                            )
+                            ptc += 1
 
                 for pin in tile.findall("sub_tile/clock"):
                     p_name = pin.attrib["name"]
                     for p_num in range(int(pin.attrib.get("num_pins", 1))):
-                        pins.append(("I", f"{tile_name}{t_idx}.{p_name}[{p_num}]"))
+                        pins.append(("I", f"{t_name}{t_idx}.{p_name}[{p_num}]", ptc))
+                        ptc += 1
 
             self.create_block(
                 tile.attrib["name"],
@@ -132,20 +142,16 @@ class rrgraph(rrgraph_bin2xml):
             layout=layout,
         )
         fpga_grid.enumerate_grid()
-        for x in range(self.width):
-            for y in range(self.height):
-                self.add_grid_block(
-                    fpga_grid.grid[y][x], x, y, layer=0, x_offset=0, y_offset=0
-                )
+        for x, y in product(range(self.width), range(self.height)):
+            self.add_grid_block(
+                fpga_grid.grid[y][x], x, y, layer=0, x_offset=0, y_offset=0
+            )
 
         # Create IPIN and OPIN nodes
         self.chan_node_lookup = [
             [{} for _ in range(self.height)] for _ in range(self.width)
         ]
         self.pin_node_lookup = [
-            [{} for _ in range(self.height)] for _ in range(self.width)
-        ]
-        self.source_sink_node_lookup = [
             [{} for _ in range(self.height)] for _ in range(self.width)
         ]
 
@@ -185,7 +191,7 @@ class rrgraph(rrgraph_bin2xml):
         """
         return self.create_pin_node(x, y, side, ptc, node_type="opin")
 
-    def create_pin_node(self, x, y, side, ptc, node_type="ipin"):
+    def create_pin_node(self, x, y, side, ptc, node_type="ipin", capacity=1):
         """
         Creates a pin node with the specified parameters and adds it to
         the pin node lookup.
@@ -201,23 +207,23 @@ class rrgraph(rrgraph_bin2xml):
         """
         node = rr_capnp.Node.new_message(
             id=self.node_id,
-            capacity=1,
+            capacity=capacity,
             type=node_type.lower(),
             loc=rr_capnp.NodeLoc.new_message(
-                xlow=x,
-                xhigh=x,
-                ylow=y,
-                yhigh=y,
+                xlow=y,
+                xhigh=y,
+                ylow=x,
+                yhigh=x,
                 ptc=str(ptc),
             ),
             timing=rr_capnp.NodeTiming.new_message(r=0, c=0),
             segment=rr_capnp.NodeSegment.new_message(),
         )
+        node_hash = (int(ptc), node_type.lower())
         if node_type.lower() in ("ipin", "opin"):
             node.loc.side = side
-            self.pin_node_lookup[x - 1][y - 1][(int(ptc), None)] = node
-        else:
-            self.source_sink_node_lookup[x - 1][y - 1][(int(ptc), None)] = node
+
+        self.pin_node_lookup[x - 1][y - 1][node_hash] = node
         self.node_id += 1
         return node
 
@@ -275,7 +281,7 @@ class rrgraph(rrgraph_bin2xml):
                 xhigh=xhigh,
                 ylow=ylow,
                 yhigh=yhigh,
-                twist=2,
+                twist=0,
                 ptc=ptc_sequence,
             ),
             timing=rr_capnp.NodeTiming.new_message(r=0, c=0),
@@ -311,9 +317,9 @@ class rrgraph(rrgraph_bin2xml):
 
         for pin in sorted(pins, reverse=True, key=lambda x: x[0]):
             node = self.create_pin_node(
-                x, y, None, ptc, node_type={"I": "sink", "O": "source"}[pin[0]]
+                x, y, None, pin[2], node_type={"I": "sink", "O": "source"}[pin[0]]
             )
-            pin_nodes[pin] = node.id
+            pin_nodes[pin] = node
             ptc += 1
 
         for pin in sorted(pins, reverse=True, key=lambda x: x[0]):
@@ -327,13 +333,14 @@ class rrgraph(rrgraph_bin2xml):
             else:
                 pins_list.append(pin[1])
 
-            for i in pins_list:
+            for indx, i in enumerate(pins_list):
                 if pin[0] == "I":
                     node = self.create_ipin_nodes(x, y, "top", self.pin_to_ptc[i])
-                    self.create_edge(node.id, pin_nodes[pin], 0)
+                    self.create_edge(node.id, pin_nodes[pin].id, 0)
                 else:
                     node = self.create_opin_nodes(x, y, "top", self.pin_to_ptc[i])
-                    self.create_edge(pin_nodes[pin], node.id, 0)
+                    self.create_edge(pin_nodes[pin].id, node.id, 0)
+            pin_nodes[pin].capacity = len(pins_list)
 
     def create_block(
         self,
@@ -375,7 +382,7 @@ class rrgraph(rrgraph_bin2xml):
                 )
             )
             self.pin_to_ptc.update(
-                {pin: (ptc + indx) for indx, pin in enumerate(pins_list)}
+                {each: (ptc + indx) for indx, each in enumerate(pins_list)}
             )
             ptc += len(pins_list)
         block_type_ux.pinClasses = pinClasses
@@ -489,26 +496,11 @@ class rrgraph(rrgraph_bin2xml):
     def _update_nodes_edges(self):
         # Add nodes
         if len(self.rrgraph_bin.rrNodes.nodes) == 0:
-            self.rrgraph_bin.rrNodes.nodes = (
-                [
-                    n
-                    for col in self.source_sink_node_lookup
-                    for row in col
-                    for n in row.values()
-                ]
-                + [
-                    n
-                    for col in self.pin_node_lookup
-                    for row in col
-                    for n in row.values()
-                ]
-                + [
-                    n
-                    for col in self.chan_node_lookup
-                    for row in col
-                    for n in row.values()
-                ]
-            )
+            self.rrgraph_bin.rrNodes.nodes = [
+                n for col in self.pin_node_lookup for row in col for n in row.values()
+            ] + [
+                n for col in self.chan_node_lookup for row in col for n in row.values()
+            ]
 
         # Add edges
         if len(self.rrgraph_bin.rrEdges.edges) == 0:
