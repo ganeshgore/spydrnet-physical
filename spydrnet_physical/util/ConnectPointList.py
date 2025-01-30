@@ -88,8 +88,15 @@ class ConnectPointList:
             each.color = color
         return self
 
+    def adjust_for_layout(self, fpga_grid):
+        """ This method adjust pointes based on given FPGA grid """
+        fpga_grid.enumerate_grid()
+        for point in self.points:
+            point.from_connection = fpga_grid.get_block(*point.from_connection)[1:]
+            point.to_connection = fpga_grid.get_block(*point.to_connection)[1:]
+
     def store_points(self, filename):
-        ''' Stores all points and its attributes in csv format in the file '''
+        """Stores all points and its attributes in csv format in the file"""
         with open(filename, "w", encoding="UTF-8") as file_ptr:
             file_ptr.write("# Generated using SpyDrNet-physical plugin\n")
             file_ptr.write("# fr_x  fr_y  to_x  to_y  type   buffer\n")
