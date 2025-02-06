@@ -29,3 +29,4 @@ from spydrnet_physical.util.FloorPlanViz import FloorPlanViz
 from spydrnet_physical.util.fabric_key_ccff import FabricKeyGenCCFF
 # from spydrnet_physical.util.bitstream_manager import BitstreamManager, BitstreamBlock
 from spydrnet_physical.util.clean_gsb import clean_gsb, split_fabric_bitstream, merge_fabric_bitstream
+from spydrnet_physical.util.circuit_builder import circuit_builder
