@@ -6,7 +6,7 @@ like multiplexers (MUX), decoders, shift registers etc.
 """
 
 import logging
-import spydrnet_physical as sdn
+import spydrnet as sdn
 
 logger = logging.getLogger("spydrnet_logs")
 
@@ -54,7 +54,7 @@ class circuit_builder:
     @staticmethod
     def build_tree_like_mux(
         definition: sdn.Definition,
-        inputs: list[sdn.Wires],
+        inputs: list[sdn.Wire],
         mux_dictionary: dict,
         suffix="",
     ):
