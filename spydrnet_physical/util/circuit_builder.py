@@ -33,22 +33,25 @@ class circuit_builder:
             Instance: The created MUX instance.
         Raises:
             AssertionError: If the number of input pins in the reference module does not match the number of input wires.
+
+        Note: The input pins in the reference module should be named as `IN0`, `IN1`, `IN2`, etc.
+        and output pin named as `OUT`
         """
         # Create Mux Instance
         inst = top.create_child(name, reference=reference)
 
-        input_pins = next(reference.get_ports("in")).pins
+        input_ports = sorted(reference.get_ports("IN*"), key=lambda x: int(x.name[2:]))
         # TODO: Replace this with wire mismatch assertion error
-        assert len(input_pins) == len(
+        assert len(input_ports) == len(
             inputs_w
-        ), f"Number of input pins should match the number of input wires {len(input_pins)} != {len(inputs_w)}"
+        ), f"Number of input pins should match the number of input wires {len(input_ports)} != {len(inputs_w)}"
 
         # Connect input pins
-        for indx, each_pin in enumerate(input_pins):
-            inputs_w[indx].connect_pin(inst.pins[each_pin])
+        for indx, each_port in enumerate(input_ports):
+            inputs_w[indx].connect_pin(inst.pins[each_port.pins[0]])
 
         # Connect output pins
-        output_w.connect_pin(inst.pins[next(reference.get_ports("out")).pins[0]])
+        output_w.connect_pin(inst.pins[next(reference.get_ports("OUT")).pins[0]])
         return inst
 
     @staticmethod
