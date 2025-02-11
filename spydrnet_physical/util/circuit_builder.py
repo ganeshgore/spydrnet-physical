@@ -132,3 +132,23 @@ class circuit_builder:
 
         output_net = _mux_tree(inputs)
         return output_net
+
+    @staticmethod
+    def add_and_gate(
+        definition: sdn.Definition,
+        and_gate: sdn.Definition,
+        input_wires: list[sdn.Wire],
+        output_wire: sdn.Wire,
+        suffix="",
+    ):
+        inst = definition.create_child(f"and_gate{suffix}", reference=and_gate)
+
+        input_ports = sorted(and_gate.get_ports("IN*"), key=lambda x: int(x.name[2:]))
+
+        # Connect input pins
+        for indx, each_port in enumerate(input_ports):
+            input_wires[indx].connect_pin(inst.pins[each_port.pins[0]])
+
+        # Connect output pins
+        output_wire.connect_pin(inst.pins[next(and_gate.get_ports("OUT")).pins[0]])
+        return inst
