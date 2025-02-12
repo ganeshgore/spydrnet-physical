@@ -5,7 +5,7 @@ from types import GeneratorType
 logger = logging.getLogger("spydrnet_logs")
 
 
-def get_names(objects):
+def get_names(objects, attr="name"):
     """
     Returns name name of the verilog object (if the it contains name property)
 
@@ -23,7 +23,9 @@ def get_names(objects):
         )
     for each in objects:
         if isinstance(each, (ir.Cable, ir.Port, ir.Definition, ir.Instance)):
-            names.append(each.name)
+            for each_attr in attr.split("."):
+                each = getattr(each, each_attr)
+            names.append(each)
         else:
             logger.warning("Skipping unsupport object %s", type(each))
     return names
