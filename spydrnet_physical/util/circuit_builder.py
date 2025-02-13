@@ -100,7 +100,7 @@ class circuit_builder:
                 out_cable = definition.create_cable(mux_name, wires=1)
                 circuit_builder.create_mux_instance(
                     definition,
-                    mux_name,
+                    mux_name + "_inst",
                     mux_dictionary[mux_size],
                     inputs,
                     out_cable.wires[0],
