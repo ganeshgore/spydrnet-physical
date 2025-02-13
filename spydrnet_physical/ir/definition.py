@@ -475,7 +475,9 @@ class Definition(DefinitionBase):
                 )
 
                 # Create connection inside new definition
-                for eachPClone, eachP in zip(pClone.pins, p.pins):
+                pClone = p.clone()  # It copied all pins, wires and cables
+                tmp_pins = p.pins if pClone.is_downto else p.pins[::-1]
+                for eachPClone, eachP in zip(pClone.pins, tmp_pins):
                     w = newCable.create_wire()
                     w.connect_pin(eachPClone)
                     w.connect_pin(IntInst.pins[eachP])
