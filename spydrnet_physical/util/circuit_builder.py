@@ -20,6 +20,7 @@ class circuit_builder:
         reference: sdn.Definition,
         inputs_w: list[sdn.Wire],
         output_w: sdn.Wire,
+        select_w: list[sdn.Wire]
     ):
         """
         Creates a multiplexer (MUX) instance in the given top module with given multiplexer module.
@@ -50,6 +51,11 @@ class circuit_builder:
         for indx, each_port in enumerate(input_ports):
             inputs_w[indx].connect_pin(inst.pins[each_port.pins[0]])
 
+        select_pins = next(reference.get_ports("SEL")).pins
+        # Connect select pins
+        for indx, each_pin in enumerate(select_pins):
+            select_w[indx].connect_pin(inst.pins[each_pin])
+
         # Connect output pins
         output_w.connect_pin(inst.pins[next(reference.get_ports("OUT")).pins[0]])
         return inst
@@ -59,6 +65,7 @@ class circuit_builder:
         definition: sdn.Definition,
         inputs: list[sdn.Wire],
         mux_dictionary: dict,
+        select_cable=None,
         suffix="",
     ):
         """
@@ -86,7 +93,7 @@ class circuit_builder:
                 group_index:
             ]
 
-        def _mux_tree(inputs, level=0, stage=0):
+        def _mux_tree(inputs, level=0, stage=0, select_cable=None):
             logger.debug(f"Stage1 inputs: {len(inputs)}")
             # If single net return it as it is
             if len(inputs) == 1:
@@ -98,12 +105,18 @@ class circuit_builder:
                 mux_size = len(inputs)
                 mux_name = f"mux{mux_size}_{level}_{stage}{suffix}"
                 out_cable = definition.create_cable(mux_name, wires=1)
+                # print(len(select_cable.wires), stage+1)
+                if len(select_cable.wires) < level:
+                    select_cable.create_wires(level - len(select_cable.wires))
                 circuit_builder.create_mux_instance(
                     definition,
                     mux_name + "_inst",
                     mux_dictionary[mux_size],
                     inputs,
                     out_cable.wires[0],
+                    [
+                        select_cable._wires[level-1],
+                    ],
                 )
                 return out_cable.wires[0]
 
@@ -125,13 +138,19 @@ class circuit_builder:
                 if len(group) == 1:
                     next_level_inputs.extend(group)
                 else:
-                    next_wire = _mux_tree(group, level + 1, stage)
+                    next_wire = _mux_tree(group, level, stage, select_cable)
                     next_level_inputs.append(next_wire)
 
-            return _mux_tree(next_level_inputs, level + 2)
+            return _mux_tree(next_level_inputs, level + 1, 0, select_cable)
 
-        output_net = _mux_tree(inputs)
-        return output_net
+        if select_cable is None:
+            select_cable = next(definition.get_cables(f"select_{suffix}"), None)
+        if select_cable is None:
+            select_cable = definition.create_cable(
+                f"select_{suffix}", wires=1
+            )
+        output_net = _mux_tree(inputs, 1, 1, select_cable)
+        return output_net, select_cable
 
     @staticmethod
     def add_and_gate(
