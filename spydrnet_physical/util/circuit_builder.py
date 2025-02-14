@@ -6,6 +6,7 @@ like multiplexers (MUX), decoders, shift registers etc.
 """
 
 import logging
+import math
 import spydrnet as sdn
 
 logger = logging.getLogger("spydrnet_logs")
@@ -105,18 +106,18 @@ class circuit_builder:
                 mux_size = len(inputs)
                 mux_name = f"mux{mux_size}_{level}_{stage}{suffix}"
                 out_cable = definition.create_cable(mux_name, wires=1)
-                # print(len(select_cable.wires), stage+1)
-                if len(select_cable.wires) < level:
-                    select_cable.create_wires(level - len(select_cable.wires))
+                req_sel_lines = math.ceil(math.log2(len(inputs)))
+                if len(select_cable.wires) < level - 1 + req_sel_lines:
+                    select_cable.create_wires(
+                        level - 1 + req_sel_lines - len(select_cable.wires)
+                    )
                 circuit_builder.create_mux_instance(
                     definition,
                     mux_name + "_inst",
                     mux_dictionary[mux_size],
                     inputs,
                     out_cable.wires[0],
-                    [
-                        select_cable._wires[level-1],
-                    ],
+                    select_cable._wires[level - 1 :],
                 )
                 return out_cable.wires[0]
 
@@ -132,6 +133,9 @@ class circuit_builder:
                 else:
                     inputs = remaining
 
+            max_select_line = max(len(group) for group in grouped_inputs)
+            max_select_line = math.ceil(math.log2(max_select_line))
+
             # If group can be mapped to mux size, create mux and return output wire
             next_level_inputs = []
             for stage, group in enumerate(grouped_inputs):
@@ -141,7 +145,9 @@ class circuit_builder:
                     next_wire = _mux_tree(group, level, stage, select_cable)
                     next_level_inputs.append(next_wire)
 
-            return _mux_tree(next_level_inputs, level + 1, 0, select_cable)
+            return _mux_tree(
+                next_level_inputs, level + max_select_line, 0, select_cable
+            )
 
         if select_cable is None:
             select_cable = next(definition.get_cables(f"select_{suffix}"), None)
