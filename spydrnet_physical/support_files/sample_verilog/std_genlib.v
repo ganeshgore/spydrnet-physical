@@ -136,6 +136,28 @@ module DFF_NR(D, CLK, RESET, Q, QN);
     else
       Q <= 0;
 endmodule
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+// D-Flipflop with active low reset signal and enable signal
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+module DFF_NR_EN(D, CLK, RESET, ENABLE, Q, QN);
+  input D;
+  input CLK;
+  input RESET;
+  input ENABLE;
+  output Q;
+  output QN;
+
+  reg q_int;
+
+  assign QN = ~Q;
+  assign Q = (ENABLE) ? q_int : 0;
+  always@(posedge CLK)
+    if (RESET)
+      q_int <= D;
+    else
+      q_int <= 0;
+
+endmodule
 // = = = = = = = = = = = = = = = = = = = = = = = = = = =
 // De-MUX
 // SEL = 0, OUT0 = IN; SEL = 1, OUT1 = IN;

@@ -21,7 +21,7 @@ class circuit_builder:
         reference: sdn.Definition,
         inputs_w: list[sdn.Wire],
         output_w: sdn.Wire,
-        select_w: list[sdn.Wire]
+        select_w: list[sdn.Wire],
     ):
         """
         Creates a multiplexer (MUX) instance in the given top module with given multiplexer module.
@@ -152,9 +152,7 @@ class circuit_builder:
         if select_cable is None:
             select_cable = next(definition.get_cables(f"select_{suffix}"), None)
         if select_cable is None:
-            select_cable = definition.create_cable(
-                f"select_{suffix}", wires=1
-            )
+            select_cable = definition.create_cable(f"select_{suffix}", wires=1)
         output_net = _mux_tree(inputs, 1, 1, select_cable)
         return output_net, select_cable
 
@@ -177,3 +175,56 @@ class circuit_builder:
         # Connect output pins
         output_wire.connect_pin(inst.pins[next(and_gate.get_ports("OUT")).pins[0]])
         return inst
+
+    @staticmethod
+    def build_sipo_register(
+        library: sdn.Library,
+        flop_module: sdn.Definition,
+        width: int,
+        depth: int,
+        suffix="",
+    ):
+        sipo_def = library.create_definition("sipo_reg" + suffix,)
+        sipo_def.create_port("shift_in", direction=sdn.IN, pins=width)
+        sipo_def.create_port("reset", direction=sdn.IN, pins=1)
+        sipo_def.create_port("clock", direction=sdn.IN, pins=1)
+        sipo_def.create_port("enable", direction=sdn.IN, pins=1)
+        sipo_def.create_port("shift_out", direction=sdn.OUT, pins=width)
+        sipo_def.create_port("out", direction=sdn.OUT, pins=width * depth)
+
+        sipo_reset_w = sipo_def.create_cable("reset", wires=1).wires[0]
+        sipo_enable_w = sipo_def.create_cable("enable", wires=1).wires[0]
+        sipo_clk_w = sipo_def.create_cable("clock", wires=1).wires[0]
+        sipo_out_cable = sipo_def.create_cable("out", wires=width * depth)
+
+        for d in range(depth):
+            if d == 0:
+                in_cable = sipo_def.create_cable(f"shift_in", wires=depth)
+            else:
+                in_cable = out_cable
+            out_cable = sipo_def.create_cable(
+                f"shift_out" if d == depth-1 else f"shift_out_{d}", wires=depth
+            )
+            for w in range(width):
+                flop_inst = sipo_def.create_child(
+                    f"flop_{w}_{d}{suffix}", reference=flop_module
+                )
+                sipo_reset_w.connect_pin(
+                    flop_inst.pins[next(flop_module.get_ports("RESET")).pins[0]]
+                )
+                sipo_enable_w.connect_pin(
+                    flop_inst.pins[next(flop_module.get_ports("ENABLE")).pins[0]]
+                )
+                sipo_clk_w.connect_pin(
+                    flop_inst.pins[next(flop_module.get_ports("CLK")).pins[0]]
+                )
+                in_cable.wires[w].connect_pin(
+                    flop_inst.pins[next(flop_module.get_ports("D")).pins[0]]
+                )
+                out_cable.wires[w].connect_pin(
+                    flop_inst.pins[next(flop_module.get_ports("Q")).pins[0]]
+                )
+            out_cable.assign_cable(
+                sipo_out_cable, upper=(width * (d + 1)) - 1, lower=width * d
+            )
+        return sipo_def
