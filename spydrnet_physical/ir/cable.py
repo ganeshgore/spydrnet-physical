@@ -67,7 +67,7 @@ class Cable(CableBase):
         assert isinstance(port, Port), \
             "Argument to connect_port should be port"
         assert port.size, "Port has no pins"
-        assert port.size == self.size, "Port and cable size do not match"
+        assert port.size == self.size, f"Port and cable size do not match {port.size} != {self.size}"
         assert port in instance.reference.ports, \
             "Port %s in not part of instance definition %s" % \
             (port.name, instance.reference.name)
