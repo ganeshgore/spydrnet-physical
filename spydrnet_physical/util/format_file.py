@@ -27,8 +27,10 @@ def format_verilog():
     if assign_lib:
         for instance in next(assign_lib.get_definitions()).references:
             try:
-                instance.name = next(instance.get_port_pins("o")).wire.cable.name + \
-                str(next(instance.get_port_pins("o")).wire.index())
+                input_wire = next(instance.get_port_pins("i")).wire
+                output_wire = next(instance.get_port_pins("o")).wire
+                instance_name = output_wire.cable.name + "__" + str(output_wire.index())
+                instance.name = instance_name
             except StopIteration:
                 launch_shell()
 
