@@ -60,6 +60,13 @@ class Port(PortBase):
         args:
             name (str): Name of the ports
         '''
-        self.name = name
+        if self.definition:
+            port_cable = next(self.definition.get_cables(self.name), None)
+        else:
+            port_cable = None
         for pin in self.pins:
-            pin.wire.cable.name = name
+            if pin.wire:
+                pin.wire.cable.name = name
+            elif port_cable:
+                port_cable.name = name
+        self.name = name
