@@ -6,6 +6,7 @@ import os
 import json
 import logging
 import spydrnet as sdn
+from pathlib import Path
 
 logger = logging.getLogger('spydrnet_logs')
 
@@ -63,11 +64,11 @@ class SVGComposer:
 
         """
         # Create Verilog file for yosys synthesis
-        verilog_file = "_" + file_out.replace(".svg", ".v")
+        verilog_file = str(file_out).replace(".svg", "_.v")
         sdn.compose(netlist, verilog_file, skip_constraints=True)
         top = top_module or netlist.top_instance.reference.name
 
-        json_file = "_" + file_out.replace(".svg", ".json")
+        json_file = str(file_out).replace(".svg", "_.json")
         os.system(
             f"yosys -l _{top}_synth.log -p 'prep -top {top}; "
             + yosys_cmmds
