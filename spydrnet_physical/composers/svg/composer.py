@@ -8,7 +8,7 @@ import logging
 import spydrnet as sdn
 from pathlib import Path
 
-logger = logging.getLogger('spydrnet_logs')
+logger = logging.getLogger("spydrnet_logs")
 
 
 class SVGComposer:
@@ -24,36 +24,44 @@ class SVGComposer:
             "hierarchy": {
                 "enable": "modules",
                 "expandLevel": 1,
-                "expandModules": {
-                    "types": [],
-                    "ids": []
-                },
-                "colour": ["#e9e9e9"]
+                "expandModules": {"types": [], "ids": []},
+                "colour": ["#e9e9e9"],
             },
-            "top": {
-                "enable": False,
-                "module": ""
-            }
+            "top": {"enable": False, "module": ""},
         }
 
-    def expand_all(self):
+    def expand_all(self, netlist):
         """
         This will add add the modules without black
         box tags to the exapand list
         """
-        raise NotImplementedError
+        instance_names = [d.name for d in netlist.top_instance.get_instances()]
+        self.config["hierarchy"]["expandModules"]["ids"].extend(instance_names)
+        logger.debug(f"Expanding all [{len(instance_names)}] module. {instance_names}")
 
-    def expand(self, modules=(), instances=()):
+    def expand(self, modules=None, instances=None):
         """
         Adds modules or instances to the expand list
         """
-        self.config["hierarchy"]["expandModules"]["types"].extend(modules)
-        self.config["hierarchy"]["expandModules"]["ids"].extend(instances)
+        if not modules is None:
+            self.config["hierarchy"]["expandModules"]["types"].extend(modules)
+        if not instances is None:
+            self.config["hierarchy"]["expandModules"]["ids"].extend(instances)
 
     # TODO
     # Add option to suppress stdout printing of the yosys compilation
     # Finish documentation and add in sphinx index
-    def run(self, netlist, yosys_cmmds="", file_out="out.svg", netlistsvg="netlistsvg", top_module=None):
+    def run(
+        self,
+        netlist,
+        yosys_cmmds="",
+        file_out="out.svg",
+        netlistsvg="netlistsvg",
+        top_module=None,
+        expand_modules=None,
+        expand_instances=None,
+        expand_all=True,
+    ):
         """
         Main method to run composer
 
@@ -78,9 +86,14 @@ class SVGComposer:
         logger.info("Yosys synthesis finished")
 
         # Create configuration for netlist svg
-        with open(f"_{top}_config.json", "w", encoding="utf-8") as fp:
+        if expand_all:
+            self.expand_all(netlist)
+        self.expand(modules=expand_modules, instances=expand_instances)
+        config_file = str(file_out).replace(".svg", "_config.json")
+        with open(config_file, "w", encoding="utf-8") as fp:
             json.dump(self.config, fp, indent=4)
         svg_command = f"{netlistsvg} {json_file} -o {file_out} "
-        svg_command += f"--config _{top}_config.json;"
+        svg_command += f"--config {config_file};"
+        logger.debug(f"Executing command {svg_command}")
         os.system(svg_command)
         logger.info("Netlist rendered '%s'", file_out)
