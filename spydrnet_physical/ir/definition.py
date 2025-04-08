@@ -37,8 +37,8 @@ class Definition(DefinitionBase):
     def __init__(self, name=None, properties=None):
         super().__init__(name=name, properties=properties)
         properties = properties or dict()
-        self.properties["WIDTH"] = properties.get("WIDTH", 50)
-        self.properties["HEIGHT"] = properties.get("WIDTH", 50)
+        # self.properties["WIDTH"] = properties.get("WIDTH", 50)
+        # self.properties["HEIGHT"] = properties.get("WIDTH", 50)
 
     @property
     def utilization(self):

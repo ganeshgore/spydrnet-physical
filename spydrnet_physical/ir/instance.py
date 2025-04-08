@@ -20,8 +20,8 @@ class Instance(InstanceBase):
     def __init__(self, name=None, properties=None):
         super().__init__(name=name, properties=properties)
         properties = properties or dict()
-        self.properties["LOC_X"] = properties.get("LOC_X", 0)
-        self.properties["LOC_Y"] = properties.get("LOC_X", 0)
+        # self.properties["LOC_X"] = properties.get("LOC_X", 0)
+        # self.properties["LOC_Y"] = properties.get("LOC_X", 0)
 
     def check_all_scalar_connections(self, port):
         '''
