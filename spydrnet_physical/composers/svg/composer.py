@@ -73,7 +73,7 @@ class SVGComposer:
         """
         # Create Verilog file for yosys synthesis
         verilog_file = str(file_out).replace(".svg", "_.v")
-        sdn.compose(netlist, verilog_file, skip_constraints=True)
+        sdn.compose(netlist, verilog_file, skip_constraints=False)
         top = top_module or netlist.top_instance.reference.name
 
         json_file = str(file_out).replace(".svg", "_.json")
