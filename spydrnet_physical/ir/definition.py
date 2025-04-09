@@ -1106,3 +1106,39 @@ class Definition(DefinitionBase):
     #                 f"Wrong cable attribute on wire {eachPin} "
     #             allPins.remove(eachPin)
     #     assert allPins == [], "{len(allPins)} Wires are not in cables"
+
+    def clean_single_bit_assign(self, pattern="*ASSIGN*"):
+        assign_instance = list(self.get_instances(pattern))
+        for instance in assign_instance:
+            in_pins = next(instance.get_ports("i")).pins
+            out_pins = next(instance.get_ports("o")).pins
+            if len(in_pins) == 1:
+                in_net_name = instance.pins[in_pins[0]].wire.cable.name
+                out_net_name = instance.pins[out_pins[0]].wire.cable.name
+                is_in_port = instance.pins[in_pins[0]].wire.cable.is_port_cable
+                is_out_port = instance.pins[out_pins[0]].wire.cable.is_port_cable
+                if is_in_port and is_out_port:
+                    logger.info(
+                        f"Cant Flatten {instance.name} {in_net_name} {out_net_name}"
+                    )
+                elif not is_in_port and is_out_port:
+                    for pin in list(instance.pins[in_pins[0]].wire.pins):
+                        pin.wire.disconnect_pin(pin)
+                        instance.pins[out_pins[0]].wire.connect_pin(pin)
+                    self.remove_child(instance)
+                    logger.info(f"Merged nets {instance.name} {in_net_name} {out_net_name}")
+                elif is_in_port and not is_out_port:
+                    for pin in list(instance.pins[out_pins[0]].wire.pins):
+                        pin.wire.disconnect_pin(pin)
+                        instance.pins[in_pins[0]].wire.connect_pin(pin)
+                    self.remove_child(instance)
+                    logger.info(f"Merged nets {instance.name} {in_net_name} {out_net_name}")
+                elif not is_in_port and not is_out_port:
+                    logger.info(
+                        f"these nets be merged {instance.name} {in_net_name} {out_net_name}"
+                    )
+                elif (len(instance.pins[in_pins[0]].wire.pins) == 1) or (
+                    len(instance.pins[out_pins[0]].wire.pins) == 1
+                ):
+                    logger.info("Removing undriven instance")
+                    self.remove_child(instance)
