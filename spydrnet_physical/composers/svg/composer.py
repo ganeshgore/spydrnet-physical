@@ -90,10 +90,17 @@ class SVGComposer:
             self.expand_all(netlist)
         self.expand(modules=expand_modules, instances=expand_instances)
         config_file = str(file_out).replace(".svg", "_config.json")
+        skin_file = (
+            Path(__file__).parent.parent.parent
+            / "support_files"
+            / "skin-files"
+            / "sdnphy-skin.svg"
+        )
         with open(config_file, "w", encoding="utf-8") as fp:
             json.dump(self.config, fp, indent=4)
         svg_command = f"{netlistsvg} {json_file} -o {file_out} "
-        svg_command += f"--config {config_file};"
+        svg_command += f" --config {config_file}"
+        svg_command += f" --skin {skin_file};"
         logger.debug(f"Executing command {svg_command}")
         os.system(svg_command)
         logger.info("Netlist rendered '%s'", file_out)
