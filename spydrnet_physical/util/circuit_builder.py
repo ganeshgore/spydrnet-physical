@@ -19,9 +19,9 @@ class circuit_builder:
         top: sdn.Definition,
         name: str,
         reference: sdn.Definition,
-        inputs_w: list[sdn.Wire],
+        inputs_w,
         output_w: sdn.Wire,
-        select_w: list[sdn.Wire],
+        select_w,
     ):
         """
         Creates a multiplexer (MUX) instance in the given top module with given multiplexer module.
@@ -64,7 +64,7 @@ class circuit_builder:
     @staticmethod
     def build_tree_like_mux(
         definition: sdn.Definition,
-        inputs: list[sdn.Wire],
+        inputs,
         mux_dictionary: dict,
         select_cable=None,
         suffix="",
@@ -160,7 +160,7 @@ class circuit_builder:
     def add_and_gate(
         definition: sdn.Definition,
         and_gate: sdn.Definition,
-        input_wires: list[sdn.Wire],
+        input_wires,
         output_wire: sdn.Wire,
         suffix="",
     ):
