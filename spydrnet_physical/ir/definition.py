@@ -26,8 +26,6 @@ if typing.TYPE_CHECKING:
 
     DefinitionBase = type("DefinitionBase", (DefinitionSDN, FirstClassElementPhy), {})
 
-PROP = "VERILOG.InlineConstraints"
-
 
 class Definition(DefinitionBase):
     """
@@ -45,8 +43,8 @@ class Definition(DefinitionBase):
         """
         Return utilization of this module
         """
-        if self.data[PROP].get("AREA_UM", 0):
-            return self.data[PROP].get("AREA_UM", 0) / self.area
+        if self.properties.get("AREA_UM", 0):
+            return self.properties.get("AREA_UM", 0) / self.area
         else:
             return 0
 
@@ -362,29 +360,29 @@ class Definition(DefinitionBase):
         # def_data = instances_list[0].data["VERILOG.InlineConstraints"]
         # if def_data:
         outline = []
-        new_mod.data[PROP]["AREA"] = 0
-        new_mod.data[PROP]["AREA_UM"] = 0
+        new_mod.properties["AREA"] = 0
+        new_mod.properties["AREA_UM"] = 0
         for each in instances_list:
-            shape = each.reference.data[PROP].get("SHAPE", None)
+            shape = each.reference.properties.get("SHAPE", None)
             if shape == "rect":
                 outline.extend(shaping_utils._convert_rect_to_pt(each))
             if shape == "cross":
                 outline.extend(shaping_utils._convert_cross_to_pt(each))
-            new_mod.data[PROP]["AREA"] += each.reference.data[PROP].get("AREA", 0)
-            new_mod.data[PROP]["AREA_UM"] += each.reference.data[PROP].get("AREA_UM", 0)
-        LOC_X = min([each.data[PROP].get("LOC_X", 0) for each in instances_list] or [0])
-        LOC_Y = min([each.data[PROP].get("LOC_Y", 0) for each in instances_list] or [0])
-        new_instance.data[PROP]["LOC_X"] = LOC_X
-        new_instance.data[PROP]["LOC_Y"] = LOC_Y
+            new_mod.properties["AREA"] += each.reference.properties.get("AREA", 0)
+            new_mod.properties["AREA_UM"] += each.reference.properties.get("AREA_UM", 0)
+        LOC_X = min([each.properties.get("LOC_X", 0) for each in instances_list] or [0])
+        LOC_Y = min([each.properties.get("LOC_Y", 0) for each in instances_list] or [0])
+        new_instance.properties["LOC_X"] = LOC_X
+        new_instance.properties["LOC_Y"] = LOC_Y
         if outline:
             shape, points = shaping_utils.get_shapes_outline(outline)
             new_instance.reference.properties["SHAPE"] = shape
             if shape == "cross":
                 new_instance.reference.properties["POINTS"] = points
             if shape == "custom":
-                new_instance.reference.properties[
-                    "POINTS"
-                ] = shaping_utils.points_to_path(points)
+                new_instance.reference.properties["POINTS"] = (
+                    shaping_utils.points_to_path(points)
+                )
             if shape == "rect":
                 new_instance.reference.properties["WIDTH"] = points[0]
                 new_instance.reference.properties["HEIGHT"] = points[1]
@@ -502,7 +500,14 @@ class Definition(DefinitionBase):
         self._call_merged_instance(new_mod, merged_module, instances_list)
         return new_mod, merged_module, rename_map
 
-    def OptPins(self, pins=lambda x: True, dry_run=False, merge=True, absorb=True, remove_unconn=False):
+    def OptPins(
+        self,
+        pins=lambda x: True,
+        dry_run=False,
+        merge=True,
+        absorb=True,
+        remove_unconn=False,
+    ):
         """
         This method optimizes the definitions pins bu inspecting all the
         instances of the definition
@@ -567,7 +572,9 @@ class Definition(DefinitionBase):
             for ports in defPort:
                 is_wired = False
                 for eachInst in self.references:
-                    if not all([(eachInst.pins[pin].wire is None) for pin in ports.pins]):
+                    if not all(
+                        [(eachInst.pins[pin].wire is None) for pin in ports.pins]
+                    ):
                         is_wired = True
                         break
                 if not is_wired:
@@ -1020,7 +1027,9 @@ class Definition(DefinitionBase):
                 logger.exception("%s instance not found during uniquifying", each)
         return new_def
 
-    def add_buffer(self, wire, buffer, instance_name, ports=("A", "Y"), new_cable_name=None):
+    def add_buffer(
+        self, wire, buffer, instance_name, ports=("A", "Y"), new_cable_name=None
+    ):
         """
         Adds buffer on the given net
         args:
@@ -1050,10 +1059,12 @@ class Definition(DefinitionBase):
             )[0]
             if driver_pin.port.direction == sdn.IN:
                 # if buffering input net
-                load_pins = list(wire.get_pins(
-                            selection="OUTSIDE",
-                            filter=lambda x: x.inner_pin.port.direction == sdn.IN,
-                        ))
+                load_pins = list(
+                    wire.get_pins(
+                        selection="OUTSIDE",
+                        filter=lambda x: x.inner_pin.port.direction == sdn.IN,
+                    )
+                )
                 post_buffer_w = new_cable_name or f"{instance_name}_post_buffer"
                 buffer_input_wire = self.create_cable(post_buffer_w, wires=1).wires[0]
                 for pin in load_pins:
@@ -1063,7 +1074,9 @@ class Definition(DefinitionBase):
                 buffer_input_wire.connect_pin(y_pin)
                 wire.connect_pin(a_pin)
                 logger.debug(
-                    "Added buffer in %s with instance name %s", self.name, buffer_inst.name
+                    "Added buffer in %s with instance name %s",
+                    self.name,
+                    buffer_inst.name,
                 )
                 return
                 # raise NotImplementedError("Buffer on input net is not supported")
@@ -1126,13 +1139,17 @@ class Definition(DefinitionBase):
                         pin.wire.disconnect_pin(pin)
                         instance.pins[out_pins[0]].wire.connect_pin(pin)
                     self.remove_child(instance)
-                    logger.info(f"Merged nets {instance.name} {in_net_name} {out_net_name}")
+                    logger.info(
+                        f"Merged nets {instance.name} {in_net_name} {out_net_name}"
+                    )
                 elif is_in_port and not is_out_port:
                     for pin in list(instance.pins[out_pins[0]].wire.pins):
                         pin.wire.disconnect_pin(pin)
                         instance.pins[in_pins[0]].wire.connect_pin(pin)
                     self.remove_child(instance)
-                    logger.info(f"Merged nets {instance.name} {in_net_name} {out_net_name}")
+                    logger.info(
+                        f"Merged nets {instance.name} {in_net_name} {out_net_name}"
+                    )
                 elif not is_in_port and not is_out_port:
                     logger.info(
                         f"these nets be merged {instance.name} {in_net_name} {out_net_name}"
