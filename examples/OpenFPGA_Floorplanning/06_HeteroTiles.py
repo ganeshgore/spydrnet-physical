@@ -28,9 +28,14 @@ from collections import OrderedDict
 from copy import deepcopy
 
 import spydrnet as sdn
-from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen, OpenFPGA,
-                                    Tile02, get_names,
-                                    initial_hetero_placement)
+from spydrnet_physical.util import (
+    FloorPlanViz,
+    FPGAGridGen,
+    OpenFPGA,
+    Tile02,
+    get_names,
+    initial_hetero_placement,
+)
 
 logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO", filename="floorplan_heterpgeneous")
@@ -48,8 +53,6 @@ FPGA_HEIGHT = 8
 SCALE = 100
 CPP = math.floor(0.46 * SCALE)
 SC_HEIGHT = math.floor(2.72 * SCALE)
-
-PROP = "VERILOG.InlineConstraints"
 
 STYLE_SHEET = """
     symbol {mix-blend-mode: difference;}
@@ -132,7 +135,8 @@ def main():
     # This adjusts the placement grid
     for col in MULT_COLS:
         fpga.placement_creator.design_grid.set_column_width(
-            col * 2, (m["clb_w"]-m["mult_w_delta"]) * CPP)
+            col * 2, (m["clb_w"] - m["mult_w_delta"]) * CPP
+        )
 
     inst = fpga.design_top_stat()
     logger.info("This are extra modules to floorplan")
@@ -192,8 +196,7 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT),
-                          patternUnits="userSpaceOnUse")
+    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
     pattern.add(dwg.circle(center=(2, SC_HEIGHT + 2), r=1, fill="red"))
     dwg.defs.add(pattern)
@@ -206,30 +209,46 @@ def main():
     fpga.register_tile_generator(Tile02)
     fpga.create_tiles()
     merge_inter_hetero_routing(
-        fpga, "sb_8__2_", prefix="_fp", new_def_name="grid_mult_right_mid",
-        merge_instance=["cbx_{x}__{y}_"]
+        fpga,
+        "sb_8__2_",
+        prefix="_fp",
+        new_def_name="grid_mult_right_mid",
+        merge_instance=["cbx_{x}__{y}_"],
     )
     merge_inter_hetero_routing(
-        fpga, "sb_2__2_", prefix="_fp", new_def_name="grid_mult_mid",
-        merge_instance=["cbx_{x}__{y}_"]
+        fpga,
+        "sb_2__2_",
+        prefix="_fp",
+        new_def_name="grid_mult_mid",
+        merge_instance=["cbx_{x}__{y}_"],
     )
     merge_inter_hetero_routing(
-        fpga, "sb_8__8_", prefix="_fp", new_def_name="grid_mult_right_top",
-        merge_instance=["cbx_{x}__{y}_"]
+        fpga,
+        "sb_8__8_",
+        prefix="_fp",
+        new_def_name="grid_mult_right_top",
+        merge_instance=["cbx_{x}__{y}_"],
     )
     merge_inter_hetero_routing(
-        fpga, "sb_2__8_", prefix="_fp", new_def_name="grid_mult_top",
-        merge_instance=["cbx_{x}__{y}_"]
+        fpga,
+        "sb_2__8_",
+        prefix="_fp",
+        new_def_name="grid_mult_top",
+        merge_instance=["cbx_{x}__{y}_"],
     )
     merge_inter_hetero_routing(
-        fpga, "sb_8__1_", prefix="_fp", new_def_name="grid_mult_right",
-        merge_instance=["cby_{x}__{y}_",
-                        "cby_{x}__{y1}_", "grid_mult_8_{x}__{y}_"]
+        fpga,
+        "sb_8__1_",
+        prefix="_fp",
+        new_def_name="grid_mult_right",
+        merge_instance=["cby_{x}__{y}_", "cby_{x}__{y1}_", "grid_mult_8_{x}__{y}_"],
     )
     merge_inter_hetero_routing(
-        fpga, "sb_2__1_", prefix="_fp", new_def_name="grid_mult",
-        merge_instance=["cby_{x}__{y}_",
-                        "cby_{x}__{y1}_", "grid_mult_8_{x}__{y}_"]
+        fpga,
+        "sb_2__1_",
+        prefix="_fp",
+        new_def_name="grid_mult",
+        merge_instance=["cby_{x}__{y}_", "cby_{x}__{y1}_", "grid_mult_8_{x}__{y}_"],
     )
 
     # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -241,8 +260,7 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT),
-                          patternUnits="userSpaceOnUse")
+    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
     pattern.add(dwg.circle(center=(2, SC_HEIGHT + 2), r=1, fill="red"))
     dwg.defs.add(pattern)
@@ -264,14 +282,14 @@ def sort_by_cordinate(inst_name):
     return f"{x:05}{y:05}"
 
 
-def merge_inter_hetero_routing(fpga, block_name, prefix="_old",
-                               new_def_name=None, merge_instance=None):
+def merge_inter_hetero_routing(
+    fpga, block_name, prefix="_old", new_def_name=None, merge_instance=None
+):
     """
     This method merges arouting beetween heterogeneous module
     """
     instance_list = []
-    instance = next(fpga.top_module.get_definitions(
-        f"*{block_name}*")).references
+    instance = next(fpga.top_module.get_definitions(f"*{block_name}*")).references
     instance = get_names(list(instance))
     for block_name in sorted(instance, key=sort_by_cordinate):
         block = next(fpga.top_module.get_instances(block_name))
@@ -280,9 +298,12 @@ def merge_inter_hetero_routing(fpga, block_name, prefix="_old",
         group = [block]
         for inst in merge_instance:
             group.append(
-                next(fpga.top_module.get_instances(inst.format(x=x, y=y,
-                                                               x_1=x-1, y_1=y-1,
-                                                               x1=x+1, y1=y+1))))
+                next(
+                    fpga.top_module.get_instances(
+                        inst.format(x=x, y=y, x_1=x - 1, y_1=y - 1, x1=x + 1, y1=y + 1)
+                    )
+                )
+            )
         instance_list.append((group, group[0].name + "_new"))
         logger.debug("Merging %s", " ".join([n.name for n in group]))
     new_module_name = instance_list[0][0][0].reference.name + "_new"
@@ -310,7 +331,7 @@ def dump_top_definition_ports(fpga: OpenFPGA, rpt_file):
             continue
         portmap[def_name] = sorted(get_names(defs.get_ports("*")))
 
-    json.dump(portmap, open(rpt_file, 'w', encoding="UTF-8"), indent=4)
+    json.dump(portmap, open(rpt_file, "w", encoding="UTF-8"), indent=4)
 
 
 if __name__ == "__main__":

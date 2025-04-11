@@ -87,7 +87,7 @@ from typing import Callable
 from spydrnet_physical import PROP
 from spydrnet_physical.util.get_names import get_names
 
-from spydrnet_physical.util import (FPGAGridGen, OpenFPGA_Placement_Generator)
+from spydrnet_physical.util import FPGAGridGen, OpenFPGA_Placement_Generator
 
 logger = logging.getLogger("spydrnet_logs")
 
@@ -143,16 +143,16 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
 
     def add_module_colors(self):
         for cbx in self._top_module.get_definitions("cbx_*"):
-            cbx.data[PROP]["COLOR"] = CBX_COLOR
+            cbx.properties["COLOR"] = CBX_COLOR
 
         for cby in self._top_module.get_definitions("cby_*"):
-            cby.data[PROP]["COLOR"] = CBY_COLOR
+            cby.properties["COLOR"] = CBY_COLOR
 
         for sb in self._top_module.get_definitions("sb_*"):
-            sb.data[PROP]["COLOR"] = SB_COLOR
+            sb.properties["COLOR"] = SB_COLOR
 
         for grid in self._top_module.get_definitions("grid_*"):
-            grid.data[PROP]["COLOR"] = GRID_COLOR
+            grid.properties["COLOR"] = GRID_COLOR
 
     def update_placement(self):
         pass
@@ -173,8 +173,7 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
                 try:
                     inst = next(top_module.get_instances(f"*{inst_name}"))
                 except StopIteration:
-                    logger.warning(
-                        "Skipping placment : %s [Not found]", inst_name)
+                    logger.warning("Skipping placment : %s [Not found]", inst_name)
                 module = self.module_shapes[inst.reference.name]
                 if isinstance(module["PLACEMENT"], Callable):
                     x_off, y_off = module["PLACEMENT"](x_indx, y_indx)
@@ -182,16 +181,15 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
                     x_off, y_off = module["PLACEMENT"]
                 if isinstance(module["PLACEMENT"], list):
                     x_off, y_off = module["PLACEMENT"]
-                inst.data[PROP]["LOC_X"] = math.floor(
-                    anchor[0] + (x_off * self.CPP))
-                inst.data[PROP]["LOC_Y"] = math.floor(
+                inst.properties["LOC_X"] = math.floor(anchor[0] + (x_off * self.CPP))
+                inst.properties["LOC_Y"] = math.floor(
                     anchor[1] + (y_off * self.SC_HEIGHT)
                 )
 
-        top_module.data[PROP]["WIDTH"] = self.design_grid.width + (
+        top_module.properties["WIDTH"] = self.design_grid.width + (
             2 * self.s_param["OFFSET_X"] * self.CPP
         )
-        top_module.data[PROP]["HEIGHT"] = self.design_grid.height + (
+        top_module.properties["HEIGHT"] = self.design_grid.height + (
             2 * self.s_param["OFFSET_Y"] * self.SC_HEIGHT
         )
 
@@ -208,30 +206,23 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
 
         # Set grid_clb column
         for i in range(2, (self.fpga_size[0] * 2) + 1, 2):
-            self.design_grid.set_column_width(
-                i, self.s_param["clb_w"] * self.CPP)
+            self.design_grid.set_column_width(i, self.s_param["clb_w"] * self.CPP)
         # Set grid_clb row
         for i in range(2, (self.fpga_size[1] * 2) + 1, 2):
-            self.design_grid.set_row_height(
-                i, self.s_param["clb_h"] * self.SC_HEIGHT)
+            self.design_grid.set_row_height(i, self.s_param["clb_h"] * self.SC_HEIGHT)
 
         for i in range(1, (self.fpga_size[0] * 2) + 2, 2):
-            self.design_grid.set_column_width(
-                i, self.s_param["cby11_w"] * self.CPP)
+            self.design_grid.set_column_width(i, self.s_param["cby11_w"] * self.CPP)
 
         for i in range(1, (self.fpga_size[1] * 2) + 2, 2):
-            self.design_grid.set_row_height(
-                i, self.s_param["cbx11_h"] * self.SC_HEIGHT)
+            self.design_grid.set_row_height(i, self.s_param["cbx11_h"] * self.SC_HEIGHT)
 
         self.design_grid.set_row_height(
             1, self.s_param["bottom_cbx_h"] * self.SC_HEIGHT
         )
-        self.design_grid.set_row_height(-1,
-                                        self.s_param["top_cbx_h"] * self.SC_HEIGHT)
-        self.design_grid.set_column_width(
-            1, self.s_param["left_cby_w"] * self.CPP)
-        self.design_grid.set_column_width(-1,
-                                          self.s_param["right_cby_w"] * self.CPP)
+        self.design_grid.set_row_height(-1, self.s_param["top_cbx_h"] * self.SC_HEIGHT)
+        self.design_grid.set_column_width(1, self.s_param["left_cby_w"] * self.CPP)
+        self.design_grid.set_column_width(-1, self.s_param["right_cby_w"] * self.CPP)
 
     def update_shapes(self):
         """
@@ -250,19 +241,14 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
             shape = param.get("SHAPE", "rect")
             if (shape == "cross") or (shape == "custom"):
                 points = self._scale_shape(shape, param["POINTS"])
-                module.data[PROP]["SHAPE"] = shape
-                module.data[PROP]["POINTS"] = points
-                module.data[PROP]["WIDTH"] = sum(
-                    [points[i] for i in [1, 3, 4]]
-                )
-                module.data[PROP]["HEIGHT"] = sum(
-                    [points[i] for i in [0, 2, 5]]
-                )
+                module.properties["SHAPE"] = shape
+                module.properties["POINTS"] = points
+                module.properties["WIDTH"] = sum([points[i] for i in [1, 3, 4]])
+                module.properties["HEIGHT"] = sum([points[i] for i in [0, 2, 5]])
             else:
-                module.data[PROP]["SHAPE"] = "rect"
-                module.data[PROP]["WIDTH"] = int(param["POINTS"][0] * self.CPP)
-                module.data[PROP]["HEIGHT"] = int(
-                    param["POINTS"][1] * self.SC_HEIGHT)
+                module.properties["SHAPE"] = "rect"
+                module.properties["WIDTH"] = int(param["POINTS"][0] * self.CPP)
+                module.properties["HEIGHT"] = int(param["POINTS"][1] * self.SC_HEIGHT)
 
     def _scale_shape(self, shape, points):
         if shape == "cross":
@@ -342,7 +328,7 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
         Return the area of the given module after considering the utilisation
         """
         module_inst = next(self._top_module.get_definitions(module))
-        area = module_inst.data[PROP]["AREA"]
+        area = module_inst.properties["AREA"]
         area *= 1 / self.s_param[f"{module}_util"]
         return area
 
@@ -518,13 +504,14 @@ class initial_hetero_placement(OpenFPGA_Placement_Generator):
                 ],
             },
         }
-        unshaped_modules = set(get_names(self._top_module.get_definitions())) - \
-            set(list(self.module_shapes.keys()))
+        unshaped_modules = set(get_names(self._top_module.get_definitions())) - set(
+            list(self.module_shapes.keys())
+        )
         if shape_all:
             for modules in unshaped_modules:
                 self.module_shapes[modules] = {
                     "SHAPE": "rect",
-                    "POINTS": [int(200/self.CPP), int(200/self.SC_HEIGHT)],
+                    "POINTS": [int(200 / self.CPP), int(200 / self.SC_HEIGHT)],
                     "PLACEMENT": [0, 0],
                 }
         return unshaped_modules

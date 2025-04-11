@@ -21,7 +21,6 @@ Output
 
 """
 
-
 import logging
 
 import spydrnet as sdn

@@ -43,10 +43,10 @@ class Definition(DefinitionBase):
         """
         Return utilization of this module
         """
-        if self.properties.get("AREA_UM", 0):
+        if (float(self.properties.get("AREA_UM", 0)) > 0) and (self.area > 0):
             return self.properties.get("AREA_UM", 0) / self.area
         else:
-            return 0
+            return -1
 
     @property
     def area(self):
@@ -391,8 +391,8 @@ class Definition(DefinitionBase):
             logger.debug(
                 f"{new_instance.name} "
                 + f"[{new_instance.reference.name:15}]"
-                + f"[{new_instance.reference.properties['SHAPE']:15}]"
-                + f"[{new_instance.reference.properties['WIDTH']:15}]"
+                + f"[{new_instance.reference.properties.get('SHAPE', 50):15}]"
+                + f"[{new_instance.reference.properties.get('WIDTH', 50):15}]"
                 + f" {shape} {points}"
             )
 

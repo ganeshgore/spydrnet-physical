@@ -25,8 +25,6 @@ from spydrnet_physical.util import FloorPlanViz, Tile02, GridFloorplanGen, OpenF
 logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO")
 
-PROP = "VERILOG.InlineConstraints"
-
 
 def main():
     proj = "../homogeneous_fabric"
@@ -92,15 +90,15 @@ def main():
     grid_plan.set_row_height(1, 70)
 
     for module in fpga.top_module.get_definitions("*tile*"):
-        module.data[PROP]["WIDTH"] = 200
-        module.data[PROP]["HEIGHT"] = 200
-        module.data[PROP]["COLOR"] = "#E6BA95"
+        module.properties["WIDTH"] = 200
+        module.properties["HEIGHT"] = 200
+        module.properties["COLOR"] = "#E6BA95"
 
     for module in fpga.top_module.get_definitions("*bottom*tile"):
-        module.data[PROP]["HEIGHT"] = 50
+        module.properties["HEIGHT"] = 50
 
     for module in fpga.top_module.get_definitions("*left*tile"):
-        module.data[PROP]["WIDTH"] = 50
+        module.properties["WIDTH"] = 50
 
     for xi in range(5, 0, -1):
         for yi in range(5, 0, -1):
@@ -112,11 +110,11 @@ def main():
             except StopIteration:
                 continue
 
-            inst.data[PROP]["LOC_X"] = points[0] + X_OFFSET
-            inst.data[PROP]["LOC_Y"] = points[1] + Y_OFFSET
+            inst.properties["LOC_X"] = points[0] + X_OFFSET
+            inst.properties["LOC_Y"] = points[1] + Y_OFFSET
 
-    fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
-    fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
+    fpga.top_module.properties["WIDTH"] = grid_plan.width + 20
+    fpga.top_module.properties["HEIGHT"] = grid_plan.height + 20
 
     fpga.save_shaping_data("*", scale=0.01, filename="_tile01_shaping.txt")
 

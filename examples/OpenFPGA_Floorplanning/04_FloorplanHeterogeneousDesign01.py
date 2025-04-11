@@ -21,8 +21,12 @@ import math
 from copy import deepcopy
 
 import spydrnet as sdn
-from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen,
-                                    OpenFPGA, initial_hetero_placement)
+from spydrnet_physical.util import (
+    FloorPlanViz,
+    FPGAGridGen,
+    OpenFPGA,
+    initial_hetero_placement,
+)
 
 logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO", filename="floorplan_heterpgeneous")
@@ -41,7 +45,6 @@ SCALE = 100
 CPP = math.floor(0.46 * SCALE)
 SC_HEIGHT = math.floor(2.72 * SCALE)
 
-PROP = "VERILOG.InlineConstraints"
 
 STYLE_SHEET = """
     symbol {mix-blend-mode: difference;}
@@ -170,8 +173,7 @@ def main():
     dwg = fp.get_svg()
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT),
-                          patternUnits="userSpaceOnUse")
+    pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
     pattern.add(dwg.circle(center=(2, SC_HEIGHT + 2), r=1, fill="red"))
     dwg.defs.add(pattern)

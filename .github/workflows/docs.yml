@@ -7,23 +7,29 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/ganeshgore/sdpphy-docs-image:latest
     steps:
+      # =====================================
+      #       Setup enviroment
+      # =====================================
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Setup doc enviroment
         shell: bash
         run: |
           source /tmp/buildenv/bin/activate
           bash ./.github/build_env.sh
-          if [ -f "docs/requirements.txt" ]; then
-            python3 -m pip install --upgrade \
-            --no-cache-dir -r docs/requirements.txt
-          fi
-          export PYTHONPATH=$PYTHONPATH:${PWD}
+          echo "export PYTHONPATH=${PWD}:$PYTHONPATH" >> ~/.bashrc
+      # =====================================
+      #       Build examples
+      # =====================================
       - name: Build Examples
         shell: bash
         run: |
           source /tmp/buildenv/bin/activate
           cd docs && PYTHON_EXEC=/tmp/buildenv/bin/python3 make run_examples
+      # =====================================
+      #       Build Documentation
+      # =====================================
       - name: Build Documentation
         shell: bash
         id: build
@@ -32,6 +38,10 @@ jobs:
           cd docs && PYTHON_EXEC=/tmp/buildenv/bin/python3 make html
           sed -i "/.*docs.*build.*/d" .gitignore
           cat .gitignore
+
+      # =====================================
+      #     Upload artifacts if failed
+      # =====================================
       - name: Upload regression results
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
@@ -42,6 +52,9 @@ jobs:
             /tmp/sphinx-err*
             docs/**/*
             examples/**/*
+      # =================================================================
+      #       If pre_release branch then add custom header in HTML
+      # =================================================================
       - name: Prepare pre_release documentation
         if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/pre_release')) }}
         shell: bash
@@ -50,6 +63,7 @@ jobs:
           mv docs/build/html docs/build/html_pre_release
           find ./docs/build/html_pre_release -name "*.html*" -exec sed -i "s/<head>/<head><base href=\"pre_release\">/" {} \;
           echo "body{border-top: 20px solid #FF9800;}" > ./docs/build/html_pre_release/_static/custom.css
+
       - name: Deploy pre_release documentation
         if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/pre_release')) }}
         uses: peaceiris/actions-gh-pages@v3
@@ -59,6 +73,10 @@ jobs:
           publish_dir: docs/build/html_pre_release
           destination_dir: docs/pre_release
           exclude_assets: "doctrees"
+
+      # =================================================================
+      #       Deploy documentation if main branch
+      # =================================================================
       - name: Deploy documentation
         if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/main')) }}
         uses: peaceiris/actions-gh-pages@v3
@@ -68,15 +86,3 @@ jobs:
           publish_dir: docs/build/html
           destination_dir: docs
           exclude_assets: "doctrees"
-      # https://github.community/t/triggering-by-other-repository/16163/12
-      # - name: Workflow Dispatch Notification
-      #   # if: ${{ ((steps.build.outcome == 'success') && (github.ref == 'refs/heads/main')) }}
-      #   uses: actions/github-script@v6
-      #   with:
-      #     github-token: ${{ secrets.PAT_TOKEN }}
-      #     script: |
-      #       await github.rest.repos.createDispatchEvent({
-      #         owner: 'ganeshgore',
-      #         repo: 'spydrnet-physical',
-      #         event_type: 'deployment',
-      #       });

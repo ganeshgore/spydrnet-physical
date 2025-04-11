@@ -17,6 +17,7 @@ This script can be used for shaping and placement of the modules before place an
 #    :align: center
 
 """
+
 import glob
 import math
 import logging
@@ -127,27 +128,27 @@ def main():
     #         elif "cby" in inst_name:
     #             X_OFFSET, Y_OFFSET = 0, 2 * (p.CLB_H - p.CBY_H)
     #         elif "sb" in inst_name:
-    #             PTS = inst.reference.data[PROP]["POINTS"]
+    #             PTS = inst.reference.properties["POINTS"]
     #             X_OFFSET, Y_OFFSET = PTS[1] * -1, PTS[-1] * -1
-    #         inst.data[PROP]["LOC_X"] = math.floor(points[0] + X_OFFSET)
-    #         inst.data[PROP]["LOC_Y"] = math.floor(points[1] + Y_OFFSET)
+    #         inst.properties["LOC_X"] = math.floor(points[0] + X_OFFSET)
+    #         inst.properties["LOC_Y"] = math.floor(points[1] + Y_OFFSET)
 
-    # fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
-    # fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
+    # fpga.top_module.properties["WIDTH"] = grid_plan.width + 20
+    # fpga.top_module.properties["HEIGHT"] = grid_plan.height + 20
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # #           Adjust Floorplan
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # for cbx in fpga.top_module.get_definitions("cbx_*"):
-    #     cbx.data[PROP]["COLOR"] = CBX_COLOR
+    #     cbx.properties["COLOR"] = CBX_COLOR
 
     # for cby in fpga.top_module.get_definitions("cby_*"):
-    #     cby.data[PROP]["COLOR"] = CBY_COLOR
+    #     cby.properties["COLOR"] = CBY_COLOR
 
     # for sb in fpga.top_module.get_definitions("sb_*"):
-    #     sb.data[PROP]["COLOR"] = SB_COLOR
+    #     sb.properties["COLOR"] = SB_COLOR
 
     # clb: sdn.Definition = next(fpga.top_module.get_definitions("grid_clb"))
-    # clb.data[PROP]["COLOR"] = GRID_COLOR
+    # clb.properties["COLOR"] = GRID_COLOR
 
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # #           Create Tiles
@@ -175,7 +176,7 @@ def main():
     #     )
 
     # for sb in fpga.top_module.get_definitions("rb_*"):
-    #     sb.data[PROP]["COLOR"] = SB_COLOR
+    #     sb.properties["COLOR"] = SB_COLOR
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     # fpga.show_placement_data("rb_*")
     # # fpga.design_top_stat()

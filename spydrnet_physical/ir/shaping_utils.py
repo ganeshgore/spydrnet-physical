@@ -1,14 +1,11 @@
+""" """
 
-"""
-"""
 import logging
 import typing
 
 import numpy as np
 
-logger = logging.getLogger('spydrnet_logs')
-
-PROP = "VERILOG.InlineConstraints"
+logger = logging.getLogger("spydrnet_logs")
 
 
 class shaping_utils:
@@ -18,12 +15,12 @@ class shaping_utils:
 
     @staticmethod
     def PolyArea2D(pts):
-        '''
+        """
         Find the are of the polygon points
-        '''
+        """
         pts = list(zip(pts[::2], pts[1::2]))
         lines = np.hstack([pts, np.roll(pts, -1, axis=0)])
-        area = 0.5*abs(sum(x1*y2-x2*y1 for x1, y1, x2, y2 in lines))
+        area = 0.5 * abs(sum(x1 * y2 - x2 * y1 for x1, y1, x2, y2 in lines))
         return area
 
     @staticmethod
@@ -33,42 +30,47 @@ class shaping_utils:
 
         Returns: [(lx, ly), (lx, ly+h), (lx+w, ly+h), (lx+w, ly)]
         """
-        loc_x = inst.data[PROP].get("LOC_X", 0)
-        loc_y = inst.data[PROP].get("LOC_Y", 0)
-        width = inst.reference.data[PROP].get("WIDTH", 0)
-        height = inst.reference.data[PROP].get("HEIGHT", 0)
-        return [(loc_x, loc_y),
-                (loc_x, loc_y+height),
-                (loc_x+width, loc_y+height),
-                (loc_x+width, loc_y)]
+        loc_x = inst.properties.get("LOC_X", 0)
+        loc_y = inst.properties.get("LOC_Y", 0)
+        width = inst.reference.properties.get("WIDTH", 0)
+        height = inst.reference.properties.get("HEIGHT", 0)
+        return [
+            (loc_x, loc_y),
+            (loc_x, loc_y + height),
+            (loc_x + width, loc_y + height),
+            (loc_x + width, loc_y),
+        ]
 
     @staticmethod
     def _convert_cross_to_pt(inst):
         """
         Returns the absolute points of the instance with cross shape
         """
-        loc_x = inst.data[PROP].get("LOC_X", 0)
-        loc_y = inst.data[PROP].get("LOC_Y", 0)
-        a, b, c, d, e, f = inst.reference.data[PROP].get(
-            "POINTS", [10, 10, 10, 10, 10, 10])
-        return [(loc_x+b, loc_y),
-                (loc_x+b, loc_y+f),
-                (loc_x, loc_y+f),
-                (loc_x, loc_y+f+a),
-                (loc_x+b, loc_y+f+a),
-                (loc_x+b, loc_y+a+f+c),
-                (loc_x+b+d, loc_y+a+f+c),
-                (loc_x+b+d, loc_y+a+f),
-                (loc_x+b+d+e, loc_y+a+f),
-                (loc_x+b+d+e, loc_y+f),
-                (loc_x+b+d, loc_y+f),
-                (loc_x+b+d, loc_y)]
+        loc_x = inst.properties.get("LOC_X", 0)
+        loc_y = inst.properties.get("LOC_Y", 0)
+        a, b, c, d, e, f = inst.reference.properties.get(
+            "POINTS", [10, 10, 10, 10, 10, 10]
+        )
+        return [
+            (loc_x + b, loc_y),
+            (loc_x + b, loc_y + f),
+            (loc_x, loc_y + f),
+            (loc_x, loc_y + f + a),
+            (loc_x + b, loc_y + f + a),
+            (loc_x + b, loc_y + a + f + c),
+            (loc_x + b + d, loc_y + a + f + c),
+            (loc_x + b + d, loc_y + a + f),
+            (loc_x + b + d + e, loc_y + a + f),
+            (loc_x + b + d + e, loc_y + f),
+            (loc_x + b + d, loc_y + f),
+            (loc_x + b + d, loc_y),
+        ]
 
     @staticmethod
     def _interpret_custom_to_shape(new_instance):
-        '''
+        """
         Converts custom shapes and points to cross or rectangle
-        '''
+        """
         shape = new_instance.properties.get("SHAPE", None)
         if not shape == "custom":
             return
@@ -81,10 +83,10 @@ class shaping_utils:
 
     @staticmethod
     def _orientation(origin, p1, p2):
-        '''
-        '''
-        difference = (((p2[0] - origin[0]) * (p1[1] - origin[1]))
-                      - ((p1[0] - origin[0]) * (p2[1] - origin[1])))
+        """ """
+        difference = ((p2[0] - origin[0]) * (p1[1] - origin[1])) - (
+            (p1[0] - origin[0]) * (p2[1] - origin[1])
+        )
         return difference
 
     @staticmethod
@@ -106,7 +108,7 @@ class shaping_utils:
             dx = pt2[0] - pt1[0]
             dy = pt2[1] - pt1[1]
             pt1 = pt2
-            sequence_string += " %d" % (dx+dy)
+            sequence_string += " %d" % (dx + dy)
         return sequence_string
 
     @staticmethod
@@ -124,13 +126,12 @@ class shaping_utils:
         [points.append(x) for x in array if x not in points]
         _hull_points = []
 
-        start = [pt for pt in points if pt[0]
-                 == min([x for x, _ in points])][0]
+        start = [pt for pt in points if pt[0] == min([x for x, _ in points])][0]
         point = start
         _hull_points.append(start)
 
         far_point = None
-        while (far_point is not start):
+        while far_point is not start:
 
             # get the first point (initial max) to use to compare with others
             p1 = None
@@ -144,8 +145,7 @@ class shaping_utils:
             for p2 in points:
                 # Ensure we aren't comparing to self or pivot point
                 if not (p2 is point or p2 is p1):
-                    direction = shaping_utils._orientation(
-                        point, far_point, p2)
+                    direction = shaping_utils._orientation(point, far_point, p2)
                     if direction > 0:
                         far_point = p2
             # Get delta_x and delta_y of current point with previous
@@ -153,16 +153,27 @@ class shaping_utils:
             delta_y = far_point[1] - point[1]
             # Check if its not horizontal or vertical connection
             # force it to be horizontal or vertical connetion
-            if (delta_x*delta_y):
-                delta_x = delta_x/abs(delta_x) if delta_x else 0
-                delta_y = delta_y/abs(delta_y) if delta_y else 0
+            if delta_x * delta_y:
+                delta_x = delta_x / abs(delta_x) if delta_x else 0
+                delta_y = delta_y / abs(delta_y) if delta_y else 0
                 # Find new intermediate point
-                new_pt = \
-                    (far_point[0], point[1]) if (delta_x, delta_y) == (-1, 1) else \
-                    (far_point[0], point[1]) if (delta_x, delta_y) == (1, -1) else \
-                    (point[0], far_point[1]) if (delta_x, delta_y) == (1, 1) else \
-                    (point[0], far_point[1]) if (delta_x, delta_y) == (-1, -1) else \
-                    (None, None)
+                new_pt = (
+                    (far_point[0], point[1])
+                    if (delta_x, delta_y) == (-1, 1)
+                    else (
+                        (far_point[0], point[1])
+                        if (delta_x, delta_y) == (1, -1)
+                        else (
+                            (point[0], far_point[1])
+                            if (delta_x, delta_y) == (1, 1)
+                            else (
+                                (point[0], far_point[1])
+                                if (delta_x, delta_y) == (-1, -1)
+                                else (None, None)
+                            )
+                        )
+                    )
+                )
                 # Add intermediate point and current point
                 _hull_points.append(new_pt)
                 _hull_points.append(far_point)
@@ -183,21 +194,21 @@ class shaping_utils:
 
     @staticmethod
     def get_custom_boundary(points):
-        '''
+        """
         Get boundary points from custom shape
-        '''
+        """
         path = points.split()
         direction = path[0].lower()
         origin = path[1:3]
         boundary = [int(origin[0]), int(origin[1])]
         for pt in map(int, map(float, path[3:])):
-            if direction == 'v':
+            if direction == "v":
                 # print("v")
-                boundary.extend([boundary[-2], boundary[-1]+pt])
-                direction = 'h'
+                boundary.extend([boundary[-2], boundary[-1] + pt])
+                direction = "h"
             else:
                 # print("h")
-                boundary.extend([boundary[-2]+pt, boundary[-1]])
-                direction = 'v'
+                boundary.extend([boundary[-2] + pt, boundary[-1]])
+                direction = "v"
             # print(boundary)
         return boundary

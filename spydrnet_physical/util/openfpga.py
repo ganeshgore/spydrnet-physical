@@ -217,7 +217,9 @@ class OpenFPGA:
         u = [x for x in sequence if not (x in seen or seen.add(x))]
         return [val for sublist in u for val in sublist]
 
-    def save_shaping_data(self, pattern="*", scale=None, filename=None, custom_entry=None):
+    def save_shaping_data(
+        self, pattern="*", scale=None, filename=None, custom_entry=None
+    ):
         """
         Save the shaping data
         """
@@ -243,12 +245,16 @@ class OpenFPGA:
             points = (
                 self.get_cross_shape_boundary(P)
                 if S == "cross"
-                else (0, 0, 0, H, W, H, W, 0)
-                if S == "rect"
-                else self.get_custom_boundary(P)
-                if S == "custom"
-                else logger.exception(
-                    "Unknown shape %s on module %s", S, instance.reference.name
+                else (
+                    (0, 0, 0, H, W, H, W, 0)
+                    if S == "rect"
+                    else (
+                        self.get_custom_boundary(P)
+                        if S == "custom"
+                        else logger.exception(
+                            "Unknown shape %s on module %s", S, instance.reference.name
+                        )
+                    )
                 )
             )
 
@@ -564,7 +570,7 @@ class OpenFPGA:
         module: sdn.Definition,
         in_patt: str,
         out_patt: str,
-        sort_pins: (Callable) = None,
+        sort_pins: Callable = None,
         is_downto=True,
     ):
         """
@@ -898,8 +904,8 @@ class OpenFPGA:
                         int(area_grid),
                         float(area),
                     )
-                    ref.data[PROP]["AREA"] = int(area_grid)
-                    ref.data[PROP]["AREA_UM"] = float(area) * (self.GLOBAL_SCALE**2)
+                    ref.properties["AREA"] = int(area_grid)
+                    ref.properties["AREA_UM"] = float(area) * (self.GLOBAL_SCALE**2)
                 except StopIteration:
                     logger.warning(
                         "Area annotation: %s not found in the netlist ", module
@@ -926,8 +932,12 @@ class OpenFPGA:
                         inst.data[PROP]["LOC_X"] = int(float(LOC_X) * self.GLOBAL_SCALE)
                         inst.data[PROP]["LOC_Y"] = int(float(LOC_Y) * self.GLOBAL_SCALE)
 
-                    inst.reference[PROP]["WIDTH"] = int(float(points[4])*self.GLOBAL_SCALE)
-                    inst.reference[PROP]["HEIGHT"] = int(float(points[5])*self.GLOBAL_SCALE)
+                    inst.reference[PROP]["WIDTH"] = int(
+                        float(points[4]) * self.GLOBAL_SCALE
+                    )
+                    inst.reference[PROP]["HEIGHT"] = int(
+                        float(points[5]) * self.GLOBAL_SCALE
+                    )
 
                 except StopIteration:
                     logger.warning(
