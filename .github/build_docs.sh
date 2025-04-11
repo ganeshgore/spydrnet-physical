@@ -5,7 +5,7 @@ source /tmp/buildenv/bin/activate
 python3 -m pip install --upgrade --no-cache-dir pip
 if [ -f "docs/requirements.txt" ]; then
     cat docs/requirements.txt | xargs -n 1 pip install
-    python3 -m pip install --upgrade --no-cache-dir -r docs/requirements.txt
+    cat docs/requirements.txt | xargs -n 1 pip install --upgrade
 fi
 pip install --upgrade Cython
 
