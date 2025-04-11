@@ -1,5 +1,5 @@
 # Documentation building enviroment
-FROM ubuntu:20.04
+FROM ubuntu:24.10
 LABEL mantainer="gg_documentation_env <ganesh.gore@utah.edu>"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -21,13 +21,18 @@ RUN apt-get -y install \
       texlive-science \
       texlive-pstricks \
       make \
-      python-openssl \
+      python3-openssl \
       graphviz-dev\
       python3-venv \
       libjpeg-dev \
       python3-pip \
       parallel \
       yosys
+
+RUN apt-get -y install \
+      python3-sphinx \
+      bc \
+      tree
 
 # Install Node
 WORKDIR /tmp
@@ -40,7 +45,7 @@ COPY .github/build_docs.sh .
 COPY docs/requirements.txt docs/requirements.txt
 RUN bash build_docs.sh
 
-RUN sed -i "s/import ensuredir.*/import ensuredir/" /tmp/buildenv/lib/python3.8/site-packages/sphinxcontrib_hdl_diagrams/__init__.py
+RUN sed -i "s/import ensuredir.*/import ensuredir/" /tmp/buildenv/lib*/python*/site-packages/sphinxcontrib_hdl_diagrams/__init__.py
 # Install Python tools/libs
 WORKDIR /home/docs
 CMD ["/bin/bash"]

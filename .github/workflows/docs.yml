@@ -1,5 +1,7 @@
 name: Documentation
 on: [push, pull_request]
+env:
+  TZ: America/Denver
 jobs:
   build_docs:
     runs-on: ubuntu-latest
