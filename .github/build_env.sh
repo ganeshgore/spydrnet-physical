@@ -1,4 +1,4 @@
-python3 -m pip install --upgrade python3 -m pip wheel setuptools
+python3 -m pip install --upgrade pip wheel setuptools
 python3 -m pip install --upgrade Cython
 apt-get update
 apt-get -y install metis parallel libxml2-utils
