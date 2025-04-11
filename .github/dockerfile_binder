@@ -1,7 +1,7 @@
 FROM ghcr.io/ganeshgore/sdpphy-docs-image:latest
 
 # Install node js
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 RUN apt-get install -y nodejs
 RUN apt-get install tree
@@ -9,10 +9,13 @@ RUN apt-get install wget
 RUN code-server --install-extension ms-python.python
 
 ARG NB_USER=sdnphy_user
-ARG NB_UID=1000
+ARG NB_UID=1001
 ENV USER ${NB_USER}
 ENV NB_UID ${NB_UID}
 ENV HOME /home/${NB_USER}
+
+# Set environment variables for Python
+
 
 RUN adduser --disabled-password \
     --gecos "Default user" \
@@ -22,22 +25,27 @@ RUN adduser --disabled-password \
 USER root
 RUN chown -R ${NB_UID} ${HOME}
 RUN chown -R ${NB_UID} /home
+RUN chown -R ${NB_USER}:${NB_USER} /tmp/buildenv/
 USER ${NB_USER}
 
 ENV PATH $PATH:/home/${NB_USER}/.local/bin
-
-RUN python3 -m pip install --upgrade pip
-RUN python3 -m pip install --user --no-cache-dir notebook
-RUN python3 -m pip install --user --no-cache-dir jupyterlab
-RUN python3 -m pip install --user --no-cache-dir jupyterhub
-RUN python3 -m pip install --user --no-cache-dir "jupyter-server<2.0.0"
-RUN python3 -m pip install --user --no-cache-dir jupyter-server-proxy
-RUN python3 -m pip install --user --no-cache-dir jupyter-vscode-proxy
 COPY requirements.txt /tmp/
-RUN python3 -m pip install --user --no-cache-dir -r /tmp/requirements.txt
+RUN bash -c "source /tmp/buildenv/bin/activate && \
+    pip install --upgrade pip setuptools wheel && \
+    pip install -r /tmp/requirements.txt && \
+    pip install --upgrade pip && \
+    pip install --no-cache-dir notebook && \
+    pip install --no-cache-dir jupyterlab && \
+    pip install --no-cache-dir jupyterhub && \
+    pip install --no-cache-dir jupyter-server && \
+    pip install --no-cache-dir jupyter-server-proxy && \
+    pip install --no-cache-dir jupyter-vscode-proxy"
+
+ENV VIRTUAL_ENV=/tmp/buildenv
+ENV PATH="/tmp/buildenv/bin:$PATH"
 
 RUN npm install @jupyterlab/server-proxy
-RUN jupyter serverextension enable --py jupyter_server_proxy
+RUN jupyter server extension enable --py jupyter_server_proxy
 RUN jupyter lab build
 
 # Set up terminal
