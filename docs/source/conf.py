@@ -307,6 +307,8 @@ def CollectRst():
     )
     for subdir, dirs, files in os.walk(verilog_dir):
         for file in files:
+            if "std_genlib" in file:
+                continue
             if file.endswith(".v"):
                 basename = os.path.splitext(os.path.basename(file))[0]
                 filename = os.path.join(subdir, file)
