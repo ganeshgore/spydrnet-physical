@@ -30,8 +30,6 @@ SCALE = 100
 CPP = math.floor(0.46 * SCALE)
 SC_HEIGHT = math.floor(2.72 * SCALE)
 
-PROP = "VERILOG.InlineConstraints"
-
 
 def main():
     """

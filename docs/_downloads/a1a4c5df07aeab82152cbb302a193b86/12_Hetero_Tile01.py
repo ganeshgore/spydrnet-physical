@@ -33,8 +33,6 @@ from spydrnet_physical.util import (
 logger = logging.getLogger("spydrnet_logs")
 sdn.enable_file_logging(LOG_LEVEL="INFO")
 
-PROP = "VERILOG.InlineConstraints"
-
 
 CBX_COLOR = "#d9d9f3"
 CBY_COLOR = "#a8d0db"

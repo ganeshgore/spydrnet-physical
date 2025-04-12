@@ -14,6 +14,7 @@ This script can be used for shaping and placement of the modules before place an
    :align: center
 
 """
+
 # sphinx_gallery_thumbnail_path = '../../examples/OpenFPGA_tiling/_classic_tile_hetero_floorplan.svg'
 import glob
 import logging
@@ -145,7 +146,7 @@ def main():
 
     # palette = sns.color_palette("pastel", 15).as_hex()
     # for indx, tile in enumerate(fpga.top_module.get_definitions("*tile*")):
-    #     tile.data[PROP]["COLOR"] = palette[indx]
+    #     tile.properties["COLOR"] = palette[indx]
 
     # fpga.design_top_stat()
 

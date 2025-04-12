@@ -15,7 +15,6 @@ module top
     input in0;
 (* SIDE = left, OFFSET = 30 *)
     input in1;
-(* SIDE = center, OFFSET = 0 *)
     input in3;
 (* SIDE = left, OFFSET = 50 *)
     input [1:0]bus_in;
@@ -63,7 +62,7 @@ module top
     );
 endmodule
 
-(* WIDTH = 50, HEIGHT = 60, SHAPE = cross, POINTS = [25, 25, 25, 25, 25, 25], in0_X = 50, in0_Y = 60, in1_X = 0, in1_Y = 35, out_X = 75, out_Y = 45 *)
+(* HEIGHT = 60, SHAPE = cross, POINTS = [25, 25, 25, 25, 25, 25], in0_X = 50, in0_Y = 60, in1_X = 0, in1_Y = 35, out_X = 75, out_Y = 45 *)
 module module1
 (
     in0,
@@ -71,7 +70,7 @@ module module1
     out
 );
 
-(* SIDE = top, OFFSET = 10, SIDE2 = right *)
+(* SIDE = top, SIDE2 = right, OFFSET = 10 *)
     input in0;
 (* SIDE = left, OFFSET = 10 *)
     input in1;
@@ -84,7 +83,7 @@ module module1
 
 endmodule
 
-(* WIDTH = 50, HEIGHT = 40, SHAPE = custom, POINTS = V 0 0 10 -10 10 30 -20 -20 *)
+(* HEIGHT = 40, SHAPE = custom, POINTS = V 0 0 10 -10 10 30 -20 -20 *)
 module module2
 (
     in0,

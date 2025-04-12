@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_rendering_01_floorplan_rendering.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_rendering_01_floorplan_rendering.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -36,10 +36,9 @@ Download final annotated verilog netlist:
 .. image:: ../../../examples/OpenFPGA_rendering/_basic_hierarchy_floorplan.svg
     :width: 500px
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-128
+.. GENERATED FROM PYTHON SOURCE LINES 21-127
 
-.. code-block:: default
-
+.. code-block:: Python
 
 
     import logging
@@ -50,10 +49,10 @@ Download final annotated verilog netlist:
 
     PROPERTY = "VERILOG.InlineConstraints"
 
-    logger = logging.getLogger('spydrnet_logs')
-    sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="01_floorplan_rendering")
+    logger = logging.getLogger("spydrnet_logs")
+    sdn.enable_file_logging(LOG_LEVEL="DEBUG", filename="01_floorplan_rendering")
 
-    netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
+    netlist = sdnphy.load_netlist_by_name("basic_hierarchy")
     top = netlist.top_instance.reference
 
     module1 = next(netlist.get_definitions("module1"))
@@ -146,12 +145,7 @@ Download final annotated verilog netlist:
     dwg = fp.get_svg()
     dwg.saveas("_basic_hierarchy_floorplan.svg", pretty=True, indent=4)
 
-    sdn.compose(netlist, '_annotate_netlist.v')
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
+    sdn.compose(netlist, "_annotate_netlist.v")
 
 
 .. _sphx_glr_download_auto_openfpga_rendering_01_floorplan_rendering.py:
@@ -160,14 +154,17 @@ Download final annotated verilog netlist:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 01_floorplan_rendering.ipynb <01_floorplan_rendering.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 01_floorplan_rendering.py <01_floorplan_rendering.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 01_floorplan_rendering.ipynb <01_floorplan_rendering.ipynb>`
+      :download:`Download zipped: 01_floorplan_rendering.zip <01_floorplan_rendering.zip>`
 
 
 .. only:: html

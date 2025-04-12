@@ -19,7 +19,6 @@ Download final annotated verilog netlist:
 
 '''
 
-
 import logging
 
 import spydrnet as sdn
@@ -28,10 +27,10 @@ from spydrnet_physical.util import FloorPlanViz
 
 PROPERTY = "VERILOG.InlineConstraints"
 
-logger = logging.getLogger('spydrnet_logs')
-sdn.enable_file_logging(LOG_LEVEL='DEBUG', filename="01_floorplan_rendering")
+logger = logging.getLogger("spydrnet_logs")
+sdn.enable_file_logging(LOG_LEVEL="DEBUG", filename="01_floorplan_rendering")
 
-netlist = sdnphy.load_netlist_by_name('basic_hierarchy')
+netlist = sdnphy.load_netlist_by_name("basic_hierarchy")
 top = netlist.top_instance.reference
 
 module1 = next(netlist.get_definitions("module1"))
@@ -124,4 +123,4 @@ fp.compose(skip_connections=False)
 dwg = fp.get_svg()
 dwg.saveas("_basic_hierarchy_floorplan.svg", pretty=True, indent=4)
 
-sdn.compose(netlist, '_annotate_netlist.v')
+sdn.compose(netlist, "_annotate_netlist.v")

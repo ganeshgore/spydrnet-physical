@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_tiling_08_area_optimized_tiles.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_tiling_08_area_optimized_tiles.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -28,9 +28,9 @@ Verilog netlist obtained from OpenFPGA
 .. image:: ../../../examples/OpenFPGA_tiling/_tile01_floorplan.svg
     :height: 400px
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-146
+.. GENERATED FROM PYTHON SOURCE LINES 13-143
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import glob
@@ -46,8 +46,6 @@ Verilog netlist obtained from OpenFPGA
 
     logger = logging.getLogger("spydrnet_logs")
     sdn.enable_file_logging(LOG_LEVEL="INFO")
-
-    PROP = "VERILOG.InlineConstraints"
 
 
     def main():
@@ -89,8 +87,7 @@ Verilog netlist obtained from OpenFPGA
                     cable_list = []
                     for pin in p.pins[::-1]:
                         cable_list.append(i.pins[pin].wire.cable)
-                    cable = fpga.top_module.combine_cables(
-                        f"{i.name}_{p.name}", cable_list)
+                    cable = fpga.top_module.combine_cables(f"{i.name}_{p.name}", cable_list)
                     cable.is_downto = False
 
         # Before Creating Tiles
@@ -121,9 +118,9 @@ Verilog netlist obtained from OpenFPGA
         grid_plan.offset_y = 10
 
         for module in fpga.top_module.get_definitions("*tile*"):
-            module.data[PROP]["WIDTH"] = 200
-            module.data[PROP]["HEIGHT"] = 200
-            module.data[PROP]["COLOR"] = "#E6BA95"
+            module.properties["WIDTH"] = 200
+            module.properties["HEIGHT"] = 200
+            module.properties["COLOR"] = "#E6BA95"
 
         for xi in range(4, 0, -1):
             for yi in range(4, 0, -1):
@@ -135,11 +132,11 @@ Verilog netlist obtained from OpenFPGA
                 except StopIteration:
                     continue
 
-                inst.data[PROP]["LOC_X"] = points[0] + X_OFFSET
-                inst.data[PROP]["LOC_Y"] = points[1] + Y_OFFSET
+                inst.properties["LOC_X"] = points[0] + X_OFFSET
+                inst.properties["LOC_Y"] = points[1] + Y_OFFSET
 
-        fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
-        fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
+        fpga.top_module.properties["WIDTH"] = grid_plan.width + 20
+        fpga.top_module.properties["HEIGHT"] = grid_plan.height + 20
 
         fpga.save_shaping_data("*", scale=0.01, filename="_tile01_shaping.txt")
 
@@ -166,7 +163,7 @@ Verilog netlist obtained from OpenFPGA
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-153
+.. GENERATED FROM PYTHON SOURCE LINES 144-150
 
 Output Shaping File
 ^^^^^^^^^^^^^^^^^^^^
@@ -176,25 +173,23 @@ Output Shaping File
 
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download_auto_openfpga_tiling_08_area_optimized_tiles.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 08_area_optimized_tiles.ipynb <08_area_optimized_tiles.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 08_area_optimized_tiles.py <08_area_optimized_tiles.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 08_area_optimized_tiles.ipynb <08_area_optimized_tiles.ipynb>`
+      :download:`Download zipped: 08_area_optimized_tiles.zip <08_area_optimized_tiles.zip>`
 
 
 .. only:: html

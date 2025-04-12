@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_tiling_11_memory_bank_protocol.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_tiling_11_memory_bank_protocol.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -28,9 +28,9 @@ Verilog netlist obtained from OpenFPGA
 .. image:: ../../../examples/OpenFPGA_tiling/_tile02_mb_floorplan.svg
     :height: 400px
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-112
+.. GENERATED FROM PYTHON SOURCE LINES 13-199
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import glob
@@ -41,29 +41,32 @@ Verilog netlist obtained from OpenFPGA
     from os import path
 
     import spydrnet as sdn
-    from spydrnet_physical import PROP
-    from spydrnet_physical.util import (FloorPlanViz, Tile02,
-                                        sram_configuration,
-                                        GridFloorplanGen, OpenFPGA)
+    from spydrnet_physical.util import (
+        FloorPlanViz,
+        Tile02,
+        sram_configuration,
+        GridFloorplanGen,
+        OpenFPGA,
+    )
 
 
-    logger = logging.getLogger('spydrnet_logs')
-    sdn.enable_file_logging(LOG_LEVEL='INFO')
+    logger = logging.getLogger("spydrnet_logs")
+    sdn.enable_file_logging(LOG_LEVEL="INFO")
 
 
-    STYLE_SHEET = '''
+    STYLE_SHEET = """
         symbol[id*='tile'] * {number:01; fill:#d9d9f3;}
         .over_util {fill:#b22222 !important}
         text{font-family: Lato; font-size: 15px;}
-    '''
+    """
 
 
     def main():
-        proj = '../homogeneous_k6n10_standalone_fabric'
-        source_files = glob.glob(f'{proj}/*_Verilog/lb/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/routing/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/sub_module/*.v')
-        source_files += glob.glob(f'{proj}/*_Verilog/fpga_top.v')
+        proj = "../homogeneous_k6n10_standalone_fabric"
+        source_files = glob.glob(f"{proj}/*_Verilog/lb/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/routing/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/sub_module/*.v")
+        source_files += glob.glob(f"{proj}/*_Verilog/fpga_top.v")
 
         # Temporary fix to read multiple verilog files
         with tempfile.NamedTemporaryFile(suffix=".v") as fp:
@@ -87,16 +90,17 @@ Verilog netlist obtained from OpenFPGA
         fpga.remove_config_chain()
 
         # Convert top level independent nets to bus
-        for i in chain(fpga.top_module.get_instances("grid_clb*"),
-                       fpga.top_module.get_instances("grid_io*"),
-                       fpga.top_module.get_instances("sb_*")):
+        for i in chain(
+            fpga.top_module.get_instances("grid_clb*"),
+            fpga.top_module.get_instances("grid_io*"),
+            fpga.top_module.get_instances("sb_*"),
+        ):
             for p in filter(lambda x: True, i.reference.ports):
                 if p.size > 1 and (i.check_all_scalar_connections(p)):
                     cable_list = []
                     for pin in p.pins[::-1]:
                         cable_list.append(i.pins[pin].wire.cable)
-                    cable = fpga.top_module.combine_cables(
-                        f"{i.name}_{p.name}", cable_list)
+                    cable = fpga.top_module.combine_cables(f"{i.name}_{p.name}", cable_list)
                     cable.is_downto = False
 
         # Before Creating Tiles
@@ -123,24 +127,19 @@ Verilog netlist obtained from OpenFPGA
         with open("_instance_hierarchy.txt", "w", encoding="UTF-8") as fp:
             fp.write(fpga.hierarchy(fpga.netlist.top_instance, max_depth=3))
         with open("_instance_hierarchy.txt", "w", encoding="UTF-8") as fp:
-            fp.write(fpga.hierarchy(
-                next(fpga.top_module.get_definitions("tile")), max_depth=10))
+            fp.write(
+                fpga.hierarchy(next(fpga.top_module.get_definitions("tile")), max_depth=10)
+            )
         # After Creating Tiles
         # fpga.design_top_stat()
 
         for each in fpga.top_module.get_definitions("*"):
             each.properties["LABEL"] = each.properties.get("CONFIG_BITS", 0)
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 113-115
-
-Following section is for rendering only
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 116-194
-
-.. code-block:: default
-
+        # %%
+        #
+        # Following section is for rendering only
+        #
 
         # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         #           Floorplan visualization
@@ -154,30 +153,30 @@ Following section is for rendering only
         grid_plan.set_row_height(1, 120)
 
         for module in fpga.top_module.get_definitions("*tile*"):
-            module.data[PROP]["WIDTH"] = 200
-            module.data[PROP]["HEIGHT"] = 200
-            module.data[PROP]["COLOR"] = "#E6BA95"
+            module.properties["WIDTH"] = 200
+            module.properties["HEIGHT"] = 200
+            module.properties["COLOR"] = "#E6BA95"
 
         for module in fpga.top_module.get_definitions("*bottom*tile"):
-            module.data[PROP]["HEIGHT"] = 100
+            module.properties["HEIGHT"] = 100
 
         for module in fpga.top_module.get_definitions("*left*tile"):
-            module.data[PROP]["WIDTH"] = 100
+            module.properties["WIDTH"] = 100
 
         for xi in range(5, 0, -1):
             for yi in range(5, 0, -1):
                 x_offset, y_offset = 10, 10
-                points = grid_plan.get_x_y(xi-1, yi-1)
+                points = grid_plan.get_x_y(xi - 1, yi - 1)
                 try:
                     inst = next(fpga.top_module.get_instances(f"*_{xi}__{yi}_*"))
                 except StopIteration:
                     continue
 
-                inst.data[PROP]['LOC_X'] = points[0] + x_offset
-                inst.data[PROP]['LOC_Y'] = points[1] + y_offset
+                inst.properties["LOC_X"] = points[0] + x_offset
+                inst.properties["LOC_Y"] = points[1] + y_offset
 
-        fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
-        fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
+        fpga.top_module.properties["WIDTH"] = grid_plan.width + 20
+        fpga.top_module.properties["HEIGHT"] = grid_plan.height + 20
 
         fpga.save_shaping_data("*", scale=0.01, filename="_tile01_shaping.txt")
 
@@ -220,7 +219,7 @@ Following section is for rendering only
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 195-201
+.. GENERATED FROM PYTHON SOURCE LINES 200-206
 
 Output Shaping File
 ^^^^^^^^^^^^^^^^^^^^
@@ -230,25 +229,23 @@ Output Shaping File
 
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download_auto_openfpga_tiling_11_memory_bank_protocol.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 11_memory_bank_protocol.ipynb <11_memory_bank_protocol.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 11_memory_bank_protocol.py <11_memory_bank_protocol.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 11_memory_bank_protocol.ipynb <11_memory_bank_protocol.ipynb>`
+      :download:`Download zipped: 11_memory_bank_protocol.zip <11_memory_bank_protocol.zip>`
 
 
 .. only:: html

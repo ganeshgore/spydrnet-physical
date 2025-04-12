@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_tiling_13_Hetero_Tile01_render.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_tiling_13_Hetero_Tile01_render.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -32,9 +32,10 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-173
+.. GENERATED FROM PYTHON SOURCE LINES 17-174
 
-.. code-block:: default
+.. code-block:: Python
+
 
     import glob
     import logging
@@ -166,7 +167,7 @@ This script can be used for shaping and placement of the modules before place an
 
         # palette = sns.color_palette("pastel", 15).as_hex()
         # for indx, tile in enumerate(fpga.top_module.get_definitions("*tile*")):
-        #     tile.data[PROP]["COLOR"] = palette[indx]
+        #     tile.properties["COLOR"] = palette[indx]
 
         # fpga.design_top_stat()
 
@@ -194,25 +195,23 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download_auto_openfpga_tiling_13_Hetero_Tile01_render.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 13_Hetero_Tile01_render.ipynb <13_Hetero_Tile01_render.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 13_Hetero_Tile01_render.py <13_Hetero_Tile01_render.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 13_Hetero_Tile01_render.ipynb <13_Hetero_Tile01_render.ipynb>`
+      :download:`Download zipped: 13_Hetero_Tile01_render.zip <13_Hetero_Tile01_render.zip>`
 
 
 .. only:: html

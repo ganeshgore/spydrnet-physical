@@ -1,0 +1,501 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
+        <title>Computation times - SpyDrNet-Physical alpha documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b494726d" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">SpyDrNet-Physical alpha documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">SpyDrNet-Physical alpha documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Users Content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/install.html">Install</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../introduction/tutorial.html">Tutorial</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorial</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference external" href="?http://#example">Example</a></li>
+<li class="toctree-l2"><a class="reference external" href="?http://#shell-interface">Shell Interface</a></li>
+<li class="toctree-l2"><a class="reference external" href="?http://#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/classes/index.html">SpyDrNet-Physical API Summary</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of SpyDrNet-Physical API Summary</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/library.html">Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/bundle.html">Bundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/element.html">Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/definition.html">Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/instance.html">Instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/cable.html">Cable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/wire.html">Wire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/innerpin.html">InnerPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/outerpin.html">OuterPin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/pin.html">Pin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/classes/port.html">Port</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/visualization/index.html">Visualization and Floorplanning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/connectivity/index.html">Connectivity Pattern Generation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../reference/openfpga/index.html">OpenFPGA Transformations</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of OpenFPGA Transformations</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/base.html">OpenFPGA Base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/openfpga_arch.html">OpenFPGA Arch Parser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/routing_render.html">Routing Render</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../reference/openfpga/tile01.html">Tile-01</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of Tile-01</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/tile.html">Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/left-tile.html">Left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/right-tile.html">Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-tile.html">Top-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-tile.html">Bottom-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-left-tile.html">Top-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/top-right-tile.html">Top-Right-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-left-tile.html">Bottom-left-Tile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../reference/openfpga/Tile01/bottom-right-tile.html">Bottom-Right-Tile</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/openfpga/tile02.html">Tile-02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/config_chain_01.html">Configuration Chain Pattern 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/config_chain_simple.html">Configuration Chain Pattern 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/sram_configuration.html">SRAM Configuration Protocol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/initial_hetero_placement.html">Initial Heterogeneous Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../reference/utility_classes/openfpga_bitstream.html">Bitstream Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/utility/index.html">Utility Classes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/verilog_support.html">Verilog Language Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sample_netlist.html">Sample verilog netlist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fpga44/index.html">Physical Design for 4x4 FPGA</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../example.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_basic/index.html">1. Basic Restructuring Examples</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of 1. Basic Restructuring Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/02_display_hierarchical_netlist.html">1.1. Visualise Hierarchical Netlist (SVG/Interactive)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/07_multiple_instance_feedthrough.html">1.2. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/09_combine_pins.html">1.3. Combined definitions pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/10_combine_wires.html">1.4. Combined independent nets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/11_logging_mesages.html">1.5. Logging and debuging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/12_buffer_net.html">1.6. Buffering net</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/13_create_parallel_feedthrough.html">1.7. Generating feedthrough from multiple instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/14_merge_ports.html">1.8. Merging one or more ports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/group_ungroup_cells.html">1.9. Grouping ungrouping cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/merge_instance.html">1.10. Merging two instances in the design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_basic/wire_feedthrough.html">1.11. Generating feedthrough from single instance</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_basic/index.html">2. OpenFPGA Basic Examples</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of 2. OpenFPGA Basic Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/01_fpga_arch_parse.html">2.1. OpenFPGA architecture parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/02_fpga_grid_generation.html">2.2. FPGA layout grid generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/03_fpga_basic_elements.html">2.3. Render FPGA Basic Elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/04_fpga_grid_render.html">2.4. RenderFPGA Pre Generation Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/05_fpga_instance_name.html">2.5. FPGA Instance to Layout mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/08_grid_floor_plan_example.html">2.6. Grid Floorplan Generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/10_optimize_pins.html">2.7. Optimizing module pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/12_io_sequence.html">2.8. Represetes IO Sequence in OpenFPGA Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_basic/rename_modules.html">2.9. Renaming Homogeneous FPGA Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_rendering/index.html">3. Module Rendering Examples</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of 3. Module Rendering Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/01_floorplan_rendering.html">3.1. Demonstrate how to render basic floorplan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/01_multi_merge_floorplan.html">3.2. Placement aware instace merge operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/02_render_routing_box.html">3.3. Rendering Switch and Connection Boxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_rendering/03_render_edge_routing_box.html">3.4. Rendering Switch and Connection Boxes</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="index.html">4. Floorplanning Examples</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of 4. Floorplanning Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="01_automated_initial_placement.html">4.1. Auto floorplan homogeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02_dimension_based_floorplan.html">4.2. Dimension based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03_utilization_based_floorplan.html">4.3. Utilisation based floorplanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="04_FloorplanHeterogeneousDesign01.html">4.4. Heterogeneous Design Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="05_HeterogeneousFloorplanAdjust.html">4.5. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="06_HeteroTiles.html">4.6. Heterogeneous Floorplan Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="07_HeteroTiles.html">4.7. Heterogeneous Floorplan Adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_clock_tree/index.html">5. Clock Tree Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of 5. Clock Tree Embedding</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/01_connection_patterns.html">5.1. Connection Pattern Generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/02_create_simple_htree.html">5.2. Create H-Tree Connectivity pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/03_create_hybrid_htree.html">5.3. Create Hybrid Connectivity Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/04_5_adding_buffers_on_clockpath.html">5.4. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/04_embed_clock_tree.html">5.5. Create Clock Tree Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/05_embed_clock_tree_fpga44.html">5.6. Two layer H-Tree insertion in 4x4 FPGA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_connection_pattern_tie_cell.html">5.7. Adding Tie Cells on Floating Pins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/06_reset_feedthrough.html">5.8. Create Reset Feedthrough in fpga_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/07_clock_tree_example1.html">5.9. Clock tree insertion Example Architecture 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/08_clock_tree_example2.html">5.10. Clock tree insertion Example Architecture 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example3.html">5.11. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/09_clock_tree_example4.html">5.12. Clock tree insertion Example Architecture 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_clock_tree/10_6x9_htree.html">5.13. Grouping ungrouping cells</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_tiling/index.html">6. Partition Examples</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of 6. Partition Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/01_netlist_to_graph.html">6.1. Netlist to graph (networkx)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/02_switch_partition_01.html">6.2. Logical/Pre-techmapped Partition Conn Box 01</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/03_switch_partition_02.html">6.3. Physical/Techmapped Partition Conn Box 02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/04_switch_partition_03.html">6.4. Partition Conn Box 02 - Simplified</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/05_module_partition.html">6.5. Split CBs and SBs across fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part1.html">6.6. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/06_generic_tiling_part2.html">6.7. Generic Tiling Part02 - Creating tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/07_FloorplanDesign01.html">6.8. Floorplanning Classic Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/08_area_optimized_tiles.html">6.9. Generating and Floorplanning Area-optimized FPGA Tiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/09_tile03_generation.html">6.10. Unified routing tile structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/10_tile02_tiles.html">6.11. Tile02 - Area optimized version with higher regularity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/11_memory_bank_protocol.html">6.12. Implementing memeory bank protocol on Tile02</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/12_Hetero_Tile01.html">6.13. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/13_Hetero_Tile01_render.html">6.14. Floorplanning Classic Tiles for hetergeneous design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_tiling/partitioning_experiments.html">6.15. Partitions Experimentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../auto_openfpga_config/index.html">7. Configuration Chain</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of 7. Configuration Chain</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/01_create_memory_bank_protocol.html">7.1. Create memory bank pin placement and connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/02_fabric_key_generator_ccff.html">7.2. Fabric key generation for homogeneous fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/configuration_chain.html">7.3. Adding configuration chain to the fabric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../auto_openfpga_config/extract_configuration_order.html">7.4. Extract configuration chain order</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developeres Content</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developers/index.html">Developers Guidelines</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tests/index.html">Regression Tests</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of Regression Tests</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tests/library.html">Library - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/element.html">Element - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/definition.html">Definition - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/instance.html">Instance - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/cable.html">Cable - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/wire.html">Wire - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/port.html">Port - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/pin.html">Pin - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/outerpin.html">OuterPin - Unit tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tests/innerpin.html">InnerPin - Unit tests</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/auto_openfpga_floorplanning/sg_execution_times.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="computation-times">
+<span id="sphx-glr-auto-openfpga-floorplanning-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Link to this heading">¶</a></h1>
+<p><strong>00:00.000</strong> total execution time for 7 files <strong>from auto_openfpga_floorplanning</strong>:</p>
+<div class="docutils container">
+<style scoped>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+</style>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript" class="init">
+$(document).ready( function () {
+    $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+} );
+</script><div class="table-wrapper table table-striped sg-datatable docutils container">
+<table class="table table-striped sg-datatable docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Example</p></th>
+<th class="head"><p>Time</p></th>
+<th class="head"><p>Mem (MB)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="01_automated_initial_placement.html#sphx-glr-auto-openfpga-floorplanning-01-automated-initial-placement-py"><span class="std std-ref">Auto floorplan homogeneous design</span></a> (<code class="docutils literal notranslate"><span class="pre">01_automated_initial_placement.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="02_dimension_based_floorplan.html#sphx-glr-auto-openfpga-floorplanning-02-dimension-based-floorplan-py"><span class="std std-ref">Dimension based floorplanning</span></a> (<code class="docutils literal notranslate"><span class="pre">02_dimension_based_floorplan.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="03_utilization_based_floorplan.html#sphx-glr-auto-openfpga-floorplanning-03-utilization-based-floorplan-py"><span class="std std-ref">Utilisation based floorplanning</span></a> (<code class="docutils literal notranslate"><span class="pre">03_utilization_based_floorplan.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="04_FloorplanHeterogeneousDesign01.html#sphx-glr-auto-openfpga-floorplanning-04-floorplanheterogeneousdesign01-py"><span class="std std-ref">Heterogeneous Design Placement</span></a> (<code class="docutils literal notranslate"><span class="pre">04_FloorplanHeterogeneousDesign01.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="05_HeterogeneousFloorplanAdjust.html#sphx-glr-auto-openfpga-floorplanning-05-heterogeneousfloorplanadjust-py"><span class="std std-ref">Heterogeneous Floorplan Adjustment</span></a> (<code class="docutils literal notranslate"><span class="pre">05_HeterogeneousFloorplanAdjust.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="06_HeteroTiles.html#sphx-glr-auto-openfpga-floorplanning-06-heterotiles-py"><span class="std std-ref">Heterogeneous Floorplan Adjustment</span></a> (<code class="docutils literal notranslate"><span class="pre">06_HeteroTiles.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="07_HeteroTiles.html#sphx-glr-auto-openfpga-floorplanning-07-heterotiles-py"><span class="std std-ref">Heterogeneous Floorplan Adjustment</span></a> (<code class="docutils literal notranslate"><span class="pre">07_HeteroTiles.py</span></code>)</p></td>
+<td><p>00:00.000</p></td>
+<td><p>0.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021, University of Utah
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=dc9947ea"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>

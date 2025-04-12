@@ -1,9 +1,9 @@
 {
-  "creator": "Yosys 0.26 (git sha1 UNKNOWN, ccache clang 14.0.0-1ubuntu1 -Os -flto -flto)",
+  "creator": "Yosys 0.52 (git sha1 fee39a328, ccache clang 18.1.3 -O3 -flto -flto)",
   "modules": {
     "module1": {
       "attributes": {
-        "hdlname": "\\module1",
+        "hdlname": "module1",
         "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/square_grid.v:37.1-46.10"
       },
       "ports": {
@@ -48,7 +48,7 @@
     },
     "top": {
       "attributes": {
-        "hdlname": "\\top",
+        "hdlname": "top",
         "top": 1,
         "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/square_grid.v:2.1-35.10"
       },
@@ -387,8 +387,10 @@
         },
         "row4": {
           "hide_name": 0,
-          "bits": [ 13, 17, 21 ],
+          "bits": [ 13, 17, 21, 22 ],
           "attributes": {
+            "src": "/__w/spydrnet-physical/spydrnet-physical/spydrnet_physical/support_files/sample_verilog/square_grid.v:9.16-9.20",
+            "unused_bits": "3"
           }
         }
       }

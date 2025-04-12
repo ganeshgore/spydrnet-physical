@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_tiling_01_netlist_to_graph.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_tiling_01_netlist_to_graph.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -36,7 +36,7 @@ with weight equal to length of bus is assigned.
 
 .. GENERATED FROM PYTHON SOURCE LINES 18-39
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import matplotlib.pyplot as plt
@@ -70,7 +70,7 @@ with weight equal to length of bus is assigned.
 
 .. GENERATED FROM PYTHON SOURCE LINES 45-56
 
-.. code-block:: default
+.. code-block:: Python
 
 
     graph = top.get_connectivity_network(split_ports=True)
@@ -85,25 +85,23 @@ with weight equal to length of bus is assigned.
     print("\n".join(nx.generate_edgelist(graph, data=True)))
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download_auto_openfpga_tiling_01_netlist_to_graph.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 01_netlist_to_graph.ipynb <01_netlist_to_graph.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 01_netlist_to_graph.py <01_netlist_to_graph.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 01_netlist_to_graph.ipynb <01_netlist_to_graph.ipynb>`
+      :download:`Download zipped: 01_netlist_to_graph.zip <01_netlist_to_graph.zip>`
 
 
 .. only:: html

@@ -36,8 +36,6 @@ SCALE = 100
 CPP = math.floor(0.46 * SCALE)
 SC_HEIGHT = math.floor(2.72 * SCALE)
 
-PROP = "VERILOG.InlineConstraints"
-
 
 def main():
     """
@@ -110,15 +108,16 @@ def main():
     fpga.show_placement_data(filename="_homogeneous_placement.txt")
     fpga.show_utilization_data()
     fpga.design_top_stat()
-    fpga.save_shaping_data("*", scale=1/SCALE)
+    fpga.save_shaping_data("*", scale=1 / SCALE)
 
     fpga.update_module_label()
     fpga.show_utilization_data()
 
     fpga.update_module_label(
-        get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
-                            f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
-                            f"\n[{x.utilization:.0%}]")
+        get_label=lambda x: f"{int(x.properties['WIDTH'])/CPP:.1f}"
+        + f"x{int(x.properties['HEIGHT'])/SC_HEIGHT:.1f}"
+        + f"\n[{x.utilization:.0%}]"
+    )
     fpga.show_utilization_data()
 
     # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -133,8 +132,7 @@ def main():
     dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
     # This standard cell grid
-    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
-                          patternUnits="userSpaceOnUse")
+    pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
     pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
     pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
     dwg.defs.add(pattern)

@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_tiling_07_FloorplanDesign01.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_tiling_07_FloorplanDesign01.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -30,9 +30,9 @@ This script can be used for shaping and placement of the modules before place an
 
 **Deprecated**
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-156
+.. GENERATED FROM PYTHON SOURCE LINES 15-155
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import glob
@@ -41,7 +41,6 @@ This script can be used for shaping and placement of the modules before place an
     from itertools import chain
 
     import spydrnet as sdn
-    from spydrnet_physical import PROP
     from spydrnet_physical.util import (
         FloorPlanViz,
         FPGAGridGen,
@@ -140,27 +139,27 @@ This script can be used for shaping and placement of the modules before place an
         #         elif "cby" in inst_name:
         #             X_OFFSET, Y_OFFSET = 0, 2 * (p.CLB_H - p.CBY_H)
         #         elif "sb" in inst_name:
-        #             PTS = inst.reference.data[PROP]["POINTS"]
+        #             PTS = inst.reference.properties["POINTS"]
         #             X_OFFSET, Y_OFFSET = PTS[1] * -1, PTS[-1] * -1
-        #         inst.data[PROP]["LOC_X"] = math.floor(points[0] + X_OFFSET)
-        #         inst.data[PROP]["LOC_Y"] = math.floor(points[1] + Y_OFFSET)
+        #         inst.properties["LOC_X"] = math.floor(points[0] + X_OFFSET)
+        #         inst.properties["LOC_Y"] = math.floor(points[1] + Y_OFFSET)
 
-        # fpga.top_module.data[PROP]["WIDTH"] = grid_plan.width + 20
-        # fpga.top_module.data[PROP]["HEIGHT"] = grid_plan.height + 20
+        # fpga.top_module.properties["WIDTH"] = grid_plan.width + 20
+        # fpga.top_module.properties["HEIGHT"] = grid_plan.height + 20
         # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         # #           Adjust Floorplan
         # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         # for cbx in fpga.top_module.get_definitions("cbx_*"):
-        #     cbx.data[PROP]["COLOR"] = CBX_COLOR
+        #     cbx.properties["COLOR"] = CBX_COLOR
 
         # for cby in fpga.top_module.get_definitions("cby_*"):
-        #     cby.data[PROP]["COLOR"] = CBY_COLOR
+        #     cby.properties["COLOR"] = CBY_COLOR
 
         # for sb in fpga.top_module.get_definitions("sb_*"):
-        #     sb.data[PROP]["COLOR"] = SB_COLOR
+        #     sb.properties["COLOR"] = SB_COLOR
 
         # clb: sdn.Definition = next(fpga.top_module.get_definitions("grid_clb"))
-        # clb.data[PROP]["COLOR"] = GRID_COLOR
+        # clb.properties["COLOR"] = GRID_COLOR
 
         # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         # fpga.show_placement_data("sb_*")
@@ -177,25 +176,23 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download_auto_openfpga_tiling_07_FloorplanDesign01.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 07_FloorplanDesign01.ipynb <07_FloorplanDesign01.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 07_FloorplanDesign01.py <07_FloorplanDesign01.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 07_FloorplanDesign01.ipynb <07_FloorplanDesign01.ipynb>`
+      :download:`Download zipped: 07_FloorplanDesign01.zip <07_FloorplanDesign01.zip>`
 
 
 .. only:: html

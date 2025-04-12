@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_floorplanning_02_dimension_based_floorplan.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_floorplanning_02_dimension_based_floorplan.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -29,9 +29,9 @@ FPGA fabric to increse the utilzation of each module in the design.
    :width: 100%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-148
+.. GENERATED FROM PYTHON SOURCE LINES 14-145
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import glob
@@ -53,8 +53,6 @@ FPGA fabric to increse the utilzation of each module in the design.
     SCALE = 100
     CPP = math.floor(0.46 * SCALE)
     SC_HEIGHT = math.floor(2.72 * SCALE)
-
-    PROP = "VERILOG.InlineConstraints"
 
 
     def main():
@@ -136,10 +134,11 @@ FPGA fabric to increse the utilzation of each module in the design.
         fpga.show_placement_data(filename="_homogeneous_placement.txt")
         fpga.show_utilization_data()
         fpga.design_top_stat()
-        fpga.save_shaping_data("*", scale=1/SCALE)
+        fpga.save_shaping_data("*", scale=1 / SCALE)
 
         fpga.update_module_label(
-            get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f} [{x.utilization:.2%}]")
+            get_label=lambda x: f"{int(x.properties['WIDTH'])/CPP:.1f}x{int(x.properties['HEIGHT'])/SC_HEIGHT:.1f} [{x.utilization:.2%}]"
+        )
 
         # Highlight over utilized modules
         additional_styles = fpga.get_overutils_styles()
@@ -153,31 +152,24 @@ FPGA fabric to increse the utilzation of each module in the design.
         dwg = fp.get_svg()
         dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-        pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
-                              patternUnits="userSpaceOnUse")
+        pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
         pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
         pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
         dwg.defs.add(pattern)
         dwg.defs.elements[0].elements[0].attribs["fill"] = pattern.get_funciri()
 
-        dwg.saveas("_fpga_auto_initial_placement_adjusted.svg",
-                   pretty=True, indent=4)
+        dwg.saveas("_fpga_auto_initial_placement_adjusted.svg", pretty=True, indent=4)
 
 
     if __name__ == "__main__":
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-152
+.. GENERATED FROM PYTHON SOURCE LINES 146-149
 
 **Placement information**
 
 .. literalinclude:: ../../../examples/OpenFPGA_Floorplanning/_homogeneous_placement.txt
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_floorplanning_02_dimension_based_floorplan.py:
@@ -186,14 +178,17 @@ FPGA fabric to increse the utilzation of each module in the design.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 02_dimension_based_floorplan.ipynb <02_dimension_based_floorplan.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 02_dimension_based_floorplan.py <02_dimension_based_floorplan.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 02_dimension_based_floorplan.ipynb <02_dimension_based_floorplan.ipynb>`
+      :download:`Download zipped: 02_dimension_based_floorplan.zip <02_dimension_based_floorplan.zip>`
 
 
 .. only:: html

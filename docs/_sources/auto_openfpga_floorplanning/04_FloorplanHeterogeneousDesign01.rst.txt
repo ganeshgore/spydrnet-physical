@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_floorplanning_04_FloorplanHeterogeneousDesign01.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_floorplanning_04_FloorplanHeterogeneousDesign01.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -32,9 +32,9 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-186
+.. GENERATED FROM PYTHON SOURCE LINES 17-188
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import glob
@@ -43,8 +43,12 @@ This script can be used for shaping and placement of the modules before place an
     from copy import deepcopy
 
     import spydrnet as sdn
-    from spydrnet_physical.util import (FloorPlanViz, FPGAGridGen,
-                                        OpenFPGA, initial_hetero_placement)
+    from spydrnet_physical.util import (
+        FloorPlanViz,
+        FPGAGridGen,
+        OpenFPGA,
+        initial_hetero_placement,
+    )
 
     logger = logging.getLogger("spydrnet_logs")
     sdn.enable_file_logging(LOG_LEVEL="INFO", filename="floorplan_heterpgeneous")
@@ -63,7 +67,6 @@ This script can be used for shaping and placement of the modules before place an
     CPP = math.floor(0.46 * SCALE)
     SC_HEIGHT = math.floor(2.72 * SCALE)
 
-    PROP = "VERILOG.InlineConstraints"
 
     STYLE_SHEET = """
         symbol {mix-blend-mode: difference;}
@@ -192,8 +195,7 @@ This script can be used for shaping and placement of the modules before place an
         dwg = fp.get_svg()
         dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
-        pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT),
-                              patternUnits="userSpaceOnUse")
+        pattern = dwg.pattern(size=(4 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
         pattern.add(dwg.circle(center=(2, 2), r=1, fill="black"))
         pattern.add(dwg.circle(center=(2, SC_HEIGHT + 2), r=1, fill="red"))
         dwg.defs.add(pattern)
@@ -207,25 +209,23 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download_auto_openfpga_floorplanning_04_FloorplanHeterogeneousDesign01.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 04_FloorplanHeterogeneousDesign01.ipynb <04_FloorplanHeterogeneousDesign01.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 04_FloorplanHeterogeneousDesign01.py <04_FloorplanHeterogeneousDesign01.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 04_FloorplanHeterogeneousDesign01.ipynb <04_FloorplanHeterogeneousDesign01.ipynb>`
+      :download:`Download zipped: 04_FloorplanHeterogeneousDesign01.zip <04_FloorplanHeterogeneousDesign01.zip>`
 
 
 .. only:: html

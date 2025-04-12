@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_tiling_12_Hetero_Tile01.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_tiling_12_Hetero_Tile01.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -32,9 +32,9 @@ This script can be used for shaping and placement of the modules before place an
    :width: 70%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-87
+.. GENERATED FROM PYTHON SOURCE LINES 17-85
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import glob
@@ -54,8 +54,6 @@ This script can be used for shaping and placement of the modules before place an
 
     logger = logging.getLogger("spydrnet_logs")
     sdn.enable_file_logging(LOG_LEVEL="INFO")
-
-    PROP = "VERILOG.InlineConstraints"
 
 
     CBX_COLOR = "#d9d9f3"
@@ -108,25 +106,23 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
-
-
 .. _sphx_glr_download_auto_openfpga_tiling_12_Hetero_Tile01.py:
 
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 12_Hetero_Tile01.ipynb <12_Hetero_Tile01.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 12_Hetero_Tile01.py <12_Hetero_Tile01.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 12_Hetero_Tile01.ipynb <12_Hetero_Tile01.ipynb>`
+      :download:`Download zipped: 12_Hetero_Tile01.zip <12_Hetero_Tile01.zip>`
 
 
 .. only:: html

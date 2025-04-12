@@ -10,8 +10,8 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_auto_openfpga_floorplanning_01_automated_initial_placement.py>`
-        to download the full example code
+        :ref:`Go to the end <sphx_glr_download_auto_openfpga_floorplanning_01_automated_initial_placement.py>`
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -32,9 +32,9 @@ This script can be used for shaping and placement of the modules before place an
    :width: 100%
    :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-149
+.. GENERATED FROM PYTHON SOURCE LINES 17-147
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import glob
@@ -57,8 +57,6 @@ This script can be used for shaping and placement of the modules before place an
     SCALE = 100
     CPP = math.floor(0.46 * SCALE)
     SC_HEIGHT = math.floor(2.72 * SCALE)
-
-    PROP = "VERILOG.InlineConstraints"
 
 
     def main():
@@ -132,15 +130,16 @@ This script can be used for shaping and placement of the modules before place an
         fpga.show_placement_data(filename="_homogeneous_placement.txt")
         fpga.show_utilization_data()
         fpga.design_top_stat()
-        fpga.save_shaping_data("*", scale=1/SCALE)
+        fpga.save_shaping_data("*", scale=1 / SCALE)
 
         fpga.update_module_label()
         fpga.show_utilization_data()
 
         fpga.update_module_label(
-            get_label=lambda x: f"{int(x.data[PROP]['WIDTH'])/CPP:.1f}" +
-                                f"x{int(x.data[PROP]['HEIGHT'])/SC_HEIGHT:.1f}" +
-                                f"\n[{x.utilization:.0%}]")
+            get_label=lambda x: f"{int(x.properties['WIDTH'])/CPP:.1f}"
+            + f"x{int(x.properties['HEIGHT'])/SC_HEIGHT:.1f}"
+            + f"\n[{x.utilization:.0%}]"
+        )
         fpga.show_utilization_data()
 
         # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -155,8 +154,7 @@ This script can be used for shaping and placement of the modules before place an
         dwg.add(fpga.placement_creator.design_grid.render_grid(return_group=True))
 
         # This standard cell grid
-        pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT),
-                              patternUnits="userSpaceOnUse")
+        pattern = dwg.pattern(size=(2 * CPP, 2 * SC_HEIGHT), patternUnits="userSpaceOnUse")
         pattern.add(dwg.circle(center=(4, 4), r=4, fill="black"))
         pattern.add(dwg.circle(center=(4, SC_HEIGHT + 4), r=4, fill="red"))
         dwg.defs.add(pattern)
@@ -169,16 +167,11 @@ This script can be used for shaping and placement of the modules before place an
         main()
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-153
+.. GENERATED FROM PYTHON SOURCE LINES 148-151
 
 **Placement information**
 
 .. literalinclude:: ../../../examples/OpenFPGA_Floorplanning/_homogeneous_placement.txt
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  0.000 seconds)
 
 
 .. _sphx_glr_download_auto_openfpga_floorplanning_01_automated_initial_placement.py:
@@ -187,14 +180,17 @@ This script can be used for shaping and placement of the modules before place an
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download Jupyter notebook: 01_automated_initial_placement.ipynb <01_automated_initial_placement.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 01_automated_initial_placement.py <01_automated_initial_placement.py>`
 
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
+    .. container:: sphx-glr-download sphx-glr-download-zip
 
-      :download:`Download Jupyter notebook: 01_automated_initial_placement.ipynb <01_automated_initial_placement.ipynb>`
+      :download:`Download zipped: 01_automated_initial_placement.zip <01_automated_initial_placement.zip>`
 
 
 .. only:: html
