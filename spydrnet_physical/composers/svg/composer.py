@@ -35,7 +35,11 @@ class SVGComposer:
         This will add add the modules without black
         box tags to the exapand list
         """
-        instance_names = [d.name for d in netlist.top_instance.get_instances()]
+        instance_names = [d for d in netlist.top_instance.get_instances()]
+        instance_names = list(
+            filter(lambda x: len(list(x.get_instances())), instance_names)
+        )
+        instance_names = [d.name for d in instance_names]
         self.config["hierarchy"]["expandModules"]["ids"].extend(instance_names)
         logger.debug(f"Expanding all [{len(instance_names)}] module. {instance_names}")
 
