@@ -1062,7 +1062,8 @@ class Definition(DefinitionBase):
                 load_pins = list(
                     wire.get_pins(
                         selection="OUTSIDE",
-                        filter=lambda x: x.inner_pin.port.direction == sdn.IN,
+                        filter=lambda x: (x.inner_pin.port.direction == sdn.IN)
+                        and (x.instance.parent == self),
                     )
                 )
                 post_buffer_w = new_cable_name or f"{instance_name}_post_buffer"
