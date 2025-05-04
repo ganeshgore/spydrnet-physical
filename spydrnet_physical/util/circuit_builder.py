@@ -263,22 +263,28 @@ class circuit_builder:
             }
             interconnect = build_interconnect(module, input_len, output_len, mux_dict)
         """
-        sram_len = math.ceil(math.log2(input_len)) * output_len
+        sram_len = math.ceil(math.log2(input_len))
+        total_sram_len = sram_len * output_len
         module.create_port("I", direction=sdn.IN, pins=input_len)
         module.create_port("O", direction=sdn.OUT, pins=output_len)
-        module.create_port("SEL", direction=sdn.IN, pins=sram_len)
+        module.create_port("SEL", direction=sdn.IN, pins=total_sram_len)
 
         in_c = module.create_cable("I", wires=input_len)
         out_c = module.create_cable("O", wires=output_len)
-        sel_c = module.create_cable("SEL", wires=sram_len)
+        sel_c = module.create_cable("SEL", wires=total_sram_len)
 
         for out_w in out_c.wires:
+            index = out_w.index()
+            each_sel_c = module.create_cable(f"sel_{index}", wires=sram_len)
+            each_sel_c.assign_cable(
+                sel_c, upper=index * (sram_len), lower=index * (sram_len - 1)
+            )
             out_w_ret, _ = circuit_builder.build_tree_like_mux(
                 definition=module,
                 inputs=in_c.wires,
                 mux_dictionary=mux_dict,
-                select_cable=sel_c,
-                suffix=f"_{out_w.index()}",
+                select_cable=each_sel_c,
+                suffix=f"_{index}",
             )
             out_w_ret.assign_wire(out_w)
         return module
