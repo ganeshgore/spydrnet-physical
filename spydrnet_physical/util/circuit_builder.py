@@ -264,13 +264,13 @@ class circuit_builder:
             interconnect = build_interconnect(module, input_len, output_len, mux_dict)
         """
         sram_len = math.ceil(math.log2(input_len)) * output_len
-        module.create_port("in", direction=sdn.IN, pins=input_len)
-        module.create_port("out", direction=sdn.OUT, pins=output_len)
-        module.create_port("sel", direction=sdn.IN, pins=sram_len)
+        module.create_port("I", direction=sdn.IN, pins=input_len)
+        module.create_port("O", direction=sdn.OUT, pins=output_len)
+        module.create_port("SEL", direction=sdn.IN, pins=sram_len)
 
-        in_c = module.create_cable("in", wires=input_len)
-        out_c = module.create_cable("out", wires=output_len)
-        sel_c = module.create_cable("sel", wires=sram_len)
+        in_c = module.create_cable("I", wires=input_len)
+        out_c = module.create_cable("O", wires=output_len)
+        sel_c = module.create_cable("SEL", wires=sram_len)
 
         for out_w in out_c.wires:
             out_w_ret, _ = circuit_builder.build_tree_like_mux(
