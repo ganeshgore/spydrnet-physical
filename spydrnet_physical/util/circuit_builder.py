@@ -184,7 +184,9 @@ class circuit_builder:
         depth: int,
         suffix="",
     ):
-        sipo_def = library.create_definition("sipo_reg" + suffix,)
+        sipo_def = library.create_definition(
+            "sipo_reg" + suffix,
+        )
         sipo_def.create_port("shift_in", direction=sdn.IN, pins=width)
         sipo_def.create_port("reset", direction=sdn.IN, pins=1)
         sipo_def.create_port("clock", direction=sdn.IN, pins=1)
@@ -203,7 +205,7 @@ class circuit_builder:
             else:
                 in_cable = out_cable
             out_cable = sipo_def.create_cable(
-                f"shift_out" if d == depth-1 else f"shift_out_{d}", wires=depth
+                f"shift_out" if d == depth - 1 else f"shift_out_{d}", wires=depth
             )
             for w in range(width):
                 flop_inst = sipo_def.create_child(
@@ -228,3 +230,55 @@ class circuit_builder:
                 sipo_out_cable, upper=(width * (d + 1)) - 1, lower=width * d
             )
         return sipo_def
+
+    @staticmethod
+    def build_interconnect(module, input_len, output_len, mux_dict):
+        """
+        Builds an interconnect module with input, output, and selection ports.
+
+        This method creates an interconnect module that connects multiple input
+        wires to multiple output wires using a tree-like multiplexer structure.
+        The selection lines determine which input is routed to each output.
+
+        Args:
+            module (Definition): The definition object where the interconnect
+            module will be created.
+            input_len (int): Number of input wires.
+            output_len (int): Number of output wires.
+            mux_dict (dict): A dictionary where keys are MUX sizes and values
+            are the corresponding MUX definitions.
+
+        Returns:
+            Definition: The created interconnect module definition.
+
+        example:
+            netlist = sdnphy.load_netlist_by_name("std_genlib")
+            library = netlist.create_library("top")
+            module = sdn.create_definition("interconnect")
+            input_len = 8
+            output_len = 2
+            mux_dict = {
+                2: sdn.create_definition("MUX2"),
+                4: sdn.create_definition("MUX4"),
+            }
+            interconnect = build_interconnect(module, input_len, output_len, mux_dict)
+        """
+        sram_len = math.ceil(math.log2(input_len)) * output_len
+        module.create_port("in", direction=sdn.IN, pins=input_len)
+        module.create_port("out", direction=sdn.OUT, pins=output_len)
+        module.create_port("sel", direction=sdn.IN, pins=sram_len)
+
+        in_c = module.create_cable("in", wires=input_len)
+        out_c = module.create_cable("out", wires=output_len)
+        sel_c = module.create_cable("sel", wires=sram_len)
+
+        for out_w in out_c.wires:
+            out_w_ret, _ = circuit_builder.build_tree_like_mux(
+                definition=module,
+                inputs=in_c.wires,
+                mux_dictionary=mux_dict,
+                select_cable=sel_c,
+                suffix=f"_{out_w.index()}",
+            )
+            out_w_ret.assign_wire(out_w)
+        return module
