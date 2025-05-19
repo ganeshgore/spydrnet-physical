@@ -929,13 +929,13 @@ class OpenFPGA:
                     else:
                         inst = next(self.top_module.get_instances(INSTANCE))
 
-                        inst.data[PROP]["LOC_X"] = int(float(LOC_X) * self.GLOBAL_SCALE)
-                        inst.data[PROP]["LOC_Y"] = int(float(LOC_Y) * self.GLOBAL_SCALE)
+                        inst.properties["LOC_X"] = int(float(LOC_X) * self.GLOBAL_SCALE)
+                        inst.properties["LOC_Y"] = int(float(LOC_Y) * self.GLOBAL_SCALE)
 
-                    inst.reference[PROP]["WIDTH"] = int(
+                    inst.reference.properties["WIDTH"] = int(
                         float(points[4]) * self.GLOBAL_SCALE
                     )
-                    inst.reference[PROP]["HEIGHT"] = int(
+                    inst.reference.properties["HEIGHT"] = int(
                         float(points[5]) * self.GLOBAL_SCALE
                     )
 
@@ -981,13 +981,13 @@ class OpenFPGA:
 
         def add_area_detail(ref):
             util = ref.utilization
-            ref.data[PROP]["UTIL"] = util
+            ref.properties["UTIL"] = util
             return f"[{util:.2%}]"
 
         get_label = get_label or add_area_detail
         for inst in self.top_module.get_instances("*"):
             ref = inst.reference
-            ref.data[PROP]["LABEL"] = get_label(ref)
+            ref.properties["LABEL"] = get_label(ref)
             # if util > 0.9:
             #     ADDITIONAL_STYLES += f".{ref.name}" + \
             #         "{fill:#b22222 !important;}\n"
