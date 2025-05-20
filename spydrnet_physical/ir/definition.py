@@ -829,6 +829,39 @@ class Definition(DefinitionBase):
         logger.debug(f"{new_port.name} <- {port_list}")
         return new_port, new_cable
 
+    def split_port_fanout(self, port, port_names=None):
+        """
+        Split the given port into multiple ports
+        This is used to split the fanout ports
+        """
+        if isinstance(port, str):
+            port = next(self.get_ports(port))
+
+        port_names = port_names or (lambda args: f"{args[0]}_{args[1]}")
+
+        instances = list(r for r in self.references if r.parent)
+        assert (
+            len(instances) == 1
+        ), "Fanout split is only supported for single instance found %s" % "-".join(
+            r.parent.name for r in self.references if r.parent
+        )
+
+        cable = next(self.get_cables(port.name))
+        in_wire = instances[0].pins[port.pins[0]].wire
+
+        for indx, pin in enumerate(list(cable.wires[0].pins)):
+            if isinstance(pin, sdn.OuterPin):
+                new_port_name = port_names((port.name, indx))
+                new_port = self.create_port(new_port_name, direction=sdn.IN, pins=1)
+                new_cable = self.create_cable(new_port_name, wires=1)
+                new_cable.wires[0].connect_pin(new_port.pins[0])
+                pin.wire.disconnect_pin(pin)
+                new_cable.wires[0].connect_pin(pin)
+                in_wire.connect_pin(instances[0].pins[new_port.pins[0]])
+
+        self.remove_port(port)
+        self.remove_cable(cable)
+
     def create_unconn_wires(self):
         unconn_cable = self.create_cable("unconn")
         w = unconn_cable.create_wire()  # dummy wire
