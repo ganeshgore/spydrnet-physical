@@ -463,112 +463,115 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.combine_ports" title="spydrnet_physical.ir.definition.Definition.combine_ports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combine_ports</span></code></a></p></td>
 <td><p>This method can combine multiple input or output ports togther to create a bus structure.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_unconn_wires</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.split_port_fanout" title="spydrnet_physical.ir.definition.Definition.split_port_fanout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_port_fanout</span></code></a></p></td>
+<td><p>Split the given port into multiple ports This is used to split the fanout ports</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_unconn_wires</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_ports</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_ports</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.split_port" title="spydrnet_physical.ir.definition.Definition.split_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_port</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.split_port" title="spydrnet_physical.ir.definition.Definition.split_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_port</span></code></a></p></td>
 <td><p>Split the given port</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.flatten_instance" title="spydrnet_physical.ir.definition.Definition.flatten_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten_instance</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.flatten_instance" title="spydrnet_physical.ir.definition.Definition.flatten_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten_instance</span></code></a></p></td>
 <td><p>Flatterns single instance in the given definition</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.get_connectivity_network" title="spydrnet_physical.ir.definition.Definition.get_connectivity_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_network</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.get_connectivity_network" title="spydrnet_physical.ir.definition.Definition.get_connectivity_network"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity_network</span></code></a></p></td>
 <td><p>This method converts current module into networkx graph each cell is represented as as node and nets are represented as edges</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.make_instance_unique" title="spydrnet_physical.ir.definition.Definition.make_instance_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_instance_unique</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.make_instance_unique" title="spydrnet_physical.ir.definition.Definition.make_instance_unique"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_instance_unique</span></code></a></p></td>
 <td><p>clone the definition and point the reference to the new definition</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="spydrnet_physical.ir.definition.Definition.add_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.add_buffer" title="spydrnet_physical.ir.definition.Definition.add_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer</span></code></a></p></td>
 <td><p>Adds buffer on the given net :Parameters: * <strong>wire</strong> (<em>sdn.Wire, sdn.Cable</em>) -- Cable or a wire to be buffered              * <strong>buffer</strong> (<em>str</em>)              * <strong>instance_name</strong> (<em>sdn.Instance</em>)              * <strong>ports tuple</strong> (<em>str, str</em>)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cable</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_cable</span></code></p></td>
 <td><p>Add a cable to the definition.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_child</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_child</span></code></p></td>
 <td><p>Add an existing instance to the definition.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_port</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_port</span></code></p></td>
 <td><p>Add a preexisting port to the definition.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean_single_bit_assign</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean_single_bit_assign</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code></p></td>
 <td><p>Clone the definition in an api safe way.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_cable</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_cable</span></code></p></td>
 <td><p>Create a cable, add it to the definition, and return the cable.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_child</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_child</span></code></p></td>
 <td><p>Create an instance to add to the definition, add it, and return the instance.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_port</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_port</span></code></p></td>
 <td><p>Create a port, add it to the definition, and return that port.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></p></td>
 <td><p>get the item from the data structure</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cables</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cables</span></code></p></td>
 <td><p>get_cables(...)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_definitions</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_definitions</span></code></p></td>
 <td><p>get_definitions(...)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hcables</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hcables</span></code></p></td>
 <td><p>get_hcables(...)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hinstances</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hinstances</span></code></p></td>
 <td><p>get_hinstances(...)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hpins</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hpins</span></code></p></td>
 <td><p>get_hpins(...)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hports</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hports</span></code></p></td>
 <td><p>get_hports(...)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hwires</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_hwires</span></code></p></td>
 <td><p>get_hwires(...)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instances</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_instances</span></code></p></td>
 <td><p>get_instances(...)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_libraries</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_libraries</span></code></p></td>
 <td><p>get_libraries(...)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_netlists</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_netlists</span></code></p></td>
 <td><p>get_netlists(...)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pins</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pins</span></code></p></td>
 <td><p>get_pins(...)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ports</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ports</span></code></p></td>
 <td><p>get_ports(...)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_wires</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_wires</span></code></p></td>
 <td><p>get_wires(...)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_leaf</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_leaf</span></code></p></td>
 <td><p>Check to see if this definition represents a leaf cell.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></p></td>
 <td><p>pop the object from the data structure</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_cables_from</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_cables_from</span></code></p></td>
 <td><p>Remove a set of cables from the definition.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_child</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_child</span></code></p></td>
 <td><p>Remove an instance from the definition.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_children_from</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_children_from</span></code></p></td>
 <td><p>Remove a set of instances from the definition.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_ports_from</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_ports_from</span></code></p></td>
 <td><p>Remove a set of ports from the definition.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">somhing</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">somhing</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -869,6 +872,13 @@ default properties will be used for creating a new port</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.split_port_fanout">
+<span class="sig-name descname"><span class="pre">split_port_fanout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.split_port_fanout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.split_port_fanout" title="Link to this definition">¶</a></dt>
+<dd><p>Split the given port into multiple ports
+This is used to split the fanout ports</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="spydrnet_physical.ir.definition.Definition.split_port">
 <span class="sig-name descname"><span class="pre">split_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/spydrnet_physical/ir/definition.html#Definition.split_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#spydrnet_physical.ir.definition.Definition.split_port" title="Link to this definition">¶</a></dt>
 <dd><p>Split the given port</p>
@@ -994,6 +1004,7 @@ each cell is represented as as node and nets are represented as edges</p>
 <li><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.duplicate_port"><code class="docutils literal notranslate"><span class="pre">Definition.duplicate_port()</span></code></a></li>
 <li><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.combine_cables"><code class="docutils literal notranslate"><span class="pre">Definition.combine_cables()</span></code></a></li>
 <li><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.combine_ports"><code class="docutils literal notranslate"><span class="pre">Definition.combine_ports()</span></code></a></li>
+<li><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.split_port_fanout"><code class="docutils literal notranslate"><span class="pre">Definition.split_port_fanout()</span></code></a></li>
 <li><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.split_port"><code class="docutils literal notranslate"><span class="pre">Definition.split_port()</span></code></a></li>
 <li><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.flatten_instance"><code class="docutils literal notranslate"><span class="pre">Definition.flatten_instance()</span></code></a></li>
 <li><a class="reference internal" href="#spydrnet_physical.ir.definition.Definition.get_connectivity_network"><code class="docutils literal notranslate"><span class="pre">Definition.get_connectivity_network()</span></code></a></li>

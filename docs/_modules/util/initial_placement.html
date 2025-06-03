@@ -429,7 +429,7 @@
 <span class="sd">        ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐  ∧</span>
 <span class="sd">        │           ││   CBX_TOP   ││              ││             ││           │  |</span>
 <span class="sd">        │           ││   _WIDTH    ││              ││             ││           │  | CBX_TOP_HEIGHT</span>
-<span class="sd">        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ⩒ </span>
+<span class="sd">        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ⩒</span>
 <span class="sd">        │        │┌───────────────────┐│        │┌───────────────────┐│        │</span>
 <span class="sd">        └────────┘│   GRID_CLB_RATIO  │└────────┘│                   │└────────┘</span>
 <span class="sd">        ┌────────┐│       W/H         │┌────────┐│                   │┌────────┐</span>
@@ -509,11 +509,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pformat</span><span class="p">,</span> <span class="n">pprint</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">spydrnet_physical.util.shell</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch_shell</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">spydrnet_physical.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenFPGA_Placement_Generator</span><span class="p">,</span> <span class="n">FPGAGridGen</span>
@@ -763,16 +759,17 @@
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;self.SB_W </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_W</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;self.SB_H </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_H</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padFile</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padFile</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found PinMapFile </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">padFile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">df_pinMap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padFile</span><span class="p">)</span>
-                <span class="n">df_pinMap</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">PadNames</span><span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_pinMap</span><span class="p">[</span><span class="s2">&quot;Remark&quot;</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">PadNames</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_pinMap</span><span class="p">[</span><span class="s2">&quot;Remark.1&quot;</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">PadNames</span><span class="p">[</span><span class="s2">&quot;R&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_pinMap</span><span class="p">[</span><span class="s2">&quot;Remark.2&quot;</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">PadNames</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_pinMap</span><span class="p">[</span><span class="s2">&quot;Remark.3&quot;</span><span class="p">]</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">NumOfPads</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_pinMap</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="c1"># Comment to remove dependency on pandas</span>
+        <span class="c1"># if self.padFile:</span>
+        <span class="c1">#     if os.path.exists(self.padFile):</span>
+        <span class="c1">#         print(f&quot;Found PinMapFile {self.padFile}&quot;)</span>
+        <span class="c1">#         df_pinMap = pd.read_csv(self.padFile)</span>
+        <span class="c1">#         df_pinMap.rename(columns=lambda x: x.strip(), inplace=True)</span>
+        <span class="c1">#         self.PadNames[&quot;L&quot;] = df_pinMap[&quot;Remark&quot;]</span>
+        <span class="c1">#         self.PadNames[&quot;T&quot;] = df_pinMap[&quot;Remark.1&quot;]</span>
+        <span class="c1">#         self.PadNames[&quot;R&quot;] = df_pinMap[&quot;Remark.2&quot;]</span>
+        <span class="c1">#         self.PadNames[&quot;B&quot;] = df_pinMap[&quot;Remark.3&quot;]</span>
+        <span class="c1">#         self.NumOfPads = len(df_pinMap.index)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">CreateDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Create Blocks</span>
