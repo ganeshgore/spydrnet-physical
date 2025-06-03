@@ -29,7 +29,7 @@ Following figure details the various paramteres referred in this type of floorpl
         ┌───────────┐┌─────────────┐┌──────────────┐┌─────────────┐┌───────────┐  ∧
         │           ││   CBX_TOP   ││              ││             ││           │  |
         │           ││   _WIDTH    ││              ││             ││           │  | CBX_TOP_HEIGHT
-        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ⩒ 
+        │        ┌──┘└─────────────┘└──┐        ┌──┘└─────────────┘└──┐        │  ⩒
         │        │┌───────────────────┐│        │┌───────────────────┐│        │
         └────────┘│   GRID_CLB_RATIO  │└────────┘│                   │└────────┘
         ┌────────┐│       W/H         │┌────────┐│                   │┌────────┐
@@ -109,11 +109,7 @@ Utilization Based
 
 import logging
 import math
-import os
 import json
-import pandas as pd
-from pprint import pformat, pprint
-from spydrnet_physical.util.shell import launch_shell
 
 import yaml
 from spydrnet_physical.util import OpenFPGA_Placement_Generator, FPGAGridGen
@@ -352,16 +348,17 @@ class initial_placement(OpenFPGA_Placement_Generator):
             print(f"self.SB_W {self.SB_W}")
             print(f"self.SB_H {self.SB_H}")
 
-        if self.padFile:
-            if os.path.exists(self.padFile):
-                print(f"Found PinMapFile {self.padFile}")
-                df_pinMap = pd.read_csv(self.padFile)
-                df_pinMap.rename(columns=lambda x: x.strip(), inplace=True)
-                self.PadNames["L"] = df_pinMap["Remark"]
-                self.PadNames["T"] = df_pinMap["Remark.1"]
-                self.PadNames["R"] = df_pinMap["Remark.2"]
-                self.PadNames["B"] = df_pinMap["Remark.3"]
-                self.NumOfPads = len(df_pinMap.index)
+        # Comment to remove dependency on pandas
+        # if self.padFile:
+        #     if os.path.exists(self.padFile):
+        #         print(f"Found PinMapFile {self.padFile}")
+        #         df_pinMap = pd.read_csv(self.padFile)
+        #         df_pinMap.rename(columns=lambda x: x.strip(), inplace=True)
+        #         self.PadNames["L"] = df_pinMap["Remark"]
+        #         self.PadNames["T"] = df_pinMap["Remark.1"]
+        #         self.PadNames["R"] = df_pinMap["Remark.2"]
+        #         self.PadNames["B"] = df_pinMap["Remark.3"]
+        #         self.NumOfPads = len(df_pinMap.index)
 
     def CreateDatabase(self):
         # Create Blocks
