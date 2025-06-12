@@ -30,6 +30,7 @@ def format_verilog():
                 input_wire = next(instance.get_port_pins("i")).wire
                 output_wire = next(instance.get_port_pins("o")).wire
                 instance_name = output_wire.cable.name + "__" + str(output_wire.index())
+                instance_name += input_wire.cable.name
                 instance.name = instance_name
             except StopIteration:
                 launch_shell()
