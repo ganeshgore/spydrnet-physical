@@ -1,5 +1,5 @@
 {
-  "creator": "Yosys 0.53 (git sha1 53c22ab7c, ccache clang 18.1.3 -O3 -flto -flto)",
+  "creator": "Yosys 0.54 (git sha1 db72ec3bd, ccache clang 18.1.3 -O3 -flto -flto)",
   "modules": {
     "BUF_X1": {
       "attributes": {
@@ -1013,6 +1013,7 @@
           "hide_name": 0,
           "bits": [ "1" ],
           "attributes": {
+            "single_bit_vector": 1,
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/../homogeneous_fabric/FPGA44_Verilog/sub_module/inv_buf_passgate.v:33.14-33.20"
           }
         }
@@ -1332,6 +1333,7 @@
           "hide_name": 0,
           "bits": [ 18 ],
           "attributes": {
+            "single_bit_vector": 1,
             "src": "/__w/spydrnet-physical/spydrnet-physical/examples/OpenFPGA_basic/../homogeneous_fabric/FPGA44_Verilog/sub_module/muxes.v:24.14-24.17"
           }
         },
