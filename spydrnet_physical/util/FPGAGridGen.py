@@ -213,7 +213,7 @@ class FPGAGridGen:
             value = self.grid[y][x]
         return value, x, y
 
-    def get_top_instance(self, x, y):
+    def get_top_instance(self, x, y, get_routing=False):
         """
         This method generates the grid instance information given the
         cordinate points
@@ -238,6 +238,8 @@ class FPGAGridGen:
             (x % 2 == 1) and (y % 2 == 0): "cby",
             (x % 2 == 0) and (y % 2 == 1): "cbx",
         }[True]
+        if get_routing:
+            return f"{module}_{int(x/2)}__{int(y/2)}_"
         xi, yi = int(x / 2), int(y / 2)
         # TODO : Square modules are not supported yet
         if module == "sb":
@@ -251,7 +253,7 @@ class FPGAGridGen:
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
         if module == "cbx":
-            if self.grid[yi + 1][xi] in [self.UP_ARROW]:
+            if self.get_block(xi, yi) == self.get_block(xi, yi+1):
                 grid_lbl = self.get_block(xi, yi)
                 return "%s_%d__%d_" % grid_lbl
         return f"{module}_{int(x/2)}__{int(y/2)}_"
