@@ -43,16 +43,34 @@ class Tile04(Tile01):
                         inst.append(next(tm.get_instances(f"cby_{x}__{y}_")))
                     except StopIteration:
                         pass
-                    inst.append(next(tm.get_instances(f"sb_{x}__{y}_")))
+                    try:
+                        inst.append(next(tm.get_instances(f"sb_{x}__{y}_")))
+                    except StopIteration:
+                        pass
 
                     if x == 1:
-                        inst.append(next(tm.get_instances(f"cby_{x-1}__{y}_")))
-                        inst.append(next(tm.get_instances(f"sb_{x-1}__{y}_")))
+                        try:
+                            inst.append(next(tm.get_instances(f"cby_{x-1}__{y}_")))
+                        except StopIteration:
+                            pass
+                        try:
+                            inst.append(next(tm.get_instances(f"sb_{x-1}__{y}_")))
+                        except StopIteration:
+                            pass
                     if y == 1:
-                        inst.append(next(tm.get_instances(f"cbx_{x}__{y-1}_")))
-                        inst.append(next(tm.get_instances(f"sb_{x}__{y-1}_")))
+                        try:
+                            inst.append(next(tm.get_instances(f"cbx_{x}__{y-1}_")))
+                        except StopIteration:
+                            pass
+                        try:
+                            inst.append(next(tm.get_instances(f"sb_{x}__{y-1}_")))
+                        except StopIteration:
+                            pass
                     if y == 1 and x == 1:
-                        inst.append(next(tm.get_instances(f"sb_{x-1}__{y-1}_")))
+                        try:
+                            inst.append(next(tm.get_instances(f"sb_{x-1}__{y-1}_")))
+                        except StopIteration:
+                            pass
 
 
                     # Vertical search (max 16 height)
@@ -69,7 +87,10 @@ class Tile04(Tile01):
                             inst.append(next(tm.get_instances(f"cby_{x}__{y+y_off}_")))
                         except StopIteration:
                             pass
-                        inst.append(next(tm.get_instances(f"sb_{x}__{y+y_off}_")))
+                        try:
+                            inst.append(next(tm.get_instances(f"sb_{x}__{y+y_off}_")))
+                        except StopIteration:
+                            pass
 
 
                     tile_name = inst[0].reference.name.replace('grid_', '')
@@ -78,8 +99,9 @@ class Tile04(Tile01):
                     instance_list[uname] = instance_list.get(uname, [])
                     instance_list[uname].append((tuple(inst),f"tile_{x}__{y}_"))
 
-                except StopIteration:
+                except StopIteration as e:
                     logger.warning(f"Missing instance at {x} {y}")
+                    raise e
 
         keys = sorted(instance_list.keys(), reverse=True,
                       key=lambda x: len(instance_list[x]))
