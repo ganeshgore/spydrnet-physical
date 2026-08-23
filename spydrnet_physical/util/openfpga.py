@@ -808,6 +808,7 @@ class OpenFPGA:
         self,
         pattern="*",
         location=".",
+        add_suffix="",
         sort_all=False,
         skip_constraints=True,
         sort_cables=False,
@@ -832,7 +833,7 @@ class OpenFPGA:
             #     definition._children.sort(key=lambda x: x.name)
             logger.debug("Writing %s", definition.name)
             Path(location).mkdir(parents=True, exist_ok=True)
-            filepath = os.path.join(location, f"{definition.name}.v")
+            filepath = os.path.join(location, f"{definition.name}{add_suffix}.v")
             sdn.compose(
                 self._netlist,
                 filename=filepath,
