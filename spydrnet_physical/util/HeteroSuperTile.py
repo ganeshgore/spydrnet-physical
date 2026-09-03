@@ -2,6 +2,7 @@
 This class is created for OpenFPGA related netlist transformations
 """
 import logging
+import re
 
 from spydrnet_physical.util import Tile01
 from spydrnet_physical.util.shell import launch_shell
@@ -20,11 +21,21 @@ class HeteroSuperTile(Tile01):
         '''
         tm = self._top_module
         instance_grid = [[None for _ in range(self.fpga_size[1]+1)] for _ in range(self.fpga_size[0]+1)]
+        # Index the top level instances by the grid coordinate in their name
+        # once. A wildcard get_instances scans every child, so looking the grid
+        # up point by point walks the whole instance list per grid location.
+        grid_lookup = {}
+        coordinate = re.compile(r".*_(\d+)__(\d+)_$")
+        for instance in tm.children:
+            match = coordinate.match(instance.name or "")
+            if match:
+                grid_lookup.setdefault(
+                    (int(match.group(1)), int(match.group(2))), instance
+                )
         for x in range(1, self.fpga_size[0]+1):
             for y in range(1, self.fpga_size[1]+1):
-                try:
-                    instance_grid[x][y] = next(self._top_module.get_instances(f"*_{x}__{y}_"))
-                except StopIteration:
+                instance_grid[x][y] = grid_lookup.get((x, y))
+                if instance_grid[x][y] is None:
                     logger.warning(f"grid not found at {x} {y}")
 
         instance_list = {}

@@ -35,6 +35,9 @@ class Definition(DefinitionBase):
     def __init__(self, name=None, properties=None):
         super().__init__(name=name, properties=properties)
         properties = properties or dict()
+        # Instances detached by dissociate_child, still in self._children until
+        # purge_dissociated_children runs.
+        self._dissociated_children = set()
         # self.properties["WIDTH"] = properties.get("WIDTH", 50)
         # self.properties["HEIGHT"] = properties.get("WIDTH", 50)
 
@@ -464,6 +467,9 @@ class Definition(DefinitionBase):
         merged_module = self.create_child(name=new_instance_name, reference=new_mod)
 
         # ===== Interate over each module and create new module
+        # Remembers the last suffix handed out for a port name so the search for
+        # a free name stays O(1) instead of rescanning new_mod for every clone.
+        name_seed = {}
         for index, eachM in enumerate(instances_list):
             rename_map[eachM.reference.name] = {}
             rename_map[eachM.reference.name][index] = {}
@@ -472,10 +478,7 @@ class Definition(DefinitionBase):
             # Iterate over each port of current instance
             for p in eachM.get_ports():
                 pClone = p.clone()  # It copied all pins, wires and cables
-                for eachSuffix in [""] + [f"_{i}" for i in range(1000)]:
-                    newName = pClone.name + eachSuffix
-                    if not len(list(new_mod.get_ports(newName))):
-                        break
+                newName = self._next_free_port_name(new_mod, pClone.name, name_seed)
                 newCable = new_mod.create_cable(
                     name=newName,
                     is_downto=pClone.is_downto,
@@ -504,12 +507,33 @@ class Definition(DefinitionBase):
                         conWire.disconnect_pin(inst_out_pin)
                     newCable.wires[eachPin.index()].connect_pin(inst_out_pin)
 
-            self.remove_child(eachM)
+            self.dissociate_child(eachM)
+        # The merged instances are detached above and dropped from the child list
+        # in one pass here. Dropping each one individually scans the child list,
+        # and a fabric merges every tile it has into a supertile.
+        self.purge_dissociated_children()
         sdnphy_global_callback._call_merged_instance(
             new_mod, merged_module, instances_list
         )
         self._call_merged_instance(new_mod, merged_module, instances_list)
         return new_mod, merged_module, rename_map
+
+    @staticmethod
+    def _next_free_port_name(definition, name, name_seed):
+        """
+        First free ``name``/``name_<i>`` variant on ``definition``
+
+        ``name_seed`` carries the last suffix handed out for a name, so a merge
+        which clones the same tile port hundreds of times does not walk the
+        suffixes from zero every time. Hands out the names the plain scan would.
+        """
+        index = name_seed.get(name, -1)
+        while True:
+            candidate = name if index < 0 else f"{name}_{index}"
+            if next(definition.get_ports(candidate), None) is None:
+                name_seed[name] = index
+                return candidate
+            index += 1
 
     def OptPins(
         self,
@@ -537,29 +561,47 @@ class Definition(DefinitionBase):
         unused_ports = []  # Subset of duplicate pins
         defPort = list([x for x in self.get_ports() if pins(x.name)])
 
+        # Connection signature of every port: the wire each of its pins sits on,
+        # for every instance of this definition. Two ports of the same width are
+        # on the same net everywhere exactly when their signatures match, so the
+        # pair test below compares two interned ids rather than walking the pins
+        # of both ports across every instance, which is the same decision at a
+        # fraction of the cost. A port with an unconnected pin gets no signature
+        # and pairs up with nothing, which is what the pin by pin comparison did
+        # when it found a pin without a wire.
+        references = list(self.references)
+        interned = {}  # signature -> id, so a pair of ports compares as ints
+        port_signature = {}
+        port_single_wire = {}
+        for port in defPort:
+            wires = []
+            for pin in port.pins:
+                for eachInst in references:
+                    wire = eachInst.pins[pin].wire
+                    if wire is None:
+                        wires = None
+                        break
+                    wires.append(wire)
+                if wires is None:
+                    break
+            if wires is None:
+                continue
+            key = tuple(wires)
+            port_signature[port] = interned.setdefault(key, len(interned))
+            # A net holding exactly two pins holds only the pins of the pair,
+            # because a matching pair always has both of its own pins on it.
+            port_single_wire[port] = all(len(wire.pins) == 2 for wire in wires)
+        del interned
+
         # Iterate over all the ports pairs of the definition
         for fromPort, toPort in combinations(defPort, 2):
             if len(fromPort.pins) == len(toPort.pins):
                 # Compare only when port has same width
-                sameNet = True  # Flag to detect boh ports are connected to same cable
-                singleWire = True
-                for eachPin1, eachPin2 in zip(fromPort.pins, toPort.pins):
-                    for eachInst in self.references:
-                        eachPin1 = eachInst.pins[eachPin1]
-                        eachPin2 = eachInst.pins[eachPin2]
-                        if (eachPin1.wire is None) or (eachPin2.wire is None):
-                            sameNet = False
-                            break
-                        elif not (eachPin1.wire == eachPin2.wire):
-                            sameNet = False
-                            break
-                        elif singleWire:
-                            if eachPin1.wire:
-                                singleWire = set(eachPin1.wire.pins) == set(
-                                    (eachPin1, eachPin2)
-                                )
-                            else:
-                                singleWire = False
+                fromSignature = port_signature.get(fromPort)
+                sameNet = fromSignature is not None and (
+                    fromSignature == port_signature.get(toPort)
+                )
+                singleWire = sameNet and port_single_wire[fromPort]
 
                 if sameNet:
                     # Check if frompin exist in the previous pairs
@@ -1051,6 +1093,32 @@ class Definition(DefinitionBase):
         for pin in list(child.get_port_pins(child.get_ports())):
             if pin.wire:
                 pin.wire.disconnect_pin(pin)
+
+    def dissociate_child(self, child):
+        """
+        Detach ``child`` from the definition without walking the child list
+
+        Does everything :meth:`remove_child` does bar dropping the instance from
+        ``self._children``, which is a linear scan, so clearing out most of the
+        children of a large definition one at a time costs O(n^2). The instance
+        is disconnected and orphaned straight away, exactly as ``remove_child``
+        leaves it, so the netlist already reads as if it were gone. Call
+        :meth:`purge_dissociated_children` once the batch is done to drop them
+        all from the child list in a single pass.
+        """
+        assert child.parent == self, "Instance is not included in definition"
+        self._remove_child(child)
+        self._dissociated_children.add(child)
+
+    def purge_dissociated_children(self):
+        """Drop the :meth:`dissociate_child` instances from the child list"""
+        if not self._dissociated_children:
+            return
+        dissociated = self._dissociated_children
+        self._dissociated_children = set()
+        self._children = [
+            child for child in self._children if child not in dissociated
+        ]
 
     def make_instance_unique(self, instance, new_name, instance_list=()):
         """clone the definition and point the reference to the new definition"""
