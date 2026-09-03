@@ -15,9 +15,18 @@ class HeteroSuperTile(Tile01):
     Creates Tile04 style tiling structure
     """
 
-    def create_tiles(self):
+    def create_tiles(self, preserve_ports=None):
         '''
         Creates tiles
+
+        preserve_ports: optional ``f(port_name, tile_name) -> bool`` naming the
+        ports pin optimisation has to leave on the tile boundary. Merging the
+        instances of a supertile shorts the ports which face each other inside
+        it -- the scan chain hop from one tile to the next, for instance -- and
+        ``OptPins`` then absorbs the pair into an internal net. That is what
+        keeps the boundary small, but it also removes taps which DFT needs to
+        stay reachable. This is the only chance to hold them back: once absorbed
+        the ports are gone, and the later optimisation passes never see them.
         '''
         tm = self._top_module
         instance_grid = [[None for _ in range(self.fpga_size[1]+1)] for _ in range(self.fpga_size[0]+1)]
@@ -114,17 +123,39 @@ class HeteroSuperTile(Tile01):
             logger.info(
                 f"Creating {module_name} with {len(instance_list[key])} instances"
             )
-            self.merge_and_update(instance_list[key], module_name)
+            self.merge_and_update(
+                instance_list[key], module_name, preserve_ports=preserve_ports
+            )
             module_names.append(module_name)
 
-    def merge_and_update(self, instance_list, tile_name):
+    def merge_and_update(self, instance_list, tile_name, preserve_ports=None):
         """
         Merges given list of instances and updates width and height parameter
+
+        ``preserve_ports`` is the predicate documented on :meth:`create_tiles`.
+        A port it selects is kept out of the ``OptPins`` comparison, so it is
+        neither merged, nor absorbed, nor removed as unconnected. Optimisation
+        works on pairs, so holding one port back keeps its partner too.
         """
         self._top_module.merge_multiple_instance(instance_list,
                                                  new_definition_name=tile_name)
         tile = next(self._library.get_definitions(tile_name))
-        tile.OptPins(remove_unconn=True)
+        if preserve_ports is None:
+            tile.OptPins(remove_unconn=True)
+        else:
+            kept = [
+                port.name for port in tile.get_ports()
+                if preserve_ports(port.name, tile_name)
+            ]
+            if kept:
+                logger.info(
+                    "Preserving %d ports of %s from pin optimisation",
+                    len(kept), tile_name,
+                )
+            tile.OptPins(
+                pins=lambda name: not preserve_ports(name, tile_name),
+                remove_unconn=True,
+            )
         self._update_placement(instance_list)
         width, height = self._get_width_height(instance_list)
         tile.properties["WIDTH"], tile.properties["HEIGHT"] = width, height

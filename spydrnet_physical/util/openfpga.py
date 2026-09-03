@@ -141,13 +141,18 @@ class OpenFPGA:
         self.placement_creator.SC_HEIGHT = self.SC_HEIGHT
         self.placement_creator.SC_GRID = self.CPP * self.SC_HEIGHT
 
-    def create_tiles(self):
+    def create_tiles(self, *args, **kwargs):
         """
         proxy function to create_tiles method of  tile_creator class
+
+        Arguments are handed to the registered generator untouched, so a
+        generator which takes options (``HeteroSuperTile`` takes
+        ``preserve_ports``) can be driven from the caller. A generator which
+        does not take them raises, rather than dropping an option on the floor.
         """
         if not self.tile_creator:
             logger.error("tile_creator not registered")
-        return self.tile_creator.create_tiles()
+        return self.tile_creator.create_tiles(*args, **kwargs)
 
     def add_configuration_scheme(self):
         """
