@@ -12,10 +12,10 @@ logger = logging.getLogger('spydrnet_logs')
 
 class HeteroSuperTile(Tile01):
     """
-    Creates Tile04 style tiling structure
+    Creates Tile04 style tiling structure with support for heterogeneous supertiles and flexible coordinate patterns.
     """
 
-    def create_tiles(self, preserve_ports=None):
+    def create_tiles(self, preserve_ports=None, coordinate_patterns=None):
         '''
         Creates tiles
 
@@ -30,21 +30,27 @@ class HeteroSuperTile(Tile01):
         '''
         tm = self._top_module
         instance_grid = [[None for _ in range(self.fpga_size[1]+1)] for _ in range(self.fpga_size[0]+1)]
-        # Index the top level instances by the grid coordinate in their name
-        # once. A wildcard get_instances scans every child, so looking the grid
-        # up point by point walks the whole instance list per grid location.
+        # Index instances by grid coordinates extracted from their names.
+        # Supports fabric tiles (tile_13__13_) and clock spine tiles (clk_*_13_13).
+        # Multiple instances can share the same (x, y) coordinate.
         grid_lookup = {}
-        coordinate = re.compile(r".*_(\d+)__(\d+)_$")
+        coordinate_patterns = coordinate_patterns or (
+            re.compile(r".*_(\d+)__(\d+)_$"),
+            re.compile(r"^clk_.+_(\d+)_(\d+)$"),
+        )
         for instance in tm.children:
-            match = coordinate.match(instance.name or "")
-            if match:
-                grid_lookup.setdefault(
-                    (int(match.group(1)), int(match.group(2))), instance
-                )
+            name = instance.name or ""
+            for coordinate in coordinate_patterns:
+                match = coordinate.match(name)
+                if match:
+                    grid_lookup.setdefault(
+                        (int(match.group(1)), int(match.group(2))), []
+                    ).append(instance)
+                    break
         for x in range(1, self.fpga_size[0]+1):
             for y in range(1, self.fpga_size[1]+1):
-                instance_grid[x][y] = grid_lookup.get((x, y))
-                if instance_grid[x][y] is None:
+                instance_grid[x][y] = grid_lookup.get((x, y), [])
+                if not instance_grid[x][y]:
                     logger.warning(f"grid not found at {x} {y}")
 
         instance_list = {}
@@ -58,10 +64,10 @@ class HeteroSuperTile(Tile01):
                 for c in range(curr_x, curr_x+each_col):
                     for r in range(curr_y, curr_y + each_row):
                         # print(f"{c}-{r}", end=" ")
-                        if instance_grid[c][r] is None:
+                        if not instance_grid[c][r]:
                             continue
                         else:
-                            inst.append(instance_grid[c][r])
+                            inst.extend(instance_grid[c][r])
                 if len(inst):
                     uname = inst[-1].reference.name.replace("tile","stile")
                     # print(uname, end=" ")
@@ -170,8 +176,8 @@ class HeteroSuperTile(Tile01):
             LOC_Y = properties.get("LOC_Y", 0)
             x_min = min(x_min, LOC_X)
             y_min = min(y_min, LOC_Y)
-            x_max = max(x_max, LOC_X+ref_properties["WIDTH"])
-            y_max = max(y_max, LOC_Y+ref_properties["HEIGHT"])
+            x_max = max(x_max, LOC_X+ref_properties.get("WIDTH", 0))
+            y_max = max(y_max, LOC_Y+ref_properties.get("HEIGHT", 0))
         return ((x_max-x_min), (y_max-y_min))
 
     def _update_placement(self, instance_list):
