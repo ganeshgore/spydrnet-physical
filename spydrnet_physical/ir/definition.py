@@ -641,7 +641,7 @@ class Definition(DefinitionBase):
                     for eachPort in ports[1:]:
                         # Remove all internal connection
                         wwP2 = eachPort.pins[eachP1Pin.index()].wire
-                        for eachPin in wwP2.pins:
+                        for eachPin in list(wwP2.pins):
                             if isinstance(eachPin, sdn.OuterPin):
                                 eachPin.wire.disconnect_pin(eachPin)
                                 # Selects pins connected to the instance
