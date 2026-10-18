@@ -171,6 +171,9 @@ class HeteroSuperTile(Tile01):
         x_max, y_max = 0, 0
         for instance in instance_list[0][0]:
             properties = instance.properties
+            # Instances without a location (clock spines) do not span the tile
+            if "LOC_X" not in properties or "LOC_Y" not in properties:
+                continue
             ref_properties = instance.reference.properties
             LOC_X = properties.get("LOC_X", 0)
             LOC_Y = properties.get("LOC_Y", 0)
@@ -182,8 +185,12 @@ class HeteroSuperTile(Tile01):
 
     def _update_placement(self, instance_list):
         x_loc, y_loc = float("inf"), float("inf")
-        # get instance with llx and lly value
+        index_x = index_y = 0
+        # get instance with llx and lly value, instances without a location
+        # (clock spines) must not win as they default to 0
         for indx, instance in enumerate(instance_list[0][0]):
+            if "LOC_X" not in instance.properties or "LOC_Y" not in instance.properties:
+                continue
             x = instance.properties.get("LOC_X", 0)
             y = instance.properties.get("LOC_Y", 0)
             if (x < x_loc):
