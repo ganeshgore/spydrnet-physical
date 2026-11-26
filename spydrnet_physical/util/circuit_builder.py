@@ -276,9 +276,8 @@ class circuit_builder:
         for out_w in out_c.wires:
             index = out_w.index()
             each_sel_c = module.create_cable(f"sel_{index}", wires=sram_len)
-            each_sel_c.assign_cable(
-                sel_c, upper=index * (sram_len), lower=index * (sram_len - 1)
-            )
+            lower = index * sram_len
+            each_sel_c.assign_cable(sel_c, upper=lower + sram_len - 1, lower=lower)
             out_w_ret, _ = circuit_builder.build_tree_like_mux(
                 definition=module,
                 inputs=in_c.wires,
